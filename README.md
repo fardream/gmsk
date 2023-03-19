@@ -1,6 +1,8 @@
 # GMSK
 
-Unofficial golang bindings for MOSEK
+Unofficial golang bindings for [MOSEK](https://www.mosek.com).
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/fardream/gmsk.svg)](https://pkg.go.dev/github.com/fardream/gmsk)
 
 ## Use
 
