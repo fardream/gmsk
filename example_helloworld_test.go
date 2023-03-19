@@ -18,20 +18,19 @@ func Example_helloworld() {
 	}
 
 	task, err := gmsk.MakeTask(nil, 0, 0)
-	defer gmsk.DeleteTask(task)
-
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer gmsk.DeleteTask(task)
 
-	CheckOk(gmsk.AppendVars(task, 1))
-	CheckOk(gmsk.PutCj(task, 0, 1.0))
-	CheckOk(gmsk.PutVarbound(task, 0, gmsk.BK_RA, 2.0, 3.0))
-	CheckOk(gmsk.PutObjsense(task, gmsk.OBJECTIVE_SENSE_MINIMIZE))
-	res, _ := gmsk.OptimizeTerm(task)
+	CheckOk(task.AppendVars(1))
+	CheckOk(task.PutCj(0, 1.0))
+	CheckOk(task.PutVarbound(0, gmsk.BK_RA, 2.0, 3.0))
+	CheckOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	res, _ := task.OptimizeTerm()
 	CheckOk(res)
-	result := make([]float64, 1)
-	res, result = gmsk.GetXx(task, gmsk.SOL_ITR, result)
+	result := make([]gmsk.Realt, 1)
+	res, result = task.GetXx(gmsk.SOL_ITR, result)
 
 	fmt.Printf("Solution x = %.6f\n", result[0])
 

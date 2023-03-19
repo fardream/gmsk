@@ -11,11 +11,22 @@ import (
 	"unsafe"
 )
 
+// INFINITY is MSK_INFINITY (which is different from the double's infinity)
+const INFINITY = C.MSK_INFINITY
+
+// Int32t is the int type in MOSEK, which is int32t/int32
+type Int32t = C.MSKint32t
+
+// Realt is the double type in MOSEK, which is double/float64
+type Realt = C.MSKrealt
+
 // ResCode is the enumerator of MSKrescodee
 type ResCode = C.MSKrescodee
 
-// MSK_RES_OK is OK return code from mosek functions
-const RES_OK ResCode = C.MSK_RES_OK
+const (
+	RES_OK        ResCode = C.MSK_RES_OK        // OK return code from mosek functions
+	RES_ERR_SPACE ResCode = C.MSK_RES_ERR_SPACE // Err
+)
 
 // MSK_MAX_STR_LEN is the max length of strings in mosek
 const MAX_STR_LEN = C.MSK_MAX_STR_LEN
@@ -35,6 +46,22 @@ const (
 	SOL_ITR SolType = C.MSK_SOL_ITR // Iterior Point Solution.
 	SOL_BAS SolType = C.MSK_SOL_BAS // Basic Solution.
 	SOL_ITG SolType = C.MSK_SOL_ITG // Integer Solution.
+)
+
+// SolSta is the solution status
+type SolSta = C.MSKsolstae
+
+const (
+	SOL_STA_UNKNOWN            SolSta = C.MSK_SOL_STA_UNKNOWN
+	SOL_STA_OPTIMAL            SolSta = C.MSK_SOL_STA_OPTIMAL
+	SOL_STA_PRIM_FEAS          SolSta = C.MSK_SOL_STA_PRIM_FEAS
+	SOL_STA_DUAL_FEAS          SolSta = C.MSK_SOL_STA_DUAL_FEAS
+	SOL_STA_PRIM_AND_DUAL_FEAS SolSta = C.MSK_SOL_STA_PRIM_AND_DUAL_FEAS
+	SOL_STA_PRIM_INFEAS_CER    SolSta = C.MSK_SOL_STA_PRIM_INFEAS_CER
+	SOL_STA_DUAL_INFEAS_CER    SolSta = C.MSK_SOL_STA_DUAL_INFEAS_CER
+	SOL_STA_PRIM_ILLPOSED_CER  SolSta = C.MSK_SOL_STA_PRIM_ILLPOSED_CER
+	SOL_STA_DUAL_ILLPOSED_CER  SolSta = C.MSK_SOL_STA_DUAL_ILLPOSED_CER
+	SOL_STA_INTEGER_OPTIMAL    SolSta = C.MSK_SOL_STA_INTEGER_OPTIMAL
 )
 
 // BoundKey is MSKboundkey enum, indicate the type of the bound
@@ -78,13 +105,13 @@ type Task struct {
 
 // MakeTask is the equivalent of MSK_maketask.
 // To use the global environment, use nil for env
-func MakeTask(env *Env, maxnumcon, maxnumvar int) (*Task, error) {
+func MakeTask(env *Env, maxnumcon, maxnumvar Int32t) (*Task, error) {
 	var task C.MSKtask_t = nil
 	var e C.MSKenv_t = nil
 	if env != nil {
 		e = env.env
 	}
-	r := C.MSK_maketask(e, C.int(maxnumcon), C.int(maxnumvar), &task)
+	r := C.MSK_maketask(e, maxnumcon, maxnumvar, &task)
 	if r != RES_OK {
 		return nil, fmtError("failed to create task: %s %s", r)
 	}
@@ -139,59 +166,77 @@ func fmtError(format string, resCode ResCode) error {
 
 // AppendVars wraps MSK_appendvars, which adds variables
 // to the task.
-func AppendVars(task *Task, num int) ResCode {
-	return C.MSK_appendvars(task.task, C.int(num))
+func (task *Task) AppendVars(num Int32t) ResCode {
+	return C.MSK_appendvars(task.task, num)
+}
+
+// AppendCons wraps MSK_appendcons, which add linear constraints
+// to the task
+func (task *Task) AppendCons(numcon Int32t) ResCode {
+	return C.MSK_appendcons(task.task, numcon)
 }
 
 // PutCj wraps MSK_putcj, which set the coefficient in the objective function.
-func PutCj(task *Task, j int, c_j float64) ResCode {
-	return C.MSK_putcj(task.task, C.int(j), C.double(c_j))
+func (task *Task) PutCj(j Int32t, c_j Realt) ResCode {
+	return C.MSK_putcj(task.task, j, c_j)
 }
 
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
-func PutVarbound(task *Task, j int, boundType BoundKey, l, u float64) ResCode {
-	return C.MSK_putvarbound(task.task, C.int(j), boundType, C.double(l), C.double(u))
+func (task *Task) PutVarbound(j Int32t, bkx BoundKey, blx, bux Realt) ResCode {
+	return C.MSK_putvarbound(task.task, j, bkx, blx, bux)
+}
+
+// PutConBound wraps MSK_putconbound, which set the bound for a contraint
+func (task *Task) PutConBound(i Int32t, bkc BoundKey, blc, buc Realt) ResCode {
+	return C.MSK_putconbound(task.task, i, bkc, blc, buc)
 }
 
 // PutObjsense wraps MSK_putobjsense set the objective sense - which is either minimize or maximize
-func PutObjsense(task *Task, sense ObjectiveSense) ResCode {
+func (task *Task) PutObjsense(sense ObjectiveSense) ResCode {
 	return C.MSK_putobjsense(task.task, sense)
 }
 
+// PutACol wraps MSK_putacol, and puts a column of A matrix.
+func (task *Task) PutACol(j Int32t, nzj Int32t, subj *Int32t, valj *Realt) ResCode {
+	return C.MSK_putacol(task.task, j, nzj, subj, valj)
+}
+
 // OptimizeTerm wraps MSK_optimizeterm, which optimizes the problem.
-func OptimizeTerm(task *Task) (res ResCode, trmcode ResCode) {
+func (task *Task) OptimizeTerm() (res ResCode, trmcode ResCode) {
 	res = C.MSK_optimizetrm(task.task, &trmcode)
 	return
 }
 
 // GetNumVar wraps MSK_getnumvar, which obtains the number of variables in task.
-func GetNumVar(task *Task) (res ResCode, numVar int) {
-	var result C.MSKint32t
-	res = C.MSK_getnumvar(task.task, &result)
+func (task *Task) GetNumVar() (res ResCode, numVar Int32t) {
+	res = C.MSK_getnumvar(task.task, &numVar)
+	return
+}
 
-	numVar = int(result)
-
+// GetSolSta wraps MSK_getsolsta, which returns the solution status
+func (task *Task) GetSolSta(whichsol SolType) (res ResCode, solSta SolSta) {
+	res = C.MSK_getsolsta(task.task, whichsol, &solSta)
 	return
 }
 
 // getXx wraps MSK_getxx, which gets the solution from the task.
-func getXx(task *Task, solType SolType, result *float64) ResCode {
-	return C.MSK_getxx(task.task, solType, (*C.double)(result))
+func (task *Task) getXx(solType SolType, result *Realt) ResCode {
+	return C.MSK_getxx(task.task, solType, result)
 }
 
 // getXx wraps MSK_getxx, which gets the solution from the task.
-func GetXx(task *Task, solType SolType, result []float64) (ResCode, []float64) {
+func (task *Task) GetXx(solType SolType, result []Realt) (ResCode, []Realt) {
 	var res ResCode
-	var numVar int
+	var numVar Int32t
 	if result == nil {
-		res, numVar = GetNumVar(task)
+		res, numVar = task.GetNumVar()
 		if res != RES_OK {
 			return res, nil
 		}
-		result = make([]float64, numVar)
+		result = make([]Realt, numVar)
 	}
 
-	res = getXx(task, solType, &result[0])
+	res = task.getXx(solType, &result[0])
 
 	return res, result
 }
