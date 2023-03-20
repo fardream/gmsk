@@ -7,7 +7,7 @@ import (
 	"github.com/fardream/gmsk"
 )
 
-// This is reproduce of MOSEK C example hellowworld.c
+// This is reproduced from MOSEK C example hellowworld.c
 // However, the response code is checked here.
 func Example_helloworld() {
 	CheckOk := func(r gmsk.ResCode) {
