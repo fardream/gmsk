@@ -1,6 +1,6 @@
 # GMSK
 
-Unofficial golang bindings for [MOSEK](https://www.mosek.com).
+gmsk is an unofficial wrapper for MOSEK, the conic optimizer from [MOSEK ApS](https://www.mosek.com).
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/fardream/gmsk.svg)](https://pkg.go.dev/github.com/fardream/gmsk)
 

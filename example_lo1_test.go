@@ -3,6 +3,7 @@ package gmsk_test
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/fardream/gmsk"
 )
@@ -53,6 +54,10 @@ func Example_linearOptimization1() {
 		log.Fatal(err)
 	}
 	defer gmsk.DeleteTask(task)
+
+	/* Directs the log task stream to the 'printstr' function. */
+	// Note here use os.Stderr to prevent the example from failing
+	task.LinkFuncToTaskStream(gmsk.STREAM_LOG, os.Stderr)
 
 	/* Append 'numcon' empty constraints.
 	   The constraints will initially have no bounds. */
@@ -106,6 +111,10 @@ func Example_linearOptimization1() {
 	/* Run optimizer */
 	r, trmcode = task.OptimizeTerm()
 	checkOk(r)
+
+	/* Print a summary containing information
+	   about the solution for debugging purposes. */
+	task.SolutionSummary(gmsk.STREAM_LOG)
 
 	var solsta gmsk.SolSta
 
