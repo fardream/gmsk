@@ -137,17 +137,14 @@ func Example_linearOptimization1() {
 		fallthrough
 	case gmsk.SOL_STA_PRIM_INFEAS_CER:
 		fmt.Printf("Primal or dual infeasibility certificate found.\n")
-		break
 	case gmsk.SOL_STA_UNKNOWN:
 		/* If the solutions status is unknown, print the termination code
 		   indicating why the optimizer terminated prematurely. */
 		_, symname, _ := gmsk.GetCodeDescSimple(trmcode)
 		fmt.Printf("The solution status is unknown.\n")
 		fmt.Printf("The optimizer terminitated with code: %s\n", symname)
-		break
 	default:
 		fmt.Printf("Other solution status.\n")
-		break
 	}
 
 	if r != gmsk.RES_OK {
