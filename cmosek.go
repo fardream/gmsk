@@ -21,8 +21,11 @@ import (
 // INFINITY is MSK_INFINITY (which is different from the double's infinity)
 const INFINITY = C.MSK_INFINITY
 
-// Int32t is the int type in MOSEK, which is int32t/int32
+// Int32t is the int type in MOSEK, which is int32_t/int32
 type Int32t = C.MSKint32t
+
+// Int64t is the 64 bit integer in MOSEK, which is int64_t/int64
+type Int64t = C.MSKint64t
 
 // Realt is the double type in MOSEK, which is double/float64
 type Realt = C.MSKrealt
@@ -100,7 +103,7 @@ type Env struct {
 func MakeEnv() (*Env, error) {
 	var env C.MSKenv_t = nil
 	r := C.MSK_makeenv(&env, nil)
-	if r == RES_OK {
+	if r != RES_OK {
 		return nil, fmtError("failed to create environment: %s %s", r)
 	}
 
@@ -205,9 +208,19 @@ func (task *Task) PutCj(j Int32t, c_j Realt) ResCode {
 	return C.MSK_putcj(task.task, j, c_j)
 }
 
+// PutCSlice wraps MSK_putcslice, which set a slice of coefficients in the objective
+func (task *Task) PutCSlice(first, last Int32t, slice *Realt) ResCode {
+	return C.MSK_putcslice(task.task, first, last, slice)
+}
+
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
 func (task *Task) PutVarbound(j Int32t, bkx BoundKey, blx, bux Realt) ResCode {
 	return C.MSK_putvarbound(task.task, j, bkx, blx, bux)
+}
+
+// PutVarboundSliceConst wraps MSK_putvarboundsliceconst, which set the bound for a slice of variables.
+func (task *Task) PutVarboundSliceConst(first, last Int32t, bkx BoundKey, blx, bux Realt) ResCode {
+	return C.MSK_putvarboundsliceconst(task.task, first, last, bkx, blx, bux)
 }
 
 // PutConBound wraps MSK_putconbound, which set the bound for a contraint
@@ -220,9 +233,46 @@ func (task *Task) PutObjsense(sense ObjectiveSense) ResCode {
 	return C.MSK_putobjsense(task.task, sense)
 }
 
+// PutAij wraps MSK_putaij, which set the value of the linear constraints matrix A[i,j]
+func (task *Task) PutAij(i, j Int32t, aij Realt) ResCode {
+	return C.MSK_putaij(task.task, i, j, aij)
+}
+
 // PutACol wraps MSK_putacol, and puts a column of A matrix.
 func (task *Task) PutACol(j Int32t, nzj Int32t, subj *Int32t, valj *Realt) ResCode {
 	return C.MSK_putacol(task.task, j, nzj, subj, valj)
+}
+
+// AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
+func (task *Task) AppendAfes(num Int64t) ResCode {
+	return C.MSK_appendafes(task.task, num)
+}
+
+// PutAfeFEntryList wraps MSK_putafefentrylist, which set a portion of the affine expression F matrix
+func (task *Task) PutAfeFEntryList(numentr Int64t, afeidx *Int64t, varidx *Int32t, val *Realt) ResCode {
+	return C.MSK_putafefentrylist(task.task, numentr, afeidx, varidx, val)
+}
+
+// PutAfeG wraps MSK_putafeg and sets the value at afeidx to g
+func (task *Task) PutAfeG(afeidx Int64t, g Realt) ResCode {
+	return C.MSK_putafeg(task.task, afeidx, g)
+}
+
+// PutAfeGSlice wraps MSK_putafegslice and sets a slice of values in g
+func (task *Task) PutAfeGSlice(first, last Int64t, slice *Realt) ResCode {
+	return C.MSK_putafegslice(task.task, first, last, slice)
+}
+
+// AppendQuadraticConeDomain wraps MSK_appendquadraticconedomain and adds a new quadratic cone of size n to the task.
+// returns the index of the domain if successful.
+func (task *Task) AppendQuadraticConeDomain(n Int64t) (r ResCode, domaidx Int64t) {
+	r = C.MSK_appendquadraticconedomain(task.task, n, &domaidx)
+	return
+}
+
+// AppendAcc wraps MSK_appendacc and adds an affine conic constraint to the task.
+func (task *Task) AppendAcc(domidx, numafeidx Int64t, afeidxlist *Int64t, b *Realt) ResCode {
+	return C.MSK_appendacc(task.task, domidx, numafeidx, afeidxlist, b)
 }
 
 // OptimizeTerm wraps MSK_optimizeterm, which optimizes the problem.
@@ -244,25 +294,67 @@ func (task *Task) GetSolSta(whichsol SolType) (res ResCode, solSta SolSta) {
 }
 
 // getXx wraps MSK_getxx, which gets the solution from the task.
-func (task *Task) getXx(solType SolType, result *Realt) ResCode {
-	return C.MSK_getxx(task.task, solType, result)
-}
-
-// getXx wraps MSK_getxx, which gets the solution from the task.
-func (task *Task) GetXx(solType SolType, result []Realt) (ResCode, []Realt) {
+// xx can be nil, in which case the number of variables will be queried from the task and
+// a new slice created.
+func (task *Task) GetXx(solType SolType, xx []Realt) (ResCode, []Realt) {
 	var res ResCode
 	var numVar Int32t
-	if result == nil {
+	if xx == nil {
 		res, numVar = task.GetNumVar()
 		if res != RES_OK {
 			return res, nil
 		}
-		result = make([]Realt, numVar)
+		xx = make([]Realt, numVar)
 	}
 
-	res = task.getXx(solType, &result[0])
+	res = C.MSK_getxx(task.task, solType, &xx[0])
 
-	return res, result
+	return res, xx
+}
+
+// GetAccN wraps MSK_getaccn and returns the dimension of cone at index accidx.
+func (task *Task) GetAccN(accidx Int64t) (ResCode, Int64t) {
+	var accn Int64t
+	res := C.MSK_getaccn(task.task, accidx, &accn)
+	return res, accn
+}
+
+// GetAccDotY wraps MSK_getaccdoty and returns doty dual result of cone at idnex accidx.
+// doty can be nil, in which case the dimension of the cone will be queried from the task and
+// a new slice will be created.
+func (task *Task) GetAccDotY(whichsol SolType, accidx Int64t, doty []Realt) (ResCode, []Realt) {
+	var res ResCode
+	var numdoty Int64t
+
+	if doty == nil {
+		res, numdoty = task.GetAccN(accidx)
+		if res != RES_OK {
+			return res, nil
+		}
+		doty = make([]Realt, numdoty)
+	}
+
+	res = C.MSK_getaccdoty(task.task, whichsol, accidx, &doty[0])
+
+	return res, doty
+}
+
+// EvaluateAcc gets the activity of the cone at index accidx
+func (task *Task) EvaluateAcc(whichsol SolType, accidx Int64t, activity []Realt) (ResCode, []Realt) {
+	var res ResCode
+	var numdoty Int64t
+
+	if activity == nil {
+		res, numdoty = task.GetAccN(accidx)
+		if res != RES_OK {
+			return res, nil
+		}
+		activity = make([]Realt, numdoty)
+	}
+
+	res = C.MSK_evaluateacc(task.task, whichsol, accidx, &activity[0])
+
+	return res, activity
 }
 
 // writerHolder holds a writer. This must be passed to C api with a handle.
@@ -303,6 +395,7 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) ResC
 	return C.MSK_linkfunctotaskstream(task.task, whichstream, C.MSKuserhandle_t(ptr), (*[0]byte)(C.writeStreamToWriter))
 }
 
+// SolutionSummary wraps MSK_solutionsummary, which prints the summary of the solution to the given stream.
 func (task *Task) SolutionSummary(whichstream StreamType) ResCode {
 	return C.MSK_solutionsummary(task.task, whichstream)
 }
