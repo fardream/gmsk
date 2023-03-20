@@ -1,13 +1,20 @@
+// gmsk is an unofficial wrapper for MOSEK, the conic optimizer from [MOSEK ApS]
+//
+// [MOSEK ApS]: https://www.mosek.com
 package gmsk
 
 // #cgo LDFLAGS: -lmosek64
 //
 // #include <stdlib.h> // stdlib.h is required for calloc and free
 // #include <mosek.h>
+//
+// extern void writeStreamToWriter(void*, char*);
 import "C"
 
 import (
 	"fmt"
+	"io"
+	"runtime/cgo"
 	"unsafe"
 )
 
@@ -75,6 +82,15 @@ const (
 	BK_RA BoundKey = C.MSK_BK_RA // Range bound
 )
 
+type StreamType = C.MSKstreamtypee
+
+const (
+	STREAM_LOG StreamType = C.MSK_STREAM_LOG
+	STREAM_MSG StreamType = C.MSK_STREAM_MSG
+	STREAM_ERR StreamType = C.MSK_STREAM_ERR
+	STREAM_WRN StreamType = C.MSK_STREAM_WRN
+)
+
 // Env wraps mosek environment
 type Env struct {
 	env C.MSKenv_t
@@ -101,6 +117,10 @@ func DeleteEnv(env *Env) {
 // MSKTask holds a MSKtask_t, MOSEK task
 type Task struct {
 	task C.MSKtask_t
+
+	// writerHandles are handles to [writerHolder]
+	// those are freed when the task is deleted.
+	writerHandles []cgo.Handle
 }
 
 // MakeTask is the equivalent of MSK_maketask.
@@ -123,6 +143,10 @@ func MakeTask(env *Env, maxnumcon, maxnumvar Int32t) (*Task, error) {
 func DeleteTask(task *Task) {
 	if task != nil && task.task != nil {
 		C.MSK_deletetask(&task.task)
+	}
+
+	for _, h := range task.writerHandles {
+		h.Delete()
 	}
 }
 
@@ -239,4 +263,46 @@ func (task *Task) GetXx(solType SolType, result []Realt) (ResCode, []Realt) {
 	res = task.getXx(solType, &result[0])
 
 	return res, result
+}
+
+// writerHolder holds a writer. This must be passed to C api with a handle.
+type writerHolder struct {
+	writer io.Writer
+}
+
+// writeStreamToWriter is the function for C api's task stream handler,
+// and it has a signature of
+//
+//	void streamfunc(void* handle, char * data)
+//
+//export writeStreamToWriter
+func writeStreamToWriter(p unsafe.Pointer, v *C.char) {
+	h := cgo.Handle(p)
+
+	w, ok := h.Value().(writerHolder)
+	if !ok {
+		return
+	}
+	if w.writer == nil {
+		return
+	}
+
+	w.writer.Write([]byte(C.GoString(v)))
+}
+
+// LinkFuncToTaskStream wraps MSK_linkfuctotaskstream. Instead of using call back function,
+// pass in a writer that will take the stream of tasks.
+func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) ResCode {
+	writer := writerHolder{
+		writer: w,
+	}
+
+	ptr := cgo.NewHandle(writer)
+	task.writerHandles = append(task.writerHandles, ptr)
+
+	return C.MSK_linkfunctotaskstream(task.task, whichstream, C.MSKuserhandle_t(ptr), (*[0]byte)(C.writeStreamToWriter))
+}
+
+func (task *Task) SolutionSummary(whichstream StreamType) ResCode {
+	return C.MSK_solutionsummary(task.task, whichstream)
 }
