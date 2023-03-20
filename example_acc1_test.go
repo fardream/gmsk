@@ -8,7 +8,8 @@ import (
 	"github.com/fardream/gmsk"
 )
 
-func Example_AffineConicConstraints() {
+// Affine conic constraints example 1, reproduced from acc1.c in MOSEK C Api.
+func Example_affineConicConstraints() {
 	/* Input data dimensions */
 	var n gmsk.Int32t = 3
 	var k gmsk.Int64t = 2
