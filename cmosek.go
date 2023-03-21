@@ -248,6 +248,11 @@ func (task *Task) AppendAfes(num Int64t) ResCode {
 	return C.MSK_appendafes(task.task, num)
 }
 
+// PutAfeFEntry wraps MSK_putafefentry and set an entry in the  affine expression F matrix.
+func (task *Task) PutAfeFEntry(afeidx Int64t, varidx Int32t, value Realt) ResCode {
+	return C.MSK_putafefentry(task.task, afeidx, varidx, value)
+}
+
 // PutAfeFEntryList wraps MSK_putafefentrylist, which set a portion of the affine expression F matrix
 func (task *Task) PutAfeFEntryList(numentr Int64t, afeidx *Int64t, varidx *Int32t, val *Realt) ResCode {
 	return C.MSK_putafefentrylist(task.task, numentr, afeidx, varidx, val)
@@ -263,10 +268,17 @@ func (task *Task) PutAfeGSlice(first, last Int64t, slice *Realt) ResCode {
 	return C.MSK_putafegslice(task.task, first, last, slice)
 }
 
+// AppendRZeroDomain wraps MSK_appendrzerodomain and add a real zero domain of dimension n to the task.
+// returns the index of the domain if successful.
+func (task *Task) AppendRZeroDomain(n Int64t) (r ResCode, domidx Int64t) {
+	r = C.MSK_appendrzerodomain(task.task, n, &domidx)
+	return
+}
+
 // AppendQuadraticConeDomain wraps MSK_appendquadraticconedomain and adds a new quadratic cone of size n to the task.
 // returns the index of the domain if successful.
-func (task *Task) AppendQuadraticConeDomain(n Int64t) (r ResCode, domaidx Int64t) {
-	r = C.MSK_appendquadraticconedomain(task.task, n, &domaidx)
+func (task *Task) AppendQuadraticConeDomain(n Int64t) (r ResCode, domidx Int64t) {
+	r = C.MSK_appendquadraticconedomain(task.task, n, &domidx)
 	return
 }
 
@@ -324,9 +336,9 @@ func (task *Task) GetAccN(accidx Int64t) (ResCode, Int64t) {
 // a new slice will be created.
 func (task *Task) GetAccDotY(whichsol SolType, accidx Int64t, doty []Realt) (ResCode, []Realt) {
 	var res ResCode
-	var numdoty Int64t
 
 	if doty == nil {
+		var numdoty Int64t
 		res, numdoty = task.GetAccN(accidx)
 		if res != RES_OK {
 			return res, nil
@@ -342,9 +354,9 @@ func (task *Task) GetAccDotY(whichsol SolType, accidx Int64t, doty []Realt) (Res
 // EvaluateAcc gets the activity of the cone at index accidx
 func (task *Task) EvaluateAcc(whichsol SolType, accidx Int64t, activity []Realt) (ResCode, []Realt) {
 	var res ResCode
-	var numdoty Int64t
 
 	if activity == nil {
+		var numdoty Int64t
 		res, numdoty = task.GetAccN(accidx)
 		if res != RES_OK {
 			return res, nil
@@ -383,7 +395,7 @@ func writeStreamToWriter(p unsafe.Pointer, v *C.char) {
 }
 
 // LinkFuncToTaskStream wraps MSK_linkfuctotaskstream. Instead of using call back function,
-// pass in a writer that will take the stream of tasks.
+// pass in a [io.Writer] that will take the stream of tasks.
 func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) ResCode {
 	writer := writerHolder{
 		writer: w,

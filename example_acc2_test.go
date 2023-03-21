@@ -8,7 +8,7 @@ import (
 	"github.com/fardream/gmsk"
 )
 
-// Affine conic constraints example 1, reproduced from acc1.c in MOSEK C Api.
+// Affine conic constraints example 2, reproduced from acc2.c in MOSEK C Api.
 //
 // Purpose :   Tutorial example for affine conic constraints.
 //
@@ -19,7 +19,10 @@ import (
 // subject to  sum(x) = 1
 //
 // gamma >= |Gx+h|_2
-func Example_affineConicConstraints1() {
+//
+// This version inputs the linear constraint as an affine conic constraint.
+func Example_affineConicConstraints2() {
+	r := gmsk.RES_OK
 	/* Input data dimensions */
 	var n gmsk.Int32t = 3
 	var k gmsk.Int64t = 2
@@ -59,43 +62,62 @@ func Example_affineConicConstraints1() {
 		checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 	}
 
-	/* One linear constraint sum(x) == 1 */
-	checkOk(task.AppendCons(1))
-	checkOk(task.PutConBound(0, gmsk.BK_FX, 1, 1))
-	for i := gmsk.Int32t(0); i < n; i++ {
-		checkOk(task.PutAij(0, i, 1))
+	{
+		/* Set AFE rows representing the linear constraint */
+		checkOk(task.AppendAfes(1))
+		for i := gmsk.Int32t(0); i < n && r == gmsk.RES_OK; i++ {
+			r = task.PutAfeFEntry(0, i, 1)
+		}
+		checkOk(r)
+		checkOk(task.PutAfeG(0, -1))
 	}
 
-	/* Append empty AFE rows for affine expression storage */
-	checkOk(task.AppendAfes(k + 1))
-
 	{
-		/* Fill in the affine expression storage with data */
+		/* Set AFE rows representing the quadratic constraint */
 		/* F matrix in sparse form */
-		Fsubi := []gmsk.Int64t{1, 1, 2, 2} /* G is placed from row 1 of F */
+		Fsubi := []gmsk.Int64t{2, 2, 3, 3} /* G is placed from row 2 of F */
 		Fsubj := []gmsk.Int32t{0, 1, 0, 2}
 		Fval := []gmsk.Realt{1.5, 0.1, 0.3, 2.1}
 		var numEntries gmsk.Int64t = 4
-
+		/* Other data */
 		h := []gmsk.Realt{0, 0.1}
 		var gamma gmsk.Realt = 0.03
 
-		/* Fill in F storage */
+		checkOk(task.AppendAfes(k + 1))
 		checkOk(task.PutAfeFEntryList(numEntries, &Fsubi[0], &Fsubj[0], &Fval[0]))
-
-		/* Fill in g storage */
-		checkOk(task.PutAfeG(0, gamma))
-		checkOk(task.PutAfeGSlice(1, k+1, &h[0]))
+		checkOk(task.PutAfeG(1, gamma))
+		checkOk(task.PutAfeGSlice(2, k+2, &h[0]))
 	}
 
+	r, zeroDom := task.AppendRZeroDomain(1)
+	checkOk(r)
 	/* Define a conic quadratic domain */
 	r, quadDom := task.AppendQuadraticConeDomain(k + 1)
 	checkOk(r)
 
+	/* Append affine conic constraints */
 	{
-		/* Create the ACC */
-		afeidx := []gmsk.Int64t{0, 1, 2}
-		checkOk(task.AppendAcc(quadDom, k+1, &afeidx[0], nil))
+		/* Linear constraint */
+		afeidx := []gmsk.Int64t{0}
+
+		checkOk(task.AppendAcc(
+			zeroDom,    /* Domain index */
+			1,          /* Dimension */
+			&afeidx[0], /* Indices of AFE rows */
+			nil),       /* Ignored */
+		)
+	}
+
+	{
+		/* Quadratic constraint */
+		afeidx := []gmsk.Int64t{1, 2, 3}
+
+		checkOk(task.AppendAcc(
+			quadDom,    /* Domain index */
+			k+1,        /* Dimension */
+			&afeidx[0], /* Indices of AFE rows */
+			nil),       /* Ignored */
+		)
 	}
 
 	/* Begin optimization and fetching the solution */
@@ -111,7 +133,7 @@ func Example_affineConicConstraints1() {
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
-		/* Fetch the solution */
+		/* Fetch the primal solution */
 		xx := make([]gmsk.Realt, n)
 		r, xx = task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
@@ -126,7 +148,7 @@ func Example_affineConicConstraints1() {
 		doty := make([]gmsk.Realt, k+1)
 		r, doty = task.GetAccDotY(
 			gmsk.SOL_ITR, /* Request the interior solution. */
-			0,            /* ACC index. */
+			1,            /* ACC index of quadratic ACC. */
 			doty)
 		checkOk(r)
 
@@ -139,7 +161,7 @@ func Example_affineConicConstraints1() {
 		activity := make([]gmsk.Realt, k+1)
 		r, activity = task.EvaluateAcc(
 			gmsk.SOL_ITR, /* Request the interior solution. */
-			0,            /* ACC index. */
+			1,            /* ACC index. */
 			activity)
 		checkOk(r)
 		fmt.Println("Activity of the ACC")
