@@ -282,9 +282,28 @@ func (task *Task) AppendQuadraticConeDomain(n Int64t) (r ResCode, domidx Int64t)
 	return
 }
 
+// AppendRotatedQuadraticConeDomain wraps MSK_appendrquadraticconedomain and adds a new *rotated* quadratic cone of size n to the task.
+// returns the index of the domain if successful.
+func (task *Task) AppendRotatedQuadraticConeDomain(n Int64t) (r ResCode, domidx Int64t) {
+	r = C.MSK_appendrquadraticconedomain(task.task, n, &domidx)
+	return
+}
+
+// AppendRQuadraticConeDomain wraps MSK_appendrquadraticconedomain and adds a new *rotated* quadratic cone of size n to the task.
+// returns the index of the domain if successful - this is same as [AppendRotatedQuadraticConeDomain], but with the word "rotated" fully spelled out.
+func (task *Task) AppendRQuadraticConeDomain(n Int64t) (r ResCode, domidx Int64t) {
+	r = C.MSK_appendrquadraticconedomain(task.task, n, &domidx)
+	return
+}
+
 // AppendAcc wraps MSK_appendacc and adds an affine conic constraint to the task.
 func (task *Task) AppendAcc(domidx, numafeidx Int64t, afeidxlist *Int64t, b *Realt) ResCode {
 	return C.MSK_appendacc(task.task, domidx, numafeidx, afeidxlist, b)
+}
+
+// AppendAccsSeq wraps MSK_appendaccsseq and append a block of accs to the tas - assuming affine expressions are sequential.
+func (task *Task) AppendAccsSeq(numaccs Int64t, domidxs *Int64t, numafeidx, afeidxfirst Int64t, b *Realt) ResCode {
+	return C.MSK_appendaccsseq(task.task, numaccs, domidxs, numafeidx, afeidxfirst, b)
 }
 
 // OptimizeTerm wraps MSK_optimizeterm, which optimizes the problem.
