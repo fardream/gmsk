@@ -9,7 +9,7 @@ package gmsk
 // #include <mosek.h>
 //
 // extern void writeStreamToWriter(void*, char*); // for MSK_linkfunctotaskstream
-// extern void writeFuncToWriter(void*, void*, size_t); // MSKhwritefunc
+// extern size_t writeFuncToWriter(void*, void*, size_t); // MSKhwritefunc
 import "C"
 
 import (
@@ -478,21 +478,22 @@ func (task *Task) ReadData(filename string) ResCode {
 //	void writefunchandle(void* handle, void* src, size_t count)
 //
 //export writeFuncToWriter
-func writeFuncToWriter(handle unsafe.Pointer, src unsafe.Pointer, count C.size_t) {
+func writeFuncToWriter(handle unsafe.Pointer, src unsafe.Pointer, count C.size_t) C.size_t {
 	h := cgo.Handle(handle)
 	w, ok := h.Value().(writerHolder)
 	if !ok {
-		return
+		return 0
 	}
 	if w.writer == nil {
-		return
+		return 0
 	}
 
 	bytePtr := (*byte)(src)
 
 	byteSlice := unsafe.Slice(bytePtr, count)
 
-	w.writer.Write(byteSlice)
+	n, _ := w.writer.Write(byteSlice)
+	return C.size_t(n)
 }
 
 // WriteDataHandle wraps MSK_writedatahandle using [io.Writer] instead of using callbacks.
