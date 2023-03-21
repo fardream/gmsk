@@ -8,7 +8,8 @@ package gmsk
 // #include <stdlib.h> // stdlib.h is required for calloc and free
 // #include <mosek.h>
 //
-// extern void writeStreamToWriter(void*, char*);
+// extern void writeStreamToWriter(void*, char*); // for MSK_linkfunctotaskstream
+// extern void writeFuncToWriter(void*, void*, size_t); // MSKhwritefunc
 import "C"
 
 import (
@@ -85,6 +86,7 @@ const (
 	BK_RA BoundKey = C.MSK_BK_RA // Range bound
 )
 
+// StreamType is MSKstreamtypee, the type of the stream.
 type StreamType = C.MSKstreamtypee
 
 const (
@@ -92,6 +94,31 @@ const (
 	STREAM_MSG StreamType = C.MSK_STREAM_MSG
 	STREAM_ERR StreamType = C.MSK_STREAM_ERR
 	STREAM_WRN StreamType = C.MSK_STREAM_WRN
+)
+
+// DataFormat is MSKdataformate and format of the data file.
+type DataFormat = C.MSKdataformate
+
+const (
+	DATA_FORMAT_EXTENSION DataFormat = C.MSK_DATA_FORMAT_EXTENSION
+	DATA_FORMAT_MPS       DataFormat = C.MSK_DATA_FORMAT_MPS
+	DATA_FORMAT_LP        DataFormat = C.MSK_DATA_FORMAT_LP
+	DATA_FORMAT_OP        DataFormat = C.MSK_DATA_FORMAT_OP
+	DATA_FORMAT_FREE_MPS  DataFormat = C.MSK_DATA_FORMAT_FREE_MPS
+	DATA_FORMAT_TASK      DataFormat = C.MSK_DATA_FORMAT_TASK
+	DATA_FORMAT_PTF       DataFormat = C.MSK_DATA_FORMAT_PTF
+	DATA_FORMAT_CB        DataFormat = C.MSK_DATA_FORMAT_CB
+	DATA_FORMAT_JSON_TASK DataFormat = C.MSK_DATA_FORMAT_JSON_TASK
+)
+
+// CompressType is the compression type for data file
+type CompressType = C.MSKcompresstypee
+
+const (
+	COMPRESS_NONE CompressType = C.MSK_COMPRESS_NONE
+	COMPRESS_FREE CompressType = C.MSK_COMPRESS_FREE
+	COMPRESS_GZIP CompressType = C.MSK_COMPRESS_GZIP
+	COMPRESS_ZSTD CompressType = C.MSK_COMPRESS_ZSTD
 )
 
 // Env wraps mosek environment
@@ -396,7 +423,7 @@ type writerHolder struct {
 // writeStreamToWriter is the function for C api's task stream handler,
 // and it has a signature of
 //
-//	void streamfunc(void* handle, char * data)
+//	void streamfunc(void* handle, char* data)
 //
 //export writeStreamToWriter
 func writeStreamToWriter(p unsafe.Pointer, v *C.char) {
@@ -413,8 +440,7 @@ func writeStreamToWriter(p unsafe.Pointer, v *C.char) {
 	w.writer.Write([]byte(C.GoString(v)))
 }
 
-// LinkFuncToTaskStream wraps MSK_linkfuctotaskstream. Instead of using call back function,
-// pass in a [io.Writer] that will take the stream of tasks.
+// LinkFuncToTaskStream wraps MSK_linkfuctotaskstream using [io.Writer] instead of callbacks.
 func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) ResCode {
 	writer := writerHolder{
 		writer: w,
@@ -429,4 +455,52 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) ResC
 // SolutionSummary wraps MSK_solutionsummary, which prints the summary of the solution to the given stream.
 func (task *Task) SolutionSummary(whichstream StreamType) ResCode {
 	return C.MSK_solutionsummary(task.task, whichstream)
+}
+
+// WriteData wraps MSK_writedata and write data to a file.
+func (task *Task) WriteData(filename string) ResCode {
+	filenameC := C.CString(filename)
+	defer C.free(unsafe.Pointer(filenameC))
+
+	return C.MSK_writedata(task.task, filenameC)
+}
+
+// ReadData wraps MSK_readdata and read data from a file
+func (task *Task) ReadData(filename string) ResCode {
+	filenameC := C.CString(filename)
+	defer C.free(unsafe.Pointer(filenameC))
+
+	return C.MSK_readdata(task.task, filenameC)
+}
+
+// writeFuncToWriter is the function for C api's MSKhwritefunc, which has a signature of
+//
+//	void writefunchandle(void* handle, void* src, size_t count)
+//
+//export writeFuncToWriter
+func writeFuncToWriter(handle unsafe.Pointer, src unsafe.Pointer, count C.size_t) {
+	h := cgo.Handle(handle)
+	w, ok := h.Value().(writerHolder)
+	if !ok {
+		return
+	}
+	if w.writer == nil {
+		return
+	}
+
+	bytePtr := (*byte)(src)
+
+	byteSlice := unsafe.Slice(bytePtr, count)
+
+	w.writer.Write(byteSlice)
+}
+
+// WriteDataHandle wraps MSK_writedatahandle using [io.Writer] instead of using callbacks.
+func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress CompressType) ResCode {
+	writer := writerHolder{writer: handle}
+
+	ptr := cgo.NewHandle(writer)
+	task.writerHandles = append(task.writerHandles, ptr)
+
+	return C.MSK_writedatahandle(task.task, (*[0]byte)(C.writeFuncToWriter), C.MSKuserhandle_t(ptr), format, compress)
 }
