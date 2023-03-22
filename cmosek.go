@@ -1,4 +1,7 @@
-// gmsk is an unofficial wrapper for MOSEK, the conic optimizer from [MOSEK ApS]
+// gmsk is an unofficial wrapper for MOSEK, the conic optimizer from [MOSEK ApS].
+//
+// gmsk is based on mosek's C api, which must be installed and configured before
+// using gmsk.
 //
 // [MOSEK ApS]: https://www.mosek.com
 package gmsk
@@ -227,7 +230,7 @@ func (task *Task) AppendRQuadraticConeDomain(n Int64t) (r ResCode, domidx Int64t
 }
 
 // AppendAcc wraps MSK_appendacc and adds an affine conic constraint to the task, where the afe idx is provided
-// by an array or pointer - if the afe idx is sequential, use [AppendAccSeq] to avoid allocating an array.
+// by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq] to avoid allocating an array.
 func (task *Task) AppendAcc(domidx, numafeidx Int64t, afeidxlist *Int64t, b *Realt) ResCode {
 	return C.MSK_appendacc(task.task, domidx, numafeidx, afeidxlist, b)
 }
