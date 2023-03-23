@@ -12,7 +12,7 @@ const INFINITY float64 = C.MSK_INFINITY
 const MAX_STR_LEN = C.MSK_MAX_STR_LEN
 
 // ObjectiveSense is the MSKobjsense type
-type ObjectiveSense = C.MSKobjsensee
+type ObjectiveSense uint32
 
 const (
 	OBJECTIVE_SENSE_MINIMIZE ObjectiveSense = C.MSK_OBJECTIVE_SENSE_MINIMIZE // Objective is to maximize
@@ -20,15 +20,15 @@ const (
 )
 
 // VarType is the variable type of mosek
-type VariableType = C.MSKvariabletypee
+type VariableType uint32
 
 const (
-	VAR_TYPE_CONT = C.MSK_VAR_TYPE_CONT // Continuous variable
-	VAR_TYPE_INT  = C.MSK_VAR_TYPE_INT  // Integer variable
+	VAR_TYPE_CONT VariableType = C.MSK_VAR_TYPE_CONT // Continuous variable
+	VAR_TYPE_INT  VariableType = C.MSK_VAR_TYPE_INT  // Integer variable
 )
 
 // SolType is the solution type
-type SolType = C.MSKsoltypee
+type SolType uint32
 
 const (
 	SOL_ITR SolType = C.MSK_SOL_ITR // Iterior Point Solution.
@@ -37,7 +37,7 @@ const (
 )
 
 // SolSta is the solution status
-type SolSta = C.MSKsolstae
+type SolSta = uint32
 
 const (
 	SOL_STA_UNKNOWN            SolSta = C.MSK_SOL_STA_UNKNOWN
@@ -53,7 +53,7 @@ const (
 )
 
 // BoundKey is MSKboundkey enum, indicate the type of the bound
-type BoundKey = C.MSKboundkeye
+type BoundKey uint32
 
 const (
 	BK_LO BoundKey = C.MSK_BK_LO // Lower bound
@@ -64,7 +64,7 @@ const (
 )
 
 // StreamType is MSKstreamtypee, the type of the stream.
-type StreamType = C.MSKstreamtypee
+type StreamType uint32
 
 const (
 	STREAM_LOG StreamType = C.MSK_STREAM_LOG
@@ -74,7 +74,7 @@ const (
 )
 
 // DataFormat is MSKdataformate and format of the data file.
-type DataFormat = C.MSKdataformate
+type DataFormat uint32
 
 const (
 	DATA_FORMAT_EXTENSION DataFormat = C.MSK_DATA_FORMAT_EXTENSION
@@ -89,7 +89,7 @@ const (
 )
 
 // CompressType is the compression type for data file
-type CompressType = C.MSKcompresstypee
+type CompressType uint32
 
 const (
 	COMPRESS_NONE CompressType = C.MSK_COMPRESS_NONE
@@ -101,7 +101,7 @@ const (
 // IParam is the integer parameter enum (MSKiparam), which
 // tells what paramete the integer parameter is set for
 // in MSK_putintparam or [Task.PutIntParam].
-type IParam = C.MSKiparame
+type IParam uint32
 
 const (
 	IPAR_ANA_SOL_BASIS                      IParam = C.MSK_IPAR_ANA_SOL_BASIS
@@ -294,14 +294,14 @@ const (
 )
 
 // UpLo indicates if the matrix is upper triangular (up) or lower triangular (lo)
-type UpLo = C.MSKuploe
+type UpLo uint32
 
 const (
 	UPLO_LO UpLo = C.MSK_UPLO_LO // Lower triangular
 	UPLO_UP UpLo = C.MSK_UPLO_UP // Upper triangular
 )
 
-type Transpose = C.MSKtransposee
+type Transpose uint32
 
 const (
 	TRANSPOSE_NO  Transpose = C.MSK_TRANSPOSE_NO  // No transpose

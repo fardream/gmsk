@@ -168,27 +168,27 @@ func (task *Task) PutCSlice(first, last int32, slice *float64) uint32 {
 
 // PutVarType wraps MSK_putvartype and sets the type of the variable
 func (task *Task) PutVarType(j int32, vartype VariableType) uint32 {
-	return uint32(C.MSK_putvartype(task.task, C.MSKint32t(j), vartype))
+	return uint32(C.MSK_putvartype(task.task, C.MSKint32t(j), C.MSKvariabletypee(vartype)))
 }
 
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
 func (task *Task) PutVarbound(j int32, bkx BoundKey, blx, bux float64) uint32 {
-	return uint32(C.MSK_putvarbound(task.task, C.MSKint32t(j), bkx, C.MSKrealt(blx), C.MSKrealt(bux)))
+	return uint32(C.MSK_putvarbound(task.task, C.MSKint32t(j), C.MSKboundkeye(bkx), C.MSKrealt(blx), C.MSKrealt(bux)))
 }
 
 // PutVarboundSliceConst wraps MSK_putvarboundsliceconst, which set the bound for a slice of variables.
 func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bux float64) uint32 {
-	return uint32(C.MSK_putvarboundsliceconst(task.task, C.MSKint32t(first), C.MSKint32t(last), bkx, C.MSKrealt(blx), C.MSKrealt(bux)))
+	return uint32(C.MSK_putvarboundsliceconst(task.task, C.MSKint32t(first), C.MSKint32t(last), C.MSKboundkeye(bkx), C.MSKrealt(blx), C.MSKrealt(bux)))
 }
 
 // PutConBound wraps MSK_putconbound, which set the bound for a contraint
 func (task *Task) PutConBound(i int32, bkc BoundKey, blc, buc float64) uint32 {
-	return uint32(C.MSK_putconbound(task.task, C.MSKint32t(i), bkc, C.MSKrealt(blc), C.MSKrealt(buc)))
+	return uint32(C.MSK_putconbound(task.task, C.MSKint32t(i), C.MSKboundkeye(bkc), C.MSKrealt(blc), C.MSKrealt(buc)))
 }
 
 // PutObjsense wraps MSK_putobjsense set the objective sense - which is either minimize or maximize
 func (task *Task) PutObjsense(sense ObjectiveSense) uint32 {
-	return uint32(C.MSK_putobjsense(task.task, sense))
+	return uint32(C.MSK_putobjsense(task.task, C.MSKobjsensee(sense)))
 }
 
 // PutAij wraps MSK_putaij, which set the value of the linear constraints matrix A[i,j]
@@ -328,7 +328,7 @@ func (task *Task) GetNumVar() (res uint32, numVar int32) {
 
 // GetSolSta wraps MSK_getsolsta, which returns the solution status
 func (task *Task) GetSolSta(whichsol SolType) (res uint32, solSta SolSta) {
-	res = uint32(C.MSK_getsolsta(task.task, whichsol, &solSta))
+	res = uint32(C.MSK_getsolsta(task.task, C.MSKsoltypee(whichsol), (*C.MSKsolstae)(&solSta)))
 	return
 }
 
@@ -346,7 +346,7 @@ func (task *Task) GetXx(whichsol SolType, xx []float64) (uint32, []float64) {
 		xx = make([]float64, numVar)
 	}
 
-	res = uint32(C.MSK_getxx(task.task, whichsol, (*C.MSKrealt)(&xx[0])))
+	res = uint32(C.MSK_getxx(task.task, C.MSKsoltypee(whichsol), (*C.MSKrealt)(&xx[0])))
 
 	return res, xx
 }
@@ -359,7 +359,7 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 		xx = make([]float64, last-first)
 	}
 
-	res = uint32(C.MSK_getxxslice(task.task, whichsol, C.MSKint32t(first), C.MSKint32t(last), (*C.MSKrealt)(&xx[0])))
+	res = uint32(C.MSK_getxxslice(task.task, C.MSKsoltypee(whichsol), C.MSKint32t(first), C.MSKint32t(last), (*C.MSKrealt)(&xx[0])))
 
 	return res, xx
 }
@@ -386,7 +386,7 @@ func (task *Task) GetAccDotY(whichsol SolType, accidx int64, doty []float64) (ui
 		doty = make([]float64, numdoty)
 	}
 
-	res = uint32(C.MSK_getaccdoty(task.task, whichsol, C.MSKint64t(accidx), (*C.MSKrealt)(&doty[0])))
+	res = uint32(C.MSK_getaccdoty(task.task, C.MSKsoltypee(whichsol), C.MSKint64t(accidx), (*C.MSKrealt)(&doty[0])))
 
 	return res, doty
 }
@@ -404,14 +404,14 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64
 		activity = make([]float64, numdoty)
 	}
 
-	res = uint32(C.MSK_evaluateacc(task.task, whichsol, C.MSKint64t(accidx), (*C.MSKrealt)(&activity[0])))
+	res = uint32(C.MSK_evaluateacc(task.task, C.MSKsoltypee(whichsol), C.MSKint64t(accidx), (*C.MSKrealt)(&activity[0])))
 
 	return res, activity
 }
 
 // PutIntParam wraps MSK_putintparam and sets the param to parvalue.
 func (task *Task) PutIntParam(param IParam, parvalue int32) uint32 {
-	return uint32(C.MSK_putintparam(task.task, param, C.MSKint32t(parvalue)))
+	return uint32(C.MSK_putintparam(task.task, C.MSKiparame(param), C.MSKint32t(parvalue)))
 }
 
 // writerHolder holds a writer. This must be passed to C api with a handle.
@@ -448,12 +448,12 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) uint
 	ptr := cgo.NewHandle(writer)
 	task.writerHandles = append(task.writerHandles, ptr)
 
-	return uint32(C.MSK_linkfunctotaskstream(task.task, whichstream, C.MSKuserhandle_t(ptr), (*[0]byte)(C.writeStreamToWriter)))
+	return uint32(C.MSK_linkfunctotaskstream(task.task, C.MSKstreamtypee(whichstream), C.MSKuserhandle_t(ptr), (*[0]byte)(C.writeStreamToWriter)))
 }
 
 // SolutionSummary wraps MSK_solutionsummary, which prints the summary of the solution to the given stream.
 func (task *Task) SolutionSummary(whichstream StreamType) uint32 {
-	return uint32(C.MSK_solutionsummary(task.task, whichstream))
+	return uint32(C.MSK_solutionsummary(task.task, C.MSKstreamtypee(whichstream)))
 }
 
 // WriteData wraps MSK_writedata and write data to a file.
@@ -502,21 +502,21 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 	ptr := cgo.NewHandle(writer)
 	task.writerHandles = append(task.writerHandles, ptr)
 
-	return uint32(C.MSK_writedatahandle(task.task, (*[0]byte)(C.writeFuncToWriter), C.MSKuserhandle_t(ptr), format, compress))
+	return uint32(C.MSK_writedatahandle(task.task, (*[0]byte)(C.writeFuncToWriter), C.MSKuserhandle_t(ptr), C.MSKdataformate(format), C.MSKcompresstypee(compress)))
 }
 
 // Potrf wraps MSK_potrf and performs Cholesky decomposition of symmetric
 // square matrix a.
 func POTRF(env *Env, uplo UpLo, n int32, a *float64) uint32 {
-	return uint32(C.MSK_potrf(env.getEnv(), uplo, C.MSKint32t(n), (*C.MSKrealt)(a)))
+	return uint32(C.MSK_potrf(env.getEnv(), C.MSKuploe(uplo), C.MSKint32t(n), (*C.MSKrealt)(a)))
 }
 
 // GEMM wraps MSK_gemm and performs a general matrix multiplication
 func GEMM(env *Env, transa, transb Transpose, m, n, k int32, alpha float64, a, b *float64, beta float64, c *float64) uint32 {
 	return uint32(C.MSK_gemm(
 		env.getEnv(),
-		transa,
-		transb,
+		C.MSKtransposee(transa),
+		C.MSKtransposee(transb),
 		C.MSKint32t(m),
 		C.MSKint32t(n),
 		C.MSKint32t(k),
