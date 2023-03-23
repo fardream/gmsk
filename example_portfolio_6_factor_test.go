@@ -191,7 +191,7 @@ func Example_portfolio6Factor() {
 	G_factor := matrix_mul(env, B, P)
 
 	_, _k := get_nr_nc(G_factor)
-	k := gmsk.Int64t(_k)
+	k := int64(_k)
 
 	gammas := []gmsk.Realt{0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48}
 	num_gammas := int32(len(gammas))
@@ -229,12 +229,12 @@ func Example_portfolio6Factor() {
 
 	// Input (gamma, G_factor_T x, diag(sqrt(theta))*x) in the AFE (affine expression) storage
 	// We need k+n+1 rows and we fill them in in three parts
-	task.AppendAfes(k + gmsk.Int64t(n) + 1)
+	task.AppendAfes(k + int64(n) + 1)
 	// 1. The first affine expression = gamma, will be specified later
 	// 2. The next k expressions comprise G_factor_T*x, we add them column by column since
 	//    G_factor is stored row-wise and we transpose on the fly
-	afeidx := make([]gmsk.Int64t, k)
-	for i := gmsk.ZeroInt64t; i < k; i++ {
+	afeidx := make([]int64, k)
+	for i := int64(0); i < k; i++ {
 		afeidx[i] = i + 1
 	}
 	for i := int32(0); i < n; i++ {
@@ -242,15 +242,15 @@ func Example_portfolio6Factor() {
 	}
 	// 3. The remaining n rows contain sqrt(theta) on the diagonal
 	for i := int32(0); i < n; i++ {
-		checkOk(task.PutAfeFEntry(k+1+gmsk.Int64t(i), voff_x+i, gmsk.Realt(math.Sqrt(float64(theta[i])))))
+		checkOk(task.PutAfeFEntry(k+1+int64(i), voff_x+i, gmsk.Realt(math.Sqrt(float64(theta[i])))))
 	}
 
 	// Input the affine conic constraint (gamma, G_factor_T x, diag(sqrt(theta))*x) \in QCone
 	// Add the quadratic domain of dimension k+n+1
-	res, qdom := task.AppendQuadraticConeDomain(k + 1 + gmsk.Int64t(n))
+	res, qdom := task.AppendQuadraticConeDomain(k + 1 + int64(n))
 	checkOk(res)
 	// Add the constraint
-	checkOk(task.AppendAccSeq(qdom, k+1+gmsk.Int64t(n), 0, nil))
+	checkOk(task.AppendAccSeq(qdom, k+1+int64(n), 0, nil))
 	checkOk(task.PutAccName(0, "risk"))
 
 	// Objective: maximize expected return mu^T x

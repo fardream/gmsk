@@ -202,94 +202,94 @@ func (task *Task) PutACol(j int32, nzj int32, subj *int32, valj *Realt) uint32 {
 }
 
 // AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
-func (task *Task) AppendAfes(num Int64t) uint32 {
-	return uint32(C.MSK_appendafes(task.task, num))
+func (task *Task) AppendAfes(num int64) uint32 {
+	return uint32(C.MSK_appendafes(task.task, C.MSKint64t(num)))
 }
 
 // PutAfeFEntry wraps MSK_putafefentry and set an entry in the  affine expression F matrix.
-func (task *Task) PutAfeFEntry(afeidx Int64t, varidx int32, value Realt) uint32 {
-	return uint32(C.MSK_putafefentry(task.task, afeidx, C.MSKint32t(varidx), value))
+func (task *Task) PutAfeFEntry(afeidx int64, varidx int32, value Realt) uint32 {
+	return uint32(C.MSK_putafefentry(task.task, C.MSKint64t(afeidx), C.MSKint32t(varidx), value))
 }
 
 // PutAfeFEntryList wraps MSK_putafefentrylist, which set a portion of the affine expression F matrix
-func (task *Task) PutAfeFEntryList(numentr Int64t, afeidx *Int64t, varidx *int32, val *Realt) uint32 {
-	return uint32(C.MSK_putafefentrylist(task.task, numentr, afeidx, (*C.MSKint32t)(varidx), val))
+func (task *Task) PutAfeFEntryList(numentr int64, afeidx *int64, varidx *int32, val *Realt) uint32 {
+	return uint32(C.MSK_putafefentrylist(task.task, C.MSKint64t(numentr), (*C.MSKint64t)(afeidx), (*C.MSKint32t)(varidx), val))
 }
 
 // PutAfeFRow wraps MSK_putafefrow and sets a row of affine expression F matrix
-func (task *Task) PutAfeFRow(afeidx Int64t, numnz int32, varidx *int32, val *Realt) uint32 {
-	return uint32(C.MSK_putafefrow(task.task, afeidx, C.MSKint32t(numnz), (*C.MSKint32t)(varidx), val))
+func (task *Task) PutAfeFRow(afeidx int64, numnz int32, varidx *int32, val *Realt) uint32 {
+	return uint32(C.MSK_putafefrow(task.task, C.MSKint64t(afeidx), C.MSKint32t(numnz), (*C.MSKint32t)(varidx), val))
 }
 
 // PutAfeFCol wraps MSK_putafefcol and sets a column of affine expression F matrix
-func (task *Task) PutAfeFCol(varidx int32, numnz Int64t, afeidx *Int64t, val *Realt) uint32 {
-	return uint32(C.MSK_putafefcol(task.task, C.MSKint32t(varidx), numnz, afeidx, val))
+func (task *Task) PutAfeFCol(varidx int32, numnz int64, afeidx *int64, val *Realt) uint32 {
+	return uint32(C.MSK_putafefcol(task.task, C.MSKint32t(varidx), C.MSKint64t(numnz), (*C.MSKint64t)(afeidx), val))
 }
 
 // PutAfeG wraps MSK_putafeg and sets the value at afeidx to g
-func (task *Task) PutAfeG(afeidx Int64t, g Realt) uint32 {
-	return uint32(C.MSK_putafeg(task.task, afeidx, g))
+func (task *Task) PutAfeG(afeidx int64, g Realt) uint32 {
+	return uint32(C.MSK_putafeg(task.task, C.MSKint64t(afeidx), g))
 }
 
 // PutAfeGSlice wraps MSK_putafegslice and sets a slice of values in g
-func (task *Task) PutAfeGSlice(first, last Int64t, slice *Realt) uint32 {
-	return uint32(C.MSK_putafegslice(task.task, first, last, slice))
+func (task *Task) PutAfeGSlice(first, last int64, slice *Realt) uint32 {
+	return uint32(C.MSK_putafegslice(task.task, C.MSKint64t(first), C.MSKint64t(last), slice))
 }
 
 // AppendRZeroDomain wraps MSK_appendrzerodomain and add a real zero domain of dimension n to the task.
 // returns the index of the domain if successful.
-func (task *Task) AppendRZeroDomain(n Int64t) (r uint32, domidx Int64t) {
-	r = uint32(C.MSK_appendrzerodomain(task.task, n, &domidx))
+func (task *Task) AppendRZeroDomain(n int64) (r uint32, domidx int64) {
+	r = uint32(C.MSK_appendrzerodomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
 	return
 }
 
 // AppendQuadraticConeDomain wraps MSK_appendquadraticconedomain and adds a new quadratic cone of size n to the task.
 // returns the index of the domain if successful.
-func (task *Task) AppendQuadraticConeDomain(n Int64t) (r uint32, domidx Int64t) {
-	r = uint32(C.MSK_appendquadraticconedomain(task.task, n, &domidx))
+func (task *Task) AppendQuadraticConeDomain(n int64) (r uint32, domidx int64) {
+	r = uint32(C.MSK_appendquadraticconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
 	return
 }
 
 // AppendRotatedQuadraticConeDomain wraps MSK_appendrquadraticconedomain and adds a new *rotated* quadratic cone of size n to the task.
 // returns the index of the domain if successful.
-func (task *Task) AppendRotatedQuadraticConeDomain(n Int64t) (r uint32, domidx Int64t) {
-	r = uint32(C.MSK_appendrquadraticconedomain(task.task, n, &domidx))
+func (task *Task) AppendRotatedQuadraticConeDomain(n int64) (r uint32, domidx int64) {
+	r = uint32(C.MSK_appendrquadraticconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
 	return
 }
 
 // AppendRQuadraticConeDomain wraps MSK_appendrquadraticconedomain and adds a new *rotated* quadratic cone of size n to the task.
 // returns the index of the domain if successful - this is same as [AppendRotatedQuadraticConeDomain], but with the word "rotated" fully spelled out.
-func (task *Task) AppendRQuadraticConeDomain(n Int64t) (r uint32, domidx Int64t) {
-	r = uint32(C.MSK_appendrquadraticconedomain(task.task, n, &domidx))
+func (task *Task) AppendRQuadraticConeDomain(n int64) (r uint32, domidx int64) {
+	r = uint32(C.MSK_appendrquadraticconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
 	return
 }
 
 // AppendPrimalPowerConeDomain wraps MSK_appendprimalpowerconedomain and add a primal power cone to the task
-func (task *Task) AppendPrimalPowerConeDomain(n, nleft Int64t, alpha *Realt) (r uint32, domidx Int64t) {
-	r = uint32(C.MSK_appendprimalpowerconedomain(task.task, n, nleft, alpha, &domidx))
+func (task *Task) AppendPrimalPowerConeDomain(n, nleft int64, alpha *Realt) (r uint32, domidx int64) {
+	r = uint32(C.MSK_appendprimalpowerconedomain(task.task, C.MSKint64t(n), C.MSKint64t(nleft), alpha, (*C.MSKint64t)(&domidx)))
 	return
 }
 
 // AppendAcc wraps MSK_appendacc and adds an affine conic constraint to the task, where the afe idx is provided
 // by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq] to avoid allocating an array.
-func (task *Task) AppendAcc(domidx, numafeidx Int64t, afeidxlist *Int64t, b *Realt) uint32 {
-	return uint32(C.MSK_appendacc(task.task, domidx, numafeidx, afeidxlist, b))
+func (task *Task) AppendAcc(domidx, numafeidx int64, afeidxlist *int64, b *Realt) uint32 {
+	return uint32(C.MSK_appendacc(task.task, C.MSKint64t(domidx), C.MSKint64t(numafeidx), (*C.MSKint64t)(afeidxlist), b))
 }
 
 // AppendAccs wraps MSK_appendacc and adds a list of affine conic constraints to the task.
-func (task *Task) AppendAccs(numaccs Int64t, domidxs *Int64t, numafeidx Int64t, afeidxlist *Int64t, b *Realt) uint32 {
-	return uint32(C.MSK_appendaccs(task.task, numaccs, domidxs, numafeidx, afeidxlist, b))
+func (task *Task) AppendAccs(numaccs int64, domidxs *int64, numafeidx int64, afeidxlist *int64, b *Realt) uint32 {
+	return uint32(C.MSK_appendaccs(task.task, C.MSKint64t(numaccs), (*C.MSKint64t)(domidxs), C.MSKint64t(numafeidx), (*C.MSKint64t)(afeidxlist), b))
 }
 
 // AppendAccSeq wraps MSK_appendaccseq and adds an affine conic constraint to the task where
 // the affine idx is sequential.
-func (task *Task) AppendAccSeq(domidx, numafeidx, afeidxfirst Int64t, b *Realt) uint32 {
-	return uint32(C.MSK_appendaccseq(task.task, domidx, numafeidx, afeidxfirst, b))
+func (task *Task) AppendAccSeq(domidx, numafeidx, afeidxfirst int64, b *Realt) uint32 {
+	return uint32(C.MSK_appendaccseq(task.task, C.MSKint64t(domidx), C.MSKint64t(numafeidx), C.MSKint64t(afeidxfirst), b))
 }
 
 // AppendAccsSeq wraps MSK_appendaccsseq and append a block of accs to the tas - assuming affine expressions are sequential.
-func (task *Task) AppendAccsSeq(numaccs Int64t, domidxs *Int64t, numafeidx, afeidxfirst Int64t, b *Realt) uint32 {
-	return uint32(C.MSK_appendaccsseq(task.task, numaccs, domidxs, numafeidx, afeidxfirst, b))
+func (task *Task) AppendAccsSeq(numaccs int64, domidxs *int64, numafeidx, afeidxfirst int64, b *Realt) uint32 {
+	return uint32(C.MSK_appendaccsseq(task.task, C.MSKint64t(numaccs), (*C.MSKint64t)(domidxs), C.MSKint64t(numafeidx), C.MSKint64t(afeidxfirst), b))
 }
 
 // PutVarName wraps MSK_putvarname and sets a name for variable at j.
@@ -308,10 +308,10 @@ func (task *Task) PutConName(i int32, name string) uint32 {
 }
 
 // PutAccName wraps MSK_putaccname and sets a name for an affine conic constraint.
-func (task *Task) PutAccName(accidx Int64t, name string) uint32 {
+func (task *Task) PutAccName(accidx int64, name string) uint32 {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
-	return uint32(C.MSK_putaccname(task.task, accidx, cstr))
+	return uint32(C.MSK_putaccname(task.task, C.MSKint64t(accidx), cstr))
 }
 
 // OptimizeTerm wraps MSK_optimizeterm, which optimizes the problem.
@@ -365,20 +365,20 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []Realt) (u
 }
 
 // GetAccN wraps MSK_getaccn and returns the dimension of cone at index accidx.
-func (task *Task) GetAccN(accidx Int64t) (uint32, Int64t) {
-	var accn Int64t
-	res := uint32(C.MSK_getaccn(task.task, accidx, &accn))
+func (task *Task) GetAccN(accidx int64) (uint32, int64) {
+	var accn int64
+	res := uint32(C.MSK_getaccn(task.task, C.MSKint64t(accidx), (*C.MSKint64t)(&accn)))
 	return res, accn
 }
 
 // GetAccDotY wraps MSK_getaccdoty and returns doty dual result of cone at idnex accidx.
 // doty can be nil, in which case the dimension of the cone will be queried from the task and
 // a new slice will be created.
-func (task *Task) GetAccDotY(whichsol SolType, accidx Int64t, doty []Realt) (uint32, []Realt) {
+func (task *Task) GetAccDotY(whichsol SolType, accidx int64, doty []Realt) (uint32, []Realt) {
 	var res uint32
 
 	if doty == nil {
-		var numdoty Int64t
+		var numdoty int64
 		res, numdoty = task.GetAccN(accidx)
 		if res != RES_OK {
 			return res, nil
@@ -386,17 +386,17 @@ func (task *Task) GetAccDotY(whichsol SolType, accidx Int64t, doty []Realt) (uin
 		doty = make([]Realt, numdoty)
 	}
 
-	res = uint32(C.MSK_getaccdoty(task.task, whichsol, accidx, &doty[0]))
+	res = uint32(C.MSK_getaccdoty(task.task, whichsol, C.MSKint64t(accidx), &doty[0]))
 
 	return res, doty
 }
 
 // EvaluateAcc gets the activity of the cone at index accidx
-func (task *Task) EvaluateAcc(whichsol SolType, accidx Int64t, activity []Realt) (uint32, []Realt) {
+func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []Realt) (uint32, []Realt) {
 	var res uint32
 
 	if activity == nil {
-		var numdoty Int64t
+		var numdoty int64
 		res, numdoty = task.GetAccN(accidx)
 		if res != RES_OK {
 			return res, nil
@@ -404,7 +404,7 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx Int64t, activity []Realt)
 		activity = make([]Realt, numdoty)
 	}
 
-	res = uint32(C.MSK_evaluateacc(task.task, whichsol, accidx, &activity[0]))
+	res = uint32(C.MSK_evaluateacc(task.task, whichsol, C.MSKint64t(accidx), &activity[0]))
 
 	return res, activity
 }

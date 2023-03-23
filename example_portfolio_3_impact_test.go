@@ -32,7 +32,7 @@ func Example_portfolio3Impact() {
 		{0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.2202},
 	}
 
-	const k gmsk.Int64t = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
+	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
 	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 	const w gmsk.Realt = 1
 	const gamma gmsk.Realt = 0.36
@@ -115,8 +115,8 @@ func Example_portfolio3Impact() {
 	}
 
 	// ACCs
-	const aoff_q gmsk.Int64t = 0
-	const aoff_pow gmsk.Int64t = k + 1
+	const aoff_q int64 = 0
+	const aoff_pow int64 = k + 1
 	// - (gamma, GTx) in Q(k+1)
 	// The part of F and g for variable x:
 	//     [0,  0, 0]      [gamma]
@@ -127,7 +127,7 @@ func Example_portfolio3Impact() {
 	for i := int32(0); i < n; i++ {
 		vslice_x[i] = voff_x + i
 	}
-	for i := gmsk.ZeroInt64t; i < k; i++ {
+	for i := int64(0); i < k; i++ {
 		checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
 	}
 
@@ -141,27 +141,27 @@ func Example_portfolio3Impact() {
 	//     [0, I, 0]      [0]
 	// F = [0, 0, I], g = [0]
 	//     [0, 0, 0]      [1]
-	checkOk(task.AppendAfes(2*gmsk.Int64t(n) + 1))
+	checkOk(task.AppendAfes(2*int64(n) + 1))
 	for i := int32(0); i < n; i++ {
-		checkOk(task.PutAfeFEntry(aoff_pow+gmsk.Int64t(i), voff_c+i, 1.0))
-		checkOk(task.PutAfeFEntry(aoff_pow+gmsk.Int64t(n+i), voff_z+i, 1.0))
+		checkOk(task.PutAfeFEntry(aoff_pow+int64(i), voff_c+i, 1.0))
+		checkOk(task.PutAfeFEntry(aoff_pow+int64(n+i), voff_z+i, 1.0))
 	}
-	checkOk(task.PutAfeG(aoff_pow+2*(gmsk.Int64t(n)), 1.0))
+	checkOk(task.PutAfeG(aoff_pow+2*(int64(n)), 1.0))
 	// We use one row from F and g for both c_j and z_j, and the last row of F and g for the constant 1.
 	// NOTE: Here we reuse the last AFE and the power cone n times, but we store them only once.
 	exponents := []gmsk.Realt{2, 1}
 	res, powdom := task.AppendPrimalPowerConeDomain(3, 2, &exponents[0])
 	checkOk(res)
-	flat_afe_list := make([]gmsk.Int64t, 3*n)
-	dom_list := make([]gmsk.Int64t, n)
-	for i := gmsk.ZeroInt64t; i < gmsk.Int64t(n); i++ {
+	flat_afe_list := make([]int64, 3*n)
+	dom_list := make([]int64, n)
+	for i := int64(0); i < int64(n); i++ {
 		flat_afe_list[3*i+0] = aoff_pow + i
-		flat_afe_list[3*i+1] = aoff_pow + 2*gmsk.Int64t(n)
-		flat_afe_list[3*i+2] = aoff_pow + gmsk.Int64t(n) + i
+		flat_afe_list[3*i+1] = aoff_pow + 2*int64(n)
+		flat_afe_list[3*i+2] = aoff_pow + int64(n) + i
 		dom_list[i] = powdom
 	}
-	checkOk(task.AppendAccs(gmsk.Int64t(n), &dom_list[0], 3*gmsk.Int64t(n), &flat_afe_list[0], nil))
-	for i := gmsk.ZeroInt64t; i < gmsk.Int64t(n); i++ {
+	checkOk(task.AppendAccs(int64(n), &dom_list[0], 3*int64(n), &flat_afe_list[0], nil))
+	for i := int64(0); i < int64(n); i++ {
 		checkOk(task.PutAccName(i+1, fmt.Sprintf("market_impact[%d]", i)))
 	}
 

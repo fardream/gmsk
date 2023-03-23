@@ -34,7 +34,7 @@ func Example_portfolio2Frontier() {
 		{0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.2202},
 	}
 
-	const k gmsk.Int64t = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
+	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
 	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 	const w gmsk.Realt = 1
 	alphas := []gmsk.Realt{0.0, 0.01, 0.1, 0.25, 0.30, 0.35, 0.4, 0.45, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 10.0}
@@ -107,7 +107,7 @@ func Example_portfolio2Frontier() {
 	for i := int32(0); i < n; i++ {
 		vslice_x[i] = voff_x + i
 	}
-	for i := gmsk.Int64t(0); i < k; i++ {
+	for i := int64(0); i < k; i++ {
 		checkOk(task.PutAfeFRow(i+2, n, &vslice_x[0], &GT[i][0]))
 	}
 

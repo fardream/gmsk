@@ -33,7 +33,7 @@ func Example_portfolio4Transcost() {
 		{0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.2202},
 	}
 
-	const k gmsk.Int64t = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
+	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
 	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 	const w gmsk.Realt = 1
 	const gamma gmsk.Realt = 0.36
@@ -129,7 +129,7 @@ func Example_portfolio4Transcost() {
 	}
 
 	// ACCs
-	const aoff_q gmsk.Int64t = 0
+	const aoff_q int64 = 0
 	// - (gamma, GTx) in Q(k+1)
 	// The part of F and g for variable x:
 	//     [0,  0, 0]      [gamma]
@@ -140,7 +140,7 @@ func Example_portfolio4Transcost() {
 	for i := int32(0); i < n; i++ {
 		vslice_x[i] = voff_x + i
 	}
-	for i := gmsk.ZeroInt64t; i < k; i++ {
+	for i := int64(0); i < k; i++ {
 		checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
 	}
 

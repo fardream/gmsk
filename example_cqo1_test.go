@@ -23,9 +23,9 @@ func Example_conicQuadraticOptimization1() {
 	const (
 		numvar = int32(6)
 		numcon = int32(1)
-		numafe = gmsk.Int64t(6)
-		numacc = gmsk.Int64t(2)
-		f_nnz  = gmsk.Int64t(6)
+		numafe = int64(6)
+		numacc = int64(2)
+		f_nnz  = int64(6)
 	)
 
 	bkc := []gmsk.BoundKey{gmsk.BK_FX}
@@ -72,12 +72,12 @@ func Example_conicQuadraticOptimization1() {
 		aval  = []gmsk.Realt{1, 1, 2}
 	)
 	var (
-		afeidx = []gmsk.Int64t{0, 1, 2, 3, 4, 5}
+		afeidx = []int64{0, 1, 2, 3, 4, 5}
 		varidx = []int32{3, 0, 1, 4, 5, 2}
 		f_val  = []gmsk.Realt{1, 1, 1, 1, 1, 1}
 	)
 
-	domidx := []gmsk.Int64t{0, 0}
+	domidx := []int64{0, 0}
 
 	/* Create the mosek environment. */
 	env, err := gmsk.MakeEnv()

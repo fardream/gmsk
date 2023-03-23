@@ -22,7 +22,7 @@ import (
 func Example_affineConicConstraints1() {
 	/* Input data dimensions */
 	var n int32 = 3
-	var k gmsk.Int64t = 2
+	var k int64 = 2
 
 	/* Create the mosek environment. */
 	env, err := gmsk.MakeEnv()
@@ -72,10 +72,10 @@ func Example_affineConicConstraints1() {
 	{
 		/* Fill in the affine expression storage with data */
 		/* F matrix in sparse form */
-		Fsubi := []gmsk.Int64t{1, 1, 2, 2} /* G is placed from row 1 of F */
+		Fsubi := []int64{1, 1, 2, 2} /* G is placed from row 1 of F */
 		Fsubj := []int32{0, 1, 0, 2}
 		Fval := []gmsk.Realt{1.5, 0.1, 0.3, 2.1}
-		var numEntries gmsk.Int64t = 4
+		var numEntries int64 = 4
 
 		h := []gmsk.Realt{0, 0.1}
 		var gamma gmsk.Realt = 0.03
@@ -94,7 +94,7 @@ func Example_affineConicConstraints1() {
 
 	{
 		/* Create the ACC */
-		afeidx := []gmsk.Int64t{0, 1, 2}
+		afeidx := []int64{0, 1, 2}
 		checkOk(task.AppendAcc(quadDom, k+1, &afeidx[0], nil))
 	}
 
@@ -131,7 +131,7 @@ func Example_affineConicConstraints1() {
 		checkOk(r)
 
 		fmt.Println("Dual doty of the ACC")
-		for j := gmsk.Int64t(0); j < k+1; j++ {
+		for j := int64(0); j < k+1; j++ {
 			fmt.Printf("doty[%d]: %e\n", j, doty[j])
 		}
 
@@ -143,7 +143,7 @@ func Example_affineConicConstraints1() {
 			activity)
 		checkOk(r)
 		fmt.Println("Activity of the ACC")
-		for j := gmsk.Int64t(0); j < k+1; j++ {
+		for j := int64(0); j < k+1; j++ {
 			fmt.Printf("activity[%d]: %e\n", j, activity[j])
 		}
 	case gmsk.SOL_STA_DUAL_INFEAS_CER:

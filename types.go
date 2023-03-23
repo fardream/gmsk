@@ -5,12 +5,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-// Int64t is the 64 bit integer in MOSEK, which is int64_t/int64
-type Int64t = C.MSKint64t
-
-// ZeroInt64t is the zero value of [Int64t]
-const ZeroInt64t Int64t = 0
-
 // Realt is the double type in MOSEK, which is double/float64
 type Realt = C.MSKrealt
 
