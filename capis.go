@@ -28,6 +28,12 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
+// INFINITY is MSK_INFINITY (which is different from the double's infinity)
+const INFINITY float64 = C.MSK_INFINITY
+
+// MSK_MAX_STR_LEN is the max length of strings in mosek
+const MAX_STR_LEN = C.MSK_MAX_STR_LEN
+
 // Env wraps mosek environment
 type Env struct {
 	env C.MSKenv_t
@@ -172,6 +178,17 @@ func (task *Task) PutCSlice(first, last int32, slice *float64) res.Code {
 	return res.Code(C.MSK_putcslice(task.task, C.MSKint32t(first), C.MSKint32t(last), (*C.MSKrealt)(slice)))
 }
 
+// PutCList wraps MSK_putclist and set coefficients of the objective with index/value.
+func (task *Task) PutCList(num int32, subj *int32, val *float64) res.Code {
+	return res.Code(
+		C.MSK_putclist(
+			task.task,
+			C.MSKint32t(num),
+			(*C.MSKint32t)(subj),
+			(*C.MSKrealt)(val)),
+	)
+}
+
 // PutVarType wraps MSK_putvartype and sets the type of the variable
 func (task *Task) PutVarType(j int32, vartype VariableType) res.Code {
 	return res.Code(C.MSK_putvartype(task.task, C.MSKint32t(j), C.MSKvariabletypee(vartype)))
@@ -182,9 +199,32 @@ func (task *Task) PutVarbound(j int32, bkx BoundKey, blx, bux float64) res.Code 
 	return res.Code(C.MSK_putvarbound(task.task, C.MSKint32t(j), C.MSKboundkeye(bkx), C.MSKrealt(blx), C.MSKrealt(bux)))
 }
 
-// PutVarboundSliceConst wraps MSK_putvarboundsliceconst, which set the bound for a slice of variables.
+// PutVarboundSlice wraps MSK_putvarboundslice and sets the bound for a slice of variables using 3 vectors.
+func (task *Task) PutVarboundSlice(first, last int32, bkx *BoundKey, blx, bux *float64) res.Code {
+	return res.Code(
+		C.MSK_putvarboundslice(
+			task.task,
+			C.MSKint32t(first),
+			C.MSKint32t(last),
+			(*C.MSKboundkeye)(bkx),
+			(*C.MSKrealt)(blx),
+			(*C.MSKrealt)(bux),
+		),
+	)
+}
+
+// PutVarboundSliceConst wraps MSK_putvarboundsliceconst, which set the bound for a slice of variables to the same value.
 func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bux float64) res.Code {
-	return res.Code(C.MSK_putvarboundsliceconst(task.task, C.MSKint32t(first), C.MSKint32t(last), C.MSKboundkeye(bkx), C.MSKrealt(blx), C.MSKrealt(bux)))
+	return res.Code(
+		C.MSK_putvarboundsliceconst(
+			task.task,
+			C.MSKint32t(first),
+			C.MSKint32t(last),
+			C.MSKboundkeye(bkx),
+			C.MSKrealt(blx),
+			C.MSKrealt(bux),
+		),
+	)
 }
 
 // PutConBound wraps MSK_putconbound, which set the bound for a contraint
@@ -205,6 +245,19 @@ func (task *Task) PutAij(i, j int32, aij float64) res.Code {
 // PutACol wraps MSK_putacol, and puts a column of A matrix.
 func (task *Task) PutACol(j int32, nzj int32, subj *int32, valj *float64) res.Code {
 	return res.Code(C.MSK_putacol(task.task, C.MSKint32t(j), C.MSKint32t(nzj), (*C.MSKint32t)(subj), (*C.MSKrealt)(valj)))
+}
+
+// PutARow wraps MSK_putarow and sets a row of the A matrix.
+func (task *Task) PutARow(i int32, nzi int32, subi *int32, vali *float64) res.Code {
+	return res.Code(
+		C.MSK_putarow(
+			task.task,
+			C.MSKint32t(i),
+			C.MSKint32t(nzi),
+			(*C.MSKint32t)(subi),
+			(*C.MSKrealt)(vali),
+		),
+	)
 }
 
 // AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
