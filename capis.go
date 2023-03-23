@@ -3,9 +3,22 @@
 // gmsk is based on mosek's C api, which must be installed and configured before
 // using gmsk.
 //
-// Most routines of mosek's C api returns a result code (whic is an enum) to indicate
-// if the routine is successful or not (MSK_RES_OK or [RES_OK] indicates success).
-// Check mosek documentation for more information.
+// Most routines of mosek's C api returns a result code (whic is an enum/uint32)
+// to indicate if the routine is successful or not (MSK_RES_OK or [RES_OK]
+// indicates success). Check mosek documentation for more information.
+//
+// Almost all float point numbers in MOSEK are IEEE-754 64-bit float point number,
+// or double in C/C++/float64 in go.
+//
+// Most indices associated with variables and A (linear constraints) matrix are
+// signed 32-bit integers, int32_t in C/C++ and int32 in go. However, indices
+// associated with affine expression (afe) are 64-bit, or int64_t in C/C++
+// and int64 in go.
+//
+// Besides result code, MOSEK sometimes needs to return some other information
+// (for example, index of newly created domain). This is achieved in C/C++ by
+// passing in a "destination" pointer. This is not done in go because go supports
+// multiple return values.
 //
 // [MOSEK ApS]: https://www.mosek.com
 package gmsk
@@ -41,6 +54,8 @@ type Env struct {
 
 // MakeEnv creates a new mosek environment.
 // dbgfile can be zero or one, error when more than two dbgfile are provided.
+//
+// Remember the env needs to be deleted.
 func MakeEnv(dbgfile ...string) (*Env, error) {
 	var env C.MSKenv_t = nil
 	var cdbgfile *C.char = nil
@@ -70,7 +85,7 @@ func (env *Env) getEnv() C.MSKenv_t {
 	return env.env
 }
 
-// MakeTask creates a new task in this environment
+// MakeTask creates a new task in this environment.
 func (env *Env) MakeTask(maxnumcon int32, maxnumvar int32) (*Task, error) {
 	return MakeTask(env, maxnumcon, maxnumvar)
 }
@@ -109,7 +124,10 @@ func MakeTask(env *Env, maxnumcon, maxnumvar int32) (*Task, error) {
 
 // DeleteTask deletes the task
 func DeleteTask(task *Task) {
-	if task != nil && task.task != nil {
+	if task == nil {
+		return
+	}
+	if task.task != nil {
 		C.MSK_deletetask(&task.task)
 	}
 
@@ -241,8 +259,22 @@ func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bu
 }
 
 // PutConBound wraps MSK_putconbound, which set the bound for a contraint
-func (task *Task) PutConBound(i int32, bkc BoundKey, blc, buc float64) res.Code {
+func (task *Task) PutConbound(i int32, bkc BoundKey, blc, buc float64) res.Code {
 	return res.Code(C.MSK_putconbound(task.task, C.MSKint32t(i), C.MSKboundkeye(bkc), C.MSKrealt(blc), C.MSKrealt(buc)))
+}
+
+// PutConboundSlice wraps MSK_putconboundslice and sets a list of constraint bounds.
+func (task *Task) PutConboundSlice(first, last int32, bkc *BoundKey, blc, buc *float64) res.Code {
+	return res.Code(
+		C.MSK_putconboundslice(
+			task.task,
+			C.MSKint32t(first),
+			C.MSKint32t(last),
+			(*C.MSKboundkeye)(bkc),
+			(*C.MSKrealt)(blc),
+			(*C.MSKrealt)(buc),
+		),
+	)
 }
 
 // PutObjsense wraps MSK_putobjsense set the objective sense - which is either minimize or maximize
@@ -253,6 +285,19 @@ func (task *Task) PutObjsense(sense ObjectiveSense) res.Code {
 // PutAij wraps MSK_putaij, which set the value of the linear constraints matrix A[i,j]
 func (task *Task) PutAij(i, j int32, aij float64) res.Code {
 	return res.Code(C.MSK_putaij(task.task, C.MSKint32t(i), C.MSKint32t(j), C.MSKrealt(aij)))
+}
+
+// PutAijList wraps MSK_putaijlist and sets a list of linear constraint matrix A by index.
+func (task *Task) PutAijList(num int32, subi, subj *int32, valij *float64) res.Code {
+	return res.Code(
+		C.MSK_putaijlist(
+			task.task,
+			(C.MSKint32t)(num),
+			(*C.MSKint32t)(subi),
+			(*C.MSKint32t)(subj),
+			(*C.MSKrealt)(valij),
+		),
+	)
 }
 
 // PutACol wraps MSK_putacol, and puts a column of A matrix.

@@ -134,7 +134,7 @@ func Example_conicQuadraticOptimization1() {
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
 	for i := int32(0); i < numcon && r == gmsk.RES_OK; i++ {
-		r = task.PutConBound(
+		r = task.PutConbound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/

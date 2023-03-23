@@ -99,7 +99,7 @@ func Example_portfolio3Impact() {
 	for i := int32(0); i < n; i++ {
 		totalBudget += x0[i]
 	}
-	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
+	checkOk(task.PutConbound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// - Absolute value
 	checkOk(task.AppendCons(2 * n))
@@ -107,11 +107,11 @@ func Example_portfolio3Impact() {
 		checkOk(task.PutConName(coff_abs1+i, fmt.Sprintf("zabs1[%d]", 1+i)))
 		checkOk(task.PutAij(coff_abs1+i, voff_x+i, -1))
 		checkOk(task.PutAij(coff_abs1+i, voff_z+i, 1))
-		checkOk(task.PutConBound(coff_abs1+i, gmsk.BK_LO, -x0[i], gmsk.INFINITY))
+		checkOk(task.PutConbound(coff_abs1+i, gmsk.BK_LO, -x0[i], gmsk.INFINITY))
 		checkOk(task.PutConName(coff_abs2+i, fmt.Sprintf("zabs2[%d]", 1+i)))
 		checkOk(task.PutAij(coff_abs2+i, voff_x+i, 1))
 		checkOk(task.PutAij(coff_abs2+i, voff_z+i, 1))
-		checkOk(task.PutConBound(coff_abs2+i, gmsk.BK_LO, x0[i], gmsk.INFINITY))
+		checkOk(task.PutConbound(coff_abs2+i, gmsk.BK_LO, x0[i], gmsk.INFINITY))
 	}
 
 	// ACCs

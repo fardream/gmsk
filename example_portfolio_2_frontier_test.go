@@ -88,7 +88,7 @@ func Example_portfolio2Frontier() {
 	for _, x0i := range x0 {
 		totalBudget += x0i
 	}
-	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
+	checkOk(task.PutConbound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// Input (gamma, GTx) in the AFE (affine expression) storage
 	// We build the following F and g for variables [x, s]:
