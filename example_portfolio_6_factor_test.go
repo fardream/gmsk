@@ -13,7 +13,7 @@ import (
 // portfolio_6_factor.c in MOSEK C api.
 func Example_portfolio6Factor() {
 	res := gmsk.RES_OK
-	checkOk := func(r uint32) {
+	checkOk := func(r gmsk.ResCode) {
 		res = r
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

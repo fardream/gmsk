@@ -8,7 +8,7 @@ import (
 )
 
 func ExampleTask_WriteDataHandle() {
-	CheckOk := func(r uint32) {
+	CheckOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 			log.Fatalf("Failed: %s %s", sym, desc)

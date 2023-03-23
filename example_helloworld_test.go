@@ -10,7 +10,7 @@ import (
 // This is reproduced from MOSEK C example hellowworld.c
 // However, the response code is checked here.
 func Example_helloworld() {
-	CheckOk := func(r uint32) {
+	CheckOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 			log.Fatalf("Failed: %s %s", sym, desc)
