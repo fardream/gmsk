@@ -21,9 +21,9 @@ func Example_portfolio2Frontier() {
 	}
 
 	const n int32 = 8
-	mu := []gmsk.Realt{0.07197349, 0.15518171, 0.17535435, 0.0898094, 0.42895777, 0.39291844, 0.32170722, 0.18378628}
+	mu := []float64{0.07197349, 0.15518171, 0.17535435, 0.0898094, 0.42895777, 0.39291844, 0.32170722, 0.18378628}
 	// GT must have size n rows
-	GT := [...][8]gmsk.Realt{
+	GT := [...][8]float64{
 		{0.30758, 0.12146, 0.11341, 0.11327, 0.17625, 0.11973, 0.10435, 0.10638},
 		{0.00000, 0.25042, 0.09946, 0.09164, 0.06692, 0.08706, 0.09173, 0.08506},
 		{0.00000, 0.00000, 0.19914, 0.05867, 0.06453, 0.07367, 0.06468, 0.01914},
@@ -35,11 +35,11 @@ func Example_portfolio2Frontier() {
 	}
 
 	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
-	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	const w gmsk.Realt = 1
-	alphas := []gmsk.Realt{0.0, 0.01, 0.1, 0.25, 0.30, 0.35, 0.4, 0.45, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 10.0}
+	x0 := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	const w float64 = 1
+	alphas := []float64{0.0, 0.01, 0.1, 0.25, 0.30, 0.35, 0.4, 0.45, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 10.0}
 	const numalpha int32 = 15
-	var totalBudget gmsk.Realt
+	var totalBudget float64
 
 	// Offset of variables into the API variable.
 	const numvar int32 = n + 1
@@ -146,7 +146,7 @@ func Example_portfolio2Frontier() {
 			fmt.Printf("An error occurred when solving for alpha=%e\n", alpha)
 		}
 
-		var expret, stddev gmsk.Realt
+		var expret, stddev float64
 
 		for j := int32(0); j < n; j++ {
 			res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)

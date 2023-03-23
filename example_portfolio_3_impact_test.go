@@ -19,9 +19,9 @@ func Example_portfolio3Impact() {
 	}
 
 	const n int32 = 8
-	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
+	mu := []float64{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
 	// GT must have size n rows
-	GT := [...][8]gmsk.Realt{
+	GT := [...][8]float64{
 		{0.30758, 0.12146, 0.11341, 0.11327, 0.17625, 0.11973, 0.10435, 0.10638},
 		{0.00000, 0.25042, 0.09946, 0.09164, 0.06692, 0.08706, 0.09173, 0.08506},
 		{0.00000, 0.00000, 0.19914, 0.05867, 0.06453, 0.07367, 0.06468, 0.01914},
@@ -33,12 +33,12 @@ func Example_portfolio3Impact() {
 	}
 
 	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
-	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	const w gmsk.Realt = 1
-	const gamma gmsk.Realt = 0.36
-	var totalBudget gmsk.Realt
+	x0 := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	const w float64 = 1
+	const gamma float64 = 0.36
+	var totalBudget float64
 
-	m := make([]gmsk.Realt, n)
+	m := make([]float64, n)
 	for i := int32(0); i < n; i++ {
 		m[i] = 0.01
 	}
@@ -55,7 +55,7 @@ func Example_portfolio3Impact() {
 	const coff_abs1 int32 = 1
 	const coff_abs2 int32 = 1 + n
 
-	var expret gmsk.Realt
+	var expret float64
 
 	res := gmsk.RES_OK
 
@@ -149,7 +149,7 @@ func Example_portfolio3Impact() {
 	checkOk(task.PutAfeG(aoff_pow+2*(int64(n)), 1.0))
 	// We use one row from F and g for both c_j and z_j, and the last row of F and g for the constant 1.
 	// NOTE: Here we reuse the last AFE and the power cone n times, but we store them only once.
-	exponents := []gmsk.Realt{2, 1}
+	exponents := []float64{2, 1}
 	res, powdom := task.AppendPrimalPowerConeDomain(3, 2, &exponents[0])
 	checkOk(res)
 	flat_afe_list := make([]int64, 3*n)

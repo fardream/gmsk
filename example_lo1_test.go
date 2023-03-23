@@ -11,7 +11,7 @@ import (
 // Linear programming example 1, reproduced from mosek c api example lo1.c
 func Example_linearOptimization1() {
 	const numvar, numcon int32 = 4, 3
-	c := []gmsk.Realt{3.0, 1.0, 5.0, 1.0}
+	c := []float64{3.0, 1.0, 5.0, 1.0}
 
 	/* Below is the sparse representation of the A
 	   matrix stored by column. */
@@ -23,7 +23,7 @@ func Example_linearOptimization1() {
 		0, 1,
 		1, 2,
 	}
-	aval := []gmsk.Realt{
+	aval := []float64{
 		3, 2,
 		1, 1, 2,
 		2, 3,
@@ -31,13 +31,13 @@ func Example_linearOptimization1() {
 	}
 	/* Bounds on constraints. */
 	bkc := []gmsk.BoundKey{gmsk.BK_FX, gmsk.BK_LO, gmsk.BK_UP}
-	blc := []gmsk.Realt{30, 15, -gmsk.INFINITY}
-	buc := []gmsk.Realt{30, gmsk.INFINITY, 25}
+	blc := []float64{30, 15, -gmsk.INFINITY}
+	buc := []float64{30, gmsk.INFINITY, 25}
 
 	/* Bounds on variables. */
 	bkx := []gmsk.BoundKey{gmsk.BK_LO, gmsk.BK_RA, gmsk.BK_LO, gmsk.BK_LO}
-	blx := []gmsk.Realt{0, 0, 0, 0}
-	bux := []gmsk.Realt{gmsk.INFINITY, 10, gmsk.INFINITY, gmsk.INFINITY}
+	blx := []float64{0, 0, 0, 0}
+	bux := []float64{gmsk.INFINITY, 10, gmsk.INFINITY, gmsk.INFINITY}
 
 	checkOk := func(r uint32) {
 		if r != gmsk.RES_OK {

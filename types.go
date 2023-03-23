@@ -5,11 +5,8 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-// Realt is the double type in MOSEK, which is double/float64
-type Realt = C.MSKrealt
-
 // INFINITY is MSK_INFINITY (which is different from the double's infinity)
-const INFINITY Realt = C.MSK_INFINITY
+const INFINITY float64 = C.MSK_INFINITY
 
 // MSK_MAX_STR_LEN is the max length of strings in mosek
 const MAX_STR_LEN = C.MSK_MAX_STR_LEN

@@ -20,9 +20,9 @@ func Example_portfolio5Card() {
 	}
 
 	const n int32 = 8
-	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
+	mu := []float64{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
 	// GT must have size n rows
-	GT := [...][8]gmsk.Realt{
+	GT := [...][8]float64{
 		{0.30758, 0.12146, 0.11341, 0.11327, 0.17625, 0.11973, 0.10435, 0.10638},
 		{0.00000, 0.25042, 0.09946, 0.09164, 0.06692, 0.08706, 0.09173, 0.08506},
 		{0.00000, 0.00000, 0.19914, 0.05867, 0.06453, 0.07367, 0.06468, 0.01914},
@@ -34,11 +34,11 @@ func Example_portfolio5Card() {
 	}
 
 	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
-	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	const w gmsk.Realt = 1
-	const gamma gmsk.Realt = 0.25
+	x0 := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	const w float64 = 1
+	const gamma float64 = 0.25
 
-	xx := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	xx := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 
 	markowitz_with_card := func(K int32) uint32 {
 		// Offset of variables
@@ -127,7 +127,7 @@ func Example_portfolio5Card() {
 		for i := int32(0); i < n; i++ {
 			checkOk(task.PutAij(coff_card, voff_y+i, 1))
 		}
-		checkOk(task.PutConBound(coff_card, gmsk.BK_UP, -gmsk.INFINITY, gmsk.Realt(K)))
+		checkOk(task.PutConBound(coff_card, gmsk.BK_UP, -gmsk.INFINITY, float64(K)))
 
 		// ACCs
 		const aoff_q int64 = 0
@@ -175,7 +175,7 @@ func Example_portfolio5Card() {
 
 	for K := int32(1); K <= n; K++ {
 		checkOk(markowitz_with_card(K))
-		var expret gmsk.Realt = 0
+		var expret float64 = 0
 		fmt.Printf("Bound %d:  x = ", K)
 		for i := int32(0); i < n; i++ {
 			fmt.Printf("%.5f ", xx[i])

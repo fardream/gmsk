@@ -20,9 +20,9 @@ func Example_portfolio4Transcost() {
 	}
 
 	const n int32 = 8
-	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
+	mu := []float64{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
 	// GT must have size n rows
-	GT := [...][8]gmsk.Realt{
+	GT := [...][8]float64{
 		{0.30758, 0.12146, 0.11341, 0.11327, 0.17625, 0.11973, 0.10435, 0.10638},
 		{0.00000, 0.25042, 0.09946, 0.09164, 0.06692, 0.08706, 0.09173, 0.08506},
 		{0.00000, 0.00000, 0.19914, 0.05867, 0.06453, 0.07367, 0.06468, 0.01914},
@@ -34,12 +34,12 @@ func Example_portfolio4Transcost() {
 	}
 
 	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
-	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	const w gmsk.Realt = 1
-	const gamma gmsk.Realt = 0.36
+	x0 := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	const w float64 = 1
+	const gamma float64 = 0.36
 
-	f := make([]gmsk.Realt, n)
-	g := make([]gmsk.Realt, n)
+	f := make([]float64, n)
+	g := make([]float64, n)
 	for i := int32(0); i < n; i++ {
 		f[i] = 0.01
 		g[i] = 0.001
@@ -59,7 +59,7 @@ func Example_portfolio4Transcost() {
 	const coff_abs2 int32 = 1 + n
 	const coff_swi int32 = 1 + 2*n
 
-	var expret gmsk.Realt
+	var expret float64
 
 	/* Initial setup. */
 	env, err := gmsk.MakeEnv()

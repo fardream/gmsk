@@ -29,8 +29,8 @@ func Example_conicQuadraticOptimization1() {
 	)
 
 	bkc := []gmsk.BoundKey{gmsk.BK_FX}
-	blc := []gmsk.Realt{1}
-	buc := []gmsk.Realt{1}
+	blc := []float64{1}
+	buc := []float64{1}
 
 	bkx := []gmsk.BoundKey{
 		gmsk.BK_LO,
@@ -40,7 +40,7 @@ func Example_conicQuadraticOptimization1() {
 		gmsk.BK_FR,
 		gmsk.BK_FR,
 	}
-	blx := []gmsk.Realt{
+	blx := []float64{
 		0.0,
 		0.0,
 		0.0,
@@ -48,7 +48,7 @@ func Example_conicQuadraticOptimization1() {
 		-gmsk.INFINITY,
 		-gmsk.INFINITY,
 	}
-	bux := []gmsk.Realt{
+	bux := []float64{
 		+gmsk.INFINITY,
 		+gmsk.INFINITY,
 		+gmsk.INFINITY,
@@ -57,7 +57,7 @@ func Example_conicQuadraticOptimization1() {
 		+gmsk.INFINITY,
 	}
 
-	c := []gmsk.Realt{
+	c := []float64{
 		0.0,
 		0.0,
 		0.0,
@@ -69,12 +69,12 @@ func Example_conicQuadraticOptimization1() {
 		aptrb = []int32{0, 1, 2, 3, 3, 3}
 		aptre = []int32{1, 2, 3, 3, 3, 3}
 		asub  = []int32{0, 0, 0, 0}
-		aval  = []gmsk.Realt{1, 1, 2}
+		aval  = []float64{1, 1, 2}
 	)
 	var (
 		afeidx = []int64{0, 1, 2, 3, 4, 5}
 		varidx = []int32{3, 0, 1, 4, 5, 2}
-		f_val  = []gmsk.Realt{1, 1, 1, 1, 1, 1}
+		f_val  = []float64{1, 1, 1, 1, 1, 1}
 	)
 
 	domidx := []int64{0, 0}

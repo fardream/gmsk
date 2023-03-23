@@ -19,12 +19,12 @@ func Example_portfolio1Basic() {
 	}
 
 	const (
-		n     int32      = 8
-		gamma gmsk.Realt = 36
+		n     int32   = 8
+		gamma float64 = 36
 	)
-	mu := []gmsk.Realt{0.07197349, 0.15518171, 0.17535435, 0.0898094, 0.42895777, 0.39291844, 0.32170722, 0.18378628}
+	mu := []float64{0.07197349, 0.15518171, 0.17535435, 0.0898094, 0.42895777, 0.39291844, 0.32170722, 0.18378628}
 	// GT must have size n rows
-	GT := [...][8]gmsk.Realt{
+	GT := [...][8]float64{
 		{0.30758, 0.12146, 0.11341, 0.11327, 0.17625, 0.11973, 0.10435, 0.10638},
 		{0.00000, 0.25042, 0.09946, 0.09164, 0.06692, 0.08706, 0.09173, 0.08506},
 		{0.00000, 0.00000, 0.19914, 0.05867, 0.06453, 0.07367, 0.06468, 0.01914},
@@ -36,8 +36,8 @@ func Example_portfolio1Basic() {
 	}
 
 	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
-	x0 := []gmsk.Realt{8.0, 5.0, 3.0, 5.0, 2.0, 9.0, 3.0, 6.0}
-	const w gmsk.Realt = 59
+	x0 := []float64{8.0, 5.0, 3.0, 5.0, 2.0, 9.0, 3.0, 6.0}
+	const w float64 = 59
 
 	// Offset of variables into the API variable.
 	var numvar int32 = n
@@ -122,7 +122,7 @@ func Example_portfolio1Basic() {
 	r, _ = task.OptimizeTerm()
 	checkOk(r)
 
-	var expret gmsk.Realt
+	var expret float64
 
 	for j := int32(0); j < n; j++ {
 		r, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
