@@ -129,6 +129,7 @@ func GetCodeDesc(resCode res.Code, sym []byte, desc []byte) (res.Code, bool) {
 
 	symstart := unsafe.Pointer(&sym[0])
 	descstart := unsafe.Pointer(&desc[0])
+
 	r := C.MSK_getcodedesc(C.MSKrescodee(resCode), (*C.char)(symstart), (*C.char)(descstart))
 
 	return res.Code(r), true
@@ -141,12 +142,15 @@ func GetCodeDesc(resCode res.Code, sym []byte, desc []byte) (res.Code, bool) {
 // This is different from [GetCodeDesc] and involves allocating and freeing two char array of
 // [MAX_STR_LEN] + 1 size.
 func GetCodeDescSimple(resCode res.Code) (res.Code, string, string) {
+	// use calloc, which will zero out the memory location.
 	symbol := (*C.char)(C.calloc(MAX_STR_LEN+1, C.sizeof_char))
 	defer C.free(unsafe.Pointer(symbol))
+
 	des := (*C.char)(C.calloc(MAX_STR_LEN+1, C.sizeof_char))
 	defer C.free(unsafe.Pointer(des))
 
 	r := C.MSK_getcodedesc(C.MSKrescodee(resCode), symbol, des)
+
 	return res.Code(r), C.GoString(symbol), C.GoString(symbol)
 }
 
@@ -175,7 +179,12 @@ func (task *Task) PutCj(j int32, c_j float64) res.Code {
 
 // PutCSlice wraps MSK_putcslice, which set a slice of coefficients in the objective
 func (task *Task) PutCSlice(first, last int32, slice *float64) res.Code {
-	return res.Code(C.MSK_putcslice(task.task, C.MSKint32t(first), C.MSKint32t(last), (*C.MSKrealt)(slice)))
+	return res.Code(
+		C.MSK_putcslice(
+			task.task,
+			C.MSKint32t(first),
+			C.MSKint32t(last),
+			(*C.MSKrealt)(slice)))
 }
 
 // PutCList wraps MSK_putclist and set coefficients of the objective with index/value.
@@ -191,7 +200,11 @@ func (task *Task) PutCList(num int32, subj *int32, val *float64) res.Code {
 
 // PutVarType wraps MSK_putvartype and sets the type of the variable
 func (task *Task) PutVarType(j int32, vartype VariableType) res.Code {
-	return res.Code(C.MSK_putvartype(task.task, C.MSKint32t(j), C.MSKvariabletypee(vartype)))
+	return res.Code(
+		C.MSK_putvartype(
+			task.task,
+			C.MSKint32t(j),
+			C.MSKvariabletypee(vartype)))
 }
 
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
@@ -326,6 +339,17 @@ func (task *Task) AppendRQuadraticConeDomain(n int64) (r res.Code, domidx int64)
 // AppendPrimalPowerConeDomain wraps MSK_appendprimalpowerconedomain and add a primal power cone to the task
 func (task *Task) AppendPrimalPowerConeDomain(n, nleft int64, alpha *float64) (r res.Code, domidx int64) {
 	r = res.Code(C.MSK_appendprimalpowerconedomain(task.task, C.MSKint64t(n), C.MSKint64t(nleft), (*C.MSKrealt)(alpha), (*C.MSKint64t)(&domidx)))
+	return
+}
+
+// AppendPrimalExpConeDomain wraps MSK_appendprimalexpconedomain and appends a primal exponential cone to the task.
+func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendprimalexpconedomain(
+			task.task,
+			(*C.MSKint64t)(&domidx),
+		),
+	)
 	return
 }
 
