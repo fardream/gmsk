@@ -20,7 +20,7 @@ func Example_portfolio2Frontier() {
 		}
 	}
 
-	const n gmsk.Int32t = 8
+	const n int32 = 8
 	mu := []gmsk.Realt{0.07197349, 0.15518171, 0.17535435, 0.0898094, 0.42895777, 0.39291844, 0.32170722, 0.18378628}
 	// GT must have size n rows
 	GT := [...][8]gmsk.Realt{
@@ -38,17 +38,17 @@ func Example_portfolio2Frontier() {
 	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 	const w gmsk.Realt = 1
 	alphas := []gmsk.Realt{0.0, 0.01, 0.1, 0.25, 0.30, 0.35, 0.4, 0.45, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 10.0}
-	const numalpha gmsk.Int32t = 15
+	const numalpha int32 = 15
 	var totalBudget gmsk.Realt
 
 	// Offset of variables into the API variable.
-	const numvar gmsk.Int32t = n + 1
-	const voff_x gmsk.Int32t = 0
-	const voff_s gmsk.Int32t = n
+	const numvar int32 = n + 1
+	const voff_x int32 = 0
+	const voff_s int32 = n
 
 	// Constraints offsets
-	var numcon gmsk.Int32t = 1
-	var coff_bud gmsk.Int32t = 0
+	var numcon int32 = 1
+	var coff_bud int32 = 0
 
 	env, err := gmsk.MakeEnv()
 	if err != nil {
@@ -66,7 +66,7 @@ func Example_portfolio2Frontier() {
 
 	// Holding variable x of length n
 	checkOk(task.AppendVars(numvar))
-	for j := gmsk.Int32t(0); j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 		/* No short-selling - x^l = 0, x^u = inf */
@@ -79,7 +79,7 @@ func Example_portfolio2Frontier() {
 	// One linear constraint: total budget
 	checkOk(task.AppendCons(numcon))
 	checkOk(task.PutConName(coff_bud, "budget"))
-	for j := gmsk.Int32t(0); j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Coefficients in the first row of A */
 		checkOk(task.PutAij(coff_bud, voff_x+j, 1))
 	}
@@ -103,8 +103,8 @@ func Example_portfolio2Frontier() {
 	checkOk(task.PutAfeG(1, 0.5))
 	// The remaining k expressions comprise GT*x, we add them row by row
 	// In more realisic scenarios it would be better to extract nonzeros and input in sparse form
-	vslice_x := make([]gmsk.Int32t, n)
-	for i := gmsk.Int32t(0); i < n; i++ {
+	vslice_x := make([]int32, n)
+	for i := int32(0); i < n; i++ {
 		vslice_x[i] = voff_x + i
 	}
 	for i := gmsk.Int64t(0); i < k; i++ {
@@ -120,7 +120,7 @@ func Example_portfolio2Frontier() {
 	checkOk(task.PutAccName(rqdom, "risk"))
 
 	// Objective: maximize expected return mu^T x
-	for j := gmsk.Int32t(0); j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		checkOk(task.PutCj(voff_x+j, mu[j]))
 	}
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
@@ -130,7 +130,7 @@ func Example_portfolio2Frontier() {
 
 	fmt.Println(strings.TrimRight(fmt.Sprintf("%-12s  %-12s  %-12s", "alpha", "exp ret", "std. dev"), " ")) // 3rd column will be width 12, so trim right to match the below output
 
-	for i := gmsk.Int32t(0); i < numalpha; i++ {
+	for i := int32(0); i < numalpha; i++ {
 		alpha := alphas[i]
 
 		/* Sets the objective function coefficient for s. */
@@ -148,7 +148,7 @@ func Example_portfolio2Frontier() {
 
 		var expret, stddev gmsk.Realt
 
-		for j := gmsk.Int32t(0); j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 			checkOk(res)
 			xj := xx[0]

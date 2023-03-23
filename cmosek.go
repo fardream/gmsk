@@ -59,7 +59,7 @@ func (env *Env) getEnv() C.MSKenv_t {
 }
 
 // MakeTask creates a new task in this environment
-func (env *Env) MakeTask(maxnumcon Int32t, maxnumvar Int32t) (*Task, error) {
+func (env *Env) MakeTask(maxnumcon int32, maxnumvar int32) (*Task, error) {
 	return MakeTask(env, maxnumcon, maxnumvar)
 }
 
@@ -81,13 +81,13 @@ type Task struct {
 
 // MakeTask is the equivalent of MSK_maketask.
 // To use the global environment, use nil for env
-func MakeTask(env *Env, maxnumcon, maxnumvar Int32t) (*Task, error) {
+func MakeTask(env *Env, maxnumcon, maxnumvar int32) (*Task, error) {
 	var task C.MSKtask_t = nil
 	var e C.MSKenv_t = nil
 	if env != nil {
 		e = env.env
 	}
-	r := uint32(C.MSK_maketask(e, maxnumcon, maxnumvar, &task))
+	r := uint32(C.MSK_maketask(e, C.MSKint32t(maxnumcon), C.MSKint32t(maxnumvar), &task))
 	if r != RES_OK {
 		return nil, fmtError("failed to create task: %s %s", r)
 	}
@@ -146,44 +146,44 @@ func fmtError(format string, resCode uint32) error {
 
 // AppendVars wraps MSK_appendvars, which adds variables
 // to the task.
-func (task *Task) AppendVars(num Int32t) uint32 {
-	return uint32(C.MSK_appendvars(task.task, num))
+func (task *Task) AppendVars(num int32) uint32 {
+	return uint32(C.MSK_appendvars(task.task, C.MSKint32t(num)))
 }
 
 // AppendCons wraps MSK_appendcons, which add linear constraints
 // to the task
-func (task *Task) AppendCons(numcon Int32t) uint32 {
-	return uint32(C.MSK_appendcons(task.task, numcon))
+func (task *Task) AppendCons(numcon int32) uint32 {
+	return uint32(C.MSK_appendcons(task.task, C.MSKint32t(numcon)))
 }
 
 // PutCj wraps MSK_putcj, which set the coefficient in the objective function.
-func (task *Task) PutCj(j Int32t, c_j Realt) uint32 {
-	return uint32(C.MSK_putcj(task.task, j, c_j))
+func (task *Task) PutCj(j int32, c_j Realt) uint32 {
+	return uint32(C.MSK_putcj(task.task, C.MSKint32t(j), c_j))
 }
 
 // PutCSlice wraps MSK_putcslice, which set a slice of coefficients in the objective
-func (task *Task) PutCSlice(first, last Int32t, slice *Realt) uint32 {
-	return uint32(C.MSK_putcslice(task.task, first, last, slice))
+func (task *Task) PutCSlice(first, last int32, slice *Realt) uint32 {
+	return uint32(C.MSK_putcslice(task.task, C.MSKint32t(first), C.MSKint32t(last), slice))
 }
 
 // PutVarType wraps MSK_putvartype and sets the type of the variable
-func (task *Task) PutVarType(j Int32t, vartype VariableType) uint32 {
-	return uint32(C.MSK_putvartype(task.task, j, vartype))
+func (task *Task) PutVarType(j int32, vartype VariableType) uint32 {
+	return uint32(C.MSK_putvartype(task.task, C.MSKint32t(j), vartype))
 }
 
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
-func (task *Task) PutVarbound(j Int32t, bkx BoundKey, blx, bux Realt) uint32 {
-	return uint32(C.MSK_putvarbound(task.task, j, bkx, blx, bux))
+func (task *Task) PutVarbound(j int32, bkx BoundKey, blx, bux Realt) uint32 {
+	return uint32(C.MSK_putvarbound(task.task, C.MSKint32t(j), bkx, blx, bux))
 }
 
 // PutVarboundSliceConst wraps MSK_putvarboundsliceconst, which set the bound for a slice of variables.
-func (task *Task) PutVarboundSliceConst(first, last Int32t, bkx BoundKey, blx, bux Realt) uint32 {
-	return uint32(C.MSK_putvarboundsliceconst(task.task, first, last, bkx, blx, bux))
+func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bux Realt) uint32 {
+	return uint32(C.MSK_putvarboundsliceconst(task.task, C.MSKint32t(first), C.MSKint32t(last), bkx, blx, bux))
 }
 
 // PutConBound wraps MSK_putconbound, which set the bound for a contraint
-func (task *Task) PutConBound(i Int32t, bkc BoundKey, blc, buc Realt) uint32 {
-	return uint32(C.MSK_putconbound(task.task, i, bkc, blc, buc))
+func (task *Task) PutConBound(i int32, bkc BoundKey, blc, buc Realt) uint32 {
+	return uint32(C.MSK_putconbound(task.task, C.MSKint32t(i), bkc, blc, buc))
 }
 
 // PutObjsense wraps MSK_putobjsense set the objective sense - which is either minimize or maximize
@@ -192,13 +192,13 @@ func (task *Task) PutObjsense(sense ObjectiveSense) uint32 {
 }
 
 // PutAij wraps MSK_putaij, which set the value of the linear constraints matrix A[i,j]
-func (task *Task) PutAij(i, j Int32t, aij Realt) uint32 {
-	return uint32(C.MSK_putaij(task.task, i, j, aij))
+func (task *Task) PutAij(i, j int32, aij Realt) uint32 {
+	return uint32(C.MSK_putaij(task.task, C.MSKint32t(i), C.MSKint32t(j), aij))
 }
 
 // PutACol wraps MSK_putacol, and puts a column of A matrix.
-func (task *Task) PutACol(j Int32t, nzj Int32t, subj *Int32t, valj *Realt) uint32 {
-	return uint32(C.MSK_putacol(task.task, j, nzj, subj, valj))
+func (task *Task) PutACol(j int32, nzj int32, subj *int32, valj *Realt) uint32 {
+	return uint32(C.MSK_putacol(task.task, C.MSKint32t(j), C.MSKint32t(nzj), (*C.MSKint32t)(subj), valj))
 }
 
 // AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
@@ -207,23 +207,23 @@ func (task *Task) AppendAfes(num Int64t) uint32 {
 }
 
 // PutAfeFEntry wraps MSK_putafefentry and set an entry in the  affine expression F matrix.
-func (task *Task) PutAfeFEntry(afeidx Int64t, varidx Int32t, value Realt) uint32 {
-	return uint32(C.MSK_putafefentry(task.task, afeidx, varidx, value))
+func (task *Task) PutAfeFEntry(afeidx Int64t, varidx int32, value Realt) uint32 {
+	return uint32(C.MSK_putafefentry(task.task, afeidx, C.MSKint32t(varidx), value))
 }
 
 // PutAfeFEntryList wraps MSK_putafefentrylist, which set a portion of the affine expression F matrix
-func (task *Task) PutAfeFEntryList(numentr Int64t, afeidx *Int64t, varidx *Int32t, val *Realt) uint32 {
-	return uint32(C.MSK_putafefentrylist(task.task, numentr, afeidx, varidx, val))
+func (task *Task) PutAfeFEntryList(numentr Int64t, afeidx *Int64t, varidx *int32, val *Realt) uint32 {
+	return uint32(C.MSK_putafefentrylist(task.task, numentr, afeidx, (*C.MSKint32t)(varidx), val))
 }
 
 // PutAfeFRow wraps MSK_putafefrow and sets a row of affine expression F matrix
-func (task *Task) PutAfeFRow(afeidx Int64t, numnz Int32t, varidx *Int32t, val *Realt) uint32 {
-	return uint32(C.MSK_putafefrow(task.task, afeidx, numnz, varidx, val))
+func (task *Task) PutAfeFRow(afeidx Int64t, numnz int32, varidx *int32, val *Realt) uint32 {
+	return uint32(C.MSK_putafefrow(task.task, afeidx, C.MSKint32t(numnz), (*C.MSKint32t)(varidx), val))
 }
 
 // PutAfeFCol wraps MSK_putafefcol and sets a column of affine expression F matrix
-func (task *Task) PutAfeFCol(varidx Int32t, numnz Int64t, afeidx *Int64t, val *Realt) uint32 {
-	return uint32(C.MSK_putafefcol(task.task, varidx, numnz, afeidx, val))
+func (task *Task) PutAfeFCol(varidx int32, numnz Int64t, afeidx *Int64t, val *Realt) uint32 {
+	return uint32(C.MSK_putafefcol(task.task, C.MSKint32t(varidx), numnz, afeidx, val))
 }
 
 // PutAfeG wraps MSK_putafeg and sets the value at afeidx to g
@@ -294,17 +294,17 @@ func (task *Task) AppendAccsSeq(numaccs Int64t, domidxs *Int64t, numafeidx, afei
 
 // PutVarName wraps MSK_putvarname and sets a name for variable at j.
 // Allocate a new C array and copy the data over, then free it - this is a costly function.
-func (task *Task) PutVarName(j Int32t, name string) uint32 {
+func (task *Task) PutVarName(j int32, name string) uint32 {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
-	return uint32(C.MSK_putvarname(task.task, j, cstr))
+	return uint32(C.MSK_putvarname(task.task, C.MSKint32t(j), cstr))
 }
 
 // PutConName wraps MSK_putconname and sets a name for a linear constraint at indext i.
-func (task *Task) PutConName(i Int32t, name string) uint32 {
+func (task *Task) PutConName(i int32, name string) uint32 {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
-	return uint32(C.MSK_putconname(task.task, i, cstr))
+	return uint32(C.MSK_putconname(task.task, C.MSKint32t(i), cstr))
 }
 
 // PutAccName wraps MSK_putaccname and sets a name for an affine conic constraint.
@@ -321,8 +321,8 @@ func (task *Task) OptimizeTerm() (res uint32, trmcode uint32) {
 }
 
 // GetNumVar wraps MSK_getnumvar, which obtains the number of variables in task.
-func (task *Task) GetNumVar() (res uint32, numVar Int32t) {
-	res = uint32(C.MSK_getnumvar(task.task, &numVar))
+func (task *Task) GetNumVar() (res uint32, numVar int32) {
+	res = uint32(C.MSK_getnumvar(task.task, (*C.MSKint32t)(&numVar)))
 	return
 }
 
@@ -337,7 +337,7 @@ func (task *Task) GetSolSta(whichsol SolType) (res uint32, solSta SolSta) {
 // a new slice created.
 func (task *Task) GetXx(whichsol SolType, xx []Realt) (uint32, []Realt) {
 	var res uint32
-	var numVar Int32t
+	var numVar int32
 	if xx == nil {
 		res, numVar = task.GetNumVar()
 		if res != RES_OK {
@@ -353,13 +353,13 @@ func (task *Task) GetXx(whichsol SolType, xx []Realt) (uint32, []Realt) {
 
 // GetXxSlice wraps MSK_getxxslice, which gets a slice of the solution. xx can be nil, in which case the number of variables
 // will be last - first and a new slice will be created.
-func (task *Task) GetXxSlice(whichsol SolType, first, last Int32t, xx []Realt) (uint32, []Realt) {
+func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []Realt) (uint32, []Realt) {
 	var res uint32
 	if xx == nil {
 		xx = make([]Realt, last-first)
 	}
 
-	res = uint32(C.MSK_getxxslice(task.task, whichsol, first, last, &xx[0]))
+	res = uint32(C.MSK_getxxslice(task.task, whichsol, C.MSKint32t(first), C.MSKint32t(last), &xx[0]))
 
 	return res, xx
 }
@@ -410,8 +410,8 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx Int64t, activity []Realt)
 }
 
 // PutIntParam wraps MSK_putintparam and sets the param to parvalue.
-func (task *Task) PutIntParam(param IParam, parvalue Int32t) uint32 {
-	return uint32(C.MSK_putintparam(task.task, param, parvalue))
+func (task *Task) PutIntParam(param IParam, parvalue int32) uint32 {
+	return uint32(C.MSK_putintparam(task.task, param, C.MSKint32t(parvalue)))
 }
 
 // writerHolder holds a writer. This must be passed to C api with a handle.
@@ -507,11 +507,11 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 
 // Potrf wraps MSK_potrf and performs Cholesky decomposition of symmetric
 // square matrix a.
-func POTRF(env *Env, uplo UpLo, n Int32t, a *Realt) uint32 {
-	return uint32(C.MSK_potrf(env.getEnv(), uplo, n, a))
+func POTRF(env *Env, uplo UpLo, n int32, a *Realt) uint32 {
+	return uint32(C.MSK_potrf(env.getEnv(), uplo, C.MSKint32t(n), a))
 }
 
 // GEMM wraps MSK_gemm and performs a general matrix multiplication
-func GEMM(env *Env, transa, transb Transpose, m, n, k Int32t, alpha Realt, a, b *Realt, beta Realt, c *Realt) uint32 {
-	return uint32(C.MSK_gemm(env.getEnv(), transa, transb, m, n, k, alpha, a, b, beta, c))
+func GEMM(env *Env, transa, transb Transpose, m, n, k int32, alpha Realt, a, b *Realt, beta Realt, c *Realt) uint32 {
+	return uint32(C.MSK_gemm(env.getEnv(), transa, transb, C.MSKint32t(m), C.MSKint32t(n), C.MSKint32t(k), alpha, a, b, beta, c))
 }

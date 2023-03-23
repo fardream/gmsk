@@ -21,8 +21,8 @@ func Example_conicQuadraticOptimization1() {
 	r := gmsk.RES_OK
 
 	const (
-		numvar = gmsk.Int32t(6)
-		numcon = gmsk.Int32t(1)
+		numvar = int32(6)
+		numcon = int32(1)
 		numafe = gmsk.Int64t(6)
 		numacc = gmsk.Int64t(2)
 		f_nnz  = gmsk.Int64t(6)
@@ -66,14 +66,14 @@ func Example_conicQuadraticOptimization1() {
 		1.0,
 	}
 	var (
-		aptrb = []gmsk.Int32t{0, 1, 2, 3, 3, 3}
-		aptre = []gmsk.Int32t{1, 2, 3, 3, 3, 3}
-		asub  = []gmsk.Int32t{0, 0, 0, 0}
+		aptrb = []int32{0, 1, 2, 3, 3, 3}
+		aptre = []int32{1, 2, 3, 3, 3, 3}
+		asub  = []int32{0, 0, 0, 0}
 		aval  = []gmsk.Realt{1, 1, 2}
 	)
 	var (
 		afeidx = []gmsk.Int64t{0, 1, 2, 3, 4, 5}
-		varidx = []gmsk.Int32t{3, 0, 1, 4, 5, 2}
+		varidx = []int32{3, 0, 1, 4, 5, 2}
 		f_val  = []gmsk.Realt{1, 1, 1, 1, 1, 1}
 	)
 
@@ -107,7 +107,7 @@ func Example_conicQuadraticOptimization1() {
 	   The affine expressions will initially be empty. */
 	checkOk(task.AppendAfes(numafe))
 
-	for j := gmsk.Int32t(0); j < numvar && r == gmsk.RES_OK; j++ {
+	for j := int32(0); j < numvar && r == gmsk.RES_OK; j++ {
 		/* Set the linear term c_j in the objective.*/
 		r = task.PutCj(j, c[j])
 		checkOk(r)
@@ -133,7 +133,7 @@ func Example_conicQuadraticOptimization1() {
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
-	for i := gmsk.Int32t(0); i < numcon && r == gmsk.RES_OK; i++ {
+	for i := int32(0); i < numcon && r == gmsk.RES_OK; i++ {
 		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
@@ -174,7 +174,7 @@ func Example_conicQuadraticOptimization1() {
 			break
 		}
 		fmt.Print("Optimal primal solution\n")
-		for j := gmsk.Int32t(0); j < numvar; j++ {
+		for j := int32(0); j < numvar; j++ {
 			fmt.Printf("x[%d]: %e\n", j, xx[j])
 		}
 	case gmsk.SOL_STA_DUAL_INFEAS_CER:

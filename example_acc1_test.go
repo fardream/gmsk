@@ -21,7 +21,7 @@ import (
 // gamma >= |Gx+h|_2
 func Example_affineConicConstraints1() {
 	/* Input data dimensions */
-	var n gmsk.Int32t = 3
+	var n int32 = 3
 	var k gmsk.Int64t = 2
 
 	/* Create the mosek environment. */
@@ -62,7 +62,7 @@ func Example_affineConicConstraints1() {
 	/* One linear constraint sum(x) == 1 */
 	checkOk(task.AppendCons(1))
 	checkOk(task.PutConBound(0, gmsk.BK_FX, 1, 1))
-	for i := gmsk.Int32t(0); i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutAij(0, i, 1))
 	}
 
@@ -73,7 +73,7 @@ func Example_affineConicConstraints1() {
 		/* Fill in the affine expression storage with data */
 		/* F matrix in sparse form */
 		Fsubi := []gmsk.Int64t{1, 1, 2, 2} /* G is placed from row 1 of F */
-		Fsubj := []gmsk.Int32t{0, 1, 0, 2}
+		Fsubj := []int32{0, 1, 0, 2}
 		Fval := []gmsk.Realt{1.5, 0.1, 0.3, 2.1}
 		var numEntries gmsk.Int64t = 4
 
@@ -118,7 +118,7 @@ func Example_affineConicConstraints1() {
 			xx)
 		checkOk(r)
 		fmt.Println("Optimal primal solution")
-		for j := gmsk.Int32t(0); j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			fmt.Printf("x[%d]: %e\n", j, xx[j])
 		}
 

@@ -19,8 +19,8 @@ func Example_portfolio1Basic() {
 	}
 
 	const (
-		n     gmsk.Int32t = 8
-		gamma gmsk.Realt  = 36
+		n     int32      = 8
+		gamma gmsk.Realt = 36
 	)
 	mu := []gmsk.Realt{0.07197349, 0.15518171, 0.17535435, 0.0898094, 0.42895777, 0.39291844, 0.32170722, 0.18378628}
 	// GT must have size n rows
@@ -40,12 +40,12 @@ func Example_portfolio1Basic() {
 	const w gmsk.Realt = 59
 
 	// Offset of variables into the API variable.
-	var numvar gmsk.Int32t = n
-	var voff_x gmsk.Int32t = 0
+	var numvar int32 = n
+	var voff_x int32 = 0
 
 	// Constraints offsets
-	var numcon gmsk.Int32t = 1
-	var coff_bud gmsk.Int32t = 0
+	var numcon int32 = 1
+	var coff_bud int32 = 0
 
 	env, err := gmsk.MakeEnv()
 	if err != nil {
@@ -65,7 +65,7 @@ func Example_portfolio1Basic() {
 	// No other auxiliary variables are needed in this formulation
 	checkOk(task.AppendVars(numvar))
 	// Setting up variable x
-	for j := gmsk.Int32t(0); j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 		/* No short-selling - x^l = 0, x^u = inf */
@@ -74,7 +74,7 @@ func Example_portfolio1Basic() {
 	// One linear constraint: total budget
 	checkOk(task.AppendCons(numcon))
 	checkOk(task.PutConName(coff_bud, "budget"))
-	for j := gmsk.Int32t(0); j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Coefficients in the first row of A */
 		checkOk(task.PutAij(coff_bud, voff_x+j, 1))
 	}
@@ -91,8 +91,8 @@ func Example_portfolio1Basic() {
 	checkOk(task.PutAfeG(0, gamma))
 	// The remaining k expressions comprise GT*x, we add them row by row
 	// In more realisic scenarios it would be better to extract nonzeros and input in sparse form
-	vslice_x := make([]gmsk.Int32t, n)
-	for i := gmsk.Int32t(0); i < n; i++ {
+	vslice_x := make([]int32, n)
+	for i := int32(0); i < n; i++ {
 		vslice_x[i] = voff_x + i
 	}
 	for i := gmsk.Int64t(0); i < k; i++ {
@@ -108,7 +108,7 @@ func Example_portfolio1Basic() {
 	checkOk(task.PutAccName(0, "risk"))
 
 	// Objective: maximize expected return mu^T x
-	for j := gmsk.Int32t(0); j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		checkOk(task.PutCj(voff_x+j, mu[j]))
 	}
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
@@ -124,7 +124,7 @@ func Example_portfolio1Basic() {
 
 	var expret gmsk.Realt
 
-	for j := gmsk.Int32t(0); j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		r, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 		checkOk(r)
 		xj := xx[0]

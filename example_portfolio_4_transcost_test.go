@@ -19,7 +19,7 @@ func Example_portfolio4Transcost() {
 		}
 	}
 
-	const n gmsk.Int32t = 8
+	const n int32 = 8
 	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
 	// GT must have size n rows
 	GT := [...][8]gmsk.Realt{
@@ -40,24 +40,24 @@ func Example_portfolio4Transcost() {
 
 	f := make([]gmsk.Realt, n)
 	g := make([]gmsk.Realt, n)
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		f[i] = 0.01
 		g[i] = 0.001
 	}
 
 	// Offset of variables
-	const numvar gmsk.Int32t = 3 * n
-	const voff_x gmsk.Int32t = 0
-	const voff_z gmsk.Int32t = n
-	const voff_y gmsk.Int32t = 2 * n
+	const numvar int32 = 3 * n
+	const voff_x int32 = 0
+	const voff_z int32 = n
+	const voff_y int32 = 2 * n
 
 	// Offset of constraints.
-	const numcon gmsk.Int32t = 3*n + 1
+	const numcon int32 = 3*n + 1
 	_ = numcon // this is not used
-	const coff_bud gmsk.Int32t = 0
-	const coff_abs1 gmsk.Int32t = 1
-	const coff_abs2 gmsk.Int32t = 1 + n
-	const coff_swi gmsk.Int32t = 1 + 2*n
+	const coff_bud int32 = 0
+	const coff_abs1 int32 = 1
+	const coff_abs2 int32 = 1 + n
+	const coff_swi int32 = 1 + 2*n
 
 	var expret gmsk.Realt
 
@@ -78,7 +78,7 @@ func Example_portfolio4Transcost() {
 
 	// Variables (vector of x, z, y)
 	checkOk(task.AppendVars(numvar))
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 		checkOk(task.PutVarName(voff_z+j, fmt.Sprintf("z[%d]", 1+j)))
@@ -94,21 +94,21 @@ func Example_portfolio4Transcost() {
 	// - Total budget
 	checkOk(task.AppendCons(1))
 	checkOk(task.PutConName(coff_bud, "budget"))
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Coefficients in the first row of A */
 		checkOk(task.PutAij(coff_bud, voff_x+j, 1))
 		checkOk(task.PutAij(coff_bud, voff_z+j, g[j]))
 		checkOk(task.PutAij(coff_bud, voff_y+j, f[j]))
 	}
 	U := w
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		U += x0[i]
 	}
 	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, U, U))
 
 	// - Absolute value
 	checkOk(task.AppendCons(2 * n))
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutConName(coff_abs1+i, fmt.Sprintf("zabs1[%d]", 1+i)))
 		checkOk(task.PutAij(coff_abs1+i, voff_x+i, -1))
 		checkOk(task.PutAij(coff_abs1+i, voff_z+i, 1))
@@ -121,7 +121,7 @@ func Example_portfolio4Transcost() {
 
 	// - Switch
 	checkOk(task.AppendCons(n))
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutConName(coff_swi+i, fmt.Sprintf("switch[%d]", i+1)))
 		checkOk(task.PutAij(coff_swi+i, voff_z+i, 1))
 		checkOk(task.PutAij(coff_swi+i, voff_y+i, -U))
@@ -136,8 +136,8 @@ func Example_portfolio4Transcost() {
 	// F = [GT, 0, 0], g = [0    ]
 	checkOk(task.AppendAfes(k + 1))
 	checkOk(task.PutAfeG(aoff_q, gamma))
-	vslice_x := make([]gmsk.Int32t, n)
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	vslice_x := make([]int32, n)
+	for i := int32(0); i < n; i++ {
 		vslice_x[i] = voff_x + i
 	}
 	for i := gmsk.ZeroInt64t; i < k; i++ {
@@ -150,7 +150,7 @@ func Example_portfolio4Transcost() {
 	checkOk(task.PutAccName(aoff_q, "risk"))
 
 	// Objective: maximize expected return mu^T x
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		checkOk(task.PutCj(voff_x+j, mu[j]))
 	}
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
@@ -167,7 +167,7 @@ func Example_portfolio4Transcost() {
 	checkOk(task.SolutionSummary(gmsk.STREAM_LOG))
 	checkOk(res)
 
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		res, xx := task.GetXxSlice(gmsk.SOL_ITG, voff_x+j, voff_x+j+1, nil)
 		checkOk(res)
 		xj := xx[0]

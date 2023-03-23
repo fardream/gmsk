@@ -5,12 +5,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-// Int32t is the int type in MOSEK, which is int32_t/int32
-type Int32t = C.MSKint32t
-
-// ZeroInt32t is the zero value of [Int32t]
-const ZeroInt32t Int32t = 0
-
 // Int64t is the 64 bit integer in MOSEK, which is int64_t/int64
 type Int64t = C.MSKint64t
 

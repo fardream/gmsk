@@ -108,7 +108,7 @@ func Example_portfolio6Factor() {
 		nr, _ := get_nr_nc(m)
 		n := nr
 		vecs := mat_to_vec_c(m)
-		checkOk(gmsk.POTRF(env, gmsk.UPLO_LO, gmsk.Int32t(n), &vecs[0]))
+		checkOk(gmsk.POTRF(env, gmsk.UPLO_LO, int32(n), &vecs[0]))
 		s := vec_to_mat_c(vecs, n, n)
 		// Zero out upper triangular part (MSK_potrf does not use it, original matrix values remain there)
 		for i := 0; i < n; i++ {
@@ -133,7 +133,7 @@ func Example_portfolio6Factor() {
 		veca := mat_to_vec_c(a)
 		vecb := mat_to_vec_c(b)
 
-		checkOk(gmsk.GEMM(env, gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, gmsk.Int32t(na), gmsk.Int32t(nb), gmsk.Int32t(k), 1, &veca[0], &vecb[0], 1, &vecm[0]))
+		checkOk(gmsk.GEMM(env, gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, int32(na), int32(nb), int32(k), 1, &veca[0], &vecb[0], 1, &vecm[0]))
 
 		ab := vec_to_mat_c(vecm, na, nb)
 
@@ -142,7 +142,7 @@ func Example_portfolio6Factor() {
 
 	var expret gmsk.Realt
 
-	const n gmsk.Int32t = 8
+	const n int32 = 8
 	var w gmsk.Realt = 1.0
 	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
 	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
@@ -194,20 +194,20 @@ func Example_portfolio6Factor() {
 	k := gmsk.Int64t(_k)
 
 	gammas := []gmsk.Realt{0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48}
-	num_gammas := gmsk.Int32t(len(gammas))
+	num_gammas := int32(len(gammas))
 	var totalBudget gmsk.Realt
 
 	// Offset of variables into the API variable.
-	const numvar, voff_x gmsk.Int32t = 8, 0
+	const numvar, voff_x int32 = 8, 0
 
 	// Constraint offset
-	const coff_bud gmsk.Int32t = 0
+	const coff_bud int32 = 0
 
 	// Holding variable x of length n
 	// No other auxiliary variables are needed in this formulation
 	checkOk(task.AppendVars(numvar))
 	// Setting up variable x
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 		/* No short-selling - x^l = 0, x^u = inf */
@@ -217,12 +217,12 @@ func Example_portfolio6Factor() {
 	// One linear constraint: total budget
 	checkOk(task.AppendCons(1))
 	checkOk(task.PutConName(0, "budget"))
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Coefficients in the first row of A */
 		checkOk(task.PutAij(coff_bud, voff_x+j, 1))
 	}
 	totalBudget = w
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		totalBudget += x0[i]
 	}
 	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
@@ -237,11 +237,11 @@ func Example_portfolio6Factor() {
 	for i := gmsk.ZeroInt64t; i < k; i++ {
 		afeidx[i] = i + 1
 	}
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutAfeFCol(i, k, &afeidx[0], &G_factor[i][0])) // i-th row of G_factor goes in i-th column of F
 	}
 	// 3. The remaining n rows contain sqrt(theta) on the diagonal
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutAfeFEntry(k+1+gmsk.Int64t(i), voff_x+i, gmsk.Realt(math.Sqrt(float64(theta[i])))))
 	}
 
@@ -254,7 +254,7 @@ func Example_portfolio6Factor() {
 	checkOk(task.PutAccName(0, "risk"))
 
 	// Objective: maximize expected return mu^T x
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		checkOk(task.PutCj(voff_x+j, mu[j]))
 	}
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
@@ -262,7 +262,7 @@ func Example_portfolio6Factor() {
 	/* No log output */
 	checkOk(task.PutIntParam(gmsk.IPAR_LOG, 0))
 
-	for i := gmsk.ZeroInt32t; i < num_gammas; i++ {
+	for i := int32(0); i < num_gammas; i++ {
 		gamma := gammas[i]
 
 		// Specify gamma in ACC
@@ -281,7 +281,7 @@ func Example_portfolio6Factor() {
 
 		/* Read the x variables one by one and compute expected return. */
 		/* Can also be obtained as value of the objective. */
-		for j := gmsk.ZeroInt32t; j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 			checkOk(res)
 			xj := xx[0]

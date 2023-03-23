@@ -10,14 +10,14 @@ import (
 
 // Linear programming example 1, reproduced from mosek c api example lo1.c
 func Example_linearOptimization1() {
-	const numvar, numcon gmsk.Int32t = 4, 3
+	const numvar, numcon int32 = 4, 3
 	c := []gmsk.Realt{3.0, 1.0, 5.0, 1.0}
 
 	/* Below is the sparse representation of the A
 	   matrix stored by column. */
-	aptrb := []gmsk.Int32t{0, 2, 5, 7}
-	aptre := []gmsk.Int32t{2, 5, 7, 9}
-	asub := []gmsk.Int32t{
+	aptrb := []int32{0, 2, 5, 7}
+	aptre := []int32{2, 5, 7, 9}
+	asub := []int32{
 		0, 1,
 		0, 1, 2,
 		0, 1,
@@ -66,7 +66,7 @@ func Example_linearOptimization1() {
 	   The variables will initially be fixed at zero (x=0). */
 	checkOk(task.AppendVars(numvar))
 
-	for j := gmsk.Int32t(0); j < numvar && r == gmsk.RES_OK; j++ {
+	for j := int32(0); j < numvar && r == gmsk.RES_OK; j++ {
 		/* Set the linear term c_j in the objective.*/
 		r = task.PutCj(j, c[j])
 		if r != gmsk.RES_OK {
@@ -94,7 +94,7 @@ func Example_linearOptimization1() {
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
-	for i := gmsk.Int32t(0); i < numcon && r == gmsk.RES_OK; i++ {
+	for i := int32(0); i < numcon && r == gmsk.RES_OK; i++ {
 		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
@@ -130,7 +130,7 @@ func Example_linearOptimization1() {
 			break
 		}
 		fmt.Print("Optimal primal solution\n")
-		for j := gmsk.Int32t(0); j < numvar; j++ {
+		for j := int32(0); j < numvar; j++ {
 			fmt.Printf("x[%d]: %e\n", j, xx[j])
 		}
 	case gmsk.SOL_STA_DUAL_INFEAS_CER:
