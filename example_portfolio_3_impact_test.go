@@ -18,10 +18,10 @@ func Example_portfolio3Impact() {
 		}
 	}
 
-	const n gmsk.Int32t = 8
-	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
+	const n int32 = 8
+	mu := []float64{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
 	// GT must have size n rows
-	GT := [...][8]gmsk.Realt{
+	GT := [...][8]float64{
 		{0.30758, 0.12146, 0.11341, 0.11327, 0.17625, 0.11973, 0.10435, 0.10638},
 		{0.00000, 0.25042, 0.09946, 0.09164, 0.06692, 0.08706, 0.09173, 0.08506},
 		{0.00000, 0.00000, 0.19914, 0.05867, 0.06453, 0.07367, 0.06468, 0.01914},
@@ -32,30 +32,30 @@ func Example_portfolio3Impact() {
 		{0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.2202},
 	}
 
-	const k gmsk.Int64t = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
-	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	const w gmsk.Realt = 1
-	const gamma gmsk.Realt = 0.36
-	var totalBudget gmsk.Realt
+	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
+	x0 := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	const w float64 = 1
+	const gamma float64 = 0.36
+	var totalBudget float64
 
-	m := make([]gmsk.Realt, n)
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	m := make([]float64, n)
+	for i := int32(0); i < n; i++ {
 		m[i] = 0.01
 	}
 
 	// Offset of variables into the API variable.
-	const numvar gmsk.Int32t = 3 * n
-	const voff_x gmsk.Int32t = 0
-	const voff_c gmsk.Int32t = n
-	const voff_z gmsk.Int32t = 2 * n
+	const numvar int32 = 3 * n
+	const voff_x int32 = 0
+	const voff_c int32 = n
+	const voff_z int32 = 2 * n
 
 	// Offset of constraints.
-	const numcon gmsk.Int32t = 2*n + 1
-	const coff_bud gmsk.Int32t = 0
-	const coff_abs1 gmsk.Int32t = 1
-	const coff_abs2 gmsk.Int32t = 1 + n
+	const numcon int32 = 2*n + 1
+	const coff_bud int32 = 0
+	const coff_abs1 int32 = 1
+	const coff_abs2 int32 = 1 + n
 
-	var expret gmsk.Realt
+	var expret float64
 
 	res := gmsk.RES_OK
 
@@ -75,7 +75,7 @@ func Example_portfolio3Impact() {
 	checkOk(task.LinkFuncToTaskStream(gmsk.STREAM_LOG, os.Stderr))
 
 	checkOk(task.AppendVars(numvar))
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", j+1)))
 		checkOk(task.PutVarName(voff_c+j, fmt.Sprintf("c[%d]", j+1)))
@@ -90,20 +90,20 @@ func Example_portfolio3Impact() {
 	// - Total budget
 	checkOk(task.AppendCons(1))
 	checkOk(task.PutConName(coff_bud, "budget"))
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Coefficients in the first row of A */
 		checkOk(task.PutAij(coff_bud, voff_x+j, 1))
 		checkOk(task.PutAij(coff_bud, voff_c+j, m[j]))
 	}
 	totalBudget = w
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		totalBudget += x0[i]
 	}
 	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// - Absolute value
 	checkOk(task.AppendCons(2 * n))
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutConName(coff_abs1+i, fmt.Sprintf("zabs1[%d]", 1+i)))
 		checkOk(task.PutAij(coff_abs1+i, voff_x+i, -1))
 		checkOk(task.PutAij(coff_abs1+i, voff_z+i, 1))
@@ -115,19 +115,19 @@ func Example_portfolio3Impact() {
 	}
 
 	// ACCs
-	const aoff_q gmsk.Int64t = 0
-	const aoff_pow gmsk.Int64t = k + 1
+	const aoff_q int64 = 0
+	const aoff_pow int64 = k + 1
 	// - (gamma, GTx) in Q(k+1)
 	// The part of F and g for variable x:
 	//     [0,  0, 0]      [gamma]
 	// F = [GT, 0, 0], g = [0    ]
 	checkOk(task.AppendAfes(k + 1))
 	checkOk(task.PutAfeG(aoff_q, gamma))
-	vslice_x := make([]gmsk.Int32t, n)
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	vslice_x := make([]int32, n)
+	for i := int32(0); i < n; i++ {
 		vslice_x[i] = voff_x + i
 	}
-	for i := gmsk.ZeroInt64t; i < k; i++ {
+	for i := int64(0); i < k; i++ {
 		checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
 	}
 
@@ -141,32 +141,32 @@ func Example_portfolio3Impact() {
 	//     [0, I, 0]      [0]
 	// F = [0, 0, I], g = [0]
 	//     [0, 0, 0]      [1]
-	checkOk(task.AppendAfes(2*gmsk.Int64t(n) + 1))
-	for i := gmsk.ZeroInt32t; i < n; i++ {
-		checkOk(task.PutAfeFEntry(aoff_pow+gmsk.Int64t(i), voff_c+i, 1.0))
-		checkOk(task.PutAfeFEntry(aoff_pow+gmsk.Int64t(n+i), voff_z+i, 1.0))
+	checkOk(task.AppendAfes(2*int64(n) + 1))
+	for i := int32(0); i < n; i++ {
+		checkOk(task.PutAfeFEntry(aoff_pow+int64(i), voff_c+i, 1.0))
+		checkOk(task.PutAfeFEntry(aoff_pow+int64(n+i), voff_z+i, 1.0))
 	}
-	checkOk(task.PutAfeG(aoff_pow+2*(gmsk.Int64t(n)), 1.0))
+	checkOk(task.PutAfeG(aoff_pow+2*(int64(n)), 1.0))
 	// We use one row from F and g for both c_j and z_j, and the last row of F and g for the constant 1.
 	// NOTE: Here we reuse the last AFE and the power cone n times, but we store them only once.
-	exponents := []gmsk.Realt{2, 1}
+	exponents := []float64{2, 1}
 	res, powdom := task.AppendPrimalPowerConeDomain(3, 2, &exponents[0])
 	checkOk(res)
-	flat_afe_list := make([]gmsk.Int64t, 3*n)
-	dom_list := make([]gmsk.Int64t, n)
-	for i := gmsk.ZeroInt64t; i < gmsk.Int64t(n); i++ {
+	flat_afe_list := make([]int64, 3*n)
+	dom_list := make([]int64, n)
+	for i := int64(0); i < int64(n); i++ {
 		flat_afe_list[3*i+0] = aoff_pow + i
-		flat_afe_list[3*i+1] = aoff_pow + 2*gmsk.Int64t(n)
-		flat_afe_list[3*i+2] = aoff_pow + gmsk.Int64t(n) + i
+		flat_afe_list[3*i+1] = aoff_pow + 2*int64(n)
+		flat_afe_list[3*i+2] = aoff_pow + int64(n) + i
 		dom_list[i] = powdom
 	}
-	checkOk(task.AppendAccs(gmsk.Int64t(n), &dom_list[0], 3*gmsk.Int64t(n), &flat_afe_list[0], nil))
-	for i := gmsk.ZeroInt64t; i < gmsk.Int64t(n); i++ {
+	checkOk(task.AppendAccs(int64(n), &dom_list[0], 3*int64(n), &flat_afe_list[0], nil))
+	for i := int64(0); i < int64(n); i++ {
 		checkOk(task.PutAccName(i+1, fmt.Sprintf("market_impact[%d]", i)))
 	}
 
 	// Objective: maximize expected return mu^T x
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		checkOk(task.PutCj(voff_x+j, mu[j]))
 	}
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
@@ -183,7 +183,7 @@ func Example_portfolio3Impact() {
 	checkOk(task.SolutionSummary(gmsk.STREAM_LOG))
 	checkOk(res)
 
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 		checkOk(res)
 		xj := xx[0]

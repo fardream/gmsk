@@ -29,7 +29,7 @@ func Example_helloworld() {
 	CheckOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
 	res, _ := task.OptimizeTerm()
 	CheckOk(res)
-	result := make([]gmsk.Realt, 1)
+	result := make([]float64, 1)
 	res, result = task.GetXx(gmsk.SOL_ITR, result)
 
 	fmt.Printf("Solution x = %.6f\n", result[0])

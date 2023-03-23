@@ -21,8 +21,8 @@ import (
 // gamma >= |Gx+h|_2
 func Example_affineConicConstraints1() {
 	/* Input data dimensions */
-	var n gmsk.Int32t = 3
-	var k gmsk.Int64t = 2
+	var n int32 = 3
+	var k int64 = 2
 
 	/* Create the mosek environment. */
 	env, err := gmsk.MakeEnv()
@@ -54,7 +54,7 @@ func Example_affineConicConstraints1() {
 
 	/* Set up the objective */
 	{
-		c := []gmsk.Realt{2.0, 3.0, -1.0}
+		c := []float64{2.0, 3.0, -1.0}
 		checkOk(task.PutCSlice(0, n, &c[0]))
 		checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 	}
@@ -62,7 +62,7 @@ func Example_affineConicConstraints1() {
 	/* One linear constraint sum(x) == 1 */
 	checkOk(task.AppendCons(1))
 	checkOk(task.PutConBound(0, gmsk.BK_FX, 1, 1))
-	for i := gmsk.Int32t(0); i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutAij(0, i, 1))
 	}
 
@@ -72,13 +72,13 @@ func Example_affineConicConstraints1() {
 	{
 		/* Fill in the affine expression storage with data */
 		/* F matrix in sparse form */
-		Fsubi := []gmsk.Int64t{1, 1, 2, 2} /* G is placed from row 1 of F */
-		Fsubj := []gmsk.Int32t{0, 1, 0, 2}
-		Fval := []gmsk.Realt{1.5, 0.1, 0.3, 2.1}
-		var numEntries gmsk.Int64t = 4
+		Fsubi := []int64{1, 1, 2, 2} /* G is placed from row 1 of F */
+		Fsubj := []int32{0, 1, 0, 2}
+		Fval := []float64{1.5, 0.1, 0.3, 2.1}
+		var numEntries int64 = 4
 
-		h := []gmsk.Realt{0, 0.1}
-		var gamma gmsk.Realt = 0.03
+		h := []float64{0, 0.1}
+		var gamma float64 = 0.03
 
 		/* Fill in F storage */
 		checkOk(task.PutAfeFEntryList(numEntries, &Fsubi[0], &Fsubj[0], &Fval[0]))
@@ -94,7 +94,7 @@ func Example_affineConicConstraints1() {
 
 	{
 		/* Create the ACC */
-		afeidx := []gmsk.Int64t{0, 1, 2}
+		afeidx := []int64{0, 1, 2}
 		checkOk(task.AppendAcc(quadDom, k+1, &afeidx[0], nil))
 	}
 
@@ -112,18 +112,18 @@ func Example_affineConicConstraints1() {
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
 		/* Fetch the solution */
-		xx := make([]gmsk.Realt, n)
+		xx := make([]float64, n)
 		r, xx = task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			xx)
 		checkOk(r)
 		fmt.Println("Optimal primal solution")
-		for j := gmsk.Int32t(0); j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			fmt.Printf("x[%d]: %e\n", j, xx[j])
 		}
 
 		/* Fetch the doty dual of the ACC */
-		doty := make([]gmsk.Realt, k+1)
+		doty := make([]float64, k+1)
 		r, doty = task.GetAccDotY(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			0,            /* ACC index. */
@@ -131,19 +131,19 @@ func Example_affineConicConstraints1() {
 		checkOk(r)
 
 		fmt.Println("Dual doty of the ACC")
-		for j := gmsk.Int64t(0); j < k+1; j++ {
+		for j := int64(0); j < k+1; j++ {
 			fmt.Printf("doty[%d]: %e\n", j, doty[j])
 		}
 
 		/* Fetch the activity of the ACC */
-		activity := make([]gmsk.Realt, k+1)
+		activity := make([]float64, k+1)
 		r, activity = task.EvaluateAcc(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			0,            /* ACC index. */
 			activity)
 		checkOk(r)
 		fmt.Println("Activity of the ACC")
-		for j := gmsk.Int64t(0); j < k+1; j++ {
+		for j := int64(0); j < k+1; j++ {
 			fmt.Printf("activity[%d]: %e\n", j, activity[j])
 		}
 	case gmsk.SOL_STA_DUAL_INFEAS_CER:

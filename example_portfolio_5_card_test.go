@@ -19,10 +19,10 @@ func Example_portfolio5Card() {
 		}
 	}
 
-	const n gmsk.Int32t = 8
-	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
+	const n int32 = 8
+	mu := []float64{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
 	// GT must have size n rows
-	GT := [...][8]gmsk.Realt{
+	GT := [...][8]float64{
 		{0.30758, 0.12146, 0.11341, 0.11327, 0.17625, 0.11973, 0.10435, 0.10638},
 		{0.00000, 0.25042, 0.09946, 0.09164, 0.06692, 0.08706, 0.09173, 0.08506},
 		{0.00000, 0.00000, 0.19914, 0.05867, 0.06453, 0.07367, 0.06468, 0.01914},
@@ -33,28 +33,28 @@ func Example_portfolio5Card() {
 		{0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.00000, 0.2202},
 	}
 
-	const k gmsk.Int64t = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
-	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	const w gmsk.Realt = 1
-	const gamma gmsk.Realt = 0.25
+	const k int64 = 8 // this is const MSKint32t k       = sizeof(GT) / (n * sizeof(MSKrealt));
+	x0 := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	const w float64 = 1
+	const gamma float64 = 0.25
 
-	xx := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	xx := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 
-	markowitz_with_card := func(K gmsk.Int32t) gmsk.ResCode {
+	markowitz_with_card := func(K int32) gmsk.ResCode {
 		// Offset of variables
-		const numvar gmsk.Int32t = 3 * n
-		const voff_x gmsk.Int32t = 0
-		const voff_z gmsk.Int32t = n
-		const voff_y gmsk.Int32t = 2 * n
+		const numvar int32 = 3 * n
+		const voff_x int32 = 0
+		const voff_z int32 = n
+		const voff_y int32 = 2 * n
 
 		// Offset of constraints.
-		const numcon gmsk.Int32t = 3*n + 2
+		const numcon int32 = 3*n + 2
 		_ = numcon // this is not used
-		const coff_bud gmsk.Int32t = 0
-		const coff_abs1 gmsk.Int32t = 1
-		const coff_abs2 gmsk.Int32t = 1 + n
-		const coff_swi gmsk.Int32t = 1 + 2*n
-		const coff_card gmsk.Int32t = 1 + 3*n
+		const coff_bud int32 = 0
+		const coff_abs1 int32 = 1
+		const coff_abs2 int32 = 1 + n
+		const coff_swi int32 = 1 + 2*n
+		const coff_card int32 = 1 + 3*n
 
 		/* Initial setup. */
 		env, err := gmsk.MakeEnv()
@@ -73,7 +73,7 @@ func Example_portfolio5Card() {
 
 		// Variables (vector of x, z, y)
 		checkOk(task.AppendVars(numvar))
-		for j := gmsk.ZeroInt32t; j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			/* Optionally we can give the variables names */
 			checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 			checkOk(task.PutVarName(voff_z+j, fmt.Sprintf("z[%d]", 1+j)))
@@ -89,19 +89,19 @@ func Example_portfolio5Card() {
 		// - Total budget
 		checkOk(task.AppendCons(1))
 		checkOk(task.PutConName(coff_bud, "budget"))
-		for j := gmsk.ZeroInt32t; j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			/* Coefficients in the first row of A */
 			checkOk(task.PutAij(coff_bud, voff_x+j, 1))
 		}
 		U := w
-		for i := gmsk.ZeroInt32t; i < n; i++ {
+		for i := int32(0); i < n; i++ {
 			U += x0[i]
 		}
 		checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, U, U))
 
 		// - Absolute value
 		checkOk(task.AppendCons(2 * n))
-		for i := gmsk.ZeroInt32t; i < n; i++ {
+		for i := int32(0); i < n; i++ {
 			checkOk(task.PutConName(coff_abs1+i, fmt.Sprintf("zabs1[%d]", 1+i)))
 			checkOk(task.PutAij(coff_abs1+i, voff_x+i, -1))
 			checkOk(task.PutAij(coff_abs1+i, voff_z+i, 1))
@@ -114,7 +114,7 @@ func Example_portfolio5Card() {
 
 		// - Switch
 		checkOk(task.AppendCons(n))
-		for i := gmsk.ZeroInt32t; i < n; i++ {
+		for i := int32(0); i < n; i++ {
 			checkOk(task.PutConName(coff_swi+i, fmt.Sprintf("switch[%d]", i+1)))
 			checkOk(task.PutAij(coff_swi+i, voff_z+i, 1))
 			checkOk(task.PutAij(coff_swi+i, voff_y+i, -U))
@@ -124,24 +124,24 @@ func Example_portfolio5Card() {
 		// - Cardinality
 		checkOk(task.AppendCons(1))
 		checkOk(task.PutConName(coff_card, "cardinality"))
-		for i := gmsk.ZeroInt32t; i < n; i++ {
+		for i := int32(0); i < n; i++ {
 			checkOk(task.PutAij(coff_card, voff_y+i, 1))
 		}
-		checkOk(task.PutConBound(coff_card, gmsk.BK_UP, -gmsk.INFINITY, gmsk.Realt(K)))
+		checkOk(task.PutConBound(coff_card, gmsk.BK_UP, -gmsk.INFINITY, float64(K)))
 
 		// ACCs
-		const aoff_q gmsk.Int64t = 0
+		const aoff_q int64 = 0
 		// - (gamma, GTx) in Q(k+1)
 		// The part of F and g for variable x:
 		//     [0,  0, 0]      [gamma]
 		// F = [GT, 0, 0], g = [0    ]
 		checkOk(task.AppendAfes(k + 1))
 		checkOk(task.PutAfeG(aoff_q, gamma))
-		vslice_x := make([]gmsk.Int32t, n)
-		for i := gmsk.ZeroInt32t; i < n; i++ {
+		vslice_x := make([]int32, n)
+		for i := int32(0); i < n; i++ {
 			vslice_x[i] = voff_x + i
 		}
-		for i := gmsk.ZeroInt64t; i < k; i++ {
+		for i := int64(0); i < k; i++ {
 			checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
 		}
 
@@ -151,7 +151,7 @@ func Example_portfolio5Card() {
 		checkOk(task.PutAccName(aoff_q, "risk"))
 
 		// Objective: maximize expected return mu^T x
-		for j := gmsk.ZeroInt32t; j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			checkOk(task.PutCj(voff_x+j, mu[j]))
 		}
 		checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
@@ -173,11 +173,11 @@ func Example_portfolio5Card() {
 		return res
 	}
 
-	for K := gmsk.Int32t(1); K <= n; K++ {
+	for K := int32(1); K <= n; K++ {
 		checkOk(markowitz_with_card(K))
-		var expret gmsk.Realt = 0
+		var expret float64 = 0
 		fmt.Printf("Bound %d:  x = ", K)
-		for i := gmsk.ZeroInt32t; i < n; i++ {
+		for i := int32(0); i < n; i++ {
 			fmt.Printf("%.5f ", xx[i])
 			expret += xx[i] * mu[i]
 		}

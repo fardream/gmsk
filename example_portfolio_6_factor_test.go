@@ -22,7 +22,7 @@ func Example_portfolio6Factor() {
 		}
 	}
 
-	get_nr_nc := func(m [][]gmsk.Realt) (nr int, nc int) {
+	get_nr_nc := func(m [][]float64) (nr int, nc int) {
 		nr = len(m)
 		if nr > 0 {
 			nc = len(m[0])
@@ -31,7 +31,7 @@ func Example_portfolio6Factor() {
 		return
 	}
 
-	// array_print := func(a []gmsk.Realt) {
+	// array_print := func(a []float64) {
 	// 	fmt.Print("[")
 	// 	for _, aj := range a {
 	// 		fmt.Printf("%f, ", aj)
@@ -39,7 +39,7 @@ func Example_portfolio6Factor() {
 	// 	fmt.Print("\b\b]\n")
 	// }
 
-	// matrix_print := func(m [][]gmsk.Realt) {
+	// matrix_print := func(m [][]float64) {
 	// 	var i, j int
 	// 	nr, nc := get_nr_nc(m)
 	// 	for i = 0; i < nr; i++ {
@@ -47,21 +47,21 @@ func Example_portfolio6Factor() {
 	// 	}
 	// }
 
-	matrix_alloc := func(dim1, dim2 int) [][]gmsk.Realt {
-		result := make([][]gmsk.Realt, dim1)
+	matrix_alloc := func(dim1, dim2 int) [][]float64 {
+		result := make([][]float64, dim1)
 		for i := 0; i < dim1; i++ {
-			result[i] = make([]gmsk.Realt, dim2)
+			result[i] = make([]float64, dim2)
 		}
 
 		return result
 	}
 
-	vector_alloc := func(dim int) []gmsk.Realt {
-		return make([]gmsk.Realt, dim)
+	vector_alloc := func(dim int) []float64 {
+		return make([]float64, dim)
 	}
 
-	// sum := func(x []gmsk.Realt) gmsk.Realt {
-	// 	var r gmsk.Realt
+	// sum := func(x []float64) float64 {
+	// 	var r float64
 	// 	for _, ax := range x {
 	// 		r += ax
 	// 	}
@@ -69,9 +69,9 @@ func Example_portfolio6Factor() {
 	// }
 
 	// Vectorize matrix (column-major order)
-	mat_to_vec_c := func(m [][]gmsk.Realt) []gmsk.Realt {
+	mat_to_vec_c := func(m [][]float64) []float64 {
 		ni, nj := get_nr_nc(m)
-		c := make([]gmsk.Realt, ni*nj)
+		c := make([]float64, ni*nj)
 		for j := 0; j < nj; j++ {
 			for i := 0; i < ni; i++ {
 				c[j*ni+i] = m[i][j]
@@ -82,7 +82,7 @@ func Example_portfolio6Factor() {
 	}
 
 	// Reshape vector to matrix (column-major order)
-	vec_to_mat_c := func(c []gmsk.Realt, ni, nj int) [][]gmsk.Realt {
+	vec_to_mat_c := func(c []float64, ni, nj int) [][]float64 {
 		m := matrix_alloc(ni, nj)
 		for j := 0; j < nj; j++ {
 			for i := 0; i < ni; i++ {
@@ -93,7 +93,7 @@ func Example_portfolio6Factor() {
 		return m
 	}
 	// Reshape vector to matrix (row-major order)
-	vec_to_mat_r := func(r []gmsk.Realt, ni, nj int) [][]gmsk.Realt {
+	vec_to_mat_r := func(r []float64, ni, nj int) [][]float64 {
 		m := matrix_alloc(ni, nj)
 		for i := 0; i < ni; i++ {
 			for j := 0; j < nj; j++ {
@@ -104,11 +104,11 @@ func Example_portfolio6Factor() {
 		return m
 	}
 
-	cholesky := func(env *gmsk.Env, m [][]gmsk.Realt) [][]gmsk.Realt {
+	cholesky := func(env *gmsk.Env, m [][]float64) [][]float64 {
 		nr, _ := get_nr_nc(m)
 		n := nr
 		vecs := mat_to_vec_c(m)
-		checkOk(gmsk.POTRF(env, gmsk.UPLO_LO, gmsk.Int32t(n), &vecs[0]))
+		checkOk(gmsk.POTRF(env, gmsk.UPLO_LO, int32(n), &vecs[0]))
 		s := vec_to_mat_c(vecs, n, n)
 		// Zero out upper triangular part (MSK_potrf does not use it, original matrix values remain there)
 		for i := 0; i < n; i++ {
@@ -121,7 +121,7 @@ func Example_portfolio6Factor() {
 	}
 
 	// Matrix multiplication
-	matrix_mul := func(env *gmsk.Env, a [][]gmsk.Realt, b [][]gmsk.Realt) [][]gmsk.Realt {
+	matrix_mul := func(env *gmsk.Env, a [][]float64, b [][]float64) [][]float64 {
 		anr, _ := get_nr_nc(a)
 		bnr, bnc := get_nr_nc(b)
 
@@ -133,19 +133,19 @@ func Example_portfolio6Factor() {
 		veca := mat_to_vec_c(a)
 		vecb := mat_to_vec_c(b)
 
-		checkOk(gmsk.GEMM(env, gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, gmsk.Int32t(na), gmsk.Int32t(nb), gmsk.Int32t(k), 1, &veca[0], &vecb[0], 1, &vecm[0]))
+		checkOk(gmsk.GEMM(env, gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, int32(na), int32(nb), int32(k), 1, &veca[0], &vecb[0], 1, &vecm[0]))
 
 		ab := vec_to_mat_c(vecm, na, nb)
 
 		return ab
 	}
 
-	var expret gmsk.Realt
+	var expret float64
 
-	const n gmsk.Int32t = 8
-	var w gmsk.Realt = 1.0
-	mu := []gmsk.Realt{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
-	x0 := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	const n int32 = 8
+	w := 1.0
+	mu := []float64{0.07197, 0.15518, 0.17535, 0.08981, 0.42896, 0.39292, 0.32171, 0.18379}
+	x0 := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 
 	/* Initial setup. */
 	env, err := gmsk.MakeEnv()
@@ -166,7 +166,7 @@ func Example_portfolio6Factor() {
 	// to initialize them as double(*)[] type, which is incompatible with double**.
 
 	// Factor exposure matrix
-	vecB := []gmsk.Realt{
+	vecB := []float64{
 		0.4256, 0.1869,
 		0.2413, 0.3877,
 		0.2235, 0.3697,
@@ -179,35 +179,35 @@ func Example_portfolio6Factor() {
 
 	B := vec_to_mat_r(vecB, int(n), 2)
 	// Factor covariance matrix
-	vecS_F := []gmsk.Realt{
+	vecS_F := []float64{
 		0.0620, 0.0577,
 		0.0577, 0.0908,
 	}
 	S_F := vec_to_mat_r(vecS_F, 2, 2)
 	// Specific risk components
-	theta := []gmsk.Realt{0.0720, 0.0508, 0.0377, 0.0394, 0.0663, 0.0224, 0.0417, 0.0459}
+	theta := []float64{0.0720, 0.0508, 0.0377, 0.0394, 0.0663, 0.0224, 0.0417, 0.0459}
 
 	P := cholesky(env, S_F)
 	G_factor := matrix_mul(env, B, P)
 
 	_, _k := get_nr_nc(G_factor)
-	k := gmsk.Int64t(_k)
+	k := int64(_k)
 
-	gammas := []gmsk.Realt{0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48}
-	num_gammas := gmsk.Int32t(len(gammas))
-	var totalBudget gmsk.Realt
+	gammas := []float64{0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48}
+	num_gammas := int32(len(gammas))
+	var totalBudget float64
 
 	// Offset of variables into the API variable.
-	const numvar, voff_x gmsk.Int32t = 8, 0
+	const numvar, voff_x int32 = 8, 0
 
 	// Constraint offset
-	const coff_bud gmsk.Int32t = 0
+	const coff_bud int32 = 0
 
 	// Holding variable x of length n
 	// No other auxiliary variables are needed in this formulation
 	checkOk(task.AppendVars(numvar))
 	// Setting up variable x
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 		/* No short-selling - x^l = 0, x^u = inf */
@@ -217,44 +217,44 @@ func Example_portfolio6Factor() {
 	// One linear constraint: total budget
 	checkOk(task.AppendCons(1))
 	checkOk(task.PutConName(0, "budget"))
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		/* Coefficients in the first row of A */
 		checkOk(task.PutAij(coff_bud, voff_x+j, 1))
 	}
 	totalBudget = w
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		totalBudget += x0[i]
 	}
 	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// Input (gamma, G_factor_T x, diag(sqrt(theta))*x) in the AFE (affine expression) storage
 	// We need k+n+1 rows and we fill them in in three parts
-	task.AppendAfes(k + gmsk.Int64t(n) + 1)
+	task.AppendAfes(k + int64(n) + 1)
 	// 1. The first affine expression = gamma, will be specified later
 	// 2. The next k expressions comprise G_factor_T*x, we add them column by column since
 	//    G_factor is stored row-wise and we transpose on the fly
-	afeidx := make([]gmsk.Int64t, k)
-	for i := gmsk.ZeroInt64t; i < k; i++ {
+	afeidx := make([]int64, k)
+	for i := int64(0); i < k; i++ {
 		afeidx[i] = i + 1
 	}
-	for i := gmsk.ZeroInt32t; i < n; i++ {
+	for i := int32(0); i < n; i++ {
 		checkOk(task.PutAfeFCol(i, k, &afeidx[0], &G_factor[i][0])) // i-th row of G_factor goes in i-th column of F
 	}
 	// 3. The remaining n rows contain sqrt(theta) on the diagonal
-	for i := gmsk.ZeroInt32t; i < n; i++ {
-		checkOk(task.PutAfeFEntry(k+1+gmsk.Int64t(i), voff_x+i, gmsk.Realt(math.Sqrt(float64(theta[i])))))
+	for i := int32(0); i < n; i++ {
+		checkOk(task.PutAfeFEntry(k+1+int64(i), voff_x+i, float64(math.Sqrt(float64(theta[i])))))
 	}
 
 	// Input the affine conic constraint (gamma, G_factor_T x, diag(sqrt(theta))*x) \in QCone
 	// Add the quadratic domain of dimension k+n+1
-	res, qdom := task.AppendQuadraticConeDomain(k + 1 + gmsk.Int64t(n))
+	res, qdom := task.AppendQuadraticConeDomain(k + 1 + int64(n))
 	checkOk(res)
 	// Add the constraint
-	checkOk(task.AppendAccSeq(qdom, k+1+gmsk.Int64t(n), 0, nil))
+	checkOk(task.AppendAccSeq(qdom, k+1+int64(n), 0, nil))
 	checkOk(task.PutAccName(0, "risk"))
 
 	// Objective: maximize expected return mu^T x
-	for j := gmsk.ZeroInt32t; j < n; j++ {
+	for j := int32(0); j < n; j++ {
 		checkOk(task.PutCj(voff_x+j, mu[j]))
 	}
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
@@ -262,7 +262,7 @@ func Example_portfolio6Factor() {
 	/* No log output */
 	checkOk(task.PutIntParam(gmsk.IPAR_LOG, 0))
 
-	for i := gmsk.ZeroInt32t; i < num_gammas; i++ {
+	for i := int32(0); i < num_gammas; i++ {
 		gamma := gammas[i]
 
 		// Specify gamma in ACC
@@ -281,7 +281,7 @@ func Example_portfolio6Factor() {
 
 		/* Read the x variables one by one and compute expected return. */
 		/* Can also be obtained as value of the objective. */
-		for j := gmsk.ZeroInt32t; j < n; j++ {
+		for j := int32(0); j < n; j++ {
 			res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 			checkOk(res)
 			xj := xx[0]
