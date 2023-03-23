@@ -39,7 +39,7 @@ func Example_linearOptimization1() {
 	blx := []gmsk.Realt{0, 0, 0, 0}
 	bux := []gmsk.Realt{gmsk.INFINITY, 10, gmsk.INFINITY, gmsk.INFINITY}
 
-	checkOk := func(r gmsk.ResCode) {
+	checkOk := func(r uint32) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 			log.Fatalf("failed: %s %s", sym, desc)
@@ -107,7 +107,7 @@ func Example_linearOptimization1() {
 	/* Maximize objective function. */
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
-	var trmcode gmsk.ResCode
+	var trmcode uint32
 	/* Run optimizer */
 	r, trmcode = task.OptimizeTerm()
 	checkOk(r)

@@ -10,7 +10,7 @@ import (
 
 // Portfolio optimization example, reproduced from portfolio_1_basic.c in MOSEK C api example.
 func Example_portfolio1Basic() {
-	checkOk := func(r gmsk.ResCode) {
+	checkOk := func(r uint32) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 

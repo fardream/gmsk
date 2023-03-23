@@ -11,7 +11,7 @@ import (
 // Portfolio optimization with cardinality constraints on the number of assets traded,
 // reproduced from portfolio_5_card.c in MOSEK C api.
 func Example_portfolio5Card() {
-	checkOk := func(r gmsk.ResCode) {
+	checkOk := func(r uint32) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 
@@ -40,7 +40,7 @@ func Example_portfolio5Card() {
 
 	xx := []gmsk.Realt{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 
-	markowitz_with_card := func(K gmsk.Int32t) gmsk.ResCode {
+	markowitz_with_card := func(K gmsk.Int32t) uint32 {
 		// Offset of variables
 		const numvar gmsk.Int32t = 3 * n
 		const voff_x gmsk.Int32t = 0

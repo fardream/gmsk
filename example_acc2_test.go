@@ -41,7 +41,7 @@ func Example_affineConicConstraints2() {
 	}
 	defer gmsk.DeleteTask(task)
 
-	checkOk := func(r gmsk.ResCode) {
+	checkOk := func(r uint32) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 

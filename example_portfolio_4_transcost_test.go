@@ -11,7 +11,7 @@ import (
 // Portfolio optimization fixed setup costs and transaction costs as a mixed integer problem,
 // reproduced from portfolio_4_transcost.c in MOSEK C api.
 func Example_portfolio4Transcost() {
-	checkOk := func(r gmsk.ResCode) {
+	checkOk := func(r uint32) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 
