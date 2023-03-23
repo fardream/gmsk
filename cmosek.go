@@ -27,15 +27,35 @@ type Env struct {
 	env C.MSKenv_t
 }
 
-// MakeEnv creates a new mosek environment
-func MakeEnv() (*Env, error) {
+// MakeEnv creates a new mosek environment.
+// dbgfile can be zero or one, error when more than two dbgfile are provided.
+func MakeEnv(dbgfile ...string) (*Env, error) {
 	var env C.MSKenv_t = nil
-	r := C.MSK_makeenv(&env, nil)
+	var cdbgfile *C.char = nil
+	if len(dbgfile) > 1 {
+		return nil, fmt.Errorf("too many dbgfiles: %v", dbgfile)
+	}
+	if len(dbgfile) == 1 {
+		cdbgfile = C.CString(dbgfile[0])
+		if dbgfile != nil {
+			defer C.free(unsafe.Pointer(cdbgfile))
+		}
+	}
+
+	r := C.MSK_makeenv(&env, cdbgfile)
 	if r != RES_OK {
 		return nil, fmtError("failed to create environment: %s %s", r)
 	}
 
 	return &Env{env: env}, nil
+}
+
+// getContainingEnv gets the containing env. if env itself is nil, return nil
+func (env *Env) getEnv() C.MSKenv_t {
+	if env == nil {
+		return nil
+	}
+	return env.env
 }
 
 // DeleteEnv deletes the environment
@@ -141,6 +161,11 @@ func (task *Task) PutCSlice(first, last Int32t, slice *Realt) ResCode {
 	return C.MSK_putcslice(task.task, first, last, slice)
 }
 
+// PutVarType wraps MSK_putvartype and sets the type of the variable
+func (task *Task) PutVarType(j Int32t, vartype VariableType) ResCode {
+	return C.MSK_putvartype(task.task, j, vartype)
+}
+
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
 func (task *Task) PutVarbound(j Int32t, bkx BoundKey, blx, bux Realt) ResCode {
 	return C.MSK_putvarbound(task.task, j, bkx, blx, bux)
@@ -191,6 +216,11 @@ func (task *Task) PutAfeFRow(afeidx Int64t, numnz Int32t, varidx *Int32t, val *R
 	return C.MSK_putafefrow(task.task, afeidx, numnz, varidx, val)
 }
 
+// PutAfeFCol wraps MSK_putafefcol and sets a column of affine expression F matrix
+func (task *Task) PutAfeFCol(varidx Int32t, numnz Int64t, afeidx *Int64t, val *Realt) ResCode {
+	return C.MSK_putafefcol(task.task, varidx, numnz, afeidx, val)
+}
+
 // PutAfeG wraps MSK_putafeg and sets the value at afeidx to g
 func (task *Task) PutAfeG(afeidx Int64t, g Realt) ResCode {
 	return C.MSK_putafeg(task.task, afeidx, g)
@@ -229,10 +259,21 @@ func (task *Task) AppendRQuadraticConeDomain(n Int64t) (r ResCode, domidx Int64t
 	return
 }
 
+// AppendPrimalPowerConeDomain wraps MSK_appendprimalpowerconedomain and add a primal power cone to the task
+func (task *Task) AppendPrimalPowerConeDomain(n, nleft Int64t, alpha *Realt) (r ResCode, domidx Int64t) {
+	r = C.MSK_appendprimalpowerconedomain(task.task, n, nleft, alpha, &domidx)
+	return
+}
+
 // AppendAcc wraps MSK_appendacc and adds an affine conic constraint to the task, where the afe idx is provided
 // by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq] to avoid allocating an array.
 func (task *Task) AppendAcc(domidx, numafeidx Int64t, afeidxlist *Int64t, b *Realt) ResCode {
 	return C.MSK_appendacc(task.task, domidx, numafeidx, afeidxlist, b)
+}
+
+// AppendAccs wraps MSK_appendacc and adds a list of affine conic constraints to the task.
+func (task *Task) AppendAccs(numaccs Int64t, domidxs *Int64t, numafeidx Int64t, afeidxlist *Int64t, b *Realt) ResCode {
+	return C.MSK_appendaccs(task.task, numaccs, domidxs, numafeidx, afeidxlist, b)
 }
 
 // AppendAccSeq wraps MSK_appendaccseq and adds an affine conic constraint to the task where
@@ -457,4 +498,15 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 	task.writerHandles = append(task.writerHandles, ptr)
 
 	return C.MSK_writedatahandle(task.task, (*[0]byte)(C.writeFuncToWriter), C.MSKuserhandle_t(ptr), format, compress)
+}
+
+// Potrf wraps MSK_potrf and performs Cholesky decomposition of symmetric
+// square matrix a.
+func POTRF(env *Env, uplo UpLo, n Int32t, a *Realt) ResCode {
+	return C.MSK_potrf(env.getEnv(), uplo, n, a)
+}
+
+// GEMM wraps MSK_gemm and performs a general matrix multiplication
+func GEMM(env *Env, transa, transb Transpose, m, n, k Int32t, alpha Realt, a, b *Realt, beta Realt, c *Realt) ResCode {
+	return C.MSK_gemm(env.getEnv(), transa, transb, m, n, k, alpha, a, b, beta, c)
 }

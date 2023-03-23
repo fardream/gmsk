@@ -8,8 +8,14 @@ import "C"
 // Int32t is the int type in MOSEK, which is int32_t/int32
 type Int32t = C.MSKint32t
 
+// ZeroInt32t is the zero value of [Int32t]
+const ZeroInt32t Int32t = 0
+
 // Int64t is the 64 bit integer in MOSEK, which is int64_t/int64
 type Int64t = C.MSKint64t
+
+// ZeroInt64t is the zero value of [Int64t]
+const ZeroInt64t Int64t = 0
 
 // Realt is the double type in MOSEK, which is double/float64
 type Realt = C.MSKrealt
@@ -26,6 +32,14 @@ type ObjectiveSense = C.MSKobjsensee
 const (
 	OBJECTIVE_SENSE_MINIMIZE ObjectiveSense = C.MSK_OBJECTIVE_SENSE_MINIMIZE // Objective is to maximize
 	OBJECTIVE_SENSE_MAXIMIZE ObjectiveSense = C.MSK_OBJECTIVE_SENSE_MAXIMIZE // Objective is to minimize
+)
+
+// VarType is the variable type of mosek
+type VariableType = C.MSKvariabletypee
+
+const (
+	VAR_TYPE_CONT = C.MSK_VAR_TYPE_CONT // Continuous variable
+	VAR_TYPE_INT  = C.MSK_VAR_TYPE_INT  // Integer variable
 )
 
 // SolType is the solution type
@@ -292,4 +306,19 @@ const (
 	IPAR_WRITE_SOL_VARIABLES                IParam = C.MSK_IPAR_WRITE_SOL_VARIABLES
 	IPAR_WRITE_TASK_INC_SOL                 IParam = C.MSK_IPAR_WRITE_TASK_INC_SOL
 	IPAR_WRITE_XML_MODE                     IParam = C.MSK_IPAR_WRITE_XML_MODE
+)
+
+// UpLo indicates if the matrix is upper triangular (up) or lower triangular (lo)
+type UpLo = C.MSKuploe
+
+const (
+	UPLO_LO UpLo = C.MSK_UPLO_LO // Lower triangular
+	UPLO_UP UpLo = C.MSK_UPLO_UP // Upper triangular
+)
+
+type Transpose = C.MSKtransposee
+
+const (
+	TRANSPOSE_NO  Transpose = C.MSK_TRANSPOSE_NO  // No transpose
+	TRANSPOSE_YES Transpose = C.MSK_TRANSPOSE_YES // Transpose
 )
