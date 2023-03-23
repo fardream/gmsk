@@ -82,7 +82,7 @@ func Example_portfolio1Basic() {
 	for _, ax0 := range x0 {
 		totalBudget += ax0
 	}
-	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
+	checkOk(task.PutConbound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// Input (gamma, GTx) in the AFE (affine expression) storage
 	// We need k+1 rows

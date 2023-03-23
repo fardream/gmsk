@@ -225,7 +225,7 @@ func Example_portfolio6Factor() {
 	for i := int32(0); i < n; i++ {
 		totalBudget += x0[i]
 	}
-	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
+	checkOk(task.PutConbound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// Input (gamma, G_factor_T x, diag(sqrt(theta))*x) in the AFE (affine expression) storage
 	// We need k+n+1 rows and we fill them in in three parts

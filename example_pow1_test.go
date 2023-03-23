@@ -81,7 +81,7 @@ func Example_powerCone1() {
 	/* Set up the linear part */
 	checkOk(task.PutCList(3, &sub[0], &val[0]))
 	checkOk(task.PutARow(0, 3, &asub[0], &aval[0]))
-	checkOk(task.PutConBound(0, gmsk.BK_FX, 2, 2))
+	checkOk(task.PutConbound(0, gmsk.BK_FX, 2, 2))
 	for i := 0; i < 5; i++ {
 		bkx[i], blx[i], bux[i] = gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY
 	}

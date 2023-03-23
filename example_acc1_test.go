@@ -61,7 +61,7 @@ func Example_affineConicConstraints1() {
 
 	/* One linear constraint sum(x) == 1 */
 	checkOk(task.AppendCons(1))
-	checkOk(task.PutConBound(0, gmsk.BK_FX, 1, 1))
+	checkOk(task.PutConbound(0, gmsk.BK_FX, 1, 1))
 	for i := int32(0); i < n; i++ {
 		checkOk(task.PutAij(0, i, 1))
 	}
