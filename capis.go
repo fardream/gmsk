@@ -184,6 +184,19 @@ func (task *Task) AppendVars(num int32) res.Code {
 	return res.Code(C.MSK_appendvars(task.task, C.MSKint32t(num)))
 }
 
+// AppendBarVars adds semidefinite matrix variables to the task.
+// Barvar because MOSEK uses bar{x} notation to indicate an element
+// of a semidefinite matrix.
+// The dimension of each of the semidefinite variables are provided
+// through the pointer dim.
+func (task *Task) AppendBarVars(num int32, dim *int32) res.Code {
+	return res.Code(
+		C.MSK_appendbarvars(
+			task.task,
+			C.MSKint32t(num),
+			(*C.MSKint32t)(dim)))
+}
+
 // AppendCons wraps MSK_appendcons, which add linear constraints
 // to the task
 func (task *Task) AppendCons(numcon int32) res.Code {
@@ -213,6 +226,27 @@ func (task *Task) PutCList(num int32, subj *int32, val *float64) res.Code {
 			C.MSKint32t(num),
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(val)),
+	)
+}
+
+// PutCFix wraps MSK_putcfix and adds a constant term to the objective.
+func (task *Task) PutCFix(cfix float64) res.Code {
+	return res.Code(C.MSK_putcfix(task.task, C.MSKrealt(cfix)))
+}
+
+// PutBarCj wraps MSK_putbarcj and adds a positive semidefinite matrix to the objective.
+// j is the index of the matrix variable, and num is number of weight matrices. Those
+// weight matrices are identified by sub (the idx when they are added to the task
+// by [Task.AppendSparseSymmat].
+func (task *Task) PutBarCj(j int32, num int64, sub *int64, weights *float64) res.Code {
+	return res.Code(
+		C.MSK_putbarcj(
+			task.task,
+			C.MSKint32t(j),
+			C.MSKint64t(num),
+			(*C.MSKint64t)(sub),
+			(*C.MSKrealt)(weights),
+		),
 	)
 }
 
@@ -318,6 +352,22 @@ func (task *Task) PutARow(i int32, nzi int32, subi *int32, vali *float64) res.Co
 	)
 }
 
+// PutBarAij wraps MSK_putbaraij and a semidefinite matrix to linear constraint.
+// i is the index of the constraint,and j is the index of the semidefinite matrix variable.
+// num is the number of coefficients matrices, and sub/weights are the coefficient matrices'
+// idx (when they are added by [Task.AppendSparseSymmat]) and weights.
+func (task *Task) PutBarAij(i, j int32, num int64, sub *int64, weights *float64) res.Code {
+	return res.Code(
+		C.MSK_putbaraij(
+			task.task,
+			C.MSKint32t(i),
+			C.MSKint32t(j),
+			C.MSKint64t(num),
+			(*C.MSKint64t)(sub),
+			(*C.MSKrealt)(weights)),
+	)
+}
+
 // AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
 func (task *Task) AppendAfes(num int64) res.Code {
 	return res.Code(C.MSK_appendafes(task.task, C.MSKint64t(num)))
@@ -420,6 +470,27 @@ func (task *Task) AppendAccsSeq(numaccs int64, domidxs *int64, numafeidx, afeidx
 	return res.Code(C.MSK_appendaccsseq(task.task, C.MSKint64t(numaccs), (*C.MSKint64t)(domidxs), C.MSKint64t(numafeidx), C.MSKint64t(afeidxfirst), (*C.MSKrealt)(b)))
 }
 
+// AppendSparseSymmat wraps MSK_appendsparsesymmat and adds a sparse and symmetric matrix to the task.
+// matrix is represented in coordinate format, and only lower triangular portion of the matrix should be
+// specified.
+// Those matrices can be used as either coefficent in the objective or linear constraints. The matrix is identified
+// by the returned idx.
+func (task *Task) AppendSparseSymmat(dim int32, nz int64, subi, subj *int32, valij *float64) (r res.Code, idx int64) {
+	r = res.Code(
+		C.MSK_appendsparsesymmat(
+			task.task,
+			C.MSKint32t(dim),
+			C.MSKint64t(nz),
+			(*C.MSKint32t)(subi),
+			(*C.MSKint32t)(subj),
+			(*C.MSKrealt)(valij),
+			(*C.MSKint64t)(&idx),
+		),
+	)
+
+	return
+}
+
 // PutVarName wraps MSK_putvarname and sets a name for variable at j.
 // Allocate a new C array and copy the data over, then free it - this is a costly function.
 func (task *Task) PutVarName(j int32, name string) res.Code {
@@ -490,6 +561,34 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 	r = res.Code(C.MSK_getxxslice(task.task, C.MSKsoltypee(whichsol), C.MSKint32t(first), C.MSKint32t(last), (*C.MSKrealt)(&xx[0])))
 
 	return r, xx
+}
+
+// GetLenBarVarJ wraps MSK_getlenbarvarj and returns the length of semidefinite matrix variable's length at j
+func (task *Task) GetLenBarVarJ(j int32) (r res.Code, lengthbarvarj int64) {
+	r = res.Code(
+		C.MSK_getlenbarvarj(task.task, C.MSKint32t(j), (*C.MSKint64t)(&lengthbarvarj)),
+	)
+	return
+}
+
+// GetBarxj wraps MSK_getbarxj and retrieves the semi definite matrix at j.
+func (task *Task) GetBarXj(whichsol SolType, j int32, barxj []float64) (res.Code, []float64) {
+	var r res.Code
+
+	if barxj == nil {
+		var lenbarvarj int64
+		r, lenbarvarj = task.GetLenBarVarJ(j)
+		if r != RES_OK {
+			return r, barxj
+		}
+		barxj = make([]float64, lenbarvarj)
+	}
+
+	r = res.Code(
+		C.MSK_getbarxj(task.task, C.MSKsoltypee(whichsol), C.MSKint32t(j), (*C.MSKrealt)(&barxj[0])),
+	)
+
+	return r, barxj
 }
 
 // GetAccN wraps MSK_getaccn and returns the dimension of cone at index accidx.
