@@ -39,7 +39,7 @@ const (
 )
 
 // SolSta is the solution status
-type SolSta = uint32
+type SolSta uint32
 
 const (
 	SOL_STA_UNKNOWN            SolSta = 0

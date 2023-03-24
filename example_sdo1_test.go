@@ -16,17 +16,15 @@ import (
 //	            Tr [1, 1, 1; 1, 1, 1; 1, 1, 1]*X      + x1 + x2 = 0.5
 //	            (x0,x1,x2) \in Q,  X \in PSD
 func Example_semidefiniteOptimization1() {
-	const NUMCON = 2    /* Number of constraints.              */
-	const NUMVAR = 3    /* Number of conic quadratic variables */
-	const NUMANZ = 3    /* Number of non-zeros in A            */
+	const NUMCON = 2 /* Number of constraints.              */
+	const NUMVAR = 3 /* Number of conic quadratic variables */
+	// const NUMANZ = 3    /* Number of non-zeros in A            */
 	const NUMAFE = 3    /* Number of affine expressions        */
 	const NUMFNZ = 3    /* Number of non-zeros in F            */
 	const NUMBARVAR = 1 /* Number of semidefinite variables    */
 
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-		}
-		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}

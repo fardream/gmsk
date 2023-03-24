@@ -250,6 +250,22 @@ func (task *Task) PutBarCj(j int32, num int64, sub *int64, weights *float64) res
 	)
 }
 
+// PutBarCBlockTriplet wraps MSK_putbarcblocktriplet and set the coefficients for
+// matrix variable. suj is the index of the matrix variable, subk/subl are row/colmn index
+// of the cofficients, and valjkl is the coefficients value.
+func (task *Task) PutBarCBlockTriplet(num int64, subj, subk, subl *int32, valjkl *float64) res.Code {
+	return res.Code(
+		C.MSK_putbarcblocktriplet(
+			task.task,
+			C.MSKint64t(num),
+			(*C.MSKint32t)(subj),
+			(*C.MSKint32t)(subk),
+			(*C.MSKint32t)(subl),
+			(*C.MSKrealt)(valjkl),
+		),
+	)
+}
+
 // PutVarType wraps MSK_putvartype and sets the type of the variable
 func (task *Task) PutVarType(j int32, vartype VariableType) res.Code {
 	return res.Code(
@@ -365,6 +381,23 @@ func (task *Task) PutBarAij(i, j int32, num int64, sub *int64, weights *float64)
 			C.MSKint64t(num),
 			(*C.MSKint64t)(sub),
 			(*C.MSKrealt)(weights)),
+	)
+}
+
+// PutBarABlockTriplet wraps MSK_putbarablocktriplet and sets linear constraints for matrix variable.
+// subi is the index of the linear constraint, subj is the index of the matrix variable,
+// subk and subl are the indices of the coefficients and valijkl are the coefficients value.
+func (task *Task) PutBarABlockTriplet(num int64, subi, subj, subk, subl *int32, valijkl *float64) res.Code {
+	return res.Code(
+		C.MSK_putbarablocktriplet(
+			task.task,
+			C.MSKint64t(num),
+			(*C.MSKint32t)(subi),
+			(*C.MSKint32t)(subj),
+			(*C.MSKint32t)(subk),
+			(*C.MSKint32t)(subl),
+			(*C.MSKrealt)(valijkl),
+		),
 	)
 }
 

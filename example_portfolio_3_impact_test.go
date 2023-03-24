@@ -50,7 +50,7 @@ func Example_portfolio3Impact() {
 	const voff_z int32 = 2 * n
 
 	// Offset of constraints.
-	const numcon int32 = 2*n + 1
+	// const numcon int32 = 2*n + 1
 	const coff_bud int32 = 0
 	const coff_abs1 int32 = 1
 	const coff_abs2 int32 = 1 + n

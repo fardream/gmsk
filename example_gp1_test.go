@@ -28,8 +28,6 @@ import (
 func Example_geometricProgram1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-		}
-		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
@@ -40,7 +38,7 @@ func Example_geometricProgram1() {
 	const alpha float64 = 2.0
 	const beta float64 = 10.0
 	const gamma float64 = 2.0
-	const delta float64 = 10.0
+	// const delta float64 = 10.0
 
 	r := gmsk.RES_OK
 	hwd := [3]float64{}
