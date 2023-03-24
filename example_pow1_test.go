@@ -18,8 +18,6 @@ import (
 func Example_powerCone1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-		}
-		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
