@@ -426,6 +426,23 @@ func (task *Task) PutAfeFCol(varidx int32, numnz int64, afeidx *int64, val *floa
 	return res.Code(C.MSK_putafefcol(task.task, C.MSKint32t(varidx), C.MSKint64t(numnz), (*C.MSKint64t)(afeidx), (*C.MSKrealt)(val)))
 }
 
+// PutAfeBarFBlockTriplet wraps MSK_putafebarfblocktriplet and sets a matrix variable to the F matrix of affine expression.
+// the rows of afe idx is provided in afeidx, the matrix variables are indexed by barvaridx, and subk, subl are the indices
+// of the coefficients for those matrix variables, and valkl are the corresponding coefficients.
+func (task *Task) PutAfeBarFBlockTriplet(numtrip int64, afeidx *int64, barvaridx, subk, subl *int32, valkl *float64) res.Code {
+	return res.Code(
+		C.MSK_putafebarfblocktriplet(
+			task.task,
+			C.MSKint64t(numtrip),
+			(*C.MSKint64t)(afeidx),
+			(*C.MSKint32t)(barvaridx),
+			(*C.MSKint32t)(subk),
+			(*C.MSKint32t)(subl),
+			(*C.MSKrealt)(valkl),
+		),
+	)
+}
+
 // PutAfeG wraps MSK_putafeg and sets the value at afeidx to g
 func (task *Task) PutAfeG(afeidx int64, g float64) res.Code {
 	return res.Code(C.MSK_putafeg(task.task, C.MSKint64t(afeidx), C.MSKrealt(g)))
@@ -477,6 +494,23 @@ func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 			task.task,
 			(*C.MSKint64t)(&domidx),
 		),
+	)
+	return
+}
+
+// AppendRPlusDomain wraps MSK_appendrplusdomain and adds a R-Plus domain to the task, which is x >= 0.
+func (task *Task) AppendRPlusDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendrplusdomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)),
+	)
+	return
+}
+
+// AppendSvecPsdConeDomain wraps MSK_appendsvecpsdconedomain and adds a SVEC_PSD domain,
+// or vectorized postive semidefinite matrix. n must be k(k+1)/2.
+func (task *Task) AppendSvecPsdConeDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendsvecpsdconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)),
 	)
 	return
 }
