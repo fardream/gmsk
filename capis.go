@@ -444,6 +444,20 @@ func (task *Task) PutBarABlockTriplet(num int64, subi, subj, subk, subl *int32, 
 	)
 }
 
+// PutQConK wraps MSK_putqconk and sets the quandratic constraint's coefficients.
+func (task *Task) PutQConK(k int32, numqcnz int32, qcsubi, qcsubj *int32, qcval *float64) res.Code {
+	return res.Code(
+		C.MSK_putqconk(
+			task.task,
+			mi32(k),
+			mi32(numqcnz),
+			pi32(qcsubi),
+			pi32(qcsubj),
+			prl(qcval),
+		),
+	)
+}
+
 // AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
 func (task *Task) AppendAfes(num int64) res.Code {
 	return res.Code(C.MSK_appendafes(task.task, mi64(num)))
