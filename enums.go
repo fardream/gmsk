@@ -99,3 +99,13 @@ const (
 	TRANSPOSE_NO  Transpose = 0 // No transpose
 	TRANSPOSE_YES Transpose = 1 // Transpose
 )
+
+// OnOff is the switch value for parameterst that is on/off.
+// This is alias of int32, because golang distinguishes
+// the enum and integers.
+type OnOff = int32
+
+const (
+	ON  OnOff = 1 // the parameter is set to on
+	OFF OnOff = 0 // the parameter is set to off
+)

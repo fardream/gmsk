@@ -588,6 +588,19 @@ func (task *Task) PutAccName(accidx int64, name string) res.Code {
 	return res.Code(C.MSK_putaccname(task.task, C.MSKint64t(accidx), cstr))
 }
 
+// PutXXSlice wraps MSK_putxxslice and sets the initial solution for a slice.
+func (task *Task) PutXXSlice(whichsol SolType, first, last int32, xx *float64) res.Code {
+	return res.Code(
+		C.MSK_putxxslice(
+			task.task,
+			C.MSKsoltypee(whichsol),
+			C.MSKint32t(first),
+			C.MSKint32t(last),
+			(*C.MSKrealt)(xx),
+		),
+	)
+}
+
 // OptimizeTerm wraps MSK_optimizeterm, which optimizes the problem.
 func (task *Task) OptimizeTerm() (r res.Code, trmcode res.Code) {
 	r = res.Code(C.MSK_optimizetrm(task.task, (*C.MSKrescodee)(&trmcode)))
@@ -717,6 +730,26 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64
 	return r, activity
 }
 
+// GetIntInf wraps MSK_getintinf and retrieve integer information from the task.
+func (task *Task) GetIntInf(whichiinf IInfItem) (r res.Code, ivalue int32) {
+	r = res.Code(
+		C.MSK_getintinf(task.task, C.MSKiinfiteme(whichiinf), (*C.MSKint32t)(&ivalue)),
+	)
+	return
+}
+
+// GetDouInf wraps MSK_getdouinf and retrieves double information from the task.
+func (task *Task) GetDouInf(whichdinf DInfItem) (r res.Code, dvalue float64) {
+	r = res.Code(
+		C.MSK_getdouinf(
+			task.task,
+			C.MSKdinfiteme(whichdinf),
+			(*C.MSKrealt)(&dvalue),
+		),
+	)
+	return
+}
+
 // PutIntParam wraps MSK_putintparam and sets the param to parvalue.
 func (task *Task) PutIntParam(param IParam, parvalue int32) res.Code {
 	return res.Code(C.MSK_putintparam(task.task, C.MSKiparame(param), C.MSKint32t(parvalue)))
@@ -838,4 +871,37 @@ func GEMM(env *Env, transa, transb Transpose, m, n, k int32, alpha float64, a, b
 		(*C.MSKrealt)(b),
 		C.MSKrealt(beta),
 		(*C.MSKrealt)(c)))
+}
+
+// InputData wraps MSK_inputdata and sets the data for
+// objective, linear constraints, and variables.
+func (task *Task) InputData(
+	maxnumcon, maxnumvar int32,
+	numcon, numvar int32,
+	c *float64, cfix float64,
+	aptrb, aptre, asub *int32, aval *float64,
+	bkc *BoundKey, blc, buc *float64,
+	bkx *BoundKey, blx, bux *float64,
+) res.Code {
+	return res.Code(
+		C.MSK_inputdata(
+			task.task,
+			C.MSKint32t(maxnumcon),
+			C.MSKint32t(maxnumvar),
+			C.MSKint32t(numcon),
+			C.MSKint32t(numvar),
+			(*C.MSKrealt)(c),
+			C.MSKrealt(cfix),
+			(*C.MSKint32t)(aptrb),
+			(*C.MSKint32t)(aptre),
+			(*C.MSKint32t)(asub),
+			(*C.MSKrealt)(aval),
+			(*C.MSKboundkeye)(bkc),
+			(*C.MSKrealt)(blc),
+			(*C.MSKrealt)(buc),
+			(*C.MSKboundkeye)(bkx),
+			(*C.MSKrealt)(blx),
+			(*C.MSKrealt)(bux),
+		),
+	)
 }
