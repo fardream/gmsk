@@ -310,7 +310,15 @@ func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bu
 
 // PutConBound wraps MSK_putconbound, which set the bound for a contraint
 func (task *Task) PutConbound(i int32, bkc BoundKey, blc, buc float64) res.Code {
-	return res.Code(C.MSK_putconbound(task.task, C.MSKint32t(i), C.MSKboundkeye(bkc), C.MSKrealt(blc), C.MSKrealt(buc)))
+	return res.Code(
+		C.MSK_putconbound(
+			task.task,
+			C.MSKint32t(i),
+			C.MSKboundkeye(bkc),
+			C.MSKrealt(blc),
+			C.MSKrealt(buc),
+		),
+	)
 }
 
 // PutConboundSlice wraps MSK_putconboundslice and sets a list of constraint bounds.
@@ -598,6 +606,12 @@ func (task *Task) GetSolSta(whichsol SolType) (r res.Code, solSta SolSta) {
 	return
 }
 
+// GetProSta wraps MSK_getprosta and gets the problem status
+func (task *Task) GetProSta(whichsol SolType) (r res.Code, problemsta ProSta) {
+	r = res.Code(C.MSK_getprosta(task.task, C.MSKsoltypee(whichsol), (*C.MSKprostae)(&problemsta)))
+	return
+}
+
 // GetXx wraps MSK_getxx, which gets the solution from the task.
 // xx can be nil, in which case the number of variables will be queried from the task and
 // a new slice created.
@@ -706,6 +720,11 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64
 // PutIntParam wraps MSK_putintparam and sets the param to parvalue.
 func (task *Task) PutIntParam(param IParam, parvalue int32) res.Code {
 	return res.Code(C.MSK_putintparam(task.task, C.MSKiparame(param), C.MSKint32t(parvalue)))
+}
+
+// PutDouParam wraps MSK_putdouparam and sets the param to the parvalue
+func (task *Task) PutDouParam(param DParam, parvalue float64) res.Code {
+	return res.Code(C.MSK_putdouparam(task.task, C.MSKdparame(param), C.MSKrealt(parvalue)))
 }
 
 // writerHolder holds a writer. This must be passed to C api with a handle.
