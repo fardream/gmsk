@@ -9,7 +9,7 @@ import (
 )
 
 // Example of mixed integer linear optimization, reproduced from milo1.c in MOSEK C api.
-func Example_mixedIntegeLinearOptimization1() {
+func Example_mixedIntegeLinearOptimization1_milo1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

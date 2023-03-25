@@ -2,7 +2,52 @@
 
 `gmsk` is an unofficial wrapper for MOSEK, the conic optimizer from [MOSEK ApS](https://www.mosek.com).
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/fardream/gmsk.svg)](https://pkg.go.dev/github.com/fardream/gmsk)
+For Detailed Documentation, See [![Go Reference](https://pkg.go.dev/badge/github.com/fardream/gmsk.svg)](https://pkg.go.dev/github.com/fardream/gmsk)
+
+## Examples
+
+See [Examples](https://pkg.go.dev/github.com/fardream/gmsk#pkg-examples) section on [![Go Reference](https://pkg.go.dev/badge/github.com/fardream/gmsk.svg)](https://pkg.go.dev/github.com/fardream/gmsk) for many examples reproduced from C api code.
+
+_Hello World_ example from C api is provided below.
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"github.com/fardream/gmsk"
+)
+
+// This is reproduced from MOSEK C example hellowworld.c
+// However, the response code is checked here.
+func main() {
+	CheckOk := func(r gmsk.ResCode) {
+		if r != gmsk.RES_OK {
+			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			log.Fatalf("Failed: %s %s", sym, desc)
+		}
+	}
+
+	task, err := gmsk.MakeTask(nil, 0, 0)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer gmsk.DeleteTask(task)
+
+	CheckOk(task.AppendVars(1))
+	CheckOk(task.PutCj(0, 1.0))
+	CheckOk(task.PutVarbound(0, gmsk.BK_RA, 2.0, 3.0))
+	CheckOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	res, _ := task.OptimizeTerm()
+	CheckOk(res)
+	result := make([]float64, 1)
+	res, result = task.GetXx(gmsk.SOL_ITR, result)
+
+	fmt.Printf("Solution x = %.6f\n", result[0])
+}
+```
 
 ## Setup MOSEK c api for gmsk
 

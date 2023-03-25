@@ -9,7 +9,7 @@ import (
 )
 
 // Portfolio optimization example with 3/2 impact. Reproduced from portfolio_3_impact.c in MOSEK C api.
-func Example_portfolio3Impact() {
+func Example_portfolio_3_impact() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

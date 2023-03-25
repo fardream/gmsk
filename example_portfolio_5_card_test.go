@@ -10,7 +10,7 @@ import (
 
 // Portfolio optimization with cardinality constraints on the number of assets traded,
 // reproduced from portfolio_5_card.c in MOSEK C api.
-func Example_portfolio5Card() {
+func Example_portfolio_5_Card() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

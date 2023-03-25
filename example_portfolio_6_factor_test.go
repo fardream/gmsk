@@ -11,7 +11,7 @@ import (
 
 // Portfolio optimization example with factor model, reproduced from
 // portfolio_6_factor.c in MOSEK C api.
-func Example_portfolio6Factor() {
+func Example_portfolio_6_factor() {
 	res := gmsk.RES_OK
 	checkOk := func(r gmsk.ResCode) {
 		res = r

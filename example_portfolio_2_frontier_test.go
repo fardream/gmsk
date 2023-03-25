@@ -11,7 +11,7 @@ import (
 )
 
 // Portfolio frontier optimization, reproduced from portfolio_2_frontier.c in MOSEK C api.
-func Example_portfolio2Frontier() {
+func Example_portfolio_2_frontier() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
