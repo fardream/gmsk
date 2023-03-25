@@ -275,6 +275,18 @@ func (task *Task) PutVarType(j int32, vartype VariableType) res.Code {
 			C.MSKvariabletypee(vartype)))
 }
 
+// PutVarTypeList wraps MSK_putvartypelist and sets the type of a list of variables
+func (task *Task) PutVarTypeList(num int32, subj *int32, vartype *VariableType) res.Code {
+	return res.Code(
+		C.MSK_putvartypelist(
+			task.task,
+			C.MSKint32t(num),
+			(*C.MSKint32t)(subj),
+			(*C.MSKvariabletypee)(vartype),
+		),
+	)
+}
+
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
 func (task *Task) PutVarbound(j int32, bkx BoundKey, blx, bux float64) res.Code {
 	return res.Code(C.MSK_putvarbound(task.task, C.MSKint32t(j), C.MSKboundkeye(bkx), C.MSKrealt(blx), C.MSKrealt(bux)))
