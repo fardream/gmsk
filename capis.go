@@ -10,7 +10,7 @@
 // Almost all float point numbers in MOSEK are IEEE-754 64-bit float point number,
 // or double in C/C++/float64 in go.
 //
-// Most indices associated with variables and A (linear constraints) matrix are
+// Most indices associated with variables and A (constraints) matrix are
 // signed 32-bit integers, int32_t in C/C++ and int32 in go. However, indices
 // associated with affine expression (afe) are 64-bit, or int64_t in C/C++
 // and int64 in go.
@@ -207,7 +207,7 @@ func (task *Task) AppendBarVars(num int32, dim *int32) res.Code {
 			pi32(dim)))
 }
 
-// AppendCons wraps MSK_appendcons, which add linear constraints
+// AppendCons wraps MSK_appendcons, which add constraints
 // to the task
 func (task *Task) AppendCons(numcon int32) res.Code {
 	return res.Code(C.MSK_appendcons(task.task, mi32(numcon)))
@@ -375,12 +375,12 @@ func (task *Task) PutObjsense(sense ObjectiveSense) res.Code {
 	return res.Code(C.MSK_putobjsense(task.task, C.MSKobjsensee(sense)))
 }
 
-// PutAij wraps MSK_putaij, which set the value of the linear constraints matrix A[i,j]
+// PutAij wraps MSK_putaij, which set the value of the constraints matrix A[i,j]
 func (task *Task) PutAij(i, j int32, aij float64) res.Code {
 	return res.Code(C.MSK_putaij(task.task, mi32(i), mi32(j), mrl(aij)))
 }
 
-// PutAijList wraps MSK_putaijlist and sets a list of linear constraint matrix A by index.
+// PutAijList wraps MSK_putaijlist and sets a list of constraint matrix A by index.
 func (task *Task) PutAijList(num int32, subi, subj *int32, valij *float64) res.Code {
 	return res.Code(
 		C.MSK_putaijlist(
@@ -411,7 +411,7 @@ func (task *Task) PutARow(i int32, nzi int32, subi *int32, vali *float64) res.Co
 	)
 }
 
-// PutBarAij wraps MSK_putbaraij and a semidefinite matrix to linear constraint.
+// PutBarAij wraps MSK_putbaraij and a semidefinite matrix to constraint.
 // i is the index of the constraint,and j is the index of the semidefinite matrix variable.
 // num is the number of coefficients matrices, and sub/weights are the coefficient matrices'
 // idx (when they are added by [Task.AppendSparseSymmat]) and weights.
@@ -427,8 +427,8 @@ func (task *Task) PutBarAij(i, j int32, num int64, sub *int64, weights *float64)
 	)
 }
 
-// PutBarABlockTriplet wraps MSK_putbarablocktriplet and sets linear constraints for matrix variable.
-// subi is the index of the linear constraint, subj is the index of the matrix variable,
+// PutBarABlockTriplet wraps MSK_putbarablocktriplet and sets constraints for matrix variable.
+// subi is the index of the constraint, subj is the index of the matrix variable,
 // subk and subl are the indices of the coefficients and valijkl are the coefficients value.
 func (task *Task) PutBarABlockTriplet(num int64, subi, subj, subk, subl *int32, valijkl *float64) res.Code {
 	return res.Code(
@@ -703,7 +703,7 @@ func (task *Task) PutDjc(
 // AppendSparseSymmat wraps MSK_appendsparsesymmat and adds a sparse and symmetric matrix to the task.
 // matrix is represented in coordinate format, and only lower triangular portion of the matrix should be
 // specified.
-// Those matrices can be used as either coefficent in the objective or linear constraints. The matrix is identified
+// Those matrices can be used as either coefficent in the objective or constraints. The matrix is identified
 // by the returned idx.
 func (task *Task) AppendSparseSymmat(dim int32, nz int64, subi, subj *int32, valij *float64) (r res.Code, idx int64) {
 	r = res.Code(
@@ -729,7 +729,7 @@ func (task *Task) PutVarName(j int32, name string) res.Code {
 	return res.Code(C.MSK_putvarname(task.task, mi32(j), cstr))
 }
 
-// PutConName wraps MSK_putconname and sets a name for a linear constraint at indext i.
+// PutConName wraps MSK_putconname and sets a name for a constraint at indext i.
 func (task *Task) PutConName(i int32, name string) res.Code {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
@@ -765,6 +765,12 @@ func (task *Task) OptimizeTerm() (r res.Code, trmcode res.Code) {
 // GetNumVar wraps MSK_getnumvar, which obtains the number of variables in task.
 func (task *Task) GetNumVar() (r res.Code, numVar int32) {
 	r = res.Code(C.MSK_getnumvar(task.task, pi32(&numVar)))
+	return
+}
+
+// GetNumCon wraps MSK_getnumcon and gets the number of constraints in the task.
+func (task *Task) GetNumCon() (r res.Code, numCon int32) {
+	r = res.Code(C.MSK_getnumcon(task.task, pi32(&numCon)))
 	return
 }
 

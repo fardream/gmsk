@@ -109,3 +109,17 @@ const (
 	ON  OnOff = 1 // the parameter is set to on
 	OFF OnOff = 0 // the parameter is set to off
 )
+
+// OptimizerType is the optimizer type, which
+// can be set for the integer parameter [IPAR_OPTIMIZER]
+type OptimizerType = int32
+
+const (
+	OPTIMIZER_CONIC          OptimizerType = 0
+	OPTIMIZER_DUAL_SIMPLEX   OptimizerType = 1
+	OPTIMIZER_FREE           OptimizerType = 2
+	OPTIMIZER_FREE_SIMPLEX   OptimizerType = 3
+	OPTIMIZER_INTPNT         OptimizerType = 4
+	OPTIMIZER_MIXED_INT      OptimizerType = 5
+	OPTIMIZER_PRIMAL_SIMPLEX OptimizerType = 6
+)

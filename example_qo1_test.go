@@ -19,7 +19,6 @@ func Example_quadraticOptimization_qo1() {
 
 	const NUMCON = 1 /* Number of constraints.             */
 	const NUMVAR = 3 /* Number of variables.               */
-	const NUMANZ = 3 /* Number of non-zeros in A.          */
 	const NUMQNZ = 4 /* Number of non-zeros in Q.          */
 
 	c := []float64{0.0, -1.0, 0.0}
