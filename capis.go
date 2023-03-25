@@ -276,6 +276,19 @@ func (task *Task) PutBarCBlockTriplet(num int64, subj, subk, subl *int32, valjkl
 	)
 }
 
+// PutQObj wraps MSK_putqobj and set the cofficient for quadratic objective term.
+func (task *Task) PutQObj(numqonz int32, qosubi, qosubj *int32, qoval *float64) res.Code {
+	return res.Code(
+		C.MSK_putqobj(
+			task.task,
+			mi32(numqonz),
+			pi32(qosubi),
+			pi32(qosubj),
+			prl(qoval),
+		),
+	)
+}
+
 // PutVarType wraps MSK_putvartype and sets the type of the variable
 func (task *Task) PutVarType(j int32, vartype VariableType) res.Code {
 	return res.Code(
