@@ -47,6 +47,16 @@ const INFINITY float64 = C.MSK_INFINITY
 // MSK_MAX_STR_LEN is the max length of strings in mosek
 const MAX_STR_LEN = C.MSK_MAX_STR_LEN
 
+// some local types
+type (
+	mi32 = C.MSKint32t
+	mi64 = C.MSKint64t
+	pi32 = *C.MSKint32t
+	pi64 = *C.MSKint64t
+	mrl  = C.MSKrealt
+	prl  = *C.MSKrealt
+)
+
 // Env wraps mosek environment
 type Env struct {
 	env C.MSKenv_t
@@ -114,7 +124,7 @@ func MakeTask(env *Env, maxnumcon, maxnumvar int32) (*Task, error) {
 	if env != nil {
 		e = env.env
 	}
-	r := res.Code(C.MSK_maketask(e, C.MSKint32t(maxnumcon), C.MSKint32t(maxnumvar), &task))
+	r := res.Code(C.MSK_maketask(e, mi32(maxnumcon), mi32(maxnumvar), &task))
 	if r != RES_OK {
 		return nil, fmtError("failed to create task: %s %s", r)
 	}
@@ -181,7 +191,7 @@ func fmtError(format string, resCode res.Code) error {
 // AppendVars wraps MSK_appendvars, which adds variables
 // to the task.
 func (task *Task) AppendVars(num int32) res.Code {
-	return res.Code(C.MSK_appendvars(task.task, C.MSKint32t(num)))
+	return res.Code(C.MSK_appendvars(task.task, mi32(num)))
 }
 
 // AppendBarVars adds semidefinite matrix variables to the task.
@@ -193,19 +203,19 @@ func (task *Task) AppendBarVars(num int32, dim *int32) res.Code {
 	return res.Code(
 		C.MSK_appendbarvars(
 			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(dim)))
+			mi32(num),
+			pi32(dim)))
 }
 
 // AppendCons wraps MSK_appendcons, which add linear constraints
 // to the task
 func (task *Task) AppendCons(numcon int32) res.Code {
-	return res.Code(C.MSK_appendcons(task.task, C.MSKint32t(numcon)))
+	return res.Code(C.MSK_appendcons(task.task, mi32(numcon)))
 }
 
 // PutCj wraps MSK_putcj, which set the coefficient in the objective function.
 func (task *Task) PutCj(j int32, c_j float64) res.Code {
-	return res.Code(C.MSK_putcj(task.task, C.MSKint32t(j), C.MSKrealt(c_j)))
+	return res.Code(C.MSK_putcj(task.task, mi32(j), mrl(c_j)))
 }
 
 // PutCSlice wraps MSK_putcslice, which set a slice of coefficients in the objective
@@ -213,9 +223,9 @@ func (task *Task) PutCSlice(first, last int32, slice *float64) res.Code {
 	return res.Code(
 		C.MSK_putcslice(
 			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(slice)))
+			mi32(first),
+			mi32(last),
+			prl(slice)))
 }
 
 // PutCList wraps MSK_putclist and set coefficients of the objective with index/value.
@@ -223,15 +233,15 @@ func (task *Task) PutCList(num int32, subj *int32, val *float64) res.Code {
 	return res.Code(
 		C.MSK_putclist(
 			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(val)),
+			mi32(num),
+			pi32(subj),
+			prl(val)),
 	)
 }
 
 // PutCFix wraps MSK_putcfix and adds a constant term to the objective.
 func (task *Task) PutCFix(cfix float64) res.Code {
-	return res.Code(C.MSK_putcfix(task.task, C.MSKrealt(cfix)))
+	return res.Code(C.MSK_putcfix(task.task, mrl(cfix)))
 }
 
 // PutBarCj wraps MSK_putbarcj and adds a positive semidefinite matrix to the objective.
@@ -242,10 +252,10 @@ func (task *Task) PutBarCj(j int32, num int64, sub *int64, weights *float64) res
 	return res.Code(
 		C.MSK_putbarcj(
 			task.task,
-			C.MSKint32t(j),
-			C.MSKint64t(num),
-			(*C.MSKint64t)(sub),
-			(*C.MSKrealt)(weights),
+			mi32(j),
+			mi64(num),
+			pi64(sub),
+			prl(weights),
 		),
 	)
 }
@@ -257,11 +267,11 @@ func (task *Task) PutBarCBlockTriplet(num int64, subj, subk, subl *int32, valjkl
 	return res.Code(
 		C.MSK_putbarcblocktriplet(
 			task.task,
-			C.MSKint64t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint32t)(subk),
-			(*C.MSKint32t)(subl),
-			(*C.MSKrealt)(valjkl),
+			mi64(num),
+			pi32(subj),
+			pi32(subk),
+			pi32(subl),
+			prl(valjkl),
 		),
 	)
 }
@@ -271,7 +281,7 @@ func (task *Task) PutVarType(j int32, vartype VariableType) res.Code {
 	return res.Code(
 		C.MSK_putvartype(
 			task.task,
-			C.MSKint32t(j),
+			mi32(j),
 			C.MSKvariabletypee(vartype)))
 }
 
@@ -280,8 +290,8 @@ func (task *Task) PutVarTypeList(num int32, subj *int32, vartype *VariableType) 
 	return res.Code(
 		C.MSK_putvartypelist(
 			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
+			mi32(num),
+			pi32(subj),
 			(*C.MSKvariabletypee)(vartype),
 		),
 	)
@@ -289,7 +299,7 @@ func (task *Task) PutVarTypeList(num int32, subj *int32, vartype *VariableType) 
 
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
 func (task *Task) PutVarbound(j int32, bkx BoundKey, blx, bux float64) res.Code {
-	return res.Code(C.MSK_putvarbound(task.task, C.MSKint32t(j), C.MSKboundkeye(bkx), C.MSKrealt(blx), C.MSKrealt(bux)))
+	return res.Code(C.MSK_putvarbound(task.task, mi32(j), C.MSKboundkeye(bkx), mrl(blx), mrl(bux)))
 }
 
 // PutVarboundSlice wraps MSK_putvarboundslice and sets the bound for a slice of variables using 3 vectors.
@@ -297,11 +307,11 @@ func (task *Task) PutVarboundSlice(first, last int32, bkx *BoundKey, blx, bux *f
 	return res.Code(
 		C.MSK_putvarboundslice(
 			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
+			mi32(first),
+			mi32(last),
 			(*C.MSKboundkeye)(bkx),
-			(*C.MSKrealt)(blx),
-			(*C.MSKrealt)(bux),
+			prl(blx),
+			prl(bux),
 		),
 	)
 }
@@ -311,11 +321,11 @@ func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bu
 	return res.Code(
 		C.MSK_putvarboundsliceconst(
 			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
+			mi32(first),
+			mi32(last),
 			C.MSKboundkeye(bkx),
-			C.MSKrealt(blx),
-			C.MSKrealt(bux),
+			mrl(blx),
+			mrl(bux),
 		),
 	)
 }
@@ -325,10 +335,10 @@ func (task *Task) PutConbound(i int32, bkc BoundKey, blc, buc float64) res.Code 
 	return res.Code(
 		C.MSK_putconbound(
 			task.task,
-			C.MSKint32t(i),
+			mi32(i),
 			C.MSKboundkeye(bkc),
-			C.MSKrealt(blc),
-			C.MSKrealt(buc),
+			mrl(blc),
+			mrl(buc),
 		),
 	)
 }
@@ -338,11 +348,11 @@ func (task *Task) PutConboundSlice(first, last int32, bkc *BoundKey, blc, buc *f
 	return res.Code(
 		C.MSK_putconboundslice(
 			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
+			mi32(first),
+			mi32(last),
 			(*C.MSKboundkeye)(bkc),
-			(*C.MSKrealt)(blc),
-			(*C.MSKrealt)(buc),
+			prl(blc),
+			prl(buc),
 		),
 	)
 }
@@ -354,7 +364,7 @@ func (task *Task) PutObjsense(sense ObjectiveSense) res.Code {
 
 // PutAij wraps MSK_putaij, which set the value of the linear constraints matrix A[i,j]
 func (task *Task) PutAij(i, j int32, aij float64) res.Code {
-	return res.Code(C.MSK_putaij(task.task, C.MSKint32t(i), C.MSKint32t(j), C.MSKrealt(aij)))
+	return res.Code(C.MSK_putaij(task.task, mi32(i), mi32(j), mrl(aij)))
 }
 
 // PutAijList wraps MSK_putaijlist and sets a list of linear constraint matrix A by index.
@@ -362,17 +372,17 @@ func (task *Task) PutAijList(num int32, subi, subj *int32, valij *float64) res.C
 	return res.Code(
 		C.MSK_putaijlist(
 			task.task,
-			(C.MSKint32t)(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valij),
+			mi32(num),
+			pi32(subi),
+			pi32(subj),
+			prl(valij),
 		),
 	)
 }
 
 // PutACol wraps MSK_putacol, and puts a column of A matrix.
 func (task *Task) PutACol(j int32, nzj int32, subj *int32, valj *float64) res.Code {
-	return res.Code(C.MSK_putacol(task.task, C.MSKint32t(j), C.MSKint32t(nzj), (*C.MSKint32t)(subj), (*C.MSKrealt)(valj)))
+	return res.Code(C.MSK_putacol(task.task, mi32(j), mi32(nzj), pi32(subj), prl(valj)))
 }
 
 // PutARow wraps MSK_putarow and sets a row of the A matrix.
@@ -380,10 +390,10 @@ func (task *Task) PutARow(i int32, nzi int32, subi *int32, vali *float64) res.Co
 	return res.Code(
 		C.MSK_putarow(
 			task.task,
-			C.MSKint32t(i),
-			C.MSKint32t(nzi),
-			(*C.MSKint32t)(subi),
-			(*C.MSKrealt)(vali),
+			mi32(i),
+			mi32(nzi),
+			pi32(subi),
+			prl(vali),
 		),
 	)
 }
@@ -396,11 +406,11 @@ func (task *Task) PutBarAij(i, j int32, num int64, sub *int64, weights *float64)
 	return res.Code(
 		C.MSK_putbaraij(
 			task.task,
-			C.MSKint32t(i),
-			C.MSKint32t(j),
-			C.MSKint64t(num),
-			(*C.MSKint64t)(sub),
-			(*C.MSKrealt)(weights)),
+			mi32(i),
+			mi32(j),
+			mi64(num),
+			pi64(sub),
+			prl(weights)),
 	)
 }
 
@@ -411,39 +421,63 @@ func (task *Task) PutBarABlockTriplet(num int64, subi, subj, subk, subl *int32, 
 	return res.Code(
 		C.MSK_putbarablocktriplet(
 			task.task,
-			C.MSKint64t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint32t)(subk),
-			(*C.MSKint32t)(subl),
-			(*C.MSKrealt)(valijkl),
+			mi64(num),
+			pi32(subi),
+			pi32(subj),
+			pi32(subk),
+			pi32(subl),
+			prl(valijkl),
 		),
 	)
 }
 
 // AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
 func (task *Task) AppendAfes(num int64) res.Code {
-	return res.Code(C.MSK_appendafes(task.task, C.MSKint64t(num)))
+	return res.Code(C.MSK_appendafes(task.task, mi64(num)))
 }
 
 // PutAfeFEntry wraps MSK_putafefentry and set an entry in the  affine expression F matrix.
 func (task *Task) PutAfeFEntry(afeidx int64, varidx int32, value float64) res.Code {
-	return res.Code(C.MSK_putafefentry(task.task, C.MSKint64t(afeidx), C.MSKint32t(varidx), C.MSKrealt(value)))
+	return res.Code(C.MSK_putafefentry(task.task, mi64(afeidx), mi32(varidx), mrl(value)))
 }
 
 // PutAfeFEntryList wraps MSK_putafefentrylist, which set a portion of the affine expression F matrix
 func (task *Task) PutAfeFEntryList(numentr int64, afeidx *int64, varidx *int32, val *float64) res.Code {
-	return res.Code(C.MSK_putafefentrylist(task.task, C.MSKint64t(numentr), (*C.MSKint64t)(afeidx), (*C.MSKint32t)(varidx), (*C.MSKrealt)(val)))
+	return res.Code(
+		C.MSK_putafefentrylist(
+			task.task,
+			mi64(numentr),
+			pi64(afeidx),
+			pi32(varidx),
+			prl(val),
+		),
+	)
 }
 
 // PutAfeFRow wraps MSK_putafefrow and sets a row of affine expression F matrix
 func (task *Task) PutAfeFRow(afeidx int64, numnz int32, varidx *int32, val *float64) res.Code {
-	return res.Code(C.MSK_putafefrow(task.task, C.MSKint64t(afeidx), C.MSKint32t(numnz), (*C.MSKint32t)(varidx), (*C.MSKrealt)(val)))
+	return res.Code(
+		C.MSK_putafefrow(
+			task.task,
+			mi64(afeidx),
+			mi32(numnz),
+			pi32(varidx),
+			prl(val),
+		),
+	)
 }
 
 // PutAfeFCol wraps MSK_putafefcol and sets a column of affine expression F matrix
 func (task *Task) PutAfeFCol(varidx int32, numnz int64, afeidx *int64, val *float64) res.Code {
-	return res.Code(C.MSK_putafefcol(task.task, C.MSKint32t(varidx), C.MSKint64t(numnz), (*C.MSKint64t)(afeidx), (*C.MSKrealt)(val)))
+	return res.Code(
+		C.MSK_putafefcol(
+			task.task,
+			mi32(varidx),
+			mi64(numnz),
+			pi64(afeidx),
+			prl(val),
+		),
+	)
 }
 
 // PutAfeBarFBlockTriplet wraps MSK_putafebarfblocktriplet and sets a matrix variable to the F matrix of affine expression.
@@ -453,66 +487,41 @@ func (task *Task) PutAfeBarFBlockTriplet(numtrip int64, afeidx *int64, barvaridx
 	return res.Code(
 		C.MSK_putafebarfblocktriplet(
 			task.task,
-			C.MSKint64t(numtrip),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(barvaridx),
-			(*C.MSKint32t)(subk),
-			(*C.MSKint32t)(subl),
-			(*C.MSKrealt)(valkl),
+			mi64(numtrip),
+			pi64(afeidx),
+			pi32(barvaridx),
+			pi32(subk),
+			pi32(subl),
+			prl(valkl),
 		),
 	)
 }
 
 // PutAfeG wraps MSK_putafeg and sets the value at afeidx to g
 func (task *Task) PutAfeG(afeidx int64, g float64) res.Code {
-	return res.Code(C.MSK_putafeg(task.task, C.MSKint64t(afeidx), C.MSKrealt(g)))
+	return res.Code(C.MSK_putafeg(task.task, mi64(afeidx), mrl(g)))
 }
 
 // PutAfeGSlice wraps MSK_putafegslice and sets a slice of values in g
 func (task *Task) PutAfeGSlice(first, last int64, slice *float64) res.Code {
-	return res.Code(C.MSK_putafegslice(task.task, C.MSKint64t(first), C.MSKint64t(last), (*C.MSKrealt)(slice)))
+	return res.Code(
+		C.MSK_putafegslice(
+			task.task,
+			mi64(first),
+			mi64(last),
+			prl(slice),
+		),
+	)
 }
 
 // AppendRZeroDomain wraps MSK_appendrzerodomain and add a real zero domain of dimension n to the task.
 // returns the index of the domain if successful.
 func (task *Task) AppendRZeroDomain(n int64) (r res.Code, domidx int64) {
-	r = res.Code(C.MSK_appendrzerodomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
-	return
-}
-
-// AppendQuadraticConeDomain wraps MSK_appendquadraticconedomain and adds a new quadratic cone of size n to the task.
-// returns the index of the domain if successful.
-func (task *Task) AppendQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
-	r = res.Code(C.MSK_appendquadraticconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
-	return
-}
-
-// AppendRotatedQuadraticConeDomain wraps MSK_appendrquadraticconedomain and adds a new *rotated* quadratic cone of size n to the task.
-// returns the index of the domain if successful. This is same as [Task.AppendRQuadraticConeDomain], but with the word "rotated" fully spelled out.
-func (task *Task) AppendRotatedQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
-	r = res.Code(C.MSK_appendrquadraticconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
-	return
-}
-
-// AppendRQuadraticConeDomain wraps MSK_appendrquadraticconedomain and adds a new *rotated* quadratic cone of size n to the task.
-// returns the index of the domain if successful.
-func (task *Task) AppendRQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
-	r = res.Code(C.MSK_appendrquadraticconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)))
-	return
-}
-
-// AppendPrimalPowerConeDomain wraps MSK_appendprimalpowerconedomain and add a primal power cone to the task
-func (task *Task) AppendPrimalPowerConeDomain(n, nleft int64, alpha *float64) (r res.Code, domidx int64) {
-	r = res.Code(C.MSK_appendprimalpowerconedomain(task.task, C.MSKint64t(n), C.MSKint64t(nleft), (*C.MSKrealt)(alpha), (*C.MSKint64t)(&domidx)))
-	return
-}
-
-// AppendPrimalExpConeDomain wraps MSK_appendprimalexpconedomain and appends a primal exponential cone to the task.
-func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 	r = res.Code(
-		C.MSK_appendprimalexpconedomain(
+		C.MSK_appendrzerodomain(
 			task.task,
-			(*C.MSKint64t)(&domidx),
+			mi64(n),
+			pi64(&domidx),
 		),
 	)
 	return
@@ -521,7 +530,72 @@ func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 // AppendRPlusDomain wraps MSK_appendrplusdomain and adds a R-Plus domain to the task, which is x >= 0.
 func (task *Task) AppendRPlusDomain(n int64) (r res.Code, domidx int64) {
 	r = res.Code(
-		C.MSK_appendrplusdomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)),
+		C.MSK_appendrplusdomain(
+			task.task,
+			mi64(n),
+			pi64(&domidx),
+		),
+	)
+	return
+}
+
+// AppendRMinusDomain wraps MSK_appendrminusdomain and adds a R-minus domain to the task, which is x <= 0.
+func (task *Task) AppendRMinusDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendrminusdomain(
+			task.task,
+			mi64(n),
+			pi64(&domidx),
+		),
+	)
+
+	return
+}
+
+// AppendQuadraticConeDomain wraps MSK_appendquadraticconedomain and adds a new quadratic cone of size n to the task.
+// returns the index of the domain if successful.
+func (task *Task) AppendQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(C.MSK_appendquadraticconedomain(task.task, mi64(n), pi64(&domidx)))
+	return
+}
+
+// AppendRotatedQuadraticConeDomain wraps MSK_appendrquadraticconedomain
+// and adds a new *rotated* quadratic cone of size n to the task.
+// returns the index of the domain if successful.
+// This is same as [Task.AppendRQuadraticConeDomain],
+// but with the word "rotated" fully spelled out.
+func (task *Task) AppendRotatedQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(C.MSK_appendrquadraticconedomain(task.task, mi64(n), pi64(&domidx)))
+	return
+}
+
+// AppendRQuadraticConeDomain wraps MSK_appendrquadraticconedomain and adds a new *rotated* quadratic cone of size n to the task.
+// returns the index of the domain if successful.
+func (task *Task) AppendRQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(C.MSK_appendrquadraticconedomain(task.task, mi64(n), pi64(&domidx)))
+	return
+}
+
+// AppendPrimalPowerConeDomain wraps MSK_appendprimalpowerconedomain and add a primal power cone to the task
+func (task *Task) AppendPrimalPowerConeDomain(n, nleft int64, alpha *float64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendprimalpowerconedomain(
+			task.task,
+			mi64(n),
+			mi64(nleft),
+			prl(alpha),
+			pi64(&domidx)))
+
+	return
+}
+
+// AppendPrimalExpConeDomain wraps MSK_appendprimalexpconedomain and appends a primal exponential cone to the task.
+func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendprimalexpconedomain(
+			task.task,
+			pi64(&domidx),
+		),
 	)
 	return
 }
@@ -530,7 +604,7 @@ func (task *Task) AppendRPlusDomain(n int64) (r res.Code, domidx int64) {
 // or vectorized postive semidefinite matrix. n must be k(k+1)/2.
 func (task *Task) AppendSvecPsdConeDomain(n int64) (r res.Code, domidx int64) {
 	r = res.Code(
-		C.MSK_appendsvecpsdconedomain(task.task, C.MSKint64t(n), (*C.MSKint64t)(&domidx)),
+		C.MSK_appendsvecpsdconedomain(task.task, mi64(n), pi64(&domidx)),
 	)
 	return
 }
@@ -538,23 +612,65 @@ func (task *Task) AppendSvecPsdConeDomain(n int64) (r res.Code, domidx int64) {
 // AppendAcc wraps MSK_appendacc and adds an affine conic constraint to the task, where the afe idx is provided
 // by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq] to avoid allocating an array.
 func (task *Task) AppendAcc(domidx, numafeidx int64, afeidxlist *int64, b *float64) res.Code {
-	return res.Code(C.MSK_appendacc(task.task, C.MSKint64t(domidx), C.MSKint64t(numafeidx), (*C.MSKint64t)(afeidxlist), (*C.MSKrealt)(b)))
+	return res.Code(
+		C.MSK_appendacc(
+			task.task,
+			mi64(domidx),
+			mi64(numafeidx),
+			pi64(afeidxlist),
+			prl(b)))
 }
 
 // AppendAccs wraps MSK_appendacc and adds a list of affine conic constraints to the task.
 func (task *Task) AppendAccs(numaccs int64, domidxs *int64, numafeidx int64, afeidxlist *int64, b *float64) res.Code {
-	return res.Code(C.MSK_appendaccs(task.task, C.MSKint64t(numaccs), (*C.MSKint64t)(domidxs), C.MSKint64t(numafeidx), (*C.MSKint64t)(afeidxlist), (*C.MSKrealt)(b)))
+	return res.Code(
+		C.MSK_appendaccs(
+			task.task,
+			mi64(numaccs),
+			pi64(domidxs),
+			mi64(numafeidx),
+			pi64(afeidxlist),
+			prl(b)))
 }
 
 // AppendAccSeq wraps MSK_appendaccseq and adds an affine conic constraint to the task where
 // the affine idx is sequential.
 func (task *Task) AppendAccSeq(domidx, numafeidx, afeidxfirst int64, b *float64) res.Code {
-	return res.Code(C.MSK_appendaccseq(task.task, C.MSKint64t(domidx), C.MSKint64t(numafeidx), C.MSKint64t(afeidxfirst), (*C.MSKrealt)(b)))
+	return res.Code(C.MSK_appendaccseq(task.task, mi64(domidx), mi64(numafeidx), mi64(afeidxfirst), prl(b)))
 }
 
 // AppendAccsSeq wraps MSK_appendaccsseq and append a block of accs to the tas - assuming affine expressions are sequential.
 func (task *Task) AppendAccsSeq(numaccs int64, domidxs *int64, numafeidx, afeidxfirst int64, b *float64) res.Code {
-	return res.Code(C.MSK_appendaccsseq(task.task, C.MSKint64t(numaccs), (*C.MSKint64t)(domidxs), C.MSKint64t(numafeidx), C.MSKint64t(afeidxfirst), (*C.MSKrealt)(b)))
+	return res.Code(C.MSK_appendaccsseq(task.task, mi64(numaccs), pi64(domidxs), mi64(numafeidx), mi64(afeidxfirst), prl(b)))
+}
+
+// AppendDjcs wraps MSK_appenddjcs and adds disjunctive constraints to the task.
+func (task *Task) AppendDjcs(num int64) res.Code {
+	return res.Code(
+		C.MSK_appenddjcs(task.task, mi64(num)),
+	)
+}
+
+// PutDjc wraps MSK_putdjc and sets the disjunctive constraint.
+func (task *Task) PutDjc(
+	djcidx int64,
+	numdomidx int64, domidxlist *int64,
+	numafeidx int64, afeidxlist *int64,
+	b *float64, numterms int64, termsizelist *int64,
+) res.Code {
+	return res.Code(
+		C.MSK_putdjc(
+			task.task,
+			mi64(djcidx),
+			mi64(numdomidx),
+			pi64(domidxlist),
+			mi64(numafeidx),
+			pi64(afeidxlist),
+			prl(b),
+			mi64(numterms),
+			pi64(termsizelist),
+		),
+	)
 }
 
 // AppendSparseSymmat wraps MSK_appendsparsesymmat and adds a sparse and symmetric matrix to the task.
@@ -566,12 +682,12 @@ func (task *Task) AppendSparseSymmat(dim int32, nz int64, subi, subj *int32, val
 	r = res.Code(
 		C.MSK_appendsparsesymmat(
 			task.task,
-			C.MSKint32t(dim),
-			C.MSKint64t(nz),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valij),
-			(*C.MSKint64t)(&idx),
+			mi32(dim),
+			mi64(nz),
+			pi32(subi),
+			pi32(subj),
+			prl(valij),
+			pi64(&idx),
 		),
 	)
 
@@ -583,21 +699,21 @@ func (task *Task) AppendSparseSymmat(dim int32, nz int64, subi, subj *int32, val
 func (task *Task) PutVarName(j int32, name string) res.Code {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
-	return res.Code(C.MSK_putvarname(task.task, C.MSKint32t(j), cstr))
+	return res.Code(C.MSK_putvarname(task.task, mi32(j), cstr))
 }
 
 // PutConName wraps MSK_putconname and sets a name for a linear constraint at indext i.
 func (task *Task) PutConName(i int32, name string) res.Code {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
-	return res.Code(C.MSK_putconname(task.task, C.MSKint32t(i), cstr))
+	return res.Code(C.MSK_putconname(task.task, mi32(i), cstr))
 }
 
 // PutAccName wraps MSK_putaccname and sets a name for an affine conic constraint.
 func (task *Task) PutAccName(accidx int64, name string) res.Code {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
-	return res.Code(C.MSK_putaccname(task.task, C.MSKint64t(accidx), cstr))
+	return res.Code(C.MSK_putaccname(task.task, mi64(accidx), cstr))
 }
 
 // PutXXSlice wraps MSK_putxxslice and sets the initial solution for a slice.
@@ -606,9 +722,9 @@ func (task *Task) PutXXSlice(whichsol SolType, first, last int32, xx *float64) r
 		C.MSK_putxxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(xx),
+			mi32(first),
+			mi32(last),
+			prl(xx),
 		),
 	)
 }
@@ -621,7 +737,7 @@ func (task *Task) OptimizeTerm() (r res.Code, trmcode res.Code) {
 
 // GetNumVar wraps MSK_getnumvar, which obtains the number of variables in task.
 func (task *Task) GetNumVar() (r res.Code, numVar int32) {
-	r = res.Code(C.MSK_getnumvar(task.task, (*C.MSKint32t)(&numVar)))
+	r = res.Code(C.MSK_getnumvar(task.task, pi32(&numVar)))
 	return
 }
 
@@ -651,7 +767,7 @@ func (task *Task) GetXx(whichsol SolType, xx []float64) (res.Code, []float64) {
 		xx = make([]float64, numVar)
 	}
 
-	r = res.Code(C.MSK_getxx(task.task, C.MSKsoltypee(whichsol), (*C.MSKrealt)(&xx[0])))
+	r = res.Code(C.MSK_getxx(task.task, C.MSKsoltypee(whichsol), prl(&xx[0])))
 
 	return r, xx
 }
@@ -664,7 +780,7 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 		xx = make([]float64, last-first)
 	}
 
-	r = res.Code(C.MSK_getxxslice(task.task, C.MSKsoltypee(whichsol), C.MSKint32t(first), C.MSKint32t(last), (*C.MSKrealt)(&xx[0])))
+	r = res.Code(C.MSK_getxxslice(task.task, C.MSKsoltypee(whichsol), mi32(first), mi32(last), prl(&xx[0])))
 
 	return r, xx
 }
@@ -672,7 +788,7 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 // GetLenBarVarJ wraps MSK_getlenbarvarj and returns the length of semidefinite matrix variable's length at j
 func (task *Task) GetLenBarVarJ(j int32) (r res.Code, lengthbarvarj int64) {
 	r = res.Code(
-		C.MSK_getlenbarvarj(task.task, C.MSKint32t(j), (*C.MSKint64t)(&lengthbarvarj)),
+		C.MSK_getlenbarvarj(task.task, mi32(j), pi64(&lengthbarvarj)),
 	)
 	return
 }
@@ -691,7 +807,7 @@ func (task *Task) GetBarXj(whichsol SolType, j int32, barxj []float64) (res.Code
 	}
 
 	r = res.Code(
-		C.MSK_getbarxj(task.task, C.MSKsoltypee(whichsol), C.MSKint32t(j), (*C.MSKrealt)(&barxj[0])),
+		C.MSK_getbarxj(task.task, C.MSKsoltypee(whichsol), mi32(j), prl(&barxj[0])),
 	)
 
 	return r, barxj
@@ -700,7 +816,7 @@ func (task *Task) GetBarXj(whichsol SolType, j int32, barxj []float64) (res.Code
 // GetAccN wraps MSK_getaccn and returns the dimension of cone at index accidx.
 func (task *Task) GetAccN(accidx int64) (res.Code, int64) {
 	var accn int64
-	res := res.Code(C.MSK_getaccn(task.task, C.MSKint64t(accidx), (*C.MSKint64t)(&accn)))
+	res := res.Code(C.MSK_getaccn(task.task, mi64(accidx), pi64(&accn)))
 	return res, accn
 }
 
@@ -719,7 +835,7 @@ func (task *Task) GetAccDotY(whichsol SolType, accidx int64, doty []float64) (re
 		doty = make([]float64, numdoty)
 	}
 
-	r = res.Code(C.MSK_getaccdoty(task.task, C.MSKsoltypee(whichsol), C.MSKint64t(accidx), (*C.MSKrealt)(&doty[0])))
+	r = res.Code(C.MSK_getaccdoty(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&doty[0])))
 
 	return r, doty
 }
@@ -737,7 +853,7 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64
 		activity = make([]float64, numdoty)
 	}
 
-	r = res.Code(C.MSK_evaluateacc(task.task, C.MSKsoltypee(whichsol), C.MSKint64t(accidx), (*C.MSKrealt)(&activity[0])))
+	r = res.Code(C.MSK_evaluateacc(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&activity[0])))
 
 	return r, activity
 }
@@ -745,7 +861,7 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64
 // GetIntInf wraps MSK_getintinf and retrieve integer information from the task.
 func (task *Task) GetIntInf(whichiinf IInfItem) (r res.Code, ivalue int32) {
 	r = res.Code(
-		C.MSK_getintinf(task.task, C.MSKiinfiteme(whichiinf), (*C.MSKint32t)(&ivalue)),
+		C.MSK_getintinf(task.task, C.MSKiinfiteme(whichiinf), pi32(&ivalue)),
 	)
 	return
 }
@@ -756,7 +872,7 @@ func (task *Task) GetDouInf(whichdinf DInfItem) (r res.Code, dvalue float64) {
 		C.MSK_getdouinf(
 			task.task,
 			C.MSKdinfiteme(whichdinf),
-			(*C.MSKrealt)(&dvalue),
+			prl(&dvalue),
 		),
 	)
 	return
@@ -764,12 +880,12 @@ func (task *Task) GetDouInf(whichdinf DInfItem) (r res.Code, dvalue float64) {
 
 // PutIntParam wraps MSK_putintparam and sets the param to parvalue.
 func (task *Task) PutIntParam(param IParam, parvalue int32) res.Code {
-	return res.Code(C.MSK_putintparam(task.task, C.MSKiparame(param), C.MSKint32t(parvalue)))
+	return res.Code(C.MSK_putintparam(task.task, C.MSKiparame(param), mi32(parvalue)))
 }
 
 // PutDouParam wraps MSK_putdouparam and sets the param to the parvalue
 func (task *Task) PutDouParam(param DParam, parvalue float64) res.Code {
-	return res.Code(C.MSK_putdouparam(task.task, C.MSKdparame(param), C.MSKrealt(parvalue)))
+	return res.Code(C.MSK_putdouparam(task.task, C.MSKdparame(param), mrl(parvalue)))
 }
 
 // writerHolder holds a writer. This must be passed to C api with a handle.
@@ -866,7 +982,7 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 // Potrf wraps MSK_potrf and performs Cholesky decomposition of symmetric
 // square matrix a.
 func POTRF(env *Env, uplo UpLo, n int32, a *float64) res.Code {
-	return res.Code(C.MSK_potrf(env.getEnv(), C.MSKuploe(uplo), C.MSKint32t(n), (*C.MSKrealt)(a)))
+	return res.Code(C.MSK_potrf(env.getEnv(), C.MSKuploe(uplo), mi32(n), prl(a)))
 }
 
 // GEMM wraps MSK_gemm and performs a general matrix multiplication
@@ -875,14 +991,14 @@ func GEMM(env *Env, transa, transb Transpose, m, n, k int32, alpha float64, a, b
 		env.getEnv(),
 		C.MSKtransposee(transa),
 		C.MSKtransposee(transb),
-		C.MSKint32t(m),
-		C.MSKint32t(n),
-		C.MSKint32t(k),
-		C.MSKrealt(alpha),
-		(*C.MSKrealt)(a),
-		(*C.MSKrealt)(b),
-		C.MSKrealt(beta),
-		(*C.MSKrealt)(c)))
+		mi32(m),
+		mi32(n),
+		mi32(k),
+		mrl(alpha),
+		prl(a),
+		prl(b),
+		mrl(beta),
+		prl(c)))
 }
 
 // InputData wraps MSK_inputdata and sets the data for
@@ -898,22 +1014,22 @@ func (task *Task) InputData(
 	return res.Code(
 		C.MSK_inputdata(
 			task.task,
-			C.MSKint32t(maxnumcon),
-			C.MSKint32t(maxnumvar),
-			C.MSKint32t(numcon),
-			C.MSKint32t(numvar),
-			(*C.MSKrealt)(c),
-			C.MSKrealt(cfix),
-			(*C.MSKint32t)(aptrb),
-			(*C.MSKint32t)(aptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
+			mi32(maxnumcon),
+			mi32(maxnumvar),
+			mi32(numcon),
+			mi32(numvar),
+			prl(c),
+			mrl(cfix),
+			pi32(aptrb),
+			pi32(aptre),
+			pi32(asub),
+			prl(aval),
 			(*C.MSKboundkeye)(bkc),
-			(*C.MSKrealt)(blc),
-			(*C.MSKrealt)(buc),
+			prl(blc),
+			prl(buc),
 			(*C.MSKboundkeye)(bkx),
-			(*C.MSKrealt)(blx),
-			(*C.MSKrealt)(bux),
+			prl(blx),
+			prl(bux),
 		),
 	)
 }
