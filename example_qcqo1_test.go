@@ -27,7 +27,6 @@ func Example_quadraticOptimization_qcqo1() {
 
 	const NUMCON = 1 /* Number of constraints.             */
 	const NUMVAR = 3 /* Number of variables.               */
-	const NUMANZ = 3 /* Number of non-zeros in A.          */
 	const NUMQNZ = 4 /* Number of non-zeros in Q.          */
 
 	r := gmsk.RES_OK
