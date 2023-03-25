@@ -19,7 +19,7 @@ import (
 // subject to  sum(x) = 1
 //
 // gamma >= |Gx+h|_2
-func Example_affineConicConstraints1() {
+func Example_affineConicConstraints_acc1() {
 	/* Input data dimensions */
 	var n int32 = 3
 	var k int64 = 2

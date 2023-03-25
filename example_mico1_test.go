@@ -16,7 +16,7 @@ import (
 //	            minimize    x^2 + y^2
 //	            subject to  x >= e^y + 3.8
 //	                        x, y - integer
-func Example_mixedIntegerConicOptimization1() {
+func Example_mixedIntegerConicOptimization_mico1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

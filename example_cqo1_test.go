@@ -9,7 +9,7 @@ import (
 )
 
 // Conic Quadratic Optimization, reproduced from cqo1.c in MOSEK example.
-func Example_conicQuadraticOptimization1() {
+func Example_conicQuadraticOptimization1_cqo1() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

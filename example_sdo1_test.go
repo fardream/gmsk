@@ -15,7 +15,7 @@ import (
 //	subject to  Tr [1, 0, 0; 0, 1, 0; 0, 0, 1]*X + x0           = 1
 //	            Tr [1, 1, 1; 1, 1, 1; 1, 1, 1]*X      + x1 + x2 = 0.5
 //	            (x0,x1,x2) \in Q,  X \in PSD
-func Example_semidefiniteOptimization1() {
+func Example_semidefiniteOptimization_sdo1() {
 	const NUMCON = 2 /* Number of constraints.              */
 	const NUMVAR = 3 /* Number of conic quadratic variables */
 	// const NUMANZ = 3    /* Number of non-zeros in A            */

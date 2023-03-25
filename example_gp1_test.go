@@ -25,7 +25,7 @@ import (
 //	                             y+z <= log(Afloor)
 //	             log( alpha ) <= x-y <= log( beta )
 //	             log( gamma ) <= z-y <= log( delta )
-func Example_geometricProgram1() {
+func Example_geometricProgram1_gp1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

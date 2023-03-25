@@ -15,7 +15,7 @@ import (
 //	maximize x^0.2*y^0.8 + z^0.4 - x
 //	      st x + y + 0.5z = 2
 //	         x,y,z >= 0
-func Example_powerCone1() {
+func Example_powerCone_pow1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

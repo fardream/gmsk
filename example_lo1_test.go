@@ -9,7 +9,7 @@ import (
 )
 
 // Linear programming example 1, reproduced from mosek c api example lo1.c
-func Example_linearOptimization1() {
+func Example_linearOptimization1_lo1() {
 	const numvar, numcon int32 = 4, 3
 	c := []float64{3.0, 1.0, 5.0, 1.0}
 

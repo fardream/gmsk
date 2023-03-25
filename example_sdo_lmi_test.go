@@ -19,7 +19,7 @@ import (
 //	             subject to  Tr [0, 1; 1, 0]*X - x(1) - x(2) >= 0
 //	                         x(1) [0, 1; 1, 3] + x(2) [3, 1; 1, 0] - [1, 0; 0, 1] >> 0
 //	                         X >> 0
-func Example_semidefiniteOptimizationLMI() {
+func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

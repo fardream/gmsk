@@ -19,7 +19,7 @@ import (
 //
 //	C1, C2, A1, A2 are assumed to be constant symmetric matrices,
 //	and b, k are constants.
-func Example_semidefiniteOptimization2() {
+func Example_semidefiniteOptimization_sdo2() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

@@ -21,7 +21,7 @@ import (
 // gamma >= |Gx+h|_2
 //
 // This version inputs the linear constraint as an affine conic constraint.
-func Example_affineConicConstraints2() {
+func Example_affineConicConstraints_acc2() {
 	r := gmsk.RES_OK
 	/* Input data dimensions */
 	var n int32 = 3

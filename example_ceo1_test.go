@@ -9,7 +9,7 @@ import (
 )
 
 // Conic exponential optimization, reproduced from ceo1.c in MOSEK C api.
-func Example_conicExponentialOptimization1() {
+func Example_conicExponentialOptimization1_ceo1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)

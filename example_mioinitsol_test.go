@@ -8,7 +8,8 @@ import (
 	"github.com/fardream/gmsk"
 )
 
-func Example_mixedIntegerProgrammingWithInitialSolution() {
+// Mixed integer programming with initial solution, reproduced from mioinitsol.c in MOSEK C api.
+func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
 			_, sym, desc := gmsk.GetCodeDescSimple(r)
