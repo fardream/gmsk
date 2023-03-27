@@ -3,7 +3,7 @@
 // gmsk is based on mosek's C api, which must be installed and configured before
 // using gmsk.
 //
-// Most routines of mosek's C api returns a result code (whic is an enum/uint32)
+// Most routines of mosek's C api returns a result code [ResCode] (whic is an enum/uint32)
 // to indicate if the routine is successful or not (MSK_RES_OK or [RES_OK]
 // indicates success). Check mosek documentation for more information.
 //
@@ -20,12 +20,28 @@
 // passing in a "destination" pointer. This is not done in go because go supports
 // multiple return values.
 //
+// For majority of pointer inputs to MOSEK calls (such as below),
+// the pointers can be obtained by take the address of the desired element in a
+// slice/array in golang
+//
+//	MSKrescodee MSK_putafefcol(
+//	 task MSKtask_t,
+//	 MSKint32t varidx,
+//	 MSKint64t numz,
+//	 MSKint64t *afeidx,
+//	 MSKrealt *val);
+//
+// The input to val can be `&val[0]`.
+//
+// Note that there is always overhead of calling c functions from go.
+//
 // [MOSEK ApS]: https://www.mosek.com
 package gmsk
 
 // #cgo LDFLAGS: -lmosek64
 //
-// #include <stdlib.h> // stdlib.h is required for calloc and free
+// #include <stdlib.h> // required for calloc and free
+// #include <string.h> // required for strnlen
 // #include <mosek.h>
 //
 // extern void writeStreamToWriter(void*, char*); // for MSK_linkfunctotaskstream
@@ -47,7 +63,7 @@ const INFINITY float64 = C.MSK_INFINITY
 // MSK_MAX_STR_LEN is the max length of strings in mosek
 const MAX_STR_LEN = C.MSK_MAX_STR_LEN
 
-// some local types
+// some local types to shorten the types from MOSEK.
 type (
 	mi32 = C.MSKint32t
 	mi64 = C.MSKint64t
@@ -55,6 +71,8 @@ type (
 	pi64 = *C.MSKint64t
 	mrl  = C.MSKrealt
 	prl  = *C.MSKrealt
+	mbk  = C.MSKboundkeye
+	pbk  = *C.MSKboundkeye
 )
 
 // Env wraps mosek environment
@@ -65,11 +83,24 @@ type Env struct {
 // Potrf wraps MSK_potrf and performs Cholesky decomposition of symmetric
 // square matrix a.
 func (env *Env) Potrf(uplo UpLo, n int32, a *float64) res.Code {
-	return res.Code(C.MSK_potrf(env.getEnv(), C.MSKuploe(uplo), mi32(n), prl(a)))
+	return res.Code(
+		C.MSK_potrf(
+			env.getEnv(),
+			C.MSKuploe(uplo),
+			mi32(n),
+			prl(a),
+		),
+	)
 }
 
 // Gemm wraps MSK_gemm and performs a general matrix multiplication
-func (env *Env) Gemm(transa, transb Transpose, m, n, k int32, alpha float64, a, b *float64, beta float64, c *float64) res.Code {
+// C = alpha * A * B + beta * C
+func (env *Env) Gemm(
+	transa, transb Transpose,
+	m, n, k int32,
+	alpha float64, a, b *float64,
+	beta float64, c *float64,
+) res.Code {
 	return res.Code(C.MSK_gemm(
 		env.getEnv(),
 		C.MSKtransposee(transa),
@@ -111,7 +142,12 @@ func (env *Env) Axpy(n int32, alpha float64, x, y *float64) res.Code {
 }
 
 // Gemv wraps MSK_gemv and calculates y = aAx + by, where A is matrix, x,y is vector, and a b are scalars.
-func (env *Env) Gemv(transa Transpose, m, n int32, alpha float64, a, x *float64, beta float64, y *float64) res.Code {
+func (env *Env) Gemv(
+	transa Transpose,
+	m, n int32,
+	alpha float64, a, x *float64,
+	beta float64, y *float64,
+) res.Code {
 	return res.Code(
 		C.MSK_gemv(
 			env.getEnv(),
@@ -128,7 +164,12 @@ func (env *Env) Gemv(transa Transpose, m, n int32, alpha float64, a, x *float64,
 }
 
 // Syrk wraps MSK_syrk and performs rank k update of matrix C, C = aAA^T + bC where A/C is matrix and a, b are scalars
-func (env *Env) Syrk(uplo UpLo, trans Transpose, n, k int32, alpha float64, a *float64, beta float64, c *float64) res.Code {
+func (env *Env) Syrk(
+	uplo UpLo,
+	trans Transpose,
+	n, k int32, alpha float64, a *float64,
+	beta float64, c *float64,
+) res.Code {
 	return res.Code(
 		C.MSK_syrk(
 			env.getEnv(),
@@ -180,6 +221,7 @@ func MakeEnv(dbgfile ...string) (*Env, error) {
 	if len(dbgfile) > 1 {
 		return nil, fmt.Errorf("too many dbgfiles: %v", dbgfile)
 	}
+
 	if len(dbgfile) == 1 {
 		cdbgfile = C.CString(dbgfile[0])
 		if dbgfile != nil {
@@ -420,7 +462,7 @@ func (task *Task) PutVarTypeList(num int32, subj *int32, vartype *VariableType) 
 
 // PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
 func (task *Task) PutVarbound(j int32, bkx BoundKey, blx, bux float64) res.Code {
-	return res.Code(C.MSK_putvarbound(task.task, mi32(j), C.MSKboundkeye(bkx), mrl(blx), mrl(bux)))
+	return res.Code(C.MSK_putvarbound(task.task, mi32(j), mbk(bkx), mrl(blx), mrl(bux)))
 }
 
 // PutVarboundSlice wraps MSK_putvarboundslice and sets the bound for a slice of variables using 3 vectors.
@@ -430,7 +472,7 @@ func (task *Task) PutVarboundSlice(first, last int32, bkx *BoundKey, blx, bux *f
 			task.task,
 			mi32(first),
 			mi32(last),
-			(*C.MSKboundkeye)(bkx),
+			pbk(bkx),
 			prl(blx),
 			prl(bux),
 		),
@@ -444,7 +486,7 @@ func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bu
 			task.task,
 			mi32(first),
 			mi32(last),
-			C.MSKboundkeye(bkx),
+			mbk(bkx),
 			mrl(blx),
 			mrl(bux),
 		),
@@ -457,7 +499,7 @@ func (task *Task) PutConbound(i int32, bkc BoundKey, blc, buc float64) res.Code 
 		C.MSK_putconbound(
 			task.task,
 			mi32(i),
-			C.MSKboundkeye(bkc),
+			mbk(bkc),
 			mrl(blc),
 			mrl(buc),
 		),
@@ -471,7 +513,7 @@ func (task *Task) PutConboundSlice(first, last int32, bkc *BoundKey, blc, buc *f
 			task.task,
 			mi32(first),
 			mi32(last),
-			(*C.MSKboundkeye)(bkc),
+			pbk(bkc),
 			prl(blc),
 			prl(buc),
 		),
@@ -486,7 +528,7 @@ func (task *Task) PutConboundSliceConst(first, last int32, bkc BoundKey, blc, bu
 			task.task,
 			mi32(first),
 			mi32(last),
-			C.MSKboundkeye(bkc),
+			mbk(bkc),
 			mrl(blc),
 			mrl(blc),
 		),
@@ -857,7 +899,14 @@ func (task *Task) AppendAccSeq(domidx, numafeidx, afeidxfirst int64, b *float64)
 
 // AppendAccsSeq wraps MSK_appendaccsseq and append a block of accs to the tas - assuming affine expressions are sequential.
 func (task *Task) AppendAccsSeq(numaccs int64, domidxs *int64, numafeidx, afeidxfirst int64, b *float64) res.Code {
-	return res.Code(C.MSK_appendaccsseq(task.task, mi64(numaccs), pi64(domidxs), mi64(numafeidx), mi64(afeidxfirst), prl(b)))
+	return res.Code(
+		C.MSK_appendaccsseq(
+			task.task,
+			mi64(numaccs),
+			pi64(domidxs),
+			mi64(numafeidx),
+			mi64(afeidxfirst),
+			prl(b)))
 }
 
 // AppendDjcs wraps MSK_appenddjcs and adds disjunctive constraints to the task.
@@ -1008,7 +1057,13 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 		xx = make([]float64, last-first)
 	}
 
-	r = res.Code(C.MSK_getxxslice(task.task, C.MSKsoltypee(whichsol), mi32(first), mi32(last), prl(&xx[0])))
+	r = res.Code(
+		C.MSK_getxxslice(
+			task.task,
+			C.MSKsoltypee(whichsol),
+			mi32(first),
+			mi32(last),
+			prl(&xx[0])))
 
 	return r, xx
 }
@@ -1016,7 +1071,10 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 // GetLenBarVarJ wraps MSK_getlenbarvarj and returns the length of semidefinite matrix variable's length at j
 func (task *Task) GetLenBarVarJ(j int32) (r res.Code, lengthbarvarj int64) {
 	r = res.Code(
-		C.MSK_getlenbarvarj(task.task, mi32(j), pi64(&lengthbarvarj)),
+		C.MSK_getlenbarvarj(
+			task.task,
+			mi32(j),
+			pi64(&lengthbarvarj)),
 	)
 	return
 }
@@ -1138,7 +1196,10 @@ func writeStreamToWriter(p unsafe.Pointer, v *C.char) {
 		return
 	}
 
-	w.writer.Write([]byte(C.GoString(v)))
+	const MAXLEN = 16777216 // or 16MB
+	n := C.strnlen(v, MAXLEN)
+
+	w.writer.Write(unsafe.Slice((*byte)(unsafe.Pointer(v)), n))
 }
 
 // LinkFuncToTaskStream wraps MSK_linkfuctotaskstream using [io.Writer] instead of callbacks.
@@ -1150,7 +1211,12 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) res.
 	ptr := cgo.NewHandle(writer)
 	task.writerHandles = append(task.writerHandles, ptr)
 
-	return res.Code(C.MSK_linkfunctotaskstream(task.task, C.MSKstreamtypee(whichstream), C.MSKuserhandle_t(ptr), (*[0]byte)(C.writeStreamToWriter)))
+	return res.Code(
+		C.MSK_linkfunctotaskstream(
+			task.task,
+			C.MSKstreamtypee(whichstream),
+			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
+			(*[0]byte)(C.writeStreamToWriter)))
 }
 
 // SolutionSummary wraps MSK_solutionsummary, which prints the summary of the solution to the given stream.
@@ -1176,7 +1242,10 @@ func (task *Task) ReadData(filename string) res.Code {
 
 // writeFuncToWriter is the function for C api's MSKhwritefunc, which has a signature of
 //
-//	void writefunchandle(void* handle, void* src, size_t count)
+//	size_t  (MSKAPI * MSKhwritefunc) (
+//	  MSKuserhandle_t handle,
+//	  const void * src,
+//	  const size_t count)
 //
 //export writeFuncToWriter
 func writeFuncToWriter(handle unsafe.Pointer, src unsafe.Pointer, count C.size_t) C.size_t {
@@ -1189,11 +1258,10 @@ func writeFuncToWriter(handle unsafe.Pointer, src unsafe.Pointer, count C.size_t
 		return 0
 	}
 
-	bytePtr := (*byte)(src)
-
-	byteSlice := unsafe.Slice(bytePtr, count)
+	byteSlice := unsafe.Slice((*byte)(src), count)
 
 	n, _ := w.writer.Write(byteSlice)
+
 	return C.size_t(n)
 }
 
@@ -1204,7 +1272,13 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 	ptr := cgo.NewHandle(writer)
 	task.writerHandles = append(task.writerHandles, ptr)
 
-	return res.Code(C.MSK_writedatahandle(task.task, (*[0]byte)(C.writeFuncToWriter), C.MSKuserhandle_t(ptr), C.MSKdataformate(format), C.MSKcompresstypee(compress)))
+	return res.Code(
+		C.MSK_writedatahandle(
+			task.task,
+			(*[0]byte)(C.writeFuncToWriter),
+			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
+			C.MSKdataformate(format),
+			C.MSKcompresstypee(compress)))
 }
 
 // InputData wraps MSK_inputdata and sets the data for
@@ -1230,10 +1304,10 @@ func (task *Task) InputData(
 			pi32(aptre),
 			pi32(asub),
 			prl(aval),
-			(*C.MSKboundkeye)(bkc),
+			pbk(bkc),
 			prl(blc),
 			prl(buc),
-			(*C.MSKboundkeye)(bkx),
+			pbk(bkx),
 			prl(blx),
 			prl(bux),
 		),
