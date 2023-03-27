@@ -9,7 +9,7 @@ import (
 )
 
 // Example on how to use included BLAS/LAPACK routines in MOSEK,
-// reproduced from MOSEK C api.
+// reproduced from blas_lapack.c in MOSEK C api.
 func Example_blas_lapack() {
 	print_matrix := func(x *float64, r, c int32) {
 		var i, j int32

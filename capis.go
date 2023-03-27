@@ -478,6 +478,21 @@ func (task *Task) PutConboundSlice(first, last int32, bkc *BoundKey, blc, buc *f
 	)
 }
 
+// PutConboundSliceConst wraps MSK_putconboundsliceconst and sets a slice of constraint bounds to
+// const value.
+func (task *Task) PutConboundSliceConst(first, last int32, bkc BoundKey, blc, buc float64) res.Code {
+	return res.Code(
+		C.MSK_putconboundsliceconst(
+			task.task,
+			mi32(first),
+			mi32(last),
+			C.MSKboundkeye(bkc),
+			mrl(blc),
+			mrl(blc),
+		),
+	)
+}
+
 // PutObjsense wraps MSK_putobjsense set the objective sense - which is either minimize or maximize
 func (task *Task) PutObjsense(sense ObjectiveSense) res.Code {
 	return res.Code(C.MSK_putobjsense(task.task, C.MSKobjsensee(sense)))
@@ -871,14 +886,20 @@ func (task *Task) OptimizeTerm() (r res.Code, trmcode res.Code) {
 }
 
 // GetNumVar wraps MSK_getnumvar, which obtains the number of variables in task.
-func (task *Task) GetNumVar() (r res.Code, numVar int32) {
-	r = res.Code(C.MSK_getnumvar(task.task, pi32(&numVar)))
+func (task *Task) GetNumVar() (r res.Code, numvar int32) {
+	r = res.Code(C.MSK_getnumvar(task.task, pi32(&numvar)))
 	return
 }
 
 // GetNumCon wraps MSK_getnumcon and gets the number of constraints in the task.
-func (task *Task) GetNumCon() (r res.Code, numCon int32) {
-	r = res.Code(C.MSK_getnumcon(task.task, pi32(&numCon)))
+func (task *Task) GetNumCon() (r res.Code, numcon int32) {
+	r = res.Code(C.MSK_getnumcon(task.task, pi32(&numcon)))
+	return
+}
+
+// GetNumAfe wraps MSK_getnumafe and gets the number of afe in the task.
+func (task *Task) GetNumAfe() (r res.Code, numafe int64) {
+	r = res.Code(C.MSK_getnumafe(task.task, pi64(&numafe)))
 	return
 }
 
