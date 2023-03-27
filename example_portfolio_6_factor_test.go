@@ -108,7 +108,7 @@ func Example_portfolio_6_factor() {
 		nr, _ := get_nr_nc(m)
 		n := nr
 		vecs := mat_to_vec_c(m)
-		checkOk(gmsk.POTRF(env, gmsk.UPLO_LO, int32(n), &vecs[0]))
+		checkOk(env.Potrf(gmsk.UPLO_LO, int32(n), &vecs[0]))
 		s := vec_to_mat_c(vecs, n, n)
 		// Zero out upper triangular part (MSK_potrf does not use it, original matrix values remain there)
 		for i := 0; i < n; i++ {
@@ -133,7 +133,7 @@ func Example_portfolio_6_factor() {
 		veca := mat_to_vec_c(a)
 		vecb := mat_to_vec_c(b)
 
-		checkOk(gmsk.GEMM(env, gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, int32(na), int32(nb), int32(k), 1, &veca[0], &vecb[0], 1, &vecm[0]))
+		checkOk(env.Gemm(gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, int32(na), int32(nb), int32(k), 1, &veca[0], &vecb[0], 1, &vecm[0]))
 
 		ab := vec_to_mat_c(vecm, na, nb)
 
