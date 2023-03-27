@@ -702,6 +702,19 @@ func (task *Task) AppendRMinusDomain(n int64) (r res.Code, domidx int64) {
 	return
 }
 
+// AppendRDomain wraps MSK_appendrdomain and adds the whole n dimension R space domain to the task.
+func (task *Task) AppendRDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendrdomain(
+			task.task,
+			mi64(n),
+			pi64(&domidx),
+		),
+	)
+
+	return
+}
+
 // AppendQuadraticConeDomain wraps MSK_appendquadraticconedomain and adds a new quadratic cone of size n to the task.
 // returns the index of the domain if successful.
 func (task *Task) AppendQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
@@ -739,6 +752,21 @@ func (task *Task) AppendPrimalPowerConeDomain(n, nleft int64, alpha *float64) (r
 	return
 }
 
+// AppendDualPowerConeDomain wraps MSK_appenddualpowerconedomain and adds a dual power cone to the task.
+func (task *Task) AppendDualPowerConeDomain(n, nleft int64, alpha *float64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appenddualpowerconedomain(
+			task.task,
+			mi64(n),
+			mi64(nleft),
+			prl(alpha),
+			pi64(&domidx),
+		),
+	)
+
+	return
+}
+
 // AppendPrimalExpConeDomain wraps MSK_appendprimalexpconedomain and appends a primal exponential cone to the task.
 func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 	r = res.Code(
@@ -747,6 +775,44 @@ func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 			pi64(&domidx),
 		),
 	)
+	return
+}
+
+// AppendDualExpConeDomain wraps MSK_appenddualexpconedomain and appends a dual exponential cone to the task.
+func (task *Task) AppendDualExpConeDomain() (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appenddualexpconedomain(
+			task.task,
+			pi64(&domidx),
+		),
+	)
+
+	return
+}
+
+// AppendPrimalGeoMeanConeDomain wraps MSK_appendprimalgeomeanconedomain and adds a geometric mean cone domain to the task.
+func (task *Task) AppendPrimalGeoMeanConeDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appendprimalgeomeanconedomain(
+			task.task,
+			mi64(n),
+			pi64(&domidx),
+		),
+	)
+
+	return
+}
+
+// AppendDualGeoMeanConeDomain wraps MSK_appenddualgeomeanconedomain and adds a geometric mean cone domain to the task.
+func (task *Task) AppendDualGeoMeanConeDomain(n int64) (r res.Code, domidx int64) {
+	r = res.Code(
+		C.MSK_appenddualgeomeanconedomain(
+			task.task,
+			mi64(n),
+			pi64(&domidx),
+		),
+	)
+
 	return
 }
 
