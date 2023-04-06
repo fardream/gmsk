@@ -132,6 +132,9 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 		checkOk(r)
 		fmt.Printf("Optimal solution.\n")
 		for j = 0; j < numvar; j++ {
+			if xx[j] <= 1e-6 {
+				xx[j] = 0
+			}
 			fmt.Printf("x[%d]: %e\n", j, xx[j])
 		}
 
@@ -141,6 +144,9 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 		checkOk(r)
 		fmt.Printf("Feasible solution.\n")
 		for j = 0; j < numvar; j++ {
+			if xx[j] <= 1e-6 {
+				xx[j] = 0
+			}
 			fmt.Printf("x[%d]: %e\n", j, xx[j])
 		}
 

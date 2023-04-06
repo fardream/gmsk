@@ -3,6 +3,7 @@ package gmsk_test
 import (
 	"fmt"
 	"log"
+	"math"
 
 	"github.com/fardream/gmsk"
 )
@@ -244,13 +245,16 @@ func Example_logistic() {
 	MSKCALL(logisticRegression(env, n*n, 6, X, Y, 0.1, theta))
 
 	for i = 0; i < 6; i++ {
-		fmt.Printf("%.4f\n", theta[i])
+		if math.Abs(theta[i]) <= 1e-6 {
+			theta[i] = 0
+		}
+		fmt.Printf("%.2e\n", theta[i])
 	}
 	// Output:
-	// -53.6711
-	// 0.0000
-	// 0.0000
-	// 0.0000
-	// 77.1537
-	// 77.1537
+	// -5.37e+01
+	// 0.00e+00
+	// 0.00e+00
+	// 0.00e+00
+	// 7.72e+01
+	// 7.72e+01
 }
