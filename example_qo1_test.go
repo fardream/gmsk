@@ -159,7 +159,7 @@ func Example_quadraticOptimization_qo1() {
 		}
 		fmt.Print("Optimal primal solution\n")
 		for j = 0; j < NUMVAR; j++ {
-			fmt.Printf("x[%d]: %e\n", j, xx[j])
+			fmt.Printf("x[%d]: %.2e\n", j, xx[j])
 		}
 	case gmsk.SOL_STA_DUAL_INFEAS_CER:
 		fallthrough
@@ -172,7 +172,7 @@ func Example_quadraticOptimization_qo1() {
 	}
 	// Output:
 	// Optimal primal solution
-	// x[0]: 1.581187e-04
-	// x[1]: 5.000000e+00
-	// x[2]: 1.580962e-04
+	// x[0]: 1.58e-04
+	// x[1]: 5.00e+00
+	// x[2]: 1.58e-04
 }

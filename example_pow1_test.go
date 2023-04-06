@@ -122,7 +122,7 @@ func Example_powerCone_pow1() {
 
 		fmt.Printf("Optimal primal solution\n")
 		for j := 0; j < 3; j++ {
-			fmt.Printf("x[%d]: %e\n", j, xx[j])
+			fmt.Printf("x[%d]: %.3e\n", j, xx[j])
 		}
 	case gmsk.SOL_STA_DUAL_INFEAS_CER:
 		fallthrough
@@ -134,7 +134,7 @@ func Example_powerCone_pow1() {
 		fmt.Printf("Other solution status.\n")
 	}
 	// Output: Optimal primal solution
-	// x[0]: 6.393861e-02
-	// x[1]: 7.832802e-01
-	// x[2]: 2.305562e+00
+	// x[0]: 6.394e-02
+	// x[1]: 7.833e-01
+	// x[2]: 2.306e+00
 }
