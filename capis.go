@@ -207,12 +207,6 @@ func fmtError(format string, resCode res.Code) error {
 	return fmt.Errorf(format, symbol, desc)
 }
 
-// AppendVars wraps MSK_appendvars, which adds variables
-// to the task.
-func (task *Task) AppendVars(num int32) res.Code {
-	return res.Code(C.MSK_appendvars(task.task, mi32(num)))
-}
-
 // AppendBarVars adds semidefinite matrix variables to the task.
 // Barvar because MOSEK uses bar{x} notation to indicate an element
 // of a semidefinite matrix.
@@ -224,38 +218,6 @@ func (task *Task) AppendBarVars(num int32, dim *int32) res.Code {
 			task.task,
 			mi32(num),
 			pi32(dim)))
-}
-
-// AppendCons wraps MSK_appendcons, which add constraints
-// to the task
-func (task *Task) AppendCons(numcon int32) res.Code {
-	return res.Code(C.MSK_appendcons(task.task, mi32(numcon)))
-}
-
-// PutCj wraps MSK_putcj, which set the coefficient in the objective function.
-func (task *Task) PutCj(j int32, c_j float64) res.Code {
-	return res.Code(C.MSK_putcj(task.task, mi32(j), mrl(c_j)))
-}
-
-// PutCSlice wraps MSK_putcslice, which set a slice of coefficients in the objective
-func (task *Task) PutCSlice(first, last int32, slice *float64) res.Code {
-	return res.Code(
-		C.MSK_putcslice(
-			task.task,
-			mi32(first),
-			mi32(last),
-			prl(slice)))
-}
-
-// PutCList wraps MSK_putclist and set coefficients of the objective with index/value.
-func (task *Task) PutCList(num int32, subj *int32, val *float64) res.Code {
-	return res.Code(
-		C.MSK_putclist(
-			task.task,
-			mi32(num),
-			pi32(subj),
-			prl(val)),
-	)
 }
 
 // PutCFix wraps MSK_putcfix and adds a constant term to the objective.
@@ -329,104 +291,6 @@ func (task *Task) PutVarTypeList(num int32, subj *int32, vartype *VariableType) 
 	)
 }
 
-// PutVarbound wraps MSK_putvarbound, which set the bound for a variable.
-func (task *Task) PutVarbound(j int32, bkx BoundKey, blx, bux float64) res.Code {
-	return res.Code(C.MSK_putvarbound(task.task, mi32(j), mbk(bkx), mrl(blx), mrl(bux)))
-}
-
-// PutVarboundSlice wraps MSK_putvarboundslice and sets the bound for a slice of variables using 3 vectors.
-func (task *Task) PutVarboundSlice(first, last int32, bkx *BoundKey, blx, bux *float64) res.Code {
-	return res.Code(
-		C.MSK_putvarboundslice(
-			task.task,
-			mi32(first),
-			mi32(last),
-			pbk(bkx),
-			prl(blx),
-			prl(bux),
-		),
-	)
-}
-
-// PutVarboundSliceConst wraps MSK_putvarboundsliceconst, which set the bound for a slice of variables to the same value.
-func (task *Task) PutVarboundSliceConst(first, last int32, bkx BoundKey, blx, bux float64) res.Code {
-	return res.Code(
-		C.MSK_putvarboundsliceconst(
-			task.task,
-			mi32(first),
-			mi32(last),
-			mbk(bkx),
-			mrl(blx),
-			mrl(bux),
-		),
-	)
-}
-
-// PutConBound wraps MSK_putconbound, which set the bound for a contraint
-func (task *Task) PutConbound(i int32, bkc BoundKey, blc, buc float64) res.Code {
-	return res.Code(
-		C.MSK_putconbound(
-			task.task,
-			mi32(i),
-			mbk(bkc),
-			mrl(blc),
-			mrl(buc),
-		),
-	)
-}
-
-// PutConboundSlice wraps MSK_putconboundslice and sets a list of constraint bounds.
-func (task *Task) PutConboundSlice(first, last int32, bkc *BoundKey, blc, buc *float64) res.Code {
-	return res.Code(
-		C.MSK_putconboundslice(
-			task.task,
-			mi32(first),
-			mi32(last),
-			pbk(bkc),
-			prl(blc),
-			prl(buc),
-		),
-	)
-}
-
-// PutConboundSliceConst wraps MSK_putconboundsliceconst and sets a slice of constraint bounds to
-// const value.
-func (task *Task) PutConboundSliceConst(first, last int32, bkc BoundKey, blc, buc float64) res.Code {
-	return res.Code(
-		C.MSK_putconboundsliceconst(
-			task.task,
-			mi32(first),
-			mi32(last),
-			mbk(bkc),
-			mrl(blc),
-			mrl(blc),
-		),
-	)
-}
-
-// PutObjsense wraps MSK_putobjsense set the objective sense - which is either minimize or maximize
-func (task *Task) PutObjsense(sense ObjectiveSense) res.Code {
-	return res.Code(C.MSK_putobjsense(task.task, C.MSKobjsensee(sense)))
-}
-
-// PutAij wraps MSK_putaij, which set the value of the constraints matrix A[i,j]
-func (task *Task) PutAij(i, j int32, aij float64) res.Code {
-	return res.Code(C.MSK_putaij(task.task, mi32(i), mi32(j), mrl(aij)))
-}
-
-// PutAijList wraps MSK_putaijlist and sets a list of constraint matrix A by index.
-func (task *Task) PutAijList(num int32, subi, subj *int32, valij *float64) res.Code {
-	return res.Code(
-		C.MSK_putaijlist(
-			task.task,
-			mi32(num),
-			pi32(subi),
-			pi32(subj),
-			prl(valij),
-		),
-	)
-}
-
 // PutACol wraps MSK_putacol, and puts a column of A matrix.
 func (task *Task) PutACol(j int32, nzj int32, subj *int32, valj *float64) res.Code {
 	return res.Code(C.MSK_putacol(task.task, mi32(j), mi32(nzj), pi32(subj), prl(valj)))
@@ -490,11 +354,6 @@ func (task *Task) PutQConK(k int32, numqcnz int32, qcsubi, qcsubj *int32, qcval 
 			prl(qcval),
 		),
 	)
-}
-
-// AppendAfes wraps MSK_appendafes and adds affine expressions to the task.
-func (task *Task) AppendAfes(num int64) res.Code {
-	return res.Code(C.MSK_appendafes(task.task, mi64(num)))
 }
 
 // PutAfeFEntry wraps MSK_putafefentry and set an entry in the  affine expression F matrix.
@@ -736,77 +595,6 @@ func (task *Task) AppendSvecPsdConeDomain(n int64) (r res.Code, domidx int64) {
 	return
 }
 
-// AppendAcc wraps MSK_appendacc and adds an affine conic constraint to the task, where the afe idx is provided
-// by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq] to avoid allocating an array.
-func (task *Task) AppendAcc(domidx, numafeidx int64, afeidxlist *int64, b *float64) res.Code {
-	return res.Code(
-		C.MSK_appendacc(
-			task.task,
-			mi64(domidx),
-			mi64(numafeidx),
-			pi64(afeidxlist),
-			prl(b)))
-}
-
-// AppendAccs wraps MSK_appendacc and adds a list of affine conic constraints to the task.
-func (task *Task) AppendAccs(numaccs int64, domidxs *int64, numafeidx int64, afeidxlist *int64, b *float64) res.Code {
-	return res.Code(
-		C.MSK_appendaccs(
-			task.task,
-			mi64(numaccs),
-			pi64(domidxs),
-			mi64(numafeidx),
-			pi64(afeidxlist),
-			prl(b)))
-}
-
-// AppendAccSeq wraps MSK_appendaccseq and adds an affine conic constraint to the task where
-// the affine idx is sequential.
-func (task *Task) AppendAccSeq(domidx, numafeidx, afeidxfirst int64, b *float64) res.Code {
-	return res.Code(C.MSK_appendaccseq(task.task, mi64(domidx), mi64(numafeidx), mi64(afeidxfirst), prl(b)))
-}
-
-// AppendAccsSeq wraps MSK_appendaccsseq and append a block of accs to the tas - assuming affine expressions are sequential.
-func (task *Task) AppendAccsSeq(numaccs int64, domidxs *int64, numafeidx, afeidxfirst int64, b *float64) res.Code {
-	return res.Code(
-		C.MSK_appendaccsseq(
-			task.task,
-			mi64(numaccs),
-			pi64(domidxs),
-			mi64(numafeidx),
-			mi64(afeidxfirst),
-			prl(b)))
-}
-
-// AppendDjcs wraps MSK_appenddjcs and adds disjunctive constraints to the task.
-func (task *Task) AppendDjcs(num int64) res.Code {
-	return res.Code(
-		C.MSK_appenddjcs(task.task, mi64(num)),
-	)
-}
-
-// PutDjc wraps MSK_putdjc and sets the disjunctive constraint.
-func (task *Task) PutDjc(
-	djcidx int64,
-	numdomidx int64, domidxlist *int64,
-	numafeidx int64, afeidxlist *int64,
-	b *float64, numterms int64, termsizelist *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putdjc(
-			task.task,
-			mi64(djcidx),
-			mi64(numdomidx),
-			pi64(domidxlist),
-			mi64(numafeidx),
-			pi64(afeidxlist),
-			prl(b),
-			mi64(numterms),
-			pi64(termsizelist),
-		),
-	)
-}
-
 // AppendSparseSymmat wraps MSK_appendsparsesymmat and adds a sparse and symmetric matrix to the task.
 // matrix is represented in coordinate format, and only lower triangular portion of the matrix should be
 // specified.
@@ -848,19 +636,6 @@ func (task *Task) PutAccName(accidx int64, name string) res.Code {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
 	return res.Code(C.MSK_putaccname(task.task, mi64(accidx), cstr))
-}
-
-// PutXXSlice wraps MSK_putxxslice and sets the initial solution for a slice.
-func (task *Task) PutXXSlice(whichsol SolType, first, last int32, xx *float64) res.Code {
-	return res.Code(
-		C.MSK_putxxslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			mi32(first),
-			mi32(last),
-			prl(xx),
-		),
-	)
 }
 
 // OptimizeTerm wraps MSK_optimizeterm, which optimizes the problem.
