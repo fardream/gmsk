@@ -10,14 +10,15 @@ import "unsafe"
 
 import "github.com/fardream/gmsk/res"
 
-// Analyzenames is wrapping [MSK_analyzenames]
+// AnalyzeNames is wrapping [MSK_analyzenames]
+//
 // function MSK_analyzenames has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
-// - nametype: MSKnametypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
+//   - nametype: MSKnametypee
 //
 // [MSK_analyzenames]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Analyzenames(
+func (task *Task) AnalyzeNames(
 	whichstream StreamType,
 	nametype NameType,
 ) res.Code {
@@ -30,13 +31,14 @@ func (task *Task) Analyzenames(
 	)
 }
 
-// Analyzeproblem is wrapping [MSK_analyzeproblem]
+// AnalyzeProblem is wrapping [MSK_analyzeproblem]
+//
 // function MSK_analyzeproblem has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
 //
 // [MSK_analyzeproblem]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Analyzeproblem(
+func (task *Task) AnalyzeProblem(
 	whichstream StreamType,
 ) res.Code {
 	return res.Code(
@@ -47,14 +49,15 @@ func (task *Task) Analyzeproblem(
 	)
 }
 
-// Analyzesolution is wrapping [MSK_analyzesolution]
+// AnalyzeSolution is wrapping [MSK_analyzesolution]
+//
 // function MSK_analyzesolution has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
-// - whichsol: MSKsoltypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
+//   - whichsol: MSKsoltypee
 //
 // [MSK_analyzesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Analyzesolution(
+func (task *Task) AnalyzeSolution(
 	whichstream StreamType,
 	whichsol SolType,
 ) res.Code {
@@ -67,16 +70,17 @@ func (task *Task) Analyzesolution(
 	)
 }
 
-// Appendacc is wrapping [MSK_appendacc]
+// AppendAcc is wrapping [MSK_appendacc]
+//
 // function MSK_appendacc has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - numafeidx: MSKint64t
-// - afeidxlist: const MSKint64t *
-// - b: const MSKrealt *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - numafeidx: MSKint64t
+//   - afeidxlist: const MSKint64t *
+//   - b: const MSKrealt *
 //
 // [MSK_appendacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendacc(
+func (task *Task) AppendAcc(
 	domidx int64,
 	numafeidx int64,
 	afeidxlist *int64,
@@ -93,17 +97,18 @@ func (task *Task) Appendacc(
 	)
 }
 
-// Appendaccs is wrapping [MSK_appendaccs]
+// AppendAccs is wrapping [MSK_appendaccs]
+//
 // function MSK_appendaccs has following parameters:
-// - task: MSKtask_t
-// - numaccs: MSKint64t
-// - domidxs: const MSKint64t *
-// - numafeidx: MSKint64t
-// - afeidxlist: const MSKint64t *
-// - b: const MSKrealt *
+//   - task: MSKtask_t
+//   - numaccs: MSKint64t
+//   - domidxs: const MSKint64t *
+//   - numafeidx: MSKint64t
+//   - afeidxlist: const MSKint64t *
+//   - b: const MSKrealt *
 //
 // [MSK_appendaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendaccs(
+func (task *Task) AppendAccs(
 	numaccs int64,
 	domidxs *int64,
 	numafeidx int64,
@@ -122,16 +127,17 @@ func (task *Task) Appendaccs(
 	)
 }
 
-// Appendaccseq is wrapping [MSK_appendaccseq]
+// AppendAccSeq is wrapping [MSK_appendaccseq]
+//
 // function MSK_appendaccseq has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - numafeidx: MSKint64t
-// - afeidxfirst: MSKint64t
-// - b: const MSKrealt *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - numafeidx: MSKint64t
+//   - afeidxfirst: MSKint64t
+//   - b: const MSKrealt *
 //
 // [MSK_appendaccseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendaccseq(
+func (task *Task) AppendAccSeq(
 	domidx int64,
 	numafeidx int64,
 	afeidxfirst int64,
@@ -148,17 +154,18 @@ func (task *Task) Appendaccseq(
 	)
 }
 
-// Appendaccsseq is wrapping [MSK_appendaccsseq]
+// AppendAccsSeq is wrapping [MSK_appendaccsseq]
+//
 // function MSK_appendaccsseq has following parameters:
-// - task: MSKtask_t
-// - numaccs: MSKint64t
-// - domidxs: const MSKint64t *
-// - numafeidx: MSKint64t
-// - afeidxfirst: MSKint64t
-// - b: const MSKrealt *
+//   - task: MSKtask_t
+//   - numaccs: MSKint64t
+//   - domidxs: const MSKint64t *
+//   - numafeidx: MSKint64t
+//   - afeidxfirst: MSKint64t
+//   - b: const MSKrealt *
 //
 // [MSK_appendaccsseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendaccsseq(
+func (task *Task) AppendAccsSeq(
 	numaccs int64,
 	domidxs *int64,
 	numafeidx int64,
@@ -177,13 +184,14 @@ func (task *Task) Appendaccsseq(
 	)
 }
 
-// Appendafes is wrapping [MSK_appendafes]
+// AppendAfes is wrapping [MSK_appendafes]
+//
 // function MSK_appendafes has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t
+//   - task: MSKtask_t
+//   - num: MSKint64t
 //
 // [MSK_appendafes]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendafes(
+func (task *Task) AppendAfes(
 	num int64,
 ) res.Code {
 	return res.Code(
@@ -194,14 +202,15 @@ func (task *Task) Appendafes(
 	)
 }
 
-// Appendbarvars is wrapping [MSK_appendbarvars]
+// AppendBarvars is wrapping [MSK_appendbarvars]
+//
 // function MSK_appendbarvars has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - dim: const MSKint32t *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - dim: const MSKint32t *
 //
 // [MSK_appendbarvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendbarvars(
+func (task *Task) AppendBarvars(
 	num int32,
 	dim *int32,
 ) res.Code {
@@ -214,16 +223,17 @@ func (task *Task) Appendbarvars(
 	)
 }
 
-// Appendcone is wrapping [MSK_appendcone]
+// AppendCone is wrapping [MSK_appendcone]
+//
 // function MSK_appendcone has following parameters:
-// - task: MSKtask_t
-// - ct: MSKconetypee
-// - conepar: MSKrealt
-// - nummem: MSKint32t
-// - submem: const MSKint32t *
+//   - task: MSKtask_t
+//   - ct: MSKconetypee
+//   - conepar: MSKrealt
+//   - nummem: MSKint32t
+//   - submem: const MSKint32t *
 //
 // [MSK_appendcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendcone(
+func (task *Task) AppendCone(
 	ct ConeType,
 	conepar float64,
 	nummem int32,
@@ -240,16 +250,17 @@ func (task *Task) Appendcone(
 	)
 }
 
-// Appendconeseq is wrapping [MSK_appendconeseq]
+// AppendConeSeq is wrapping [MSK_appendconeseq]
+//
 // function MSK_appendconeseq has following parameters:
-// - task: MSKtask_t
-// - ct: MSKconetypee
-// - conepar: MSKrealt
-// - nummem: MSKint32t
-// - j: MSKint32t
+//   - task: MSKtask_t
+//   - ct: MSKconetypee
+//   - conepar: MSKrealt
+//   - nummem: MSKint32t
+//   - j: MSKint32t
 //
 // [MSK_appendconeseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendconeseq(
+func (task *Task) AppendConeSeq(
 	ct ConeType,
 	conepar float64,
 	nummem int32,
@@ -266,17 +277,18 @@ func (task *Task) Appendconeseq(
 	)
 }
 
-// Appendconesseq is wrapping [MSK_appendconesseq]
+// AppendConesSeq is wrapping [MSK_appendconesseq]
+//
 // function MSK_appendconesseq has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - ct: const MSKconetypee *
-// - conepar: const MSKrealt *
-// - nummem: const MSKint32t *
-// - j: MSKint32t
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - ct: const MSKconetypee *
+//   - conepar: const MSKrealt *
+//   - nummem: const MSKint32t *
+//   - j: MSKint32t
 //
 // [MSK_appendconesseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendconesseq(
+func (task *Task) AppendConesSeq(
 	num int32,
 	ct *ConeType,
 	conepar *float64,
@@ -295,13 +307,14 @@ func (task *Task) Appendconesseq(
 	)
 }
 
-// Appendcons is wrapping [MSK_appendcons]
+// AppendCons is wrapping [MSK_appendcons]
+//
 // function MSK_appendcons has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
+//   - task: MSKtask_t
+//   - num: MSKint32t
 //
 // [MSK_appendcons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendcons(
+func (task *Task) AppendCons(
 	num int32,
 ) res.Code {
 	return res.Code(
@@ -312,13 +325,14 @@ func (task *Task) Appendcons(
 	)
 }
 
-// Appenddjcs is wrapping [MSK_appenddjcs]
+// AppendDjcs is wrapping [MSK_appenddjcs]
+//
 // function MSK_appenddjcs has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t
+//   - task: MSKtask_t
+//   - num: MSKint64t
 //
 // [MSK_appenddjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appenddjcs(
+func (task *Task) AppendDjcs(
 	num int64,
 ) res.Code {
 	return res.Code(
@@ -329,13 +343,14 @@ func (task *Task) Appenddjcs(
 	)
 }
 
-// Appenddualexpconedomain is wrapping [MSK_appenddualexpconedomain]
+// AppendDualexpconedomain is wrapping [MSK_appenddualexpconedomain]
+//
 // function MSK_appenddualexpconedomain has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t *
 //
 // [MSK_appenddualexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appenddualexpconedomain(
+func (task *Task) AppendDualexpconedomain(
 	domidx *int64,
 ) res.Code {
 	return res.Code(
@@ -346,14 +361,15 @@ func (task *Task) Appenddualexpconedomain(
 	)
 }
 
-// Appenddualgeomeanconedomain is wrapping [MSK_appenddualgeomeanconedomain]
+// AppendDualgeomeanconedomain is wrapping [MSK_appenddualgeomeanconedomain]
+//
 // function MSK_appenddualgeomeanconedomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appenddualgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appenddualgeomeanconedomain(
+func (task *Task) AppendDualgeomeanconedomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -366,16 +382,17 @@ func (task *Task) Appenddualgeomeanconedomain(
 	)
 }
 
-// Appenddualpowerconedomain is wrapping [MSK_appenddualpowerconedomain]
+// AppendDualpowerconedomain is wrapping [MSK_appenddualpowerconedomain]
+//
 // function MSK_appenddualpowerconedomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - nleft: MSKint64t
-// - alpha: const MSKrealt *
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - nleft: MSKint64t
+//   - alpha: const MSKrealt *
+//   - domidx: MSKint64t *
 //
 // [MSK_appenddualpowerconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appenddualpowerconedomain(
+func (task *Task) AppendDualpowerconedomain(
 	n int64,
 	nleft int64,
 	alpha *float64,
@@ -392,13 +409,14 @@ func (task *Task) Appenddualpowerconedomain(
 	)
 }
 
-// Appendprimalexpconedomain is wrapping [MSK_appendprimalexpconedomain]
+// AppendPrimalexpconedomain is wrapping [MSK_appendprimalexpconedomain]
+//
 // function MSK_appendprimalexpconedomain has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendprimalexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendprimalexpconedomain(
+func (task *Task) AppendPrimalexpconedomain(
 	domidx *int64,
 ) res.Code {
 	return res.Code(
@@ -409,14 +427,15 @@ func (task *Task) Appendprimalexpconedomain(
 	)
 }
 
-// Appendprimalgeomeanconedomain is wrapping [MSK_appendprimalgeomeanconedomain]
+// AppendPrimalgeomeanconedomain is wrapping [MSK_appendprimalgeomeanconedomain]
+//
 // function MSK_appendprimalgeomeanconedomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendprimalgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendprimalgeomeanconedomain(
+func (task *Task) AppendPrimalgeomeanconedomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -429,16 +448,17 @@ func (task *Task) Appendprimalgeomeanconedomain(
 	)
 }
 
-// Appendprimalpowerconedomain is wrapping [MSK_appendprimalpowerconedomain]
+// AppendPrimalpowerconedomain is wrapping [MSK_appendprimalpowerconedomain]
+//
 // function MSK_appendprimalpowerconedomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - nleft: MSKint64t
-// - alpha: const MSKrealt *
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - nleft: MSKint64t
+//   - alpha: const MSKrealt *
+//   - domidx: MSKint64t *
 //
 // [MSK_appendprimalpowerconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendprimalpowerconedomain(
+func (task *Task) AppendPrimalpowerconedomain(
 	n int64,
 	nleft int64,
 	alpha *float64,
@@ -455,14 +475,15 @@ func (task *Task) Appendprimalpowerconedomain(
 	)
 }
 
-// Appendquadraticconedomain is wrapping [MSK_appendquadraticconedomain]
+// AppendQuadraticconedomain is wrapping [MSK_appendquadraticconedomain]
+//
 // function MSK_appendquadraticconedomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendquadraticconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendquadraticconedomain(
+func (task *Task) AppendQuadraticconedomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -475,14 +496,15 @@ func (task *Task) Appendquadraticconedomain(
 	)
 }
 
-// Appendrdomain is wrapping [MSK_appendrdomain]
+// AppendRdomain is wrapping [MSK_appendrdomain]
+//
 // function MSK_appendrdomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendrdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendrdomain(
+func (task *Task) AppendRdomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -495,14 +517,15 @@ func (task *Task) Appendrdomain(
 	)
 }
 
-// Appendrminusdomain is wrapping [MSK_appendrminusdomain]
+// AppendRminusdomain is wrapping [MSK_appendrminusdomain]
+//
 // function MSK_appendrminusdomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendrminusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendrminusdomain(
+func (task *Task) AppendRminusdomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -515,14 +538,15 @@ func (task *Task) Appendrminusdomain(
 	)
 }
 
-// Appendrplusdomain is wrapping [MSK_appendrplusdomain]
+// AppendRplusdomain is wrapping [MSK_appendrplusdomain]
+//
 // function MSK_appendrplusdomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendrplusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendrplusdomain(
+func (task *Task) AppendRplusdomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -535,14 +559,15 @@ func (task *Task) Appendrplusdomain(
 	)
 }
 
-// Appendrquadraticconedomain is wrapping [MSK_appendrquadraticconedomain]
+// AppendRquadraticconedomain is wrapping [MSK_appendrquadraticconedomain]
+//
 // function MSK_appendrquadraticconedomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendrquadraticconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendrquadraticconedomain(
+func (task *Task) AppendRquadraticconedomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -555,14 +580,15 @@ func (task *Task) Appendrquadraticconedomain(
 	)
 }
 
-// Appendrzerodomain is wrapping [MSK_appendrzerodomain]
+// AppendRzerodomain is wrapping [MSK_appendrzerodomain]
+//
 // function MSK_appendrzerodomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendrzerodomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendrzerodomain(
+func (task *Task) AppendRzerodomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -575,18 +601,19 @@ func (task *Task) Appendrzerodomain(
 	)
 }
 
-// Appendsparsesymmat is wrapping [MSK_appendsparsesymmat]
+// AppendSparsesymmat is wrapping [MSK_appendsparsesymmat]
+//
 // function MSK_appendsparsesymmat has following parameters:
-// - task: MSKtask_t
-// - dim: MSKint32t
-// - nz: MSKint64t
-// - subi: const MSKint32t *
-// - subj: const MSKint32t *
-// - valij: const MSKrealt *
-// - idx: MSKint64t *
+//   - task: MSKtask_t
+//   - dim: MSKint32t
+//   - nz: MSKint64t
+//   - subi: const MSKint32t *
+//   - subj: const MSKint32t *
+//   - valij: const MSKrealt *
+//   - idx: MSKint64t *
 //
 // [MSK_appendsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendsparsesymmat(
+func (task *Task) AppendSparsesymmat(
 	dim int32,
 	nz int64,
 	subi *int32,
@@ -607,19 +634,20 @@ func (task *Task) Appendsparsesymmat(
 	)
 }
 
-// Appendsparsesymmatlist is wrapping [MSK_appendsparsesymmatlist]
+// AppendSparsesymmatList is wrapping [MSK_appendsparsesymmatlist]
+//
 // function MSK_appendsparsesymmatlist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - dims: const MSKint32t *
-// - nz: const MSKint64t *
-// - subi: const MSKint32t *
-// - subj: const MSKint32t *
-// - valij: const MSKrealt *
-// - idx: MSKint64t *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - dims: const MSKint32t *
+//   - nz: const MSKint64t *
+//   - subi: const MSKint32t *
+//   - subj: const MSKint32t *
+//   - valij: const MSKrealt *
+//   - idx: MSKint64t *
 //
 // [MSK_appendsparsesymmatlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendsparsesymmatlist(
+func (task *Task) AppendSparsesymmatList(
 	num int32,
 	dims *int32,
 	nz *int64,
@@ -642,14 +670,15 @@ func (task *Task) Appendsparsesymmatlist(
 	)
 }
 
-// Appendsvecpsdconedomain is wrapping [MSK_appendsvecpsdconedomain]
+// AppendSvecpsdconedomain is wrapping [MSK_appendsvecpsdconedomain]
+//
 // function MSK_appendsvecpsdconedomain has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_appendsvecpsdconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendsvecpsdconedomain(
+func (task *Task) AppendSvecpsdconedomain(
 	n int64,
 	domidx *int64,
 ) res.Code {
@@ -662,13 +691,14 @@ func (task *Task) Appendsvecpsdconedomain(
 	)
 }
 
-// Appendvars is wrapping [MSK_appendvars]
+// AppendVars is wrapping [MSK_appendvars]
+//
 // function MSK_appendvars has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
+//   - task: MSKtask_t
+//   - num: MSKint32t
 //
 // [MSK_appendvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Appendvars(
+func (task *Task) AppendVars(
 	num int32,
 ) res.Code {
 	return res.Code(
@@ -680,10 +710,11 @@ func (task *Task) Appendvars(
 }
 
 // Basiscond is wrapping [MSK_basiscond]
+//
 // function MSK_basiscond has following parameters:
-// - task: MSKtask_t
-// - nrmbasis: MSKrealt *
-// - nrminvbasis: MSKrealt *
+//   - task: MSKtask_t
+//   - nrmbasis: MSKrealt *
+//   - nrminvbasis: MSKrealt *
 //
 // [MSK_basiscond]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Basiscond(
@@ -700,10 +731,11 @@ func (task *Task) Basiscond(
 }
 
 // Bktostr is wrapping [MSK_bktostr]
+//
 // function MSK_bktostr has following parameters:
-// - task: MSKtask_t
-// - bk: MSKboundkeye
-// - str: char *
+//   - task: MSKtask_t
+//   - bk: MSKboundkeye
+//   - str: char *
 //
 // [MSK_bktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Bktostr(
@@ -720,9 +752,10 @@ func (task *Task) Bktostr(
 }
 
 // Callbackcodetostr is wrapping [MSK_callbackcodetostr]
+//
 // function MSK_callbackcodetostr has following parameters:
-// - code: MSKcallbackcodee
-// - callbackcodestr: char *
+//   - code: MSKcallbackcodee
+//   - callbackcodestr: char *
 //
 // [MSK_callbackcodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Callbackcodetostr(
@@ -738,10 +771,11 @@ func Callbackcodetostr(
 }
 
 // Checkmemtask is wrapping [MSK_checkmemtask]
+//
 // function MSK_checkmemtask has following parameters:
-// - task: MSKtask_t
-// - file: const char *
-// - line: MSKint32t
+//   - task: MSKtask_t
+//   - file: const char *
+//   - line: MSKint32t
 //
 // [MSK_checkmemtask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Checkmemtask(
@@ -758,12 +792,13 @@ func (task *Task) Checkmemtask(
 }
 
 // Chgconbound is wrapping [MSK_chgconbound]
+//
 // function MSK_chgconbound has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - lower: MSKint32t
-// - finite: MSKint32t
-// - value: MSKrealt
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - lower: MSKint32t
+//   - finite: MSKint32t
+//   - value: MSKrealt
 //
 // [MSK_chgconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Chgconbound(
@@ -784,12 +819,13 @@ func (task *Task) Chgconbound(
 }
 
 // Chgvarbound is wrapping [MSK_chgvarbound]
+//
 // function MSK_chgvarbound has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - lower: MSKint32t
-// - finite: MSKint32t
-// - value: MSKrealt
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - lower: MSKint32t
+//   - finite: MSKint32t
+//   - value: MSKrealt
 //
 // [MSK_chgvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Chgvarbound(
@@ -810,8 +846,9 @@ func (task *Task) Chgvarbound(
 }
 
 // Commitchanges is wrapping [MSK_commitchanges]
+//
 // function MSK_commitchanges has following parameters:
-// - task: MSKtask_t
+//   - task: MSKtask_t
 //
 // [MSK_commitchanges]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Commitchanges() res.Code {
@@ -823,10 +860,11 @@ func (task *Task) Commitchanges() res.Code {
 }
 
 // Conetypetostr is wrapping [MSK_conetypetostr]
+//
 // function MSK_conetypetostr has following parameters:
-// - task: MSKtask_t
-// - ct: MSKconetypee
-// - str: char *
+//   - task: MSKtask_t
+//   - ct: MSKconetypee
+//   - str: char *
 //
 // [MSK_conetypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Conetypetostr(
@@ -843,9 +881,10 @@ func (task *Task) Conetypetostr(
 }
 
 // Deletesolution is wrapping [MSK_deletesolution]
+//
 // function MSK_deletesolution has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
 //
 // [MSK_deletesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Deletesolution(
@@ -860,14 +899,15 @@ func (task *Task) Deletesolution(
 }
 
 // Dualsensitivity is wrapping [MSK_dualsensitivity]
+//
 // function MSK_dualsensitivity has following parameters:
-// - task: MSKtask_t
-// - numj: MSKint32t
-// - subj: const MSKint32t *
-// - leftpricej: MSKrealt *
-// - rightpricej: MSKrealt *
-// - leftrangej: MSKrealt *
-// - rightrangej: MSKrealt *
+//   - task: MSKtask_t
+//   - numj: MSKint32t
+//   - subj: const MSKint32t *
+//   - leftpricej: MSKrealt *
+//   - rightpricej: MSKrealt *
+//   - leftrangej: MSKrealt *
+//   - rightrangej: MSKrealt *
 //
 // [MSK_dualsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Dualsensitivity(
@@ -892,9 +932,10 @@ func (task *Task) Dualsensitivity(
 }
 
 // Emptyafebarfrow is wrapping [MSK_emptyafebarfrow]
+//
 // function MSK_emptyafebarfrow has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
 //
 // [MSK_emptyafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Emptyafebarfrow(
@@ -908,14 +949,15 @@ func (task *Task) Emptyafebarfrow(
 	)
 }
 
-// Emptyafebarfrowlist is wrapping [MSK_emptyafebarfrowlist]
+// EmptyafebarfrowList is wrapping [MSK_emptyafebarfrowlist]
+//
 // function MSK_emptyafebarfrowlist has following parameters:
-// - task: MSKtask_t
-// - numafeidx: MSKint64t
-// - afeidxlist: const MSKint64t *
+//   - task: MSKtask_t
+//   - numafeidx: MSKint64t
+//   - afeidxlist: const MSKint64t *
 //
 // [MSK_emptyafebarfrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Emptyafebarfrowlist(
+func (task *Task) EmptyafebarfrowList(
 	numafeidx int64,
 	afeidxlist *int64,
 ) res.Code {
@@ -929,9 +971,10 @@ func (task *Task) Emptyafebarfrowlist(
 }
 
 // Emptyafefcol is wrapping [MSK_emptyafefcol]
+//
 // function MSK_emptyafefcol has following parameters:
-// - task: MSKtask_t
-// - varidx: MSKint32t
+//   - task: MSKtask_t
+//   - varidx: MSKint32t
 //
 // [MSK_emptyafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Emptyafefcol(
@@ -945,14 +988,15 @@ func (task *Task) Emptyafefcol(
 	)
 }
 
-// Emptyafefcollist is wrapping [MSK_emptyafefcollist]
+// EmptyafefcolList is wrapping [MSK_emptyafefcollist]
+//
 // function MSK_emptyafefcollist has following parameters:
-// - task: MSKtask_t
-// - numvaridx: MSKint64t
-// - varidx: const MSKint32t *
+//   - task: MSKtask_t
+//   - numvaridx: MSKint64t
+//   - varidx: const MSKint32t *
 //
 // [MSK_emptyafefcollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Emptyafefcollist(
+func (task *Task) EmptyafefcolList(
 	numvaridx int64,
 	varidx *int32,
 ) res.Code {
@@ -966,9 +1010,10 @@ func (task *Task) Emptyafefcollist(
 }
 
 // Emptyafefrow is wrapping [MSK_emptyafefrow]
+//
 // function MSK_emptyafefrow has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
 //
 // [MSK_emptyafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Emptyafefrow(
@@ -982,14 +1027,15 @@ func (task *Task) Emptyafefrow(
 	)
 }
 
-// Emptyafefrowlist is wrapping [MSK_emptyafefrowlist]
+// EmptyafefrowList is wrapping [MSK_emptyafefrowlist]
+//
 // function MSK_emptyafefrowlist has following parameters:
-// - task: MSKtask_t
-// - numafeidx: MSKint64t
-// - afeidx: const MSKint64t *
+//   - task: MSKtask_t
+//   - numafeidx: MSKint64t
+//   - afeidx: const MSKint64t *
 //
 // [MSK_emptyafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Emptyafefrowlist(
+func (task *Task) EmptyafefrowList(
 	numafeidx int64,
 	afeidx *int64,
 ) res.Code {
@@ -1003,11 +1049,12 @@ func (task *Task) Emptyafefrowlist(
 }
 
 // Evaluateacc is wrapping [MSK_evaluateacc]
+//
 // function MSK_evaluateacc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - accidx: MSKint64t
-// - activity: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - accidx: MSKint64t
+//   - activity: MSKrealt *
 //
 // [MSK_evaluateacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Evaluateacc(
@@ -1026,10 +1073,11 @@ func (task *Task) Evaluateacc(
 }
 
 // Evaluateaccs is wrapping [MSK_evaluateaccs]
+//
 // function MSK_evaluateaccs has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - activity: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - activity: MSKrealt *
 //
 // [MSK_evaluateaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Evaluateaccs(
@@ -1045,14 +1093,15 @@ func (task *Task) Evaluateaccs(
 	)
 }
 
-// Getaccafeidxlist is wrapping [MSK_getaccafeidxlist]
+// GetAccafeidxList is wrapping [MSK_getaccafeidxlist]
+//
 // function MSK_getaccafeidxlist has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - afeidxlist: MSKint64t *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - afeidxlist: MSKint64t *
 //
 // [MSK_getaccafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccafeidxlist(
+func (task *Task) GetAccafeidxList(
 	accidx int64,
 	afeidxlist *int64,
 ) res.Code {
@@ -1065,14 +1114,15 @@ func (task *Task) Getaccafeidxlist(
 	)
 }
 
-// Getaccb is wrapping [MSK_getaccb]
+// GetAccb is wrapping [MSK_getaccb]
+//
 // function MSK_getaccb has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - b: MSKrealt *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - b: MSKrealt *
 //
 // [MSK_getaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccb(
+func (task *Task) GetAccb(
 	accidx int64,
 	b *float64,
 ) res.Code {
@@ -1085,19 +1135,20 @@ func (task *Task) Getaccb(
 	)
 }
 
-// Getaccbarfblocktriplet is wrapping [MSK_getaccbarfblocktriplet]
+// GetAccbarfblocktriplet is wrapping [MSK_getaccbarfblocktriplet]
+//
 // function MSK_getaccbarfblocktriplet has following parameters:
-// - task: MSKtask_t
-// - maxnumtrip: MSKint64t
-// - numtrip: MSKint64t *
-// - acc_afe: MSKint64t *
-// - bar_var: MSKint32t *
-// - blk_row: MSKint32t *
-// - blk_col: MSKint32t *
-// - blk_val: MSKrealt *
+//   - task: MSKtask_t
+//   - maxnumtrip: MSKint64t
+//   - numtrip: MSKint64t *
+//   - acc_afe: MSKint64t *
+//   - bar_var: MSKint32t *
+//   - blk_row: MSKint32t *
+//   - blk_col: MSKint32t *
+//   - blk_val: MSKrealt *
 //
 // [MSK_getaccbarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccbarfblocktriplet(
+func (task *Task) GetAccbarfblocktriplet(
 	maxnumtrip int64,
 	numtrip *int64,
 	acc_afe *int64,
@@ -1120,13 +1171,14 @@ func (task *Task) Getaccbarfblocktriplet(
 	)
 }
 
-// Getaccbarfnumblocktriplets is wrapping [MSK_getaccbarfnumblocktriplets]
+// GetAccbarfnumblocktriplets is wrapping [MSK_getaccbarfnumblocktriplets]
+//
 // function MSK_getaccbarfnumblocktriplets has following parameters:
-// - task: MSKtask_t
-// - numtrip: MSKint64t *
+//   - task: MSKtask_t
+//   - numtrip: MSKint64t *
 //
 // [MSK_getaccbarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccbarfnumblocktriplets(
+func (task *Task) GetAccbarfnumblocktriplets(
 	numtrip *int64,
 ) res.Code {
 	return res.Code(
@@ -1137,14 +1189,15 @@ func (task *Task) Getaccbarfnumblocktriplets(
 	)
 }
 
-// Getaccdomain is wrapping [MSK_getaccdomain]
+// GetAccdomain is wrapping [MSK_getaccdomain]
+//
 // function MSK_getaccdomain has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - domidx: MSKint64t *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - domidx: MSKint64t *
 //
 // [MSK_getaccdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccdomain(
+func (task *Task) GetAccdomain(
 	accidx int64,
 	domidx *int64,
 ) res.Code {
@@ -1157,15 +1210,16 @@ func (task *Task) Getaccdomain(
 	)
 }
 
-// Getaccdoty is wrapping [MSK_getaccdoty]
+// GetAccdoty is wrapping [MSK_getaccdoty]
+//
 // function MSK_getaccdoty has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - accidx: MSKint64t
-// - doty: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - accidx: MSKint64t
+//   - doty: MSKrealt *
 //
 // [MSK_getaccdoty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccdoty(
+func (task *Task) GetAccdoty(
 	whichsol SolType,
 	accidx int64,
 	doty *float64,
@@ -1180,14 +1234,15 @@ func (task *Task) Getaccdoty(
 	)
 }
 
-// Getaccdotys is wrapping [MSK_getaccdotys]
+// GetAccdotys is wrapping [MSK_getaccdotys]
+//
 // function MSK_getaccdotys has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - doty: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - doty: MSKrealt *
 //
 // [MSK_getaccdotys]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccdotys(
+func (task *Task) GetAccdotys(
 	whichsol SolType,
 	doty *float64,
 ) res.Code {
@@ -1200,13 +1255,14 @@ func (task *Task) Getaccdotys(
 	)
 }
 
-// Getaccfnumnz is wrapping [MSK_getaccfnumnz]
+// GetAccfnumnz is wrapping [MSK_getaccfnumnz]
+//
 // function MSK_getaccfnumnz has following parameters:
-// - task: MSKtask_t
-// - accfnnz: MSKint64t *
+//   - task: MSKtask_t
+//   - accfnnz: MSKint64t *
 //
 // [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccfnumnz(
+func (task *Task) GetAccfnumnz(
 	accfnnz *int64,
 ) res.Code {
 	return res.Code(
@@ -1217,15 +1273,16 @@ func (task *Task) Getaccfnumnz(
 	)
 }
 
-// Getaccftrip is wrapping [MSK_getaccftrip]
+// GetAccftrip is wrapping [MSK_getaccftrip]
+//
 // function MSK_getaccftrip has following parameters:
-// - task: MSKtask_t
-// - frow: MSKint64t *
-// - fcol: MSKint32t *
-// - fval: MSKrealt *
+//   - task: MSKtask_t
+//   - frow: MSKint64t *
+//   - fcol: MSKint32t *
+//   - fval: MSKrealt *
 //
 // [MSK_getaccftrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccftrip(
+func (task *Task) GetAccftrip(
 	frow *int64,
 	fcol *int32,
 	fval *float64,
@@ -1240,13 +1297,14 @@ func (task *Task) Getaccftrip(
 	)
 }
 
-// Getaccgvector is wrapping [MSK_getaccgvector]
+// GetAccgvector is wrapping [MSK_getaccgvector]
+//
 // function MSK_getaccgvector has following parameters:
-// - task: MSKtask_t
-// - g: MSKrealt *
+//   - task: MSKtask_t
+//   - g: MSKrealt *
 //
 // [MSK_getaccgvector]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccgvector(
+func (task *Task) GetAccgvector(
 	g *float64,
 ) res.Code {
 	return res.Code(
@@ -1257,14 +1315,15 @@ func (task *Task) Getaccgvector(
 	)
 }
 
-// Getaccn is wrapping [MSK_getaccn]
+// GetAccn is wrapping [MSK_getaccn]
+//
 // function MSK_getaccn has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - n: MSKint64t *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - n: MSKint64t *
 //
 // [MSK_getaccn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccn(
+func (task *Task) GetAccn(
 	accidx int64,
 	n *int64,
 ) res.Code {
@@ -1277,15 +1336,16 @@ func (task *Task) Getaccn(
 	)
 }
 
-// Getaccname is wrapping [MSK_getaccname]
+// GetAccname is wrapping [MSK_getaccname]
+//
 // function MSK_getaccname has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - sizename: MSKint32t
-// - name: char *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - sizename: MSKint32t
+//   - name: char *
 //
 // [MSK_getaccname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccname(
+func (task *Task) GetAccname(
 	accidx int64,
 	sizename int32,
 	name *byte,
@@ -1300,14 +1360,15 @@ func (task *Task) Getaccname(
 	)
 }
 
-// Getaccnamelen is wrapping [MSK_getaccnamelen]
+// GetAccnamelen is wrapping [MSK_getaccnamelen]
+//
 // function MSK_getaccnamelen has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - len: MSKint32t *
 //
 // [MSK_getaccnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccnamelen(
+func (task *Task) GetAccnamelen(
 	accidx int64,
 	len *int32,
 ) res.Code {
@@ -1320,13 +1381,14 @@ func (task *Task) Getaccnamelen(
 	)
 }
 
-// Getaccntot is wrapping [MSK_getaccntot]
+// GetAccntot is wrapping [MSK_getaccntot]
+//
 // function MSK_getaccntot has following parameters:
-// - task: MSKtask_t
-// - n: MSKint64t *
+//   - task: MSKtask_t
+//   - n: MSKint64t *
 //
 // [MSK_getaccntot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccntot(
+func (task *Task) GetAccntot(
 	n *int64,
 ) res.Code {
 	return res.Code(
@@ -1337,15 +1399,16 @@ func (task *Task) Getaccntot(
 	)
 }
 
-// Getaccs is wrapping [MSK_getaccs]
+// GetAccs is wrapping [MSK_getaccs]
+//
 // function MSK_getaccs has following parameters:
-// - task: MSKtask_t
-// - domidxlist: MSKint64t *
-// - afeidxlist: MSKint64t *
-// - b: MSKrealt *
+//   - task: MSKtask_t
+//   - domidxlist: MSKint64t *
+//   - afeidxlist: MSKint64t *
+//   - b: MSKrealt *
 //
 // [MSK_getaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaccs(
+func (task *Task) GetAccs(
 	domidxlist *int64,
 	afeidxlist *int64,
 	b *float64,
@@ -1360,16 +1423,17 @@ func (task *Task) Getaccs(
 	)
 }
 
-// Getacol is wrapping [MSK_getacol]
+// GetAcol is wrapping [MSK_getacol]
+//
 // function MSK_getacol has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - nzj: MSKint32t *
-// - subj: MSKint32t *
-// - valj: MSKrealt *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - nzj: MSKint32t *
+//   - subj: MSKint32t *
+//   - valj: MSKrealt *
 //
 // [MSK_getacol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getacol(
+func (task *Task) GetAcol(
 	j int32,
 	nzj *int32,
 	subj *int32,
@@ -1386,14 +1450,15 @@ func (task *Task) Getacol(
 	)
 }
 
-// Getacolnumnz is wrapping [MSK_getacolnumnz]
+// GetAcolnumnz is wrapping [MSK_getacolnumnz]
+//
 // function MSK_getacolnumnz has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - nzj: MSKint32t *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - nzj: MSKint32t *
 //
 // [MSK_getacolnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getacolnumnz(
+func (task *Task) GetAcolnumnz(
 	i int32,
 	nzj *int32,
 ) res.Code {
@@ -1406,19 +1471,20 @@ func (task *Task) Getacolnumnz(
 	)
 }
 
-// Getacolslice is wrapping [MSK_getacolslice]
+// GetAcolSlice is wrapping [MSK_getacolslice]
+//
 // function MSK_getacolslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - maxnumnz: MSKint32t
-// - ptrb: MSKint32t *
-// - ptre: MSKint32t *
-// - sub: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - maxnumnz: MSKint32t
+//   - ptrb: MSKint32t *
+//   - ptre: MSKint32t *
+//   - sub: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getacolslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getacolslice(
+func (task *Task) GetAcolSlice(
 	first int32,
 	last int32,
 	maxnumnz int32,
@@ -1441,19 +1507,20 @@ func (task *Task) Getacolslice(
 	)
 }
 
-// Getacolslice64 is wrapping [MSK_getacolslice64]
+// GetAcolslice64 is wrapping [MSK_getacolslice64]
+//
 // function MSK_getacolslice64 has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - maxnumnz: MSKint64t
-// - ptrb: MSKint64t *
-// - ptre: MSKint64t *
-// - sub: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - maxnumnz: MSKint64t
+//   - ptrb: MSKint64t *
+//   - ptre: MSKint64t *
+//   - sub: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getacolslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getacolslice64(
+func (task *Task) GetAcolslice64(
 	first int32,
 	last int32,
 	maxnumnz int64,
@@ -1476,15 +1543,16 @@ func (task *Task) Getacolslice64(
 	)
 }
 
-// Getacolslicenumnz is wrapping [MSK_getacolslicenumnz]
+// GetAcolslicenumnz is wrapping [MSK_getacolslicenumnz]
+//
 // function MSK_getacolslicenumnz has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - numnz: MSKint32t *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - numnz: MSKint32t *
 //
 // [MSK_getacolslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getacolslicenumnz(
+func (task *Task) GetAcolslicenumnz(
 	first int32,
 	last int32,
 	numnz *int32,
@@ -1499,15 +1567,16 @@ func (task *Task) Getacolslicenumnz(
 	)
 }
 
-// Getacolslicenumnz64 is wrapping [MSK_getacolslicenumnz64]
+// GetAcolslicenumnz64 is wrapping [MSK_getacolslicenumnz64]
+//
 // function MSK_getacolslicenumnz64 has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - numnz: MSKint64t *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - numnz: MSKint64t *
 //
 // [MSK_getacolslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getacolslicenumnz64(
+func (task *Task) GetAcolslicenumnz64(
 	first int32,
 	last int32,
 	numnz *int64,
@@ -1522,18 +1591,19 @@ func (task *Task) Getacolslicenumnz64(
 	)
 }
 
-// Getacolslicetrip is wrapping [MSK_getacolslicetrip]
+// GetAcolslicetrip is wrapping [MSK_getacolslicetrip]
+//
 // function MSK_getacolslicetrip has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - maxnumnz: MSKint64t
-// - subi: MSKint32t *
-// - subj: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - maxnumnz: MSKint64t
+//   - subi: MSKint32t *
+//   - subj: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getacolslicetrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getacolslicetrip(
+func (task *Task) GetAcolslicetrip(
 	first int32,
 	last int32,
 	maxnumnz int64,
@@ -1554,19 +1624,20 @@ func (task *Task) Getacolslicetrip(
 	)
 }
 
-// Getafebarfblocktriplet is wrapping [MSK_getafebarfblocktriplet]
+// GetAfebarfblocktriplet is wrapping [MSK_getafebarfblocktriplet]
+//
 // function MSK_getafebarfblocktriplet has following parameters:
-// - task: MSKtask_t
-// - maxnumtrip: MSKint64t
-// - numtrip: MSKint64t *
-// - afeidx: MSKint64t *
-// - barvaridx: MSKint32t *
-// - subk: MSKint32t *
-// - subl: MSKint32t *
-// - valkl: MSKrealt *
+//   - task: MSKtask_t
+//   - maxnumtrip: MSKint64t
+//   - numtrip: MSKint64t *
+//   - afeidx: MSKint64t *
+//   - barvaridx: MSKint32t *
+//   - subk: MSKint32t *
+//   - subl: MSKint32t *
+//   - valkl: MSKrealt *
 //
 // [MSK_getafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafebarfblocktriplet(
+func (task *Task) GetAfebarfblocktriplet(
 	maxnumtrip int64,
 	numtrip *int64,
 	afeidx *int64,
@@ -1589,13 +1660,14 @@ func (task *Task) Getafebarfblocktriplet(
 	)
 }
 
-// Getafebarfnumblocktriplets is wrapping [MSK_getafebarfnumblocktriplets]
+// GetAfebarfnumblocktriplets is wrapping [MSK_getafebarfnumblocktriplets]
+//
 // function MSK_getafebarfnumblocktriplets has following parameters:
-// - task: MSKtask_t
-// - numtrip: MSKint64t *
+//   - task: MSKtask_t
+//   - numtrip: MSKint64t *
 //
 // [MSK_getafebarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafebarfnumblocktriplets(
+func (task *Task) GetAfebarfnumblocktriplets(
 	numtrip *int64,
 ) res.Code {
 	return res.Code(
@@ -1606,14 +1678,15 @@ func (task *Task) Getafebarfnumblocktriplets(
 	)
 }
 
-// Getafebarfnumrowentries is wrapping [MSK_getafebarfnumrowentries]
+// GetAfebarfnumrowentries is wrapping [MSK_getafebarfnumrowentries]
+//
 // function MSK_getafebarfnumrowentries has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - numentr: MSKint32t *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - numentr: MSKint32t *
 //
 // [MSK_getafebarfnumrowentries]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafebarfnumrowentries(
+func (task *Task) GetAfebarfnumrowentries(
 	afeidx int64,
 	numentr *int32,
 ) res.Code {
@@ -1626,18 +1699,19 @@ func (task *Task) Getafebarfnumrowentries(
 	)
 }
 
-// Getafebarfrow is wrapping [MSK_getafebarfrow]
+// GetAfebarfrow is wrapping [MSK_getafebarfrow]
+//
 // function MSK_getafebarfrow has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - barvaridx: MSKint32t *
-// - ptrterm: MSKint64t *
-// - numterm: MSKint64t *
-// - termidx: MSKint64t *
-// - termweight: MSKrealt *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - barvaridx: MSKint32t *
+//   - ptrterm: MSKint64t *
+//   - numterm: MSKint64t *
+//   - termidx: MSKint64t *
+//   - termweight: MSKrealt *
 //
 // [MSK_getafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafebarfrow(
+func (task *Task) GetAfebarfrow(
 	afeidx int64,
 	barvaridx *int32,
 	ptrterm *int64,
@@ -1658,15 +1732,16 @@ func (task *Task) Getafebarfrow(
 	)
 }
 
-// Getafebarfrowinfo is wrapping [MSK_getafebarfrowinfo]
+// GetAfebarfrowinfo is wrapping [MSK_getafebarfrowinfo]
+//
 // function MSK_getafebarfrowinfo has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - numentr: MSKint32t *
-// - numterm: MSKint64t *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - numentr: MSKint32t *
+//   - numterm: MSKint64t *
 //
 // [MSK_getafebarfrowinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafebarfrowinfo(
+func (task *Task) GetAfebarfrowinfo(
 	afeidx int64,
 	numentr *int32,
 	numterm *int64,
@@ -1681,13 +1756,14 @@ func (task *Task) Getafebarfrowinfo(
 	)
 }
 
-// Getafefnumnz is wrapping [MSK_getafefnumnz]
+// GetAfefnumnz is wrapping [MSK_getafefnumnz]
+//
 // function MSK_getafefnumnz has following parameters:
-// - task: MSKtask_t
-// - numnz: MSKint64t *
+//   - task: MSKtask_t
+//   - numnz: MSKint64t *
 //
 // [MSK_getafefnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafefnumnz(
+func (task *Task) GetAfefnumnz(
 	numnz *int64,
 ) res.Code {
 	return res.Code(
@@ -1698,16 +1774,17 @@ func (task *Task) Getafefnumnz(
 	)
 }
 
-// Getafefrow is wrapping [MSK_getafefrow]
+// GetAfefrow is wrapping [MSK_getafefrow]
+//
 // function MSK_getafefrow has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - numnz: MSKint32t *
-// - varidx: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - numnz: MSKint32t *
+//   - varidx: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafefrow(
+func (task *Task) GetAfefrow(
 	afeidx int64,
 	numnz *int32,
 	varidx *int32,
@@ -1724,14 +1801,15 @@ func (task *Task) Getafefrow(
 	)
 }
 
-// Getafefrownumnz is wrapping [MSK_getafefrownumnz]
+// GetAfefrownumnz is wrapping [MSK_getafefrownumnz]
+//
 // function MSK_getafefrownumnz has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - numnz: MSKint32t *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - numnz: MSKint32t *
 //
 // [MSK_getafefrownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafefrownumnz(
+func (task *Task) GetAfefrownumnz(
 	afeidx int64,
 	numnz *int32,
 ) res.Code {
@@ -1744,15 +1822,16 @@ func (task *Task) Getafefrownumnz(
 	)
 }
 
-// Getafeftrip is wrapping [MSK_getafeftrip]
+// GetAfeftrip is wrapping [MSK_getafeftrip]
+//
 // function MSK_getafeftrip has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t *
-// - varidx: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t *
+//   - varidx: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getafeftrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafeftrip(
+func (task *Task) GetAfeftrip(
 	afeidx *int64,
 	varidx *int32,
 	val *float64,
@@ -1767,14 +1846,15 @@ func (task *Task) Getafeftrip(
 	)
 }
 
-// Getafeg is wrapping [MSK_getafeg]
+// GetAfeg is wrapping [MSK_getafeg]
+//
 // function MSK_getafeg has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - g: MSKrealt *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - g: MSKrealt *
 //
 // [MSK_getafeg]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafeg(
+func (task *Task) GetAfeg(
 	afeidx int64,
 	g *float64,
 ) res.Code {
@@ -1787,15 +1867,16 @@ func (task *Task) Getafeg(
 	)
 }
 
-// Getafegslice is wrapping [MSK_getafegslice]
+// GetAfegSlice is wrapping [MSK_getafegslice]
+//
 // function MSK_getafegslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint64t
-// - last: MSKint64t
-// - g: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint64t
+//   - last: MSKint64t
+//   - g: MSKrealt *
 //
 // [MSK_getafegslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getafegslice(
+func (task *Task) GetAfegSlice(
 	first int64,
 	last int64,
 	g *float64,
@@ -1810,15 +1891,16 @@ func (task *Task) Getafegslice(
 	)
 }
 
-// Getaij is wrapping [MSK_getaij]
+// GetAij is wrapping [MSK_getaij]
+//
 // function MSK_getaij has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - j: MSKint32t
-// - aij: MSKrealt *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - j: MSKint32t
+//   - aij: MSKrealt *
 //
 // [MSK_getaij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getaij(
+func (task *Task) GetAij(
 	i int32,
 	j int32,
 	aij *float64,
@@ -1833,17 +1915,18 @@ func (task *Task) Getaij(
 	)
 }
 
-// Getapiecenumnz is wrapping [MSK_getapiecenumnz]
+// GetApiecenumnz is wrapping [MSK_getapiecenumnz]
+//
 // function MSK_getapiecenumnz has following parameters:
-// - task: MSKtask_t
-// - firsti: MSKint32t
-// - lasti: MSKint32t
-// - firstj: MSKint32t
-// - lastj: MSKint32t
-// - numnz: MSKint32t *
+//   - task: MSKtask_t
+//   - firsti: MSKint32t
+//   - lasti: MSKint32t
+//   - firstj: MSKint32t
+//   - lastj: MSKint32t
+//   - numnz: MSKint32t *
 //
 // [MSK_getapiecenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getapiecenumnz(
+func (task *Task) GetApiecenumnz(
 	firsti int32,
 	lasti int32,
 	firstj int32,
@@ -1862,16 +1945,17 @@ func (task *Task) Getapiecenumnz(
 	)
 }
 
-// Getarow is wrapping [MSK_getarow]
+// GetArow is wrapping [MSK_getarow]
+//
 // function MSK_getarow has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - nzi: MSKint32t *
-// - subi: MSKint32t *
-// - vali: MSKrealt *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - nzi: MSKint32t *
+//   - subi: MSKint32t *
+//   - vali: MSKrealt *
 //
 // [MSK_getarow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getarow(
+func (task *Task) GetArow(
 	i int32,
 	nzi *int32,
 	subi *int32,
@@ -1888,14 +1972,15 @@ func (task *Task) Getarow(
 	)
 }
 
-// Getarownumnz is wrapping [MSK_getarownumnz]
+// GetArownumnz is wrapping [MSK_getarownumnz]
+//
 // function MSK_getarownumnz has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - nzi: MSKint32t *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - nzi: MSKint32t *
 //
 // [MSK_getarownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getarownumnz(
+func (task *Task) GetArownumnz(
 	i int32,
 	nzi *int32,
 ) res.Code {
@@ -1908,19 +1993,20 @@ func (task *Task) Getarownumnz(
 	)
 }
 
-// Getarowslice is wrapping [MSK_getarowslice]
+// GetArowSlice is wrapping [MSK_getarowslice]
+//
 // function MSK_getarowslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - maxnumnz: MSKint32t
-// - ptrb: MSKint32t *
-// - ptre: MSKint32t *
-// - sub: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - maxnumnz: MSKint32t
+//   - ptrb: MSKint32t *
+//   - ptre: MSKint32t *
+//   - sub: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getarowslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getarowslice(
+func (task *Task) GetArowSlice(
 	first int32,
 	last int32,
 	maxnumnz int32,
@@ -1943,19 +2029,20 @@ func (task *Task) Getarowslice(
 	)
 }
 
-// Getarowslice64 is wrapping [MSK_getarowslice64]
+// GetArowslice64 is wrapping [MSK_getarowslice64]
+//
 // function MSK_getarowslice64 has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - maxnumnz: MSKint64t
-// - ptrb: MSKint64t *
-// - ptre: MSKint64t *
-// - sub: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - maxnumnz: MSKint64t
+//   - ptrb: MSKint64t *
+//   - ptre: MSKint64t *
+//   - sub: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getarowslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getarowslice64(
+func (task *Task) GetArowslice64(
 	first int32,
 	last int32,
 	maxnumnz int64,
@@ -1978,15 +2065,16 @@ func (task *Task) Getarowslice64(
 	)
 }
 
-// Getarowslicenumnz is wrapping [MSK_getarowslicenumnz]
+// GetArowslicenumnz is wrapping [MSK_getarowslicenumnz]
+//
 // function MSK_getarowslicenumnz has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - numnz: MSKint32t *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - numnz: MSKint32t *
 //
 // [MSK_getarowslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getarowslicenumnz(
+func (task *Task) GetArowslicenumnz(
 	first int32,
 	last int32,
 	numnz *int32,
@@ -2001,15 +2089,16 @@ func (task *Task) Getarowslicenumnz(
 	)
 }
 
-// Getarowslicenumnz64 is wrapping [MSK_getarowslicenumnz64]
+// GetArowslicenumnz64 is wrapping [MSK_getarowslicenumnz64]
+//
 // function MSK_getarowslicenumnz64 has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - numnz: MSKint64t *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - numnz: MSKint64t *
 //
 // [MSK_getarowslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getarowslicenumnz64(
+func (task *Task) GetArowslicenumnz64(
 	first int32,
 	last int32,
 	numnz *int64,
@@ -2024,18 +2113,19 @@ func (task *Task) Getarowslicenumnz64(
 	)
 }
 
-// Getarowslicetrip is wrapping [MSK_getarowslicetrip]
+// GetArowslicetrip is wrapping [MSK_getarowslicetrip]
+//
 // function MSK_getarowslicetrip has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - maxnumnz: MSKint64t
-// - subi: MSKint32t *
-// - subj: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - maxnumnz: MSKint64t
+//   - subi: MSKint32t *
+//   - subj: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getarowslicetrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getarowslicetrip(
+func (task *Task) GetArowslicetrip(
 	first int32,
 	last int32,
 	maxnumnz int64,
@@ -2056,16 +2146,17 @@ func (task *Task) Getarowslicetrip(
 	)
 }
 
-// Getatrip is wrapping [MSK_getatrip]
+// GetAtrip is wrapping [MSK_getatrip]
+//
 // function MSK_getatrip has following parameters:
-// - task: MSKtask_t
-// - maxnumnz: MSKint64t
-// - subi: MSKint32t *
-// - subj: MSKint32t *
-// - val: MSKrealt *
+//   - task: MSKtask_t
+//   - maxnumnz: MSKint64t
+//   - subi: MSKint32t *
+//   - subj: MSKint32t *
+//   - val: MSKrealt *
 //
 // [MSK_getatrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getatrip(
+func (task *Task) GetAtrip(
 	maxnumnz int64,
 	subi *int32,
 	subj *int32,
@@ -2082,13 +2173,14 @@ func (task *Task) Getatrip(
 	)
 }
 
-// Getatruncatetol is wrapping [MSK_getatruncatetol]
+// GetAtruncatetol is wrapping [MSK_getatruncatetol]
+//
 // function MSK_getatruncatetol has following parameters:
-// - task: MSKtask_t
-// - tolzero: MSKrealt *
+//   - task: MSKtask_t
+//   - tolzero: MSKrealt *
 //
 // [MSK_getatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getatruncatetol(
+func (task *Task) GetAtruncatetol(
 	tolzero *float64,
 ) res.Code {
 	return res.Code(
@@ -2099,19 +2191,20 @@ func (task *Task) Getatruncatetol(
 	)
 }
 
-// Getbarablocktriplet is wrapping [MSK_getbarablocktriplet]
+// GetBarablocktriplet is wrapping [MSK_getbarablocktriplet]
+//
 // function MSK_getbarablocktriplet has following parameters:
-// - task: MSKtask_t
-// - maxnum: MSKint64t
-// - num: MSKint64t *
-// - subi: MSKint32t *
-// - subj: MSKint32t *
-// - subk: MSKint32t *
-// - subl: MSKint32t *
-// - valijkl: MSKrealt *
+//   - task: MSKtask_t
+//   - maxnum: MSKint64t
+//   - num: MSKint64t *
+//   - subi: MSKint32t *
+//   - subj: MSKint32t *
+//   - subk: MSKint32t *
+//   - subl: MSKint32t *
+//   - valijkl: MSKrealt *
 //
 // [MSK_getbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarablocktriplet(
+func (task *Task) GetBarablocktriplet(
 	maxnum int64,
 	num *int64,
 	subi *int32,
@@ -2134,19 +2227,20 @@ func (task *Task) Getbarablocktriplet(
 	)
 }
 
-// Getbaraidx is wrapping [MSK_getbaraidx]
+// GetBaraidx is wrapping [MSK_getbaraidx]
+//
 // function MSK_getbaraidx has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - maxnum: MSKint64t
-// - i: MSKint32t *
-// - j: MSKint32t *
-// - num: MSKint64t *
-// - sub: MSKint64t *
-// - weights: MSKrealt *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - maxnum: MSKint64t
+//   - i: MSKint32t *
+//   - j: MSKint32t *
+//   - num: MSKint64t *
+//   - sub: MSKint64t *
+//   - weights: MSKrealt *
 //
 // [MSK_getbaraidx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbaraidx(
+func (task *Task) GetBaraidx(
 	idx int64,
 	maxnum int64,
 	i *int32,
@@ -2169,15 +2263,16 @@ func (task *Task) Getbaraidx(
 	)
 }
 
-// Getbaraidxij is wrapping [MSK_getbaraidxij]
+// GetBaraidxij is wrapping [MSK_getbaraidxij]
+//
 // function MSK_getbaraidxij has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - i: MSKint32t *
-// - j: MSKint32t *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - i: MSKint32t *
+//   - j: MSKint32t *
 //
 // [MSK_getbaraidxij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbaraidxij(
+func (task *Task) GetBaraidxij(
 	idx int64,
 	i *int32,
 	j *int32,
@@ -2192,14 +2287,15 @@ func (task *Task) Getbaraidxij(
 	)
 }
 
-// Getbaraidxinfo is wrapping [MSK_getbaraidxinfo]
+// GetBaraidxinfo is wrapping [MSK_getbaraidxinfo]
+//
 // function MSK_getbaraidxinfo has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - num: MSKint64t *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - num: MSKint64t *
 //
 // [MSK_getbaraidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbaraidxinfo(
+func (task *Task) GetBaraidxinfo(
 	idx int64,
 	num *int64,
 ) res.Code {
@@ -2212,15 +2308,16 @@ func (task *Task) Getbaraidxinfo(
 	)
 }
 
-// Getbarasparsity is wrapping [MSK_getbarasparsity]
+// GetBarasparsity is wrapping [MSK_getbarasparsity]
+//
 // function MSK_getbarasparsity has following parameters:
-// - task: MSKtask_t
-// - maxnumnz: MSKint64t
-// - numnz: MSKint64t *
-// - idxij: MSKint64t *
+//   - task: MSKtask_t
+//   - maxnumnz: MSKint64t
+//   - numnz: MSKint64t *
+//   - idxij: MSKint64t *
 //
 // [MSK_getbarasparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarasparsity(
+func (task *Task) GetBarasparsity(
 	maxnumnz int64,
 	numnz *int64,
 	idxij *int64,
@@ -2235,18 +2332,19 @@ func (task *Task) Getbarasparsity(
 	)
 }
 
-// Getbarcblocktriplet is wrapping [MSK_getbarcblocktriplet]
+// GetBarcblocktriplet is wrapping [MSK_getbarcblocktriplet]
+//
 // function MSK_getbarcblocktriplet has following parameters:
-// - task: MSKtask_t
-// - maxnum: MSKint64t
-// - num: MSKint64t *
-// - subj: MSKint32t *
-// - subk: MSKint32t *
-// - subl: MSKint32t *
-// - valjkl: MSKrealt *
+//   - task: MSKtask_t
+//   - maxnum: MSKint64t
+//   - num: MSKint64t *
+//   - subj: MSKint32t *
+//   - subk: MSKint32t *
+//   - subl: MSKint32t *
+//   - valjkl: MSKrealt *
 //
 // [MSK_getbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarcblocktriplet(
+func (task *Task) GetBarcblocktriplet(
 	maxnum int64,
 	num *int64,
 	subj *int32,
@@ -2267,18 +2365,19 @@ func (task *Task) Getbarcblocktriplet(
 	)
 }
 
-// Getbarcidx is wrapping [MSK_getbarcidx]
+// GetBarcidx is wrapping [MSK_getbarcidx]
+//
 // function MSK_getbarcidx has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - maxnum: MSKint64t
-// - j: MSKint32t *
-// - num: MSKint64t *
-// - sub: MSKint64t *
-// - weights: MSKrealt *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - maxnum: MSKint64t
+//   - j: MSKint32t *
+//   - num: MSKint64t *
+//   - sub: MSKint64t *
+//   - weights: MSKrealt *
 //
 // [MSK_getbarcidx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarcidx(
+func (task *Task) GetBarcidx(
 	idx int64,
 	maxnum int64,
 	j *int32,
@@ -2299,14 +2398,15 @@ func (task *Task) Getbarcidx(
 	)
 }
 
-// Getbarcidxinfo is wrapping [MSK_getbarcidxinfo]
+// GetBarcidxinfo is wrapping [MSK_getbarcidxinfo]
+//
 // function MSK_getbarcidxinfo has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - num: MSKint64t *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - num: MSKint64t *
 //
 // [MSK_getbarcidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarcidxinfo(
+func (task *Task) GetBarcidxinfo(
 	idx int64,
 	num *int64,
 ) res.Code {
@@ -2319,14 +2419,15 @@ func (task *Task) Getbarcidxinfo(
 	)
 }
 
-// Getbarcidxj is wrapping [MSK_getbarcidxj]
+// GetBarcidxj is wrapping [MSK_getbarcidxj]
+//
 // function MSK_getbarcidxj has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - j: MSKint32t *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - j: MSKint32t *
 //
 // [MSK_getbarcidxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarcidxj(
+func (task *Task) GetBarcidxj(
 	idx int64,
 	j *int32,
 ) res.Code {
@@ -2339,15 +2440,16 @@ func (task *Task) Getbarcidxj(
 	)
 }
 
-// Getbarcsparsity is wrapping [MSK_getbarcsparsity]
+// GetBarcsparsity is wrapping [MSK_getbarcsparsity]
+//
 // function MSK_getbarcsparsity has following parameters:
-// - task: MSKtask_t
-// - maxnumnz: MSKint64t
-// - numnz: MSKint64t *
-// - idxj: MSKint64t *
+//   - task: MSKtask_t
+//   - maxnumnz: MSKint64t
+//   - numnz: MSKint64t *
+//   - idxj: MSKint64t *
 //
 // [MSK_getbarcsparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarcsparsity(
+func (task *Task) GetBarcsparsity(
 	maxnumnz int64,
 	numnz *int64,
 	idxj *int64,
@@ -2362,15 +2464,16 @@ func (task *Task) Getbarcsparsity(
 	)
 }
 
-// Getbarsj is wrapping [MSK_getbarsj]
+// GetBarsj is wrapping [MSK_getbarsj]
+//
 // function MSK_getbarsj has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - j: MSKint32t
-// - barsj: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - j: MSKint32t
+//   - barsj: MSKrealt *
 //
 // [MSK_getbarsj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarsj(
+func (task *Task) GetBarsj(
 	whichsol SolType,
 	j int32,
 	barsj *float64,
@@ -2385,17 +2488,18 @@ func (task *Task) Getbarsj(
 	)
 }
 
-// Getbarsslice is wrapping [MSK_getbarsslice]
+// GetBarsSlice is wrapping [MSK_getbarsslice]
+//
 // function MSK_getbarsslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - slicesize: MSKint64t
-// - barsslice: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - slicesize: MSKint64t
+//   - barsslice: MSKrealt *
 //
 // [MSK_getbarsslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarsslice(
+func (task *Task) GetBarsSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -2414,15 +2518,16 @@ func (task *Task) Getbarsslice(
 	)
 }
 
-// Getbarvarname is wrapping [MSK_getbarvarname]
+// GetBarvarname is wrapping [MSK_getbarvarname]
+//
 // function MSK_getbarvarname has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - sizename: MSKint32t
-// - name: char *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - sizename: MSKint32t
+//   - name: char *
 //
 // [MSK_getbarvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarvarname(
+func (task *Task) GetBarvarname(
 	i int32,
 	sizename int32,
 	name *byte,
@@ -2437,15 +2542,16 @@ func (task *Task) Getbarvarname(
 	)
 }
 
-// Getbarvarnameindex is wrapping [MSK_getbarvarnameindex]
+// GetBarvarnameindex is wrapping [MSK_getbarvarnameindex]
+//
 // function MSK_getbarvarnameindex has following parameters:
-// - task: MSKtask_t
-// - somename: const char *
-// - asgn: MSKint32t *
-// - index: MSKint32t *
+//   - task: MSKtask_t
+//   - somename: const char *
+//   - asgn: MSKint32t *
+//   - index: MSKint32t *
 //
 // [MSK_getbarvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarvarnameindex(
+func (task *Task) GetBarvarnameindex(
 	somename *byte,
 	asgn *int32,
 	index *int32,
@@ -2460,14 +2566,15 @@ func (task *Task) Getbarvarnameindex(
 	)
 }
 
-// Getbarvarnamelen is wrapping [MSK_getbarvarnamelen]
+// GetBarvarnamelen is wrapping [MSK_getbarvarnamelen]
+//
 // function MSK_getbarvarnamelen has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - len: MSKint32t *
 //
 // [MSK_getbarvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarvarnamelen(
+func (task *Task) GetBarvarnamelen(
 	i int32,
 	len *int32,
 ) res.Code {
@@ -2480,15 +2587,16 @@ func (task *Task) Getbarvarnamelen(
 	)
 }
 
-// Getbarxj is wrapping [MSK_getbarxj]
+// GetBarxj is wrapping [MSK_getbarxj]
+//
 // function MSK_getbarxj has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - j: MSKint32t
-// - barxj: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - j: MSKint32t
+//   - barxj: MSKrealt *
 //
 // [MSK_getbarxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarxj(
+func (task *Task) GetBarxj(
 	whichsol SolType,
 	j int32,
 	barxj *float64,
@@ -2503,17 +2611,18 @@ func (task *Task) Getbarxj(
 	)
 }
 
-// Getbarxslice is wrapping [MSK_getbarxslice]
+// GetBarxSlice is wrapping [MSK_getbarxslice]
+//
 // function MSK_getbarxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - slicesize: MSKint64t
-// - barxslice: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - slicesize: MSKint64t
+//   - barxslice: MSKrealt *
 //
 // [MSK_getbarxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getbarxslice(
+func (task *Task) GetBarxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -2532,13 +2641,14 @@ func (task *Task) Getbarxslice(
 	)
 }
 
-// Getc is wrapping [MSK_getc]
+// GetC is wrapping [MSK_getc]
+//
 // function MSK_getc has following parameters:
-// - task: MSKtask_t
-// - c: MSKrealt *
+//   - task: MSKtask_t
+//   - c: MSKrealt *
 //
 // [MSK_getc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getc(
+func (task *Task) GetC(
 	c *float64,
 ) res.Code {
 	return res.Code(
@@ -2549,13 +2659,14 @@ func (task *Task) Getc(
 	)
 }
 
-// Getcfix is wrapping [MSK_getcfix]
+// GetCfix is wrapping [MSK_getcfix]
+//
 // function MSK_getcfix has following parameters:
-// - task: MSKtask_t
-// - cfix: MSKrealt *
+//   - task: MSKtask_t
+//   - cfix: MSKrealt *
 //
 // [MSK_getcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getcfix(
+func (task *Task) GetCfix(
 	cfix *float64,
 ) res.Code {
 	return res.Code(
@@ -2566,14 +2677,15 @@ func (task *Task) Getcfix(
 	)
 }
 
-// Getcj is wrapping [MSK_getcj]
+// GetCj is wrapping [MSK_getcj]
+//
 // function MSK_getcj has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - cj: MSKrealt *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - cj: MSKrealt *
 //
 // [MSK_getcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getcj(
+func (task *Task) GetCj(
 	j int32,
 	cj *float64,
 ) res.Code {
@@ -2586,15 +2698,16 @@ func (task *Task) Getcj(
 	)
 }
 
-// Getclist is wrapping [MSK_getclist]
+// GetCList is wrapping [MSK_getclist]
+//
 // function MSK_getclist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subj: const MSKint32t *
-// - c: MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subj: const MSKint32t *
+//   - c: MSKrealt *
 //
 // [MSK_getclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getclist(
+func (task *Task) GetCList(
 	num int32,
 	subj *int32,
 	c *float64,
@@ -2609,16 +2722,17 @@ func (task *Task) Getclist(
 	)
 }
 
-// Getconbound is wrapping [MSK_getconbound]
+// GetConbound is wrapping [MSK_getconbound]
+//
 // function MSK_getconbound has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - bk: MSKboundkeye *
-// - bl: MSKrealt *
-// - bu: MSKrealt *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - bk: MSKboundkeye *
+//   - bl: MSKrealt *
+//   - bu: MSKrealt *
 //
 // [MSK_getconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconbound(
+func (task *Task) GetConbound(
 	i int32,
 	bk *BoundKey,
 	bl *float64,
@@ -2635,17 +2749,18 @@ func (task *Task) Getconbound(
 	)
 }
 
-// Getconboundslice is wrapping [MSK_getconboundslice]
+// GetConboundSlice is wrapping [MSK_getconboundslice]
+//
 // function MSK_getconboundslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - bk: MSKboundkeye *
-// - bl: MSKrealt *
-// - bu: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - bk: MSKboundkeye *
+//   - bl: MSKrealt *
+//   - bu: MSKrealt *
 //
 // [MSK_getconboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconboundslice(
+func (task *Task) GetConboundSlice(
 	first int32,
 	last int32,
 	bk *BoundKey,
@@ -2664,17 +2779,18 @@ func (task *Task) Getconboundslice(
 	)
 }
 
-// Getcone is wrapping [MSK_getcone]
+// GetCone is wrapping [MSK_getcone]
+//
 // function MSK_getcone has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - ct: MSKconetypee *
-// - conepar: MSKrealt *
-// - nummem: MSKint32t *
-// - submem: MSKint32t *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - ct: MSKconetypee *
+//   - conepar: MSKrealt *
+//   - nummem: MSKint32t *
+//   - submem: MSKint32t *
 //
 // [MSK_getcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getcone(
+func (task *Task) GetCone(
 	k int32,
 	ct *ConeType,
 	conepar *float64,
@@ -2693,16 +2809,17 @@ func (task *Task) Getcone(
 	)
 }
 
-// Getconeinfo is wrapping [MSK_getconeinfo]
+// GetConeinfo is wrapping [MSK_getconeinfo]
+//
 // function MSK_getconeinfo has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - ct: MSKconetypee *
-// - conepar: MSKrealt *
-// - nummem: MSKint32t *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - ct: MSKconetypee *
+//   - conepar: MSKrealt *
+//   - nummem: MSKint32t *
 //
 // [MSK_getconeinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconeinfo(
+func (task *Task) GetConeinfo(
 	k int32,
 	ct *ConeType,
 	conepar *float64,
@@ -2719,15 +2836,16 @@ func (task *Task) Getconeinfo(
 	)
 }
 
-// Getconename is wrapping [MSK_getconename]
+// GetConename is wrapping [MSK_getconename]
+//
 // function MSK_getconename has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - sizename: MSKint32t
-// - name: char *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - sizename: MSKint32t
+//   - name: char *
 //
 // [MSK_getconename]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconename(
+func (task *Task) GetConename(
 	i int32,
 	sizename int32,
 	name *byte,
@@ -2742,15 +2860,16 @@ func (task *Task) Getconename(
 	)
 }
 
-// Getconenameindex is wrapping [MSK_getconenameindex]
+// GetConenameindex is wrapping [MSK_getconenameindex]
+//
 // function MSK_getconenameindex has following parameters:
-// - task: MSKtask_t
-// - somename: const char *
-// - asgn: MSKint32t *
-// - index: MSKint32t *
+//   - task: MSKtask_t
+//   - somename: const char *
+//   - asgn: MSKint32t *
+//   - index: MSKint32t *
 //
 // [MSK_getconenameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconenameindex(
+func (task *Task) GetConenameindex(
 	somename *byte,
 	asgn *int32,
 	index *int32,
@@ -2765,14 +2884,15 @@ func (task *Task) Getconenameindex(
 	)
 }
 
-// Getconenamelen is wrapping [MSK_getconenamelen]
+// GetConenamelen is wrapping [MSK_getconenamelen]
+//
 // function MSK_getconenamelen has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - len: MSKint32t *
 //
 // [MSK_getconenamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconenamelen(
+func (task *Task) GetConenamelen(
 	i int32,
 	len *int32,
 ) res.Code {
@@ -2785,15 +2905,16 @@ func (task *Task) Getconenamelen(
 	)
 }
 
-// Getconname is wrapping [MSK_getconname]
+// GetConname is wrapping [MSK_getconname]
+//
 // function MSK_getconname has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - sizename: MSKint32t
-// - name: char *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - sizename: MSKint32t
+//   - name: char *
 //
 // [MSK_getconname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconname(
+func (task *Task) GetConname(
 	i int32,
 	sizename int32,
 	name *byte,
@@ -2808,15 +2929,16 @@ func (task *Task) Getconname(
 	)
 }
 
-// Getconnameindex is wrapping [MSK_getconnameindex]
+// GetConnameindex is wrapping [MSK_getconnameindex]
+//
 // function MSK_getconnameindex has following parameters:
-// - task: MSKtask_t
-// - somename: const char *
-// - asgn: MSKint32t *
-// - index: MSKint32t *
+//   - task: MSKtask_t
+//   - somename: const char *
+//   - asgn: MSKint32t *
+//   - index: MSKint32t *
 //
 // [MSK_getconnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconnameindex(
+func (task *Task) GetConnameindex(
 	somename *byte,
 	asgn *int32,
 	index *int32,
@@ -2831,14 +2953,15 @@ func (task *Task) Getconnameindex(
 	)
 }
 
-// Getconnamelen is wrapping [MSK_getconnamelen]
+// GetConnamelen is wrapping [MSK_getconnamelen]
+//
 // function MSK_getconnamelen has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - len: MSKint32t *
 //
 // [MSK_getconnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getconnamelen(
+func (task *Task) GetConnamelen(
 	i int32,
 	len *int32,
 ) res.Code {
@@ -2851,15 +2974,16 @@ func (task *Task) Getconnamelen(
 	)
 }
 
-// Getcslice is wrapping [MSK_getcslice]
+// GetCSlice is wrapping [MSK_getcslice]
+//
 // function MSK_getcslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - c: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - c: MSKrealt *
 //
 // [MSK_getcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getcslice(
+func (task *Task) GetCSlice(
 	first int32,
 	last int32,
 	c *float64,
@@ -2874,14 +2998,15 @@ func (task *Task) Getcslice(
 	)
 }
 
-// Getdimbarvarj is wrapping [MSK_getdimbarvarj]
+// GetDimbarvarj is wrapping [MSK_getdimbarvarj]
+//
 // function MSK_getdimbarvarj has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - dimbarvarj: MSKint32t *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - dimbarvarj: MSKint32t *
 //
 // [MSK_getdimbarvarj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdimbarvarj(
+func (task *Task) GetDimbarvarj(
 	j int32,
 	dimbarvarj *int32,
 ) res.Code {
@@ -2894,14 +3019,15 @@ func (task *Task) Getdimbarvarj(
 	)
 }
 
-// Getdjcafeidxlist is wrapping [MSK_getdjcafeidxlist]
+// GetDjcafeidxList is wrapping [MSK_getdjcafeidxlist]
+//
 // function MSK_getdjcafeidxlist has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - afeidxlist: MSKint64t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - afeidxlist: MSKint64t *
 //
 // [MSK_getdjcafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcafeidxlist(
+func (task *Task) GetDjcafeidxList(
 	djcidx int64,
 	afeidxlist *int64,
 ) res.Code {
@@ -2914,14 +3040,15 @@ func (task *Task) Getdjcafeidxlist(
 	)
 }
 
-// Getdjcb is wrapping [MSK_getdjcb]
+// GetDjcb is wrapping [MSK_getdjcb]
+//
 // function MSK_getdjcb has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - b: MSKrealt *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - b: MSKrealt *
 //
 // [MSK_getdjcb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcb(
+func (task *Task) GetDjcb(
 	djcidx int64,
 	b *float64,
 ) res.Code {
@@ -2934,14 +3061,15 @@ func (task *Task) Getdjcb(
 	)
 }
 
-// Getdjcdomainidxlist is wrapping [MSK_getdjcdomainidxlist]
+// GetDjcdomainidxList is wrapping [MSK_getdjcdomainidxlist]
+//
 // function MSK_getdjcdomainidxlist has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - domidxlist: MSKint64t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - domidxlist: MSKint64t *
 //
 // [MSK_getdjcdomainidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcdomainidxlist(
+func (task *Task) GetDjcdomainidxList(
 	djcidx int64,
 	domidxlist *int64,
 ) res.Code {
@@ -2954,15 +3082,16 @@ func (task *Task) Getdjcdomainidxlist(
 	)
 }
 
-// Getdjcname is wrapping [MSK_getdjcname]
+// GetDjcname is wrapping [MSK_getdjcname]
+//
 // function MSK_getdjcname has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - sizename: MSKint32t
-// - name: char *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - sizename: MSKint32t
+//   - name: char *
 //
 // [MSK_getdjcname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcname(
+func (task *Task) GetDjcname(
 	djcidx int64,
 	sizename int32,
 	name *byte,
@@ -2977,14 +3106,15 @@ func (task *Task) Getdjcname(
 	)
 }
 
-// Getdjcnamelen is wrapping [MSK_getdjcnamelen]
+// GetDjcnamelen is wrapping [MSK_getdjcnamelen]
+//
 // function MSK_getdjcnamelen has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - len: MSKint32t *
 //
 // [MSK_getdjcnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcnamelen(
+func (task *Task) GetDjcnamelen(
 	djcidx int64,
 	len *int32,
 ) res.Code {
@@ -2997,14 +3127,15 @@ func (task *Task) Getdjcnamelen(
 	)
 }
 
-// Getdjcnumafe is wrapping [MSK_getdjcnumafe]
+// GetDjcnumafe is wrapping [MSK_getdjcnumafe]
+//
 // function MSK_getdjcnumafe has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - numafe: MSKint64t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - numafe: MSKint64t *
 //
 // [MSK_getdjcnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcnumafe(
+func (task *Task) GetDjcnumafe(
 	djcidx int64,
 	numafe *int64,
 ) res.Code {
@@ -3017,13 +3148,14 @@ func (task *Task) Getdjcnumafe(
 	)
 }
 
-// Getdjcnumafetot is wrapping [MSK_getdjcnumafetot]
+// GetDjcnumafetot is wrapping [MSK_getdjcnumafetot]
+//
 // function MSK_getdjcnumafetot has following parameters:
-// - task: MSKtask_t
-// - numafetot: MSKint64t *
+//   - task: MSKtask_t
+//   - numafetot: MSKint64t *
 //
 // [MSK_getdjcnumafetot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcnumafetot(
+func (task *Task) GetDjcnumafetot(
 	numafetot *int64,
 ) res.Code {
 	return res.Code(
@@ -3034,14 +3166,15 @@ func (task *Task) Getdjcnumafetot(
 	)
 }
 
-// Getdjcnumdomain is wrapping [MSK_getdjcnumdomain]
+// GetDjcnumdomain is wrapping [MSK_getdjcnumdomain]
+//
 // function MSK_getdjcnumdomain has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - numdomain: MSKint64t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - numdomain: MSKint64t *
 //
 // [MSK_getdjcnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcnumdomain(
+func (task *Task) GetDjcnumdomain(
 	djcidx int64,
 	numdomain *int64,
 ) res.Code {
@@ -3054,13 +3187,14 @@ func (task *Task) Getdjcnumdomain(
 	)
 }
 
-// Getdjcnumdomaintot is wrapping [MSK_getdjcnumdomaintot]
+// GetDjcnumdomaintot is wrapping [MSK_getdjcnumdomaintot]
+//
 // function MSK_getdjcnumdomaintot has following parameters:
-// - task: MSKtask_t
-// - numdomaintot: MSKint64t *
+//   - task: MSKtask_t
+//   - numdomaintot: MSKint64t *
 //
 // [MSK_getdjcnumdomaintot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcnumdomaintot(
+func (task *Task) GetDjcnumdomaintot(
 	numdomaintot *int64,
 ) res.Code {
 	return res.Code(
@@ -3071,14 +3205,15 @@ func (task *Task) Getdjcnumdomaintot(
 	)
 }
 
-// Getdjcnumterm is wrapping [MSK_getdjcnumterm]
+// GetDjcnumterm is wrapping [MSK_getdjcnumterm]
+//
 // function MSK_getdjcnumterm has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - numterm: MSKint64t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - numterm: MSKint64t *
 //
 // [MSK_getdjcnumterm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcnumterm(
+func (task *Task) GetDjcnumterm(
 	djcidx int64,
 	numterm *int64,
 ) res.Code {
@@ -3091,13 +3226,14 @@ func (task *Task) Getdjcnumterm(
 	)
 }
 
-// Getdjcnumtermtot is wrapping [MSK_getdjcnumtermtot]
+// GetDjcnumtermtot is wrapping [MSK_getdjcnumtermtot]
+//
 // function MSK_getdjcnumtermtot has following parameters:
-// - task: MSKtask_t
-// - numtermtot: MSKint64t *
+//   - task: MSKtask_t
+//   - numtermtot: MSKint64t *
 //
 // [MSK_getdjcnumtermtot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcnumtermtot(
+func (task *Task) GetDjcnumtermtot(
 	numtermtot *int64,
 ) res.Code {
 	return res.Code(
@@ -3108,17 +3244,18 @@ func (task *Task) Getdjcnumtermtot(
 	)
 }
 
-// Getdjcs is wrapping [MSK_getdjcs]
+// GetDjcs is wrapping [MSK_getdjcs]
+//
 // function MSK_getdjcs has following parameters:
-// - task: MSKtask_t
-// - domidxlist: MSKint64t *
-// - afeidxlist: MSKint64t *
-// - b: MSKrealt *
-// - termsizelist: MSKint64t *
-// - numterms: MSKint64t *
+//   - task: MSKtask_t
+//   - domidxlist: MSKint64t *
+//   - afeidxlist: MSKint64t *
+//   - b: MSKrealt *
+//   - termsizelist: MSKint64t *
+//   - numterms: MSKint64t *
 //
 // [MSK_getdjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjcs(
+func (task *Task) GetDjcs(
 	domidxlist *int64,
 	afeidxlist *int64,
 	b *float64,
@@ -3137,14 +3274,15 @@ func (task *Task) Getdjcs(
 	)
 }
 
-// Getdjctermsizelist is wrapping [MSK_getdjctermsizelist]
+// GetDjctermsizeList is wrapping [MSK_getdjctermsizelist]
+//
 // function MSK_getdjctermsizelist has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - termsizelist: MSKint64t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - termsizelist: MSKint64t *
 //
 // [MSK_getdjctermsizelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdjctermsizelist(
+func (task *Task) GetDjctermsizeList(
 	djcidx int64,
 	termsizelist *int64,
 ) res.Code {
@@ -3157,14 +3295,15 @@ func (task *Task) Getdjctermsizelist(
 	)
 }
 
-// Getdomainn is wrapping [MSK_getdomainn]
+// GetDomainn is wrapping [MSK_getdomainn]
+//
 // function MSK_getdomainn has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - n: MSKint64t *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - n: MSKint64t *
 //
 // [MSK_getdomainn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdomainn(
+func (task *Task) GetDomainn(
 	domidx int64,
 	n *int64,
 ) res.Code {
@@ -3177,15 +3316,16 @@ func (task *Task) Getdomainn(
 	)
 }
 
-// Getdomainname is wrapping [MSK_getdomainname]
+// GetDomainname is wrapping [MSK_getdomainname]
+//
 // function MSK_getdomainname has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - sizename: MSKint32t
-// - name: char *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - sizename: MSKint32t
+//   - name: char *
 //
 // [MSK_getdomainname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdomainname(
+func (task *Task) GetDomainname(
 	domidx int64,
 	sizename int32,
 	name *byte,
@@ -3200,14 +3340,15 @@ func (task *Task) Getdomainname(
 	)
 }
 
-// Getdomainnamelen is wrapping [MSK_getdomainnamelen]
+// GetDomainnamelen is wrapping [MSK_getdomainnamelen]
+//
 // function MSK_getdomainnamelen has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - len: MSKint32t *
 //
 // [MSK_getdomainnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdomainnamelen(
+func (task *Task) GetDomainnamelen(
 	domidx int64,
 	len *int32,
 ) res.Code {
@@ -3220,14 +3361,15 @@ func (task *Task) Getdomainnamelen(
 	)
 }
 
-// Getdomaintype is wrapping [MSK_getdomaintype]
+// GetDomaintype is wrapping [MSK_getdomaintype]
+//
 // function MSK_getdomaintype has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - domtype: MSKdomaintypee *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - domtype: MSKdomaintypee *
 //
 // [MSK_getdomaintype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdomaintype(
+func (task *Task) GetDomaintype(
 	domidx int64,
 	domtype *DomainType,
 ) res.Code {
@@ -3240,14 +3382,15 @@ func (task *Task) Getdomaintype(
 	)
 }
 
-// Getdouinf is wrapping [MSK_getdouinf]
+// GetDouinf is wrapping [MSK_getdouinf]
+//
 // function MSK_getdouinf has following parameters:
-// - task: MSKtask_t
-// - whichdinf: MSKdinfiteme
-// - dvalue: MSKrealt *
+//   - task: MSKtask_t
+//   - whichdinf: MSKdinfiteme
+//   - dvalue: MSKrealt *
 //
 // [MSK_getdouinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdouinf(
+func (task *Task) GetDouinf(
 	whichdinf DInfItem,
 	dvalue *float64,
 ) res.Code {
@@ -3260,14 +3403,15 @@ func (task *Task) Getdouinf(
 	)
 }
 
-// Getdouparam is wrapping [MSK_getdouparam]
+// GetDouparam is wrapping [MSK_getdouparam]
+//
 // function MSK_getdouparam has following parameters:
-// - task: MSKtask_t
-// - param: MSKdparame
-// - parvalue: MSKrealt *
+//   - task: MSKtask_t
+//   - param: MSKdparame
+//   - parvalue: MSKrealt *
 //
 // [MSK_getdouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdouparam(
+func (task *Task) GetDouparam(
 	param DParam,
 	parvalue *float64,
 ) res.Code {
@@ -3280,14 +3424,15 @@ func (task *Task) Getdouparam(
 	)
 }
 
-// Getdualobj is wrapping [MSK_getdualobj]
+// GetDualobj is wrapping [MSK_getdualobj]
+//
 // function MSK_getdualobj has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - dualobj: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - dualobj: MSKrealt *
 //
 // [MSK_getdualobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdualobj(
+func (task *Task) GetDualobj(
 	whichsol SolType,
 	dualobj *float64,
 ) res.Code {
@@ -3300,20 +3445,21 @@ func (task *Task) Getdualobj(
 	)
 }
 
-// Getdualsolutionnorms is wrapping [MSK_getdualsolutionnorms]
+// GetDualsolutionnorms is wrapping [MSK_getdualsolutionnorms]
+//
 // function MSK_getdualsolutionnorms has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - nrmy: MSKrealt *
-// - nrmslc: MSKrealt *
-// - nrmsuc: MSKrealt *
-// - nrmslx: MSKrealt *
-// - nrmsux: MSKrealt *
-// - nrmsnx: MSKrealt *
-// - nrmbars: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - nrmy: MSKrealt *
+//   - nrmslc: MSKrealt *
+//   - nrmsuc: MSKrealt *
+//   - nrmslx: MSKrealt *
+//   - nrmsux: MSKrealt *
+//   - nrmsnx: MSKrealt *
+//   - nrmbars: MSKrealt *
 //
 // [MSK_getdualsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdualsolutionnorms(
+func (task *Task) GetDualsolutionnorms(
 	whichsol SolType,
 	nrmy *float64,
 	nrmslc *float64,
@@ -3338,16 +3484,17 @@ func (task *Task) Getdualsolutionnorms(
 	)
 }
 
-// Getdviolacc is wrapping [MSK_getdviolacc]
+// GetDviolacc is wrapping [MSK_getdviolacc]
+//
 // function MSK_getdviolacc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - numaccidx: MSKint64t
-// - accidxlist: const MSKint64t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - numaccidx: MSKint64t
+//   - accidxlist: const MSKint64t *
+//   - viol: MSKrealt *
 //
 // [MSK_getdviolacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdviolacc(
+func (task *Task) GetDviolacc(
 	whichsol SolType,
 	numaccidx int64,
 	accidxlist *int64,
@@ -3364,16 +3511,17 @@ func (task *Task) Getdviolacc(
 	)
 }
 
-// Getdviolbarvar is wrapping [MSK_getdviolbarvar]
+// GetDviolbarvar is wrapping [MSK_getdviolbarvar]
+//
 // function MSK_getdviolbarvar has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getdviolbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdviolbarvar(
+func (task *Task) GetDviolbarvar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -3390,16 +3538,17 @@ func (task *Task) Getdviolbarvar(
 	)
 }
 
-// Getdviolcon is wrapping [MSK_getdviolcon]
+// GetDviolcon is wrapping [MSK_getdviolcon]
+//
 // function MSK_getdviolcon has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getdviolcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdviolcon(
+func (task *Task) GetDviolcon(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -3416,16 +3565,17 @@ func (task *Task) Getdviolcon(
 	)
 }
 
-// Getdviolcones is wrapping [MSK_getdviolcones]
+// GetDviolcones is wrapping [MSK_getdviolcones]
+//
 // function MSK_getdviolcones has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getdviolcones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdviolcones(
+func (task *Task) GetDviolcones(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -3442,16 +3592,17 @@ func (task *Task) Getdviolcones(
 	)
 }
 
-// Getdviolvar is wrapping [MSK_getdviolvar]
+// GetDviolvar is wrapping [MSK_getdviolvar]
+//
 // function MSK_getdviolvar has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getdviolvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getdviolvar(
+func (task *Task) GetDviolvar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -3468,15 +3619,16 @@ func (task *Task) Getdviolvar(
 	)
 }
 
-// Getinfindex is wrapping [MSK_getinfindex]
+// GetInfindex is wrapping [MSK_getinfindex]
+//
 // function MSK_getinfindex has following parameters:
-// - task: MSKtask_t
-// - inftype: MSKinftypee
-// - infname: const char *
-// - infindex: MSKint32t *
+//   - task: MSKtask_t
+//   - inftype: MSKinftypee
+//   - infname: const char *
+//   - infindex: MSKint32t *
 //
 // [MSK_getinfindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getinfindex(
+func (task *Task) GetInfindex(
 	inftype InfType,
 	infname *byte,
 	infindex *int32,
@@ -3491,14 +3643,15 @@ func (task *Task) Getinfindex(
 	)
 }
 
-// Getinfmax is wrapping [MSK_getinfmax]
+// GetInfmax is wrapping [MSK_getinfmax]
+//
 // function MSK_getinfmax has following parameters:
-// - task: MSKtask_t
-// - inftype: MSKinftypee
-// - infmax: MSKint32t *
+//   - task: MSKtask_t
+//   - inftype: MSKinftypee
+//   - infmax: MSKint32t *
 //
 // [MSK_getinfmax]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getinfmax(
+func (task *Task) GetInfmax(
 	inftype InfType,
 	infmax *int32,
 ) res.Code {
@@ -3511,15 +3664,16 @@ func (task *Task) Getinfmax(
 	)
 }
 
-// Getinfname is wrapping [MSK_getinfname]
+// GetInfname is wrapping [MSK_getinfname]
+//
 // function MSK_getinfname has following parameters:
-// - task: MSKtask_t
-// - inftype: MSKinftypee
-// - whichinf: MSKint32t
-// - infname: char *
+//   - task: MSKtask_t
+//   - inftype: MSKinftypee
+//   - whichinf: MSKint32t
+//   - infname: char *
 //
 // [MSK_getinfname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getinfname(
+func (task *Task) GetInfname(
 	inftype InfType,
 	whichinf int32,
 	infname *byte,
@@ -3534,14 +3688,15 @@ func (task *Task) Getinfname(
 	)
 }
 
-// Getintinf is wrapping [MSK_getintinf]
+// GetIntinf is wrapping [MSK_getintinf]
+//
 // function MSK_getintinf has following parameters:
-// - task: MSKtask_t
-// - whichiinf: MSKiinfiteme
-// - ivalue: MSKint32t *
+//   - task: MSKtask_t
+//   - whichiinf: MSKiinfiteme
+//   - ivalue: MSKint32t *
 //
 // [MSK_getintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getintinf(
+func (task *Task) GetIntinf(
 	whichiinf IInfItem,
 	ivalue *int32,
 ) res.Code {
@@ -3554,14 +3709,15 @@ func (task *Task) Getintinf(
 	)
 }
 
-// Getintparam is wrapping [MSK_getintparam]
+// GetIntparam is wrapping [MSK_getintparam]
+//
 // function MSK_getintparam has following parameters:
-// - task: MSKtask_t
-// - param: MSKiparame
-// - parvalue: MSKint32t *
+//   - task: MSKtask_t
+//   - param: MSKiparame
+//   - parvalue: MSKint32t *
 //
 // [MSK_getintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getintparam(
+func (task *Task) GetIntparam(
 	param IParam,
 	parvalue *int32,
 ) res.Code {
@@ -3574,16 +3730,17 @@ func (task *Task) Getintparam(
 	)
 }
 
-// Getlasterror is wrapping [MSK_getlasterror]
+// GetLasterror is wrapping [MSK_getlasterror]
+//
 // function MSK_getlasterror has following parameters:
-// - task: MSKtask_t
-// - lastrescode: MSKrescodee *
-// - sizelastmsg: MSKint32t
-// - lastmsglen: MSKint32t *
-// - lastmsg: char *
+//   - task: MSKtask_t
+//   - lastrescode: MSKrescodee *
+//   - sizelastmsg: MSKint32t
+//   - lastmsglen: MSKint32t *
+//   - lastmsg: char *
 //
 // [MSK_getlasterror]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getlasterror(
+func (task *Task) GetLasterror(
 	lastrescode *res.Code,
 	sizelastmsg int32,
 	lastmsglen *int32,
@@ -3600,16 +3757,17 @@ func (task *Task) Getlasterror(
 	)
 }
 
-// Getlasterror64 is wrapping [MSK_getlasterror64]
+// GetLasterror64 is wrapping [MSK_getlasterror64]
+//
 // function MSK_getlasterror64 has following parameters:
-// - task: MSKtask_t
-// - lastrescode: MSKrescodee *
-// - sizelastmsg: MSKint64t
-// - lastmsglen: MSKint64t *
-// - lastmsg: char *
+//   - task: MSKtask_t
+//   - lastrescode: MSKrescodee *
+//   - sizelastmsg: MSKint64t
+//   - lastmsglen: MSKint64t *
+//   - lastmsg: char *
 //
 // [MSK_getlasterror64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getlasterror64(
+func (task *Task) GetLasterror64(
 	lastrescode *res.Code,
 	sizelastmsg int64,
 	lastmsglen *int64,
@@ -3626,14 +3784,15 @@ func (task *Task) Getlasterror64(
 	)
 }
 
-// Getlenbarvarj is wrapping [MSK_getlenbarvarj]
+// GetLenbarvarj is wrapping [MSK_getlenbarvarj]
+//
 // function MSK_getlenbarvarj has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - lenbarvarj: MSKint64t *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - lenbarvarj: MSKint64t *
 //
 // [MSK_getlenbarvarj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getlenbarvarj(
+func (task *Task) GetLenbarvarj(
 	j int32,
 	lenbarvarj *int64,
 ) res.Code {
@@ -3646,14 +3805,15 @@ func (task *Task) Getlenbarvarj(
 	)
 }
 
-// Getlintinf is wrapping [MSK_getlintinf]
+// GetLintinf is wrapping [MSK_getlintinf]
+//
 // function MSK_getlintinf has following parameters:
-// - task: MSKtask_t
-// - whichliinf: MSKliinfiteme
-// - ivalue: MSKint64t *
+//   - task: MSKtask_t
+//   - whichliinf: MSKliinfiteme
+//   - ivalue: MSKint64t *
 //
 // [MSK_getlintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getlintinf(
+func (task *Task) GetLintinf(
 	whichliinf LIInfItem,
 	ivalue *int64,
 ) res.Code {
@@ -3666,13 +3826,14 @@ func (task *Task) Getlintinf(
 	)
 }
 
-// Getmaxnamelen is wrapping [MSK_getmaxnamelen]
+// GetMaxnamelen is wrapping [MSK_getmaxnamelen]
+//
 // function MSK_getmaxnamelen has following parameters:
-// - task: MSKtask_t
-// - maxlen: MSKint32t *
+//   - task: MSKtask_t
+//   - maxlen: MSKint32t *
 //
 // [MSK_getmaxnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnamelen(
+func (task *Task) GetMaxnamelen(
 	maxlen *int32,
 ) res.Code {
 	return res.Code(
@@ -3683,13 +3844,14 @@ func (task *Task) Getmaxnamelen(
 	)
 }
 
-// Getmaxnumanz is wrapping [MSK_getmaxnumanz]
+// GetMaxnumanz is wrapping [MSK_getmaxnumanz]
+//
 // function MSK_getmaxnumanz has following parameters:
-// - task: MSKtask_t
-// - maxnumanz: MSKint32t *
+//   - task: MSKtask_t
+//   - maxnumanz: MSKint32t *
 //
 // [MSK_getmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumanz(
+func (task *Task) GetMaxnumanz(
 	maxnumanz *int32,
 ) res.Code {
 	return res.Code(
@@ -3700,13 +3862,14 @@ func (task *Task) Getmaxnumanz(
 	)
 }
 
-// Getmaxnumanz64 is wrapping [MSK_getmaxnumanz64]
+// GetMaxnumanz64 is wrapping [MSK_getmaxnumanz64]
+//
 // function MSK_getmaxnumanz64 has following parameters:
-// - task: MSKtask_t
-// - maxnumanz: MSKint64t *
+//   - task: MSKtask_t
+//   - maxnumanz: MSKint64t *
 //
 // [MSK_getmaxnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumanz64(
+func (task *Task) GetMaxnumanz64(
 	maxnumanz *int64,
 ) res.Code {
 	return res.Code(
@@ -3717,13 +3880,14 @@ func (task *Task) Getmaxnumanz64(
 	)
 }
 
-// Getmaxnumbarvar is wrapping [MSK_getmaxnumbarvar]
+// GetMaxnumbarvar is wrapping [MSK_getmaxnumbarvar]
+//
 // function MSK_getmaxnumbarvar has following parameters:
-// - task: MSKtask_t
-// - maxnumbarvar: MSKint32t *
+//   - task: MSKtask_t
+//   - maxnumbarvar: MSKint32t *
 //
 // [MSK_getmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumbarvar(
+func (task *Task) GetMaxnumbarvar(
 	maxnumbarvar *int32,
 ) res.Code {
 	return res.Code(
@@ -3734,13 +3898,14 @@ func (task *Task) Getmaxnumbarvar(
 	)
 }
 
-// Getmaxnumcon is wrapping [MSK_getmaxnumcon]
+// GetMaxnumcon is wrapping [MSK_getmaxnumcon]
+//
 // function MSK_getmaxnumcon has following parameters:
-// - task: MSKtask_t
-// - maxnumcon: MSKint32t *
+//   - task: MSKtask_t
+//   - maxnumcon: MSKint32t *
 //
 // [MSK_getmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumcon(
+func (task *Task) GetMaxnumcon(
 	maxnumcon *int32,
 ) res.Code {
 	return res.Code(
@@ -3751,13 +3916,14 @@ func (task *Task) Getmaxnumcon(
 	)
 }
 
-// Getmaxnumcone is wrapping [MSK_getmaxnumcone]
+// GetMaxnumcone is wrapping [MSK_getmaxnumcone]
+//
 // function MSK_getmaxnumcone has following parameters:
-// - task: MSKtask_t
-// - maxnumcone: MSKint32t *
+//   - task: MSKtask_t
+//   - maxnumcone: MSKint32t *
 //
 // [MSK_getmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumcone(
+func (task *Task) GetMaxnumcone(
 	maxnumcone *int32,
 ) res.Code {
 	return res.Code(
@@ -3768,13 +3934,14 @@ func (task *Task) Getmaxnumcone(
 	)
 }
 
-// Getmaxnumqnz is wrapping [MSK_getmaxnumqnz]
+// GetMaxnumqnz is wrapping [MSK_getmaxnumqnz]
+//
 // function MSK_getmaxnumqnz has following parameters:
-// - task: MSKtask_t
-// - maxnumqnz: MSKint32t *
+//   - task: MSKtask_t
+//   - maxnumqnz: MSKint32t *
 //
 // [MSK_getmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumqnz(
+func (task *Task) GetMaxnumqnz(
 	maxnumqnz *int32,
 ) res.Code {
 	return res.Code(
@@ -3785,13 +3952,14 @@ func (task *Task) Getmaxnumqnz(
 	)
 }
 
-// Getmaxnumqnz64 is wrapping [MSK_getmaxnumqnz64]
+// GetMaxnumqnz64 is wrapping [MSK_getmaxnumqnz64]
+//
 // function MSK_getmaxnumqnz64 has following parameters:
-// - task: MSKtask_t
-// - maxnumqnz: MSKint64t *
+//   - task: MSKtask_t
+//   - maxnumqnz: MSKint64t *
 //
 // [MSK_getmaxnumqnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumqnz64(
+func (task *Task) GetMaxnumqnz64(
 	maxnumqnz *int64,
 ) res.Code {
 	return res.Code(
@@ -3802,13 +3970,14 @@ func (task *Task) Getmaxnumqnz64(
 	)
 }
 
-// Getmaxnumvar is wrapping [MSK_getmaxnumvar]
+// GetMaxnumvar is wrapping [MSK_getmaxnumvar]
+//
 // function MSK_getmaxnumvar has following parameters:
-// - task: MSKtask_t
-// - maxnumvar: MSKint32t *
+//   - task: MSKtask_t
+//   - maxnumvar: MSKint32t *
 //
 // [MSK_getmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmaxnumvar(
+func (task *Task) GetMaxnumvar(
 	maxnumvar *int32,
 ) res.Code {
 	return res.Code(
@@ -3819,14 +3988,15 @@ func (task *Task) Getmaxnumvar(
 	)
 }
 
-// Getmemusagetask is wrapping [MSK_getmemusagetask]
+// GetMemusagetask is wrapping [MSK_getmemusagetask]
+//
 // function MSK_getmemusagetask has following parameters:
-// - task: MSKtask_t
-// - meminuse: MSKint64t *
-// - maxmemuse: MSKint64t *
+//   - task: MSKtask_t
+//   - meminuse: MSKint64t *
+//   - maxmemuse: MSKint64t *
 //
 // [MSK_getmemusagetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getmemusagetask(
+func (task *Task) GetMemusagetask(
 	meminuse *int64,
 	maxmemuse *int64,
 ) res.Code {
@@ -3839,14 +4009,15 @@ func (task *Task) Getmemusagetask(
 	)
 }
 
-// Getnadouinf is wrapping [MSK_getnadouinf]
+// GetNadouinf is wrapping [MSK_getnadouinf]
+//
 // function MSK_getnadouinf has following parameters:
-// - task: MSKtask_t
-// - infitemname: const char *
-// - dvalue: MSKrealt *
+//   - task: MSKtask_t
+//   - infitemname: const char *
+//   - dvalue: MSKrealt *
 //
 // [MSK_getnadouinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnadouinf(
+func (task *Task) GetNadouinf(
 	infitemname *byte,
 	dvalue *float64,
 ) res.Code {
@@ -3859,14 +4030,15 @@ func (task *Task) Getnadouinf(
 	)
 }
 
-// Getnadouparam is wrapping [MSK_getnadouparam]
+// GetNadouparam is wrapping [MSK_getnadouparam]
+//
 // function MSK_getnadouparam has following parameters:
-// - task: MSKtask_t
-// - paramname: const char *
-// - parvalue: MSKrealt *
+//   - task: MSKtask_t
+//   - paramname: const char *
+//   - parvalue: MSKrealt *
 //
 // [MSK_getnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnadouparam(
+func (task *Task) GetNadouparam(
 	paramname *byte,
 	parvalue *float64,
 ) res.Code {
@@ -3879,14 +4051,15 @@ func (task *Task) Getnadouparam(
 	)
 }
 
-// Getnaintinf is wrapping [MSK_getnaintinf]
+// GetNaintinf is wrapping [MSK_getnaintinf]
+//
 // function MSK_getnaintinf has following parameters:
-// - task: MSKtask_t
-// - infitemname: const char *
-// - ivalue: MSKint32t *
+//   - task: MSKtask_t
+//   - infitemname: const char *
+//   - ivalue: MSKint32t *
 //
 // [MSK_getnaintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnaintinf(
+func (task *Task) GetNaintinf(
 	infitemname *byte,
 	ivalue *int32,
 ) res.Code {
@@ -3899,14 +4072,15 @@ func (task *Task) Getnaintinf(
 	)
 }
 
-// Getnaintparam is wrapping [MSK_getnaintparam]
+// GetNaintparam is wrapping [MSK_getnaintparam]
+//
 // function MSK_getnaintparam has following parameters:
-// - task: MSKtask_t
-// - paramname: const char *
-// - parvalue: MSKint32t *
+//   - task: MSKtask_t
+//   - paramname: const char *
+//   - parvalue: MSKint32t *
 //
 // [MSK_getnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnaintparam(
+func (task *Task) GetNaintparam(
 	paramname *byte,
 	parvalue *int32,
 ) res.Code {
@@ -3919,16 +4093,17 @@ func (task *Task) Getnaintparam(
 	)
 }
 
-// Getnastrparam is wrapping [MSK_getnastrparam]
+// GetNastrparam is wrapping [MSK_getnastrparam]
+//
 // function MSK_getnastrparam has following parameters:
-// - task: MSKtask_t
-// - paramname: const char *
-// - sizeparamname: MSKint32t
-// - len: MSKint32t *
-// - parvalue: char *
+//   - task: MSKtask_t
+//   - paramname: const char *
+//   - sizeparamname: MSKint32t
+//   - len: MSKint32t *
+//   - parvalue: char *
 //
 // [MSK_getnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnastrparam(
+func (task *Task) GetNastrparam(
 	paramname *byte,
 	sizeparamname int32,
 	len *int32,
@@ -3945,13 +4120,14 @@ func (task *Task) Getnastrparam(
 	)
 }
 
-// Getnumacc is wrapping [MSK_getnumacc]
+// GetNumacc is wrapping [MSK_getnumacc]
+//
 // function MSK_getnumacc has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t *
+//   - task: MSKtask_t
+//   - num: MSKint64t *
 //
 // [MSK_getnumacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumacc(
+func (task *Task) GetNumacc(
 	num *int64,
 ) res.Code {
 	return res.Code(
@@ -3962,13 +4138,14 @@ func (task *Task) Getnumacc(
 	)
 }
 
-// Getnumafe is wrapping [MSK_getnumafe]
+// GetNumafe is wrapping [MSK_getnumafe]
+//
 // function MSK_getnumafe has following parameters:
-// - task: MSKtask_t
-// - numafe: MSKint64t *
+//   - task: MSKtask_t
+//   - numafe: MSKint64t *
 //
 // [MSK_getnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumafe(
+func (task *Task) GetNumafe(
 	numafe *int64,
 ) res.Code {
 	return res.Code(
@@ -3979,13 +4156,14 @@ func (task *Task) Getnumafe(
 	)
 }
 
-// Getnumanz is wrapping [MSK_getnumanz]
+// GetNumanz is wrapping [MSK_getnumanz]
+//
 // function MSK_getnumanz has following parameters:
-// - task: MSKtask_t
-// - numanz: MSKint32t *
+//   - task: MSKtask_t
+//   - numanz: MSKint32t *
 //
 // [MSK_getnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumanz(
+func (task *Task) GetNumanz(
 	numanz *int32,
 ) res.Code {
 	return res.Code(
@@ -3996,13 +4174,14 @@ func (task *Task) Getnumanz(
 	)
 }
 
-// Getnumanz64 is wrapping [MSK_getnumanz64]
+// GetNumanz64 is wrapping [MSK_getnumanz64]
+//
 // function MSK_getnumanz64 has following parameters:
-// - task: MSKtask_t
-// - numanz: MSKint64t *
+//   - task: MSKtask_t
+//   - numanz: MSKint64t *
 //
 // [MSK_getnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumanz64(
+func (task *Task) GetNumanz64(
 	numanz *int64,
 ) res.Code {
 	return res.Code(
@@ -4013,13 +4192,14 @@ func (task *Task) Getnumanz64(
 	)
 }
 
-// Getnumbarablocktriplets is wrapping [MSK_getnumbarablocktriplets]
+// GetNumbarablocktriplets is wrapping [MSK_getnumbarablocktriplets]
+//
 // function MSK_getnumbarablocktriplets has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t *
+//   - task: MSKtask_t
+//   - num: MSKint64t *
 //
 // [MSK_getnumbarablocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumbarablocktriplets(
+func (task *Task) GetNumbarablocktriplets(
 	num *int64,
 ) res.Code {
 	return res.Code(
@@ -4030,13 +4210,14 @@ func (task *Task) Getnumbarablocktriplets(
 	)
 }
 
-// Getnumbaranz is wrapping [MSK_getnumbaranz]
+// GetNumbaranz is wrapping [MSK_getnumbaranz]
+//
 // function MSK_getnumbaranz has following parameters:
-// - task: MSKtask_t
-// - nz: MSKint64t *
+//   - task: MSKtask_t
+//   - nz: MSKint64t *
 //
 // [MSK_getnumbaranz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumbaranz(
+func (task *Task) GetNumbaranz(
 	nz *int64,
 ) res.Code {
 	return res.Code(
@@ -4047,13 +4228,14 @@ func (task *Task) Getnumbaranz(
 	)
 }
 
-// Getnumbarcblocktriplets is wrapping [MSK_getnumbarcblocktriplets]
+// GetNumbarcblocktriplets is wrapping [MSK_getnumbarcblocktriplets]
+//
 // function MSK_getnumbarcblocktriplets has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t *
+//   - task: MSKtask_t
+//   - num: MSKint64t *
 //
 // [MSK_getnumbarcblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumbarcblocktriplets(
+func (task *Task) GetNumbarcblocktriplets(
 	num *int64,
 ) res.Code {
 	return res.Code(
@@ -4064,13 +4246,14 @@ func (task *Task) Getnumbarcblocktriplets(
 	)
 }
 
-// Getnumbarcnz is wrapping [MSK_getnumbarcnz]
+// GetNumbarcnz is wrapping [MSK_getnumbarcnz]
+//
 // function MSK_getnumbarcnz has following parameters:
-// - task: MSKtask_t
-// - nz: MSKint64t *
+//   - task: MSKtask_t
+//   - nz: MSKint64t *
 //
 // [MSK_getnumbarcnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumbarcnz(
+func (task *Task) GetNumbarcnz(
 	nz *int64,
 ) res.Code {
 	return res.Code(
@@ -4081,13 +4264,14 @@ func (task *Task) Getnumbarcnz(
 	)
 }
 
-// Getnumbarvar is wrapping [MSK_getnumbarvar]
+// GetNumbarvar is wrapping [MSK_getnumbarvar]
+//
 // function MSK_getnumbarvar has following parameters:
-// - task: MSKtask_t
-// - numbarvar: MSKint32t *
+//   - task: MSKtask_t
+//   - numbarvar: MSKint32t *
 //
 // [MSK_getnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumbarvar(
+func (task *Task) GetNumbarvar(
 	numbarvar *int32,
 ) res.Code {
 	return res.Code(
@@ -4098,13 +4282,14 @@ func (task *Task) Getnumbarvar(
 	)
 }
 
-// Getnumcon is wrapping [MSK_getnumcon]
+// GetNumcon is wrapping [MSK_getnumcon]
+//
 // function MSK_getnumcon has following parameters:
-// - task: MSKtask_t
-// - numcon: MSKint32t *
+//   - task: MSKtask_t
+//   - numcon: MSKint32t *
 //
 // [MSK_getnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumcon(
+func (task *Task) GetNumcon(
 	numcon *int32,
 ) res.Code {
 	return res.Code(
@@ -4115,13 +4300,14 @@ func (task *Task) Getnumcon(
 	)
 }
 
-// Getnumcone is wrapping [MSK_getnumcone]
+// GetNumcone is wrapping [MSK_getnumcone]
+//
 // function MSK_getnumcone has following parameters:
-// - task: MSKtask_t
-// - numcone: MSKint32t *
+//   - task: MSKtask_t
+//   - numcone: MSKint32t *
 //
 // [MSK_getnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumcone(
+func (task *Task) GetNumcone(
 	numcone *int32,
 ) res.Code {
 	return res.Code(
@@ -4132,14 +4318,15 @@ func (task *Task) Getnumcone(
 	)
 }
 
-// Getnumconemem is wrapping [MSK_getnumconemem]
+// GetNumconemem is wrapping [MSK_getnumconemem]
+//
 // function MSK_getnumconemem has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - nummem: MSKint32t *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - nummem: MSKint32t *
 //
 // [MSK_getnumconemem]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumconemem(
+func (task *Task) GetNumconemem(
 	k int32,
 	nummem *int32,
 ) res.Code {
@@ -4152,13 +4339,14 @@ func (task *Task) Getnumconemem(
 	)
 }
 
-// Getnumdjc is wrapping [MSK_getnumdjc]
+// GetNumdjc is wrapping [MSK_getnumdjc]
+//
 // function MSK_getnumdjc has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t *
+//   - task: MSKtask_t
+//   - num: MSKint64t *
 //
 // [MSK_getnumdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumdjc(
+func (task *Task) GetNumdjc(
 	num *int64,
 ) res.Code {
 	return res.Code(
@@ -4169,13 +4357,14 @@ func (task *Task) Getnumdjc(
 	)
 }
 
-// Getnumdomain is wrapping [MSK_getnumdomain]
+// GetNumdomain is wrapping [MSK_getnumdomain]
+//
 // function MSK_getnumdomain has following parameters:
-// - task: MSKtask_t
-// - numdomain: MSKint64t *
+//   - task: MSKtask_t
+//   - numdomain: MSKint64t *
 //
 // [MSK_getnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumdomain(
+func (task *Task) GetNumdomain(
 	numdomain *int64,
 ) res.Code {
 	return res.Code(
@@ -4186,13 +4375,14 @@ func (task *Task) Getnumdomain(
 	)
 }
 
-// Getnumintvar is wrapping [MSK_getnumintvar]
+// GetNumintvar is wrapping [MSK_getnumintvar]
+//
 // function MSK_getnumintvar has following parameters:
-// - task: MSKtask_t
-// - numintvar: MSKint32t *
+//   - task: MSKtask_t
+//   - numintvar: MSKint32t *
 //
 // [MSK_getnumintvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumintvar(
+func (task *Task) GetNumintvar(
 	numintvar *int32,
 ) res.Code {
 	return res.Code(
@@ -4203,14 +4393,15 @@ func (task *Task) Getnumintvar(
 	)
 }
 
-// Getnumparam is wrapping [MSK_getnumparam]
+// GetNumparam is wrapping [MSK_getnumparam]
+//
 // function MSK_getnumparam has following parameters:
-// - task: MSKtask_t
-// - partype: MSKparametertypee
-// - numparam: MSKint32t *
+//   - task: MSKtask_t
+//   - partype: MSKparametertypee
+//   - numparam: MSKint32t *
 //
 // [MSK_getnumparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumparam(
+func (task *Task) GetNumparam(
 	partype ParameterType,
 	numparam *int32,
 ) res.Code {
@@ -4223,14 +4414,15 @@ func (task *Task) Getnumparam(
 	)
 }
 
-// Getnumqconknz is wrapping [MSK_getnumqconknz]
+// GetNumqconknz is wrapping [MSK_getnumqconknz]
+//
 // function MSK_getnumqconknz has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - numqcnz: MSKint32t *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - numqcnz: MSKint32t *
 //
 // [MSK_getnumqconknz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumqconknz(
+func (task *Task) GetNumqconknz(
 	k int32,
 	numqcnz *int32,
 ) res.Code {
@@ -4243,14 +4435,15 @@ func (task *Task) Getnumqconknz(
 	)
 }
 
-// Getnumqconknz64 is wrapping [MSK_getnumqconknz64]
+// GetNumqconknz64 is wrapping [MSK_getnumqconknz64]
+//
 // function MSK_getnumqconknz64 has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - numqcnz: MSKint64t *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - numqcnz: MSKint64t *
 //
 // [MSK_getnumqconknz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumqconknz64(
+func (task *Task) GetNumqconknz64(
 	k int32,
 	numqcnz *int64,
 ) res.Code {
@@ -4263,13 +4456,14 @@ func (task *Task) Getnumqconknz64(
 	)
 }
 
-// Getnumqobjnz is wrapping [MSK_getnumqobjnz]
+// GetNumqobjnz is wrapping [MSK_getnumqobjnz]
+//
 // function MSK_getnumqobjnz has following parameters:
-// - task: MSKtask_t
-// - numqonz: MSKint32t *
+//   - task: MSKtask_t
+//   - numqonz: MSKint32t *
 //
 // [MSK_getnumqobjnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumqobjnz(
+func (task *Task) GetNumqobjnz(
 	numqonz *int32,
 ) res.Code {
 	return res.Code(
@@ -4280,13 +4474,14 @@ func (task *Task) Getnumqobjnz(
 	)
 }
 
-// Getnumqobjnz64 is wrapping [MSK_getnumqobjnz64]
+// GetNumqobjnz64 is wrapping [MSK_getnumqobjnz64]
+//
 // function MSK_getnumqobjnz64 has following parameters:
-// - task: MSKtask_t
-// - numqonz: MSKint64t *
+//   - task: MSKtask_t
+//   - numqonz: MSKint64t *
 //
 // [MSK_getnumqobjnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumqobjnz64(
+func (task *Task) GetNumqobjnz64(
 	numqonz *int64,
 ) res.Code {
 	return res.Code(
@@ -4297,13 +4492,14 @@ func (task *Task) Getnumqobjnz64(
 	)
 }
 
-// Getnumsymmat is wrapping [MSK_getnumsymmat]
+// GetNumsymmat is wrapping [MSK_getnumsymmat]
+//
 // function MSK_getnumsymmat has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t *
+//   - task: MSKtask_t
+//   - num: MSKint64t *
 //
 // [MSK_getnumsymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumsymmat(
+func (task *Task) GetNumsymmat(
 	num *int64,
 ) res.Code {
 	return res.Code(
@@ -4314,13 +4510,14 @@ func (task *Task) Getnumsymmat(
 	)
 }
 
-// Getnumvar is wrapping [MSK_getnumvar]
+// GetNumvar is wrapping [MSK_getnumvar]
+//
 // function MSK_getnumvar has following parameters:
-// - task: MSKtask_t
-// - numvar: MSKint32t *
+//   - task: MSKtask_t
+//   - numvar: MSKint32t *
 //
 // [MSK_getnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getnumvar(
+func (task *Task) GetNumvar(
 	numvar *int32,
 ) res.Code {
 	return res.Code(
@@ -4331,14 +4528,15 @@ func (task *Task) Getnumvar(
 	)
 }
 
-// Getobjname is wrapping [MSK_getobjname]
+// GetObjname is wrapping [MSK_getobjname]
+//
 // function MSK_getobjname has following parameters:
-// - task: MSKtask_t
-// - sizeobjname: MSKint32t
-// - objname: char *
+//   - task: MSKtask_t
+//   - sizeobjname: MSKint32t
+//   - objname: char *
 //
 // [MSK_getobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getobjname(
+func (task *Task) GetObjname(
 	sizeobjname int32,
 	objname *byte,
 ) res.Code {
@@ -4351,13 +4549,14 @@ func (task *Task) Getobjname(
 	)
 }
 
-// Getobjnamelen is wrapping [MSK_getobjnamelen]
+// GetObjnamelen is wrapping [MSK_getobjnamelen]
+//
 // function MSK_getobjnamelen has following parameters:
-// - task: MSKtask_t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - len: MSKint32t *
 //
 // [MSK_getobjnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getobjnamelen(
+func (task *Task) GetObjnamelen(
 	len *int32,
 ) res.Code {
 	return res.Code(
@@ -4368,13 +4567,14 @@ func (task *Task) Getobjnamelen(
 	)
 }
 
-// Getobjsense is wrapping [MSK_getobjsense]
+// GetObjsense is wrapping [MSK_getobjsense]
+//
 // function MSK_getobjsense has following parameters:
-// - task: MSKtask_t
-// - sense: MSKobjsensee *
+//   - task: MSKtask_t
+//   - sense: MSKobjsensee *
 //
 // [MSK_getobjsense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getobjsense(
+func (task *Task) GetObjsense(
 	sense *ObjectiveSense,
 ) res.Code {
 	return res.Code(
@@ -4385,14 +4585,15 @@ func (task *Task) Getobjsense(
 	)
 }
 
-// Getparammax is wrapping [MSK_getparammax]
+// GetParammax is wrapping [MSK_getparammax]
+//
 // function MSK_getparammax has following parameters:
-// - task: MSKtask_t
-// - partype: MSKparametertypee
-// - parammax: MSKint32t *
+//   - task: MSKtask_t
+//   - partype: MSKparametertypee
+//   - parammax: MSKint32t *
 //
 // [MSK_getparammax]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getparammax(
+func (task *Task) GetParammax(
 	partype ParameterType,
 	parammax *int32,
 ) res.Code {
@@ -4405,15 +4606,16 @@ func (task *Task) Getparammax(
 	)
 }
 
-// Getparamname is wrapping [MSK_getparamname]
+// GetParamname is wrapping [MSK_getparamname]
+//
 // function MSK_getparamname has following parameters:
-// - task: MSKtask_t
-// - partype: MSKparametertypee
-// - param: MSKint32t
-// - parname: char *
+//   - task: MSKtask_t
+//   - partype: MSKparametertypee
+//   - param: MSKint32t
+//   - parname: char *
 //
 // [MSK_getparamname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getparamname(
+func (task *Task) GetParamname(
 	partype ParameterType,
 	param int32,
 	parname *byte,
@@ -4428,14 +4630,15 @@ func (task *Task) Getparamname(
 	)
 }
 
-// Getpowerdomainalpha is wrapping [MSK_getpowerdomainalpha]
+// GetPowerdomainalpha is wrapping [MSK_getpowerdomainalpha]
+//
 // function MSK_getpowerdomainalpha has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - alpha: MSKrealt *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - alpha: MSKrealt *
 //
 // [MSK_getpowerdomainalpha]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpowerdomainalpha(
+func (task *Task) GetPowerdomainalpha(
 	domidx int64,
 	alpha *float64,
 ) res.Code {
@@ -4448,15 +4651,16 @@ func (task *Task) Getpowerdomainalpha(
 	)
 }
 
-// Getpowerdomaininfo is wrapping [MSK_getpowerdomaininfo]
+// GetPowerdomaininfo is wrapping [MSK_getpowerdomaininfo]
+//
 // function MSK_getpowerdomaininfo has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - n: MSKint64t *
-// - nleft: MSKint64t *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - n: MSKint64t *
+//   - nleft: MSKint64t *
 //
 // [MSK_getpowerdomaininfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpowerdomaininfo(
+func (task *Task) GetPowerdomaininfo(
 	domidx int64,
 	n *int64,
 	nleft *int64,
@@ -4471,14 +4675,15 @@ func (task *Task) Getpowerdomaininfo(
 	)
 }
 
-// Getprimalobj is wrapping [MSK_getprimalobj]
+// GetPrimalobj is wrapping [MSK_getprimalobj]
+//
 // function MSK_getprimalobj has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - primalobj: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - primalobj: MSKrealt *
 //
 // [MSK_getprimalobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getprimalobj(
+func (task *Task) GetPrimalobj(
 	whichsol SolType,
 	primalobj *float64,
 ) res.Code {
@@ -4491,16 +4696,17 @@ func (task *Task) Getprimalobj(
 	)
 }
 
-// Getprimalsolutionnorms is wrapping [MSK_getprimalsolutionnorms]
+// GetPrimalsolutionnorms is wrapping [MSK_getprimalsolutionnorms]
+//
 // function MSK_getprimalsolutionnorms has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - nrmxc: MSKrealt *
-// - nrmxx: MSKrealt *
-// - nrmbarx: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - nrmxc: MSKrealt *
+//   - nrmxx: MSKrealt *
+//   - nrmbarx: MSKrealt *
 //
 // [MSK_getprimalsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getprimalsolutionnorms(
+func (task *Task) GetPrimalsolutionnorms(
 	whichsol SolType,
 	nrmxc *float64,
 	nrmxx *float64,
@@ -4517,13 +4723,14 @@ func (task *Task) Getprimalsolutionnorms(
 	)
 }
 
-// Getprobtype is wrapping [MSK_getprobtype]
+// GetProbtype is wrapping [MSK_getprobtype]
+//
 // function MSK_getprobtype has following parameters:
-// - task: MSKtask_t
-// - probtype: MSKproblemtypee *
+//   - task: MSKtask_t
+//   - probtype: MSKproblemtypee *
 //
 // [MSK_getprobtype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getprobtype(
+func (task *Task) GetProbtype(
 	probtype *ProblemType,
 ) res.Code {
 	return res.Code(
@@ -4534,14 +4741,15 @@ func (task *Task) Getprobtype(
 	)
 }
 
-// Getprosta is wrapping [MSK_getprosta]
+// GetProsta is wrapping [MSK_getprosta]
+//
 // function MSK_getprosta has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - problemsta: MSKprostae *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - problemsta: MSKprostae *
 //
 // [MSK_getprosta]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getprosta(
+func (task *Task) GetProsta(
 	whichsol SolType,
 	problemsta *ProSta,
 ) res.Code {
@@ -4554,16 +4762,17 @@ func (task *Task) Getprosta(
 	)
 }
 
-// Getpviolacc is wrapping [MSK_getpviolacc]
+// GetPviolacc is wrapping [MSK_getpviolacc]
+//
 // function MSK_getpviolacc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - numaccidx: MSKint64t
-// - accidxlist: const MSKint64t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - numaccidx: MSKint64t
+//   - accidxlist: const MSKint64t *
+//   - viol: MSKrealt *
 //
 // [MSK_getpviolacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpviolacc(
+func (task *Task) GetPviolacc(
 	whichsol SolType,
 	numaccidx int64,
 	accidxlist *int64,
@@ -4580,16 +4789,17 @@ func (task *Task) Getpviolacc(
 	)
 }
 
-// Getpviolbarvar is wrapping [MSK_getpviolbarvar]
+// GetPviolbarvar is wrapping [MSK_getpviolbarvar]
+//
 // function MSK_getpviolbarvar has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getpviolbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpviolbarvar(
+func (task *Task) GetPviolbarvar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -4606,16 +4816,17 @@ func (task *Task) Getpviolbarvar(
 	)
 }
 
-// Getpviolcon is wrapping [MSK_getpviolcon]
+// GetPviolcon is wrapping [MSK_getpviolcon]
+//
 // function MSK_getpviolcon has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getpviolcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpviolcon(
+func (task *Task) GetPviolcon(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -4632,16 +4843,17 @@ func (task *Task) Getpviolcon(
 	)
 }
 
-// Getpviolcones is wrapping [MSK_getpviolcones]
+// GetPviolcones is wrapping [MSK_getpviolcones]
+//
 // function MSK_getpviolcones has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getpviolcones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpviolcones(
+func (task *Task) GetPviolcones(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -4658,16 +4870,17 @@ func (task *Task) Getpviolcones(
 	)
 }
 
-// Getpvioldjc is wrapping [MSK_getpvioldjc]
+// GetPvioldjc is wrapping [MSK_getpvioldjc]
+//
 // function MSK_getpvioldjc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - numdjcidx: MSKint64t
-// - djcidxlist: const MSKint64t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - numdjcidx: MSKint64t
+//   - djcidxlist: const MSKint64t *
+//   - viol: MSKrealt *
 //
 // [MSK_getpvioldjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpvioldjc(
+func (task *Task) GetPvioldjc(
 	whichsol SolType,
 	numdjcidx int64,
 	djcidxlist *int64,
@@ -4684,16 +4897,17 @@ func (task *Task) Getpvioldjc(
 	)
 }
 
-// Getpviolvar is wrapping [MSK_getpviolvar]
+// GetPviolvar is wrapping [MSK_getpviolvar]
+//
 // function MSK_getpviolvar has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - viol: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - viol: MSKrealt *
 //
 // [MSK_getpviolvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getpviolvar(
+func (task *Task) GetPviolvar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -4710,18 +4924,19 @@ func (task *Task) Getpviolvar(
 	)
 }
 
-// Getqconk is wrapping [MSK_getqconk]
+// GetQconk is wrapping [MSK_getqconk]
+//
 // function MSK_getqconk has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - maxnumqcnz: MSKint32t
-// - numqcnz: MSKint32t *
-// - qcsubi: MSKint32t *
-// - qcsubj: MSKint32t *
-// - qcval: MSKrealt *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - maxnumqcnz: MSKint32t
+//   - numqcnz: MSKint32t *
+//   - qcsubi: MSKint32t *
+//   - qcsubj: MSKint32t *
+//   - qcval: MSKrealt *
 //
 // [MSK_getqconk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getqconk(
+func (task *Task) GetQconk(
 	k int32,
 	maxnumqcnz int32,
 	numqcnz *int32,
@@ -4742,18 +4957,19 @@ func (task *Task) Getqconk(
 	)
 }
 
-// Getqconk64 is wrapping [MSK_getqconk64]
+// GetQconk64 is wrapping [MSK_getqconk64]
+//
 // function MSK_getqconk64 has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - maxnumqcnz: MSKint64t
-// - numqcnz: MSKint64t *
-// - qcsubi: MSKint32t *
-// - qcsubj: MSKint32t *
-// - qcval: MSKrealt *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - maxnumqcnz: MSKint64t
+//   - numqcnz: MSKint64t *
+//   - qcsubi: MSKint32t *
+//   - qcsubj: MSKint32t *
+//   - qcval: MSKrealt *
 //
 // [MSK_getqconk64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getqconk64(
+func (task *Task) GetQconk64(
 	k int32,
 	maxnumqcnz int64,
 	numqcnz *int64,
@@ -4774,17 +4990,18 @@ func (task *Task) Getqconk64(
 	)
 }
 
-// Getqobj is wrapping [MSK_getqobj]
+// GetQobj is wrapping [MSK_getqobj]
+//
 // function MSK_getqobj has following parameters:
-// - task: MSKtask_t
-// - maxnumqonz: MSKint32t
-// - numqonz: MSKint32t *
-// - qosubi: MSKint32t *
-// - qosubj: MSKint32t *
-// - qoval: MSKrealt *
+//   - task: MSKtask_t
+//   - maxnumqonz: MSKint32t
+//   - numqonz: MSKint32t *
+//   - qosubi: MSKint32t *
+//   - qosubj: MSKint32t *
+//   - qoval: MSKrealt *
 //
 // [MSK_getqobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getqobj(
+func (task *Task) GetQobj(
 	maxnumqonz int32,
 	numqonz *int32,
 	qosubi *int32,
@@ -4803,17 +5020,18 @@ func (task *Task) Getqobj(
 	)
 }
 
-// Getqobj64 is wrapping [MSK_getqobj64]
+// GetQobj64 is wrapping [MSK_getqobj64]
+//
 // function MSK_getqobj64 has following parameters:
-// - task: MSKtask_t
-// - maxnumqonz: MSKint64t
-// - numqonz: MSKint64t *
-// - qosubi: MSKint32t *
-// - qosubj: MSKint32t *
-// - qoval: MSKrealt *
+//   - task: MSKtask_t
+//   - maxnumqonz: MSKint64t
+//   - numqonz: MSKint64t *
+//   - qosubi: MSKint32t *
+//   - qosubj: MSKint32t *
+//   - qoval: MSKrealt *
 //
 // [MSK_getqobj64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getqobj64(
+func (task *Task) GetQobj64(
 	maxnumqonz int64,
 	numqonz *int64,
 	qosubi *int32,
@@ -4832,15 +5050,16 @@ func (task *Task) Getqobj64(
 	)
 }
 
-// Getqobjij is wrapping [MSK_getqobjij]
+// GetQobjij is wrapping [MSK_getqobjij]
+//
 // function MSK_getqobjij has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - j: MSKint32t
-// - qoij: MSKrealt *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - j: MSKint32t
+//   - qoij: MSKrealt *
 //
 // [MSK_getqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getqobjij(
+func (task *Task) GetQobjij(
 	i int32,
 	j int32,
 	qoij *float64,
@@ -4855,16 +5074,17 @@ func (task *Task) Getqobjij(
 	)
 }
 
-// Getreducedcosts is wrapping [MSK_getreducedcosts]
+// GetReducedcosts is wrapping [MSK_getreducedcosts]
+//
 // function MSK_getreducedcosts has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - redcosts: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - redcosts: MSKrealt *
 //
 // [MSK_getreducedcosts]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getreducedcosts(
+func (task *Task) GetReducedcosts(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -4881,14 +5101,15 @@ func (task *Task) Getreducedcosts(
 	)
 }
 
-// Getskc is wrapping [MSK_getskc]
+// GetSkc is wrapping [MSK_getskc]
+//
 // function MSK_getskc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - skc: MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - skc: MSKstakeye *
 //
 // [MSK_getskc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getskc(
+func (task *Task) GetSkc(
 	whichsol SolType,
 	skc *StaKey,
 ) res.Code {
@@ -4901,16 +5122,17 @@ func (task *Task) Getskc(
 	)
 }
 
-// Getskcslice is wrapping [MSK_getskcslice]
+// GetSkcSlice is wrapping [MSK_getskcslice]
+//
 // function MSK_getskcslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - skc: MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - skc: MSKstakeye *
 //
 // [MSK_getskcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getskcslice(
+func (task *Task) GetSkcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -4927,14 +5149,15 @@ func (task *Task) Getskcslice(
 	)
 }
 
-// Getskn is wrapping [MSK_getskn]
+// GetSkn is wrapping [MSK_getskn]
+//
 // function MSK_getskn has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - skn: MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - skn: MSKstakeye *
 //
 // [MSK_getskn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getskn(
+func (task *Task) GetSkn(
 	whichsol SolType,
 	skn *StaKey,
 ) res.Code {
@@ -4947,14 +5170,15 @@ func (task *Task) Getskn(
 	)
 }
 
-// Getskx is wrapping [MSK_getskx]
+// GetSkx is wrapping [MSK_getskx]
+//
 // function MSK_getskx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - skx: MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - skx: MSKstakeye *
 //
 // [MSK_getskx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getskx(
+func (task *Task) GetSkx(
 	whichsol SolType,
 	skx *StaKey,
 ) res.Code {
@@ -4967,16 +5191,17 @@ func (task *Task) Getskx(
 	)
 }
 
-// Getskxslice is wrapping [MSK_getskxslice]
+// GetSkxSlice is wrapping [MSK_getskxslice]
+//
 // function MSK_getskxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - skx: MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - skx: MSKstakeye *
 //
 // [MSK_getskxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getskxslice(
+func (task *Task) GetSkxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -4993,14 +5218,15 @@ func (task *Task) Getskxslice(
 	)
 }
 
-// Getslc is wrapping [MSK_getslc]
+// GetSlc is wrapping [MSK_getslc]
+//
 // function MSK_getslc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - slc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - slc: MSKrealt *
 //
 // [MSK_getslc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getslc(
+func (task *Task) GetSlc(
 	whichsol SolType,
 	slc *float64,
 ) res.Code {
@@ -5013,16 +5239,17 @@ func (task *Task) Getslc(
 	)
 }
 
-// Getslcslice is wrapping [MSK_getslcslice]
+// GetSlcSlice is wrapping [MSK_getslcslice]
+//
 // function MSK_getslcslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - slc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - slc: MSKrealt *
 //
 // [MSK_getslcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getslcslice(
+func (task *Task) GetSlcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -5039,14 +5266,15 @@ func (task *Task) Getslcslice(
 	)
 }
 
-// Getslx is wrapping [MSK_getslx]
+// GetSlx is wrapping [MSK_getslx]
+//
 // function MSK_getslx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - slx: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - slx: MSKrealt *
 //
 // [MSK_getslx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getslx(
+func (task *Task) GetSlx(
 	whichsol SolType,
 	slx *float64,
 ) res.Code {
@@ -5059,16 +5287,17 @@ func (task *Task) Getslx(
 	)
 }
 
-// Getslxslice is wrapping [MSK_getslxslice]
+// GetSlxSlice is wrapping [MSK_getslxslice]
+//
 // function MSK_getslxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - slx: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - slx: MSKrealt *
 //
 // [MSK_getslxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getslxslice(
+func (task *Task) GetSlxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -5085,14 +5314,15 @@ func (task *Task) Getslxslice(
 	)
 }
 
-// Getsnx is wrapping [MSK_getsnx]
+// GetSnx is wrapping [MSK_getsnx]
+//
 // function MSK_getsnx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - snx: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - snx: MSKrealt *
 //
 // [MSK_getsnx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsnx(
+func (task *Task) GetSnx(
 	whichsol SolType,
 	snx *float64,
 ) res.Code {
@@ -5105,16 +5335,17 @@ func (task *Task) Getsnx(
 	)
 }
 
-// Getsnxslice is wrapping [MSK_getsnxslice]
+// GetSnxSlice is wrapping [MSK_getsnxslice]
+//
 // function MSK_getsnxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - snx: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - snx: MSKrealt *
 //
 // [MSK_getsnxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsnxslice(
+func (task *Task) GetSnxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -5131,14 +5362,15 @@ func (task *Task) Getsnxslice(
 	)
 }
 
-// Getsolsta is wrapping [MSK_getsolsta]
+// GetSolsta is wrapping [MSK_getsolsta]
+//
 // function MSK_getsolsta has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - solutionsta: MSKsolstae *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - solutionsta: MSKsolstae *
 //
 // [MSK_getsolsta]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsolsta(
+func (task *Task) GetSolsta(
 	whichsol SolType,
 	solutionsta *SolSta,
 ) res.Code {
@@ -5151,26 +5383,27 @@ func (task *Task) Getsolsta(
 	)
 }
 
-// Getsolution is wrapping [MSK_getsolution]
+// GetSolution is wrapping [MSK_getsolution]
+//
 // function MSK_getsolution has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - problemsta: MSKprostae *
-// - solutionsta: MSKsolstae *
-// - skc: MSKstakeye *
-// - skx: MSKstakeye *
-// - skn: MSKstakeye *
-// - xc: MSKrealt *
-// - xx: MSKrealt *
-// - y: MSKrealt *
-// - slc: MSKrealt *
-// - suc: MSKrealt *
-// - slx: MSKrealt *
-// - sux: MSKrealt *
-// - snx: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - problemsta: MSKprostae *
+//   - solutionsta: MSKsolstae *
+//   - skc: MSKstakeye *
+//   - skx: MSKstakeye *
+//   - skn: MSKstakeye *
+//   - xc: MSKrealt *
+//   - xx: MSKrealt *
+//   - y: MSKrealt *
+//   - slc: MSKrealt *
+//   - suc: MSKrealt *
+//   - slx: MSKrealt *
+//   - sux: MSKrealt *
+//   - snx: MSKrealt *
 //
 // [MSK_getsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsolution(
+func (task *Task) GetSolution(
 	whichsol SolType,
 	problemsta *ProSta,
 	solutionsta *SolSta,
@@ -5207,24 +5440,25 @@ func (task *Task) Getsolution(
 	)
 }
 
-// Getsolutioninfo is wrapping [MSK_getsolutioninfo]
+// GetSolutioninfo is wrapping [MSK_getsolutioninfo]
+//
 // function MSK_getsolutioninfo has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - pobj: MSKrealt *
-// - pviolcon: MSKrealt *
-// - pviolvar: MSKrealt *
-// - pviolbarvar: MSKrealt *
-// - pviolcone: MSKrealt *
-// - pviolitg: MSKrealt *
-// - dobj: MSKrealt *
-// - dviolcon: MSKrealt *
-// - dviolvar: MSKrealt *
-// - dviolbarvar: MSKrealt *
-// - dviolcone: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - pobj: MSKrealt *
+//   - pviolcon: MSKrealt *
+//   - pviolvar: MSKrealt *
+//   - pviolbarvar: MSKrealt *
+//   - pviolcone: MSKrealt *
+//   - pviolitg: MSKrealt *
+//   - dobj: MSKrealt *
+//   - dviolcon: MSKrealt *
+//   - dviolvar: MSKrealt *
+//   - dviolbarvar: MSKrealt *
+//   - dviolcone: MSKrealt *
 //
 // [MSK_getsolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsolutioninfo(
+func (task *Task) GetSolutioninfo(
 	whichsol SolType,
 	pobj *float64,
 	pviolcon *float64,
@@ -5257,27 +5491,28 @@ func (task *Task) Getsolutioninfo(
 	)
 }
 
-// Getsolutioninfonew is wrapping [MSK_getsolutioninfonew]
+// GetSolutioninfonew is wrapping [MSK_getsolutioninfonew]
+//
 // function MSK_getsolutioninfonew has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - pobj: MSKrealt *
-// - pviolcon: MSKrealt *
-// - pviolvar: MSKrealt *
-// - pviolbarvar: MSKrealt *
-// - pviolcone: MSKrealt *
-// - pviolacc: MSKrealt *
-// - pvioldjc: MSKrealt *
-// - pviolitg: MSKrealt *
-// - dobj: MSKrealt *
-// - dviolcon: MSKrealt *
-// - dviolvar: MSKrealt *
-// - dviolbarvar: MSKrealt *
-// - dviolcone: MSKrealt *
-// - dviolacc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - pobj: MSKrealt *
+//   - pviolcon: MSKrealt *
+//   - pviolvar: MSKrealt *
+//   - pviolbarvar: MSKrealt *
+//   - pviolcone: MSKrealt *
+//   - pviolacc: MSKrealt *
+//   - pvioldjc: MSKrealt *
+//   - pviolitg: MSKrealt *
+//   - dobj: MSKrealt *
+//   - dviolcon: MSKrealt *
+//   - dviolvar: MSKrealt *
+//   - dviolbarvar: MSKrealt *
+//   - dviolcone: MSKrealt *
+//   - dviolacc: MSKrealt *
 //
 // [MSK_getsolutioninfonew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsolutioninfonew(
+func (task *Task) GetSolutioninfonew(
 	whichsol SolType,
 	pobj *float64,
 	pviolcon *float64,
@@ -5316,27 +5551,28 @@ func (task *Task) Getsolutioninfonew(
 	)
 }
 
-// Getsolutionnew is wrapping [MSK_getsolutionnew]
+// GetSolutionnew is wrapping [MSK_getsolutionnew]
+//
 // function MSK_getsolutionnew has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - problemsta: MSKprostae *
-// - solutionsta: MSKsolstae *
-// - skc: MSKstakeye *
-// - skx: MSKstakeye *
-// - skn: MSKstakeye *
-// - xc: MSKrealt *
-// - xx: MSKrealt *
-// - y: MSKrealt *
-// - slc: MSKrealt *
-// - suc: MSKrealt *
-// - slx: MSKrealt *
-// - sux: MSKrealt *
-// - snx: MSKrealt *
-// - doty: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - problemsta: MSKprostae *
+//   - solutionsta: MSKsolstae *
+//   - skc: MSKstakeye *
+//   - skx: MSKstakeye *
+//   - skn: MSKstakeye *
+//   - xc: MSKrealt *
+//   - xx: MSKrealt *
+//   - y: MSKrealt *
+//   - slc: MSKrealt *
+//   - suc: MSKrealt *
+//   - slx: MSKrealt *
+//   - sux: MSKrealt *
+//   - snx: MSKrealt *
+//   - doty: MSKrealt *
 //
 // [MSK_getsolutionnew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsolutionnew(
+func (task *Task) GetSolutionnew(
 	whichsol SolType,
 	problemsta *ProSta,
 	solutionsta *SolSta,
@@ -5375,17 +5611,18 @@ func (task *Task) Getsolutionnew(
 	)
 }
 
-// Getsolutionslice is wrapping [MSK_getsolutionslice]
+// GetSolutionSlice is wrapping [MSK_getsolutionslice]
+//
 // function MSK_getsolutionslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - solitem: MSKsoliteme
-// - first: MSKint32t
-// - last: MSKint32t
-// - values: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - solitem: MSKsoliteme
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - values: MSKrealt *
 //
 // [MSK_getsolutionslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsolutionslice(
+func (task *Task) GetSolutionSlice(
 	whichsol SolType,
 	solitem SolItem,
 	first int32,
@@ -5404,17 +5641,18 @@ func (task *Task) Getsolutionslice(
 	)
 }
 
-// Getsparsesymmat is wrapping [MSK_getsparsesymmat]
+// GetSparsesymmat is wrapping [MSK_getsparsesymmat]
+//
 // function MSK_getsparsesymmat has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - maxlen: MSKint64t
-// - subi: MSKint32t *
-// - subj: MSKint32t *
-// - valij: MSKrealt *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - maxlen: MSKint64t
+//   - subi: MSKint32t *
+//   - subj: MSKint32t *
+//   - valij: MSKrealt *
 //
 // [MSK_getsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsparsesymmat(
+func (task *Task) GetSparsesymmat(
 	idx int64,
 	maxlen int64,
 	subi *int32,
@@ -5433,16 +5671,17 @@ func (task *Task) Getsparsesymmat(
 	)
 }
 
-// Getstrparam is wrapping [MSK_getstrparam]
+// GetStrparam is wrapping [MSK_getstrparam]
+//
 // function MSK_getstrparam has following parameters:
-// - task: MSKtask_t
-// - param: MSKsparame
-// - maxlen: MSKint32t
-// - len: MSKint32t *
-// - parvalue: char *
+//   - task: MSKtask_t
+//   - param: MSKsparame
+//   - maxlen: MSKint32t
+//   - len: MSKint32t *
+//   - parvalue: char *
 //
 // [MSK_getstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getstrparam(
+func (task *Task) GetStrparam(
 	param SParam,
 	maxlen int32,
 	len *int32,
@@ -5459,14 +5698,15 @@ func (task *Task) Getstrparam(
 	)
 }
 
-// Getstrparamlen is wrapping [MSK_getstrparamlen]
+// GetStrparamlen is wrapping [MSK_getstrparamlen]
+//
 // function MSK_getstrparamlen has following parameters:
-// - task: MSKtask_t
-// - param: MSKsparame
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - param: MSKsparame
+//   - len: MSKint32t *
 //
 // [MSK_getstrparamlen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getstrparamlen(
+func (task *Task) GetStrparamlen(
 	param SParam,
 	len *int32,
 ) res.Code {
@@ -5479,14 +5719,15 @@ func (task *Task) Getstrparamlen(
 	)
 }
 
-// Getsuc is wrapping [MSK_getsuc]
+// GetSuc is wrapping [MSK_getsuc]
+//
 // function MSK_getsuc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - suc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - suc: MSKrealt *
 //
 // [MSK_getsuc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsuc(
+func (task *Task) GetSuc(
 	whichsol SolType,
 	suc *float64,
 ) res.Code {
@@ -5499,16 +5740,17 @@ func (task *Task) Getsuc(
 	)
 }
 
-// Getsucslice is wrapping [MSK_getsucslice]
+// GetSucSlice is wrapping [MSK_getsucslice]
+//
 // function MSK_getsucslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - suc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - suc: MSKrealt *
 //
 // [MSK_getsucslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsucslice(
+func (task *Task) GetSucSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -5525,14 +5767,15 @@ func (task *Task) Getsucslice(
 	)
 }
 
-// Getsux is wrapping [MSK_getsux]
+// GetSux is wrapping [MSK_getsux]
+//
 // function MSK_getsux has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - sux: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - sux: MSKrealt *
 //
 // [MSK_getsux]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsux(
+func (task *Task) GetSux(
 	whichsol SolType,
 	sux *float64,
 ) res.Code {
@@ -5545,16 +5788,17 @@ func (task *Task) Getsux(
 	)
 }
 
-// Getsuxslice is wrapping [MSK_getsuxslice]
+// GetSuxSlice is wrapping [MSK_getsuxslice]
+//
 // function MSK_getsuxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - sux: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - sux: MSKrealt *
 //
 // [MSK_getsuxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsuxslice(
+func (task *Task) GetSuxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -5571,16 +5815,17 @@ func (task *Task) Getsuxslice(
 	)
 }
 
-// Getsymbcon is wrapping [MSK_getsymbcon]
+// GetSymbcon is wrapping [MSK_getsymbcon]
+//
 // function MSK_getsymbcon has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - sizevalue: MSKint32t
-// - name: char *
-// - value: MSKint32t *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - sizevalue: MSKint32t
+//   - name: char *
+//   - value: MSKint32t *
 //
 // [MSK_getsymbcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsymbcon(
+func (task *Task) GetSymbcon(
 	i int32,
 	sizevalue int32,
 	name *byte,
@@ -5597,16 +5842,17 @@ func (task *Task) Getsymbcon(
 	)
 }
 
-// Getsymmatinfo is wrapping [MSK_getsymmatinfo]
+// GetSymmatinfo is wrapping [MSK_getsymmatinfo]
+//
 // function MSK_getsymmatinfo has following parameters:
-// - task: MSKtask_t
-// - idx: MSKint64t
-// - dim: MSKint32t *
-// - nz: MSKint64t *
-// - mattype: MSKsymmattypee *
+//   - task: MSKtask_t
+//   - idx: MSKint64t
+//   - dim: MSKint32t *
+//   - nz: MSKint64t *
+//   - mattype: MSKsymmattypee *
 //
 // [MSK_getsymmatinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getsymmatinfo(
+func (task *Task) GetSymmatinfo(
 	idx int64,
 	dim *int32,
 	nz *int64,
@@ -5623,14 +5869,15 @@ func (task *Task) Getsymmatinfo(
 	)
 }
 
-// Gettaskname is wrapping [MSK_gettaskname]
+// GetTaskname is wrapping [MSK_gettaskname]
+//
 // function MSK_gettaskname has following parameters:
-// - task: MSKtask_t
-// - sizetaskname: MSKint32t
-// - taskname: char *
+//   - task: MSKtask_t
+//   - sizetaskname: MSKint32t
+//   - taskname: char *
 //
 // [MSK_gettaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Gettaskname(
+func (task *Task) GetTaskname(
 	sizetaskname int32,
 	taskname *byte,
 ) res.Code {
@@ -5643,13 +5890,14 @@ func (task *Task) Gettaskname(
 	)
 }
 
-// Gettasknamelen is wrapping [MSK_gettasknamelen]
+// GetTasknamelen is wrapping [MSK_gettasknamelen]
+//
 // function MSK_gettasknamelen has following parameters:
-// - task: MSKtask_t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - len: MSKint32t *
 //
 // [MSK_gettasknamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Gettasknamelen(
+func (task *Task) GetTasknamelen(
 	len *int32,
 ) res.Code {
 	return res.Code(
@@ -5660,16 +5908,17 @@ func (task *Task) Gettasknamelen(
 	)
 }
 
-// Getvarbound is wrapping [MSK_getvarbound]
+// GetVarbound is wrapping [MSK_getvarbound]
+//
 // function MSK_getvarbound has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - bk: MSKboundkeye *
-// - bl: MSKrealt *
-// - bu: MSKrealt *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - bk: MSKboundkeye *
+//   - bl: MSKrealt *
+//   - bu: MSKrealt *
 //
 // [MSK_getvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getvarbound(
+func (task *Task) GetVarbound(
 	i int32,
 	bk *BoundKey,
 	bl *float64,
@@ -5686,17 +5935,18 @@ func (task *Task) Getvarbound(
 	)
 }
 
-// Getvarboundslice is wrapping [MSK_getvarboundslice]
+// GetVarboundSlice is wrapping [MSK_getvarboundslice]
+//
 // function MSK_getvarboundslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - bk: MSKboundkeye *
-// - bl: MSKrealt *
-// - bu: MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - bk: MSKboundkeye *
+//   - bl: MSKrealt *
+//   - bu: MSKrealt *
 //
 // [MSK_getvarboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getvarboundslice(
+func (task *Task) GetVarboundSlice(
 	first int32,
 	last int32,
 	bk *BoundKey,
@@ -5715,15 +5965,16 @@ func (task *Task) Getvarboundslice(
 	)
 }
 
-// Getvarname is wrapping [MSK_getvarname]
+// GetVarname is wrapping [MSK_getvarname]
+//
 // function MSK_getvarname has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - sizename: MSKint32t
-// - name: char *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - sizename: MSKint32t
+//   - name: char *
 //
 // [MSK_getvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getvarname(
+func (task *Task) GetVarname(
 	j int32,
 	sizename int32,
 	name *byte,
@@ -5738,15 +5989,16 @@ func (task *Task) Getvarname(
 	)
 }
 
-// Getvarnameindex is wrapping [MSK_getvarnameindex]
+// GetVarnameindex is wrapping [MSK_getvarnameindex]
+//
 // function MSK_getvarnameindex has following parameters:
-// - task: MSKtask_t
-// - somename: const char *
-// - asgn: MSKint32t *
-// - index: MSKint32t *
+//   - task: MSKtask_t
+//   - somename: const char *
+//   - asgn: MSKint32t *
+//   - index: MSKint32t *
 //
 // [MSK_getvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getvarnameindex(
+func (task *Task) GetVarnameindex(
 	somename *byte,
 	asgn *int32,
 	index *int32,
@@ -5761,14 +6013,15 @@ func (task *Task) Getvarnameindex(
 	)
 }
 
-// Getvarnamelen is wrapping [MSK_getvarnamelen]
+// GetVarnamelen is wrapping [MSK_getvarnamelen]
+//
 // function MSK_getvarnamelen has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - len: MSKint32t *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - len: MSKint32t *
 //
 // [MSK_getvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getvarnamelen(
+func (task *Task) GetVarnamelen(
 	i int32,
 	len *int32,
 ) res.Code {
@@ -5781,14 +6034,15 @@ func (task *Task) Getvarnamelen(
 	)
 }
 
-// Getvartype is wrapping [MSK_getvartype]
+// GetVartype is wrapping [MSK_getvartype]
+//
 // function MSK_getvartype has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - vartype: MSKvariabletypee *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - vartype: MSKvariabletypee *
 //
 // [MSK_getvartype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getvartype(
+func (task *Task) GetVartype(
 	j int32,
 	vartype *VariableType,
 ) res.Code {
@@ -5801,15 +6055,16 @@ func (task *Task) Getvartype(
 	)
 }
 
-// Getvartypelist is wrapping [MSK_getvartypelist]
+// GetVartypeList is wrapping [MSK_getvartypelist]
+//
 // function MSK_getvartypelist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subj: const MSKint32t *
-// - vartype: MSKvariabletypee *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subj: const MSKint32t *
+//   - vartype: MSKvariabletypee *
 //
 // [MSK_getvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getvartypelist(
+func (task *Task) GetVartypeList(
 	num int32,
 	subj *int32,
 	vartype *VariableType,
@@ -5824,14 +6079,15 @@ func (task *Task) Getvartypelist(
 	)
 }
 
-// Getxc is wrapping [MSK_getxc]
+// GetXc is wrapping [MSK_getxc]
+//
 // function MSK_getxc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - xc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - xc: MSKrealt *
 //
 // [MSK_getxc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getxc(
+func (task *Task) GetXc(
 	whichsol SolType,
 	xc *float64,
 ) res.Code {
@@ -5844,16 +6100,17 @@ func (task *Task) Getxc(
 	)
 }
 
-// Getxcslice is wrapping [MSK_getxcslice]
+// GetXcSlice is wrapping [MSK_getxcslice]
+//
 // function MSK_getxcslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - xc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - xc: MSKrealt *
 //
 // [MSK_getxcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getxcslice(
+func (task *Task) GetXcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -5870,60 +6127,15 @@ func (task *Task) Getxcslice(
 	)
 }
 
-// Getxx is wrapping [MSK_getxx]
-// function MSK_getxx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - xx: MSKrealt *
+// GetY is wrapping [MSK_gety]
 //
-// [MSK_getxx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getxx(
-	whichsol SolType,
-	xx *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_getxx(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(xx),
-		),
-	)
-}
-
-// Getxxslice is wrapping [MSK_getxxslice]
-// function MSK_getxxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - xx: MSKrealt *
-//
-// [MSK_getxxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getxxslice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	xx *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_getxxslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(xx),
-		),
-	)
-}
-
-// Gety is wrapping [MSK_gety]
 // function MSK_gety has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - y: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - y: MSKrealt *
 //
 // [MSK_gety]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Gety(
+func (task *Task) GetY(
 	whichsol SolType,
 	y *float64,
 ) res.Code {
@@ -5936,16 +6148,17 @@ func (task *Task) Gety(
 	)
 }
 
-// Getyslice is wrapping [MSK_getyslice]
+// GetYSlice is wrapping [MSK_getyslice]
+//
 // function MSK_getyslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - y: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - y: MSKrealt *
 //
 // [MSK_getyslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Getyslice(
+func (task *Task) GetYSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -5963,10 +6176,11 @@ func (task *Task) Getyslice(
 }
 
 // Infeasibilityreport is wrapping [MSK_infeasibilityreport]
+//
 // function MSK_infeasibilityreport has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
-// - whichsol: MSKsoltypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
+//   - whichsol: MSKsoltypee
 //
 // [MSK_infeasibilityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Infeasibilityreport(
@@ -5983,9 +6197,10 @@ func (task *Task) Infeasibilityreport(
 }
 
 // Initbasissolve is wrapping [MSK_initbasissolve]
+//
 // function MSK_initbasissolve has following parameters:
-// - task: MSKtask_t
-// - basis: MSKint32t *
+//   - task: MSKtask_t
+//   - basis: MSKint32t *
 //
 // [MSK_initbasissolve]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Initbasissolve(
@@ -6000,24 +6215,25 @@ func (task *Task) Initbasissolve(
 }
 
 // Inputdata is wrapping [MSK_inputdata]
+//
 // function MSK_inputdata has following parameters:
-// - task: MSKtask_t
-// - maxnumcon: MSKint32t
-// - maxnumvar: MSKint32t
-// - numcon: MSKint32t
-// - numvar: MSKint32t
-// - c: const MSKrealt *
-// - cfix: MSKrealt
-// - aptrb: const MSKint32t *
-// - aptre: const MSKint32t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
-// - bkc: const MSKboundkeye *
-// - blc: const MSKrealt *
-// - buc: const MSKrealt *
-// - bkx: const MSKboundkeye *
-// - blx: const MSKrealt *
-// - bux: const MSKrealt *
+//   - task: MSKtask_t
+//   - maxnumcon: MSKint32t
+//   - maxnumvar: MSKint32t
+//   - numcon: MSKint32t
+//   - numvar: MSKint32t
+//   - c: const MSKrealt *
+//   - cfix: MSKrealt
+//   - aptrb: const MSKint32t *
+//   - aptre: const MSKint32t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
+//   - bkc: const MSKboundkeye *
+//   - blc: const MSKrealt *
+//   - buc: const MSKrealt *
+//   - bkx: const MSKboundkeye *
+//   - blx: const MSKrealt *
+//   - bux: const MSKrealt *
 //
 // [MSK_inputdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Inputdata(
@@ -6062,24 +6278,25 @@ func (task *Task) Inputdata(
 }
 
 // Inputdata64 is wrapping [MSK_inputdata64]
+//
 // function MSK_inputdata64 has following parameters:
-// - task: MSKtask_t
-// - maxnumcon: MSKint32t
-// - maxnumvar: MSKint32t
-// - numcon: MSKint32t
-// - numvar: MSKint32t
-// - c: const MSKrealt *
-// - cfix: MSKrealt
-// - aptrb: const MSKint64t *
-// - aptre: const MSKint64t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
-// - bkc: const MSKboundkeye *
-// - blc: const MSKrealt *
-// - buc: const MSKrealt *
-// - bkx: const MSKboundkeye *
-// - blx: const MSKrealt *
-// - bux: const MSKrealt *
+//   - task: MSKtask_t
+//   - maxnumcon: MSKint32t
+//   - maxnumvar: MSKint32t
+//   - numcon: MSKint32t
+//   - numvar: MSKint32t
+//   - c: const MSKrealt *
+//   - cfix: MSKrealt
+//   - aptrb: const MSKint64t *
+//   - aptre: const MSKint64t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
+//   - bkc: const MSKboundkeye *
+//   - blc: const MSKrealt *
+//   - buc: const MSKrealt *
+//   - bkx: const MSKboundkeye *
+//   - blx: const MSKrealt *
+//   - bux: const MSKrealt *
 //
 // [MSK_inputdata64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Inputdata64(
@@ -6124,10 +6341,11 @@ func (task *Task) Inputdata64(
 }
 
 // Isdouparname is wrapping [MSK_isdouparname]
+//
 // function MSK_isdouparname has following parameters:
-// - task: MSKtask_t
-// - parname: const char *
-// - param: MSKdparame *
+//   - task: MSKtask_t
+//   - parname: const char *
+//   - param: MSKdparame *
 //
 // [MSK_isdouparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Isdouparname(
@@ -6144,10 +6362,11 @@ func (task *Task) Isdouparname(
 }
 
 // Isintparname is wrapping [MSK_isintparname]
+//
 // function MSK_isintparname has following parameters:
-// - task: MSKtask_t
-// - parname: const char *
-// - param: MSKiparame *
+//   - task: MSKtask_t
+//   - parname: const char *
+//   - param: MSKiparame *
 //
 // [MSK_isintparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Isintparname(
@@ -6164,10 +6383,11 @@ func (task *Task) Isintparname(
 }
 
 // Isstrparname is wrapping [MSK_isstrparname]
+//
 // function MSK_isstrparname has following parameters:
-// - task: MSKtask_t
-// - parname: const char *
-// - param: MSKsparame *
+//   - task: MSKtask_t
+//   - parname: const char *
+//   - param: MSKsparame *
 //
 // [MSK_isstrparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Isstrparname(
@@ -6184,11 +6404,12 @@ func (task *Task) Isstrparname(
 }
 
 // Linkfiletotaskstream is wrapping [MSK_linkfiletotaskstream]
+//
 // function MSK_linkfiletotaskstream has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
-// - filename: const char *
-// - append: MSKint32t
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
+//   - filename: const char *
+//   - append: MSKint32t
 //
 // [MSK_linkfiletotaskstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Linkfiletotaskstream(
@@ -6207,10 +6428,11 @@ func (task *Task) Linkfiletotaskstream(
 }
 
 // Onesolutionsummary is wrapping [MSK_onesolutionsummary]
+//
 // function MSK_onesolutionsummary has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
-// - whichsol: MSKsoltypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
+//   - whichsol: MSKsoltypee
 //
 // [MSK_onesolutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Onesolutionsummary(
@@ -6227,8 +6449,9 @@ func (task *Task) Onesolutionsummary(
 }
 
 // Optimize is wrapping [MSK_optimize]
+//
 // function MSK_optimize has following parameters:
-// - task: MSKtask_t
+//   - task: MSKtask_t
 //
 // [MSK_optimize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Optimize() res.Code {
@@ -6240,11 +6463,12 @@ func (task *Task) Optimize() res.Code {
 }
 
 // Optimizermt is wrapping [MSK_optimizermt]
+//
 // function MSK_optimizermt has following parameters:
-// - task: MSKtask_t
-// - address: const char *
-// - accesstoken: const char *
-// - trmcode: MSKrescodee *
+//   - task: MSKtask_t
+//   - address: const char *
+//   - accesstoken: const char *
+//   - trmcode: MSKrescodee *
 //
 // [MSK_optimizermt]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Optimizermt(
@@ -6263,9 +6487,10 @@ func (task *Task) Optimizermt(
 }
 
 // Optimizersummary is wrapping [MSK_optimizersummary]
+//
 // function MSK_optimizersummary has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
 //
 // [MSK_optimizersummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Optimizersummary(
@@ -6280,9 +6505,10 @@ func (task *Task) Optimizersummary(
 }
 
 // Optimizetrm is wrapping [MSK_optimizetrm]
+//
 // function MSK_optimizetrm has following parameters:
-// - task: MSKtask_t
-// - trmcode: MSKrescodee *
+//   - task: MSKtask_t
+//   - trmcode: MSKrescodee *
 //
 // [MSK_optimizetrm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Optimizetrm(
@@ -6297,12 +6523,13 @@ func (task *Task) Optimizetrm(
 }
 
 // Primalrepair is wrapping [MSK_primalrepair]
+//
 // function MSK_primalrepair has following parameters:
-// - task: MSKtask_t
-// - wlc: const MSKrealt *
-// - wuc: const MSKrealt *
-// - wlx: const MSKrealt *
-// - wux: const MSKrealt *
+//   - task: MSKtask_t
+//   - wlc: const MSKrealt *
+//   - wuc: const MSKrealt *
+//   - wlx: const MSKrealt *
+//   - wux: const MSKrealt *
 //
 // [MSK_primalrepair]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Primalrepair(
@@ -6323,22 +6550,23 @@ func (task *Task) Primalrepair(
 }
 
 // Primalsensitivity is wrapping [MSK_primalsensitivity]
+//
 // function MSK_primalsensitivity has following parameters:
-// - task: MSKtask_t
-// - numi: MSKint32t
-// - subi: const MSKint32t *
-// - marki: const MSKmarke *
-// - numj: MSKint32t
-// - subj: const MSKint32t *
-// - markj: const MSKmarke *
-// - leftpricei: MSKrealt *
-// - rightpricei: MSKrealt *
-// - leftrangei: MSKrealt *
-// - rightrangei: MSKrealt *
-// - leftpricej: MSKrealt *
-// - rightpricej: MSKrealt *
-// - leftrangej: MSKrealt *
-// - rightrangej: MSKrealt *
+//   - task: MSKtask_t
+//   - numi: MSKint32t
+//   - subi: const MSKint32t *
+//   - marki: const MSKmarke *
+//   - numj: MSKint32t
+//   - subj: const MSKint32t *
+//   - markj: const MSKmarke *
+//   - leftpricei: MSKrealt *
+//   - rightpricei: MSKrealt *
+//   - leftrangei: MSKrealt *
+//   - rightrangei: MSKrealt *
+//   - leftpricej: MSKrealt *
+//   - rightpricej: MSKrealt *
+//   - leftrangej: MSKrealt *
+//   - rightrangej: MSKrealt *
 //
 // [MSK_primalsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Primalsensitivity(
@@ -6379,8 +6607,9 @@ func (task *Task) Primalsensitivity(
 }
 
 // Printparam is wrapping [MSK_printparam]
+//
 // function MSK_printparam has following parameters:
-// - task: MSKtask_t
+//   - task: MSKtask_t
 //
 // [MSK_printparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Printparam() res.Code {
@@ -6392,10 +6621,11 @@ func (task *Task) Printparam() res.Code {
 }
 
 // Probtypetostr is wrapping [MSK_probtypetostr]
+//
 // function MSK_probtypetostr has following parameters:
-// - task: MSKtask_t
-// - probtype: MSKproblemtypee
-// - str: char *
+//   - task: MSKtask_t
+//   - probtype: MSKproblemtypee
+//   - str: char *
 //
 // [MSK_probtypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Probtypetostr(
@@ -6412,10 +6642,11 @@ func (task *Task) Probtypetostr(
 }
 
 // Prostatostr is wrapping [MSK_prostatostr]
+//
 // function MSK_prostatostr has following parameters:
-// - task: MSKtask_t
-// - problemsta: MSKprostae
-// - str: char *
+//   - task: MSKtask_t
+//   - problemsta: MSKprostae
+//   - str: char *
 //
 // [MSK_prostatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Prostatostr(
@@ -6431,17 +6662,18 @@ func (task *Task) Prostatostr(
 	)
 }
 
-// Putacc is wrapping [MSK_putacc]
+// PutAcc is wrapping [MSK_putacc]
+//
 // function MSK_putacc has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - domidx: MSKint64t
-// - numafeidx: MSKint64t
-// - afeidxlist: const MSKint64t *
-// - b: const MSKrealt *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - domidx: MSKint64t
+//   - numafeidx: MSKint64t
+//   - afeidxlist: const MSKint64t *
+//   - b: const MSKrealt *
 //
 // [MSK_putacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putacc(
+func (task *Task) PutAcc(
 	accidx int64,
 	domidx int64,
 	numafeidx int64,
@@ -6460,15 +6692,16 @@ func (task *Task) Putacc(
 	)
 }
 
-// Putaccb is wrapping [MSK_putaccb]
+// PutAccb is wrapping [MSK_putaccb]
+//
 // function MSK_putaccb has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - lengthb: MSKint64t
-// - b: const MSKrealt *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - lengthb: MSKint64t
+//   - b: const MSKrealt *
 //
 // [MSK_putaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putaccb(
+func (task *Task) PutAccb(
 	accidx int64,
 	lengthb int64,
 	b *float64,
@@ -6483,15 +6716,16 @@ func (task *Task) Putaccb(
 	)
 }
 
-// Putaccbj is wrapping [MSK_putaccbj]
+// PutAccbj is wrapping [MSK_putaccbj]
+//
 // function MSK_putaccbj has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - j: MSKint64t
-// - bj: MSKrealt
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - j: MSKint64t
+//   - bj: MSKrealt
 //
 // [MSK_putaccbj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putaccbj(
+func (task *Task) PutAccbj(
 	accidx int64,
 	j int64,
 	bj float64,
@@ -6506,15 +6740,16 @@ func (task *Task) Putaccbj(
 	)
 }
 
-// Putaccdoty is wrapping [MSK_putaccdoty]
+// PutAccdoty is wrapping [MSK_putaccdoty]
+//
 // function MSK_putaccdoty has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - accidx: MSKint64t
-// - doty: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - accidx: MSKint64t
+//   - doty: MSKrealt *
 //
 // [MSK_putaccdoty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putaccdoty(
+func (task *Task) PutAccdoty(
 	whichsol SolType,
 	accidx int64,
 	doty *float64,
@@ -6529,18 +6764,19 @@ func (task *Task) Putaccdoty(
 	)
 }
 
-// Putacclist is wrapping [MSK_putacclist]
+// PutAccList is wrapping [MSK_putacclist]
+//
 // function MSK_putacclist has following parameters:
-// - task: MSKtask_t
-// - numaccs: MSKint64t
-// - accidxs: const MSKint64t *
-// - domidxs: const MSKint64t *
-// - numafeidx: MSKint64t
-// - afeidxlist: const MSKint64t *
-// - b: const MSKrealt *
+//   - task: MSKtask_t
+//   - numaccs: MSKint64t
+//   - accidxs: const MSKint64t *
+//   - domidxs: const MSKint64t *
+//   - numafeidx: MSKint64t
+//   - afeidxlist: const MSKint64t *
+//   - b: const MSKrealt *
 //
 // [MSK_putacclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putacclist(
+func (task *Task) PutAccList(
 	numaccs int64,
 	accidxs *int64,
 	domidxs *int64,
@@ -6561,14 +6797,15 @@ func (task *Task) Putacclist(
 	)
 }
 
-// Putaccname is wrapping [MSK_putaccname]
+// PutAccname is wrapping [MSK_putaccname]
+//
 // function MSK_putaccname has following parameters:
-// - task: MSKtask_t
-// - accidx: MSKint64t
-// - name: const char *
+//   - task: MSKtask_t
+//   - accidx: MSKint64t
+//   - name: const char *
 //
 // [MSK_putaccname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putaccname(
+func (task *Task) PutAccname(
 	accidx int64,
 	name *byte,
 ) res.Code {
@@ -6581,16 +6818,17 @@ func (task *Task) Putaccname(
 	)
 }
 
-// Putacol is wrapping [MSK_putacol]
+// PutAcol is wrapping [MSK_putacol]
+//
 // function MSK_putacol has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - nzj: MSKint32t
-// - subj: const MSKint32t *
-// - valj: const MSKrealt *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - nzj: MSKint32t
+//   - subj: const MSKint32t *
+//   - valj: const MSKrealt *
 //
 // [MSK_putacol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putacol(
+func (task *Task) PutAcol(
 	j int32,
 	nzj int32,
 	subj *int32,
@@ -6607,18 +6845,19 @@ func (task *Task) Putacol(
 	)
 }
 
-// Putacollist is wrapping [MSK_putacollist]
+// PutAcolList is wrapping [MSK_putacollist]
+//
 // function MSK_putacollist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - ptrb: const MSKint32t *
-// - ptre: const MSKint32t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - ptrb: const MSKint32t *
+//   - ptre: const MSKint32t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putacollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putacollist(
+func (task *Task) PutAcolList(
 	num int32,
 	sub *int32,
 	ptrb *int32,
@@ -6639,18 +6878,19 @@ func (task *Task) Putacollist(
 	)
 }
 
-// Putacollist64 is wrapping [MSK_putacollist64]
+// PutAcollist64 is wrapping [MSK_putacollist64]
+//
 // function MSK_putacollist64 has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - ptrb: const MSKint64t *
-// - ptre: const MSKint64t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - ptrb: const MSKint64t *
+//   - ptre: const MSKint64t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putacollist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putacollist64(
+func (task *Task) PutAcollist64(
 	num int32,
 	sub *int32,
 	ptrb *int64,
@@ -6671,18 +6911,19 @@ func (task *Task) Putacollist64(
 	)
 }
 
-// Putacolslice is wrapping [MSK_putacolslice]
+// PutAcolSlice is wrapping [MSK_putacolslice]
+//
 // function MSK_putacolslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - ptrb: const MSKint32t *
-// - ptre: const MSKint32t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - ptrb: const MSKint32t *
+//   - ptre: const MSKint32t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putacolslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putacolslice(
+func (task *Task) PutAcolSlice(
 	first int32,
 	last int32,
 	ptrb *int32,
@@ -6703,18 +6944,19 @@ func (task *Task) Putacolslice(
 	)
 }
 
-// Putacolslice64 is wrapping [MSK_putacolslice64]
+// PutAcolslice64 is wrapping [MSK_putacolslice64]
+//
 // function MSK_putacolslice64 has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - ptrb: const MSKint64t *
-// - ptre: const MSKint64t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - ptrb: const MSKint64t *
+//   - ptre: const MSKint64t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putacolslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putacolslice64(
+func (task *Task) PutAcolslice64(
 	first int32,
 	last int32,
 	ptrb *int64,
@@ -6735,18 +6977,19 @@ func (task *Task) Putacolslice64(
 	)
 }
 
-// Putafebarfblocktriplet is wrapping [MSK_putafebarfblocktriplet]
+// PutAfebarfblocktriplet is wrapping [MSK_putafebarfblocktriplet]
+//
 // function MSK_putafebarfblocktriplet has following parameters:
-// - task: MSKtask_t
-// - numtrip: MSKint64t
-// - afeidx: const MSKint64t *
-// - barvaridx: const MSKint32t *
-// - subk: const MSKint32t *
-// - subl: const MSKint32t *
-// - valkl: const MSKrealt *
+//   - task: MSKtask_t
+//   - numtrip: MSKint64t
+//   - afeidx: const MSKint64t *
+//   - barvaridx: const MSKint32t *
+//   - subk: const MSKint32t *
+//   - subl: const MSKint32t *
+//   - valkl: const MSKrealt *
 //
 // [MSK_putafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafebarfblocktriplet(
+func (task *Task) PutAfebarfblocktriplet(
 	numtrip int64,
 	afeidx *int64,
 	barvaridx *int32,
@@ -6767,17 +7010,18 @@ func (task *Task) Putafebarfblocktriplet(
 	)
 }
 
-// Putafebarfentry is wrapping [MSK_putafebarfentry]
+// PutAfebarfentry is wrapping [MSK_putafebarfentry]
+//
 // function MSK_putafebarfentry has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - barvaridx: MSKint32t
-// - numterm: MSKint64t
-// - termidx: const MSKint64t *
-// - termweight: const MSKrealt *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - barvaridx: MSKint32t
+//   - numterm: MSKint64t
+//   - termidx: const MSKint64t *
+//   - termweight: const MSKrealt *
 //
 // [MSK_putafebarfentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafebarfentry(
+func (task *Task) PutAfebarfentry(
 	afeidx int64,
 	barvaridx int32,
 	numterm int64,
@@ -6796,20 +7040,21 @@ func (task *Task) Putafebarfentry(
 	)
 }
 
-// Putafebarfentrylist is wrapping [MSK_putafebarfentrylist]
+// PutAfebarfentryList is wrapping [MSK_putafebarfentrylist]
+//
 // function MSK_putafebarfentrylist has following parameters:
-// - task: MSKtask_t
-// - numafeidx: MSKint64t
-// - afeidx: const MSKint64t *
-// - barvaridx: const MSKint32t *
-// - numterm: const MSKint64t *
-// - ptrterm: const MSKint64t *
-// - lenterm: MSKint64t
-// - termidx: const MSKint64t *
-// - termweight: const MSKrealt *
+//   - task: MSKtask_t
+//   - numafeidx: MSKint64t
+//   - afeidx: const MSKint64t *
+//   - barvaridx: const MSKint32t *
+//   - numterm: const MSKint64t *
+//   - ptrterm: const MSKint64t *
+//   - lenterm: MSKint64t
+//   - termidx: const MSKint64t *
+//   - termweight: const MSKrealt *
 //
 // [MSK_putafebarfentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafebarfentrylist(
+func (task *Task) PutAfebarfentryList(
 	numafeidx int64,
 	afeidx *int64,
 	barvaridx *int32,
@@ -6834,20 +7079,21 @@ func (task *Task) Putafebarfentrylist(
 	)
 }
 
-// Putafebarfrow is wrapping [MSK_putafebarfrow]
+// PutAfebarfrow is wrapping [MSK_putafebarfrow]
+//
 // function MSK_putafebarfrow has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - numentr: MSKint32t
-// - barvaridx: const MSKint32t *
-// - numterm: const MSKint64t *
-// - ptrterm: const MSKint64t *
-// - lenterm: MSKint64t
-// - termidx: const MSKint64t *
-// - termweight: const MSKrealt *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - numentr: MSKint32t
+//   - barvaridx: const MSKint32t *
+//   - numterm: const MSKint64t *
+//   - ptrterm: const MSKint64t *
+//   - lenterm: MSKint64t
+//   - termidx: const MSKint64t *
+//   - termweight: const MSKrealt *
 //
 // [MSK_putafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafebarfrow(
+func (task *Task) PutAfebarfrow(
 	afeidx int64,
 	numentr int32,
 	barvaridx *int32,
@@ -6872,16 +7118,17 @@ func (task *Task) Putafebarfrow(
 	)
 }
 
-// Putafefcol is wrapping [MSK_putafefcol]
+// PutAfefcol is wrapping [MSK_putafefcol]
+//
 // function MSK_putafefcol has following parameters:
-// - task: MSKtask_t
-// - varidx: MSKint32t
-// - numnz: MSKint64t
-// - afeidx: const MSKint64t *
-// - val: const MSKrealt *
+//   - task: MSKtask_t
+//   - varidx: MSKint32t
+//   - numnz: MSKint64t
+//   - afeidx: const MSKint64t *
+//   - val: const MSKrealt *
 //
 // [MSK_putafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafefcol(
+func (task *Task) PutAfefcol(
 	varidx int32,
 	numnz int64,
 	afeidx *int64,
@@ -6898,15 +7145,16 @@ func (task *Task) Putafefcol(
 	)
 }
 
-// Putafefentry is wrapping [MSK_putafefentry]
+// PutAfefentry is wrapping [MSK_putafefentry]
+//
 // function MSK_putafefentry has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - varidx: MSKint32t
-// - value: MSKrealt
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - varidx: MSKint32t
+//   - value: MSKrealt
 //
 // [MSK_putafefentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafefentry(
+func (task *Task) PutAfefentry(
 	afeidx int64,
 	varidx int32,
 	value float64,
@@ -6921,16 +7169,17 @@ func (task *Task) Putafefentry(
 	)
 }
 
-// Putafefentrylist is wrapping [MSK_putafefentrylist]
+// PutAfefentryList is wrapping [MSK_putafefentrylist]
+//
 // function MSK_putafefentrylist has following parameters:
-// - task: MSKtask_t
-// - numentr: MSKint64t
-// - afeidx: const MSKint64t *
-// - varidx: const MSKint32t *
-// - val: const MSKrealt *
+//   - task: MSKtask_t
+//   - numentr: MSKint64t
+//   - afeidx: const MSKint64t *
+//   - varidx: const MSKint32t *
+//   - val: const MSKrealt *
 //
 // [MSK_putafefentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafefentrylist(
+func (task *Task) PutAfefentryList(
 	numentr int64,
 	afeidx *int64,
 	varidx *int32,
@@ -6947,16 +7196,17 @@ func (task *Task) Putafefentrylist(
 	)
 }
 
-// Putafefrow is wrapping [MSK_putafefrow]
+// PutAfefrow is wrapping [MSK_putafefrow]
+//
 // function MSK_putafefrow has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - numnz: MSKint32t
-// - varidx: const MSKint32t *
-// - val: const MSKrealt *
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - numnz: MSKint32t
+//   - varidx: const MSKint32t *
+//   - val: const MSKrealt *
 //
 // [MSK_putafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafefrow(
+func (task *Task) PutAfefrow(
 	afeidx int64,
 	numnz int32,
 	varidx *int32,
@@ -6973,19 +7223,20 @@ func (task *Task) Putafefrow(
 	)
 }
 
-// Putafefrowlist is wrapping [MSK_putafefrowlist]
+// PutAfefrowList is wrapping [MSK_putafefrowlist]
+//
 // function MSK_putafefrowlist has following parameters:
-// - task: MSKtask_t
-// - numafeidx: MSKint64t
-// - afeidx: const MSKint64t *
-// - numnzrow: const MSKint32t *
-// - ptrrow: const MSKint64t *
-// - lenidxval: MSKint64t
-// - varidx: const MSKint32t *
-// - val: const MSKrealt *
+//   - task: MSKtask_t
+//   - numafeidx: MSKint64t
+//   - afeidx: const MSKint64t *
+//   - numnzrow: const MSKint32t *
+//   - ptrrow: const MSKint64t *
+//   - lenidxval: MSKint64t
+//   - varidx: const MSKint32t *
+//   - val: const MSKrealt *
 //
 // [MSK_putafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafefrowlist(
+func (task *Task) PutAfefrowList(
 	numafeidx int64,
 	afeidx *int64,
 	numnzrow *int32,
@@ -7008,14 +7259,15 @@ func (task *Task) Putafefrowlist(
 	)
 }
 
-// Putafeg is wrapping [MSK_putafeg]
+// PutAfeg is wrapping [MSK_putafeg]
+//
 // function MSK_putafeg has following parameters:
-// - task: MSKtask_t
-// - afeidx: MSKint64t
-// - g: MSKrealt
+//   - task: MSKtask_t
+//   - afeidx: MSKint64t
+//   - g: MSKrealt
 //
 // [MSK_putafeg]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafeg(
+func (task *Task) PutAfeg(
 	afeidx int64,
 	g float64,
 ) res.Code {
@@ -7028,15 +7280,16 @@ func (task *Task) Putafeg(
 	)
 }
 
-// Putafeglist is wrapping [MSK_putafeglist]
+// PutAfegList is wrapping [MSK_putafeglist]
+//
 // function MSK_putafeglist has following parameters:
-// - task: MSKtask_t
-// - numafeidx: MSKint64t
-// - afeidx: const MSKint64t *
-// - g: const MSKrealt *
+//   - task: MSKtask_t
+//   - numafeidx: MSKint64t
+//   - afeidx: const MSKint64t *
+//   - g: const MSKrealt *
 //
 // [MSK_putafeglist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafeglist(
+func (task *Task) PutAfegList(
 	numafeidx int64,
 	afeidx *int64,
 	g *float64,
@@ -7051,15 +7304,16 @@ func (task *Task) Putafeglist(
 	)
 }
 
-// Putafegslice is wrapping [MSK_putafegslice]
+// PutAfegSlice is wrapping [MSK_putafegslice]
+//
 // function MSK_putafegslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint64t
-// - last: MSKint64t
-// - slice: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint64t
+//   - last: MSKint64t
+//   - slice: const MSKrealt *
 //
 // [MSK_putafegslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putafegslice(
+func (task *Task) PutAfegSlice(
 	first int64,
 	last int64,
 	slice *float64,
@@ -7074,15 +7328,16 @@ func (task *Task) Putafegslice(
 	)
 }
 
-// Putaij is wrapping [MSK_putaij]
+// PutAij is wrapping [MSK_putaij]
+//
 // function MSK_putaij has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - j: MSKint32t
-// - aij: MSKrealt
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - j: MSKint32t
+//   - aij: MSKrealt
 //
 // [MSK_putaij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putaij(
+func (task *Task) PutAij(
 	i int32,
 	j int32,
 	aij float64,
@@ -7097,16 +7352,17 @@ func (task *Task) Putaij(
 	)
 }
 
-// Putaijlist is wrapping [MSK_putaijlist]
+// PutAijList is wrapping [MSK_putaijlist]
+//
 // function MSK_putaijlist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subi: const MSKint32t *
-// - subj: const MSKint32t *
-// - valij: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subi: const MSKint32t *
+//   - subj: const MSKint32t *
+//   - valij: const MSKrealt *
 //
 // [MSK_putaijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putaijlist(
+func (task *Task) PutAijList(
 	num int32,
 	subi *int32,
 	subj *int32,
@@ -7123,16 +7379,17 @@ func (task *Task) Putaijlist(
 	)
 }
 
-// Putaijlist64 is wrapping [MSK_putaijlist64]
+// PutAijlist64 is wrapping [MSK_putaijlist64]
+//
 // function MSK_putaijlist64 has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t
-// - subi: const MSKint32t *
-// - subj: const MSKint32t *
-// - valij: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint64t
+//   - subi: const MSKint32t *
+//   - subj: const MSKint32t *
+//   - valij: const MSKrealt *
 //
 // [MSK_putaijlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putaijlist64(
+func (task *Task) PutAijlist64(
 	num int64,
 	subi *int32,
 	subj *int32,
@@ -7149,16 +7406,17 @@ func (task *Task) Putaijlist64(
 	)
 }
 
-// Putarow is wrapping [MSK_putarow]
+// PutArow is wrapping [MSK_putarow]
+//
 // function MSK_putarow has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - nzi: MSKint32t
-// - subi: const MSKint32t *
-// - vali: const MSKrealt *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - nzi: MSKint32t
+//   - subi: const MSKint32t *
+//   - vali: const MSKrealt *
 //
 // [MSK_putarow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putarow(
+func (task *Task) PutArow(
 	i int32,
 	nzi int32,
 	subi *int32,
@@ -7175,18 +7433,19 @@ func (task *Task) Putarow(
 	)
 }
 
-// Putarowlist is wrapping [MSK_putarowlist]
+// PutArowList is wrapping [MSK_putarowlist]
+//
 // function MSK_putarowlist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - ptrb: const MSKint32t *
-// - ptre: const MSKint32t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - ptrb: const MSKint32t *
+//   - ptre: const MSKint32t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putarowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putarowlist(
+func (task *Task) PutArowList(
 	num int32,
 	sub *int32,
 	ptrb *int32,
@@ -7207,18 +7466,19 @@ func (task *Task) Putarowlist(
 	)
 }
 
-// Putarowlist64 is wrapping [MSK_putarowlist64]
+// PutArowlist64 is wrapping [MSK_putarowlist64]
+//
 // function MSK_putarowlist64 has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - ptrb: const MSKint64t *
-// - ptre: const MSKint64t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - ptrb: const MSKint64t *
+//   - ptre: const MSKint64t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putarowlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putarowlist64(
+func (task *Task) PutArowlist64(
 	num int32,
 	sub *int32,
 	ptrb *int64,
@@ -7239,18 +7499,19 @@ func (task *Task) Putarowlist64(
 	)
 }
 
-// Putarowslice is wrapping [MSK_putarowslice]
+// PutArowSlice is wrapping [MSK_putarowslice]
+//
 // function MSK_putarowslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - ptrb: const MSKint32t *
-// - ptre: const MSKint32t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - ptrb: const MSKint32t *
+//   - ptre: const MSKint32t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putarowslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putarowslice(
+func (task *Task) PutArowSlice(
 	first int32,
 	last int32,
 	ptrb *int32,
@@ -7271,18 +7532,19 @@ func (task *Task) Putarowslice(
 	)
 }
 
-// Putarowslice64 is wrapping [MSK_putarowslice64]
+// PutArowslice64 is wrapping [MSK_putarowslice64]
+//
 // function MSK_putarowslice64 has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - ptrb: const MSKint64t *
-// - ptre: const MSKint64t *
-// - asub: const MSKint32t *
-// - aval: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - ptrb: const MSKint64t *
+//   - ptre: const MSKint64t *
+//   - asub: const MSKint32t *
+//   - aval: const MSKrealt *
 //
 // [MSK_putarowslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putarowslice64(
+func (task *Task) PutArowslice64(
 	first int32,
 	last int32,
 	ptrb *int64,
@@ -7303,13 +7565,14 @@ func (task *Task) Putarowslice64(
 	)
 }
 
-// Putatruncatetol is wrapping [MSK_putatruncatetol]
+// PutAtruncatetol is wrapping [MSK_putatruncatetol]
+//
 // function MSK_putatruncatetol has following parameters:
-// - task: MSKtask_t
-// - tolzero: MSKrealt
+//   - task: MSKtask_t
+//   - tolzero: MSKrealt
 //
 // [MSK_putatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putatruncatetol(
+func (task *Task) PutAtruncatetol(
 	tolzero float64,
 ) res.Code {
 	return res.Code(
@@ -7320,18 +7583,19 @@ func (task *Task) Putatruncatetol(
 	)
 }
 
-// Putbarablocktriplet is wrapping [MSK_putbarablocktriplet]
+// PutBarablocktriplet is wrapping [MSK_putbarablocktriplet]
+//
 // function MSK_putbarablocktriplet has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t
-// - subi: const MSKint32t *
-// - subj: const MSKint32t *
-// - subk: const MSKint32t *
-// - subl: const MSKint32t *
-// - valijkl: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint64t
+//   - subi: const MSKint32t *
+//   - subj: const MSKint32t *
+//   - subk: const MSKint32t *
+//   - subl: const MSKint32t *
+//   - valijkl: const MSKrealt *
 //
 // [MSK_putbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbarablocktriplet(
+func (task *Task) PutBarablocktriplet(
 	num int64,
 	subi *int32,
 	subj *int32,
@@ -7352,17 +7616,18 @@ func (task *Task) Putbarablocktriplet(
 	)
 }
 
-// Putbaraij is wrapping [MSK_putbaraij]
+// PutBaraij is wrapping [MSK_putbaraij]
+//
 // function MSK_putbaraij has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - j: MSKint32t
-// - num: MSKint64t
-// - sub: const MSKint64t *
-// - weights: const MSKrealt *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - j: MSKint32t
+//   - num: MSKint64t
+//   - sub: const MSKint64t *
+//   - weights: const MSKrealt *
 //
 // [MSK_putbaraij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbaraij(
+func (task *Task) PutBaraij(
 	i int32,
 	j int32,
 	num int64,
@@ -7381,19 +7646,20 @@ func (task *Task) Putbaraij(
 	)
 }
 
-// Putbaraijlist is wrapping [MSK_putbaraijlist]
+// PutBaraijList is wrapping [MSK_putbaraijlist]
+//
 // function MSK_putbaraijlist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subi: const MSKint32t *
-// - subj: const MSKint32t *
-// - alphaptrb: const MSKint64t *
-// - alphaptre: const MSKint64t *
-// - matidx: const MSKint64t *
-// - weights: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subi: const MSKint32t *
+//   - subj: const MSKint32t *
+//   - alphaptrb: const MSKint64t *
+//   - alphaptre: const MSKint64t *
+//   - matidx: const MSKint64t *
+//   - weights: const MSKrealt *
 //
 // [MSK_putbaraijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbaraijlist(
+func (task *Task) PutBaraijList(
 	num int32,
 	subi *int32,
 	subj *int32,
@@ -7416,20 +7682,21 @@ func (task *Task) Putbaraijlist(
 	)
 }
 
-// Putbararowlist is wrapping [MSK_putbararowlist]
+// PutBararowList is wrapping [MSK_putbararowlist]
+//
 // function MSK_putbararowlist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subi: const MSKint32t *
-// - ptrb: const MSKint64t *
-// - ptre: const MSKint64t *
-// - subj: const MSKint32t *
-// - nummat: const MSKint64t *
-// - matidx: const MSKint64t *
-// - weights: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subi: const MSKint32t *
+//   - ptrb: const MSKint64t *
+//   - ptre: const MSKint64t *
+//   - subj: const MSKint32t *
+//   - nummat: const MSKint64t *
+//   - matidx: const MSKint64t *
+//   - weights: const MSKrealt *
 //
 // [MSK_putbararowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbararowlist(
+func (task *Task) PutBararowList(
 	num int32,
 	subi *int32,
 	ptrb *int64,
@@ -7454,17 +7721,18 @@ func (task *Task) Putbararowlist(
 	)
 }
 
-// Putbarcblocktriplet is wrapping [MSK_putbarcblocktriplet]
+// PutBarcblocktriplet is wrapping [MSK_putbarcblocktriplet]
+//
 // function MSK_putbarcblocktriplet has following parameters:
-// - task: MSKtask_t
-// - num: MSKint64t
-// - subj: const MSKint32t *
-// - subk: const MSKint32t *
-// - subl: const MSKint32t *
-// - valjkl: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint64t
+//   - subj: const MSKint32t *
+//   - subk: const MSKint32t *
+//   - subl: const MSKint32t *
+//   - valjkl: const MSKrealt *
 //
 // [MSK_putbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbarcblocktriplet(
+func (task *Task) PutBarcblocktriplet(
 	num int64,
 	subj *int32,
 	subk *int32,
@@ -7483,16 +7751,17 @@ func (task *Task) Putbarcblocktriplet(
 	)
 }
 
-// Putbarcj is wrapping [MSK_putbarcj]
+// PutBarcj is wrapping [MSK_putbarcj]
+//
 // function MSK_putbarcj has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - num: MSKint64t
-// - sub: const MSKint64t *
-// - weights: const MSKrealt *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - num: MSKint64t
+//   - sub: const MSKint64t *
+//   - weights: const MSKrealt *
 //
 // [MSK_putbarcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbarcj(
+func (task *Task) PutBarcj(
 	j int32,
 	num int64,
 	sub *int64,
@@ -7509,15 +7778,16 @@ func (task *Task) Putbarcj(
 	)
 }
 
-// Putbarsj is wrapping [MSK_putbarsj]
+// PutBarsj is wrapping [MSK_putbarsj]
+//
 // function MSK_putbarsj has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - j: MSKint32t
-// - barsj: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - j: MSKint32t
+//   - barsj: const MSKrealt *
 //
 // [MSK_putbarsj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbarsj(
+func (task *Task) PutBarsj(
 	whichsol SolType,
 	j int32,
 	barsj *float64,
@@ -7532,14 +7802,15 @@ func (task *Task) Putbarsj(
 	)
 }
 
-// Putbarvarname is wrapping [MSK_putbarvarname]
+// PutBarvarname is wrapping [MSK_putbarvarname]
+//
 // function MSK_putbarvarname has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - name: const char *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - name: const char *
 //
 // [MSK_putbarvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbarvarname(
+func (task *Task) PutBarvarname(
 	j int32,
 	name *byte,
 ) res.Code {
@@ -7552,15 +7823,16 @@ func (task *Task) Putbarvarname(
 	)
 }
 
-// Putbarxj is wrapping [MSK_putbarxj]
+// PutBarxj is wrapping [MSK_putbarxj]
+//
 // function MSK_putbarxj has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - j: MSKint32t
-// - barxj: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - j: MSKint32t
+//   - barxj: const MSKrealt *
 //
 // [MSK_putbarxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putbarxj(
+func (task *Task) PutBarxj(
 	whichsol SolType,
 	j int32,
 	barxj *float64,
@@ -7575,13 +7847,14 @@ func (task *Task) Putbarxj(
 	)
 }
 
-// Putcfix is wrapping [MSK_putcfix]
+// PutCfix is wrapping [MSK_putcfix]
+//
 // function MSK_putcfix has following parameters:
-// - task: MSKtask_t
-// - cfix: MSKrealt
+//   - task: MSKtask_t
+//   - cfix: MSKrealt
 //
 // [MSK_putcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putcfix(
+func (task *Task) PutCfix(
 	cfix float64,
 ) res.Code {
 	return res.Code(
@@ -7592,14 +7865,15 @@ func (task *Task) Putcfix(
 	)
 }
 
-// Putcj is wrapping [MSK_putcj]
+// PutCj is wrapping [MSK_putcj]
+//
 // function MSK_putcj has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - cj: MSKrealt
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - cj: MSKrealt
 //
 // [MSK_putcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putcj(
+func (task *Task) PutCj(
 	j int32,
 	cj float64,
 ) res.Code {
@@ -7612,15 +7886,16 @@ func (task *Task) Putcj(
 	)
 }
 
-// Putclist is wrapping [MSK_putclist]
+// PutCList is wrapping [MSK_putclist]
+//
 // function MSK_putclist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subj: const MSKint32t *
-// - val: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subj: const MSKint32t *
+//   - val: const MSKrealt *
 //
 // [MSK_putclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putclist(
+func (task *Task) PutCList(
 	num int32,
 	subj *int32,
 	val *float64,
@@ -7635,16 +7910,17 @@ func (task *Task) Putclist(
 	)
 }
 
-// Putconbound is wrapping [MSK_putconbound]
+// PutConbound is wrapping [MSK_putconbound]
+//
 // function MSK_putconbound has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - bkc: MSKboundkeye
-// - blc: MSKrealt
-// - buc: MSKrealt
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - bkc: MSKboundkeye
+//   - blc: MSKrealt
+//   - buc: MSKrealt
 //
 // [MSK_putconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconbound(
+func (task *Task) PutConbound(
 	i int32,
 	bkc BoundKey,
 	blc float64,
@@ -7661,17 +7937,18 @@ func (task *Task) Putconbound(
 	)
 }
 
-// Putconboundlist is wrapping [MSK_putconboundlist]
+// PutConboundList is wrapping [MSK_putconboundlist]
+//
 // function MSK_putconboundlist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - bkc: const MSKboundkeye *
-// - blc: const MSKrealt *
-// - buc: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - bkc: const MSKboundkeye *
+//   - blc: const MSKrealt *
+//   - buc: const MSKrealt *
 //
 // [MSK_putconboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconboundlist(
+func (task *Task) PutConboundList(
 	num int32,
 	sub *int32,
 	bkc *BoundKey,
@@ -7690,17 +7967,18 @@ func (task *Task) Putconboundlist(
 	)
 }
 
-// Putconboundlistconst is wrapping [MSK_putconboundlistconst]
+// PutConboundListConst is wrapping [MSK_putconboundlistconst]
+//
 // function MSK_putconboundlistconst has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - bkc: MSKboundkeye
-// - blc: MSKrealt
-// - buc: MSKrealt
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - bkc: MSKboundkeye
+//   - blc: MSKrealt
+//   - buc: MSKrealt
 //
 // [MSK_putconboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconboundlistconst(
+func (task *Task) PutConboundListConst(
 	num int32,
 	sub *int32,
 	bkc BoundKey,
@@ -7719,17 +7997,18 @@ func (task *Task) Putconboundlistconst(
 	)
 }
 
-// Putconboundslice is wrapping [MSK_putconboundslice]
+// PutConboundSlice is wrapping [MSK_putconboundslice]
+//
 // function MSK_putconboundslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - bkc: const MSKboundkeye *
-// - blc: const MSKrealt *
-// - buc: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - bkc: const MSKboundkeye *
+//   - blc: const MSKrealt *
+//   - buc: const MSKrealt *
 //
 // [MSK_putconboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconboundslice(
+func (task *Task) PutConboundSlice(
 	first int32,
 	last int32,
 	bkc *BoundKey,
@@ -7748,17 +8027,18 @@ func (task *Task) Putconboundslice(
 	)
 }
 
-// Putconboundsliceconst is wrapping [MSK_putconboundsliceconst]
+// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst]
+//
 // function MSK_putconboundsliceconst has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - bkc: MSKboundkeye
-// - blc: MSKrealt
-// - buc: MSKrealt
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - bkc: MSKboundkeye
+//   - blc: MSKrealt
+//   - buc: MSKrealt
 //
 // [MSK_putconboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconboundsliceconst(
+func (task *Task) PutConboundSliceConst(
 	first int32,
 	last int32,
 	bkc BoundKey,
@@ -7777,17 +8057,18 @@ func (task *Task) Putconboundsliceconst(
 	)
 }
 
-// Putcone is wrapping [MSK_putcone]
+// PutCone is wrapping [MSK_putcone]
+//
 // function MSK_putcone has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - ct: MSKconetypee
-// - conepar: MSKrealt
-// - nummem: MSKint32t
-// - submem: const MSKint32t *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - ct: MSKconetypee
+//   - conepar: MSKrealt
+//   - nummem: MSKint32t
+//   - submem: const MSKint32t *
 //
 // [MSK_putcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putcone(
+func (task *Task) PutCone(
 	k int32,
 	ct ConeType,
 	conepar float64,
@@ -7806,14 +8087,15 @@ func (task *Task) Putcone(
 	)
 }
 
-// Putconename is wrapping [MSK_putconename]
+// PutConename is wrapping [MSK_putconename]
+//
 // function MSK_putconename has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - name: const char *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - name: const char *
 //
 // [MSK_putconename]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconename(
+func (task *Task) PutConename(
 	j int32,
 	name *byte,
 ) res.Code {
@@ -7826,14 +8108,15 @@ func (task *Task) Putconename(
 	)
 }
 
-// Putconname is wrapping [MSK_putconname]
+// PutConname is wrapping [MSK_putconname]
+//
 // function MSK_putconname has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - name: const char *
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - name: const char *
 //
 // [MSK_putconname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconname(
+func (task *Task) PutConname(
 	i int32,
 	name *byte,
 ) res.Code {
@@ -7846,18 +8129,19 @@ func (task *Task) Putconname(
 	)
 }
 
-// Putconsolutioni is wrapping [MSK_putconsolutioni]
+// PutConsolutioni is wrapping [MSK_putconsolutioni]
+//
 // function MSK_putconsolutioni has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - whichsol: MSKsoltypee
-// - sk: MSKstakeye
-// - x: MSKrealt
-// - sl: MSKrealt
-// - su: MSKrealt
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - whichsol: MSKsoltypee
+//   - sk: MSKstakeye
+//   - x: MSKrealt
+//   - sl: MSKrealt
+//   - su: MSKrealt
 //
 // [MSK_putconsolutioni]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putconsolutioni(
+func (task *Task) PutConsolutioni(
 	i int32,
 	whichsol SolType,
 	sk StaKey,
@@ -7878,15 +8162,16 @@ func (task *Task) Putconsolutioni(
 	)
 }
 
-// Putcslice is wrapping [MSK_putcslice]
+// PutCSlice is wrapping [MSK_putcslice]
+//
 // function MSK_putcslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - slice: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - slice: const MSKrealt *
 //
 // [MSK_putcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putcslice(
+func (task *Task) PutCSlice(
 	first int32,
 	last int32,
 	slice *float64,
@@ -7901,20 +8186,21 @@ func (task *Task) Putcslice(
 	)
 }
 
-// Putdjc is wrapping [MSK_putdjc]
+// PutDjc is wrapping [MSK_putdjc]
+//
 // function MSK_putdjc has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - numdomidx: MSKint64t
-// - domidxlist: const MSKint64t *
-// - numafeidx: MSKint64t
-// - afeidxlist: const MSKint64t *
-// - b: const MSKrealt *
-// - numterms: MSKint64t
-// - termsizelist: const MSKint64t *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - numdomidx: MSKint64t
+//   - domidxlist: const MSKint64t *
+//   - numafeidx: MSKint64t
+//   - afeidxlist: const MSKint64t *
+//   - b: const MSKrealt *
+//   - numterms: MSKint64t
+//   - termsizelist: const MSKint64t *
 //
 // [MSK_putdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putdjc(
+func (task *Task) PutDjc(
 	djcidx int64,
 	numdomidx int64,
 	domidxlist *int64,
@@ -7939,14 +8225,15 @@ func (task *Task) Putdjc(
 	)
 }
 
-// Putdjcname is wrapping [MSK_putdjcname]
+// PutDjcname is wrapping [MSK_putdjcname]
+//
 // function MSK_putdjcname has following parameters:
-// - task: MSKtask_t
-// - djcidx: MSKint64t
-// - name: const char *
+//   - task: MSKtask_t
+//   - djcidx: MSKint64t
+//   - name: const char *
 //
 // [MSK_putdjcname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putdjcname(
+func (task *Task) PutDjcname(
 	djcidx int64,
 	name *byte,
 ) res.Code {
@@ -7959,22 +8246,23 @@ func (task *Task) Putdjcname(
 	)
 }
 
-// Putdjcslice is wrapping [MSK_putdjcslice]
+// PutDjcSlice is wrapping [MSK_putdjcslice]
+//
 // function MSK_putdjcslice has following parameters:
-// - task: MSKtask_t
-// - idxfirst: MSKint64t
-// - idxlast: MSKint64t
-// - numdomidx: MSKint64t
-// - domidxlist: const MSKint64t *
-// - numafeidx: MSKint64t
-// - afeidxlist: const MSKint64t *
-// - b: const MSKrealt *
-// - numterms: MSKint64t
-// - termsizelist: const MSKint64t *
-// - termsindjc: const MSKint64t *
+//   - task: MSKtask_t
+//   - idxfirst: MSKint64t
+//   - idxlast: MSKint64t
+//   - numdomidx: MSKint64t
+//   - domidxlist: const MSKint64t *
+//   - numafeidx: MSKint64t
+//   - afeidxlist: const MSKint64t *
+//   - b: const MSKrealt *
+//   - numterms: MSKint64t
+//   - termsizelist: const MSKint64t *
+//   - termsindjc: const MSKint64t *
 //
 // [MSK_putdjcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putdjcslice(
+func (task *Task) PutDjcSlice(
 	idxfirst int64,
 	idxlast int64,
 	numdomidx int64,
@@ -8003,14 +8291,15 @@ func (task *Task) Putdjcslice(
 	)
 }
 
-// Putdomainname is wrapping [MSK_putdomainname]
+// PutDomainname is wrapping [MSK_putdomainname]
+//
 // function MSK_putdomainname has following parameters:
-// - task: MSKtask_t
-// - domidx: MSKint64t
-// - name: const char *
+//   - task: MSKtask_t
+//   - domidx: MSKint64t
+//   - name: const char *
 //
 // [MSK_putdomainname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putdomainname(
+func (task *Task) PutDomainname(
 	domidx int64,
 	name *byte,
 ) res.Code {
@@ -8023,14 +8312,15 @@ func (task *Task) Putdomainname(
 	)
 }
 
-// Putdouparam is wrapping [MSK_putdouparam]
+// PutDouparam is wrapping [MSK_putdouparam]
+//
 // function MSK_putdouparam has following parameters:
-// - task: MSKtask_t
-// - param: MSKdparame
-// - parvalue: MSKrealt
+//   - task: MSKtask_t
+//   - param: MSKdparame
+//   - parvalue: MSKrealt
 //
 // [MSK_putdouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putdouparam(
+func (task *Task) PutDouparam(
 	param DParam,
 	parvalue float64,
 ) res.Code {
@@ -8043,14 +8333,15 @@ func (task *Task) Putdouparam(
 	)
 }
 
-// Putintparam is wrapping [MSK_putintparam]
+// PutIntparam is wrapping [MSK_putintparam]
+//
 // function MSK_putintparam has following parameters:
-// - task: MSKtask_t
-// - param: MSKiparame
-// - parvalue: MSKint32t
+//   - task: MSKtask_t
+//   - param: MSKiparame
+//   - parvalue: MSKint32t
 //
 // [MSK_putintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putintparam(
+func (task *Task) PutIntparam(
 	param IParam,
 	parvalue int32,
 ) res.Code {
@@ -8063,13 +8354,14 @@ func (task *Task) Putintparam(
 	)
 }
 
-// Putmaxnumacc is wrapping [MSK_putmaxnumacc]
+// PutMaxnumacc is wrapping [MSK_putmaxnumacc]
+//
 // function MSK_putmaxnumacc has following parameters:
-// - task: MSKtask_t
-// - maxnumacc: MSKint64t
+//   - task: MSKtask_t
+//   - maxnumacc: MSKint64t
 //
 // [MSK_putmaxnumacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumacc(
+func (task *Task) PutMaxnumacc(
 	maxnumacc int64,
 ) res.Code {
 	return res.Code(
@@ -8080,13 +8372,14 @@ func (task *Task) Putmaxnumacc(
 	)
 }
 
-// Putmaxnumafe is wrapping [MSK_putmaxnumafe]
+// PutMaxnumafe is wrapping [MSK_putmaxnumafe]
+//
 // function MSK_putmaxnumafe has following parameters:
-// - task: MSKtask_t
-// - maxnumafe: MSKint64t
+//   - task: MSKtask_t
+//   - maxnumafe: MSKint64t
 //
 // [MSK_putmaxnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumafe(
+func (task *Task) PutMaxnumafe(
 	maxnumafe int64,
 ) res.Code {
 	return res.Code(
@@ -8097,13 +8390,14 @@ func (task *Task) Putmaxnumafe(
 	)
 }
 
-// Putmaxnumanz is wrapping [MSK_putmaxnumanz]
+// PutMaxnumanz is wrapping [MSK_putmaxnumanz]
+//
 // function MSK_putmaxnumanz has following parameters:
-// - task: MSKtask_t
-// - maxnumanz: MSKint64t
+//   - task: MSKtask_t
+//   - maxnumanz: MSKint64t
 //
 // [MSK_putmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumanz(
+func (task *Task) PutMaxnumanz(
 	maxnumanz int64,
 ) res.Code {
 	return res.Code(
@@ -8114,13 +8408,14 @@ func (task *Task) Putmaxnumanz(
 	)
 }
 
-// Putmaxnumbarvar is wrapping [MSK_putmaxnumbarvar]
+// PutMaxnumbarvar is wrapping [MSK_putmaxnumbarvar]
+//
 // function MSK_putmaxnumbarvar has following parameters:
-// - task: MSKtask_t
-// - maxnumbarvar: MSKint32t
+//   - task: MSKtask_t
+//   - maxnumbarvar: MSKint32t
 //
 // [MSK_putmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumbarvar(
+func (task *Task) PutMaxnumbarvar(
 	maxnumbarvar int32,
 ) res.Code {
 	return res.Code(
@@ -8131,13 +8426,14 @@ func (task *Task) Putmaxnumbarvar(
 	)
 }
 
-// Putmaxnumcon is wrapping [MSK_putmaxnumcon]
+// PutMaxnumcon is wrapping [MSK_putmaxnumcon]
+//
 // function MSK_putmaxnumcon has following parameters:
-// - task: MSKtask_t
-// - maxnumcon: MSKint32t
+//   - task: MSKtask_t
+//   - maxnumcon: MSKint32t
 //
 // [MSK_putmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumcon(
+func (task *Task) PutMaxnumcon(
 	maxnumcon int32,
 ) res.Code {
 	return res.Code(
@@ -8148,13 +8444,14 @@ func (task *Task) Putmaxnumcon(
 	)
 }
 
-// Putmaxnumcone is wrapping [MSK_putmaxnumcone]
+// PutMaxnumcone is wrapping [MSK_putmaxnumcone]
+//
 // function MSK_putmaxnumcone has following parameters:
-// - task: MSKtask_t
-// - maxnumcone: MSKint32t
+//   - task: MSKtask_t
+//   - maxnumcone: MSKint32t
 //
 // [MSK_putmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumcone(
+func (task *Task) PutMaxnumcone(
 	maxnumcone int32,
 ) res.Code {
 	return res.Code(
@@ -8165,13 +8462,14 @@ func (task *Task) Putmaxnumcone(
 	)
 }
 
-// Putmaxnumdjc is wrapping [MSK_putmaxnumdjc]
+// PutMaxnumdjc is wrapping [MSK_putmaxnumdjc]
+//
 // function MSK_putmaxnumdjc has following parameters:
-// - task: MSKtask_t
-// - maxnumdjc: MSKint64t
+//   - task: MSKtask_t
+//   - maxnumdjc: MSKint64t
 //
 // [MSK_putmaxnumdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumdjc(
+func (task *Task) PutMaxnumdjc(
 	maxnumdjc int64,
 ) res.Code {
 	return res.Code(
@@ -8182,13 +8480,14 @@ func (task *Task) Putmaxnumdjc(
 	)
 }
 
-// Putmaxnumdomain is wrapping [MSK_putmaxnumdomain]
+// PutMaxnumdomain is wrapping [MSK_putmaxnumdomain]
+//
 // function MSK_putmaxnumdomain has following parameters:
-// - task: MSKtask_t
-// - maxnumdomain: MSKint64t
+//   - task: MSKtask_t
+//   - maxnumdomain: MSKint64t
 //
 // [MSK_putmaxnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumdomain(
+func (task *Task) PutMaxnumdomain(
 	maxnumdomain int64,
 ) res.Code {
 	return res.Code(
@@ -8199,13 +8498,14 @@ func (task *Task) Putmaxnumdomain(
 	)
 }
 
-// Putmaxnumqnz is wrapping [MSK_putmaxnumqnz]
+// PutMaxnumqnz is wrapping [MSK_putmaxnumqnz]
+//
 // function MSK_putmaxnumqnz has following parameters:
-// - task: MSKtask_t
-// - maxnumqnz: MSKint64t
+//   - task: MSKtask_t
+//   - maxnumqnz: MSKint64t
 //
 // [MSK_putmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumqnz(
+func (task *Task) PutMaxnumqnz(
 	maxnumqnz int64,
 ) res.Code {
 	return res.Code(
@@ -8216,13 +8516,14 @@ func (task *Task) Putmaxnumqnz(
 	)
 }
 
-// Putmaxnumvar is wrapping [MSK_putmaxnumvar]
+// PutMaxnumvar is wrapping [MSK_putmaxnumvar]
+//
 // function MSK_putmaxnumvar has following parameters:
-// - task: MSKtask_t
-// - maxnumvar: MSKint32t
+//   - task: MSKtask_t
+//   - maxnumvar: MSKint32t
 //
 // [MSK_putmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putmaxnumvar(
+func (task *Task) PutMaxnumvar(
 	maxnumvar int32,
 ) res.Code {
 	return res.Code(
@@ -8233,14 +8534,15 @@ func (task *Task) Putmaxnumvar(
 	)
 }
 
-// Putnadouparam is wrapping [MSK_putnadouparam]
+// PutNadouparam is wrapping [MSK_putnadouparam]
+//
 // function MSK_putnadouparam has following parameters:
-// - task: MSKtask_t
-// - paramname: const char *
-// - parvalue: MSKrealt
+//   - task: MSKtask_t
+//   - paramname: const char *
+//   - parvalue: MSKrealt
 //
 // [MSK_putnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putnadouparam(
+func (task *Task) PutNadouparam(
 	paramname *byte,
 	parvalue float64,
 ) res.Code {
@@ -8253,14 +8555,15 @@ func (task *Task) Putnadouparam(
 	)
 }
 
-// Putnaintparam is wrapping [MSK_putnaintparam]
+// PutNaintparam is wrapping [MSK_putnaintparam]
+//
 // function MSK_putnaintparam has following parameters:
-// - task: MSKtask_t
-// - paramname: const char *
-// - parvalue: MSKint32t
+//   - task: MSKtask_t
+//   - paramname: const char *
+//   - parvalue: MSKint32t
 //
 // [MSK_putnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putnaintparam(
+func (task *Task) PutNaintparam(
 	paramname *byte,
 	parvalue int32,
 ) res.Code {
@@ -8273,14 +8576,15 @@ func (task *Task) Putnaintparam(
 	)
 }
 
-// Putnastrparam is wrapping [MSK_putnastrparam]
+// PutNastrparam is wrapping [MSK_putnastrparam]
+//
 // function MSK_putnastrparam has following parameters:
-// - task: MSKtask_t
-// - paramname: const char *
-// - parvalue: const char *
+//   - task: MSKtask_t
+//   - paramname: const char *
+//   - parvalue: const char *
 //
 // [MSK_putnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putnastrparam(
+func (task *Task) PutNastrparam(
 	paramname *byte,
 	parvalue *byte,
 ) res.Code {
@@ -8293,13 +8597,14 @@ func (task *Task) Putnastrparam(
 	)
 }
 
-// Putobjname is wrapping [MSK_putobjname]
+// PutObjname is wrapping [MSK_putobjname]
+//
 // function MSK_putobjname has following parameters:
-// - task: MSKtask_t
-// - objname: const char *
+//   - task: MSKtask_t
+//   - objname: const char *
 //
 // [MSK_putobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putobjname(
+func (task *Task) PutObjname(
 	objname *byte,
 ) res.Code {
 	return res.Code(
@@ -8310,13 +8615,14 @@ func (task *Task) Putobjname(
 	)
 }
 
-// Putobjsense is wrapping [MSK_putobjsense]
+// PutObjsense is wrapping [MSK_putobjsense]
+//
 // function MSK_putobjsense has following parameters:
-// - task: MSKtask_t
-// - sense: MSKobjsensee
+//   - task: MSKtask_t
+//   - sense: MSKobjsensee
 //
 // [MSK_putobjsense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putobjsense(
+func (task *Task) PutObjsense(
 	sense ObjectiveSense,
 ) res.Code {
 	return res.Code(
@@ -8327,13 +8633,14 @@ func (task *Task) Putobjsense(
 	)
 }
 
-// Putoptserverhost is wrapping [MSK_putoptserverhost]
+// PutOptserverhost is wrapping [MSK_putoptserverhost]
+//
 // function MSK_putoptserverhost has following parameters:
-// - task: MSKtask_t
-// - host: const char *
+//   - task: MSKtask_t
+//   - host: const char *
 //
 // [MSK_putoptserverhost]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putoptserverhost(
+func (task *Task) PutOptserverhost(
 	host *byte,
 ) res.Code {
 	return res.Code(
@@ -8344,14 +8651,15 @@ func (task *Task) Putoptserverhost(
 	)
 }
 
-// Putparam is wrapping [MSK_putparam]
+// PutParam is wrapping [MSK_putparam]
+//
 // function MSK_putparam has following parameters:
-// - task: MSKtask_t
-// - parname: const char *
-// - parvalue: const char *
+//   - task: MSKtask_t
+//   - parname: const char *
+//   - parvalue: const char *
 //
 // [MSK_putparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putparam(
+func (task *Task) PutParam(
 	parname *byte,
 	parvalue *byte,
 ) res.Code {
@@ -8364,17 +8672,18 @@ func (task *Task) Putparam(
 	)
 }
 
-// Putqcon is wrapping [MSK_putqcon]
+// PutQcon is wrapping [MSK_putqcon]
+//
 // function MSK_putqcon has following parameters:
-// - task: MSKtask_t
-// - numqcnz: MSKint32t
-// - qcsubk: const MSKint32t *
-// - qcsubi: const MSKint32t *
-// - qcsubj: const MSKint32t *
-// - qcval: const MSKrealt *
+//   - task: MSKtask_t
+//   - numqcnz: MSKint32t
+//   - qcsubk: const MSKint32t *
+//   - qcsubi: const MSKint32t *
+//   - qcsubj: const MSKint32t *
+//   - qcval: const MSKrealt *
 //
 // [MSK_putqcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putqcon(
+func (task *Task) PutQcon(
 	numqcnz int32,
 	qcsubk *int32,
 	qcsubi *int32,
@@ -8393,17 +8702,18 @@ func (task *Task) Putqcon(
 	)
 }
 
-// Putqconk is wrapping [MSK_putqconk]
+// PutQconk is wrapping [MSK_putqconk]
+//
 // function MSK_putqconk has following parameters:
-// - task: MSKtask_t
-// - k: MSKint32t
-// - numqcnz: MSKint32t
-// - qcsubi: const MSKint32t *
-// - qcsubj: const MSKint32t *
-// - qcval: const MSKrealt *
+//   - task: MSKtask_t
+//   - k: MSKint32t
+//   - numqcnz: MSKint32t
+//   - qcsubi: const MSKint32t *
+//   - qcsubj: const MSKint32t *
+//   - qcval: const MSKrealt *
 //
 // [MSK_putqconk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putqconk(
+func (task *Task) PutQconk(
 	k int32,
 	numqcnz int32,
 	qcsubi *int32,
@@ -8422,16 +8732,17 @@ func (task *Task) Putqconk(
 	)
 }
 
-// Putqobj is wrapping [MSK_putqobj]
+// PutQobj is wrapping [MSK_putqobj]
+//
 // function MSK_putqobj has following parameters:
-// - task: MSKtask_t
-// - numqonz: MSKint32t
-// - qosubi: const MSKint32t *
-// - qosubj: const MSKint32t *
-// - qoval: const MSKrealt *
+//   - task: MSKtask_t
+//   - numqonz: MSKint32t
+//   - qosubi: const MSKint32t *
+//   - qosubj: const MSKint32t *
+//   - qoval: const MSKrealt *
 //
 // [MSK_putqobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putqobj(
+func (task *Task) PutQobj(
 	numqonz int32,
 	qosubi *int32,
 	qosubj *int32,
@@ -8448,15 +8759,16 @@ func (task *Task) Putqobj(
 	)
 }
 
-// Putqobjij is wrapping [MSK_putqobjij]
+// PutQobjij is wrapping [MSK_putqobjij]
+//
 // function MSK_putqobjij has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - j: MSKint32t
-// - qoij: MSKrealt
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - j: MSKint32t
+//   - qoij: MSKrealt
 //
 // [MSK_putqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putqobjij(
+func (task *Task) PutQobjij(
 	i int32,
 	j int32,
 	qoij float64,
@@ -8471,14 +8783,15 @@ func (task *Task) Putqobjij(
 	)
 }
 
-// Putskc is wrapping [MSK_putskc]
+// PutSkc is wrapping [MSK_putskc]
+//
 // function MSK_putskc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - skc: const MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - skc: const MSKstakeye *
 //
 // [MSK_putskc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putskc(
+func (task *Task) PutSkc(
 	whichsol SolType,
 	skc *StaKey,
 ) res.Code {
@@ -8491,16 +8804,17 @@ func (task *Task) Putskc(
 	)
 }
 
-// Putskcslice is wrapping [MSK_putskcslice]
+// PutSkcSlice is wrapping [MSK_putskcslice]
+//
 // function MSK_putskcslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - skc: const MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - skc: const MSKstakeye *
 //
 // [MSK_putskcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putskcslice(
+func (task *Task) PutSkcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -8517,14 +8831,15 @@ func (task *Task) Putskcslice(
 	)
 }
 
-// Putskx is wrapping [MSK_putskx]
+// PutSkx is wrapping [MSK_putskx]
+//
 // function MSK_putskx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - skx: const MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - skx: const MSKstakeye *
 //
 // [MSK_putskx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putskx(
+func (task *Task) PutSkx(
 	whichsol SolType,
 	skx *StaKey,
 ) res.Code {
@@ -8537,16 +8852,17 @@ func (task *Task) Putskx(
 	)
 }
 
-// Putskxslice is wrapping [MSK_putskxslice]
+// PutSkxSlice is wrapping [MSK_putskxslice]
+//
 // function MSK_putskxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - skx: const MSKstakeye *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - skx: const MSKstakeye *
 //
 // [MSK_putskxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putskxslice(
+func (task *Task) PutSkxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -8563,14 +8879,15 @@ func (task *Task) Putskxslice(
 	)
 }
 
-// Putslc is wrapping [MSK_putslc]
+// PutSlc is wrapping [MSK_putslc]
+//
 // function MSK_putslc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - slc: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - slc: const MSKrealt *
 //
 // [MSK_putslc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putslc(
+func (task *Task) PutSlc(
 	whichsol SolType,
 	slc *float64,
 ) res.Code {
@@ -8583,16 +8900,17 @@ func (task *Task) Putslc(
 	)
 }
 
-// Putslcslice is wrapping [MSK_putslcslice]
+// PutSlcSlice is wrapping [MSK_putslcslice]
+//
 // function MSK_putslcslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - slc: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - slc: const MSKrealt *
 //
 // [MSK_putslcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putslcslice(
+func (task *Task) PutSlcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -8609,14 +8927,15 @@ func (task *Task) Putslcslice(
 	)
 }
 
-// Putslx is wrapping [MSK_putslx]
+// PutSlx is wrapping [MSK_putslx]
+//
 // function MSK_putslx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - slx: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - slx: const MSKrealt *
 //
 // [MSK_putslx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putslx(
+func (task *Task) PutSlx(
 	whichsol SolType,
 	slx *float64,
 ) res.Code {
@@ -8629,16 +8948,17 @@ func (task *Task) Putslx(
 	)
 }
 
-// Putslxslice is wrapping [MSK_putslxslice]
+// PutSlxSlice is wrapping [MSK_putslxslice]
+//
 // function MSK_putslxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - slx: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - slx: const MSKrealt *
 //
 // [MSK_putslxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putslxslice(
+func (task *Task) PutSlxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -8655,14 +8975,15 @@ func (task *Task) Putslxslice(
 	)
 }
 
-// Putsnx is wrapping [MSK_putsnx]
+// PutSnx is wrapping [MSK_putsnx]
+//
 // function MSK_putsnx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - sux: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - sux: const MSKrealt *
 //
 // [MSK_putsnx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsnx(
+func (task *Task) PutSnx(
 	whichsol SolType,
 	sux *float64,
 ) res.Code {
@@ -8675,16 +8996,17 @@ func (task *Task) Putsnx(
 	)
 }
 
-// Putsnxslice is wrapping [MSK_putsnxslice]
+// PutSnxSlice is wrapping [MSK_putsnxslice]
+//
 // function MSK_putsnxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - snx: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - snx: const MSKrealt *
 //
 // [MSK_putsnxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsnxslice(
+func (task *Task) PutSnxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -8701,24 +9023,25 @@ func (task *Task) Putsnxslice(
 	)
 }
 
-// Putsolution is wrapping [MSK_putsolution]
+// PutSolution is wrapping [MSK_putsolution]
+//
 // function MSK_putsolution has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - skc: const MSKstakeye *
-// - skx: const MSKstakeye *
-// - skn: const MSKstakeye *
-// - xc: const MSKrealt *
-// - xx: const MSKrealt *
-// - y: const MSKrealt *
-// - slc: const MSKrealt *
-// - suc: const MSKrealt *
-// - slx: const MSKrealt *
-// - sux: const MSKrealt *
-// - snx: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - skc: const MSKstakeye *
+//   - skx: const MSKstakeye *
+//   - skn: const MSKstakeye *
+//   - xc: const MSKrealt *
+//   - xx: const MSKrealt *
+//   - y: const MSKrealt *
+//   - slc: const MSKrealt *
+//   - suc: const MSKrealt *
+//   - slx: const MSKrealt *
+//   - sux: const MSKrealt *
+//   - snx: const MSKrealt *
 //
 // [MSK_putsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsolution(
+func (task *Task) PutSolution(
 	whichsol SolType,
 	skc *StaKey,
 	skx *StaKey,
@@ -8751,25 +9074,26 @@ func (task *Task) Putsolution(
 	)
 }
 
-// Putsolutionnew is wrapping [MSK_putsolutionnew]
+// PutSolutionnew is wrapping [MSK_putsolutionnew]
+//
 // function MSK_putsolutionnew has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - skc: const MSKstakeye *
-// - skx: const MSKstakeye *
-// - skn: const MSKstakeye *
-// - xc: const MSKrealt *
-// - xx: const MSKrealt *
-// - y: const MSKrealt *
-// - slc: const MSKrealt *
-// - suc: const MSKrealt *
-// - slx: const MSKrealt *
-// - sux: const MSKrealt *
-// - snx: const MSKrealt *
-// - doty: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - skc: const MSKstakeye *
+//   - skx: const MSKstakeye *
+//   - skn: const MSKstakeye *
+//   - xc: const MSKrealt *
+//   - xx: const MSKrealt *
+//   - y: const MSKrealt *
+//   - slc: const MSKrealt *
+//   - suc: const MSKrealt *
+//   - slx: const MSKrealt *
+//   - sux: const MSKrealt *
+//   - snx: const MSKrealt *
+//   - doty: const MSKrealt *
 //
 // [MSK_putsolutionnew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsolutionnew(
+func (task *Task) PutSolutionnew(
 	whichsol SolType,
 	skc *StaKey,
 	skx *StaKey,
@@ -8804,15 +9128,16 @@ func (task *Task) Putsolutionnew(
 	)
 }
 
-// Putsolutionyi is wrapping [MSK_putsolutionyi]
+// PutSolutionyi is wrapping [MSK_putsolutionyi]
+//
 // function MSK_putsolutionyi has following parameters:
-// - task: MSKtask_t
-// - i: MSKint32t
-// - whichsol: MSKsoltypee
-// - y: MSKrealt
+//   - task: MSKtask_t
+//   - i: MSKint32t
+//   - whichsol: MSKsoltypee
+//   - y: MSKrealt
 //
 // [MSK_putsolutionyi]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsolutionyi(
+func (task *Task) PutSolutionyi(
 	i int32,
 	whichsol SolType,
 	y float64,
@@ -8827,14 +9152,15 @@ func (task *Task) Putsolutionyi(
 	)
 }
 
-// Putstrparam is wrapping [MSK_putstrparam]
+// PutStrparam is wrapping [MSK_putstrparam]
+//
 // function MSK_putstrparam has following parameters:
-// - task: MSKtask_t
-// - param: MSKsparame
-// - parvalue: const char *
+//   - task: MSKtask_t
+//   - param: MSKsparame
+//   - parvalue: const char *
 //
 // [MSK_putstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putstrparam(
+func (task *Task) PutStrparam(
 	param SParam,
 	parvalue *byte,
 ) res.Code {
@@ -8847,14 +9173,15 @@ func (task *Task) Putstrparam(
 	)
 }
 
-// Putsuc is wrapping [MSK_putsuc]
+// PutSuc is wrapping [MSK_putsuc]
+//
 // function MSK_putsuc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - suc: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - suc: const MSKrealt *
 //
 // [MSK_putsuc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsuc(
+func (task *Task) PutSuc(
 	whichsol SolType,
 	suc *float64,
 ) res.Code {
@@ -8867,16 +9194,17 @@ func (task *Task) Putsuc(
 	)
 }
 
-// Putsucslice is wrapping [MSK_putsucslice]
+// PutSucSlice is wrapping [MSK_putsucslice]
+//
 // function MSK_putsucslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - suc: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - suc: const MSKrealt *
 //
 // [MSK_putsucslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsucslice(
+func (task *Task) PutSucSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -8893,14 +9221,15 @@ func (task *Task) Putsucslice(
 	)
 }
 
-// Putsux is wrapping [MSK_putsux]
+// PutSux is wrapping [MSK_putsux]
+//
 // function MSK_putsux has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - sux: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - sux: const MSKrealt *
 //
 // [MSK_putsux]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsux(
+func (task *Task) PutSux(
 	whichsol SolType,
 	sux *float64,
 ) res.Code {
@@ -8913,16 +9242,17 @@ func (task *Task) Putsux(
 	)
 }
 
-// Putsuxslice is wrapping [MSK_putsuxslice]
+// PutSuxSlice is wrapping [MSK_putsuxslice]
+//
 // function MSK_putsuxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - sux: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - sux: const MSKrealt *
 //
 // [MSK_putsuxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putsuxslice(
+func (task *Task) PutSuxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -8939,13 +9269,14 @@ func (task *Task) Putsuxslice(
 	)
 }
 
-// Puttaskname is wrapping [MSK_puttaskname]
+// PutTaskname is wrapping [MSK_puttaskname]
+//
 // function MSK_puttaskname has following parameters:
-// - task: MSKtask_t
-// - taskname: const char *
+//   - task: MSKtask_t
+//   - taskname: const char *
 //
 // [MSK_puttaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Puttaskname(
+func (task *Task) PutTaskname(
 	taskname *byte,
 ) res.Code {
 	return res.Code(
@@ -8956,16 +9287,17 @@ func (task *Task) Puttaskname(
 	)
 }
 
-// Putvarbound is wrapping [MSK_putvarbound]
+// PutVarbound is wrapping [MSK_putvarbound]
+//
 // function MSK_putvarbound has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - bkx: MSKboundkeye
-// - blx: MSKrealt
-// - bux: MSKrealt
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - bkx: MSKboundkeye
+//   - blx: MSKrealt
+//   - bux: MSKrealt
 //
 // [MSK_putvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvarbound(
+func (task *Task) PutVarbound(
 	j int32,
 	bkx BoundKey,
 	blx float64,
@@ -8982,17 +9314,18 @@ func (task *Task) Putvarbound(
 	)
 }
 
-// Putvarboundlist is wrapping [MSK_putvarboundlist]
+// PutVarboundList is wrapping [MSK_putvarboundlist]
+//
 // function MSK_putvarboundlist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - bkx: const MSKboundkeye *
-// - blx: const MSKrealt *
-// - bux: const MSKrealt *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - bkx: const MSKboundkeye *
+//   - blx: const MSKrealt *
+//   - bux: const MSKrealt *
 //
 // [MSK_putvarboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvarboundlist(
+func (task *Task) PutVarboundList(
 	num int32,
 	sub *int32,
 	bkx *BoundKey,
@@ -9011,17 +9344,18 @@ func (task *Task) Putvarboundlist(
 	)
 }
 
-// Putvarboundlistconst is wrapping [MSK_putvarboundlistconst]
+// PutVarboundListConst is wrapping [MSK_putvarboundlistconst]
+//
 // function MSK_putvarboundlistconst has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - sub: const MSKint32t *
-// - bkx: MSKboundkeye
-// - blx: MSKrealt
-// - bux: MSKrealt
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - sub: const MSKint32t *
+//   - bkx: MSKboundkeye
+//   - blx: MSKrealt
+//   - bux: MSKrealt
 //
 // [MSK_putvarboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvarboundlistconst(
+func (task *Task) PutVarboundListConst(
 	num int32,
 	sub *int32,
 	bkx BoundKey,
@@ -9040,17 +9374,18 @@ func (task *Task) Putvarboundlistconst(
 	)
 }
 
-// Putvarboundslice is wrapping [MSK_putvarboundslice]
+// PutVarboundSlice is wrapping [MSK_putvarboundslice]
+//
 // function MSK_putvarboundslice has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - bkx: const MSKboundkeye *
-// - blx: const MSKrealt *
-// - bux: const MSKrealt *
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - bkx: const MSKboundkeye *
+//   - blx: const MSKrealt *
+//   - bux: const MSKrealt *
 //
 // [MSK_putvarboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvarboundslice(
+func (task *Task) PutVarboundSlice(
 	first int32,
 	last int32,
 	bkx *BoundKey,
@@ -9069,17 +9404,18 @@ func (task *Task) Putvarboundslice(
 	)
 }
 
-// Putvarboundsliceconst is wrapping [MSK_putvarboundsliceconst]
+// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst]
+//
 // function MSK_putvarboundsliceconst has following parameters:
-// - task: MSKtask_t
-// - first: MSKint32t
-// - last: MSKint32t
-// - bkx: MSKboundkeye
-// - blx: MSKrealt
-// - bux: MSKrealt
+//   - task: MSKtask_t
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - bkx: MSKboundkeye
+//   - blx: MSKrealt
+//   - bux: MSKrealt
 //
 // [MSK_putvarboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvarboundsliceconst(
+func (task *Task) PutVarboundSliceConst(
 	first int32,
 	last int32,
 	bkx BoundKey,
@@ -9098,14 +9434,15 @@ func (task *Task) Putvarboundsliceconst(
 	)
 }
 
-// Putvarname is wrapping [MSK_putvarname]
+// PutVarname is wrapping [MSK_putvarname]
+//
 // function MSK_putvarname has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - name: const char *
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - name: const char *
 //
 // [MSK_putvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvarname(
+func (task *Task) PutVarname(
 	j int32,
 	name *byte,
 ) res.Code {
@@ -9118,19 +9455,20 @@ func (task *Task) Putvarname(
 	)
 }
 
-// Putvarsolutionj is wrapping [MSK_putvarsolutionj]
+// PutVarsolutionj is wrapping [MSK_putvarsolutionj]
+//
 // function MSK_putvarsolutionj has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - whichsol: MSKsoltypee
-// - sk: MSKstakeye
-// - x: MSKrealt
-// - sl: MSKrealt
-// - su: MSKrealt
-// - sn: MSKrealt
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - whichsol: MSKsoltypee
+//   - sk: MSKstakeye
+//   - x: MSKrealt
+//   - sl: MSKrealt
+//   - su: MSKrealt
+//   - sn: MSKrealt
 //
 // [MSK_putvarsolutionj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvarsolutionj(
+func (task *Task) PutVarsolutionj(
 	j int32,
 	whichsol SolType,
 	sk StaKey,
@@ -9153,14 +9491,15 @@ func (task *Task) Putvarsolutionj(
 	)
 }
 
-// Putvartype is wrapping [MSK_putvartype]
+// PutVartype is wrapping [MSK_putvartype]
+//
 // function MSK_putvartype has following parameters:
-// - task: MSKtask_t
-// - j: MSKint32t
-// - vartype: MSKvariabletypee
+//   - task: MSKtask_t
+//   - j: MSKint32t
+//   - vartype: MSKvariabletypee
 //
 // [MSK_putvartype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvartype(
+func (task *Task) PutVartype(
 	j int32,
 	vartype VariableType,
 ) res.Code {
@@ -9173,15 +9512,16 @@ func (task *Task) Putvartype(
 	)
 }
 
-// Putvartypelist is wrapping [MSK_putvartypelist]
+// PutVartypeList is wrapping [MSK_putvartypelist]
+//
 // function MSK_putvartypelist has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subj: const MSKint32t *
-// - vartype: const MSKvariabletypee *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subj: const MSKint32t *
+//   - vartype: const MSKvariabletypee *
 //
 // [MSK_putvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putvartypelist(
+func (task *Task) PutVartypeList(
 	num int32,
 	subj *int32,
 	vartype *VariableType,
@@ -9196,14 +9536,15 @@ func (task *Task) Putvartypelist(
 	)
 }
 
-// Putxc is wrapping [MSK_putxc]
+// PutXc is wrapping [MSK_putxc]
+//
 // function MSK_putxc has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - xc: MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - xc: MSKrealt *
 //
 // [MSK_putxc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putxc(
+func (task *Task) PutXc(
 	whichsol SolType,
 	xc *float64,
 ) res.Code {
@@ -9216,16 +9557,17 @@ func (task *Task) Putxc(
 	)
 }
 
-// Putxcslice is wrapping [MSK_putxcslice]
+// PutXcSlice is wrapping [MSK_putxcslice]
+//
 // function MSK_putxcslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - xc: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - xc: const MSKrealt *
 //
 // [MSK_putxcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putxcslice(
+func (task *Task) PutXcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -9242,14 +9584,15 @@ func (task *Task) Putxcslice(
 	)
 }
 
-// Putxx is wrapping [MSK_putxx]
+// PutXx is wrapping [MSK_putxx]
+//
 // function MSK_putxx has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - xx: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - xx: const MSKrealt *
 //
 // [MSK_putxx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putxx(
+func (task *Task) PutXx(
 	whichsol SolType,
 	xx *float64,
 ) res.Code {
@@ -9262,16 +9605,17 @@ func (task *Task) Putxx(
 	)
 }
 
-// Putxxslice is wrapping [MSK_putxxslice]
+// PutXxSlice is wrapping [MSK_putxxslice]
+//
 // function MSK_putxxslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - xx: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - xx: const MSKrealt *
 //
 // [MSK_putxxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putxxslice(
+func (task *Task) PutXxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -9288,14 +9632,15 @@ func (task *Task) Putxxslice(
 	)
 }
 
-// Puty is wrapping [MSK_puty]
+// PutY is wrapping [MSK_puty]
+//
 // function MSK_puty has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - y: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - y: const MSKrealt *
 //
 // [MSK_puty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Puty(
+func (task *Task) PutY(
 	whichsol SolType,
 	y *float64,
 ) res.Code {
@@ -9308,16 +9653,17 @@ func (task *Task) Puty(
 	)
 }
 
-// Putyslice is wrapping [MSK_putyslice]
+// PutYSlice is wrapping [MSK_putyslice]
+//
 // function MSK_putyslice has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - first: MSKint32t
-// - last: MSKint32t
-// - y: const MSKrealt *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - first: MSKint32t
+//   - last: MSKint32t
+//   - y: const MSKrealt *
 //
 // [MSK_putyslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Putyslice(
+func (task *Task) PutYSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -9335,10 +9681,11 @@ func (task *Task) Putyslice(
 }
 
 // Readbsolution is wrapping [MSK_readbsolution]
+//
 // function MSK_readbsolution has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
-// - compress: MSKcompresstypee
+//   - task: MSKtask_t
+//   - filename: const char *
+//   - compress: MSKcompresstypee
 //
 // [MSK_readbsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readbsolution(
@@ -9355,9 +9702,10 @@ func (task *Task) Readbsolution(
 }
 
 // Readdata is wrapping [MSK_readdata]
+//
 // function MSK_readdata has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_readdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readdata(
@@ -9372,9 +9720,10 @@ func (task *Task) Readdata(
 }
 
 // Readdataautoformat is wrapping [MSK_readdataautoformat]
+//
 // function MSK_readdataautoformat has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_readdataautoformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readdataautoformat(
@@ -9389,11 +9738,12 @@ func (task *Task) Readdataautoformat(
 }
 
 // Readdataformat is wrapping [MSK_readdataformat]
+//
 // function MSK_readdataformat has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
-// - format: MSKdataformate
-// - compress: MSKcompresstypee
+//   - task: MSKtask_t
+//   - filename: const char *
+//   - format: MSKdataformate
+//   - compress: MSKcompresstypee
 //
 // [MSK_readdataformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readdataformat(
@@ -9412,9 +9762,10 @@ func (task *Task) Readdataformat(
 }
 
 // Readjsonsol is wrapping [MSK_readjsonsol]
+//
 // function MSK_readjsonsol has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_readjsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readjsonsol(
@@ -9429,9 +9780,10 @@ func (task *Task) Readjsonsol(
 }
 
 // Readjsonstring is wrapping [MSK_readjsonstring]
+//
 // function MSK_readjsonstring has following parameters:
-// - task: MSKtask_t
-// - data: const char *
+//   - task: MSKtask_t
+//   - data: const char *
 //
 // [MSK_readjsonstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readjsonstring(
@@ -9446,9 +9798,10 @@ func (task *Task) Readjsonstring(
 }
 
 // Readlpstring is wrapping [MSK_readlpstring]
+//
 // function MSK_readlpstring has following parameters:
-// - task: MSKtask_t
-// - data: const char *
+//   - task: MSKtask_t
+//   - data: const char *
 //
 // [MSK_readlpstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readlpstring(
@@ -9463,9 +9816,10 @@ func (task *Task) Readlpstring(
 }
 
 // Readopfstring is wrapping [MSK_readopfstring]
+//
 // function MSK_readopfstring has following parameters:
-// - task: MSKtask_t
-// - data: const char *
+//   - task: MSKtask_t
+//   - data: const char *
 //
 // [MSK_readopfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readopfstring(
@@ -9480,9 +9834,10 @@ func (task *Task) Readopfstring(
 }
 
 // Readparamfile is wrapping [MSK_readparamfile]
+//
 // function MSK_readparamfile has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_readparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readparamfile(
@@ -9497,9 +9852,10 @@ func (task *Task) Readparamfile(
 }
 
 // Readptfstring is wrapping [MSK_readptfstring]
+//
 // function MSK_readptfstring has following parameters:
-// - task: MSKtask_t
-// - data: const char *
+//   - task: MSKtask_t
+//   - data: const char *
 //
 // [MSK_readptfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readptfstring(
@@ -9514,10 +9870,11 @@ func (task *Task) Readptfstring(
 }
 
 // Readsolution is wrapping [MSK_readsolution]
+//
 // function MSK_readsolution has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - filename: const char *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - filename: const char *
 //
 // [MSK_readsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readsolution(
@@ -9534,9 +9891,10 @@ func (task *Task) Readsolution(
 }
 
 // Readsolutionfile is wrapping [MSK_readsolutionfile]
+//
 // function MSK_readsolutionfile has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_readsolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readsolutionfile(
@@ -9551,9 +9909,10 @@ func (task *Task) Readsolutionfile(
 }
 
 // Readsummary is wrapping [MSK_readsummary]
+//
 // function MSK_readsummary has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
 //
 // [MSK_readsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readsummary(
@@ -9568,9 +9927,10 @@ func (task *Task) Readsummary(
 }
 
 // Readtask is wrapping [MSK_readtask]
+//
 // function MSK_readtask has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_readtask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Readtask(
@@ -9585,10 +9945,11 @@ func (task *Task) Readtask(
 }
 
 // Removebarvars is wrapping [MSK_removebarvars]
+//
 // function MSK_removebarvars has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subset: const MSKint32t *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subset: const MSKint32t *
 //
 // [MSK_removebarvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Removebarvars(
@@ -9605,10 +9966,11 @@ func (task *Task) Removebarvars(
 }
 
 // Removecones is wrapping [MSK_removecones]
+//
 // function MSK_removecones has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subset: const MSKint32t *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subset: const MSKint32t *
 //
 // [MSK_removecones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Removecones(
@@ -9625,10 +9987,11 @@ func (task *Task) Removecones(
 }
 
 // Removecons is wrapping [MSK_removecons]
+//
 // function MSK_removecons has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subset: const MSKint32t *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subset: const MSKint32t *
 //
 // [MSK_removecons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Removecons(
@@ -9645,10 +10008,11 @@ func (task *Task) Removecons(
 }
 
 // Removevars is wrapping [MSK_removevars]
+//
 // function MSK_removevars has following parameters:
-// - task: MSKtask_t
-// - num: MSKint32t
-// - subset: const MSKint32t *
+//   - task: MSKtask_t
+//   - num: MSKint32t
+//   - subset: const MSKint32t *
 //
 // [MSK_removevars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Removevars(
@@ -9665,13 +10029,14 @@ func (task *Task) Removevars(
 }
 
 // Resizetask is wrapping [MSK_resizetask]
+//
 // function MSK_resizetask has following parameters:
-// - task: MSKtask_t
-// - maxnumcon: MSKint32t
-// - maxnumvar: MSKint32t
-// - maxnumcone: MSKint32t
-// - maxnumanz: MSKint64t
-// - maxnumqnz: MSKint64t
+//   - task: MSKtask_t
+//   - maxnumcon: MSKint32t
+//   - maxnumvar: MSKint32t
+//   - maxnumcone: MSKint32t
+//   - maxnumanz: MSKint64t
+//   - maxnumqnz: MSKint64t
 //
 // [MSK_resizetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Resizetask(
@@ -9694,9 +10059,10 @@ func (task *Task) Resizetask(
 }
 
 // Sensitivityreport is wrapping [MSK_sensitivityreport]
+//
 // function MSK_sensitivityreport has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
 //
 // [MSK_sensitivityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Sensitivityreport(
@@ -9711,8 +10077,9 @@ func (task *Task) Sensitivityreport(
 }
 
 // Setdefaults is wrapping [MSK_setdefaults]
+//
 // function MSK_setdefaults has following parameters:
-// - task: MSKtask_t
+//   - task: MSKtask_t
 //
 // [MSK_setdefaults]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Setdefaults() res.Code {
@@ -9724,10 +10091,11 @@ func (task *Task) Setdefaults() res.Code {
 }
 
 // Sktostr is wrapping [MSK_sktostr]
+//
 // function MSK_sktostr has following parameters:
-// - task: MSKtask_t
-// - sk: MSKstakeye
-// - str: char *
+//   - task: MSKtask_t
+//   - sk: MSKstakeye
+//   - str: char *
 //
 // [MSK_sktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Sktostr(
@@ -9744,10 +10112,11 @@ func (task *Task) Sktostr(
 }
 
 // Solstatostr is wrapping [MSK_solstatostr]
+//
 // function MSK_solstatostr has following parameters:
-// - task: MSKtask_t
-// - solutionsta: MSKsolstae
-// - str: char *
+//   - task: MSKtask_t
+//   - solutionsta: MSKsolstae
+//   - str: char *
 //
 // [MSK_solstatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Solstatostr(
@@ -9764,10 +10133,11 @@ func (task *Task) Solstatostr(
 }
 
 // Solutiondef is wrapping [MSK_solutiondef]
+//
 // function MSK_solutiondef has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - isdef: MSKbooleant *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - isdef: MSKbooleant *
 //
 // [MSK_solutiondef]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Solutiondef(
@@ -9784,9 +10154,10 @@ func (task *Task) Solutiondef(
 }
 
 // Solutionsummary is wrapping [MSK_solutionsummary]
+//
 // function MSK_solutionsummary has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
 //
 // [MSK_solutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Solutionsummary(
@@ -9801,13 +10172,14 @@ func (task *Task) Solutionsummary(
 }
 
 // Solvewithbasis is wrapping [MSK_solvewithbasis]
+//
 // function MSK_solvewithbasis has following parameters:
-// - task: MSKtask_t
-// - transp: MSKbooleant
-// - numnz: MSKint32t
-// - sub: MSKint32t *
-// - val: MSKrealt *
-// - numnzout: MSKint32t *
+//   - task: MSKtask_t
+//   - transp: MSKbooleant
+//   - numnz: MSKint32t
+//   - sub: MSKint32t *
+//   - val: MSKrealt *
+//   - numnzout: MSKint32t *
 //
 // [MSK_solvewithbasis]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Solvewithbasis(
@@ -9830,10 +10202,11 @@ func (task *Task) Solvewithbasis(
 }
 
 // Strtoconetype is wrapping [MSK_strtoconetype]
+//
 // function MSK_strtoconetype has following parameters:
-// - task: MSKtask_t
-// - str: const char *
-// - conetype: MSKconetypee *
+//   - task: MSKtask_t
+//   - str: const char *
+//   - conetype: MSKconetypee *
 //
 // [MSK_strtoconetype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Strtoconetype(
@@ -9850,10 +10223,11 @@ func (task *Task) Strtoconetype(
 }
 
 // Strtosk is wrapping [MSK_strtosk]
+//
 // function MSK_strtosk has following parameters:
-// - task: MSKtask_t
-// - str: const char *
-// - sk: MSKstakeye *
+//   - task: MSKtask_t
+//   - str: const char *
+//   - sk: MSKstakeye *
 //
 // [MSK_strtosk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Strtosk(
@@ -9870,8 +10244,9 @@ func (task *Task) Strtosk(
 }
 
 // Toconic is wrapping [MSK_toconic]
+//
 // function MSK_toconic has following parameters:
-// - task: MSKtask_t
+//   - task: MSKtask_t
 //
 // [MSK_toconic]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Toconic() res.Code {
@@ -9883,9 +10258,10 @@ func (task *Task) Toconic() res.Code {
 }
 
 // Unlinkfuncfromtaskstream is wrapping [MSK_unlinkfuncfromtaskstream]
+//
 // function MSK_unlinkfuncfromtaskstream has following parameters:
-// - task: MSKtask_t
-// - whichstream: MSKstreamtypee
+//   - task: MSKtask_t
+//   - whichstream: MSKstreamtypee
 //
 // [MSK_unlinkfuncfromtaskstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Unlinkfuncfromtaskstream(
@@ -9900,9 +10276,10 @@ func (task *Task) Unlinkfuncfromtaskstream(
 }
 
 // Updatesolutioninfo is wrapping [MSK_updatesolutioninfo]
+//
 // function MSK_updatesolutioninfo has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
 //
 // [MSK_updatesolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Updatesolutioninfo(
@@ -9917,11 +10294,12 @@ func (task *Task) Updatesolutioninfo(
 }
 
 // Whichparam is wrapping [MSK_whichparam]
+//
 // function MSK_whichparam has following parameters:
-// - task: MSKtask_t
-// - parname: const char *
-// - partype: MSKparametertypee *
-// - param: MSKint32t *
+//   - task: MSKtask_t
+//   - parname: const char *
+//   - partype: MSKparametertypee *
+//   - param: MSKint32t *
 //
 // [MSK_whichparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Whichparam(
@@ -9940,10 +10318,11 @@ func (task *Task) Whichparam(
 }
 
 // Writebsolution is wrapping [MSK_writebsolution]
+//
 // function MSK_writebsolution has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
-// - compress: MSKcompresstypee
+//   - task: MSKtask_t
+//   - filename: const char *
+//   - compress: MSKcompresstypee
 //
 // [MSK_writebsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Writebsolution(
@@ -9960,9 +10339,10 @@ func (task *Task) Writebsolution(
 }
 
 // Writedata is wrapping [MSK_writedata]
+//
 // function MSK_writedata has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_writedata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Writedata(
@@ -9977,9 +10357,10 @@ func (task *Task) Writedata(
 }
 
 // Writejsonsol is wrapping [MSK_writejsonsol]
+//
 // function MSK_writejsonsol has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_writejsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Writejsonsol(
@@ -9994,9 +10375,10 @@ func (task *Task) Writejsonsol(
 }
 
 // Writeparamfile is wrapping [MSK_writeparamfile]
+//
 // function MSK_writeparamfile has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_writeparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Writeparamfile(
@@ -10011,10 +10393,11 @@ func (task *Task) Writeparamfile(
 }
 
 // Writesolution is wrapping [MSK_writesolution]
+//
 // function MSK_writesolution has following parameters:
-// - task: MSKtask_t
-// - whichsol: MSKsoltypee
-// - filename: const char *
+//   - task: MSKtask_t
+//   - whichsol: MSKsoltypee
+//   - filename: const char *
 //
 // [MSK_writesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Writesolution(
@@ -10031,9 +10414,10 @@ func (task *Task) Writesolution(
 }
 
 // Writesolutionfile is wrapping [MSK_writesolutionfile]
+//
 // function MSK_writesolutionfile has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_writesolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Writesolutionfile(
@@ -10048,9 +10432,10 @@ func (task *Task) Writesolutionfile(
 }
 
 // Writetask is wrapping [MSK_writetask]
+//
 // function MSK_writetask has following parameters:
-// - task: MSKtask_t
-// - filename: const char *
+//   - task: MSKtask_t
+//   - filename: const char *
 //
 // [MSK_writetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Writetask(
@@ -10065,12 +10450,13 @@ func (task *Task) Writetask(
 }
 
 // Axpy is wrapping [MSK_axpy]
+//
 // function MSK_axpy has following parameters:
-// - env: MSKenv_t
-// - n: MSKint32t
-// - alpha: MSKrealt
-// - x: const MSKrealt *
-// - y: MSKrealt *
+//   - env: MSKenv_t
+//   - n: MSKint32t
+//   - alpha: MSKrealt
+//   - x: const MSKrealt *
+//   - y: MSKrealt *
 //
 // [MSK_axpy]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Axpy(
@@ -10091,8 +10477,9 @@ func (env *Env) Axpy(
 }
 
 // Checkinall is wrapping [MSK_checkinall]
+//
 // function MSK_checkinall has following parameters:
-// - env: MSKenv_t
+//   - env: MSKenv_t
 //
 // [MSK_checkinall]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Checkinall() res.Code {
@@ -10104,9 +10491,10 @@ func (env *Env) Checkinall() res.Code {
 }
 
 // Checkinlicense is wrapping [MSK_checkinlicense]
+//
 // function MSK_checkinlicense has following parameters:
-// - env: MSKenv_t
-// - feature: MSKfeaturee
+//   - env: MSKenv_t
+//   - feature: MSKfeaturee
 //
 // [MSK_checkinlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Checkinlicense(
@@ -10121,10 +10509,11 @@ func (env *Env) Checkinlicense(
 }
 
 // Checkmemenv is wrapping [MSK_checkmemenv]
+//
 // function MSK_checkmemenv has following parameters:
-// - env: MSKenv_t
-// - file: const char *
-// - line: MSKint32t
+//   - env: MSKenv_t
+//   - file: const char *
+//   - line: MSKint32t
 //
 // [MSK_checkmemenv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Checkmemenv(
@@ -10141,9 +10530,10 @@ func (env *Env) Checkmemenv(
 }
 
 // Checkoutlicense is wrapping [MSK_checkoutlicense]
+//
 // function MSK_checkoutlicense has following parameters:
-// - env: MSKenv_t
-// - feature: MSKfeaturee
+//   - env: MSKenv_t
+//   - feature: MSKfeaturee
 //
 // [MSK_checkoutlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Checkoutlicense(
@@ -10158,11 +10548,12 @@ func (env *Env) Checkoutlicense(
 }
 
 // Checkversion is wrapping [MSK_checkversion]
+//
 // function MSK_checkversion has following parameters:
-// - env: MSKenv_t
-// - major: MSKint32t
-// - minor: MSKint32t
-// - revision: MSKint32t
+//   - env: MSKenv_t
+//   - major: MSKint32t
+//   - minor: MSKint32t
+//   - revision: MSKint32t
 //
 // [MSK_checkversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Checkversion(
@@ -10181,12 +10572,13 @@ func (env *Env) Checkversion(
 }
 
 // Dot is wrapping [MSK_dot]
+//
 // function MSK_dot has following parameters:
-// - env: MSKenv_t
-// - n: MSKint32t
-// - x: const MSKrealt *
-// - y: const MSKrealt *
-// - xty: MSKrealt *
+//   - env: MSKenv_t
+//   - n: MSKint32t
+//   - x: const MSKrealt *
+//   - y: const MSKrealt *
+//   - xty: MSKrealt *
 //
 // [MSK_dot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Dot(
@@ -10207,9 +10599,10 @@ func (env *Env) Dot(
 }
 
 // Echointro is wrapping [MSK_echointro]
+//
 // function MSK_echointro has following parameters:
-// - env: MSKenv_t
-// - longver: MSKint32t
+//   - env: MSKenv_t
+//   - longver: MSKint32t
 //
 // [MSK_echointro]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Echointro(
@@ -10224,9 +10617,10 @@ func (env *Env) Echointro(
 }
 
 // Expirylicenses is wrapping [MSK_expirylicenses]
+//
 // function MSK_expirylicenses has following parameters:
-// - env: MSKenv_t
-// - expiry: MSKint64t *
+//   - env: MSKenv_t
+//   - expiry: MSKint64t *
 //
 // [MSK_expirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Expirylicenses(
@@ -10241,18 +10635,19 @@ func (env *Env) Expirylicenses(
 }
 
 // Gemm is wrapping [MSK_gemm]
+//
 // function MSK_gemm has following parameters:
-// - env: MSKenv_t
-// - transa: MSKtransposee
-// - transb: MSKtransposee
-// - m: MSKint32t
-// - n: MSKint32t
-// - k: MSKint32t
-// - alpha: MSKrealt
-// - a: const MSKrealt *
-// - b: const MSKrealt *
-// - beta: MSKrealt
-// - c: MSKrealt *
+//   - env: MSKenv_t
+//   - transa: MSKtransposee
+//   - transb: MSKtransposee
+//   - m: MSKint32t
+//   - n: MSKint32t
+//   - k: MSKint32t
+//   - alpha: MSKrealt
+//   - a: const MSKrealt *
+//   - b: const MSKrealt *
+//   - beta: MSKrealt
+//   - c: MSKrealt *
 //
 // [MSK_gemm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Gemm(
@@ -10285,16 +10680,17 @@ func (env *Env) Gemm(
 }
 
 // Gemv is wrapping [MSK_gemv]
+//
 // function MSK_gemv has following parameters:
-// - env: MSKenv_t
-// - transa: MSKtransposee
-// - m: MSKint32t
-// - n: MSKint32t
-// - alpha: MSKrealt
-// - a: const MSKrealt *
-// - x: const MSKrealt *
-// - beta: MSKrealt
-// - y: MSKrealt *
+//   - env: MSKenv_t
+//   - transa: MSKtransposee
+//   - m: MSKint32t
+//   - n: MSKint32t
+//   - alpha: MSKrealt
+//   - a: const MSKrealt *
+//   - x: const MSKrealt *
+//   - beta: MSKrealt
+//   - y: MSKrealt *
 //
 // [MSK_gemv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Gemv(
@@ -10322,13 +10718,14 @@ func (env *Env) Gemv(
 	)
 }
 
-// Getbuildinfo is wrapping [MSK_getbuildinfo]
+// GetBuildinfo is wrapping [MSK_getbuildinfo]
+//
 // function MSK_getbuildinfo has following parameters:
-// - buildstate: char *
-// - builddate: char *
+//   - buildstate: char *
+//   - builddate: char *
 //
 // [MSK_getbuildinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func Getbuildinfo(
+func GetBuildinfo(
 	buildstate *byte,
 	builddate *byte,
 ) res.Code {
@@ -10340,14 +10737,15 @@ func Getbuildinfo(
 	)
 }
 
-// Getcodedesc is wrapping [MSK_getcodedesc]
+// GetCodedesc is wrapping [MSK_getcodedesc]
+//
 // function MSK_getcodedesc has following parameters:
-// - code: MSKrescodee
-// - symname: char *
-// - str: char *
+//   - code: MSKrescodee
+//   - symname: char *
+//   - str: char *
 //
 // [MSK_getcodedesc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func Getcodedesc(
+func GetCodedesc(
 	code res.Code,
 	symname *byte,
 	str *byte,
@@ -10361,13 +10759,14 @@ func Getcodedesc(
 	)
 }
 
-// Getresponseclass is wrapping [MSK_getresponseclass]
+// GetResponseclass is wrapping [MSK_getresponseclass]
+//
 // function MSK_getresponseclass has following parameters:
-// - r: MSKrescodee
-// - rc: MSKrescodetypee *
+//   - r: MSKrescodee
+//   - rc: MSKrescodetypee *
 //
 // [MSK_getresponseclass]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func Getresponseclass(
+func GetResponseclass(
 	r res.Code,
 	rc *ResCodeType,
 ) res.Code {
@@ -10379,14 +10778,15 @@ func Getresponseclass(
 	)
 }
 
-// Getsymbcondim is wrapping [MSK_getsymbcondim]
+// GetSymbcondim is wrapping [MSK_getsymbcondim]
+//
 // function MSK_getsymbcondim has following parameters:
-// - env: MSKenv_t
-// - num: MSKint32t *
-// - maxlen: size_t *
+//   - env: MSKenv_t
+//   - num: MSKint32t *
+//   - maxlen: size_t *
 //
 // [MSK_getsymbcondim]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Getsymbcondim(
+func (env *Env) GetSymbcondim(
 	num *int32,
 	maxlen *uint64,
 ) res.Code {
@@ -10399,14 +10799,15 @@ func (env *Env) Getsymbcondim(
 	)
 }
 
-// Getversion is wrapping [MSK_getversion]
+// GetVersion is wrapping [MSK_getversion]
+//
 // function MSK_getversion has following parameters:
-// - major: MSKint32t *
-// - minor: MSKint32t *
-// - revision: MSKint32t *
+//   - major: MSKint32t *
+//   - minor: MSKint32t *
+//   - revision: MSKint32t *
 //
 // [MSK_getversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func Getversion(
+func GetVersion(
 	major *int32,
 	minor *int32,
 	revision *int32,
@@ -10421,11 +10822,12 @@ func Getversion(
 }
 
 // Iparvaltosymnam is wrapping [MSK_iparvaltosymnam]
+//
 // function MSK_iparvaltosymnam has following parameters:
-// - env: MSKenv_t
-// - whichparam: MSKiparame
-// - whichvalue: MSKint32t
-// - symbolicname: char *
+//   - env: MSKenv_t
+//   - whichparam: MSKiparame
+//   - whichvalue: MSKint32t
+//   - symbolicname: char *
 //
 // [MSK_iparvaltosymnam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Iparvaltosymnam(
@@ -10444,8 +10846,9 @@ func (env *Env) Iparvaltosymnam(
 }
 
 // Isinfinity is wrapping [MSK_isinfinity]
+//
 // function MSK_isinfinity has following parameters:
-// - value: MSKrealt
+//   - value: MSKrealt
 //
 // [MSK_isinfinity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Isinfinity(
@@ -10459,6 +10862,7 @@ func Isinfinity(
 }
 
 // Licensecleanup is wrapping [MSK_licensecleanup]
+//
 // function MSK_licensecleanup has following parameters:
 //
 // [MSK_licensecleanup]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
@@ -10469,11 +10873,12 @@ func Licensecleanup() res.Code {
 }
 
 // Linkfiletoenvstream is wrapping [MSK_linkfiletoenvstream]
+//
 // function MSK_linkfiletoenvstream has following parameters:
-// - env: MSKenv_t
-// - whichstream: MSKstreamtypee
-// - filename: const char *
-// - append: MSKint32t
+//   - env: MSKenv_t
+//   - whichstream: MSKstreamtypee
+//   - filename: const char *
+//   - append: MSKint32t
 //
 // [MSK_linkfiletoenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Linkfiletoenvstream(
@@ -10492,11 +10897,12 @@ func (env *Env) Linkfiletoenvstream(
 }
 
 // Potrf is wrapping [MSK_potrf]
+//
 // function MSK_potrf has following parameters:
-// - env: MSKenv_t
-// - uplo: MSKuploe
-// - n: MSKint32t
-// - a: MSKrealt *
+//   - env: MSKenv_t
+//   - uplo: MSKuploe
+//   - n: MSKint32t
+//   - a: MSKrealt *
 //
 // [MSK_potrf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Potrf(
@@ -10514,13 +10920,14 @@ func (env *Env) Potrf(
 	)
 }
 
-// Putlicensecode is wrapping [MSK_putlicensecode]
+// PutLicensecode is wrapping [MSK_putlicensecode]
+//
 // function MSK_putlicensecode has following parameters:
-// - env: MSKenv_t
-// - code: const MSKint32t *
+//   - env: MSKenv_t
+//   - code: const MSKint32t *
 //
 // [MSK_putlicensecode]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Putlicensecode(
+func (env *Env) PutLicensecode(
 	code *int32,
 ) res.Code {
 	return res.Code(
@@ -10531,13 +10938,14 @@ func (env *Env) Putlicensecode(
 	)
 }
 
-// Putlicensedebug is wrapping [MSK_putlicensedebug]
+// PutLicensedebug is wrapping [MSK_putlicensedebug]
+//
 // function MSK_putlicensedebug has following parameters:
-// - env: MSKenv_t
-// - licdebug: MSKint32t
+//   - env: MSKenv_t
+//   - licdebug: MSKint32t
 //
 // [MSK_putlicensedebug]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Putlicensedebug(
+func (env *Env) PutLicensedebug(
 	licdebug int32,
 ) res.Code {
 	return res.Code(
@@ -10548,13 +10956,14 @@ func (env *Env) Putlicensedebug(
 	)
 }
 
-// Putlicensepath is wrapping [MSK_putlicensepath]
+// PutLicensepath is wrapping [MSK_putlicensepath]
+//
 // function MSK_putlicensepath has following parameters:
-// - env: MSKenv_t
-// - licensepath: const char *
+//   - env: MSKenv_t
+//   - licensepath: const char *
 //
 // [MSK_putlicensepath]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Putlicensepath(
+func (env *Env) PutLicensepath(
 	licensepath *byte,
 ) res.Code {
 	return res.Code(
@@ -10565,13 +10974,14 @@ func (env *Env) Putlicensepath(
 	)
 }
 
-// Putlicensewait is wrapping [MSK_putlicensewait]
+// PutLicensewait is wrapping [MSK_putlicensewait]
+//
 // function MSK_putlicensewait has following parameters:
-// - env: MSKenv_t
-// - licwait: MSKint32t
+//   - env: MSKenv_t
+//   - licwait: MSKint32t
 //
 // [MSK_putlicensewait]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Putlicensewait(
+func (env *Env) PutLicensewait(
 	licwait int32,
 ) res.Code {
 	return res.Code(
@@ -10583,8 +10993,9 @@ func (env *Env) Putlicensewait(
 }
 
 // Resetexpirylicenses is wrapping [MSK_resetexpirylicenses]
+//
 // function MSK_resetexpirylicenses has following parameters:
-// - env: MSKenv_t
+//   - env: MSKenv_t
 //
 // [MSK_resetexpirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Resetexpirylicenses() res.Code {
@@ -10596,16 +11007,17 @@ func (env *Env) Resetexpirylicenses() res.Code {
 }
 
 // Sparsetriangularsolvedense is wrapping [MSK_sparsetriangularsolvedense]
+//
 // function MSK_sparsetriangularsolvedense has following parameters:
-// - env: MSKenv_t
-// - transposed: MSKtransposee
-// - n: MSKint32t
-// - lnzc: const MSKint32t *
-// - lptrc: const MSKint64t *
-// - lensubnval: MSKint64t
-// - lsubc: const MSKint32t *
-// - lvalc: const MSKrealt *
-// - b: MSKrealt *
+//   - env: MSKenv_t
+//   - transposed: MSKtransposee
+//   - n: MSKint32t
+//   - lnzc: const MSKint32t *
+//   - lptrc: const MSKint64t *
+//   - lensubnval: MSKint64t
+//   - lsubc: const MSKint32t *
+//   - lvalc: const MSKrealt *
+//   - b: MSKrealt *
 //
 // [MSK_sparsetriangularsolvedense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Sparsetriangularsolvedense(
@@ -10634,12 +11046,13 @@ func (env *Env) Sparsetriangularsolvedense(
 }
 
 // Syeig is wrapping [MSK_syeig]
+//
 // function MSK_syeig has following parameters:
-// - env: MSKenv_t
-// - uplo: MSKuploe
-// - n: MSKint32t
-// - a: const MSKrealt *
-// - w: MSKrealt *
+//   - env: MSKenv_t
+//   - uplo: MSKuploe
+//   - n: MSKint32t
+//   - a: const MSKrealt *
+//   - w: MSKrealt *
 //
 // [MSK_syeig]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Syeig(
@@ -10660,12 +11073,13 @@ func (env *Env) Syeig(
 }
 
 // Syevd is wrapping [MSK_syevd]
+//
 // function MSK_syevd has following parameters:
-// - env: MSKenv_t
-// - uplo: MSKuploe
-// - n: MSKint32t
-// - a: MSKrealt *
-// - w: MSKrealt *
+//   - env: MSKenv_t
+//   - uplo: MSKuploe
+//   - n: MSKint32t
+//   - a: MSKrealt *
+//   - w: MSKrealt *
 //
 // [MSK_syevd]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Syevd(
@@ -10686,9 +11100,10 @@ func (env *Env) Syevd(
 }
 
 // Symnamtovalue is wrapping [MSK_symnamtovalue]
+//
 // function MSK_symnamtovalue has following parameters:
-// - name: const char *
-// - value: char *
+//   - name: const char *
+//   - value: char *
 //
 // [MSK_symnamtovalue]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Symnamtovalue(
@@ -10704,16 +11119,17 @@ func Symnamtovalue(
 }
 
 // Syrk is wrapping [MSK_syrk]
+//
 // function MSK_syrk has following parameters:
-// - env: MSKenv_t
-// - uplo: MSKuploe
-// - trans: MSKtransposee
-// - n: MSKint32t
-// - k: MSKint32t
-// - alpha: MSKrealt
-// - a: const MSKrealt *
-// - beta: MSKrealt
-// - c: MSKrealt *
+//   - env: MSKenv_t
+//   - uplo: MSKuploe
+//   - trans: MSKtransposee
+//   - n: MSKint32t
+//   - k: MSKint32t
+//   - alpha: MSKrealt
+//   - a: const MSKrealt *
+//   - beta: MSKrealt
+//   - c: MSKrealt *
 //
 // [MSK_syrk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Syrk(
@@ -10742,9 +11158,10 @@ func (env *Env) Syrk(
 }
 
 // Unlinkfuncfromenvstream is wrapping [MSK_unlinkfuncfromenvstream]
+//
 // function MSK_unlinkfuncfromenvstream has following parameters:
-// - env: MSKenv_t
-// - whichstream: MSKstreamtypee
+//   - env: MSKenv_t
+//   - whichstream: MSKstreamtypee
 //
 // [MSK_unlinkfuncfromenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Unlinkfuncfromenvstream(
@@ -10759,12 +11176,13 @@ func (env *Env) Unlinkfuncfromenvstream(
 }
 
 // Utf8towchar is wrapping [MSK_utf8towchar]
+//
 // function MSK_utf8towchar has following parameters:
-// - outputlen: size_t
-// - len: size_t *
-// - conv: size_t *
-// - output: MSKwchart *
-// - input: const char *
+//   - outputlen: size_t
+//   - len: size_t *
+//   - conv: size_t *
+//   - output: MSKwchart *
+//   - input: const char *
 //
 // [MSK_utf8towchar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Utf8towchar(
@@ -10786,12 +11204,13 @@ func Utf8towchar(
 }
 
 // Wchartoutf8 is wrapping [MSK_wchartoutf8]
+//
 // function MSK_wchartoutf8 has following parameters:
-// - outputlen: size_t
-// - len: size_t *
-// - conv: size_t *
-// - output: char *
-// - input: const MSKwchart *
+//   - outputlen: size_t
+//   - len: size_t *
+//   - conv: size_t *
+//   - output: char *
+//   - input: const MSKwchart *
 //
 // [MSK_wchartoutf8]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Wchartoutf8(

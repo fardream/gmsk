@@ -82,7 +82,7 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 	/* Assign values to integer variables
 	   (we only set a slice of xx) */
 	xxInit := []float64{1, 1, 0}
-	checkOk(task.PutXXSlice(gmsk.SOL_ITG, 0, 3, &xxInit[0]))
+	checkOk(task.PutXxSlice(gmsk.SOL_ITG, 0, 3, &xxInit[0]))
 
 	/* Request constructing the solution from integer variable values */
 	checkOk(task.PutIntParam(gmsk.IPAR_MIO_CONSTRUCT_SOL, gmsk.ON))
