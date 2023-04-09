@@ -3,6 +3,7 @@
 
 package gmsk
 
+// #include <stdlib.h> // for C.free
 // #include <mosek.h>
 import "C"
 
@@ -12,10 +13,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// We don't know if unsafe will be used or not, so
-var _ any = unsafe.Pointer(nil)
-
-// PutAcc is wrapping MSK_putacc
+// PutAcc is wrapping [MSK_putacc]
 //
 // [MSK_putacc] has following parameters
 //   - task: MSKtask_t
@@ -45,7 +43,7 @@ func (task *Task) PutAcc(
 	)
 }
 
-// PutAccb is wrapping MSK_putaccb
+// PutAccb is wrapping [MSK_putaccb]
 //
 // [MSK_putaccb] has following parameters
 //   - task: MSKtask_t
@@ -69,7 +67,7 @@ func (task *Task) PutAccb(
 	)
 }
 
-// PutAccbj is wrapping MSK_putaccbj
+// PutAccbj is wrapping [MSK_putaccbj]
 //
 // [MSK_putaccbj] has following parameters
 //   - task: MSKtask_t
@@ -93,7 +91,7 @@ func (task *Task) PutAccbj(
 	)
 }
 
-// PutAccdoty is wrapping MSK_putaccdoty
+// PutAccdoty is wrapping [MSK_putaccdoty]
 //
 // [MSK_putaccdoty] has following parameters
 //   - task: MSKtask_t
@@ -117,7 +115,7 @@ func (task *Task) PutAccdoty(
 	)
 }
 
-// PutAccList is wrapping MSK_putacclist
+// PutAccList is wrapping [MSK_putacclist]
 //
 // [MSK_putacclist] has following parameters
 //   - task: MSKtask_t
@@ -150,7 +148,8 @@ func (task *Task) PutAccList(
 	)
 }
 
-// PutAccname is wrapping MSK_putaccname
+// PutAccName is wrapping [MSK_putaccname],
+// sets a name for an affine conic constraint.
 //
 // [MSK_putaccname] has following parameters
 //   - task: MSKtask_t
@@ -158,20 +157,23 @@ func (task *Task) PutAccList(
 //   - name: const char *
 //
 // [MSK_putaccname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAccname(
+func (task *Task) PutAccName(
 	accidx int64,
-	name *byte,
+	name string,
 ) res.Code {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return res.Code(
 		C.MSK_putaccname(
 			task.task,
 			C.MSKint64t(accidx),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
 }
 
-// PutAcol is wrapping MSK_putacol
+// PutAcol is wrapping [MSK_putacol]
 //
 // [MSK_putacol] has following parameters
 //   - task: MSKtask_t
@@ -198,7 +200,7 @@ func (task *Task) PutAcol(
 	)
 }
 
-// PutAcolList is wrapping MSK_putacollist
+// PutAcolList is wrapping [MSK_putacollist]
 //
 // [MSK_putacollist] has following parameters
 //   - task: MSKtask_t
@@ -231,7 +233,7 @@ func (task *Task) PutAcolList(
 	)
 }
 
-// PutAcollist64 is wrapping MSK_putacollist64
+// PutAcollist64 is wrapping [MSK_putacollist64]
 //
 // [MSK_putacollist64] has following parameters
 //   - task: MSKtask_t
@@ -264,7 +266,7 @@ func (task *Task) PutAcollist64(
 	)
 }
 
-// PutAcolSlice is wrapping MSK_putacolslice
+// PutAcolSlice is wrapping [MSK_putacolslice]
 //
 // [MSK_putacolslice] has following parameters
 //   - task: MSKtask_t
@@ -297,7 +299,7 @@ func (task *Task) PutAcolSlice(
 	)
 }
 
-// PutAcolslice64 is wrapping MSK_putacolslice64
+// PutAcolslice64 is wrapping [MSK_putacolslice64]
 //
 // [MSK_putacolslice64] has following parameters
 //   - task: MSKtask_t
@@ -330,7 +332,7 @@ func (task *Task) PutAcolslice64(
 	)
 }
 
-// PutAfebarfblocktriplet is wrapping MSK_putafebarfblocktriplet
+// PutAfebarfblocktriplet is wrapping [MSK_putafebarfblocktriplet]
 //
 // [MSK_putafebarfblocktriplet] has following parameters
 //   - task: MSKtask_t
@@ -363,7 +365,7 @@ func (task *Task) PutAfebarfblocktriplet(
 	)
 }
 
-// PutAfebarfentry is wrapping MSK_putafebarfentry
+// PutAfebarfentry is wrapping [MSK_putafebarfentry]
 //
 // [MSK_putafebarfentry] has following parameters
 //   - task: MSKtask_t
@@ -393,7 +395,7 @@ func (task *Task) PutAfebarfentry(
 	)
 }
 
-// PutAfebarfentryList is wrapping MSK_putafebarfentrylist
+// PutAfebarfentryList is wrapping [MSK_putafebarfentrylist]
 //
 // [MSK_putafebarfentrylist] has following parameters
 //   - task: MSKtask_t
@@ -432,7 +434,7 @@ func (task *Task) PutAfebarfentryList(
 	)
 }
 
-// PutAfebarfrow is wrapping MSK_putafebarfrow
+// PutAfebarfrow is wrapping [MSK_putafebarfrow]
 //
 // [MSK_putafebarfrow] has following parameters
 //   - task: MSKtask_t
@@ -471,7 +473,7 @@ func (task *Task) PutAfebarfrow(
 	)
 }
 
-// PutAfefcol is wrapping MSK_putafefcol
+// PutAfefcol is wrapping [MSK_putafefcol]
 //
 // [MSK_putafefcol] has following parameters
 //   - task: MSKtask_t
@@ -498,7 +500,7 @@ func (task *Task) PutAfefcol(
 	)
 }
 
-// PutAfefentry is wrapping MSK_putafefentry
+// PutAfefentry is wrapping [MSK_putafefentry]
 //
 // [MSK_putafefentry] has following parameters
 //   - task: MSKtask_t
@@ -522,7 +524,7 @@ func (task *Task) PutAfefentry(
 	)
 }
 
-// PutAfefentryList is wrapping MSK_putafefentrylist
+// PutAfefentryList is wrapping [MSK_putafefentrylist]
 //
 // [MSK_putafefentrylist] has following parameters
 //   - task: MSKtask_t
@@ -549,7 +551,7 @@ func (task *Task) PutAfefentryList(
 	)
 }
 
-// PutAfefrow is wrapping MSK_putafefrow
+// PutAfefrow is wrapping [MSK_putafefrow]
 //
 // [MSK_putafefrow] has following parameters
 //   - task: MSKtask_t
@@ -576,7 +578,7 @@ func (task *Task) PutAfefrow(
 	)
 }
 
-// PutAfefrowList is wrapping MSK_putafefrowlist
+// PutAfefrowList is wrapping [MSK_putafefrowlist]
 //
 // [MSK_putafefrowlist] has following parameters
 //   - task: MSKtask_t
@@ -612,7 +614,7 @@ func (task *Task) PutAfefrowList(
 	)
 }
 
-// PutAfeg is wrapping MSK_putafeg
+// PutAfeg is wrapping [MSK_putafeg]
 //
 // [MSK_putafeg] has following parameters
 //   - task: MSKtask_t
@@ -633,7 +635,7 @@ func (task *Task) PutAfeg(
 	)
 }
 
-// PutAfegList is wrapping MSK_putafeglist
+// PutAfegList is wrapping [MSK_putafeglist]
 //
 // [MSK_putafeglist] has following parameters
 //   - task: MSKtask_t
@@ -657,7 +659,7 @@ func (task *Task) PutAfegList(
 	)
 }
 
-// PutAfegSlice is wrapping MSK_putafegslice
+// PutAfegSlice is wrapping [MSK_putafegslice]
 //
 // [MSK_putafegslice] has following parameters
 //   - task: MSKtask_t
@@ -681,7 +683,7 @@ func (task *Task) PutAfegSlice(
 	)
 }
 
-// PutAij is wrapping MSK_putaij,
+// PutAij is wrapping [MSK_putaij],
 // set the value of the constraints matrix A[i,j]
 //
 // [MSK_putaij] has following parameters
@@ -706,7 +708,7 @@ func (task *Task) PutAij(
 	)
 }
 
-// PutAijList is wrapping MSK_putaijlist,
+// PutAijList is wrapping [MSK_putaijlist],
 // sets a list of constraint matrix A by index.
 //
 // [MSK_putaijlist] has following parameters
@@ -734,7 +736,7 @@ func (task *Task) PutAijList(
 	)
 }
 
-// PutAijlist64 is wrapping MSK_putaijlist64
+// PutAijlist64 is wrapping [MSK_putaijlist64]
 //
 // [MSK_putaijlist64] has following parameters
 //   - task: MSKtask_t
@@ -761,7 +763,7 @@ func (task *Task) PutAijlist64(
 	)
 }
 
-// PutArow is wrapping MSK_putarow
+// PutArow is wrapping [MSK_putarow]
 //
 // [MSK_putarow] has following parameters
 //   - task: MSKtask_t
@@ -788,7 +790,7 @@ func (task *Task) PutArow(
 	)
 }
 
-// PutArowList is wrapping MSK_putarowlist
+// PutArowList is wrapping [MSK_putarowlist]
 //
 // [MSK_putarowlist] has following parameters
 //   - task: MSKtask_t
@@ -821,7 +823,7 @@ func (task *Task) PutArowList(
 	)
 }
 
-// PutArowlist64 is wrapping MSK_putarowlist64
+// PutArowlist64 is wrapping [MSK_putarowlist64]
 //
 // [MSK_putarowlist64] has following parameters
 //   - task: MSKtask_t
@@ -854,7 +856,7 @@ func (task *Task) PutArowlist64(
 	)
 }
 
-// PutArowSlice is wrapping MSK_putarowslice
+// PutArowSlice is wrapping [MSK_putarowslice]
 //
 // [MSK_putarowslice] has following parameters
 //   - task: MSKtask_t
@@ -887,7 +889,7 @@ func (task *Task) PutArowSlice(
 	)
 }
 
-// PutArowslice64 is wrapping MSK_putarowslice64
+// PutArowslice64 is wrapping [MSK_putarowslice64]
 //
 // [MSK_putarowslice64] has following parameters
 //   - task: MSKtask_t
@@ -920,7 +922,7 @@ func (task *Task) PutArowslice64(
 	)
 }
 
-// PutAtruncatetol is wrapping MSK_putatruncatetol
+// PutAtruncatetol is wrapping [MSK_putatruncatetol]
 //
 // [MSK_putatruncatetol] has following parameters
 //   - task: MSKtask_t
@@ -938,7 +940,7 @@ func (task *Task) PutAtruncatetol(
 	)
 }
 
-// PutBarablocktriplet is wrapping MSK_putbarablocktriplet
+// PutBarablocktriplet is wrapping [MSK_putbarablocktriplet]
 //
 // [MSK_putbarablocktriplet] has following parameters
 //   - task: MSKtask_t
@@ -971,7 +973,7 @@ func (task *Task) PutBarablocktriplet(
 	)
 }
 
-// PutBaraij is wrapping MSK_putbaraij
+// PutBaraij is wrapping [MSK_putbaraij]
 //
 // [MSK_putbaraij] has following parameters
 //   - task: MSKtask_t
@@ -1001,7 +1003,7 @@ func (task *Task) PutBaraij(
 	)
 }
 
-// PutBaraijList is wrapping MSK_putbaraijlist
+// PutBaraijList is wrapping [MSK_putbaraijlist]
 //
 // [MSK_putbaraijlist] has following parameters
 //   - task: MSKtask_t
@@ -1037,7 +1039,7 @@ func (task *Task) PutBaraijList(
 	)
 }
 
-// PutBararowList is wrapping MSK_putbararowlist
+// PutBararowList is wrapping [MSK_putbararowlist]
 //
 // [MSK_putbararowlist] has following parameters
 //   - task: MSKtask_t
@@ -1076,7 +1078,7 @@ func (task *Task) PutBararowList(
 	)
 }
 
-// PutBarcblocktriplet is wrapping MSK_putbarcblocktriplet
+// PutBarcblocktriplet is wrapping [MSK_putbarcblocktriplet]
 //
 // [MSK_putbarcblocktriplet] has following parameters
 //   - task: MSKtask_t
@@ -1106,7 +1108,7 @@ func (task *Task) PutBarcblocktriplet(
 	)
 }
 
-// PutBarcj is wrapping MSK_putbarcj
+// PutBarcj is wrapping [MSK_putbarcj]
 //
 // [MSK_putbarcj] has following parameters
 //   - task: MSKtask_t
@@ -1133,7 +1135,7 @@ func (task *Task) PutBarcj(
 	)
 }
 
-// PutBarsj is wrapping MSK_putbarsj
+// PutBarsj is wrapping [MSK_putbarsj]
 //
 // [MSK_putbarsj] has following parameters
 //   - task: MSKtask_t
@@ -1157,7 +1159,7 @@ func (task *Task) PutBarsj(
 	)
 }
 
-// PutBarvarname is wrapping MSK_putbarvarname
+// PutBarvarName is wrapping [MSK_putbarvarname]
 //
 // [MSK_putbarvarname] has following parameters
 //   - task: MSKtask_t
@@ -1165,20 +1167,23 @@ func (task *Task) PutBarsj(
 //   - name: const char *
 //
 // [MSK_putbarvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBarvarname(
+func (task *Task) PutBarvarName(
 	j int32,
-	name *byte,
+	name string,
 ) res.Code {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return res.Code(
 		C.MSK_putbarvarname(
 			task.task,
 			C.MSKint32t(j),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
 }
 
-// PutBarxj is wrapping MSK_putbarxj
+// PutBarxj is wrapping [MSK_putbarxj]
 //
 // [MSK_putbarxj] has following parameters
 //   - task: MSKtask_t
@@ -1202,7 +1207,7 @@ func (task *Task) PutBarxj(
 	)
 }
 
-// PutCfix is wrapping MSK_putcfix
+// PutCfix is wrapping [MSK_putcfix]
 //
 // [MSK_putcfix] has following parameters
 //   - task: MSKtask_t
@@ -1220,7 +1225,7 @@ func (task *Task) PutCfix(
 	)
 }
 
-// PutCj is wrapping MSK_putcj,
+// PutCj is wrapping [MSK_putcj],
 // set the coefficient in the objective function.
 //
 // [MSK_putcj] has following parameters
@@ -1242,7 +1247,7 @@ func (task *Task) PutCj(
 	)
 }
 
-// PutCList is wrapping MSK_putclist
+// PutCList is wrapping [MSK_putclist]
 //
 // [MSK_putclist] has following parameters
 //   - task: MSKtask_t
@@ -1266,7 +1271,7 @@ func (task *Task) PutCList(
 	)
 }
 
-// PutConbound is wrapping MSK_putconbound,
+// PutConbound is wrapping [MSK_putconbound],
 // set the bound for a contraint
 //
 // [MSK_putconbound] has following parameters
@@ -1294,7 +1299,7 @@ func (task *Task) PutConbound(
 	)
 }
 
-// PutConboundList is wrapping MSK_putconboundlist
+// PutConboundList is wrapping [MSK_putconboundlist]
 //
 // [MSK_putconboundlist] has following parameters
 //   - task: MSKtask_t
@@ -1324,7 +1329,7 @@ func (task *Task) PutConboundList(
 	)
 }
 
-// PutConboundListConst is wrapping MSK_putconboundlistconst
+// PutConboundListConst is wrapping [MSK_putconboundlistconst]
 //
 // [MSK_putconboundlistconst] has following parameters
 //   - task: MSKtask_t
@@ -1354,7 +1359,7 @@ func (task *Task) PutConboundListConst(
 	)
 }
 
-// PutConboundSlice is wrapping MSK_putconboundslice,
+// PutConboundSlice is wrapping [MSK_putconboundslice],
 // sets a list of constraint bounds.
 //
 // [MSK_putconboundslice] has following parameters
@@ -1385,7 +1390,7 @@ func (task *Task) PutConboundSlice(
 	)
 }
 
-// PutConboundSliceConst is wrapping MSK_putconboundsliceconst,
+// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst],
 // sets a slice of constraint bounds to the same constant value.
 //
 // [MSK_putconboundsliceconst] has following parameters
@@ -1416,7 +1421,7 @@ func (task *Task) PutConboundSliceConst(
 	)
 }
 
-// PutCone is wrapping MSK_putcone
+// PutCone is wrapping [MSK_putcone]
 //
 // [MSK_putcone] has following parameters
 //   - task: MSKtask_t
@@ -1446,7 +1451,7 @@ func (task *Task) PutCone(
 	)
 }
 
-// PutConename is wrapping MSK_putconename
+// PutConeName is wrapping [MSK_putconename]
 //
 // [MSK_putconename] has following parameters
 //   - task: MSKtask_t
@@ -1454,20 +1459,24 @@ func (task *Task) PutCone(
 //   - name: const char *
 //
 // [MSK_putconename]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutConename(
+func (task *Task) PutConeName(
 	j int32,
-	name *byte,
+	name string,
 ) res.Code {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return res.Code(
 		C.MSK_putconename(
 			task.task,
 			C.MSKint32t(j),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
 }
 
-// PutConname is wrapping MSK_putconname
+// PutConName is wrapping [MSK_putconname],
+// sets a name for a constraint at indext i.
 //
 // [MSK_putconname] has following parameters
 //   - task: MSKtask_t
@@ -1475,20 +1484,23 @@ func (task *Task) PutConename(
 //   - name: const char *
 //
 // [MSK_putconname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutConname(
+func (task *Task) PutConName(
 	i int32,
-	name *byte,
+	name string,
 ) res.Code {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return res.Code(
 		C.MSK_putconname(
 			task.task,
 			C.MSKint32t(i),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
 }
 
-// PutConsolutioni is wrapping MSK_putconsolutioni
+// PutConsolutioni is wrapping [MSK_putconsolutioni]
 //
 // [MSK_putconsolutioni] has following parameters
 //   - task: MSKtask_t
@@ -1521,7 +1533,7 @@ func (task *Task) PutConsolutioni(
 	)
 }
 
-// PutCSlice is wrapping MSK_putcslice
+// PutCSlice is wrapping [MSK_putcslice]
 //
 // [MSK_putcslice] has following parameters
 //   - task: MSKtask_t
@@ -1545,7 +1557,7 @@ func (task *Task) PutCSlice(
 	)
 }
 
-// PutDjc is wrapping MSK_putdjc,
+// PutDjc is wrapping [MSK_putdjc],
 // sets the disjunctive constraint.
 //
 // [MSK_putdjc] has following parameters
@@ -1585,7 +1597,7 @@ func (task *Task) PutDjc(
 	)
 }
 
-// PutDjcname is wrapping MSK_putdjcname
+// PutDjcName is wrapping [MSK_putdjcname]
 //
 // [MSK_putdjcname] has following parameters
 //   - task: MSKtask_t
@@ -1593,20 +1605,23 @@ func (task *Task) PutDjc(
 //   - name: const char *
 //
 // [MSK_putdjcname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutDjcname(
+func (task *Task) PutDjcName(
 	djcidx int64,
-	name *byte,
+	name string,
 ) res.Code {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return res.Code(
 		C.MSK_putdjcname(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
 }
 
-// PutDjcSlice is wrapping MSK_putdjcslice
+// PutDjcSlice is wrapping [MSK_putdjcslice]
 //
 // [MSK_putdjcslice] has following parameters
 //   - task: MSKtask_t
@@ -1651,7 +1666,7 @@ func (task *Task) PutDjcSlice(
 	)
 }
 
-// PutDomainname is wrapping MSK_putdomainname
+// PutDomainName is wrapping [MSK_putdomainname]
 //
 // [MSK_putdomainname] has following parameters
 //   - task: MSKtask_t
@@ -1659,20 +1674,23 @@ func (task *Task) PutDjcSlice(
 //   - name: const char *
 //
 // [MSK_putdomainname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutDomainname(
+func (task *Task) PutDomainName(
 	domidx int64,
-	name *byte,
+	name string,
 ) res.Code {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return res.Code(
 		C.MSK_putdomainname(
 			task.task,
 			C.MSKint64t(domidx),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
 }
 
-// PutDouparam is wrapping MSK_putdouparam
+// PutDouparam is wrapping [MSK_putdouparam]
 //
 // [MSK_putdouparam] has following parameters
 //   - task: MSKtask_t
@@ -1693,7 +1711,7 @@ func (task *Task) PutDouparam(
 	)
 }
 
-// PutIntparam is wrapping MSK_putintparam
+// PutIntparam is wrapping [MSK_putintparam]
 //
 // [MSK_putintparam] has following parameters
 //   - task: MSKtask_t
@@ -1714,7 +1732,7 @@ func (task *Task) PutIntparam(
 	)
 }
 
-// PutMaxnumacc is wrapping MSK_putmaxnumacc
+// PutMaxnumacc is wrapping [MSK_putmaxnumacc]
 //
 // [MSK_putmaxnumacc] has following parameters
 //   - task: MSKtask_t
@@ -1732,7 +1750,7 @@ func (task *Task) PutMaxnumacc(
 	)
 }
 
-// PutMaxnumafe is wrapping MSK_putmaxnumafe
+// PutMaxnumafe is wrapping [MSK_putmaxnumafe]
 //
 // [MSK_putmaxnumafe] has following parameters
 //   - task: MSKtask_t
@@ -1750,7 +1768,7 @@ func (task *Task) PutMaxnumafe(
 	)
 }
 
-// PutMaxnumanz is wrapping MSK_putmaxnumanz
+// PutMaxnumanz is wrapping [MSK_putmaxnumanz]
 //
 // [MSK_putmaxnumanz] has following parameters
 //   - task: MSKtask_t
@@ -1768,7 +1786,7 @@ func (task *Task) PutMaxnumanz(
 	)
 }
 
-// PutMaxnumbarvar is wrapping MSK_putmaxnumbarvar
+// PutMaxnumbarvar is wrapping [MSK_putmaxnumbarvar]
 //
 // [MSK_putmaxnumbarvar] has following parameters
 //   - task: MSKtask_t
@@ -1786,7 +1804,7 @@ func (task *Task) PutMaxnumbarvar(
 	)
 }
 
-// PutMaxnumcon is wrapping MSK_putmaxnumcon
+// PutMaxnumcon is wrapping [MSK_putmaxnumcon]
 //
 // [MSK_putmaxnumcon] has following parameters
 //   - task: MSKtask_t
@@ -1804,7 +1822,7 @@ func (task *Task) PutMaxnumcon(
 	)
 }
 
-// PutMaxnumcone is wrapping MSK_putmaxnumcone
+// PutMaxnumcone is wrapping [MSK_putmaxnumcone]
 //
 // [MSK_putmaxnumcone] has following parameters
 //   - task: MSKtask_t
@@ -1822,7 +1840,7 @@ func (task *Task) PutMaxnumcone(
 	)
 }
 
-// PutMaxnumdjc is wrapping MSK_putmaxnumdjc
+// PutMaxnumdjc is wrapping [MSK_putmaxnumdjc]
 //
 // [MSK_putmaxnumdjc] has following parameters
 //   - task: MSKtask_t
@@ -1840,7 +1858,7 @@ func (task *Task) PutMaxnumdjc(
 	)
 }
 
-// PutMaxnumdomain is wrapping MSK_putmaxnumdomain
+// PutMaxnumdomain is wrapping [MSK_putmaxnumdomain]
 //
 // [MSK_putmaxnumdomain] has following parameters
 //   - task: MSKtask_t
@@ -1858,7 +1876,7 @@ func (task *Task) PutMaxnumdomain(
 	)
 }
 
-// PutMaxnumqnz is wrapping MSK_putmaxnumqnz
+// PutMaxnumqnz is wrapping [MSK_putmaxnumqnz]
 //
 // [MSK_putmaxnumqnz] has following parameters
 //   - task: MSKtask_t
@@ -1876,7 +1894,7 @@ func (task *Task) PutMaxnumqnz(
 	)
 }
 
-// PutMaxnumvar is wrapping MSK_putmaxnumvar
+// PutMaxnumvar is wrapping [MSK_putmaxnumvar]
 //
 // [MSK_putmaxnumvar] has following parameters
 //   - task: MSKtask_t
@@ -1894,7 +1912,7 @@ func (task *Task) PutMaxnumvar(
 	)
 }
 
-// PutNadouparam is wrapping MSK_putnadouparam
+// PutNadouparam is wrapping [MSK_putnadouparam]
 //
 // [MSK_putnadouparam] has following parameters
 //   - task: MSKtask_t
@@ -1903,19 +1921,22 @@ func (task *Task) PutMaxnumvar(
 //
 // [MSK_putnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) PutNadouparam(
-	paramname *byte,
+	paramname string,
 	parvalue float64,
 ) res.Code {
+	c_paramname := C.CString(paramname)
+	defer C.free(unsafe.Pointer(c_paramname))
+
 	return res.Code(
 		C.MSK_putnadouparam(
 			task.task,
-			(*C.char)(unsafe.Pointer(paramname)),
+			c_paramname,
 			C.MSKrealt(parvalue),
 		),
 	)
 }
 
-// PutNaintparam is wrapping MSK_putnaintparam
+// PutNaintparam is wrapping [MSK_putnaintparam]
 //
 // [MSK_putnaintparam] has following parameters
 //   - task: MSKtask_t
@@ -1924,19 +1945,22 @@ func (task *Task) PutNadouparam(
 //
 // [MSK_putnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) PutNaintparam(
-	paramname *byte,
+	paramname string,
 	parvalue int32,
 ) res.Code {
+	c_paramname := C.CString(paramname)
+	defer C.free(unsafe.Pointer(c_paramname))
+
 	return res.Code(
 		C.MSK_putnaintparam(
 			task.task,
-			(*C.char)(unsafe.Pointer(paramname)),
+			c_paramname,
 			C.MSKint32t(parvalue),
 		),
 	)
 }
 
-// PutNastrparam is wrapping MSK_putnastrparam
+// PutNastrparam is wrapping [MSK_putnastrparam]
 //
 // [MSK_putnastrparam] has following parameters
 //   - task: MSKtask_t
@@ -1945,37 +1969,46 @@ func (task *Task) PutNaintparam(
 //
 // [MSK_putnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) PutNastrparam(
-	paramname *byte,
-	parvalue *byte,
+	paramname string,
+	parvalue string,
 ) res.Code {
+	c_paramname := C.CString(paramname)
+	defer C.free(unsafe.Pointer(c_paramname))
+
+	c_parvalue := C.CString(parvalue)
+	defer C.free(unsafe.Pointer(c_parvalue))
+
 	return res.Code(
 		C.MSK_putnastrparam(
 			task.task,
-			(*C.char)(unsafe.Pointer(paramname)),
-			(*C.char)(unsafe.Pointer(parvalue)),
+			c_paramname,
+			c_parvalue,
 		),
 	)
 }
 
-// PutObjname is wrapping MSK_putobjname
+// PutObjName is wrapping [MSK_putobjname]
 //
 // [MSK_putobjname] has following parameters
 //   - task: MSKtask_t
 //   - objname: const char *
 //
 // [MSK_putobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutObjname(
-	objname *byte,
+func (task *Task) PutObjName(
+	objname string,
 ) res.Code {
+	c_objname := C.CString(objname)
+	defer C.free(unsafe.Pointer(c_objname))
+
 	return res.Code(
 		C.MSK_putobjname(
 			task.task,
-			(*C.char)(unsafe.Pointer(objname)),
+			c_objname,
 		),
 	)
 }
 
-// PutObjsense is wrapping MSK_putobjsense,
+// PutObjsense is wrapping [MSK_putobjsense],
 // set the objective sense - which is either minimize or maximize
 //
 // [MSK_putobjsense] has following parameters
@@ -1994,7 +2027,7 @@ func (task *Task) PutObjsense(
 	)
 }
 
-// PutOptserverhost is wrapping MSK_putoptserverhost
+// PutOptserverhost is wrapping [MSK_putoptserverhost]
 //
 // [MSK_putoptserverhost] has following parameters
 //   - task: MSKtask_t
@@ -2002,17 +2035,20 @@ func (task *Task) PutObjsense(
 //
 // [MSK_putoptserverhost]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) PutOptserverhost(
-	host *byte,
+	host string,
 ) res.Code {
+	c_host := C.CString(host)
+	defer C.free(unsafe.Pointer(c_host))
+
 	return res.Code(
 		C.MSK_putoptserverhost(
 			task.task,
-			(*C.char)(unsafe.Pointer(host)),
+			c_host,
 		),
 	)
 }
 
-// PutParam is wrapping MSK_putparam
+// PutParam is wrapping [MSK_putparam]
 //
 // [MSK_putparam] has following parameters
 //   - task: MSKtask_t
@@ -2021,19 +2057,25 @@ func (task *Task) PutOptserverhost(
 //
 // [MSK_putparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) PutParam(
-	parname *byte,
-	parvalue *byte,
+	parname string,
+	parvalue string,
 ) res.Code {
+	c_parname := C.CString(parname)
+	defer C.free(unsafe.Pointer(c_parname))
+
+	c_parvalue := C.CString(parvalue)
+	defer C.free(unsafe.Pointer(c_parvalue))
+
 	return res.Code(
 		C.MSK_putparam(
 			task.task,
-			(*C.char)(unsafe.Pointer(parname)),
-			(*C.char)(unsafe.Pointer(parvalue)),
+			c_parname,
+			c_parvalue,
 		),
 	)
 }
 
-// PutQcon is wrapping MSK_putqcon
+// PutQcon is wrapping [MSK_putqcon]
 //
 // [MSK_putqcon] has following parameters
 //   - task: MSKtask_t
@@ -2063,7 +2105,7 @@ func (task *Task) PutQcon(
 	)
 }
 
-// PutQconk is wrapping MSK_putqconk
+// PutQconk is wrapping [MSK_putqconk]
 //
 // [MSK_putqconk] has following parameters
 //   - task: MSKtask_t
@@ -2093,7 +2135,7 @@ func (task *Task) PutQconk(
 	)
 }
 
-// PutQobj is wrapping MSK_putqobj
+// PutQobj is wrapping [MSK_putqobj]
 //
 // [MSK_putqobj] has following parameters
 //   - task: MSKtask_t
@@ -2120,7 +2162,7 @@ func (task *Task) PutQobj(
 	)
 }
 
-// PutQobjij is wrapping MSK_putqobjij
+// PutQobjij is wrapping [MSK_putqobjij]
 //
 // [MSK_putqobjij] has following parameters
 //   - task: MSKtask_t
@@ -2144,7 +2186,7 @@ func (task *Task) PutQobjij(
 	)
 }
 
-// PutSkc is wrapping MSK_putskc
+// PutSkc is wrapping [MSK_putskc]
 //
 // [MSK_putskc] has following parameters
 //   - task: MSKtask_t
@@ -2165,7 +2207,7 @@ func (task *Task) PutSkc(
 	)
 }
 
-// PutSkcSlice is wrapping MSK_putskcslice
+// PutSkcSlice is wrapping [MSK_putskcslice]
 //
 // [MSK_putskcslice] has following parameters
 //   - task: MSKtask_t
@@ -2192,7 +2234,7 @@ func (task *Task) PutSkcSlice(
 	)
 }
 
-// PutSkx is wrapping MSK_putskx
+// PutSkx is wrapping [MSK_putskx]
 //
 // [MSK_putskx] has following parameters
 //   - task: MSKtask_t
@@ -2213,7 +2255,7 @@ func (task *Task) PutSkx(
 	)
 }
 
-// PutSkxSlice is wrapping MSK_putskxslice
+// PutSkxSlice is wrapping [MSK_putskxslice]
 //
 // [MSK_putskxslice] has following parameters
 //   - task: MSKtask_t
@@ -2240,7 +2282,7 @@ func (task *Task) PutSkxSlice(
 	)
 }
 
-// PutSlc is wrapping MSK_putslc
+// PutSlc is wrapping [MSK_putslc]
 //
 // [MSK_putslc] has following parameters
 //   - task: MSKtask_t
@@ -2261,7 +2303,7 @@ func (task *Task) PutSlc(
 	)
 }
 
-// PutSlcSlice is wrapping MSK_putslcslice
+// PutSlcSlice is wrapping [MSK_putslcslice]
 //
 // [MSK_putslcslice] has following parameters
 //   - task: MSKtask_t
@@ -2288,7 +2330,7 @@ func (task *Task) PutSlcSlice(
 	)
 }
 
-// PutSlx is wrapping MSK_putslx
+// PutSlx is wrapping [MSK_putslx]
 //
 // [MSK_putslx] has following parameters
 //   - task: MSKtask_t
@@ -2309,7 +2351,7 @@ func (task *Task) PutSlx(
 	)
 }
 
-// PutSlxSlice is wrapping MSK_putslxslice
+// PutSlxSlice is wrapping [MSK_putslxslice]
 //
 // [MSK_putslxslice] has following parameters
 //   - task: MSKtask_t
@@ -2336,7 +2378,7 @@ func (task *Task) PutSlxSlice(
 	)
 }
 
-// PutSnx is wrapping MSK_putsnx
+// PutSnx is wrapping [MSK_putsnx]
 //
 // [MSK_putsnx] has following parameters
 //   - task: MSKtask_t
@@ -2357,7 +2399,7 @@ func (task *Task) PutSnx(
 	)
 }
 
-// PutSnxSlice is wrapping MSK_putsnxslice
+// PutSnxSlice is wrapping [MSK_putsnxslice]
 //
 // [MSK_putsnxslice] has following parameters
 //   - task: MSKtask_t
@@ -2384,7 +2426,7 @@ func (task *Task) PutSnxSlice(
 	)
 }
 
-// PutSolution is wrapping MSK_putsolution
+// PutSolution is wrapping [MSK_putsolution]
 //
 // [MSK_putsolution] has following parameters
 //   - task: MSKtask_t
@@ -2435,7 +2477,7 @@ func (task *Task) PutSolution(
 	)
 }
 
-// PutSolutionnew is wrapping MSK_putsolutionnew
+// PutSolutionNew is wrapping [MSK_putsolutionnew]
 //
 // [MSK_putsolutionnew] has following parameters
 //   - task: MSKtask_t
@@ -2454,7 +2496,7 @@ func (task *Task) PutSolution(
 //   - doty: const MSKrealt *
 //
 // [MSK_putsolutionnew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSolutionnew(
+func (task *Task) PutSolutionNew(
 	whichsol SolType,
 	skc *StaKey,
 	skx *StaKey,
@@ -2489,7 +2531,7 @@ func (task *Task) PutSolutionnew(
 	)
 }
 
-// PutSolutionyi is wrapping MSK_putsolutionyi
+// PutSolutionyi is wrapping [MSK_putsolutionyi]
 //
 // [MSK_putsolutionyi] has following parameters
 //   - task: MSKtask_t
@@ -2513,7 +2555,7 @@ func (task *Task) PutSolutionyi(
 	)
 }
 
-// PutStrparam is wrapping MSK_putstrparam
+// PutStrparam is wrapping [MSK_putstrparam]
 //
 // [MSK_putstrparam] has following parameters
 //   - task: MSKtask_t
@@ -2523,18 +2565,21 @@ func (task *Task) PutSolutionyi(
 // [MSK_putstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) PutStrparam(
 	param SParam,
-	parvalue *byte,
+	parvalue string,
 ) res.Code {
+	c_parvalue := C.CString(parvalue)
+	defer C.free(unsafe.Pointer(c_parvalue))
+
 	return res.Code(
 		C.MSK_putstrparam(
 			task.task,
 			C.MSKsparame(param),
-			(*C.char)(unsafe.Pointer(parvalue)),
+			c_parvalue,
 		),
 	)
 }
 
-// PutSuc is wrapping MSK_putsuc
+// PutSuc is wrapping [MSK_putsuc]
 //
 // [MSK_putsuc] has following parameters
 //   - task: MSKtask_t
@@ -2555,7 +2600,7 @@ func (task *Task) PutSuc(
 	)
 }
 
-// PutSucSlice is wrapping MSK_putsucslice
+// PutSucSlice is wrapping [MSK_putsucslice]
 //
 // [MSK_putsucslice] has following parameters
 //   - task: MSKtask_t
@@ -2582,7 +2627,7 @@ func (task *Task) PutSucSlice(
 	)
 }
 
-// PutSux is wrapping MSK_putsux
+// PutSux is wrapping [MSK_putsux]
 //
 // [MSK_putsux] has following parameters
 //   - task: MSKtask_t
@@ -2603,7 +2648,7 @@ func (task *Task) PutSux(
 	)
 }
 
-// PutSuxSlice is wrapping MSK_putsuxslice
+// PutSuxSlice is wrapping [MSK_putsuxslice]
 //
 // [MSK_putsuxslice] has following parameters
 //   - task: MSKtask_t
@@ -2630,25 +2675,28 @@ func (task *Task) PutSuxSlice(
 	)
 }
 
-// PutTaskname is wrapping MSK_puttaskname
+// PutTaskName is wrapping [MSK_puttaskname]
 //
 // [MSK_puttaskname] has following parameters
 //   - task: MSKtask_t
 //   - taskname: const char *
 //
 // [MSK_puttaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutTaskname(
-	taskname *byte,
+func (task *Task) PutTaskName(
+	taskname string,
 ) res.Code {
+	c_taskname := C.CString(taskname)
+	defer C.free(unsafe.Pointer(c_taskname))
+
 	return res.Code(
 		C.MSK_puttaskname(
 			task.task,
-			(*C.char)(unsafe.Pointer(taskname)),
+			c_taskname,
 		),
 	)
 }
 
-// PutVarbound is wrapping MSK_putvarbound,
+// PutVarbound is wrapping [MSK_putvarbound],
 // set the bound for a variable.
 //
 // [MSK_putvarbound] has following parameters
@@ -2676,7 +2724,7 @@ func (task *Task) PutVarbound(
 	)
 }
 
-// PutVarboundList is wrapping MSK_putvarboundlist
+// PutVarboundList is wrapping [MSK_putvarboundlist]
 //
 // [MSK_putvarboundlist] has following parameters
 //   - task: MSKtask_t
@@ -2706,7 +2754,7 @@ func (task *Task) PutVarboundList(
 	)
 }
 
-// PutVarboundListConst is wrapping MSK_putvarboundlistconst
+// PutVarboundListConst is wrapping [MSK_putvarboundlistconst]
 //
 // [MSK_putvarboundlistconst] has following parameters
 //   - task: MSKtask_t
@@ -2736,7 +2784,7 @@ func (task *Task) PutVarboundListConst(
 	)
 }
 
-// PutVarboundSlice is wrapping MSK_putvarboundslice,
+// PutVarboundSlice is wrapping [MSK_putvarboundslice],
 // sets the bound for a slice of variables using 3 vectors.
 //
 // [MSK_putvarboundslice] has following parameters
@@ -2767,7 +2815,7 @@ func (task *Task) PutVarboundSlice(
 	)
 }
 
-// PutVarboundSliceConst is wrapping MSK_putvarboundsliceconst,
+// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst],
 // set the bound for a slice of variables to the same value.
 //
 // [MSK_putvarboundsliceconst] has following parameters
@@ -2798,7 +2846,8 @@ func (task *Task) PutVarboundSliceConst(
 	)
 }
 
-// PutVarname is wrapping MSK_putvarname
+// PutVarName is wrapping [MSK_putvarname],
+// sets a name for variable at j.
 //
 // [MSK_putvarname] has following parameters
 //   - task: MSKtask_t
@@ -2806,20 +2855,23 @@ func (task *Task) PutVarboundSliceConst(
 //   - name: const char *
 //
 // [MSK_putvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVarname(
+func (task *Task) PutVarName(
 	j int32,
-	name *byte,
+	name string,
 ) res.Code {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return res.Code(
 		C.MSK_putvarname(
 			task.task,
 			C.MSKint32t(j),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
 }
 
-// PutVarsolutionj is wrapping MSK_putvarsolutionj
+// PutVarsolutionj is wrapping [MSK_putvarsolutionj]
 //
 // [MSK_putvarsolutionj] has following parameters
 //   - task: MSKtask_t
@@ -2855,7 +2907,7 @@ func (task *Task) PutVarsolutionj(
 	)
 }
 
-// PutVartype is wrapping MSK_putvartype
+// PutVartype is wrapping [MSK_putvartype]
 //
 // [MSK_putvartype] has following parameters
 //   - task: MSKtask_t
@@ -2876,7 +2928,7 @@ func (task *Task) PutVartype(
 	)
 }
 
-// PutVartypeList is wrapping MSK_putvartypelist
+// PutVartypeList is wrapping [MSK_putvartypelist]
 //
 // [MSK_putvartypelist] has following parameters
 //   - task: MSKtask_t
@@ -2900,7 +2952,7 @@ func (task *Task) PutVartypeList(
 	)
 }
 
-// PutXc is wrapping MSK_putxc
+// PutXc is wrapping [MSK_putxc]
 //
 // [MSK_putxc] has following parameters
 //   - task: MSKtask_t
@@ -2921,7 +2973,7 @@ func (task *Task) PutXc(
 	)
 }
 
-// PutXcSlice is wrapping MSK_putxcslice
+// PutXcSlice is wrapping [MSK_putxcslice]
 //
 // [MSK_putxcslice] has following parameters
 //   - task: MSKtask_t
@@ -2948,7 +3000,7 @@ func (task *Task) PutXcSlice(
 	)
 }
 
-// PutXx is wrapping MSK_putxx
+// PutXx is wrapping [MSK_putxx]
 //
 // [MSK_putxx] has following parameters
 //   - task: MSKtask_t
@@ -2969,7 +3021,7 @@ func (task *Task) PutXx(
 	)
 }
 
-// PutXxSlice is wrapping MSK_putxxslice,
+// PutXxSlice is wrapping [MSK_putxxslice],
 // sets the initial solution for a slice.
 //
 // [MSK_putxxslice] has following parameters
@@ -2997,7 +3049,7 @@ func (task *Task) PutXxSlice(
 	)
 }
 
-// PutY is wrapping MSK_puty
+// PutY is wrapping [MSK_puty]
 //
 // [MSK_puty] has following parameters
 //   - task: MSKtask_t
@@ -3018,7 +3070,7 @@ func (task *Task) PutY(
 	)
 }
 
-// PutYSlice is wrapping MSK_putyslice
+// PutYSlice is wrapping [MSK_putyslice]
 //
 // [MSK_putyslice] has following parameters
 //   - task: MSKtask_t

@@ -111,7 +111,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	checkOk(task.PutDouParam(gmsk.DPAR_MIO_MAX_TIME, 60))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/

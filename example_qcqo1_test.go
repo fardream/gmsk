@@ -182,7 +182,7 @@ func Example_quadraticOptimization_qcqo1() {
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/

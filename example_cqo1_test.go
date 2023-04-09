@@ -155,7 +155,7 @@ func Example_conicQuadraticOptimization1_cqo1() {
 	checkOk(task.AppendAccsSeq(numacc, &domidx[0], numafe, afeidx[0], nil))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	task.SolutionSummary(gmsk.STREAM_LOG)
 

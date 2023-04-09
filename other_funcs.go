@@ -3,6 +3,7 @@
 
 package gmsk
 
+// #include <stdlib.h> // for C.free
 // #include <mosek.h>
 import "C"
 
@@ -12,10 +13,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// We don't know if unsafe will be used or not, so
-var _ any = unsafe.Pointer(nil)
-
-// Callbackcodetostr is wrapping MSK_callbackcodetostr
+// Callbackcodetostr is wrapping [MSK_callbackcodetostr]
 //
 // [MSK_callbackcodetostr] has following parameters
 //   - code: MSKcallbackcodee
@@ -34,7 +32,7 @@ func Callbackcodetostr(
 	)
 }
 
-// GetBuildinfo is wrapping MSK_getbuildinfo
+// GetBuildinfo is wrapping [MSK_getbuildinfo]
 //
 // [MSK_getbuildinfo] has following parameters
 //   - buildstate: char *
@@ -53,7 +51,7 @@ func GetBuildinfo(
 	)
 }
 
-// GetCodedesc is wrapping MSK_getcodedesc
+// GetCodedesc is wrapping [MSK_getcodedesc]
 //
 // [MSK_getcodedesc] has following parameters
 //   - code: MSKrescodee
@@ -75,7 +73,7 @@ func GetCodedesc(
 	)
 }
 
-// GetResponseclass is wrapping MSK_getresponseclass
+// GetResponseclass is wrapping [MSK_getresponseclass]
 //
 // [MSK_getresponseclass] has following parameters
 //   - r: MSKrescodee
@@ -94,7 +92,7 @@ func GetResponseclass(
 	)
 }
 
-// GetVersion is wrapping MSK_getversion
+// GetVersion is wrapping [MSK_getversion]
 //
 // [MSK_getversion] has following parameters
 //   - major: MSKint32t *
@@ -102,21 +100,19 @@ func GetResponseclass(
 //   - revision: MSKint32t *
 //
 // [MSK_getversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func GetVersion(
-	major *int32,
-	minor *int32,
-	revision *int32,
-) res.Code {
-	return res.Code(
+func GetVersion() (r res.Code, major, minor, revision int32) {
+	r = res.Code(
 		C.MSK_getversion(
-			(*C.MSKint32t)(major),
-			(*C.MSKint32t)(minor),
-			(*C.MSKint32t)(revision),
+			(*C.MSKint32t)(&major),
+			(*C.MSKint32t)(&minor),
+			(*C.MSKint32t)(&revision),
 		),
 	)
+
+	return
 }
 
-// Isinfinity is wrapping MSK_isinfinity
+// Isinfinity is wrapping [MSK_isinfinity]
 //
 // [MSK_isinfinity] has following parameters
 //   - value: MSKrealt
@@ -132,7 +128,7 @@ func Isinfinity(
 	)
 }
 
-// Licensecleanup is wrapping MSK_licensecleanup
+// Licensecleanup is wrapping [MSK_licensecleanup]
 //
 // [MSK_licensecleanup] has following parameters
 //
@@ -143,7 +139,7 @@ func Licensecleanup() res.Code {
 	)
 }
 
-// Symnamtovalue is wrapping MSK_symnamtovalue
+// Symnamtovalue is wrapping [MSK_symnamtovalue]
 //
 // [MSK_symnamtovalue] has following parameters
 //   - name: const char *
@@ -151,18 +147,21 @@ func Licensecleanup() res.Code {
 //
 // [MSK_symnamtovalue]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Symnamtovalue(
-	name *byte,
+	name string,
 	value *byte,
 ) int32 {
+	c_name := C.CString(name)
+	defer C.free(unsafe.Pointer(c_name))
+
 	return int32(
 		C.MSK_symnamtovalue(
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 			(*C.char)(unsafe.Pointer(value)),
 		),
 	)
 }
 
-// Utf8towchar is wrapping MSK_utf8towchar
+// Utf8towchar is wrapping [MSK_utf8towchar]
 //
 // [MSK_utf8towchar] has following parameters
 //   - outputlen: size_t
@@ -177,20 +176,23 @@ func Utf8towchar(
 	len *uint64,
 	conv *uint64,
 	output *int32,
-	input *byte,
+	input string,
 ) res.Code {
+	c_input := C.CString(input)
+	defer C.free(unsafe.Pointer(c_input))
+
 	return res.Code(
 		C.MSK_utf8towchar(
 			C.size_t(outputlen),
 			(*C.size_t)(len),
 			(*C.size_t)(conv),
 			(*C.MSKwchart)(output),
-			(*C.char)(unsafe.Pointer(input)),
+			c_input,
 		),
 	)
 }
 
-// Wchartoutf8 is wrapping MSK_wchartoutf8
+// Wchartoutf8 is wrapping [MSK_wchartoutf8]
 //
 // [MSK_wchartoutf8] has following parameters
 //   - outputlen: size_t

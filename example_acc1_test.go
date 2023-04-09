@@ -99,7 +99,7 @@ func Example_affineConicConstraints_acc1() {
 	}
 
 	/* Begin optimization and fetching the solution */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 	checkOk(r)
 
 	/* Print a summary containing information

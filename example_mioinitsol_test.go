@@ -88,7 +88,7 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 	checkOk(task.PutIntParam(gmsk.IPAR_MIO_CONSTRUCT_SOL, gmsk.ON))
 
 	/* solve */
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	task.SolutionSummary(gmsk.STREAM_LOG)
 	checkOk(r)
 

@@ -143,7 +143,7 @@ func Example_semidefiniteOptimization_sdo1() {
 	checkOk(r)
 	checkOk(task.PutBarAij(1, 0, 1, &idx, &falpha))
 
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	task.SolutionSummary(gmsk.STREAM_LOG)
 

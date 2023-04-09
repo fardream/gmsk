@@ -121,7 +121,7 @@ func Example_geometricProgram1_gp1() {
 	checkOk(task.AppendAcc(rzerodomidx, 1, &acc3_afeidx[0], nil))
 
 	// Solve and map to original h, w, d
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 	checkOk(r)
 
 	r, solsta := task.GetSolSta(gmsk.SOL_ITR)

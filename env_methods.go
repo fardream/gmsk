@@ -3,6 +3,7 @@
 
 package gmsk
 
+// #include <stdlib.h> // for C.free
 // #include <mosek.h>
 import "C"
 
@@ -12,10 +13,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// We don't know if unsafe will be used or not, so
-var _ any = unsafe.Pointer(nil)
-
-// Axpy is wrapping MSK_axpy,
+// Axpy is wrapping [MSK_axpy],
 // performs y = a*x + y where x/y are vectors.
 //
 // [MSK_axpy] has following parameters
@@ -43,7 +41,7 @@ func (env *Env) Axpy(
 	)
 }
 
-// Checkinall is wrapping MSK_checkinall
+// Checkinall is wrapping [MSK_checkinall]
 //
 // [MSK_checkinall] has following parameters
 //   - env: MSKenv_t
@@ -57,7 +55,7 @@ func (env *Env) Checkinall() res.Code {
 	)
 }
 
-// Checkinlicense is wrapping MSK_checkinlicense
+// Checkinlicense is wrapping [MSK_checkinlicense]
 //
 // [MSK_checkinlicense] has following parameters
 //   - env: MSKenv_t
@@ -75,7 +73,7 @@ func (env *Env) Checkinlicense(
 	)
 }
 
-// Checkmemenv is wrapping MSK_checkmemenv
+// Checkmemenv is wrapping [MSK_checkmemenv]
 //
 // [MSK_checkmemenv] has following parameters
 //   - env: MSKenv_t
@@ -84,19 +82,22 @@ func (env *Env) Checkinlicense(
 //
 // [MSK_checkmemenv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) Checkmemenv(
-	file *byte,
+	file string,
 	line int32,
 ) res.Code {
+	c_file := C.CString(file)
+	defer C.free(unsafe.Pointer(c_file))
+
 	return res.Code(
 		C.MSK_checkmemenv(
 			env.getEnv(),
-			(*C.char)(unsafe.Pointer(file)),
+			c_file,
 			C.MSKint32t(line),
 		),
 	)
 }
 
-// Checkoutlicense is wrapping MSK_checkoutlicense
+// Checkoutlicense is wrapping [MSK_checkoutlicense]
 //
 // [MSK_checkoutlicense] has following parameters
 //   - env: MSKenv_t
@@ -114,7 +115,7 @@ func (env *Env) Checkoutlicense(
 	)
 }
 
-// Checkversion is wrapping MSK_checkversion
+// Checkversion is wrapping [MSK_checkversion]
 //
 // [MSK_checkversion] has following parameters
 //   - env: MSKenv_t
@@ -138,7 +139,7 @@ func (env *Env) Checkversion(
 	)
 }
 
-// Dot is wrapping MSK_dot,
+// Dot is wrapping [MSK_dot],
 // performs a dot product of two vectors
 //
 // [MSK_dot] has following parameters
@@ -163,10 +164,11 @@ func (env *Env) Dot(
 			(*C.MSKrealt)(&xty),
 		),
 	)
+
 	return
 }
 
-// Echointro is wrapping MSK_echointro
+// Echointro is wrapping [MSK_echointro]
 //
 // [MSK_echointro] has following parameters
 //   - env: MSKenv_t
@@ -184,7 +186,7 @@ func (env *Env) Echointro(
 	)
 }
 
-// Expirylicenses is wrapping MSK_expirylicenses
+// Expirylicenses is wrapping [MSK_expirylicenses]
 //
 // [MSK_expirylicenses] has following parameters
 //   - env: MSKenv_t
@@ -202,7 +204,7 @@ func (env *Env) Expirylicenses(
 	)
 }
 
-// Gemm is wrapping MSK_gemm,
+// Gemm is wrapping [MSK_gemm],
 // performs a general matrix multiplication
 // C = alpha * A * B + beta * C
 //
@@ -249,7 +251,7 @@ func (env *Env) Gemm(
 	)
 }
 
-// Gemv is wrapping MSK_gemv,
+// Gemv is wrapping [MSK_gemv],
 // calculates y = aAx + by, where A is matrix, x,y is vector, and a b are scalars.
 //
 // [MSK_gemv] has following parameters
@@ -289,7 +291,7 @@ func (env *Env) Gemv(
 	)
 }
 
-// GetSymbcondim is wrapping MSK_getsymbcondim
+// GetSymbcondim is wrapping [MSK_getsymbcondim]
 //
 // [MSK_getsymbcondim] has following parameters
 //   - env: MSKenv_t
@@ -310,7 +312,7 @@ func (env *Env) GetSymbcondim(
 	)
 }
 
-// Iparvaltosymnam is wrapping MSK_iparvaltosymnam
+// Iparvaltosymnam is wrapping [MSK_iparvaltosymnam]
 //
 // [MSK_iparvaltosymnam] has following parameters
 //   - env: MSKenv_t
@@ -334,7 +336,7 @@ func (env *Env) Iparvaltosymnam(
 	)
 }
 
-// Linkfiletoenvstream is wrapping MSK_linkfiletoenvstream
+// LinkFiletoenvstream is wrapping [MSK_linkfiletoenvstream]
 //
 // [MSK_linkfiletoenvstream] has following parameters
 //   - env: MSKenv_t
@@ -343,22 +345,25 @@ func (env *Env) Iparvaltosymnam(
 //   - append: MSKint32t
 //
 // [MSK_linkfiletoenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Linkfiletoenvstream(
+func (env *Env) LinkFiletoenvstream(
 	whichstream StreamType,
-	filename *byte,
+	filename string,
 	append int32,
 ) res.Code {
+	c_filename := C.CString(filename)
+	defer C.free(unsafe.Pointer(c_filename))
+
 	return res.Code(
 		C.MSK_linkfiletoenvstream(
 			env.getEnv(),
 			C.MSKstreamtypee(whichstream),
-			(*C.char)(unsafe.Pointer(filename)),
+			c_filename,
 			C.MSKint32t(append),
 		),
 	)
 }
 
-// Potrf is wrapping MSK_potrf,
+// Potrf is wrapping [MSK_potrf],
 // performs Cholesky decomposition of symmetric square matrix a
 //
 // [MSK_potrf] has following parameters
@@ -383,7 +388,7 @@ func (env *Env) Potrf(
 	)
 }
 
-// PutLicensecode is wrapping MSK_putlicensecode
+// PutLicensecode is wrapping [MSK_putlicensecode]
 //
 // [MSK_putlicensecode] has following parameters
 //   - env: MSKenv_t
@@ -401,7 +406,7 @@ func (env *Env) PutLicensecode(
 	)
 }
 
-// PutLicensedebug is wrapping MSK_putlicensedebug
+// PutLicensedebug is wrapping [MSK_putlicensedebug]
 //
 // [MSK_putlicensedebug] has following parameters
 //   - env: MSKenv_t
@@ -419,7 +424,7 @@ func (env *Env) PutLicensedebug(
 	)
 }
 
-// PutLicensepath is wrapping MSK_putlicensepath
+// PutLicensepath is wrapping [MSK_putlicensepath]
 //
 // [MSK_putlicensepath] has following parameters
 //   - env: MSKenv_t
@@ -427,17 +432,20 @@ func (env *Env) PutLicensedebug(
 //
 // [MSK_putlicensepath]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (env *Env) PutLicensepath(
-	licensepath *byte,
+	licensepath string,
 ) res.Code {
+	c_licensepath := C.CString(licensepath)
+	defer C.free(unsafe.Pointer(c_licensepath))
+
 	return res.Code(
 		C.MSK_putlicensepath(
 			env.getEnv(),
-			(*C.char)(unsafe.Pointer(licensepath)),
+			c_licensepath,
 		),
 	)
 }
 
-// PutLicensewait is wrapping MSK_putlicensewait
+// PutLicensewait is wrapping [MSK_putlicensewait]
 //
 // [MSK_putlicensewait] has following parameters
 //   - env: MSKenv_t
@@ -455,7 +463,7 @@ func (env *Env) PutLicensewait(
 	)
 }
 
-// Resetexpirylicenses is wrapping MSK_resetexpirylicenses
+// Resetexpirylicenses is wrapping [MSK_resetexpirylicenses]
 //
 // [MSK_resetexpirylicenses] has following parameters
 //   - env: MSKenv_t
@@ -469,7 +477,7 @@ func (env *Env) Resetexpirylicenses() res.Code {
 	)
 }
 
-// Sparsetriangularsolvedense is wrapping MSK_sparsetriangularsolvedense
+// Sparsetriangularsolvedense is wrapping [MSK_sparsetriangularsolvedense]
 //
 // [MSK_sparsetriangularsolvedense] has following parameters
 //   - env: MSKenv_t
@@ -508,7 +516,7 @@ func (env *Env) Sparsetriangularsolvedense(
 	)
 }
 
-// Syeig is wrapping MSK_syeig,
+// Syeig is wrapping [MSK_syeig],
 // calculates the eigen values of a symmetric matrix.
 //
 // [MSK_syeig] has following parameters
@@ -536,7 +544,7 @@ func (env *Env) Syeig(
 	)
 }
 
-// Syevd is wrapping MSK_syevd,
+// Syevd is wrapping [MSK_syevd],
 // calculates the eigen values and eigen vectors of a symmetric matrix.
 //
 // [MSK_syevd] has following parameters
@@ -564,7 +572,7 @@ func (env *Env) Syevd(
 	)
 }
 
-// Syrk is wrapping MSK_syrk,
+// Syrk is wrapping [MSK_syrk],
 // performs rank k update of matrix C, C = aAA^T + bC where A/C is matrix and a, b are scalars.
 //
 // [MSK_syrk] has following parameters
@@ -604,7 +612,7 @@ func (env *Env) Syrk(
 	)
 }
 
-// Unlinkfuncfromenvstream is wrapping MSK_unlinkfuncfromenvstream
+// Unlinkfuncfromenvstream is wrapping [MSK_unlinkfuncfromenvstream]
 //
 // [MSK_unlinkfuncfromenvstream] has following parameters
 //   - env: MSKenv_t

@@ -33,6 +33,10 @@
 //
 // The input to val can be `&val[0]`.
 //
+// Wrappers for routines accepting C string (or "const char *" type)
+// instead accept go's string. However, this will create a new C.CString
+// (destroy it once it is copied over by mosek).
+//
 // Note that there is always overhead of calling c functions from go.
 //
 // [MOSEK ApS]: https://www.mosek.com
@@ -616,52 +620,6 @@ func (task *Task) AppendSparseSymmat(dim int32, nz int64, subi, subj *int32, val
 	return
 }
 
-// PutVarName wraps MSK_putvarname and sets a name for variable at j.
-// Allocate a new C array and copy the data over, then free it - this is a costly function.
-func (task *Task) PutVarName(j int32, name string) res.Code {
-	cstr := C.CString(name)
-	defer C.free(unsafe.Pointer(cstr))
-	return res.Code(C.MSK_putvarname(task.task, mi32(j), cstr))
-}
-
-// PutConName wraps MSK_putconname and sets a name for a constraint at indext i.
-func (task *Task) PutConName(i int32, name string) res.Code {
-	cstr := C.CString(name)
-	defer C.free(unsafe.Pointer(cstr))
-	return res.Code(C.MSK_putconname(task.task, mi32(i), cstr))
-}
-
-// PutAccName wraps MSK_putaccname and sets a name for an affine conic constraint.
-func (task *Task) PutAccName(accidx int64, name string) res.Code {
-	cstr := C.CString(name)
-	defer C.free(unsafe.Pointer(cstr))
-	return res.Code(C.MSK_putaccname(task.task, mi64(accidx), cstr))
-}
-
-// OptimizeTerm wraps MSK_optimizeterm, which optimizes the problem.
-func (task *Task) OptimizeTerm() (r res.Code, trmcode res.Code) {
-	r = res.Code(C.MSK_optimizetrm(task.task, (*C.MSKrescodee)(&trmcode)))
-	return
-}
-
-// GetNumVar wraps MSK_getnumvar, which obtains the number of variables in task.
-func (task *Task) GetNumVar() (r res.Code, numvar int32) {
-	r = res.Code(C.MSK_getnumvar(task.task, pi32(&numvar)))
-	return
-}
-
-// GetNumCon wraps MSK_getnumcon and gets the number of constraints in the task.
-func (task *Task) GetNumCon() (r res.Code, numcon int32) {
-	r = res.Code(C.MSK_getnumcon(task.task, pi32(&numcon)))
-	return
-}
-
-// GetNumAfe wraps MSK_getnumafe and gets the number of afe in the task.
-func (task *Task) GetNumAfe() (r res.Code, numafe int64) {
-	r = res.Code(C.MSK_getnumafe(task.task, pi64(&numafe)))
-	return
-}
-
 // GetSolSta wraps MSK_getsolsta, which returns the solution status
 func (task *Task) GetSolSta(whichsol SolType) (r res.Code, solSta SolSta) {
 	r = res.Code(C.MSK_getsolsta(task.task, C.MSKsoltypee(whichsol), (*C.MSKsolstae)(&solSta)))
@@ -868,14 +826,6 @@ func (task *Task) SolutionSummary(whichstream StreamType) res.Code {
 	return res.Code(C.MSK_solutionsummary(task.task, C.MSKstreamtypee(whichstream)))
 }
 
-// WriteData wraps MSK_writedata and write data to a file.
-func (task *Task) WriteData(filename string) res.Code {
-	filenameC := C.CString(filename)
-	defer C.free(unsafe.Pointer(filenameC))
-
-	return res.Code(C.MSK_writedata(task.task, filenameC))
-}
-
 // ReadData wraps MSK_readdata and read data from a file
 func (task *Task) ReadData(filename string) res.Code {
 	filenameC := C.CString(filename)
@@ -923,37 +873,4 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
 			C.MSKdataformate(format),
 			C.MSKcompresstypee(compress)))
-}
-
-// InputData wraps MSK_inputdata and sets the data for
-// objective, linear constraints, and variables.
-func (task *Task) InputData(
-	maxnumcon, maxnumvar int32,
-	numcon, numvar int32,
-	c *float64, cfix float64,
-	aptrb, aptre, asub *int32, aval *float64,
-	bkc *BoundKey, blc, buc *float64,
-	bkx *BoundKey, blx, bux *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_inputdata(
-			task.task,
-			mi32(maxnumcon),
-			mi32(maxnumvar),
-			mi32(numcon),
-			mi32(numvar),
-			prl(c),
-			mrl(cfix),
-			pi32(aptrb),
-			pi32(aptre),
-			pi32(asub),
-			prl(aval),
-			pbk(bkc),
-			prl(blc),
-			prl(buc),
-			pbk(bkx),
-			prl(blx),
-			prl(bux),
-		),
-	)
 }

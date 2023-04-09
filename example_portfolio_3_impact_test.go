@@ -177,7 +177,7 @@ func Example_portfolio_3_impact() {
 	/* Dump the problem to a human readable PTF file. */
 	checkOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE))
 
-	res, _ = task.OptimizeTerm()
+	res, _ = task.OptimizeTrm()
 
 	/* Display the solution summary for quick inspection of results. */
 	checkOk(task.SolutionSummary(gmsk.STREAM_LOG))

@@ -97,7 +97,7 @@ func Example_conicExponentialOptimization1_ceo1() {
 	checkOk(task.AppendAccSeq(domidx, numafe, 0, nil))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/

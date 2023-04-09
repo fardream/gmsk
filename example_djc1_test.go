@@ -126,7 +126,7 @@ func Example_disjunctiveConstraint_djc1() {
 	}
 
 	// Solve the problem
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 
 	/* Print a summary containing information

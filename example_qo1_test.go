@@ -139,7 +139,7 @@ func Example_quadraticOptimization_qo1() {
 	checkOk(task.PutQObj(NUMQNZ, &qsubi[0], &qsubj[0], &qval[0]))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
