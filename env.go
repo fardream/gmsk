@@ -13,7 +13,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// Axpy is wrapping [MSK_axpy],
+// Axpy is wrapping [MSK_axpy] and
 // performs y = a*x + y where x/y are vectors.
 //
 // [MSK_axpy] has following parameters
@@ -41,13 +41,13 @@ func (env *Env) Axpy(
 	)
 }
 
-// Checkinall is wrapping [MSK_checkinall]
+// CheckInAll is wrapping [MSK_checkinall]
 //
 // [MSK_checkinall] has following parameters
 //   - env: MSKenv_t
 //
 // [MSK_checkinall]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Checkinall() res.Code {
+func (env *Env) CheckInAll() res.Code {
 	return res.Code(
 		C.MSK_checkinall(
 			env.getEnv(),
@@ -55,14 +55,14 @@ func (env *Env) Checkinall() res.Code {
 	)
 }
 
-// Checkinlicense is wrapping [MSK_checkinlicense]
+// CheckInLicense is wrapping [MSK_checkinlicense]
 //
 // [MSK_checkinlicense] has following parameters
 //   - env: MSKenv_t
 //   - feature: MSKfeaturee
 //
 // [MSK_checkinlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Checkinlicense(
+func (env *Env) CheckInLicense(
 	feature Feature,
 ) res.Code {
 	return res.Code(
@@ -73,7 +73,7 @@ func (env *Env) Checkinlicense(
 	)
 }
 
-// Checkmemenv is wrapping [MSK_checkmemenv]
+// CheckMemenv is wrapping [MSK_checkmemenv]
 //
 // [MSK_checkmemenv] has following parameters
 //   - env: MSKenv_t
@@ -81,7 +81,7 @@ func (env *Env) Checkinlicense(
 //   - line: MSKint32t
 //
 // [MSK_checkmemenv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Checkmemenv(
+func (env *Env) CheckMemenv(
 	file string,
 	line int32,
 ) res.Code {
@@ -97,14 +97,14 @@ func (env *Env) Checkmemenv(
 	)
 }
 
-// Checkoutlicense is wrapping [MSK_checkoutlicense]
+// CheckOutlicense is wrapping [MSK_checkoutlicense]
 //
 // [MSK_checkoutlicense] has following parameters
 //   - env: MSKenv_t
 //   - feature: MSKfeaturee
 //
 // [MSK_checkoutlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Checkoutlicense(
+func (env *Env) CheckOutlicense(
 	feature Feature,
 ) res.Code {
 	return res.Code(
@@ -115,7 +115,7 @@ func (env *Env) Checkoutlicense(
 	)
 }
 
-// Checkversion is wrapping [MSK_checkversion]
+// CheckVersion is wrapping [MSK_checkversion]
 //
 // [MSK_checkversion] has following parameters
 //   - env: MSKenv_t
@@ -124,7 +124,7 @@ func (env *Env) Checkoutlicense(
 //   - revision: MSKint32t
 //
 // [MSK_checkversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Checkversion(
+func (env *Env) CheckVersion(
 	major int32,
 	minor int32,
 	revision int32,
@@ -139,7 +139,7 @@ func (env *Env) Checkversion(
 	)
 }
 
-// Dot is wrapping [MSK_dot],
+// Dot is wrapping [MSK_dot] and
 // performs a dot product of two vectors
 //
 // [MSK_dot] has following parameters
@@ -204,7 +204,7 @@ func (env *Env) Expirylicenses(
 	)
 }
 
-// Gemm is wrapping [MSK_gemm],
+// Gemm is wrapping [MSK_gemm] and
 // performs a general matrix multiplication
 // C = alpha * A * B + beta * C
 //
@@ -251,7 +251,7 @@ func (env *Env) Gemm(
 	)
 }
 
-// Gemv is wrapping [MSK_gemv],
+// Gemv is wrapping [MSK_gemv] and
 // calculates y = aAx + by, where A is matrix, x,y is vector, and a b are scalars.
 //
 // [MSK_gemv] has following parameters
@@ -363,7 +363,7 @@ func (env *Env) LinkFiletoenvstream(
 	)
 }
 
-// Potrf is wrapping [MSK_potrf],
+// Potrf is wrapping [MSK_potrf] and
 // performs Cholesky decomposition of symmetric square matrix a
 //
 // [MSK_potrf] has following parameters
@@ -477,7 +477,7 @@ func (env *Env) Resetexpirylicenses() res.Code {
 	)
 }
 
-// Sparsetriangularsolvedense is wrapping [MSK_sparsetriangularsolvedense]
+// SparseTriangularsolvedense is wrapping [MSK_sparsetriangularsolvedense]
 //
 // [MSK_sparsetriangularsolvedense] has following parameters
 //   - env: MSKenv_t
@@ -491,7 +491,7 @@ func (env *Env) Resetexpirylicenses() res.Code {
 //   - b: MSKrealt *
 //
 // [MSK_sparsetriangularsolvedense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Sparsetriangularsolvedense(
+func (env *Env) SparseTriangularsolvedense(
 	transposed Transpose,
 	n int32,
 	lnzc *int32,
@@ -516,7 +516,7 @@ func (env *Env) Sparsetriangularsolvedense(
 	)
 }
 
-// Syeig is wrapping [MSK_syeig],
+// Syeig is wrapping [MSK_syeig] and
 // calculates the eigen values of a symmetric matrix.
 //
 // [MSK_syeig] has following parameters
@@ -544,7 +544,7 @@ func (env *Env) Syeig(
 	)
 }
 
-// Syevd is wrapping [MSK_syevd],
+// Syevd is wrapping [MSK_syevd] and
 // calculates the eigen values and eigen vectors of a symmetric matrix.
 //
 // [MSK_syevd] has following parameters
@@ -572,7 +572,7 @@ func (env *Env) Syevd(
 	)
 }
 
-// Syrk is wrapping [MSK_syrk],
+// Syrk is wrapping [MSK_syrk] and
 // performs rank k update of matrix C, C = aAA^T + bC where A/C is matrix and a, b are scalars.
 //
 // [MSK_syrk] has following parameters
@@ -612,14 +612,14 @@ func (env *Env) Syrk(
 	)
 }
 
-// Unlinkfuncfromenvstream is wrapping [MSK_unlinkfuncfromenvstream]
+// UnlinkFuncfromenvstream is wrapping [MSK_unlinkfuncfromenvstream]
 //
 // [MSK_unlinkfuncfromenvstream] has following parameters
 //   - env: MSKenv_t
 //   - whichstream: MSKstreamtypee
 //
 // [MSK_unlinkfuncfromenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (env *Env) Unlinkfuncfromenvstream(
+func (env *Env) UnlinkFuncfromenvstream(
 	whichstream StreamType,
 ) res.Code {
 	return res.Code(

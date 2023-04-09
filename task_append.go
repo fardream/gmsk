@@ -11,7 +11,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// AppendAcc is wrapping [MSK_appendacc],
+// AppendAcc is wrapping [MSK_appendacc] and
 // adds an affine conic constraint to the task, where the afe idx is provided
 // by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq]
 // to avoid allocating an array.
@@ -41,7 +41,7 @@ func (task *Task) AppendAcc(
 	)
 }
 
-// AppendAccs is wrapping [MSK_appendaccs],
+// AppendAccs is wrapping [MSK_appendaccs] and
 // adds a list of affine conic constraints to the task.
 //
 // [MSK_appendaccs] has following parameters
@@ -72,7 +72,7 @@ func (task *Task) AppendAccs(
 	)
 }
 
-// AppendAccSeq is wrapping [MSK_appendaccseq],
+// AppendAccSeq is wrapping [MSK_appendaccseq] and
 // adds an affine conic constraint to the task where the affine idx is sequential.
 //
 // [MSK_appendaccseq] has following parameters
@@ -100,7 +100,7 @@ func (task *Task) AppendAccSeq(
 	)
 }
 
-// AppendAccsSeq is wrapping [MSK_appendaccsseq],
+// AppendAccsSeq is wrapping [MSK_appendaccsseq] and
 // append a block of accs to the tas - assuming affine expressions are sequential.
 //
 // [MSK_appendaccsseq] has following parameters
@@ -131,7 +131,7 @@ func (task *Task) AppendAccsSeq(
 	)
 }
 
-// AppendAfes is wrapping [MSK_appendafes],
+// AppendAfes is wrapping [MSK_appendafes] and
 // adds affine expressions to the task.
 //
 // [MSK_appendafes] has following parameters
@@ -150,7 +150,12 @@ func (task *Task) AppendAfes(
 	)
 }
 
-// AppendBarvars is wrapping [MSK_appendbarvars]
+// AppendBarvars is wrapping [MSK_appendbarvars] and
+// adds semidefinite matrix variables to the task.
+// Barvar because MOSEK uses bar{x} notation to indicate an element
+// of a semidefinite matrix.
+// The dimension of each of the semidefinite variables are provided
+// through the pointer dim.
 //
 // [MSK_appendbarvars] has following parameters
 //   - task: MSKtask_t
@@ -255,7 +260,7 @@ func (task *Task) AppendConesSeq(
 	)
 }
 
-// AppendCons is wrapping [MSK_appendcons],
+// AppendCons is wrapping [MSK_appendcons] and
 // add vanilla linear constraints to the task.
 //
 // [MSK_appendcons] has following parameters
@@ -274,7 +279,7 @@ func (task *Task) AppendCons(
 	)
 }
 
-// AppendDjcs is wrapping [MSK_appenddjcs],
+// AppendDjcs is wrapping [MSK_appenddjcs] and
 // adds disjunctive constraints to the task.
 //
 // [MSK_appenddjcs] has following parameters
@@ -293,265 +298,12 @@ func (task *Task) AppendDjcs(
 	)
 }
 
-// AppendDualexpconedomain is wrapping [MSK_appenddualexpconedomain]
-//
-// [MSK_appenddualexpconedomain] has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t *
-//
-// [MSK_appenddualexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendDualexpconedomain(
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appenddualexpconedomain(
-			task.task,
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendDualgeomeanconedomain is wrapping [MSK_appenddualgeomeanconedomain]
-//
-// [MSK_appenddualgeomeanconedomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appenddualgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendDualgeomeanconedomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appenddualgeomeanconedomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendDualpowerconedomain is wrapping [MSK_appenddualpowerconedomain]
-//
-// [MSK_appenddualpowerconedomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - nleft: MSKint64t
-//   - alpha: const MSKrealt *
-//   - domidx: MSKint64t *
-//
-// [MSK_appenddualpowerconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendDualpowerconedomain(
-	n int64,
-	nleft int64,
-	alpha *float64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appenddualpowerconedomain(
-			task.task,
-			C.MSKint64t(n),
-			C.MSKint64t(nleft),
-			(*C.MSKrealt)(alpha),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendPrimalexpconedomain is wrapping [MSK_appendprimalexpconedomain]
-//
-// [MSK_appendprimalexpconedomain] has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendprimalexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendPrimalexpconedomain(
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendprimalexpconedomain(
-			task.task,
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendPrimalgeomeanconedomain is wrapping [MSK_appendprimalgeomeanconedomain]
-//
-// [MSK_appendprimalgeomeanconedomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendprimalgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendPrimalgeomeanconedomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendprimalgeomeanconedomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendPrimalpowerconedomain is wrapping [MSK_appendprimalpowerconedomain]
-//
-// [MSK_appendprimalpowerconedomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - nleft: MSKint64t
-//   - alpha: const MSKrealt *
-//   - domidx: MSKint64t *
-//
-// [MSK_appendprimalpowerconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendPrimalpowerconedomain(
-	n int64,
-	nleft int64,
-	alpha *float64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendprimalpowerconedomain(
-			task.task,
-			C.MSKint64t(n),
-			C.MSKint64t(nleft),
-			(*C.MSKrealt)(alpha),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendQuadraticconedomain is wrapping [MSK_appendquadraticconedomain]
-//
-// [MSK_appendquadraticconedomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendquadraticconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendQuadraticconedomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendquadraticconedomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendRdomain is wrapping [MSK_appendrdomain]
-//
-// [MSK_appendrdomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendrdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendRdomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendrdomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendRminusdomain is wrapping [MSK_appendrminusdomain]
-//
-// [MSK_appendrminusdomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendrminusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendRminusdomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendrminusdomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendRplusdomain is wrapping [MSK_appendrplusdomain]
-//
-// [MSK_appendrplusdomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendrplusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendRplusdomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendrplusdomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendRquadraticconedomain is wrapping [MSK_appendrquadraticconedomain]
-//
-// [MSK_appendrquadraticconedomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendrquadraticconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendRquadraticconedomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendrquadraticconedomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendRzerodomain is wrapping [MSK_appendrzerodomain]
-//
-// [MSK_appendrzerodomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendrzerodomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendRzerodomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendrzerodomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendSparsesymmat is wrapping [MSK_appendsparsesymmat]
+// AppendSparseSymmat is wrapping [MSK_appendsparsesymmat] and
+// adds a sparse and symmetric matrix to the task.
+// matrix is represented in coordinate format, and only lower triangular portion of the matrix should be
+// specified.
+// Those matrices can be used as either coefficent in the objective or constraints. The matrix is identified
+// by the returned idx.
 //
 // [MSK_appendsparsesymmat] has following parameters
 //   - task: MSKtask_t
@@ -563,15 +315,14 @@ func (task *Task) AppendRzerodomain(
 //   - idx: MSKint64t *
 //
 // [MSK_appendsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendSparsesymmat(
+func (task *Task) AppendSparseSymmat(
 	dim int32,
 	nz int64,
 	subi *int32,
 	subj *int32,
 	valij *float64,
-	idx *int64,
-) res.Code {
-	return res.Code(
+) (r res.Code, idx int64) {
+	r = res.Code(
 		C.MSK_appendsparsesymmat(
 			task.task,
 			C.MSKint32t(dim),
@@ -579,12 +330,14 @@ func (task *Task) AppendSparsesymmat(
 			(*C.MSKint32t)(subi),
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(valij),
-			(*C.MSKint64t)(idx),
+			(*C.MSKint64t)(&idx),
 		),
 	)
+
+	return
 }
 
-// AppendSparsesymmatList is wrapping [MSK_appendsparsesymmatlist]
+// AppendSparseSymmatList is wrapping [MSK_appendsparsesymmatlist]
 //
 // [MSK_appendsparsesymmatlist] has following parameters
 //   - task: MSKtask_t
@@ -597,7 +350,7 @@ func (task *Task) AppendSparsesymmat(
 //   - idx: MSKint64t *
 //
 // [MSK_appendsparsesymmatlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendSparsesymmatList(
+func (task *Task) AppendSparseSymmatList(
 	num int32,
 	dims *int32,
 	nz *int64,
@@ -620,28 +373,7 @@ func (task *Task) AppendSparsesymmatList(
 	)
 }
 
-// AppendSvecpsdconedomain is wrapping [MSK_appendsvecpsdconedomain]
-//
-// [MSK_appendsvecpsdconedomain] has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
-//
-// [MSK_appendsvecpsdconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) AppendSvecpsdconedomain(
-	n int64,
-	domidx *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_appendsvecpsdconedomain(
-			task.task,
-			C.MSKint64t(n),
-			(*C.MSKint64t)(domidx),
-		),
-	)
-}
-
-// AppendVars is wrapping [MSK_appendvars],
+// AppendVars is wrapping [MSK_appendvars] and
 // add variables to the task.
 //
 // [MSK_appendvars] has following parameters

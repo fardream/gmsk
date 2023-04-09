@@ -148,7 +148,7 @@ func (task *Task) PutAccList(
 	)
 }
 
-// PutAccName is wrapping [MSK_putaccname],
+// PutAccName is wrapping [MSK_putaccname] and
 // sets a name for an affine conic constraint.
 //
 // [MSK_putaccname] has following parameters
@@ -173,7 +173,8 @@ func (task *Task) PutAccName(
 	)
 }
 
-// PutAcol is wrapping [MSK_putacol]
+// PutACol is wrapping [MSK_putacol] and
+// puts a column of A matrix.
 //
 // [MSK_putacol] has following parameters
 //   - task: MSKtask_t
@@ -183,7 +184,7 @@ func (task *Task) PutAccName(
 //   - valj: const MSKrealt *
 //
 // [MSK_putacol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAcol(
+func (task *Task) PutACol(
 	j int32,
 	nzj int32,
 	subj *int32,
@@ -200,7 +201,7 @@ func (task *Task) PutAcol(
 	)
 }
 
-// PutAcolList is wrapping [MSK_putacollist]
+// PutAColList is wrapping [MSK_putacollist]
 //
 // [MSK_putacollist] has following parameters
 //   - task: MSKtask_t
@@ -212,7 +213,7 @@ func (task *Task) PutAcol(
 //   - aval: const MSKrealt *
 //
 // [MSK_putacollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAcolList(
+func (task *Task) PutAColList(
 	num int32,
 	sub *int32,
 	ptrb *int32,
@@ -233,7 +234,7 @@ func (task *Task) PutAcolList(
 	)
 }
 
-// PutAcollist64 is wrapping [MSK_putacollist64]
+// PutAColList64 is wrapping [MSK_putacollist64]
 //
 // [MSK_putacollist64] has following parameters
 //   - task: MSKtask_t
@@ -245,7 +246,7 @@ func (task *Task) PutAcolList(
 //   - aval: const MSKrealt *
 //
 // [MSK_putacollist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAcollist64(
+func (task *Task) PutAColList64(
 	num int32,
 	sub *int32,
 	ptrb *int64,
@@ -266,7 +267,7 @@ func (task *Task) PutAcollist64(
 	)
 }
 
-// PutAcolSlice is wrapping [MSK_putacolslice]
+// PutAColSlice is wrapping [MSK_putacolslice]
 //
 // [MSK_putacolslice] has following parameters
 //   - task: MSKtask_t
@@ -278,7 +279,7 @@ func (task *Task) PutAcollist64(
 //   - aval: const MSKrealt *
 //
 // [MSK_putacolslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAcolSlice(
+func (task *Task) PutAColSlice(
 	first int32,
 	last int32,
 	ptrb *int32,
@@ -299,7 +300,7 @@ func (task *Task) PutAcolSlice(
 	)
 }
 
-// PutAcolslice64 is wrapping [MSK_putacolslice64]
+// PutAColSlice64 is wrapping [MSK_putacolslice64]
 //
 // [MSK_putacolslice64] has following parameters
 //   - task: MSKtask_t
@@ -311,7 +312,7 @@ func (task *Task) PutAcolSlice(
 //   - aval: const MSKrealt *
 //
 // [MSK_putacolslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAcolslice64(
+func (task *Task) PutAColSlice64(
 	first int32,
 	last int32,
 	ptrb *int64,
@@ -332,7 +333,10 @@ func (task *Task) PutAcolslice64(
 	)
 }
 
-// PutAfebarfblocktriplet is wrapping [MSK_putafebarfblocktriplet]
+// PutAfeBarFBlockTriplet is wrapping [MSK_putafebarfblocktriplet] and
+// sets a matrix variable to the F matrix of affine expression.
+// the rows of afe idx is provided in afeidx, the matrix variables are indexed by barvaridx, and subk, subl are the indices
+// of the coefficients for those matrix variables, and valkl are the corresponding coefficients.
 //
 // [MSK_putafebarfblocktriplet] has following parameters
 //   - task: MSKtask_t
@@ -344,7 +348,7 @@ func (task *Task) PutAcolslice64(
 //   - valkl: const MSKrealt *
 //
 // [MSK_putafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfebarfblocktriplet(
+func (task *Task) PutAfeBarFBlockTriplet(
 	numtrip int64,
 	afeidx *int64,
 	barvaridx *int32,
@@ -365,7 +369,7 @@ func (task *Task) PutAfebarfblocktriplet(
 	)
 }
 
-// PutAfebarfentry is wrapping [MSK_putafebarfentry]
+// PutAfeBarFEntry is wrapping [MSK_putafebarfentry]
 //
 // [MSK_putafebarfentry] has following parameters
 //   - task: MSKtask_t
@@ -376,7 +380,7 @@ func (task *Task) PutAfebarfblocktriplet(
 //   - termweight: const MSKrealt *
 //
 // [MSK_putafebarfentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfebarfentry(
+func (task *Task) PutAfeBarFEntry(
 	afeidx int64,
 	barvaridx int32,
 	numterm int64,
@@ -395,7 +399,7 @@ func (task *Task) PutAfebarfentry(
 	)
 }
 
-// PutAfebarfentryList is wrapping [MSK_putafebarfentrylist]
+// PutAfeBarFEntryList is wrapping [MSK_putafebarfentrylist]
 //
 // [MSK_putafebarfentrylist] has following parameters
 //   - task: MSKtask_t
@@ -409,7 +413,7 @@ func (task *Task) PutAfebarfentry(
 //   - termweight: const MSKrealt *
 //
 // [MSK_putafebarfentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfebarfentryList(
+func (task *Task) PutAfeBarFEntryList(
 	numafeidx int64,
 	afeidx *int64,
 	barvaridx *int32,
@@ -434,7 +438,7 @@ func (task *Task) PutAfebarfentryList(
 	)
 }
 
-// PutAfebarfrow is wrapping [MSK_putafebarfrow]
+// PutAfeBarFRow is wrapping [MSK_putafebarfrow]
 //
 // [MSK_putafebarfrow] has following parameters
 //   - task: MSKtask_t
@@ -448,7 +452,7 @@ func (task *Task) PutAfebarfentryList(
 //   - termweight: const MSKrealt *
 //
 // [MSK_putafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfebarfrow(
+func (task *Task) PutAfeBarFRow(
 	afeidx int64,
 	numentr int32,
 	barvaridx *int32,
@@ -473,7 +477,8 @@ func (task *Task) PutAfebarfrow(
 	)
 }
 
-// PutAfefcol is wrapping [MSK_putafefcol]
+// PutAfeFCol is wrapping [MSK_putafefcol] and
+// sets a column of affine expression F matrix.
 //
 // [MSK_putafefcol] has following parameters
 //   - task: MSKtask_t
@@ -483,7 +488,7 @@ func (task *Task) PutAfebarfrow(
 //   - val: const MSKrealt *
 //
 // [MSK_putafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfefcol(
+func (task *Task) PutAfeFCol(
 	varidx int32,
 	numnz int64,
 	afeidx *int64,
@@ -500,7 +505,8 @@ func (task *Task) PutAfefcol(
 	)
 }
 
-// PutAfefentry is wrapping [MSK_putafefentry]
+// PutAfeFEntry is wrapping [MSK_putafefentry] and
+// sets an entry in the  affine expression F matrix.
 //
 // [MSK_putafefentry] has following parameters
 //   - task: MSKtask_t
@@ -509,7 +515,7 @@ func (task *Task) PutAfefcol(
 //   - value: MSKrealt
 //
 // [MSK_putafefentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfefentry(
+func (task *Task) PutAfeFEntry(
 	afeidx int64,
 	varidx int32,
 	value float64,
@@ -524,7 +530,8 @@ func (task *Task) PutAfefentry(
 	)
 }
 
-// PutAfefentryList is wrapping [MSK_putafefentrylist]
+// PutAfeFEntryList is wrapping [MSK_putafefentrylist] and
+// sets a portion of the affine expression F matrix.
 //
 // [MSK_putafefentrylist] has following parameters
 //   - task: MSKtask_t
@@ -534,7 +541,7 @@ func (task *Task) PutAfefentry(
 //   - val: const MSKrealt *
 //
 // [MSK_putafefentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfefentryList(
+func (task *Task) PutAfeFEntryList(
 	numentr int64,
 	afeidx *int64,
 	varidx *int32,
@@ -551,7 +558,8 @@ func (task *Task) PutAfefentryList(
 	)
 }
 
-// PutAfefrow is wrapping [MSK_putafefrow]
+// PutAfeFRow is wrapping [MSK_putafefrow] and
+// sets a row of affine expression F matrix.
 //
 // [MSK_putafefrow] has following parameters
 //   - task: MSKtask_t
@@ -561,7 +569,7 @@ func (task *Task) PutAfefentryList(
 //   - val: const MSKrealt *
 //
 // [MSK_putafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfefrow(
+func (task *Task) PutAfeFRow(
 	afeidx int64,
 	numnz int32,
 	varidx *int32,
@@ -578,7 +586,7 @@ func (task *Task) PutAfefrow(
 	)
 }
 
-// PutAfefrowList is wrapping [MSK_putafefrowlist]
+// PutAfeFRowList is wrapping [MSK_putafefrowlist]
 //
 // [MSK_putafefrowlist] has following parameters
 //   - task: MSKtask_t
@@ -591,7 +599,7 @@ func (task *Task) PutAfefrow(
 //   - val: const MSKrealt *
 //
 // [MSK_putafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfefrowList(
+func (task *Task) PutAfeFRowList(
 	numafeidx int64,
 	afeidx *int64,
 	numnzrow *int32,
@@ -614,7 +622,8 @@ func (task *Task) PutAfefrowList(
 	)
 }
 
-// PutAfeg is wrapping [MSK_putafeg]
+// PutAfeG is wrapping [MSK_putafeg] and
+// sets the value at afeidx to g.
 //
 // [MSK_putafeg] has following parameters
 //   - task: MSKtask_t
@@ -622,7 +631,7 @@ func (task *Task) PutAfefrowList(
 //   - g: MSKrealt
 //
 // [MSK_putafeg]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfeg(
+func (task *Task) PutAfeG(
 	afeidx int64,
 	g float64,
 ) res.Code {
@@ -635,7 +644,7 @@ func (task *Task) PutAfeg(
 	)
 }
 
-// PutAfegList is wrapping [MSK_putafeglist]
+// PutAfeGList is wrapping [MSK_putafeglist]
 //
 // [MSK_putafeglist] has following parameters
 //   - task: MSKtask_t
@@ -644,7 +653,7 @@ func (task *Task) PutAfeg(
 //   - g: const MSKrealt *
 //
 // [MSK_putafeglist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfegList(
+func (task *Task) PutAfeGList(
 	numafeidx int64,
 	afeidx *int64,
 	g *float64,
@@ -659,7 +668,8 @@ func (task *Task) PutAfegList(
 	)
 }
 
-// PutAfegSlice is wrapping [MSK_putafegslice]
+// PutAfeGSlice is wrapping [MSK_putafegslice] and
+// sets a slice of values in g.
 //
 // [MSK_putafegslice] has following parameters
 //   - task: MSKtask_t
@@ -668,7 +678,7 @@ func (task *Task) PutAfegList(
 //   - slice: const MSKrealt *
 //
 // [MSK_putafegslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfegSlice(
+func (task *Task) PutAfeGSlice(
 	first int64,
 	last int64,
 	slice *float64,
@@ -683,7 +693,7 @@ func (task *Task) PutAfegSlice(
 	)
 }
 
-// PutAij is wrapping [MSK_putaij],
+// PutAij is wrapping [MSK_putaij] and
 // set the value of the constraints matrix A[i,j]
 //
 // [MSK_putaij] has following parameters
@@ -708,7 +718,7 @@ func (task *Task) PutAij(
 	)
 }
 
-// PutAijList is wrapping [MSK_putaijlist],
+// PutAijList is wrapping [MSK_putaijlist] and
 // sets a list of constraint matrix A by index.
 //
 // [MSK_putaijlist] has following parameters
@@ -736,7 +746,7 @@ func (task *Task) PutAijList(
 	)
 }
 
-// PutAijlist64 is wrapping [MSK_putaijlist64]
+// PutAijList64 is wrapping [MSK_putaijlist64]
 //
 // [MSK_putaijlist64] has following parameters
 //   - task: MSKtask_t
@@ -746,7 +756,7 @@ func (task *Task) PutAijList(
 //   - valij: const MSKrealt *
 //
 // [MSK_putaijlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAijlist64(
+func (task *Task) PutAijList64(
 	num int64,
 	subi *int32,
 	subj *int32,
@@ -763,7 +773,8 @@ func (task *Task) PutAijlist64(
 	)
 }
 
-// PutArow is wrapping [MSK_putarow]
+// PutARow is wrapping [MSK_putarow] and
+// puts a row of A matrix.
 //
 // [MSK_putarow] has following parameters
 //   - task: MSKtask_t
@@ -773,7 +784,7 @@ func (task *Task) PutAijlist64(
 //   - vali: const MSKrealt *
 //
 // [MSK_putarow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutArow(
+func (task *Task) PutARow(
 	i int32,
 	nzi int32,
 	subi *int32,
@@ -790,7 +801,7 @@ func (task *Task) PutArow(
 	)
 }
 
-// PutArowList is wrapping [MSK_putarowlist]
+// PutARowList is wrapping [MSK_putarowlist]
 //
 // [MSK_putarowlist] has following parameters
 //   - task: MSKtask_t
@@ -802,7 +813,7 @@ func (task *Task) PutArow(
 //   - aval: const MSKrealt *
 //
 // [MSK_putarowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutArowList(
+func (task *Task) PutARowList(
 	num int32,
 	sub *int32,
 	ptrb *int32,
@@ -823,7 +834,7 @@ func (task *Task) PutArowList(
 	)
 }
 
-// PutArowlist64 is wrapping [MSK_putarowlist64]
+// PutARowList64 is wrapping [MSK_putarowlist64]
 //
 // [MSK_putarowlist64] has following parameters
 //   - task: MSKtask_t
@@ -835,7 +846,7 @@ func (task *Task) PutArowList(
 //   - aval: const MSKrealt *
 //
 // [MSK_putarowlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutArowlist64(
+func (task *Task) PutARowList64(
 	num int32,
 	sub *int32,
 	ptrb *int64,
@@ -856,7 +867,7 @@ func (task *Task) PutArowlist64(
 	)
 }
 
-// PutArowSlice is wrapping [MSK_putarowslice]
+// PutARowSlice is wrapping [MSK_putarowslice]
 //
 // [MSK_putarowslice] has following parameters
 //   - task: MSKtask_t
@@ -868,7 +879,7 @@ func (task *Task) PutArowlist64(
 //   - aval: const MSKrealt *
 //
 // [MSK_putarowslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutArowSlice(
+func (task *Task) PutARowSlice(
 	first int32,
 	last int32,
 	ptrb *int32,
@@ -889,7 +900,7 @@ func (task *Task) PutArowSlice(
 	)
 }
 
-// PutArowslice64 is wrapping [MSK_putarowslice64]
+// PutARowSlice64 is wrapping [MSK_putarowslice64]
 //
 // [MSK_putarowslice64] has following parameters
 //   - task: MSKtask_t
@@ -901,7 +912,7 @@ func (task *Task) PutArowSlice(
 //   - aval: const MSKrealt *
 //
 // [MSK_putarowslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutArowslice64(
+func (task *Task) PutARowSlice64(
 	first int32,
 	last int32,
 	ptrb *int64,
@@ -940,7 +951,10 @@ func (task *Task) PutAtruncatetol(
 	)
 }
 
-// PutBarablocktriplet is wrapping [MSK_putbarablocktriplet]
+// PutBarABlockTriplet is wrapping [MSK_putbarablocktriplet] and
+// sets constraints for matrix variable.
+// subi is the index of the constraint, subj is the index of the matrix variable,
+// subk and subl are the indices of the coefficients and valijkl are the coefficients value.
 //
 // [MSK_putbarablocktriplet] has following parameters
 //   - task: MSKtask_t
@@ -952,7 +966,7 @@ func (task *Task) PutAtruncatetol(
 //   - valijkl: const MSKrealt *
 //
 // [MSK_putbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBarablocktriplet(
+func (task *Task) PutBarABlockTriplet(
 	num int64,
 	subi *int32,
 	subj *int32,
@@ -973,7 +987,11 @@ func (task *Task) PutBarablocktriplet(
 	)
 }
 
-// PutBaraij is wrapping [MSK_putbaraij]
+// PutBarAij is wrapping [MSK_putbaraij] and
+// a semidefinite matrix to constraint.
+// i is the index of the constraint,and j is the index of the semidefinite matrix variable.
+// num is the number of coefficients matrices, and sub/weights are the coefficient matrices'
+// idx (when they are added by [Task.AppendSparseSymmat]) and weights.
 //
 // [MSK_putbaraij] has following parameters
 //   - task: MSKtask_t
@@ -984,7 +1002,7 @@ func (task *Task) PutBarablocktriplet(
 //   - weights: const MSKrealt *
 //
 // [MSK_putbaraij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBaraij(
+func (task *Task) PutBarAij(
 	i int32,
 	j int32,
 	num int64,
@@ -1003,7 +1021,7 @@ func (task *Task) PutBaraij(
 	)
 }
 
-// PutBaraijList is wrapping [MSK_putbaraijlist]
+// PutBarAijList is wrapping [MSK_putbaraijlist]
 //
 // [MSK_putbaraijlist] has following parameters
 //   - task: MSKtask_t
@@ -1016,7 +1034,7 @@ func (task *Task) PutBaraij(
 //   - weights: const MSKrealt *
 //
 // [MSK_putbaraijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBaraijList(
+func (task *Task) PutBarAijList(
 	num int32,
 	subi *int32,
 	subj *int32,
@@ -1039,7 +1057,7 @@ func (task *Task) PutBaraijList(
 	)
 }
 
-// PutBararowList is wrapping [MSK_putbararowlist]
+// PutBarARowList is wrapping [MSK_putbararowlist]
 //
 // [MSK_putbararowlist] has following parameters
 //   - task: MSKtask_t
@@ -1053,7 +1071,7 @@ func (task *Task) PutBaraijList(
 //   - weights: const MSKrealt *
 //
 // [MSK_putbararowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBararowList(
+func (task *Task) PutBarARowList(
 	num int32,
 	subi *int32,
 	ptrb *int64,
@@ -1078,7 +1096,10 @@ func (task *Task) PutBararowList(
 	)
 }
 
-// PutBarcblocktriplet is wrapping [MSK_putbarcblocktriplet]
+// PutBarCBlockTriplet is wrapping [MSK_putbarcblocktriplet] and
+// sets the coefficients for
+// matrix variable. suj is the index of the matrix variable, subk/subl are row/colmn index
+// of the cofficients, and valjkl is the coefficients value.
 //
 // [MSK_putbarcblocktriplet] has following parameters
 //   - task: MSKtask_t
@@ -1089,7 +1110,7 @@ func (task *Task) PutBararowList(
 //   - valjkl: const MSKrealt *
 //
 // [MSK_putbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBarcblocktriplet(
+func (task *Task) PutBarCBlockTriplet(
 	num int64,
 	subj *int32,
 	subk *int32,
@@ -1108,7 +1129,11 @@ func (task *Task) PutBarcblocktriplet(
 	)
 }
 
-// PutBarcj is wrapping [MSK_putbarcj]
+// PutBarCj is wrapping [MSK_putbarcj] and
+// adds a positive semidefinite matrix to the objective.
+// j is the index of the matrix variable, and num is number of weight matrices. Those
+// weight matrices are identified by sub (the idx when they are added to the task
+// by [Task.AppendSparseSymmat].
 //
 // [MSK_putbarcj] has following parameters
 //   - task: MSKtask_t
@@ -1118,7 +1143,7 @@ func (task *Task) PutBarcblocktriplet(
 //   - weights: const MSKrealt *
 //
 // [MSK_putbarcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBarcj(
+func (task *Task) PutBarCj(
 	j int32,
 	num int64,
 	sub *int64,
@@ -1207,14 +1232,15 @@ func (task *Task) PutBarxj(
 	)
 }
 
-// PutCfix is wrapping [MSK_putcfix]
+// PutCFix is wrapping [MSK_putcfix] and
+// sets the constant term in the objective.
 //
 // [MSK_putcfix] has following parameters
 //   - task: MSKtask_t
 //   - cfix: MSKrealt
 //
 // [MSK_putcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutCfix(
+func (task *Task) PutCFix(
 	cfix float64,
 ) res.Code {
 	return res.Code(
@@ -1225,7 +1251,7 @@ func (task *Task) PutCfix(
 	)
 }
 
-// PutCj is wrapping [MSK_putcj],
+// PutCj is wrapping [MSK_putcj] and
 // set the coefficient in the objective function.
 //
 // [MSK_putcj] has following parameters
@@ -1271,7 +1297,7 @@ func (task *Task) PutCList(
 	)
 }
 
-// PutConbound is wrapping [MSK_putconbound],
+// PutConbound is wrapping [MSK_putconbound] and
 // set the bound for a contraint
 //
 // [MSK_putconbound] has following parameters
@@ -1359,7 +1385,7 @@ func (task *Task) PutConboundListConst(
 	)
 }
 
-// PutConboundSlice is wrapping [MSK_putconboundslice],
+// PutConboundSlice is wrapping [MSK_putconboundslice] and
 // sets a list of constraint bounds.
 //
 // [MSK_putconboundslice] has following parameters
@@ -1390,7 +1416,7 @@ func (task *Task) PutConboundSlice(
 	)
 }
 
-// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst],
+// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst] and
 // sets a slice of constraint bounds to the same constant value.
 //
 // [MSK_putconboundsliceconst] has following parameters
@@ -1475,7 +1501,7 @@ func (task *Task) PutConeName(
 	)
 }
 
-// PutConName is wrapping [MSK_putconname],
+// PutConName is wrapping [MSK_putconname] and
 // sets a name for a constraint at indext i.
 //
 // [MSK_putconname] has following parameters
@@ -1557,7 +1583,7 @@ func (task *Task) PutCSlice(
 	)
 }
 
-// PutDjc is wrapping [MSK_putdjc],
+// PutDjc is wrapping [MSK_putdjc] and
 // sets the disjunctive constraint.
 //
 // [MSK_putdjc] has following parameters
@@ -1690,7 +1716,8 @@ func (task *Task) PutDomainName(
 	)
 }
 
-// PutDouparam is wrapping [MSK_putdouparam]
+// PutDouParam is wrapping [MSK_putdouparam] and
+// sets a float point parameter.
 //
 // [MSK_putdouparam] has following parameters
 //   - task: MSKtask_t
@@ -1698,7 +1725,7 @@ func (task *Task) PutDomainName(
 //   - parvalue: MSKrealt
 //
 // [MSK_putdouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutDouparam(
+func (task *Task) PutDouParam(
 	param DParam,
 	parvalue float64,
 ) res.Code {
@@ -1711,7 +1738,8 @@ func (task *Task) PutDouparam(
 	)
 }
 
-// PutIntparam is wrapping [MSK_putintparam]
+// PutIntParam is wrapping [MSK_putintparam] and
+// sets an integer parameter.
 //
 // [MSK_putintparam] has following parameters
 //   - task: MSKtask_t
@@ -1719,7 +1747,7 @@ func (task *Task) PutDouparam(
 //   - parvalue: MSKint32t
 //
 // [MSK_putintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutIntparam(
+func (task *Task) PutIntParam(
 	param IParam,
 	parvalue int32,
 ) res.Code {
@@ -1858,14 +1886,14 @@ func (task *Task) PutMaxnumdjc(
 	)
 }
 
-// PutMaxnumdomain is wrapping [MSK_putmaxnumdomain]
+// PutMaxnumDomain is wrapping [MSK_putmaxnumdomain]
 //
 // [MSK_putmaxnumdomain] has following parameters
 //   - task: MSKtask_t
 //   - maxnumdomain: MSKint64t
 //
 // [MSK_putmaxnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumdomain(
+func (task *Task) PutMaxnumDomain(
 	maxnumdomain int64,
 ) res.Code {
 	return res.Code(
@@ -2008,7 +2036,7 @@ func (task *Task) PutObjName(
 	)
 }
 
-// PutObjsense is wrapping [MSK_putobjsense],
+// PutObjsense is wrapping [MSK_putobjsense] and
 // set the objective sense - which is either minimize or maximize
 //
 // [MSK_putobjsense] has following parameters
@@ -2105,7 +2133,8 @@ func (task *Task) PutQcon(
 	)
 }
 
-// PutQconk is wrapping [MSK_putqconk]
+// PutQConK is wrapping [MSK_putqconk] and
+// sets the quandratic constraint's coefficients.
 //
 // [MSK_putqconk] has following parameters
 //   - task: MSKtask_t
@@ -2116,7 +2145,7 @@ func (task *Task) PutQcon(
 //   - qcval: const MSKrealt *
 //
 // [MSK_putqconk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutQconk(
+func (task *Task) PutQConK(
 	k int32,
 	numqcnz int32,
 	qcsubi *int32,
@@ -2135,7 +2164,8 @@ func (task *Task) PutQconk(
 	)
 }
 
-// PutQobj is wrapping [MSK_putqobj]
+// PutQObj is wrapping [MSK_putqobj] and
+// sets the cofficient for quadratic objective term.
 //
 // [MSK_putqobj] has following parameters
 //   - task: MSKtask_t
@@ -2145,7 +2175,7 @@ func (task *Task) PutQconk(
 //   - qoval: const MSKrealt *
 //
 // [MSK_putqobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutQobj(
+func (task *Task) PutQObj(
 	numqonz int32,
 	qosubi *int32,
 	qosubj *int32,
@@ -2162,7 +2192,7 @@ func (task *Task) PutQobj(
 	)
 }
 
-// PutQobjij is wrapping [MSK_putqobjij]
+// PutQObjIj is wrapping [MSK_putqobjij]
 //
 // [MSK_putqobjij] has following parameters
 //   - task: MSKtask_t
@@ -2171,7 +2201,7 @@ func (task *Task) PutQobj(
 //   - qoij: MSKrealt
 //
 // [MSK_putqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutQobjij(
+func (task *Task) PutQObjIj(
 	i int32,
 	j int32,
 	qoij float64,
@@ -2696,7 +2726,7 @@ func (task *Task) PutTaskName(
 	)
 }
 
-// PutVarbound is wrapping [MSK_putvarbound],
+// PutVarbound is wrapping [MSK_putvarbound] and
 // set the bound for a variable.
 //
 // [MSK_putvarbound] has following parameters
@@ -2784,7 +2814,7 @@ func (task *Task) PutVarboundListConst(
 	)
 }
 
-// PutVarboundSlice is wrapping [MSK_putvarboundslice],
+// PutVarboundSlice is wrapping [MSK_putvarboundslice] and
 // sets the bound for a slice of variables using 3 vectors.
 //
 // [MSK_putvarboundslice] has following parameters
@@ -2815,7 +2845,7 @@ func (task *Task) PutVarboundSlice(
 	)
 }
 
-// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst],
+// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst] and
 // set the bound for a slice of variables to the same value.
 //
 // [MSK_putvarboundsliceconst] has following parameters
@@ -2846,7 +2876,7 @@ func (task *Task) PutVarboundSliceConst(
 	)
 }
 
-// PutVarName is wrapping [MSK_putvarname],
+// PutVarName is wrapping [MSK_putvarname] and
 // sets a name for variable at j.
 //
 // [MSK_putvarname] has following parameters
@@ -2907,7 +2937,8 @@ func (task *Task) PutVarsolutionj(
 	)
 }
 
-// PutVartype is wrapping [MSK_putvartype]
+// PutVarType is wrapping [MSK_putvartype] and
+// sets the type of the variable.
 //
 // [MSK_putvartype] has following parameters
 //   - task: MSKtask_t
@@ -2915,7 +2946,7 @@ func (task *Task) PutVarsolutionj(
 //   - vartype: MSKvariabletypee
 //
 // [MSK_putvartype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVartype(
+func (task *Task) PutVarType(
 	j int32,
 	vartype VariableType,
 ) res.Code {
@@ -2928,7 +2959,8 @@ func (task *Task) PutVartype(
 	)
 }
 
-// PutVartypeList is wrapping [MSK_putvartypelist]
+// PutVarTypeList is wrapping [MSK_putvartypelist] and
+// sets the type of a list of variables.
 //
 // [MSK_putvartypelist] has following parameters
 //   - task: MSKtask_t
@@ -2937,7 +2969,7 @@ func (task *Task) PutVartype(
 //   - vartype: const MSKvariabletypee *
 //
 // [MSK_putvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVartypeList(
+func (task *Task) PutVarTypeList(
 	num int32,
 	subj *int32,
 	vartype *VariableType,
@@ -3021,7 +3053,7 @@ func (task *Task) PutXx(
 	)
 }
 
-// PutXxSlice is wrapping [MSK_putxxslice],
+// PutXxSlice is wrapping [MSK_putxxslice] and
 // sets the initial solution for a slice.
 //
 // [MSK_putxxslice] has following parameters
