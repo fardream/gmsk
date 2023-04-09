@@ -3,19 +3,15 @@
 
 package gmsk
 
+// #include <stdlib.h> // for C.free
 // #include <mosek.h>
 import "C"
 
 import (
-	"unsafe"
-
 	"github.com/fardream/gmsk/res"
 )
 
-// We don't know if unsafe will be used or not, so
-var _ any = unsafe.Pointer(nil)
-
-// AppendAcc is wrapping MSK_appendacc,
+// AppendAcc is wrapping [MSK_appendacc],
 // adds an affine conic constraint to the task, where the afe idx is provided
 // by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq]
 // to avoid allocating an array.
@@ -45,7 +41,7 @@ func (task *Task) AppendAcc(
 	)
 }
 
-// AppendAccs is wrapping MSK_appendaccs,
+// AppendAccs is wrapping [MSK_appendaccs],
 // adds a list of affine conic constraints to the task.
 //
 // [MSK_appendaccs] has following parameters
@@ -76,7 +72,7 @@ func (task *Task) AppendAccs(
 	)
 }
 
-// AppendAccSeq is wrapping MSK_appendaccseq,
+// AppendAccSeq is wrapping [MSK_appendaccseq],
 // adds an affine conic constraint to the task where the affine idx is sequential.
 //
 // [MSK_appendaccseq] has following parameters
@@ -104,7 +100,7 @@ func (task *Task) AppendAccSeq(
 	)
 }
 
-// AppendAccsSeq is wrapping MSK_appendaccsseq,
+// AppendAccsSeq is wrapping [MSK_appendaccsseq],
 // append a block of accs to the tas - assuming affine expressions are sequential.
 //
 // [MSK_appendaccsseq] has following parameters
@@ -135,7 +131,7 @@ func (task *Task) AppendAccsSeq(
 	)
 }
 
-// AppendAfes is wrapping MSK_appendafes,
+// AppendAfes is wrapping [MSK_appendafes],
 // adds affine expressions to the task.
 //
 // [MSK_appendafes] has following parameters
@@ -154,7 +150,7 @@ func (task *Task) AppendAfes(
 	)
 }
 
-// AppendBarvars is wrapping MSK_appendbarvars
+// AppendBarvars is wrapping [MSK_appendbarvars]
 //
 // [MSK_appendbarvars] has following parameters
 //   - task: MSKtask_t
@@ -175,7 +171,7 @@ func (task *Task) AppendBarvars(
 	)
 }
 
-// AppendCone is wrapping MSK_appendcone
+// AppendCone is wrapping [MSK_appendcone]
 //
 // [MSK_appendcone] has following parameters
 //   - task: MSKtask_t
@@ -202,7 +198,7 @@ func (task *Task) AppendCone(
 	)
 }
 
-// AppendConeSeq is wrapping MSK_appendconeseq
+// AppendConeSeq is wrapping [MSK_appendconeseq]
 //
 // [MSK_appendconeseq] has following parameters
 //   - task: MSKtask_t
@@ -229,7 +225,7 @@ func (task *Task) AppendConeSeq(
 	)
 }
 
-// AppendConesSeq is wrapping MSK_appendconesseq
+// AppendConesSeq is wrapping [MSK_appendconesseq]
 //
 // [MSK_appendconesseq] has following parameters
 //   - task: MSKtask_t
@@ -259,7 +255,7 @@ func (task *Task) AppendConesSeq(
 	)
 }
 
-// AppendCons is wrapping MSK_appendcons,
+// AppendCons is wrapping [MSK_appendcons],
 // add vanilla linear constraints to the task.
 //
 // [MSK_appendcons] has following parameters
@@ -278,7 +274,7 @@ func (task *Task) AppendCons(
 	)
 }
 
-// AppendDjcs is wrapping MSK_appenddjcs,
+// AppendDjcs is wrapping [MSK_appenddjcs],
 // adds disjunctive constraints to the task.
 //
 // [MSK_appenddjcs] has following parameters
@@ -297,7 +293,7 @@ func (task *Task) AppendDjcs(
 	)
 }
 
-// AppendDualexpconedomain is wrapping MSK_appenddualexpconedomain
+// AppendDualexpconedomain is wrapping [MSK_appenddualexpconedomain]
 //
 // [MSK_appenddualexpconedomain] has following parameters
 //   - task: MSKtask_t
@@ -315,7 +311,7 @@ func (task *Task) AppendDualexpconedomain(
 	)
 }
 
-// AppendDualgeomeanconedomain is wrapping MSK_appenddualgeomeanconedomain
+// AppendDualgeomeanconedomain is wrapping [MSK_appenddualgeomeanconedomain]
 //
 // [MSK_appenddualgeomeanconedomain] has following parameters
 //   - task: MSKtask_t
@@ -336,7 +332,7 @@ func (task *Task) AppendDualgeomeanconedomain(
 	)
 }
 
-// AppendDualpowerconedomain is wrapping MSK_appenddualpowerconedomain
+// AppendDualpowerconedomain is wrapping [MSK_appenddualpowerconedomain]
 //
 // [MSK_appenddualpowerconedomain] has following parameters
 //   - task: MSKtask_t
@@ -363,7 +359,7 @@ func (task *Task) AppendDualpowerconedomain(
 	)
 }
 
-// AppendPrimalexpconedomain is wrapping MSK_appendprimalexpconedomain
+// AppendPrimalexpconedomain is wrapping [MSK_appendprimalexpconedomain]
 //
 // [MSK_appendprimalexpconedomain] has following parameters
 //   - task: MSKtask_t
@@ -381,7 +377,7 @@ func (task *Task) AppendPrimalexpconedomain(
 	)
 }
 
-// AppendPrimalgeomeanconedomain is wrapping MSK_appendprimalgeomeanconedomain
+// AppendPrimalgeomeanconedomain is wrapping [MSK_appendprimalgeomeanconedomain]
 //
 // [MSK_appendprimalgeomeanconedomain] has following parameters
 //   - task: MSKtask_t
@@ -402,7 +398,7 @@ func (task *Task) AppendPrimalgeomeanconedomain(
 	)
 }
 
-// AppendPrimalpowerconedomain is wrapping MSK_appendprimalpowerconedomain
+// AppendPrimalpowerconedomain is wrapping [MSK_appendprimalpowerconedomain]
 //
 // [MSK_appendprimalpowerconedomain] has following parameters
 //   - task: MSKtask_t
@@ -429,7 +425,7 @@ func (task *Task) AppendPrimalpowerconedomain(
 	)
 }
 
-// AppendQuadraticconedomain is wrapping MSK_appendquadraticconedomain
+// AppendQuadraticconedomain is wrapping [MSK_appendquadraticconedomain]
 //
 // [MSK_appendquadraticconedomain] has following parameters
 //   - task: MSKtask_t
@@ -450,7 +446,7 @@ func (task *Task) AppendQuadraticconedomain(
 	)
 }
 
-// AppendRdomain is wrapping MSK_appendrdomain
+// AppendRdomain is wrapping [MSK_appendrdomain]
 //
 // [MSK_appendrdomain] has following parameters
 //   - task: MSKtask_t
@@ -471,7 +467,7 @@ func (task *Task) AppendRdomain(
 	)
 }
 
-// AppendRminusdomain is wrapping MSK_appendrminusdomain
+// AppendRminusdomain is wrapping [MSK_appendrminusdomain]
 //
 // [MSK_appendrminusdomain] has following parameters
 //   - task: MSKtask_t
@@ -492,7 +488,7 @@ func (task *Task) AppendRminusdomain(
 	)
 }
 
-// AppendRplusdomain is wrapping MSK_appendrplusdomain
+// AppendRplusdomain is wrapping [MSK_appendrplusdomain]
 //
 // [MSK_appendrplusdomain] has following parameters
 //   - task: MSKtask_t
@@ -513,7 +509,7 @@ func (task *Task) AppendRplusdomain(
 	)
 }
 
-// AppendRquadraticconedomain is wrapping MSK_appendrquadraticconedomain
+// AppendRquadraticconedomain is wrapping [MSK_appendrquadraticconedomain]
 //
 // [MSK_appendrquadraticconedomain] has following parameters
 //   - task: MSKtask_t
@@ -534,7 +530,7 @@ func (task *Task) AppendRquadraticconedomain(
 	)
 }
 
-// AppendRzerodomain is wrapping MSK_appendrzerodomain
+// AppendRzerodomain is wrapping [MSK_appendrzerodomain]
 //
 // [MSK_appendrzerodomain] has following parameters
 //   - task: MSKtask_t
@@ -555,7 +551,7 @@ func (task *Task) AppendRzerodomain(
 	)
 }
 
-// AppendSparsesymmat is wrapping MSK_appendsparsesymmat
+// AppendSparsesymmat is wrapping [MSK_appendsparsesymmat]
 //
 // [MSK_appendsparsesymmat] has following parameters
 //   - task: MSKtask_t
@@ -588,7 +584,7 @@ func (task *Task) AppendSparsesymmat(
 	)
 }
 
-// AppendSparsesymmatList is wrapping MSK_appendsparsesymmatlist
+// AppendSparsesymmatList is wrapping [MSK_appendsparsesymmatlist]
 //
 // [MSK_appendsparsesymmatlist] has following parameters
 //   - task: MSKtask_t
@@ -624,7 +620,7 @@ func (task *Task) AppendSparsesymmatList(
 	)
 }
 
-// AppendSvecpsdconedomain is wrapping MSK_appendsvecpsdconedomain
+// AppendSvecpsdconedomain is wrapping [MSK_appendsvecpsdconedomain]
 //
 // [MSK_appendsvecpsdconedomain] has following parameters
 //   - task: MSKtask_t
@@ -645,7 +641,7 @@ func (task *Task) AppendSvecpsdconedomain(
 	)
 }
 
-// AppendVars is wrapping MSK_appendvars,
+// AppendVars is wrapping [MSK_appendvars],
 // add variables to the task.
 //
 // [MSK_appendvars] has following parameters

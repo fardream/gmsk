@@ -116,7 +116,7 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk(task.AppendAcc(svecpsddom, 3, &acc2_afeidx[0], nil))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/

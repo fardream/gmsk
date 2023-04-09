@@ -136,7 +136,7 @@ func Example_portfolio_2_frontier() {
 		/* Sets the objective function coefficient for s. */
 		checkOk(task.PutCj(voff_s+0, -alpha))
 
-		res, _ := task.OptimizeTerm()
+		res, _ := task.OptimizeTrm()
 		checkOk(res)
 
 		res, solsta := task.GetSolSta(gmsk.SOL_ITR)

@@ -81,7 +81,7 @@ func Example_mixedIntegerConicOptimization_mico1() {
 	checkOk(r)
 	checkOk(task.AppendAcc(domQuad, 3, &afeidxQuad[0], nil))
 
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 
 	xx := make([]float64, 2)

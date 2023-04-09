@@ -98,7 +98,7 @@ func Example_semidefiniteOptimization_sdo2() {
 	checkOk(task.PutConboundSlice(0, 2, &bkc[0], &blc[0], &buc[0]))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTerm()
+	r, trmcode := task.OptimizeTrm()
 
 	task.SolutionSummary(gmsk.STREAM_LOG)
 

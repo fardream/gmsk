@@ -200,7 +200,7 @@ func logisticRegression(env *gmsk.Env,
 	MSKCALL(res)
 	MSKCALL(task.AppendAccSeq(quadDom, int64(d)+1, numafe, nil))
 
-	res, _ = task.OptimizeTerm()
+	res, _ = task.OptimizeTrm()
 	MSKCALL(res)
 	MSKCALL(task.SolutionSummary(gmsk.STREAM_LOG))
 

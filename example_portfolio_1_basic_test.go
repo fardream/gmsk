@@ -119,7 +119,7 @@ func Example_portfolio_1_basic() {
 	/* Dump the problem to a human readable PTF file. */
 	checkOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE)) // dump to stderr instead.
 
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 
 	var expret float64

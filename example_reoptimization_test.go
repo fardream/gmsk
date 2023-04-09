@@ -110,7 +110,7 @@ func Example_reoptimization() {
 
 	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 
 	xx = make([]float64, numvar)
@@ -124,7 +124,7 @@ func Example_reoptimization() {
 
 	/******************** Make a change to the A matrix **********/
 	checkOk(task.PutAij(0, 0, 3))
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 
 	r, xx = task.GetXx(
@@ -165,7 +165,7 @@ func Example_reoptimization() {
 	/* Change optimizer to free simplex and reoptimize */
 	checkOk(task.PutIntParam(gmsk.IPAR_OPTIMIZER, gmsk.OPTIMIZER_FREE_SIMPLEX))
 
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 	xx = make([]float64, numvar)
 	r, xx = task.GetXx(
@@ -205,7 +205,7 @@ func Example_reoptimization() {
 				&arowval[0]))
 	}
 
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 
 	r, xx = task.GetXx(
@@ -224,7 +224,7 @@ func Example_reoptimization() {
 		checkOk(task.PutConboundSlice(0, numcon, &newbkc[0], &newblc[0], &newbuc[0]))
 	}
 
-	r, _ = task.OptimizeTerm()
+	r, _ = task.OptimizeTrm()
 	checkOk(r)
 
 	r, xx = task.GetXx(
