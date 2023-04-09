@@ -83,7 +83,7 @@ func Example_semidefiniteOptimization_sdo2() {
 	checkOk(task.AppendCons(numcon))
 
 	/* Append semidefinite variables. */
-	checkOk(task.AppendBarVars(numbarvar, &dimbarvar[0]))
+	checkOk(task.AppendBarvars(numbarvar, &dimbarvar[0]))
 
 	/* Set objective (6 nonzeros).*/
 	checkOk(task.PutBarCBlockTriplet(6, &Cj[0], &Ck[0], &Cl[0], &Cv[0]))

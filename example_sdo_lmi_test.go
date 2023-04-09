@@ -80,7 +80,7 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk(task.AppendVars(NUMVAR))
 
 	/* Append 'NUMBARVAR' semidefinite variables. */
-	checkOk(task.AppendBarVars(NUMBARVAR, &DIMBARVAR[0]))
+	checkOk(task.AppendBarvars(NUMBARVAR, &DIMBARVAR[0]))
 
 	/* Set the constant term in the objective. */
 	checkOk(task.PutCFix(1))
