@@ -13,23 +13,31 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// Callbackcodetostr is wrapping [MSK_callbackcodetostr]
+// CallbackCodeToStr is wrapping [MSK_callbackcodetostr]
 //
 // [MSK_callbackcodetostr] returns MSKrescodee and has following parameters
 //   - code: MSKcallbackcodee
 //   - callbackcodestr: char *
 //
-// [MSK_callbackcodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func Callbackcodetostr(
+// [MSK_callbackcodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.callbackcodetostr
+func CallbackCodeToStr(
 	code CallbackCode,
-	callbackcodestr *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, callbackcodestr string) {
+	c_callbackcodestr := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_callbackcodestr))
+
+	r = res.Code(
 		C.MSK_callbackcodetostr(
 			C.MSKcallbackcodee(code),
-			(*C.char)(unsafe.Pointer(callbackcodestr)),
+			c_callbackcodestr,
 		),
 	)
+
+	if r.IsOk() {
+		callbackcodestr = C.GoString(c_callbackcodestr)
+	}
+
+	return
 }
 
 // GetBuildInfo is wrapping [MSK_getbuildinfo]
@@ -38,7 +46,7 @@ func Callbackcodetostr(
 //   - buildstate: char *
 //   - builddate: char *
 //
-// [MSK_getbuildinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getbuildinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getbuildinfo
 func GetBuildInfo() (r res.Code, buildstate, builddate string) {
 	c_buildstate := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_buildstate))
@@ -69,7 +77,7 @@ func GetBuildInfo() (r res.Code, buildstate, builddate string) {
 //   - symname: char *
 //   - str: char *
 //
-// [MSK_getcodedesc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getcodedesc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getcodedesc
 func GetCodeDesc(
 	code res.Code,
 ) (r res.Code, symname, str string) {
@@ -100,7 +108,7 @@ func GetCodeDesc(
 //   - r: MSKrescodee
 //   - rc: MSKrescodetypee *
 //
-// [MSK_getresponseclass]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getresponseclass]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getresponseclass
 func GetResponseClass(
 	r res.Code,
 ) (rescode res.Code, rc ResCodeType) {
@@ -121,7 +129,7 @@ func GetResponseClass(
 //   - minor: MSKint32t *
 //   - revision: MSKint32t *
 //
-// [MSK_getversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getversion
 func GetVersion() (r res.Code, major, minor, revision int32) {
 	r = res.Code(
 		C.MSK_getversion(
@@ -134,13 +142,13 @@ func GetVersion() (r res.Code, major, minor, revision int32) {
 	return
 }
 
-// Isinfinity is wrapping [MSK_isinfinity]
+// IsInfinity is wrapping [MSK_isinfinity]
 //
 // [MSK_isinfinity] returns MSKbooleant and has following parameters
 //   - value: MSKrealt
 //
-// [MSK_isinfinity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func Isinfinity(
+// [MSK_isinfinity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.isinfinity
+func IsInfinity(
 	value float64,
 ) bool {
 	return intToBool(
@@ -150,12 +158,12 @@ func Isinfinity(
 	)
 }
 
-// Licensecleanup is wrapping [MSK_licensecleanup]
+// LicenseCleanUp is wrapping [MSK_licensecleanup]
 //
 // [MSK_licensecleanup] returns MSKrescodee and has following parameters
 //
-// [MSK_licensecleanup]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func Licensecleanup() res.Code {
+// [MSK_licensecleanup]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.licensecleanup
+func LicenseCleanUp() res.Code {
 	return res.Code(
 		C.MSK_licensecleanup(),
 	)
@@ -167,7 +175,7 @@ func Licensecleanup() res.Code {
 //   - name: const char *
 //   - value: char *
 //
-// [MSK_symnamtovalue]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_symnamtovalue]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.symnamtovalue
 func Symnamtovalue(
 	name string,
 	value *byte,
@@ -192,7 +200,7 @@ func Symnamtovalue(
 //   - output: MSKwchart *
 //   - input: const char *
 //
-// [MSK_utf8towchar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_utf8towchar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.utf8towchar
 func Utf8towchar(
 	outputlen uint64,
 	len *uint64,
@@ -223,7 +231,7 @@ func Utf8towchar(
 //   - output: char *
 //   - input: const MSKwchart *
 //
-// [MSK_wchartoutf8]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_wchartoutf8]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.wchartoutf8
 func Wchartoutf8(
 	outputlen uint64,
 	len *uint64,

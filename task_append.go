@@ -23,7 +23,7 @@ import (
 //   - afeidxlist: const MSKint64t *
 //   - b: const MSKrealt *
 //
-// [MSK_appendacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendacc
 func (task *Task) AppendAcc(
 	domidx int64,
 	numafeidx int64,
@@ -52,7 +52,7 @@ func (task *Task) AppendAcc(
 //   - afeidxlist: const MSKint64t *
 //   - b: const MSKrealt *
 //
-// [MSK_appendaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccs
 func (task *Task) AppendAccs(
 	numaccs int64,
 	domidxs *int64,
@@ -82,7 +82,7 @@ func (task *Task) AppendAccs(
 //   - afeidxfirst: MSKint64t
 //   - b: const MSKrealt *
 //
-// [MSK_appendaccseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendaccseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccseq
 func (task *Task) AppendAccSeq(
 	domidx int64,
 	numafeidx int64,
@@ -111,7 +111,7 @@ func (task *Task) AppendAccSeq(
 //   - afeidxfirst: MSKint64t
 //   - b: const MSKrealt *
 //
-// [MSK_appendaccsseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendaccsseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccsseq
 func (task *Task) AppendAccsSeq(
 	numaccs int64,
 	domidxs *int64,
@@ -138,7 +138,7 @@ func (task *Task) AppendAccsSeq(
 //   - task: MSKtask_t
 //   - num: MSKint64t
 //
-// [MSK_appendafes]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendafes]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendafes
 func (task *Task) AppendAfes(
 	num int64,
 ) res.Code {
@@ -162,7 +162,7 @@ func (task *Task) AppendAfes(
 //   - num: MSKint32t
 //   - dim: const MSKint32t *
 //
-// [MSK_appendbarvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendbarvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendbarvars
 func (task *Task) AppendBarvars(
 	num int32,
 	dim *int32,
@@ -185,7 +185,9 @@ func (task *Task) AppendBarvars(
 //   - nummem: MSKint32t
 //   - submem: const MSKint32t *
 //
-// [MSK_appendcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendcone]/AppendCone is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_appendcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendcone
 func (task *Task) AppendCone(
 	ct ConeType,
 	conepar float64,
@@ -212,7 +214,9 @@ func (task *Task) AppendCone(
 //   - nummem: MSKint32t
 //   - j: MSKint32t
 //
-// [MSK_appendconeseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendconeseq]/AppendConeSeq is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_appendconeseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendconeseq
 func (task *Task) AppendConeSeq(
 	ct ConeType,
 	conepar float64,
@@ -240,7 +244,9 @@ func (task *Task) AppendConeSeq(
 //   - nummem: const MSKint32t *
 //   - j: MSKint32t
 //
-// [MSK_appendconesseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendconesseq]/AppendConesSeq is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_appendconesseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendconesseq
 func (task *Task) AppendConesSeq(
 	num int32,
 	ct *ConeType,
@@ -267,7 +273,7 @@ func (task *Task) AppendConesSeq(
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //
-// [MSK_appendcons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendcons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendcons
 func (task *Task) AppendCons(
 	num int32,
 ) res.Code {
@@ -286,7 +292,7 @@ func (task *Task) AppendCons(
 //   - task: MSKtask_t
 //   - num: MSKint64t
 //
-// [MSK_appenddjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appenddjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddjcs
 func (task *Task) AppendDjcs(
 	num int64,
 ) res.Code {
@@ -314,7 +320,7 @@ func (task *Task) AppendDjcs(
 //   - valij: const MSKrealt *
 //   - idx: MSKint64t *
 //
-// [MSK_appendsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendsparsesymmat
 func (task *Task) AppendSparseSymmat(
 	dim int32,
 	nz int64,
@@ -349,7 +355,7 @@ func (task *Task) AppendSparseSymmat(
 //   - valij: const MSKrealt *
 //   - idx: MSKint64t *
 //
-// [MSK_appendsparsesymmatlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendsparsesymmatlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendsparsesymmatlist
 func (task *Task) AppendSparseSymmatList(
 	num int32,
 	dims *int32,
@@ -380,7 +386,7 @@ func (task *Task) AppendSparseSymmatList(
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //
-// [MSK_appendvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_appendvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendvars
 func (task *Task) AppendVars(
 	num int32,
 ) res.Code {

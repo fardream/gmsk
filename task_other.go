@@ -20,7 +20,7 @@ import (
 //   - whichstream: MSKstreamtypee
 //   - nametype: MSKnametypee
 //
-// [MSK_analyzenames]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_analyzenames]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.analyzenames
 func (task *Task) AnalyzeNames(
 	whichstream StreamType,
 	nametype NameType,
@@ -40,7 +40,7 @@ func (task *Task) AnalyzeNames(
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
-// [MSK_analyzeproblem]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_analyzeproblem]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.analyzeproblem
 func (task *Task) AnalyzeProblem(
 	whichstream StreamType,
 ) res.Code {
@@ -59,7 +59,7 @@ func (task *Task) AnalyzeProblem(
 //   - whichstream: MSKstreamtypee
 //   - whichsol: MSKsoltypee
 //
-// [MSK_analyzesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_analyzesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.analyzesolution
 func (task *Task) AnalyzeSolution(
 	whichstream StreamType,
 	whichsol SolType,
@@ -80,7 +80,7 @@ func (task *Task) AnalyzeSolution(
 //   - nrmbasis: MSKrealt *
 //   - nrminvbasis: MSKrealt *
 //
-// [MSK_basiscond]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_basiscond]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.basiscond
 func (task *Task) Basiscond(
 	nrmbasis *float64,
 	nrminvbasis *float64,
@@ -101,7 +101,7 @@ func (task *Task) Basiscond(
 //   - bk: MSKboundkeye
 //   - str: char *
 //
-// [MSK_bktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_bktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.bktostr
 func (task *Task) Bktostr(
 	bk BoundKey,
 	str *byte,
@@ -122,7 +122,7 @@ func (task *Task) Bktostr(
 //   - file: const char *
 //   - line: MSKint32t
 //
-// [MSK_checkmemtask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_checkmemtask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.checkmemtask
 func (task *Task) CheckMemtask(
 	file string,
 	line int32,
@@ -148,7 +148,7 @@ func (task *Task) CheckMemtask(
 //   - finite: MSKint32t
 //   - value: MSKrealt
 //
-// [MSK_chgconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_chgconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.chgconbound
 func (task *Task) Chgconbound(
 	i int32,
 	lower int32,
@@ -175,7 +175,7 @@ func (task *Task) Chgconbound(
 //   - finite: MSKint32t
 //   - value: MSKrealt
 //
-// [MSK_chgvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_chgvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.chgvarbound
 func (task *Task) Chgvarbound(
 	j int32,
 	lower int32,
@@ -198,7 +198,7 @@ func (task *Task) Chgvarbound(
 // [MSK_commitchanges] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
-// [MSK_commitchanges]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_commitchanges]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.commitchanges
 func (task *Task) Commitchanges() res.Code {
 	return res.Code(
 		C.MSK_commitchanges(
@@ -214,7 +214,9 @@ func (task *Task) Commitchanges() res.Code {
 //   - ct: MSKconetypee
 //   - str: char *
 //
-// [MSK_conetypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_conetypetostr]/Conetypetostr is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_conetypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.conetypetostr
 func (task *Task) Conetypetostr(
 	ct ConeType,
 	str *byte,
@@ -234,7 +236,7 @@ func (task *Task) Conetypetostr(
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //
-// [MSK_deletesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_deletesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.deletesolution
 func (task *Task) Deletesolution(
 	whichsol SolType,
 ) res.Code {
@@ -257,7 +259,7 @@ func (task *Task) Deletesolution(
 //   - leftrangej: MSKrealt *
 //   - rightrangej: MSKrealt *
 //
-// [MSK_dualsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_dualsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.dualsensitivity
 func (task *Task) Dualsensitivity(
 	numj int32,
 	subj *int32,
@@ -285,7 +287,7 @@ func (task *Task) Dualsensitivity(
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //
-// [MSK_emptyafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_emptyafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafebarfrow
 func (task *Task) EmptyAfeBarFRow(
 	afeidx int64,
 ) res.Code {
@@ -304,7 +306,7 @@ func (task *Task) EmptyAfeBarFRow(
 //   - numafeidx: MSKint64t
 //   - afeidxlist: const MSKint64t *
 //
-// [MSK_emptyafebarfrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_emptyafebarfrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafebarfrowlist
 func (task *Task) EmptyAfeBarFRowList(
 	numafeidx int64,
 	afeidxlist *int64,
@@ -324,7 +326,7 @@ func (task *Task) EmptyAfeBarFRowList(
 //   - task: MSKtask_t
 //   - varidx: MSKint32t
 //
-// [MSK_emptyafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_emptyafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafefcol
 func (task *Task) EmptyAfeFCol(
 	varidx int32,
 ) res.Code {
@@ -343,7 +345,7 @@ func (task *Task) EmptyAfeFCol(
 //   - numvaridx: MSKint64t
 //   - varidx: const MSKint32t *
 //
-// [MSK_emptyafefcollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_emptyafefcollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafefcollist
 func (task *Task) EmptyAfeFColList(
 	numvaridx int64,
 	varidx *int32,
@@ -363,7 +365,7 @@ func (task *Task) EmptyAfeFColList(
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //
-// [MSK_emptyafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_emptyafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafefrow
 func (task *Task) EmptyAfeFRow(
 	afeidx int64,
 ) res.Code {
@@ -382,7 +384,7 @@ func (task *Task) EmptyAfeFRow(
 //   - numafeidx: MSKint64t
 //   - afeidx: const MSKint64t *
 //
-// [MSK_emptyafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_emptyafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafefrowlist
 func (task *Task) EmptyAfeFRowList(
 	numafeidx int64,
 	afeidx *int64,
@@ -403,7 +405,7 @@ func (task *Task) EmptyAfeFRowList(
 //   - whichsol: MSKsoltypee
 //   - activity: MSKrealt *
 //
-// [MSK_evaluateaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_evaluateaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.evaluateaccs
 func (task *Task) EvaluateAccs(
 	whichsol SolType,
 	activity *float64,
@@ -424,7 +426,7 @@ func (task *Task) EvaluateAccs(
 //   - whichstream: MSKstreamtypee
 //   - whichsol: MSKsoltypee
 //
-// [MSK_infeasibilityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_infeasibilityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.infeasibilityreport
 func (task *Task) Infeasibilityreport(
 	whichstream StreamType,
 	whichsol SolType,
@@ -444,7 +446,7 @@ func (task *Task) Infeasibilityreport(
 //   - task: MSKtask_t
 //   - basis: MSKint32t *
 //
-// [MSK_initbasissolve]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_initbasissolve]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.initbasissolve
 func (task *Task) Initbasissolve(
 	basis *int32,
 ) res.Code {
@@ -478,7 +480,7 @@ func (task *Task) Initbasissolve(
 //   - blx: const MSKrealt *
 //   - bux: const MSKrealt *
 //
-// [MSK_inputdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_inputdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.inputdata
 func (task *Task) InputData(
 	maxnumcon int32,
 	maxnumvar int32,
@@ -542,7 +544,7 @@ func (task *Task) InputData(
 //   - blx: const MSKrealt *
 //   - bux: const MSKrealt *
 //
-// [MSK_inputdata64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_inputdata64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.inputdata64
 func (task *Task) InputData64(
 	maxnumcon int32,
 	maxnumvar int32,
@@ -584,78 +586,6 @@ func (task *Task) InputData64(
 	)
 }
 
-// IsdouparName is wrapping [MSK_isdouparname]
-//
-// [MSK_isdouparname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - parname: const char *
-//   - param: MSKdparame *
-//
-// [MSK_isdouparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) IsdouparName(
-	parname string,
-	param *DParam,
-) res.Code {
-	c_parname := C.CString(parname)
-	defer C.free(unsafe.Pointer(c_parname))
-
-	return res.Code(
-		C.MSK_isdouparname(
-			task.task,
-			c_parname,
-			(*C.MSKdparame)(param),
-		),
-	)
-}
-
-// IsintparName is wrapping [MSK_isintparname]
-//
-// [MSK_isintparname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - parname: const char *
-//   - param: MSKiparame *
-//
-// [MSK_isintparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) IsintparName(
-	parname string,
-	param *IParam,
-) res.Code {
-	c_parname := C.CString(parname)
-	defer C.free(unsafe.Pointer(c_parname))
-
-	return res.Code(
-		C.MSK_isintparname(
-			task.task,
-			c_parname,
-			(*C.MSKiparame)(param),
-		),
-	)
-}
-
-// IsstrparName is wrapping [MSK_isstrparname]
-//
-// [MSK_isstrparname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - parname: const char *
-//   - param: MSKsparame *
-//
-// [MSK_isstrparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) IsstrparName(
-	parname string,
-	param *SParam,
-) res.Code {
-	c_parname := C.CString(parname)
-	defer C.free(unsafe.Pointer(c_parname))
-
-	return res.Code(
-		C.MSK_isstrparname(
-			task.task,
-			c_parname,
-			(*C.MSKsparame)(param),
-		),
-	)
-}
-
 // LinkFiletotaskstream is wrapping [MSK_linkfiletotaskstream]
 //
 // [MSK_linkfiletotaskstream] returns MSKrescodee and has following parameters
@@ -664,7 +594,7 @@ func (task *Task) IsstrparName(
 //   - filename: const char *
 //   - append: MSKint32t
 //
-// [MSK_linkfiletotaskstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_linkfiletotaskstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.linkfiletotaskstream
 func (task *Task) LinkFiletotaskstream(
 	whichstream StreamType,
 	filename string,
@@ -690,7 +620,7 @@ func (task *Task) LinkFiletotaskstream(
 //   - whichstream: MSKstreamtypee
 //   - whichsol: MSKsoltypee
 //
-// [MSK_onesolutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_onesolutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.onesolutionsummary
 func (task *Task) OnesolutionSummary(
 	whichstream StreamType,
 	whichsol SolType,
@@ -709,7 +639,7 @@ func (task *Task) OnesolutionSummary(
 // [MSK_optimize] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
-// [MSK_optimize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_optimize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimize
 func (task *Task) Optimize() res.Code {
 	return res.Code(
 		C.MSK_optimize(
@@ -726,7 +656,7 @@ func (task *Task) Optimize() res.Code {
 //   - accesstoken: const char *
 //   - trmcode: MSKrescodee *
 //
-// [MSK_optimizermt]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_optimizermt]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizermt
 func (task *Task) Optimizermt(
 	address string,
 	accesstoken string,
@@ -754,7 +684,7 @@ func (task *Task) Optimizermt(
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
-// [MSK_optimizersummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_optimizersummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizersummary
 func (task *Task) OptimizerSummary(
 	whichstream StreamType,
 ) res.Code {
@@ -773,7 +703,7 @@ func (task *Task) OptimizerSummary(
 //   - task: MSKtask_t
 //   - trmcode: MSKrescodee *
 //
-// [MSK_optimizetrm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_optimizetrm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizetrm
 func (task *Task) OptimizeTrm() (r, trmcode res.Code) {
 	r = res.Code(
 		C.MSK_optimizetrm(
@@ -794,7 +724,7 @@ func (task *Task) OptimizeTrm() (r, trmcode res.Code) {
 //   - wlx: const MSKrealt *
 //   - wux: const MSKrealt *
 //
-// [MSK_primalrepair]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_primalrepair]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.primalrepair
 func (task *Task) Primalrepair(
 	wlc *float64,
 	wuc *float64,
@@ -831,7 +761,7 @@ func (task *Task) Primalrepair(
 //   - leftrangej: MSKrealt *
 //   - rightrangej: MSKrealt *
 //
-// [MSK_primalsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_primalsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.primalsensitivity
 func (task *Task) Primalsensitivity(
 	numi int32,
 	subi *int32,
@@ -874,7 +804,7 @@ func (task *Task) Primalsensitivity(
 // [MSK_printparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
-// [MSK_printparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_printparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.printparam
 func (task *Task) PrintParam() res.Code {
 	return res.Code(
 		C.MSK_printparam(
@@ -890,7 +820,7 @@ func (task *Task) PrintParam() res.Code {
 //   - probtype: MSKproblemtypee
 //   - str: char *
 //
-// [MSK_probtypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_probtypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.probtypetostr
 func (task *Task) Probtypetostr(
 	probtype ProblemType,
 	str *byte,
@@ -911,7 +841,7 @@ func (task *Task) Probtypetostr(
 //   - problemsta: MSKprostae
 //   - str: char *
 //
-// [MSK_prostatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_prostatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.prostatostr
 func (task *Task) ProStaTostr(
 	problemsta ProSta,
 	str *byte,
@@ -932,7 +862,7 @@ func (task *Task) ProStaTostr(
 //   - filename: const char *
 //   - compress: MSKcompresstypee
 //
-// [MSK_readbsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readbsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readbsolution
 func (task *Task) ReadBsolution(
 	filename string,
 	compress CompressType,
@@ -955,7 +885,7 @@ func (task *Task) ReadBsolution(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_readdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readdata
 func (task *Task) ReadData(
 	filename string,
 ) res.Code {
@@ -976,7 +906,7 @@ func (task *Task) ReadData(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_readdataautoformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readdataautoformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readdataautoformat
 func (task *Task) ReadDataautoformat(
 	filename string,
 ) res.Code {
@@ -999,7 +929,7 @@ func (task *Task) ReadDataautoformat(
 //   - format: MSKdataformate
 //   - compress: MSKcompresstypee
 //
-// [MSK_readdataformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readdataformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readdataformat
 func (task *Task) ReadDataformat(
 	filename string,
 	format DataFormat,
@@ -1024,7 +954,7 @@ func (task *Task) ReadDataformat(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_readjsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readjsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readjsonsol
 func (task *Task) ReadJsonsol(
 	filename string,
 ) res.Code {
@@ -1045,7 +975,7 @@ func (task *Task) ReadJsonsol(
 //   - task: MSKtask_t
 //   - data: const char *
 //
-// [MSK_readjsonstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readjsonstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readjsonstring
 func (task *Task) ReadJsonstring(
 	data string,
 ) res.Code {
@@ -1066,7 +996,7 @@ func (task *Task) ReadJsonstring(
 //   - task: MSKtask_t
 //   - data: const char *
 //
-// [MSK_readlpstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readlpstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readlpstring
 func (task *Task) ReadLpstring(
 	data string,
 ) res.Code {
@@ -1087,7 +1017,7 @@ func (task *Task) ReadLpstring(
 //   - task: MSKtask_t
 //   - data: const char *
 //
-// [MSK_readopfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readopfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readopfstring
 func (task *Task) ReadOpfstring(
 	data string,
 ) res.Code {
@@ -1108,7 +1038,7 @@ func (task *Task) ReadOpfstring(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_readparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readparamfile
 func (task *Task) ReadParamFile(
 	filename string,
 ) res.Code {
@@ -1129,7 +1059,7 @@ func (task *Task) ReadParamFile(
 //   - task: MSKtask_t
 //   - data: const char *
 //
-// [MSK_readptfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readptfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readptfstring
 func (task *Task) ReadPtfstring(
 	data string,
 ) res.Code {
@@ -1151,7 +1081,7 @@ func (task *Task) ReadPtfstring(
 //   - whichsol: MSKsoltypee
 //   - filename: const char *
 //
-// [MSK_readsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readsolution
 func (task *Task) ReadSolution(
 	whichsol SolType,
 	filename string,
@@ -1174,7 +1104,7 @@ func (task *Task) ReadSolution(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_readsolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readsolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readsolutionfile
 func (task *Task) ReadSolutionFile(
 	filename string,
 ) res.Code {
@@ -1195,7 +1125,7 @@ func (task *Task) ReadSolutionFile(
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
-// [MSK_readsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readsummary
 func (task *Task) ReadSummary(
 	whichstream StreamType,
 ) res.Code {
@@ -1213,7 +1143,7 @@ func (task *Task) ReadSummary(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_readtask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_readtask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readtask
 func (task *Task) ReadTask(
 	filename string,
 ) res.Code {
@@ -1235,7 +1165,7 @@ func (task *Task) ReadTask(
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
 //
-// [MSK_removebarvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_removebarvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.removebarvars
 func (task *Task) RemoveBarvars(
 	num int32,
 	subset *int32,
@@ -1256,7 +1186,9 @@ func (task *Task) RemoveBarvars(
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
 //
-// [MSK_removecones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_removecones]/RemoveCones is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_removecones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.removecones
 func (task *Task) RemoveCones(
 	num int32,
 	subset *int32,
@@ -1277,7 +1209,7 @@ func (task *Task) RemoveCones(
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
 //
-// [MSK_removecons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_removecons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.removecons
 func (task *Task) RemoveCons(
 	num int32,
 	subset *int32,
@@ -1298,7 +1230,7 @@ func (task *Task) RemoveCons(
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
 //
-// [MSK_removevars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_removevars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.removevars
 func (task *Task) RemoveVars(
 	num int32,
 	subset *int32,
@@ -1322,7 +1254,7 @@ func (task *Task) RemoveVars(
 //   - maxnumanz: MSKint64t
 //   - maxnumqnz: MSKint64t
 //
-// [MSK_resizetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_resizetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.resizetask
 func (task *Task) Resizetask(
 	maxnumcon int32,
 	maxnumvar int32,
@@ -1348,7 +1280,7 @@ func (task *Task) Resizetask(
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
-// [MSK_sensitivityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_sensitivityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sensitivityreport
 func (task *Task) Sensitivityreport(
 	whichstream StreamType,
 ) res.Code {
@@ -1365,7 +1297,7 @@ func (task *Task) Sensitivityreport(
 // [MSK_setdefaults] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
-// [MSK_setdefaults]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_setdefaults]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.setdefaults
 func (task *Task) SetDefaults() res.Code {
 	return res.Code(
 		C.MSK_setdefaults(
@@ -1381,7 +1313,7 @@ func (task *Task) SetDefaults() res.Code {
 //   - sk: MSKstakeye
 //   - str: char *
 //
-// [MSK_sktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_sktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sktostr
 func (task *Task) Sktostr(
 	sk StaKey,
 	str *byte,
@@ -1402,7 +1334,7 @@ func (task *Task) Sktostr(
 //   - solutionsta: MSKsolstae
 //   - str: char *
 //
-// [MSK_solstatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_solstatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solstatostr
 func (task *Task) SolStaTostr(
 	solutionsta SolSta,
 	str *byte,
@@ -1424,7 +1356,7 @@ func (task *Task) SolStaTostr(
 //   - whichsol: MSKsoltypee
 //   - isdef: MSKbooleant *
 //
-// [MSK_solutiondef]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_solutiondef]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solutiondef
 func (task *Task) SolutionDef(
 	whichsol SolType,
 ) (r res.Code, isdef bool) {
@@ -1452,7 +1384,7 @@ func (task *Task) SolutionDef(
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
-// [MSK_solutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_solutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solutionsummary
 func (task *Task) SolutionSummary(
 	whichstream StreamType,
 ) res.Code {
@@ -1474,7 +1406,7 @@ func (task *Task) SolutionSummary(
 //   - val: MSKrealt *
 //   - numnzout: MSKint32t *
 //
-// [MSK_solvewithbasis]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_solvewithbasis]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solvewithbasis
 func (task *Task) Solvewithbasis(
 	transp bool,
 	numnz int32,
@@ -1501,7 +1433,9 @@ func (task *Task) Solvewithbasis(
 //   - str: const char *
 //   - conetype: MSKconetypee *
 //
-// [MSK_strtoconetype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_strtoconetype]/Strtoconetype is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_strtoconetype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.strtoconetype
 func (task *Task) Strtoconetype(
 	str string,
 	conetype *ConeType,
@@ -1525,7 +1459,7 @@ func (task *Task) Strtoconetype(
 //   - str: const char *
 //   - sk: MSKstakeye *
 //
-// [MSK_strtosk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_strtosk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.strtosk
 func (task *Task) Strtosk(
 	str string,
 	sk *StaKey,
@@ -1547,7 +1481,9 @@ func (task *Task) Strtosk(
 // [MSK_toconic] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
-// [MSK_toconic]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_toconic]/Toconic is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_toconic]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.toconic
 func (task *Task) Toconic() res.Code {
 	return res.Code(
 		C.MSK_toconic(
@@ -1562,7 +1498,7 @@ func (task *Task) Toconic() res.Code {
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
-// [MSK_unlinkfuncfromtaskstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_unlinkfuncfromtaskstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.unlinkfuncfromtaskstream
 func (task *Task) UnlinkFuncfromtaskstream(
 	whichstream StreamType,
 ) res.Code {
@@ -1574,14 +1510,14 @@ func (task *Task) UnlinkFuncfromtaskstream(
 	)
 }
 
-// Updatesolutioninfo is wrapping [MSK_updatesolutioninfo]
+// UpdatesolutionInfo is wrapping [MSK_updatesolutioninfo]
 //
 // [MSK_updatesolutioninfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //
-// [MSK_updatesolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Updatesolutioninfo(
+// [MSK_updatesolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.updatesolutioninfo
+func (task *Task) UpdatesolutionInfo(
 	whichsol SolType,
 ) res.Code {
 	return res.Code(
@@ -1600,7 +1536,7 @@ func (task *Task) Updatesolutioninfo(
 //   - partype: MSKparametertypee *
 //   - param: MSKint32t *
 //
-// [MSK_whichparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_whichparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.whichparam
 func (task *Task) Whichparam(
 	parname string,
 	partype *ParameterType,
@@ -1626,7 +1562,7 @@ func (task *Task) Whichparam(
 //   - filename: const char *
 //   - compress: MSKcompresstypee
 //
-// [MSK_writebsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_writebsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writebsolution
 func (task *Task) WriteBsolution(
 	filename string,
 	compress CompressType,
@@ -1649,7 +1585,7 @@ func (task *Task) WriteBsolution(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_writedata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_writedata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writedata
 func (task *Task) WriteData(
 	filename string,
 ) res.Code {
@@ -1670,7 +1606,7 @@ func (task *Task) WriteData(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_writejsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_writejsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writejsonsol
 func (task *Task) WriteJsonsol(
 	filename string,
 ) res.Code {
@@ -1691,7 +1627,7 @@ func (task *Task) WriteJsonsol(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_writeparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_writeparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writeparamfile
 func (task *Task) WriteParamFile(
 	filename string,
 ) res.Code {
@@ -1713,7 +1649,7 @@ func (task *Task) WriteParamFile(
 //   - whichsol: MSKsoltypee
 //   - filename: const char *
 //
-// [MSK_writesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_writesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writesolution
 func (task *Task) WriteSolution(
 	whichsol SolType,
 	filename string,
@@ -1736,7 +1672,7 @@ func (task *Task) WriteSolution(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_writesolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_writesolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writesolutionfile
 func (task *Task) WriteSolutionFile(
 	filename string,
 ) res.Code {
@@ -1757,7 +1693,7 @@ func (task *Task) WriteSolutionFile(
 //   - task: MSKtask_t
 //   - filename: const char *
 //
-// [MSK_writetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_writetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writetask
 func (task *Task) WriteTask(
 	filename string,
 ) res.Code {

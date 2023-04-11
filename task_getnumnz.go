@@ -17,7 +17,7 @@ import (
 //   - task: MSKtask_t
 //   - accfnnz: MSKint64t *
 //
-// [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccfnumnz
 func (task *Task) GetAccfNumNz() (r res.Code, accfnnz int64) {
 	r = res.Code(
 		C.MSK_getaccfnumnz(
@@ -36,7 +36,7 @@ func (task *Task) GetAccfNumNz() (r res.Code, accfnnz int64) {
 //   - i: MSKint32t
 //   - nzj: MSKint32t *
 //
-// [MSK_getacolnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getacolnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolnumnz
 func (task *Task) GetAColNumNz(
 	i int32,
 ) (r res.Code, nzj int32) {
@@ -59,7 +59,7 @@ func (task *Task) GetAColNumNz(
 //   - last: MSKint32t
 //   - numnz: MSKint32t *
 //
-// [MSK_getacolslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getacolslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolslicenumnz
 func (task *Task) GetAColSliceNumNz(
 	first int32,
 	last int32,
@@ -84,7 +84,7 @@ func (task *Task) GetAColSliceNumNz(
 //   - last: MSKint32t
 //   - numnz: MSKint64t *
 //
-// [MSK_getacolslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getacolslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolslicenumnz64
 func (task *Task) GetAColSliceNumNz64(
 	first int32,
 	last int32,
@@ -107,7 +107,7 @@ func (task *Task) GetAColSliceNumNz64(
 //   - task: MSKtask_t
 //   - numnz: MSKint64t *
 //
-// [MSK_getafefnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getafefnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefnumnz
 func (task *Task) GetAfeFNumNz() (r res.Code, numnz int64) {
 	r = res.Code(
 		C.MSK_getafefnumnz(
@@ -126,7 +126,7 @@ func (task *Task) GetAfeFNumNz() (r res.Code, numnz int64) {
 //   - afeidx: MSKint64t
 //   - numnz: MSKint32t *
 //
-// [MSK_getafefrownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getafefrownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefrownumnz
 func (task *Task) GetAfeFRowNumNz(
 	afeidx int64,
 ) (r res.Code, numnz int32) {
@@ -151,7 +151,7 @@ func (task *Task) GetAfeFRowNumNz(
 //   - lastj: MSKint32t
 //   - numnz: MSKint32t *
 //
-// [MSK_getapiecenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getapiecenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getapiecenumnz
 func (task *Task) GetAPieceNumNz(
 	firsti int32,
 	lasti int32,
@@ -179,7 +179,7 @@ func (task *Task) GetAPieceNumNz(
 //   - i: MSKint32t
 //   - nzi: MSKint32t *
 //
-// [MSK_getarownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getarownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarownumnz
 func (task *Task) GetARowNumNz(
 	i int32,
 ) (r res.Code, nzi int32) {
@@ -202,7 +202,7 @@ func (task *Task) GetARowNumNz(
 //   - last: MSKint32t
 //   - numnz: MSKint32t *
 //
-// [MSK_getarowslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getarowslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarowslicenumnz
 func (task *Task) GetARowSliceNumNz(
 	first int32,
 	last int32,
@@ -227,7 +227,7 @@ func (task *Task) GetARowSliceNumNz(
 //   - last: MSKint32t
 //   - numnz: MSKint64t *
 //
-// [MSK_getarowslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getarowslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarowslicenumnz64
 func (task *Task) GetARowSliceNumNz64(
 	first int32,
 	last int32,
