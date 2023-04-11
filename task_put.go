@@ -23,7 +23,7 @@ import (
 //   - afeidxlist: const MSKint64t *
 //   - b: const MSKrealt *
 //
-// [MSK_putacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacc
 func (task *Task) PutAcc(
 	accidx int64,
 	domidx int64,
@@ -51,7 +51,7 @@ func (task *Task) PutAcc(
 //   - lengthb: MSKint64t
 //   - b: const MSKrealt *
 //
-// [MSK_putaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaccb
 func (task *Task) PutAccb(
 	accidx int64,
 	lengthb int64,
@@ -75,7 +75,7 @@ func (task *Task) PutAccb(
 //   - j: MSKint64t
 //   - bj: MSKrealt
 //
-// [MSK_putaccbj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putaccbj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaccbj
 func (task *Task) PutAccbj(
 	accidx int64,
 	j int64,
@@ -91,7 +91,7 @@ func (task *Task) PutAccbj(
 	)
 }
 
-// PutAccdoty is wrapping [MSK_putaccdoty]
+// PutAccDotY is wrapping [MSK_putaccdoty]
 //
 // [MSK_putaccdoty] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -99,8 +99,8 @@ func (task *Task) PutAccbj(
 //   - accidx: MSKint64t
 //   - doty: MSKrealt *
 //
-// [MSK_putaccdoty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAccdoty(
+// [MSK_putaccdoty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaccdoty
+func (task *Task) PutAccDotY(
 	whichsol SolType,
 	accidx int64,
 	doty *float64,
@@ -115,64 +115,6 @@ func (task *Task) PutAccdoty(
 	)
 }
 
-// PutAccList is wrapping [MSK_putacclist]
-//
-// [MSK_putacclist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numaccs: MSKint64t
-//   - accidxs: const MSKint64t *
-//   - domidxs: const MSKint64t *
-//   - numafeidx: MSKint64t
-//   - afeidxlist: const MSKint64t *
-//   - b: const MSKrealt *
-//
-// [MSK_putacclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAccList(
-	numaccs int64,
-	accidxs *int64,
-	domidxs *int64,
-	numafeidx int64,
-	afeidxlist *int64,
-	b *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putacclist(
-			task.task,
-			C.MSKint64t(numaccs),
-			(*C.MSKint64t)(accidxs),
-			(*C.MSKint64t)(domidxs),
-			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidxlist),
-			(*C.MSKrealt)(b),
-		),
-	)
-}
-
-// PutAccName is wrapping [MSK_putaccname] and
-// sets a name for an affine conic constraint.
-//
-// [MSK_putaccname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - name: const char *
-//
-// [MSK_putaccname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAccName(
-	accidx int64,
-	name string,
-) res.Code {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-
-	return res.Code(
-		C.MSK_putaccname(
-			task.task,
-			C.MSKint64t(accidx),
-			c_name,
-		),
-	)
-}
-
 // PutACol is wrapping [MSK_putacol] and
 // puts a column of A matrix.
 //
@@ -183,7 +125,7 @@ func (task *Task) PutAccName(
 //   - subj: const MSKint32t *
 //   - valj: const MSKrealt *
 //
-// [MSK_putacol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putacol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacol
 func (task *Task) PutACol(
 	j int32,
 	nzj int32,
@@ -201,105 +143,6 @@ func (task *Task) PutACol(
 	)
 }
 
-// PutAColList is wrapping [MSK_putacollist]
-//
-// [MSK_putacollist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
-// [MSK_putacollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAColList(
-	num int32,
-	sub *int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putacollist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
-		),
-	)
-}
-
-// PutAColList64 is wrapping [MSK_putacollist64]
-//
-// [MSK_putacollist64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint64t *
-//   - ptre: const MSKint64t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
-// [MSK_putacollist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAColList64(
-	num int32,
-	sub *int32,
-	ptrb *int64,
-	ptre *int64,
-	asub *int32,
-	aval *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putacollist64(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
-		),
-	)
-}
-
-// PutAColSlice is wrapping [MSK_putacolslice]
-//
-// [MSK_putacolslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
-// [MSK_putacolslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAColSlice(
-	first int32,
-	last int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putacolslice(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
-		),
-	)
-}
-
 // PutAColSlice64 is wrapping [MSK_putacolslice64]
 //
 // [MSK_putacolslice64] returns MSKrescodee and has following parameters
@@ -311,7 +154,7 @@ func (task *Task) PutAColSlice(
 //   - asub: const MSKint32t *
 //   - aval: const MSKrealt *
 //
-// [MSK_putacolslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putacolslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacolslice64
 func (task *Task) PutAColSlice64(
 	first int32,
 	last int32,
@@ -347,7 +190,7 @@ func (task *Task) PutAColSlice64(
 //   - subl: const MSKint32t *
 //   - valkl: const MSKrealt *
 //
-// [MSK_putafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfblocktriplet
 func (task *Task) PutAfeBarFBlockTriplet(
 	numtrip int64,
 	afeidx *int64,
@@ -379,7 +222,7 @@ func (task *Task) PutAfeBarFBlockTriplet(
 //   - termidx: const MSKint64t *
 //   - termweight: const MSKrealt *
 //
-// [MSK_putafebarfentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putafebarfentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfentry
 func (task *Task) PutAfeBarFEntry(
 	afeidx int64,
 	barvaridx int32,
@@ -399,45 +242,6 @@ func (task *Task) PutAfeBarFEntry(
 	)
 }
 
-// PutAfeBarFEntryList is wrapping [MSK_putafebarfentrylist]
-//
-// [MSK_putafebarfentrylist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafeidx: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - barvaridx: const MSKint32t *
-//   - numterm: const MSKint64t *
-//   - ptrterm: const MSKint64t *
-//   - lenterm: MSKint64t
-//   - termidx: const MSKint64t *
-//   - termweight: const MSKrealt *
-//
-// [MSK_putafebarfentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfeBarFEntryList(
-	numafeidx int64,
-	afeidx *int64,
-	barvaridx *int32,
-	numterm *int64,
-	ptrterm *int64,
-	lenterm int64,
-	termidx *int64,
-	termweight *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putafebarfentrylist(
-			task.task,
-			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(barvaridx),
-			(*C.MSKint64t)(numterm),
-			(*C.MSKint64t)(ptrterm),
-			C.MSKint64t(lenterm),
-			(*C.MSKint64t)(termidx),
-			(*C.MSKrealt)(termweight),
-		),
-	)
-}
-
 // PutAfeBarFRow is wrapping [MSK_putafebarfrow]
 //
 // [MSK_putafebarfrow] returns MSKrescodee and has following parameters
@@ -451,7 +255,7 @@ func (task *Task) PutAfeBarFEntryList(
 //   - termidx: const MSKint64t *
 //   - termweight: const MSKrealt *
 //
-// [MSK_putafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfrow
 func (task *Task) PutAfeBarFRow(
 	afeidx int64,
 	numentr int32,
@@ -487,7 +291,7 @@ func (task *Task) PutAfeBarFRow(
 //   - afeidx: const MSKint64t *
 //   - val: const MSKrealt *
 //
-// [MSK_putafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafefcol
 func (task *Task) PutAfeFCol(
 	varidx int32,
 	numnz int64,
@@ -514,7 +318,7 @@ func (task *Task) PutAfeFCol(
 //   - varidx: MSKint32t
 //   - value: MSKrealt
 //
-// [MSK_putafefentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putafefentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafefentry
 func (task *Task) PutAfeFEntry(
 	afeidx int64,
 	varidx int32,
@@ -530,34 +334,6 @@ func (task *Task) PutAfeFEntry(
 	)
 }
 
-// PutAfeFEntryList is wrapping [MSK_putafefentrylist] and
-// sets a portion of the affine expression F matrix.
-//
-// [MSK_putafefentrylist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numentr: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - varidx: const MSKint32t *
-//   - val: const MSKrealt *
-//
-// [MSK_putafefentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfeFEntryList(
-	numentr int64,
-	afeidx *int64,
-	varidx *int32,
-	val *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putafefentrylist(
-			task.task,
-			C.MSKint64t(numentr),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(varidx),
-			(*C.MSKrealt)(val),
-		),
-	)
-}
-
 // PutAfeFRow is wrapping [MSK_putafefrow] and
 // sets a row of affine expression F matrix.
 //
@@ -568,7 +344,7 @@ func (task *Task) PutAfeFEntryList(
 //   - varidx: const MSKint32t *
 //   - val: const MSKrealt *
 //
-// [MSK_putafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafefrow
 func (task *Task) PutAfeFRow(
 	afeidx int64,
 	numnz int32,
@@ -586,42 +362,6 @@ func (task *Task) PutAfeFRow(
 	)
 }
 
-// PutAfeFRowList is wrapping [MSK_putafefrowlist]
-//
-// [MSK_putafefrowlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafeidx: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - numnzrow: const MSKint32t *
-//   - ptrrow: const MSKint64t *
-//   - lenidxval: MSKint64t
-//   - varidx: const MSKint32t *
-//   - val: const MSKrealt *
-//
-// [MSK_putafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfeFRowList(
-	numafeidx int64,
-	afeidx *int64,
-	numnzrow *int32,
-	ptrrow *int64,
-	lenidxval int64,
-	varidx *int32,
-	val *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putafefrowlist(
-			task.task,
-			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(numnzrow),
-			(*C.MSKint64t)(ptrrow),
-			C.MSKint64t(lenidxval),
-			(*C.MSKint32t)(varidx),
-			(*C.MSKrealt)(val),
-		),
-	)
-}
-
 // PutAfeG is wrapping [MSK_putafeg] and
 // sets the value at afeidx to g.
 //
@@ -630,7 +370,7 @@ func (task *Task) PutAfeFRowList(
 //   - afeidx: MSKint64t
 //   - g: MSKrealt
 //
-// [MSK_putafeg]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putafeg]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafeg
 func (task *Task) PutAfeG(
 	afeidx int64,
 	g float64,
@@ -644,55 +384,6 @@ func (task *Task) PutAfeG(
 	)
 }
 
-// PutAfeGList is wrapping [MSK_putafeglist]
-//
-// [MSK_putafeglist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafeidx: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - g: const MSKrealt *
-//
-// [MSK_putafeglist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfeGList(
-	numafeidx int64,
-	afeidx *int64,
-	g *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putafeglist(
-			task.task,
-			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKrealt)(g),
-		),
-	)
-}
-
-// PutAfeGSlice is wrapping [MSK_putafegslice] and
-// sets a slice of values in g.
-//
-// [MSK_putafegslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint64t
-//   - last: MSKint64t
-//   - slice: const MSKrealt *
-//
-// [MSK_putafegslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAfeGSlice(
-	first int64,
-	last int64,
-	slice *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putafegslice(
-			task.task,
-			C.MSKint64t(first),
-			C.MSKint64t(last),
-			(*C.MSKrealt)(slice),
-		),
-	)
-}
-
 // PutAij is wrapping [MSK_putaij] and
 // set the value of the constraints matrix A[i,j]
 //
@@ -702,7 +393,7 @@ func (task *Task) PutAfeGSlice(
 //   - j: MSKint32t
 //   - aij: MSKrealt
 //
-// [MSK_putaij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putaij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaij
 func (task *Task) PutAij(
 	i int32,
 	j int32,
@@ -718,61 +409,6 @@ func (task *Task) PutAij(
 	)
 }
 
-// PutAijList is wrapping [MSK_putaijlist] and
-// sets a list of constraint matrix A by index.
-//
-// [MSK_putaijlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - valij: const MSKrealt *
-//
-// [MSK_putaijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAijList(
-	num int32,
-	subi *int32,
-	subj *int32,
-	valij *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putaijlist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valij),
-		),
-	)
-}
-
-// PutAijList64 is wrapping [MSK_putaijlist64]
-//
-// [MSK_putaijlist64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - valij: const MSKrealt *
-//
-// [MSK_putaijlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutAijList64(
-	num int64,
-	subi *int32,
-	subj *int32,
-	valij *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putaijlist64(
-			task.task,
-			C.MSKint64t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valij),
-		),
-	)
-}
-
 // PutARow is wrapping [MSK_putarow] and
 // puts a row of A matrix.
 //
@@ -783,7 +419,7 @@ func (task *Task) PutAijList64(
 //   - subi: const MSKint32t *
 //   - vali: const MSKrealt *
 //
-// [MSK_putarow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putarow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putarow
 func (task *Task) PutARow(
 	i int32,
 	nzi int32,
@@ -801,105 +437,6 @@ func (task *Task) PutARow(
 	)
 }
 
-// PutARowList is wrapping [MSK_putarowlist]
-//
-// [MSK_putarowlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
-// [MSK_putarowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutARowList(
-	num int32,
-	sub *int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putarowlist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
-		),
-	)
-}
-
-// PutARowList64 is wrapping [MSK_putarowlist64]
-//
-// [MSK_putarowlist64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint64t *
-//   - ptre: const MSKint64t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
-// [MSK_putarowlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutARowList64(
-	num int32,
-	sub *int32,
-	ptrb *int64,
-	ptre *int64,
-	asub *int32,
-	aval *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putarowlist64(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
-		),
-	)
-}
-
-// PutARowSlice is wrapping [MSK_putarowslice]
-//
-// [MSK_putarowslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
-// [MSK_putarowslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutARowSlice(
-	first int32,
-	last int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putarowslice(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
-		),
-	)
-}
-
 // PutARowSlice64 is wrapping [MSK_putarowslice64]
 //
 // [MSK_putarowslice64] returns MSKrescodee and has following parameters
@@ -911,7 +448,7 @@ func (task *Task) PutARowSlice(
 //   - asub: const MSKint32t *
 //   - aval: const MSKrealt *
 //
-// [MSK_putarowslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putarowslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putarowslice64
 func (task *Task) PutARowSlice64(
 	first int32,
 	last int32,
@@ -939,7 +476,7 @@ func (task *Task) PutARowSlice64(
 //   - task: MSKtask_t
 //   - tolzero: MSKrealt
 //
-// [MSK_putatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putatruncatetol
 func (task *Task) PutAtruncatetol(
 	tolzero float64,
 ) res.Code {
@@ -965,7 +502,7 @@ func (task *Task) PutAtruncatetol(
 //   - subl: const MSKint32t *
 //   - valijkl: const MSKrealt *
 //
-// [MSK_putbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarablocktriplet
 func (task *Task) PutBarABlockTriplet(
 	num int64,
 	subi *int32,
@@ -1001,7 +538,7 @@ func (task *Task) PutBarABlockTriplet(
 //   - sub: const MSKint64t *
 //   - weights: const MSKrealt *
 //
-// [MSK_putbaraij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putbaraij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbaraij
 func (task *Task) PutBarAij(
 	i int32,
 	j int32,
@@ -1021,81 +558,6 @@ func (task *Task) PutBarAij(
 	)
 }
 
-// PutBarAijList is wrapping [MSK_putbaraijlist]
-//
-// [MSK_putbaraijlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - alphaptrb: const MSKint64t *
-//   - alphaptre: const MSKint64t *
-//   - matidx: const MSKint64t *
-//   - weights: const MSKrealt *
-//
-// [MSK_putbaraijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBarAijList(
-	num int32,
-	subi *int32,
-	subj *int32,
-	alphaptrb *int64,
-	alphaptre *int64,
-	matidx *int64,
-	weights *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putbaraijlist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint64t)(alphaptrb),
-			(*C.MSKint64t)(alphaptre),
-			(*C.MSKint64t)(matidx),
-			(*C.MSKrealt)(weights),
-		),
-	)
-}
-
-// PutBarARowList is wrapping [MSK_putbararowlist]
-//
-// [MSK_putbararowlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subi: const MSKint32t *
-//   - ptrb: const MSKint64t *
-//   - ptre: const MSKint64t *
-//   - subj: const MSKint32t *
-//   - nummat: const MSKint64t *
-//   - matidx: const MSKint64t *
-//   - weights: const MSKrealt *
-//
-// [MSK_putbararowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBarARowList(
-	num int32,
-	subi *int32,
-	ptrb *int64,
-	ptre *int64,
-	subj *int32,
-	nummat *int64,
-	matidx *int64,
-	weights *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putbararowlist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint64t)(nummat),
-			(*C.MSKint64t)(matidx),
-			(*C.MSKrealt)(weights),
-		),
-	)
-}
-
 // PutBarCBlockTriplet is wrapping [MSK_putbarcblocktriplet] and
 // sets the coefficients for
 // matrix variable. suj is the index of the matrix variable, subk/subl are row/colmn index
@@ -1109,7 +571,7 @@ func (task *Task) PutBarARowList(
 //   - subl: const MSKint32t *
 //   - valjkl: const MSKrealt *
 //
-// [MSK_putbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarcblocktriplet
 func (task *Task) PutBarCBlockTriplet(
 	num int64,
 	subj *int32,
@@ -1142,7 +604,7 @@ func (task *Task) PutBarCBlockTriplet(
 //   - sub: const MSKint64t *
 //   - weights: const MSKrealt *
 //
-// [MSK_putbarcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putbarcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarcj
 func (task *Task) PutBarCj(
 	j int32,
 	num int64,
@@ -1168,7 +630,7 @@ func (task *Task) PutBarCj(
 //   - j: MSKint32t
 //   - barsj: const MSKrealt *
 //
-// [MSK_putbarsj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putbarsj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarsj
 func (task *Task) PutBarsj(
 	whichsol SolType,
 	j int32,
@@ -1184,30 +646,6 @@ func (task *Task) PutBarsj(
 	)
 }
 
-// PutBarvarName is wrapping [MSK_putbarvarname]
-//
-// [MSK_putbarvarname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - name: const char *
-//
-// [MSK_putbarvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutBarvarName(
-	j int32,
-	name string,
-) res.Code {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-
-	return res.Code(
-		C.MSK_putbarvarname(
-			task.task,
-			C.MSKint32t(j),
-			c_name,
-		),
-	)
-}
-
 // PutBarxj is wrapping [MSK_putbarxj]
 //
 // [MSK_putbarxj] returns MSKrescodee and has following parameters
@@ -1216,7 +654,7 @@ func (task *Task) PutBarvarName(
 //   - j: MSKint32t
 //   - barxj: const MSKrealt *
 //
-// [MSK_putbarxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putbarxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarxj
 func (task *Task) PutBarxj(
 	whichsol SolType,
 	j int32,
@@ -1239,7 +677,7 @@ func (task *Task) PutBarxj(
 //   - task: MSKtask_t
 //   - cfix: MSKrealt
 //
-// [MSK_putcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putcfix
 func (task *Task) PutCFix(
 	cfix float64,
 ) res.Code {
@@ -1259,7 +697,7 @@ func (task *Task) PutCFix(
 //   - j: MSKint32t
 //   - cj: MSKrealt
 //
-// [MSK_putcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putcj
 func (task *Task) PutCj(
 	j int32,
 	cj float64,
@@ -1269,30 +707,6 @@ func (task *Task) PutCj(
 			task.task,
 			C.MSKint32t(j),
 			C.MSKrealt(cj),
-		),
-	)
-}
-
-// PutCList is wrapping [MSK_putclist]
-//
-// [MSK_putclist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subj: const MSKint32t *
-//   - val: const MSKrealt *
-//
-// [MSK_putclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutCList(
-	num int32,
-	subj *int32,
-	val *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putclist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(val),
 		),
 	)
 }
@@ -1307,7 +721,7 @@ func (task *Task) PutCList(
 //   - blc: MSKrealt
 //   - buc: MSKrealt
 //
-// [MSK_putconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconbound
 func (task *Task) PutConbound(
 	i int32,
 	bkc BoundKey,
@@ -1325,36 +739,6 @@ func (task *Task) PutConbound(
 	)
 }
 
-// PutConboundList is wrapping [MSK_putconboundlist]
-//
-// [MSK_putconboundlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - bkc: const MSKboundkeye *
-//   - blc: const MSKrealt *
-//   - buc: const MSKrealt *
-//
-// [MSK_putconboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutConboundList(
-	num int32,
-	sub *int32,
-	bkc *BoundKey,
-	blc *float64,
-	buc *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putconboundlist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKboundkeye)(bkc),
-			(*C.MSKrealt)(blc),
-			(*C.MSKrealt)(buc),
-		),
-	)
-}
-
 // PutConboundListConst is wrapping [MSK_putconboundlistconst]
 //
 // [MSK_putconboundlistconst] returns MSKrescodee and has following parameters
@@ -1365,7 +749,7 @@ func (task *Task) PutConboundList(
 //   - blc: MSKrealt
 //   - buc: MSKrealt
 //
-// [MSK_putconboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putconboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundlistconst
 func (task *Task) PutConboundListConst(
 	num int32,
 	sub *int32,
@@ -1385,68 +769,6 @@ func (task *Task) PutConboundListConst(
 	)
 }
 
-// PutConboundSlice is wrapping [MSK_putconboundslice] and
-// sets a list of constraint bounds.
-//
-// [MSK_putconboundslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkc: const MSKboundkeye *
-//   - blc: const MSKrealt *
-//   - buc: const MSKrealt *
-//
-// [MSK_putconboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutConboundSlice(
-	first int32,
-	last int32,
-	bkc *BoundKey,
-	blc *float64,
-	buc *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putconboundslice(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKboundkeye)(bkc),
-			(*C.MSKrealt)(blc),
-			(*C.MSKrealt)(buc),
-		),
-	)
-}
-
-// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst] and
-// sets a slice of constraint bounds to the same constant value.
-//
-// [MSK_putconboundsliceconst] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkc: MSKboundkeye
-//   - blc: MSKrealt
-//   - buc: MSKrealt
-//
-// [MSK_putconboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutConboundSliceConst(
-	first int32,
-	last int32,
-	bkc BoundKey,
-	blc float64,
-	buc float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putconboundsliceconst(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			C.MSKboundkeye(bkc),
-			C.MSKrealt(blc),
-			C.MSKrealt(buc),
-		),
-	)
-}
-
 // PutCone is wrapping [MSK_putcone]
 //
 // [MSK_putcone] returns MSKrescodee and has following parameters
@@ -1457,7 +779,9 @@ func (task *Task) PutConboundSliceConst(
 //   - nummem: MSKint32t
 //   - submem: const MSKint32t *
 //
-// [MSK_putcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putcone]/PutCone is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_putcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putcone
 func (task *Task) PutCone(
 	k int32,
 	ct ConeType,
@@ -1477,55 +801,6 @@ func (task *Task) PutCone(
 	)
 }
 
-// PutConeName is wrapping [MSK_putconename]
-//
-// [MSK_putconename] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - name: const char *
-//
-// [MSK_putconename]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutConeName(
-	j int32,
-	name string,
-) res.Code {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-
-	return res.Code(
-		C.MSK_putconename(
-			task.task,
-			C.MSKint32t(j),
-			c_name,
-		),
-	)
-}
-
-// PutConName is wrapping [MSK_putconname] and
-// sets a name for a constraint at indext i.
-//
-// [MSK_putconname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - name: const char *
-//
-// [MSK_putconname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutConName(
-	i int32,
-	name string,
-) res.Code {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-
-	return res.Code(
-		C.MSK_putconname(
-			task.task,
-			C.MSKint32t(i),
-			c_name,
-		),
-	)
-}
-
 // PutConsolutioni is wrapping [MSK_putconsolutioni]
 //
 // [MSK_putconsolutioni] returns MSKrescodee and has following parameters
@@ -1537,7 +812,7 @@ func (task *Task) PutConName(
 //   - sl: MSKrealt
 //   - su: MSKrealt
 //
-// [MSK_putconsolutioni]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putconsolutioni]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconsolutioni
 func (task *Task) PutConsolutioni(
 	i int32,
 	whichsol SolType,
@@ -1559,30 +834,6 @@ func (task *Task) PutConsolutioni(
 	)
 }
 
-// PutCSlice is wrapping [MSK_putcslice]
-//
-// [MSK_putcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slice: const MSKrealt *
-//
-// [MSK_putcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutCSlice(
-	first int32,
-	last int32,
-	slice *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putcslice(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(slice),
-		),
-	)
-}
-
 // PutDjc is wrapping [MSK_putdjc] and
 // sets the disjunctive constraint.
 //
@@ -1597,7 +848,7 @@ func (task *Task) PutCSlice(
 //   - numterms: MSKint64t
 //   - termsizelist: const MSKint64t *
 //
-// [MSK_putdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putdjc
 func (task *Task) PutDjc(
 	djcidx int64,
 	numdomidx int64,
@@ -1623,99 +874,6 @@ func (task *Task) PutDjc(
 	)
 }
 
-// PutDjcName is wrapping [MSK_putdjcname]
-//
-// [MSK_putdjcname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - name: const char *
-//
-// [MSK_putdjcname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutDjcName(
-	djcidx int64,
-	name string,
-) res.Code {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-
-	return res.Code(
-		C.MSK_putdjcname(
-			task.task,
-			C.MSKint64t(djcidx),
-			c_name,
-		),
-	)
-}
-
-// PutDjcSlice is wrapping [MSK_putdjcslice]
-//
-// [MSK_putdjcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idxfirst: MSKint64t
-//   - idxlast: MSKint64t
-//   - numdomidx: MSKint64t
-//   - domidxlist: const MSKint64t *
-//   - numafeidx: MSKint64t
-//   - afeidxlist: const MSKint64t *
-//   - b: const MSKrealt *
-//   - numterms: MSKint64t
-//   - termsizelist: const MSKint64t *
-//   - termsindjc: const MSKint64t *
-//
-// [MSK_putdjcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutDjcSlice(
-	idxfirst int64,
-	idxlast int64,
-	numdomidx int64,
-	domidxlist *int64,
-	numafeidx int64,
-	afeidxlist *int64,
-	b *float64,
-	numterms int64,
-	termsizelist *int64,
-	termsindjc *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putdjcslice(
-			task.task,
-			C.MSKint64t(idxfirst),
-			C.MSKint64t(idxlast),
-			C.MSKint64t(numdomidx),
-			(*C.MSKint64t)(domidxlist),
-			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidxlist),
-			(*C.MSKrealt)(b),
-			C.MSKint64t(numterms),
-			(*C.MSKint64t)(termsizelist),
-			(*C.MSKint64t)(termsindjc),
-		),
-	)
-}
-
-// PutDomainName is wrapping [MSK_putdomainname]
-//
-// [MSK_putdomainname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - name: const char *
-//
-// [MSK_putdomainname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutDomainName(
-	domidx int64,
-	name string,
-) res.Code {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-
-	return res.Code(
-		C.MSK_putdomainname(
-			task.task,
-			C.MSKint64t(domidx),
-			c_name,
-		),
-	)
-}
-
 // PutDouParam is wrapping [MSK_putdouparam] and
 // sets a float point parameter.
 //
@@ -1724,7 +882,7 @@ func (task *Task) PutDomainName(
 //   - param: MSKdparame
 //   - parvalue: MSKrealt
 //
-// [MSK_putdouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putdouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putdouparam
 func (task *Task) PutDouParam(
 	param DParam,
 	parvalue float64,
@@ -1746,7 +904,7 @@ func (task *Task) PutDouParam(
 //   - param: MSKiparame
 //   - parvalue: MSKint32t
 //
-// [MSK_putintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putintparam
 func (task *Task) PutIntParam(
 	param IParam,
 	parvalue int32,
@@ -1760,186 +918,6 @@ func (task *Task) PutIntParam(
 	)
 }
 
-// PutMaxnumacc is wrapping [MSK_putmaxnumacc]
-//
-// [MSK_putmaxnumacc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumacc: MSKint64t
-//
-// [MSK_putmaxnumacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumacc(
-	maxnumacc int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumacc(
-			task.task,
-			C.MSKint64t(maxnumacc),
-		),
-	)
-}
-
-// PutMaxnumafe is wrapping [MSK_putmaxnumafe]
-//
-// [MSK_putmaxnumafe] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumafe: MSKint64t
-//
-// [MSK_putmaxnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumafe(
-	maxnumafe int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumafe(
-			task.task,
-			C.MSKint64t(maxnumafe),
-		),
-	)
-}
-
-// PutMaxnumanz is wrapping [MSK_putmaxnumanz]
-//
-// [MSK_putmaxnumanz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumanz: MSKint64t
-//
-// [MSK_putmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumanz(
-	maxnumanz int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumanz(
-			task.task,
-			C.MSKint64t(maxnumanz),
-		),
-	)
-}
-
-// PutMaxnumbarvar is wrapping [MSK_putmaxnumbarvar]
-//
-// [MSK_putmaxnumbarvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumbarvar: MSKint32t
-//
-// [MSK_putmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumbarvar(
-	maxnumbarvar int32,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumbarvar(
-			task.task,
-			C.MSKint32t(maxnumbarvar),
-		),
-	)
-}
-
-// PutMaxnumcon is wrapping [MSK_putmaxnumcon]
-//
-// [MSK_putmaxnumcon] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumcon: MSKint32t
-//
-// [MSK_putmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumcon(
-	maxnumcon int32,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumcon(
-			task.task,
-			C.MSKint32t(maxnumcon),
-		),
-	)
-}
-
-// PutMaxnumcone is wrapping [MSK_putmaxnumcone]
-//
-// [MSK_putmaxnumcone] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumcone: MSKint32t
-//
-// [MSK_putmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumcone(
-	maxnumcone int32,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumcone(
-			task.task,
-			C.MSKint32t(maxnumcone),
-		),
-	)
-}
-
-// PutMaxnumdjc is wrapping [MSK_putmaxnumdjc]
-//
-// [MSK_putmaxnumdjc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumdjc: MSKint64t
-//
-// [MSK_putmaxnumdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumdjc(
-	maxnumdjc int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumdjc(
-			task.task,
-			C.MSKint64t(maxnumdjc),
-		),
-	)
-}
-
-// PutMaxnumDomain is wrapping [MSK_putmaxnumdomain]
-//
-// [MSK_putmaxnumdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumdomain: MSKint64t
-//
-// [MSK_putmaxnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumDomain(
-	maxnumdomain int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumdomain(
-			task.task,
-			C.MSKint64t(maxnumdomain),
-		),
-	)
-}
-
-// PutMaxnumqnz is wrapping [MSK_putmaxnumqnz]
-//
-// [MSK_putmaxnumqnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumqnz: MSKint64t
-//
-// [MSK_putmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumqnz(
-	maxnumqnz int64,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumqnz(
-			task.task,
-			C.MSKint64t(maxnumqnz),
-		),
-	)
-}
-
-// PutMaxnumvar is wrapping [MSK_putmaxnumvar]
-//
-// [MSK_putmaxnumvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumvar: MSKint32t
-//
-// [MSK_putmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutMaxnumvar(
-	maxnumvar int32,
-) res.Code {
-	return res.Code(
-		C.MSK_putmaxnumvar(
-			task.task,
-			C.MSKint32t(maxnumvar),
-		),
-	)
-}
-
 // PutNadouparam is wrapping [MSK_putnadouparam]
 //
 // [MSK_putnadouparam] returns MSKrescodee and has following parameters
@@ -1947,7 +925,7 @@ func (task *Task) PutMaxnumvar(
 //   - paramname: const char *
 //   - parvalue: MSKrealt
 //
-// [MSK_putnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putnadouparam
 func (task *Task) PutNadouparam(
 	paramname string,
 	parvalue float64,
@@ -1971,7 +949,7 @@ func (task *Task) PutNadouparam(
 //   - paramname: const char *
 //   - parvalue: MSKint32t
 //
-// [MSK_putnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putnaintparam
 func (task *Task) PutNaintparam(
 	paramname string,
 	parvalue int32,
@@ -1995,7 +973,7 @@ func (task *Task) PutNaintparam(
 //   - paramname: const char *
 //   - parvalue: const char *
 //
-// [MSK_putnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putnastrparam
 func (task *Task) PutNastrparam(
 	paramname string,
 	parvalue string,
@@ -2015,27 +993,6 @@ func (task *Task) PutNastrparam(
 	)
 }
 
-// PutObjName is wrapping [MSK_putobjname]
-//
-// [MSK_putobjname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - objname: const char *
-//
-// [MSK_putobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutObjName(
-	objname string,
-) res.Code {
-	c_objname := C.CString(objname)
-	defer C.free(unsafe.Pointer(c_objname))
-
-	return res.Code(
-		C.MSK_putobjname(
-			task.task,
-			c_objname,
-		),
-	)
-}
-
 // PutObjsense is wrapping [MSK_putobjsense] and
 // set the objective sense - which is either minimize or maximize
 //
@@ -2043,7 +1000,7 @@ func (task *Task) PutObjName(
 //   - task: MSKtask_t
 //   - sense: MSKobjsensee
 //
-// [MSK_putobjsense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putobjsense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putobjsense
 func (task *Task) PutObjsense(
 	sense ObjectiveSense,
 ) res.Code {
@@ -2061,7 +1018,7 @@ func (task *Task) PutObjsense(
 //   - task: MSKtask_t
 //   - host: const char *
 //
-// [MSK_putoptserverhost]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putoptserverhost]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putoptserverhost
 func (task *Task) PutOptserverhost(
 	host string,
 ) res.Code {
@@ -2083,7 +1040,7 @@ func (task *Task) PutOptserverhost(
 //   - parname: const char *
 //   - parvalue: const char *
 //
-// [MSK_putparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putparam
 func (task *Task) PutParam(
 	parname string,
 	parvalue string,
@@ -2113,7 +1070,7 @@ func (task *Task) PutParam(
 //   - qcsubj: const MSKint32t *
 //   - qcval: const MSKrealt *
 //
-// [MSK_putqcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putqcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putqcon
 func (task *Task) PutQcon(
 	numqcnz int32,
 	qcsubk *int32,
@@ -2144,7 +1101,7 @@ func (task *Task) PutQcon(
 //   - qcsubj: const MSKint32t *
 //   - qcval: const MSKrealt *
 //
-// [MSK_putqconk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putqconk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putqconk
 func (task *Task) PutQConK(
 	k int32,
 	numqcnz int32,
@@ -2174,7 +1131,7 @@ func (task *Task) PutQConK(
 //   - qosubj: const MSKint32t *
 //   - qoval: const MSKrealt *
 //
-// [MSK_putqobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putqobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putqobj
 func (task *Task) PutQObj(
 	numqonz int32,
 	qosubi *int32,
@@ -2200,7 +1157,7 @@ func (task *Task) PutQObj(
 //   - j: MSKint32t
 //   - qoij: MSKrealt
 //
-// [MSK_putqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putqobjij
 func (task *Task) PutQObjIj(
 	i int32,
 	j int32,
@@ -2223,7 +1180,7 @@ func (task *Task) PutQObjIj(
 //   - whichsol: MSKsoltypee
 //   - skc: const MSKstakeye *
 //
-// [MSK_putskc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putskc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putskc
 func (task *Task) PutSkc(
 	whichsol SolType,
 	skc *StaKey,
@@ -2237,33 +1194,6 @@ func (task *Task) PutSkc(
 	)
 }
 
-// PutSkcSlice is wrapping [MSK_putskcslice]
-//
-// [MSK_putskcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - skc: const MSKstakeye *
-//
-// [MSK_putskcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSkcSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	skc *StaKey,
-) res.Code {
-	return res.Code(
-		C.MSK_putskcslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKstakeye)(skc),
-		),
-	)
-}
-
 // PutSkx is wrapping [MSK_putskx]
 //
 // [MSK_putskx] returns MSKrescodee and has following parameters
@@ -2271,7 +1201,7 @@ func (task *Task) PutSkcSlice(
 //   - whichsol: MSKsoltypee
 //   - skx: const MSKstakeye *
 //
-// [MSK_putskx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putskx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putskx
 func (task *Task) PutSkx(
 	whichsol SolType,
 	skx *StaKey,
@@ -2285,33 +1215,6 @@ func (task *Task) PutSkx(
 	)
 }
 
-// PutSkxSlice is wrapping [MSK_putskxslice]
-//
-// [MSK_putskxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - skx: const MSKstakeye *
-//
-// [MSK_putskxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSkxSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	skx *StaKey,
-) res.Code {
-	return res.Code(
-		C.MSK_putskxslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKstakeye)(skx),
-		),
-	)
-}
-
 // PutSlc is wrapping [MSK_putslc]
 //
 // [MSK_putslc] returns MSKrescodee and has following parameters
@@ -2319,7 +1222,7 @@ func (task *Task) PutSkxSlice(
 //   - whichsol: MSKsoltypee
 //   - slc: const MSKrealt *
 //
-// [MSK_putslc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putslc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putslc
 func (task *Task) PutSlc(
 	whichsol SolType,
 	slc *float64,
@@ -2333,33 +1236,6 @@ func (task *Task) PutSlc(
 	)
 }
 
-// PutSlcSlice is wrapping [MSK_putslcslice]
-//
-// [MSK_putslcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slc: const MSKrealt *
-//
-// [MSK_putslcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSlcSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	slc *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putslcslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(slc),
-		),
-	)
-}
-
 // PutSlx is wrapping [MSK_putslx]
 //
 // [MSK_putslx] returns MSKrescodee and has following parameters
@@ -2367,7 +1243,7 @@ func (task *Task) PutSlcSlice(
 //   - whichsol: MSKsoltypee
 //   - slx: const MSKrealt *
 //
-// [MSK_putslx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putslx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putslx
 func (task *Task) PutSlx(
 	whichsol SolType,
 	slx *float64,
@@ -2381,33 +1257,6 @@ func (task *Task) PutSlx(
 	)
 }
 
-// PutSlxSlice is wrapping [MSK_putslxslice]
-//
-// [MSK_putslxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slx: const MSKrealt *
-//
-// [MSK_putslxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSlxSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	slx *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putslxslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(slx),
-		),
-	)
-}
-
 // PutSnx is wrapping [MSK_putsnx]
 //
 // [MSK_putsnx] returns MSKrescodee and has following parameters
@@ -2415,7 +1264,7 @@ func (task *Task) PutSlxSlice(
 //   - whichsol: MSKsoltypee
 //   - sux: const MSKrealt *
 //
-// [MSK_putsnx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putsnx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsnx
 func (task *Task) PutSnx(
 	whichsol SolType,
 	sux *float64,
@@ -2425,33 +1274,6 @@ func (task *Task) PutSnx(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			(*C.MSKrealt)(sux),
-		),
-	)
-}
-
-// PutSnxSlice is wrapping [MSK_putsnxslice]
-//
-// [MSK_putsnxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - snx: const MSKrealt *
-//
-// [MSK_putsnxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSnxSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	snx *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putsnxslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(snx),
 		),
 	)
 }
@@ -2473,7 +1295,7 @@ func (task *Task) PutSnxSlice(
 //   - sux: const MSKrealt *
 //   - snx: const MSKrealt *
 //
-// [MSK_putsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsolution
 func (task *Task) PutSolution(
 	whichsol SolType,
 	skc *StaKey,
@@ -2525,7 +1347,7 @@ func (task *Task) PutSolution(
 //   - snx: const MSKrealt *
 //   - doty: const MSKrealt *
 //
-// [MSK_putsolutionnew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putsolutionnew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsolutionnew
 func (task *Task) PutSolutionNew(
 	whichsol SolType,
 	skc *StaKey,
@@ -2569,7 +1391,7 @@ func (task *Task) PutSolutionNew(
 //   - whichsol: MSKsoltypee
 //   - y: MSKrealt
 //
-// [MSK_putsolutionyi]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putsolutionyi]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsolutionyi
 func (task *Task) PutSolutionyi(
 	i int32,
 	whichsol SolType,
@@ -2592,7 +1414,7 @@ func (task *Task) PutSolutionyi(
 //   - param: MSKsparame
 //   - parvalue: const char *
 //
-// [MSK_putstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putstrparam
 func (task *Task) PutStrparam(
 	param SParam,
 	parvalue string,
@@ -2616,7 +1438,7 @@ func (task *Task) PutStrparam(
 //   - whichsol: MSKsoltypee
 //   - suc: const MSKrealt *
 //
-// [MSK_putsuc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putsuc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsuc
 func (task *Task) PutSuc(
 	whichsol SolType,
 	suc *float64,
@@ -2630,33 +1452,6 @@ func (task *Task) PutSuc(
 	)
 }
 
-// PutSucSlice is wrapping [MSK_putsucslice]
-//
-// [MSK_putsucslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - suc: const MSKrealt *
-//
-// [MSK_putsucslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSucSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	suc *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putsucslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(suc),
-		),
-	)
-}
-
 // PutSux is wrapping [MSK_putsux]
 //
 // [MSK_putsux] returns MSKrescodee and has following parameters
@@ -2664,7 +1459,7 @@ func (task *Task) PutSucSlice(
 //   - whichsol: MSKsoltypee
 //   - sux: const MSKrealt *
 //
-// [MSK_putsux]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putsux]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsux
 func (task *Task) PutSux(
 	whichsol SolType,
 	sux *float64,
@@ -2674,54 +1469,6 @@ func (task *Task) PutSux(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			(*C.MSKrealt)(sux),
-		),
-	)
-}
-
-// PutSuxSlice is wrapping [MSK_putsuxslice]
-//
-// [MSK_putsuxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - sux: const MSKrealt *
-//
-// [MSK_putsuxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutSuxSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	sux *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putsuxslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(sux),
-		),
-	)
-}
-
-// PutTaskName is wrapping [MSK_puttaskname]
-//
-// [MSK_puttaskname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - taskname: const char *
-//
-// [MSK_puttaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutTaskName(
-	taskname string,
-) res.Code {
-	c_taskname := C.CString(taskname)
-	defer C.free(unsafe.Pointer(c_taskname))
-
-	return res.Code(
-		C.MSK_puttaskname(
-			task.task,
-			c_taskname,
 		),
 	)
 }
@@ -2736,7 +1483,7 @@ func (task *Task) PutTaskName(
 //   - blx: MSKrealt
 //   - bux: MSKrealt
 //
-// [MSK_putvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarbound
 func (task *Task) PutVarbound(
 	j int32,
 	bkx BoundKey,
@@ -2754,36 +1501,6 @@ func (task *Task) PutVarbound(
 	)
 }
 
-// PutVarboundList is wrapping [MSK_putvarboundlist]
-//
-// [MSK_putvarboundlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - bkx: const MSKboundkeye *
-//   - blx: const MSKrealt *
-//   - bux: const MSKrealt *
-//
-// [MSK_putvarboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVarboundList(
-	num int32,
-	sub *int32,
-	bkx *BoundKey,
-	blx *float64,
-	bux *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putvarboundlist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKboundkeye)(bkx),
-			(*C.MSKrealt)(blx),
-			(*C.MSKrealt)(bux),
-		),
-	)
-}
-
 // PutVarboundListConst is wrapping [MSK_putvarboundlistconst]
 //
 // [MSK_putvarboundlistconst] returns MSKrescodee and has following parameters
@@ -2794,7 +1511,7 @@ func (task *Task) PutVarboundList(
 //   - blx: MSKrealt
 //   - bux: MSKrealt
 //
-// [MSK_putvarboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putvarboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundlistconst
 func (task *Task) PutVarboundListConst(
 	num int32,
 	sub *int32,
@@ -2814,93 +1531,6 @@ func (task *Task) PutVarboundListConst(
 	)
 }
 
-// PutVarboundSlice is wrapping [MSK_putvarboundslice] and
-// sets the bound for a slice of variables using 3 vectors.
-//
-// [MSK_putvarboundslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkx: const MSKboundkeye *
-//   - blx: const MSKrealt *
-//   - bux: const MSKrealt *
-//
-// [MSK_putvarboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVarboundSlice(
-	first int32,
-	last int32,
-	bkx *BoundKey,
-	blx *float64,
-	bux *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putvarboundslice(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKboundkeye)(bkx),
-			(*C.MSKrealt)(blx),
-			(*C.MSKrealt)(bux),
-		),
-	)
-}
-
-// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst] and
-// set the bound for a slice of variables to the same value.
-//
-// [MSK_putvarboundsliceconst] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkx: MSKboundkeye
-//   - blx: MSKrealt
-//   - bux: MSKrealt
-//
-// [MSK_putvarboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVarboundSliceConst(
-	first int32,
-	last int32,
-	bkx BoundKey,
-	blx float64,
-	bux float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putvarboundsliceconst(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			C.MSKboundkeye(bkx),
-			C.MSKrealt(blx),
-			C.MSKrealt(bux),
-		),
-	)
-}
-
-// PutVarName is wrapping [MSK_putvarname] and
-// sets a name for variable at j.
-//
-// [MSK_putvarname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - name: const char *
-//
-// [MSK_putvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVarName(
-	j int32,
-	name string,
-) res.Code {
-	c_name := C.CString(name)
-	defer C.free(unsafe.Pointer(c_name))
-
-	return res.Code(
-		C.MSK_putvarname(
-			task.task,
-			C.MSKint32t(j),
-			c_name,
-		),
-	)
-}
-
 // PutVarsolutionj is wrapping [MSK_putvarsolutionj]
 //
 // [MSK_putvarsolutionj] returns MSKrescodee and has following parameters
@@ -2913,7 +1543,7 @@ func (task *Task) PutVarName(
 //   - su: MSKrealt
 //   - sn: MSKrealt
 //
-// [MSK_putvarsolutionj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putvarsolutionj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarsolutionj
 func (task *Task) PutVarsolutionj(
 	j int32,
 	whichsol SolType,
@@ -2945,7 +1575,7 @@ func (task *Task) PutVarsolutionj(
 //   - j: MSKint32t
 //   - vartype: MSKvariabletypee
 //
-// [MSK_putvartype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putvartype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvartype
 func (task *Task) PutVarType(
 	j int32,
 	vartype VariableType,
@@ -2959,31 +1589,6 @@ func (task *Task) PutVarType(
 	)
 }
 
-// PutVarTypeList is wrapping [MSK_putvartypelist] and
-// sets the type of a list of variables.
-//
-// [MSK_putvartypelist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subj: const MSKint32t *
-//   - vartype: const MSKvariabletypee *
-//
-// [MSK_putvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutVarTypeList(
-	num int32,
-	subj *int32,
-	vartype *VariableType,
-) res.Code {
-	return res.Code(
-		C.MSK_putvartypelist(
-			task.task,
-			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKvariabletypee)(vartype),
-		),
-	)
-}
-
 // PutXc is wrapping [MSK_putxc]
 //
 // [MSK_putxc] returns MSKrescodee and has following parameters
@@ -2991,7 +1596,7 @@ func (task *Task) PutVarTypeList(
 //   - whichsol: MSKsoltypee
 //   - xc: MSKrealt *
 //
-// [MSK_putxc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putxc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putxc
 func (task *Task) PutXc(
 	whichsol SolType,
 	xc *float64,
@@ -3005,33 +1610,6 @@ func (task *Task) PutXc(
 	)
 }
 
-// PutXcSlice is wrapping [MSK_putxcslice]
-//
-// [MSK_putxcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - xc: const MSKrealt *
-//
-// [MSK_putxcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutXcSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	xc *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putxcslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(xc),
-		),
-	)
-}
-
 // PutXx is wrapping [MSK_putxx]
 //
 // [MSK_putxx] returns MSKrescodee and has following parameters
@@ -3039,7 +1617,7 @@ func (task *Task) PutXcSlice(
 //   - whichsol: MSKsoltypee
 //   - xx: const MSKrealt *
 //
-// [MSK_putxx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putxx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putxx
 func (task *Task) PutXx(
 	whichsol SolType,
 	xx *float64,
@@ -3053,34 +1631,6 @@ func (task *Task) PutXx(
 	)
 }
 
-// PutXxSlice is wrapping [MSK_putxxslice] and
-// sets the initial solution for a slice.
-//
-// [MSK_putxxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - xx: const MSKrealt *
-//
-// [MSK_putxxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutXxSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	xx *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putxxslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKrealt)(xx),
-		),
-	)
-}
-
 // PutY is wrapping [MSK_puty]
 //
 // [MSK_puty] returns MSKrescodee and has following parameters
@@ -3088,7 +1638,7 @@ func (task *Task) PutXxSlice(
 //   - whichsol: MSKsoltypee
 //   - y: const MSKrealt *
 //
-// [MSK_puty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_puty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.puty
 func (task *Task) PutY(
 	whichsol SolType,
 	y *float64,
@@ -3097,33 +1647,6 @@ func (task *Task) PutY(
 		C.MSK_puty(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(y),
-		),
-	)
-}
-
-// PutYSlice is wrapping [MSK_putyslice]
-//
-// [MSK_putyslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - y: const MSKrealt *
-//
-// [MSK_putyslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) PutYSlice(
-	whichsol SolType,
-	first int32,
-	last int32,
-	y *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_putyslice(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint32t(first),
-			C.MSKint32t(last),
 			(*C.MSKrealt)(y),
 		),
 	)

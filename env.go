@@ -23,7 +23,7 @@ import (
 //   - x: const MSKrealt *
 //   - y: MSKrealt *
 //
-// [MSK_axpy]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_axpy]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.axpy
 func (env *Env) Axpy(
 	n int32,
 	alpha float64,
@@ -46,7 +46,7 @@ func (env *Env) Axpy(
 // [MSK_checkinall] returns MSKrescodee and has following parameters
 //   - env: MSKenv_t
 //
-// [MSK_checkinall]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_checkinall]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkinall
 func (env *Env) CheckInAll() res.Code {
 	return res.Code(
 		C.MSK_checkinall(
@@ -61,7 +61,7 @@ func (env *Env) CheckInAll() res.Code {
 //   - env: MSKenv_t
 //   - feature: MSKfeaturee
 //
-// [MSK_checkinlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_checkinlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkinlicense
 func (env *Env) CheckInLicense(
 	feature Feature,
 ) res.Code {
@@ -80,7 +80,7 @@ func (env *Env) CheckInLicense(
 //   - file: const char *
 //   - line: MSKint32t
 //
-// [MSK_checkmemenv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_checkmemenv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkmemenv
 func (env *Env) CheckMemenv(
 	file string,
 	line int32,
@@ -103,7 +103,7 @@ func (env *Env) CheckMemenv(
 //   - env: MSKenv_t
 //   - feature: MSKfeaturee
 //
-// [MSK_checkoutlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_checkoutlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkoutlicense
 func (env *Env) CheckOutlicense(
 	feature Feature,
 ) res.Code {
@@ -123,7 +123,7 @@ func (env *Env) CheckOutlicense(
 //   - minor: MSKint32t
 //   - revision: MSKint32t
 //
-// [MSK_checkversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_checkversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkversion
 func (env *Env) CheckVersion(
 	major int32,
 	minor int32,
@@ -149,7 +149,7 @@ func (env *Env) CheckVersion(
 //   - y: const MSKrealt *
 //   - xty: MSKrealt *
 //
-// [MSK_dot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_dot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.dot
 func (env *Env) Dot(
 	n int32,
 	x *float64,
@@ -174,7 +174,7 @@ func (env *Env) Dot(
 //   - env: MSKenv_t
 //   - longver: MSKint32t
 //
-// [MSK_echointro]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_echointro]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.echointro
 func (env *Env) Echointro(
 	longver int32,
 ) res.Code {
@@ -192,7 +192,7 @@ func (env *Env) Echointro(
 //   - env: MSKenv_t
 //   - expiry: MSKint64t *
 //
-// [MSK_expirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_expirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.expirylicenses
 func (env *Env) Expirylicenses(
 	expiry *int64,
 ) res.Code {
@@ -221,7 +221,7 @@ func (env *Env) Expirylicenses(
 //   - beta: MSKrealt
 //   - c: MSKrealt *
 //
-// [MSK_gemm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_gemm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.gemm
 func (env *Env) Gemm(
 	transa Transpose,
 	transb Transpose,
@@ -265,7 +265,7 @@ func (env *Env) Gemm(
 //   - beta: MSKrealt
 //   - y: MSKrealt *
 //
-// [MSK_gemv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_gemv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.gemv
 func (env *Env) Gemv(
 	transa Transpose,
 	m int32,
@@ -298,7 +298,7 @@ func (env *Env) Gemv(
 //   - num: MSKint32t *
 //   - maxlen: size_t *
 //
-// [MSK_getsymbcondim]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_getsymbcondim]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getsymbcondim
 func (env *Env) GetSymbcondim(
 	num *int32,
 	maxlen *uint64,
@@ -320,7 +320,7 @@ func (env *Env) GetSymbcondim(
 //   - whichvalue: MSKint32t
 //   - symbolicname: char *
 //
-// [MSK_iparvaltosymnam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_iparvaltosymnam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.iparvaltosymnam
 func (env *Env) Iparvaltosymnam(
 	whichparam IParam,
 	whichvalue int32,
@@ -344,7 +344,7 @@ func (env *Env) Iparvaltosymnam(
 //   - filename: const char *
 //   - append: MSKint32t
 //
-// [MSK_linkfiletoenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_linkfiletoenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.linkfiletoenvstream
 func (env *Env) LinkFiletoenvstream(
 	whichstream StreamType,
 	filename string,
@@ -372,7 +372,7 @@ func (env *Env) LinkFiletoenvstream(
 //   - n: MSKint32t
 //   - a: MSKrealt *
 //
-// [MSK_potrf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_potrf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.potrf
 func (env *Env) Potrf(
 	uplo UpLo,
 	n int32,
@@ -394,7 +394,7 @@ func (env *Env) Potrf(
 //   - env: MSKenv_t
 //   - code: const MSKint32t *
 //
-// [MSK_putlicensecode]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putlicensecode]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensecode
 func (env *Env) PutLicensecode(
 	code *int32,
 ) res.Code {
@@ -412,7 +412,7 @@ func (env *Env) PutLicensecode(
 //   - env: MSKenv_t
 //   - licdebug: MSKint32t
 //
-// [MSK_putlicensedebug]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putlicensedebug]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensedebug
 func (env *Env) PutLicensedebug(
 	licdebug int32,
 ) res.Code {
@@ -430,7 +430,7 @@ func (env *Env) PutLicensedebug(
 //   - env: MSKenv_t
 //   - licensepath: const char *
 //
-// [MSK_putlicensepath]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putlicensepath]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensepath
 func (env *Env) PutLicensepath(
 	licensepath string,
 ) res.Code {
@@ -451,7 +451,7 @@ func (env *Env) PutLicensepath(
 //   - env: MSKenv_t
 //   - licwait: MSKint32t
 //
-// [MSK_putlicensewait]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_putlicensewait]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensewait
 func (env *Env) PutLicensewait(
 	licwait int32,
 ) res.Code {
@@ -468,7 +468,7 @@ func (env *Env) PutLicensewait(
 // [MSK_resetexpirylicenses] returns MSKrescodee and has following parameters
 //   - env: MSKenv_t
 //
-// [MSK_resetexpirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_resetexpirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.resetexpirylicenses
 func (env *Env) Resetexpirylicenses() res.Code {
 	return res.Code(
 		C.MSK_resetexpirylicenses(
@@ -490,7 +490,7 @@ func (env *Env) Resetexpirylicenses() res.Code {
 //   - lvalc: const MSKrealt *
 //   - b: MSKrealt *
 //
-// [MSK_sparsetriangularsolvedense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_sparsetriangularsolvedense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.sparsetriangularsolvedense
 func (env *Env) SparseTriangularsolvedense(
 	transposed Transpose,
 	n int32,
@@ -526,7 +526,7 @@ func (env *Env) SparseTriangularsolvedense(
 //   - a: const MSKrealt *
 //   - w: MSKrealt *
 //
-// [MSK_syeig]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_syeig]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.syeig
 func (env *Env) Syeig(
 	uplo UpLo,
 	n int32,
@@ -554,7 +554,7 @@ func (env *Env) Syeig(
 //   - a: MSKrealt *
 //   - w: MSKrealt *
 //
-// [MSK_syevd]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_syevd]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.syevd
 func (env *Env) Syevd(
 	uplo UpLo,
 	n int32,
@@ -586,7 +586,7 @@ func (env *Env) Syevd(
 //   - beta: MSKrealt
 //   - c: MSKrealt *
 //
-// [MSK_syrk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_syrk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.syrk
 func (env *Env) Syrk(
 	uplo UpLo,
 	trans Transpose,
@@ -618,7 +618,7 @@ func (env *Env) Syrk(
 //   - env: MSKenv_t
 //   - whichstream: MSKstreamtypee
 //
-// [MSK_unlinkfuncfromenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
+// [MSK_unlinkfuncfromenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.unlinkfuncfromenvstream
 func (env *Env) UnlinkFuncfromenvstream(
 	whichstream StreamType,
 ) res.Code {
