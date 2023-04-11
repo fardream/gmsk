@@ -1407,7 +1407,7 @@ func (task *Task) PutSolutionyi(
 	)
 }
 
-// PutStrparam is wrapping [MSK_putstrparam]
+// PutStrParam is wrapping [MSK_putstrparam]
 //
 // [MSK_putstrparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -1415,7 +1415,7 @@ func (task *Task) PutSolutionyi(
 //   - parvalue: const char *
 //
 // [MSK_putstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putstrparam
-func (task *Task) PutStrparam(
+func (task *Task) PutStrParam(
 	param SParam,
 	parvalue string,
 ) res.Code {

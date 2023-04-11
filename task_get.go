@@ -1437,7 +1437,7 @@ func (task *Task) GetDouParam(
 	)
 }
 
-// GetDualobj is wrapping [MSK_getdualobj]
+// GetDualObj is wrapping [MSK_getdualobj]
 //
 // [MSK_getdualobj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -1445,7 +1445,7 @@ func (task *Task) GetDouParam(
 //   - dualobj: MSKrealt *
 //
 // [MSK_getdualobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdualobj
-func (task *Task) GetDualobj(
+func (task *Task) GetDualObj(
 	whichsol SolType,
 	dualobj *float64,
 ) res.Code {
@@ -1458,7 +1458,7 @@ func (task *Task) GetDualobj(
 	)
 }
 
-// GetDualsolutionnorms is wrapping [MSK_getdualsolutionnorms]
+// GetDualSolutionnorms is wrapping [MSK_getdualsolutionnorms]
 //
 // [MSK_getdualsolutionnorms] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -1472,7 +1472,7 @@ func (task *Task) GetDualobj(
 //   - nrmbars: MSKrealt *
 //
 // [MSK_getdualsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdualsolutionnorms
-func (task *Task) GetDualsolutionnorms(
+func (task *Task) GetDualSolutionnorms(
 	whichsol SolType,
 	nrmy *float64,
 	nrmslc *float64,
@@ -2199,7 +2199,7 @@ func (task *Task) GetPowerdomainInfo(
 	)
 }
 
-// GetPrimalobj is wrapping [MSK_getprimalobj]
+// GetPrimalObj is wrapping [MSK_getprimalobj]
 //
 // [MSK_getprimalobj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -2207,7 +2207,7 @@ func (task *Task) GetPowerdomainInfo(
 //   - primalobj: MSKrealt *
 //
 // [MSK_getprimalobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprimalobj
-func (task *Task) GetPrimalobj(
+func (task *Task) GetPrimalObj(
 	whichsol SolType,
 	primalobj *float64,
 ) res.Code {
@@ -2220,7 +2220,7 @@ func (task *Task) GetPrimalobj(
 	)
 }
 
-// GetPrimalsolutionnorms is wrapping [MSK_getprimalsolutionnorms]
+// GetPrimalSolutionnorms is wrapping [MSK_getprimalsolutionnorms]
 //
 // [MSK_getprimalsolutionnorms] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -2230,7 +2230,7 @@ func (task *Task) GetPrimalobj(
 //   - nrmbarx: MSKrealt *
 //
 // [MSK_getprimalsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprimalsolutionnorms
-func (task *Task) GetPrimalsolutionnorms(
+func (task *Task) GetPrimalSolutionnorms(
 	whichsol SolType,
 	nrmxc *float64,
 	nrmxx *float64,
@@ -3036,7 +3036,7 @@ func (task *Task) GetSparseSymmat(
 	)
 }
 
-// GetStrparam is wrapping [MSK_getstrparam]
+// GetStrParam is wrapping [MSK_getstrparam]
 //
 // [MSK_getstrparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -3046,7 +3046,7 @@ func (task *Task) GetSparseSymmat(
 //   - parvalue: char *
 //
 // [MSK_getstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getstrparam
-func (task *Task) GetStrparam(
+func (task *Task) GetStrParam(
 	param SParam,
 	maxlen int32,
 	len *int32,
@@ -3063,7 +3063,7 @@ func (task *Task) GetStrparam(
 	)
 }
 
-// GetStrparamlen is wrapping [MSK_getstrparamlen]
+// GetStrParamLen is wrapping [MSK_getstrparamlen]
 //
 // [MSK_getstrparamlen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -3071,17 +3071,18 @@ func (task *Task) GetStrparam(
 //   - len: MSKint32t *
 //
 // [MSK_getstrparamlen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getstrparamlen
-func (task *Task) GetStrparamlen(
+func (task *Task) GetStrParamLen(
 	param SParam,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getstrparamlen(
 			task.task,
 			C.MSKsparame(param),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetSuc is wrapping [MSK_getsuc]

@@ -1,6 +1,8 @@
-// res package contains the MSKrescodee
+// res package contains the MSKrescodee or [response code]
 // of MOSEK. This is to prevent the so many codes
 // from poluting the name space of gmsk.
+//
+// [response code]: https://docs.mosek.com/latest/capi/response-codes.html
 package res
 
 // Code is the return code from MOSEK routines
