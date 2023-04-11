@@ -13,7 +13,7 @@ import (
 func Example_portfolio_5_Card() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodeDesc(r)
 
 			log.Panicf("failed: %s %s", sym, desc)
 		}

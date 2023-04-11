@@ -15,7 +15,7 @@ import (
 
 // GetAccafeidxList is wrapping [MSK_getaccafeidxlist]
 //
-// [MSK_getaccafeidxlist] has following parameters
+// [MSK_getaccafeidxlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - afeidxlist: MSKint64t *
@@ -36,7 +36,7 @@ func (task *Task) GetAccafeidxList(
 
 // GetAccb is wrapping [MSK_getaccb]
 //
-// [MSK_getaccb] has following parameters
+// [MSK_getaccb] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - b: MSKrealt *
@@ -57,7 +57,7 @@ func (task *Task) GetAccb(
 
 // GetAccbarfBlockTriplet is wrapping [MSK_getaccbarfblocktriplet]
 //
-// [MSK_getaccbarfblocktriplet] has following parameters
+// [MSK_getaccbarfblocktriplet] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumtrip: MSKint64t
 //   - numtrip: MSKint64t *
@@ -93,7 +93,7 @@ func (task *Task) GetAccbarfBlockTriplet(
 
 // GetAccbarfnumblocktriplets is wrapping [MSK_getaccbarfnumblocktriplets]
 //
-// [MSK_getaccbarfnumblocktriplets] has following parameters
+// [MSK_getaccbarfnumblocktriplets] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numtrip: MSKint64t *
 //
@@ -111,7 +111,7 @@ func (task *Task) GetAccbarfnumblocktriplets(
 
 // GetAccDomain is wrapping [MSK_getaccdomain]
 //
-// [MSK_getaccdomain] has following parameters
+// [MSK_getaccdomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - domidx: MSKint64t *
@@ -130,33 +130,9 @@ func (task *Task) GetAccDomain(
 	)
 }
 
-// GetAccdoty is wrapping [MSK_getaccdoty]
-//
-// [MSK_getaccdoty] has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - accidx: MSKint64t
-//   - doty: MSKrealt *
-//
-// [MSK_getaccdoty]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAccdoty(
-	whichsol SolType,
-	accidx int64,
-	doty *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_getaccdoty(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint64t(accidx),
-			(*C.MSKrealt)(doty),
-		),
-	)
-}
-
 // GetAccdotys is wrapping [MSK_getaccdotys]
 //
-// [MSK_getaccdotys] has following parameters
+// [MSK_getaccdotys] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - doty: MSKrealt *
@@ -175,27 +151,9 @@ func (task *Task) GetAccdotys(
 	)
 }
 
-// GetAccfnumnz is wrapping [MSK_getaccfnumnz]
-//
-// [MSK_getaccfnumnz] has following parameters
-//   - task: MSKtask_t
-//   - accfnnz: MSKint64t *
-//
-// [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAccfnumnz(
-	accfnnz *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_getaccfnumnz(
-			task.task,
-			(*C.MSKint64t)(accfnnz),
-		),
-	)
-}
-
 // GetAccftrip is wrapping [MSK_getaccftrip]
 //
-// [MSK_getaccftrip] has following parameters
+// [MSK_getaccftrip] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - frow: MSKint64t *
 //   - fcol: MSKint32t *
@@ -219,7 +177,7 @@ func (task *Task) GetAccftrip(
 
 // GetAccgvector is wrapping [MSK_getaccgvector]
 //
-// [MSK_getaccgvector] has following parameters
+// [MSK_getaccgvector] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - g: MSKrealt *
 //
@@ -235,30 +193,9 @@ func (task *Task) GetAccgvector(
 	)
 }
 
-// GetAccn is wrapping [MSK_getaccn]
-//
-// [MSK_getaccn] has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - n: MSKint64t *
-//
-// [MSK_getaccn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAccn(
-	accidx int64,
-	n *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_getaccn(
-			task.task,
-			C.MSKint64t(accidx),
-			(*C.MSKint64t)(n),
-		),
-	)
-}
-
 // GetAccName is wrapping [MSK_getaccname]
 //
-// [MSK_getaccname] has following parameters
+// [MSK_getaccname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - sizename: MSKint32t
@@ -268,42 +205,51 @@ func (task *Task) GetAccn(
 func (task *Task) GetAccName(
 	accidx int64,
 	sizename int32,
-	name *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, name string) {
+	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_name))
+
+	r = res.Code(
 		C.MSK_getaccname(
 			task.task,
 			C.MSKint64t(accidx),
 			C.MSKint32t(sizename),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
+
+	if r.IsOk() {
+		name = C.GoString(c_name)
+	}
+
+	return
 }
 
-// GetAccnamelen is wrapping [MSK_getaccnamelen]
+// GetAccNameLen is wrapping [MSK_getaccnamelen]
 //
-// [MSK_getaccnamelen] has following parameters
+// [MSK_getaccnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - len: MSKint32t *
 //
 // [MSK_getaccnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAccnamelen(
+func (task *Task) GetAccNameLen(
 	accidx int64,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getaccnamelen(
 			task.task,
 			C.MSKint64t(accidx),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetAccntot is wrapping [MSK_getaccntot]
 //
-// [MSK_getaccntot] has following parameters
+// [MSK_getaccntot] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t *
 //
@@ -321,7 +267,7 @@ func (task *Task) GetAccntot(
 
 // GetAccs is wrapping [MSK_getaccs]
 //
-// [MSK_getaccs] has following parameters
+// [MSK_getaccs] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidxlist: MSKint64t *
 //   - afeidxlist: MSKint64t *
@@ -345,7 +291,7 @@ func (task *Task) GetAccs(
 
 // GetACol is wrapping [MSK_getacol]
 //
-// [MSK_getacol] has following parameters
+// [MSK_getacol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - nzj: MSKint32t *
@@ -370,30 +316,9 @@ func (task *Task) GetACol(
 	)
 }
 
-// GetAColNumnz is wrapping [MSK_getacolnumnz]
-//
-// [MSK_getacolnumnz] has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - nzj: MSKint32t *
-//
-// [MSK_getacolnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAColNumnz(
-	i int32,
-	nzj *int32,
-) res.Code {
-	return res.Code(
-		C.MSK_getacolnumnz(
-			task.task,
-			C.MSKint32t(i),
-			(*C.MSKint32t)(nzj),
-		),
-	)
-}
-
 // GetAColSlice is wrapping [MSK_getacolslice]
 //
-// [MSK_getacolslice] has following parameters
+// [MSK_getacolslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -429,7 +354,7 @@ func (task *Task) GetAColSlice(
 
 // GetAColSlice64 is wrapping [MSK_getacolslice64]
 //
-// [MSK_getacolslice64] has following parameters
+// [MSK_getacolslice64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -463,57 +388,9 @@ func (task *Task) GetAColSlice64(
 	)
 }
 
-// GetAColSlicenumnz is wrapping [MSK_getacolslicenumnz]
-//
-// [MSK_getacolslicenumnz] has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint32t *
-//
-// [MSK_getacolslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAColSlicenumnz(
-	first int32,
-	last int32,
-	numnz *int32,
-) res.Code {
-	return res.Code(
-		C.MSK_getacolslicenumnz(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKint32t)(numnz),
-		),
-	)
-}
-
-// GetAColSlicenumnz64 is wrapping [MSK_getacolslicenumnz64]
-//
-// [MSK_getacolslicenumnz64] has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint64t *
-//
-// [MSK_getacolslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAColSlicenumnz64(
-	first int32,
-	last int32,
-	numnz *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_getacolslicenumnz64(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKint64t)(numnz),
-		),
-	)
-}
-
 // GetAColSlicetrip is wrapping [MSK_getacolslicetrip]
 //
-// [MSK_getacolslicetrip] has following parameters
+// [MSK_getacolslicetrip] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -546,7 +423,7 @@ func (task *Task) GetAColSlicetrip(
 
 // GetAfeBarFBlockTriplet is wrapping [MSK_getafebarfblocktriplet]
 //
-// [MSK_getafebarfblocktriplet] has following parameters
+// [MSK_getafebarfblocktriplet] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumtrip: MSKint64t
 //   - numtrip: MSKint64t *
@@ -582,7 +459,7 @@ func (task *Task) GetAfeBarFBlockTriplet(
 
 // GetAfeBarFNumblocktriplets is wrapping [MSK_getafebarfnumblocktriplets]
 //
-// [MSK_getafebarfnumblocktriplets] has following parameters
+// [MSK_getafebarfnumblocktriplets] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numtrip: MSKint64t *
 //
@@ -600,7 +477,7 @@ func (task *Task) GetAfeBarFNumblocktriplets(
 
 // GetAfeBarFNumrowentries is wrapping [MSK_getafebarfnumrowentries]
 //
-// [MSK_getafebarfnumrowentries] has following parameters
+// [MSK_getafebarfnumrowentries] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - numentr: MSKint32t *
@@ -621,7 +498,7 @@ func (task *Task) GetAfeBarFNumrowentries(
 
 // GetAfeBarFRow is wrapping [MSK_getafebarfrow]
 //
-// [MSK_getafebarfrow] has following parameters
+// [MSK_getafebarfrow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - barvaridx: MSKint32t *
@@ -654,7 +531,7 @@ func (task *Task) GetAfeBarFRow(
 
 // GetAfeBarFRowinfo is wrapping [MSK_getafebarfrowinfo]
 //
-// [MSK_getafebarfrowinfo] has following parameters
+// [MSK_getafebarfrowinfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - numentr: MSKint32t *
@@ -676,27 +553,9 @@ func (task *Task) GetAfeBarFRowinfo(
 	)
 }
 
-// GetAfeFNumnz is wrapping [MSK_getafefnumnz]
-//
-// [MSK_getafefnumnz] has following parameters
-//   - task: MSKtask_t
-//   - numnz: MSKint64t *
-//
-// [MSK_getafefnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAfeFNumnz(
-	numnz *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_getafefnumnz(
-			task.task,
-			(*C.MSKint64t)(numnz),
-		),
-	)
-}
-
 // GetAfeFRow is wrapping [MSK_getafefrow]
 //
-// [MSK_getafefrow] has following parameters
+// [MSK_getafefrow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - numnz: MSKint32t *
@@ -721,30 +580,9 @@ func (task *Task) GetAfeFRow(
 	)
 }
 
-// GetAfeFRownumnz is wrapping [MSK_getafefrownumnz]
-//
-// [MSK_getafefrownumnz] has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t
-//   - numnz: MSKint32t *
-//
-// [MSK_getafefrownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetAfeFRownumnz(
-	afeidx int64,
-	numnz *int32,
-) res.Code {
-	return res.Code(
-		C.MSK_getafefrownumnz(
-			task.task,
-			C.MSKint64t(afeidx),
-			(*C.MSKint32t)(numnz),
-		),
-	)
-}
-
 // GetAfeFTrip is wrapping [MSK_getafeftrip]
 //
-// [MSK_getafeftrip] has following parameters
+// [MSK_getafeftrip] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t *
 //   - varidx: MSKint32t *
@@ -768,7 +606,7 @@ func (task *Task) GetAfeFTrip(
 
 // GetAfeG is wrapping [MSK_getafeg]
 //
-// [MSK_getafeg] has following parameters
+// [MSK_getafeg] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - g: MSKrealt *
@@ -789,7 +627,7 @@ func (task *Task) GetAfeG(
 
 // GetAfeGSlice is wrapping [MSK_getafegslice]
 //
-// [MSK_getafegslice] has following parameters
+// [MSK_getafegslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint64t
 //   - last: MSKint64t
@@ -813,7 +651,7 @@ func (task *Task) GetAfeGSlice(
 
 // GetAij is wrapping [MSK_getaij]
 //
-// [MSK_getaij] has following parameters
+// [MSK_getaij] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - j: MSKint32t
@@ -835,39 +673,9 @@ func (task *Task) GetAij(
 	)
 }
 
-// GetApiecenumnz is wrapping [MSK_getapiecenumnz]
-//
-// [MSK_getapiecenumnz] has following parameters
-//   - task: MSKtask_t
-//   - firsti: MSKint32t
-//   - lasti: MSKint32t
-//   - firstj: MSKint32t
-//   - lastj: MSKint32t
-//   - numnz: MSKint32t *
-//
-// [MSK_getapiecenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetApiecenumnz(
-	firsti int32,
-	lasti int32,
-	firstj int32,
-	lastj int32,
-	numnz *int32,
-) res.Code {
-	return res.Code(
-		C.MSK_getapiecenumnz(
-			task.task,
-			C.MSKint32t(firsti),
-			C.MSKint32t(lasti),
-			C.MSKint32t(firstj),
-			C.MSKint32t(lastj),
-			(*C.MSKint32t)(numnz),
-		),
-	)
-}
-
 // GetARow is wrapping [MSK_getarow]
 //
-// [MSK_getarow] has following parameters
+// [MSK_getarow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - nzi: MSKint32t *
@@ -892,30 +700,9 @@ func (task *Task) GetARow(
 	)
 }
 
-// GetARowNumnz is wrapping [MSK_getarownumnz]
-//
-// [MSK_getarownumnz] has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - nzi: MSKint32t *
-//
-// [MSK_getarownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetARowNumnz(
-	i int32,
-	nzi *int32,
-) res.Code {
-	return res.Code(
-		C.MSK_getarownumnz(
-			task.task,
-			C.MSKint32t(i),
-			(*C.MSKint32t)(nzi),
-		),
-	)
-}
-
 // GetARowSlice is wrapping [MSK_getarowslice]
 //
-// [MSK_getarowslice] has following parameters
+// [MSK_getarowslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -951,7 +738,7 @@ func (task *Task) GetARowSlice(
 
 // GetARowSlice64 is wrapping [MSK_getarowslice64]
 //
-// [MSK_getarowslice64] has following parameters
+// [MSK_getarowslice64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -985,57 +772,9 @@ func (task *Task) GetARowSlice64(
 	)
 }
 
-// GetARowSlicenumnz is wrapping [MSK_getarowslicenumnz]
-//
-// [MSK_getarowslicenumnz] has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint32t *
-//
-// [MSK_getarowslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetARowSlicenumnz(
-	first int32,
-	last int32,
-	numnz *int32,
-) res.Code {
-	return res.Code(
-		C.MSK_getarowslicenumnz(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKint32t)(numnz),
-		),
-	)
-}
-
-// GetARowSlicenumnz64 is wrapping [MSK_getarowslicenumnz64]
-//
-// [MSK_getarowslicenumnz64] has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint64t *
-//
-// [MSK_getarowslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetARowSlicenumnz64(
-	first int32,
-	last int32,
-	numnz *int64,
-) res.Code {
-	return res.Code(
-		C.MSK_getarowslicenumnz64(
-			task.task,
-			C.MSKint32t(first),
-			C.MSKint32t(last),
-			(*C.MSKint64t)(numnz),
-		),
-	)
-}
-
 // GetARowSlicetrip is wrapping [MSK_getarowslicetrip]
 //
-// [MSK_getarowslicetrip] has following parameters
+// [MSK_getarowslicetrip] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -1068,7 +807,7 @@ func (task *Task) GetARowSlicetrip(
 
 // GetAtrip is wrapping [MSK_getatrip]
 //
-// [MSK_getatrip] has following parameters
+// [MSK_getatrip] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumnz: MSKint64t
 //   - subi: MSKint32t *
@@ -1095,7 +834,7 @@ func (task *Task) GetAtrip(
 
 // GetAtruncatetol is wrapping [MSK_getatruncatetol]
 //
-// [MSK_getatruncatetol] has following parameters
+// [MSK_getatruncatetol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - tolzero: MSKrealt *
 //
@@ -1113,7 +852,7 @@ func (task *Task) GetAtruncatetol(
 
 // GetBarABlockTriplet is wrapping [MSK_getbarablocktriplet]
 //
-// [MSK_getbarablocktriplet] has following parameters
+// [MSK_getbarablocktriplet] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnum: MSKint64t
 //   - num: MSKint64t *
@@ -1149,7 +888,7 @@ func (task *Task) GetBarABlockTriplet(
 
 // GetBarAIdx is wrapping [MSK_getbaraidx]
 //
-// [MSK_getbaraidx] has following parameters
+// [MSK_getbaraidx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - maxnum: MSKint64t
@@ -1185,7 +924,7 @@ func (task *Task) GetBarAIdx(
 
 // GetBarAIdxij is wrapping [MSK_getbaraidxij]
 //
-// [MSK_getbaraidxij] has following parameters
+// [MSK_getbaraidxij] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - i: MSKint32t *
@@ -1209,7 +948,7 @@ func (task *Task) GetBarAIdxij(
 
 // GetBarAIdxinfo is wrapping [MSK_getbaraidxinfo]
 //
-// [MSK_getbaraidxinfo] has following parameters
+// [MSK_getbaraidxinfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - num: MSKint64t *
@@ -1230,7 +969,7 @@ func (task *Task) GetBarAIdxinfo(
 
 // GetBarASparsity is wrapping [MSK_getbarasparsity]
 //
-// [MSK_getbarasparsity] has following parameters
+// [MSK_getbarasparsity] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumnz: MSKint64t
 //   - numnz: MSKint64t *
@@ -1254,7 +993,7 @@ func (task *Task) GetBarASparsity(
 
 // GetBarCBlockTriplet is wrapping [MSK_getbarcblocktriplet]
 //
-// [MSK_getbarcblocktriplet] has following parameters
+// [MSK_getbarcblocktriplet] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnum: MSKint64t
 //   - num: MSKint64t *
@@ -1287,7 +1026,7 @@ func (task *Task) GetBarCBlockTriplet(
 
 // GetBarCIdx is wrapping [MSK_getbarcidx]
 //
-// [MSK_getbarcidx] has following parameters
+// [MSK_getbarcidx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - maxnum: MSKint64t
@@ -1320,7 +1059,7 @@ func (task *Task) GetBarCIdx(
 
 // GetBarCIdxinfo is wrapping [MSK_getbarcidxinfo]
 //
-// [MSK_getbarcidxinfo] has following parameters
+// [MSK_getbarcidxinfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - num: MSKint64t *
@@ -1341,7 +1080,7 @@ func (task *Task) GetBarCIdxinfo(
 
 // GetBarCIdxj is wrapping [MSK_getbarcidxj]
 //
-// [MSK_getbarcidxj] has following parameters
+// [MSK_getbarcidxj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - j: MSKint32t *
@@ -1362,7 +1101,7 @@ func (task *Task) GetBarCIdxj(
 
 // GetBarCSparsity is wrapping [MSK_getbarcsparsity]
 //
-// [MSK_getbarcsparsity] has following parameters
+// [MSK_getbarcsparsity] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumnz: MSKint64t
 //   - numnz: MSKint64t *
@@ -1386,7 +1125,7 @@ func (task *Task) GetBarCSparsity(
 
 // GetBarsj is wrapping [MSK_getbarsj]
 //
-// [MSK_getbarsj] has following parameters
+// [MSK_getbarsj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - j: MSKint32t
@@ -1410,7 +1149,7 @@ func (task *Task) GetBarsj(
 
 // GetBarsSlice is wrapping [MSK_getbarsslice]
 //
-// [MSK_getbarsslice] has following parameters
+// [MSK_getbarsslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -1440,7 +1179,7 @@ func (task *Task) GetBarsSlice(
 
 // GetBarvarName is wrapping [MSK_getbarvarname]
 //
-// [MSK_getbarvarname] has following parameters
+// [MSK_getbarvarname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - sizename: MSKint32t
@@ -1450,21 +1189,29 @@ func (task *Task) GetBarsSlice(
 func (task *Task) GetBarvarName(
 	i int32,
 	sizename int32,
-	name *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, name string) {
+	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_name))
+
+	r = res.Code(
 		C.MSK_getbarvarname(
 			task.task,
 			C.MSKint32t(i),
 			C.MSKint32t(sizename),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
+
+	if r.IsOk() {
+		name = C.GoString(c_name)
+	}
+
+	return
 }
 
 // GetBarvarnameindex is wrapping [MSK_getbarvarnameindex]
 //
-// [MSK_getbarvarnameindex] has following parameters
+// [MSK_getbarvarnameindex] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - somename: const char *
 //   - asgn: MSKint32t *
@@ -1489,30 +1236,31 @@ func (task *Task) GetBarvarnameindex(
 	)
 }
 
-// GetBarvarnamelen is wrapping [MSK_getbarvarnamelen]
+// GetBarvarNameLen is wrapping [MSK_getbarvarnamelen]
 //
-// [MSK_getbarvarnamelen] has following parameters
+// [MSK_getbarvarnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - len: MSKint32t *
 //
 // [MSK_getbarvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetBarvarnamelen(
+func (task *Task) GetBarvarNameLen(
 	i int32,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getbarvarnamelen(
 			task.task,
 			C.MSKint32t(i),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetBarxj is wrapping [MSK_getbarxj]
 //
-// [MSK_getbarxj] has following parameters
+// [MSK_getbarxj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - j: MSKint32t
@@ -1536,7 +1284,7 @@ func (task *Task) GetBarxj(
 
 // GetBarxSlice is wrapping [MSK_getbarxslice]
 //
-// [MSK_getbarxslice] has following parameters
+// [MSK_getbarxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -1566,7 +1314,7 @@ func (task *Task) GetBarxSlice(
 
 // GetC is wrapping [MSK_getc]
 //
-// [MSK_getc] has following parameters
+// [MSK_getc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - c: MSKrealt *
 //
@@ -1584,7 +1332,7 @@ func (task *Task) GetC(
 
 // GetCFix is wrapping [MSK_getcfix]
 //
-// [MSK_getcfix] has following parameters
+// [MSK_getcfix] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - cfix: MSKrealt *
 //
@@ -1602,7 +1350,7 @@ func (task *Task) GetCFix(
 
 // GetCj is wrapping [MSK_getcj]
 //
-// [MSK_getcj] has following parameters
+// [MSK_getcj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - cj: MSKrealt *
@@ -1623,7 +1371,7 @@ func (task *Task) GetCj(
 
 // GetCList is wrapping [MSK_getclist]
 //
-// [MSK_getclist] has following parameters
+// [MSK_getclist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subj: const MSKint32t *
@@ -1647,7 +1395,7 @@ func (task *Task) GetCList(
 
 // GetConbound is wrapping [MSK_getconbound]
 //
-// [MSK_getconbound] has following parameters
+// [MSK_getconbound] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - bk: MSKboundkeye *
@@ -1674,7 +1422,7 @@ func (task *Task) GetConbound(
 
 // GetConboundSlice is wrapping [MSK_getconboundslice]
 //
-// [MSK_getconboundslice] has following parameters
+// [MSK_getconboundslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -1704,7 +1452,7 @@ func (task *Task) GetConboundSlice(
 
 // GetCone is wrapping [MSK_getcone]
 //
-// [MSK_getcone] has following parameters
+// [MSK_getcone] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - ct: MSKconetypee *
@@ -1734,7 +1482,7 @@ func (task *Task) GetCone(
 
 // GetConeinfo is wrapping [MSK_getconeinfo]
 //
-// [MSK_getconeinfo] has following parameters
+// [MSK_getconeinfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - ct: MSKconetypee *
@@ -1761,7 +1509,7 @@ func (task *Task) GetConeinfo(
 
 // GetConeName is wrapping [MSK_getconename]
 //
-// [MSK_getconename] has following parameters
+// [MSK_getconename] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - sizename: MSKint32t
@@ -1771,21 +1519,29 @@ func (task *Task) GetConeinfo(
 func (task *Task) GetConeName(
 	i int32,
 	sizename int32,
-	name *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, name string) {
+	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_name))
+
+	r = res.Code(
 		C.MSK_getconename(
 			task.task,
 			C.MSKint32t(i),
 			C.MSKint32t(sizename),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
+
+	if r.IsOk() {
+		name = C.GoString(c_name)
+	}
+
+	return
 }
 
 // GetConenameindex is wrapping [MSK_getconenameindex]
 //
-// [MSK_getconenameindex] has following parameters
+// [MSK_getconenameindex] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - somename: const char *
 //   - asgn: MSKint32t *
@@ -1810,30 +1566,31 @@ func (task *Task) GetConenameindex(
 	)
 }
 
-// GetConenamelen is wrapping [MSK_getconenamelen]
+// GetConeNameLen is wrapping [MSK_getconenamelen]
 //
-// [MSK_getconenamelen] has following parameters
+// [MSK_getconenamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - len: MSKint32t *
 //
 // [MSK_getconenamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetConenamelen(
+func (task *Task) GetConeNameLen(
 	i int32,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getconenamelen(
 			task.task,
 			C.MSKint32t(i),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetConName is wrapping [MSK_getconname]
 //
-// [MSK_getconname] has following parameters
+// [MSK_getconname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - sizename: MSKint32t
@@ -1843,21 +1600,29 @@ func (task *Task) GetConenamelen(
 func (task *Task) GetConName(
 	i int32,
 	sizename int32,
-	name *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, name string) {
+	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_name))
+
+	r = res.Code(
 		C.MSK_getconname(
 			task.task,
 			C.MSKint32t(i),
 			C.MSKint32t(sizename),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
+
+	if r.IsOk() {
+		name = C.GoString(c_name)
+	}
+
+	return
 }
 
 // GetConnameindex is wrapping [MSK_getconnameindex]
 //
-// [MSK_getconnameindex] has following parameters
+// [MSK_getconnameindex] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - somename: const char *
 //   - asgn: MSKint32t *
@@ -1882,30 +1647,31 @@ func (task *Task) GetConnameindex(
 	)
 }
 
-// GetConnamelen is wrapping [MSK_getconnamelen]
+// GetConNameLen is wrapping [MSK_getconnamelen]
 //
-// [MSK_getconnamelen] has following parameters
+// [MSK_getconnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - len: MSKint32t *
 //
 // [MSK_getconnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetConnamelen(
+func (task *Task) GetConNameLen(
 	i int32,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getconnamelen(
 			task.task,
 			C.MSKint32t(i),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetCSlice is wrapping [MSK_getcslice]
 //
-// [MSK_getcslice] has following parameters
+// [MSK_getcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -1929,7 +1695,7 @@ func (task *Task) GetCSlice(
 
 // GetDimbarvarj is wrapping [MSK_getdimbarvarj]
 //
-// [MSK_getdimbarvarj] has following parameters
+// [MSK_getdimbarvarj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - dimbarvarj: MSKint32t *
@@ -1950,7 +1716,7 @@ func (task *Task) GetDimbarvarj(
 
 // GetDjcafeidxList is wrapping [MSK_getdjcafeidxlist]
 //
-// [MSK_getdjcafeidxlist] has following parameters
+// [MSK_getdjcafeidxlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - afeidxlist: MSKint64t *
@@ -1971,7 +1737,7 @@ func (task *Task) GetDjcafeidxList(
 
 // GetDjcb is wrapping [MSK_getdjcb]
 //
-// [MSK_getdjcb] has following parameters
+// [MSK_getdjcb] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - b: MSKrealt *
@@ -1992,7 +1758,7 @@ func (task *Task) GetDjcb(
 
 // GetDjcdomainidxList is wrapping [MSK_getdjcdomainidxlist]
 //
-// [MSK_getdjcdomainidxlist] has following parameters
+// [MSK_getdjcdomainidxlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - domidxlist: MSKint64t *
@@ -2013,7 +1779,7 @@ func (task *Task) GetDjcdomainidxList(
 
 // GetDjcName is wrapping [MSK_getdjcname]
 //
-// [MSK_getdjcname] has following parameters
+// [MSK_getdjcname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - sizename: MSKint32t
@@ -2023,42 +1789,51 @@ func (task *Task) GetDjcdomainidxList(
 func (task *Task) GetDjcName(
 	djcidx int64,
 	sizename int32,
-	name *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, name string) {
+	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_name))
+
+	r = res.Code(
 		C.MSK_getdjcname(
 			task.task,
 			C.MSKint64t(djcidx),
 			C.MSKint32t(sizename),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
+
+	if r.IsOk() {
+		name = C.GoString(c_name)
+	}
+
+	return
 }
 
-// GetDjcnamelen is wrapping [MSK_getdjcnamelen]
+// GetDjcNameLen is wrapping [MSK_getdjcnamelen]
 //
-// [MSK_getdjcnamelen] has following parameters
+// [MSK_getdjcnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - len: MSKint32t *
 //
 // [MSK_getdjcnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetDjcnamelen(
+func (task *Task) GetDjcNameLen(
 	djcidx int64,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getdjcnamelen(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetDjcnumafe is wrapping [MSK_getdjcnumafe]
 //
-// [MSK_getdjcnumafe] has following parameters
+// [MSK_getdjcnumafe] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - numafe: MSKint64t *
@@ -2079,7 +1854,7 @@ func (task *Task) GetDjcnumafe(
 
 // GetDjcnumafetot is wrapping [MSK_getdjcnumafetot]
 //
-// [MSK_getdjcnumafetot] has following parameters
+// [MSK_getdjcnumafetot] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numafetot: MSKint64t *
 //
@@ -2097,7 +1872,7 @@ func (task *Task) GetDjcnumafetot(
 
 // GetDjcnumDomain is wrapping [MSK_getdjcnumdomain]
 //
-// [MSK_getdjcnumdomain] has following parameters
+// [MSK_getdjcnumdomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - numdomain: MSKint64t *
@@ -2118,7 +1893,7 @@ func (task *Task) GetDjcnumDomain(
 
 // GetDjcnumdomaintot is wrapping [MSK_getdjcnumdomaintot]
 //
-// [MSK_getdjcnumdomaintot] has following parameters
+// [MSK_getdjcnumdomaintot] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numdomaintot: MSKint64t *
 //
@@ -2136,7 +1911,7 @@ func (task *Task) GetDjcnumdomaintot(
 
 // GetDjcnumterm is wrapping [MSK_getdjcnumterm]
 //
-// [MSK_getdjcnumterm] has following parameters
+// [MSK_getdjcnumterm] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - numterm: MSKint64t *
@@ -2157,7 +1932,7 @@ func (task *Task) GetDjcnumterm(
 
 // GetDjcnumtermtot is wrapping [MSK_getdjcnumtermtot]
 //
-// [MSK_getdjcnumtermtot] has following parameters
+// [MSK_getdjcnumtermtot] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numtermtot: MSKint64t *
 //
@@ -2175,7 +1950,7 @@ func (task *Task) GetDjcnumtermtot(
 
 // GetDjcs is wrapping [MSK_getdjcs]
 //
-// [MSK_getdjcs] has following parameters
+// [MSK_getdjcs] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidxlist: MSKint64t *
 //   - afeidxlist: MSKint64t *
@@ -2205,7 +1980,7 @@ func (task *Task) GetDjcs(
 
 // GetDjctermsizeList is wrapping [MSK_getdjctermsizelist]
 //
-// [MSK_getdjctermsizelist] has following parameters
+// [MSK_getdjctermsizelist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - termsizelist: MSKint64t *
@@ -2226,7 +2001,7 @@ func (task *Task) GetDjctermsizeList(
 
 // GetDomainn is wrapping [MSK_getdomainn]
 //
-// [MSK_getdomainn] has following parameters
+// [MSK_getdomainn] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - n: MSKint64t *
@@ -2247,7 +2022,7 @@ func (task *Task) GetDomainn(
 
 // GetDomainName is wrapping [MSK_getdomainname]
 //
-// [MSK_getdomainname] has following parameters
+// [MSK_getdomainname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - sizename: MSKint32t
@@ -2257,42 +2032,51 @@ func (task *Task) GetDomainn(
 func (task *Task) GetDomainName(
 	domidx int64,
 	sizename int32,
-	name *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, name string) {
+	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_name))
+
+	r = res.Code(
 		C.MSK_getdomainname(
 			task.task,
 			C.MSKint64t(domidx),
 			C.MSKint32t(sizename),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
+
+	if r.IsOk() {
+		name = C.GoString(c_name)
+	}
+
+	return
 }
 
-// GetDomainnamelen is wrapping [MSK_getdomainnamelen]
+// GetDomainNameLen is wrapping [MSK_getdomainnamelen]
 //
-// [MSK_getdomainnamelen] has following parameters
+// [MSK_getdomainnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - len: MSKint32t *
 //
 // [MSK_getdomainnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetDomainnamelen(
+func (task *Task) GetDomainNameLen(
 	domidx int64,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getdomainnamelen(
 			task.task,
 			C.MSKint64t(domidx),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetDomaintype is wrapping [MSK_getdomaintype]
 //
-// [MSK_getdomaintype] has following parameters
+// [MSK_getdomaintype] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - domtype: MSKdomaintypee *
@@ -2314,7 +2098,7 @@ func (task *Task) GetDomaintype(
 // GetDouInf is wrapping [MSK_getdouinf] and
 // retrieves float point information from the task.
 //
-// [MSK_getdouinf] has following parameters
+// [MSK_getdouinf] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichdinf: MSKdinfiteme
 //   - dvalue: MSKrealt *
@@ -2336,7 +2120,7 @@ func (task *Task) GetDouInf(
 
 // GetDouParam is wrapping [MSK_getdouparam]
 //
-// [MSK_getdouparam] has following parameters
+// [MSK_getdouparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - param: MSKdparame
 //   - parvalue: MSKrealt *
@@ -2357,7 +2141,7 @@ func (task *Task) GetDouParam(
 
 // GetDualobj is wrapping [MSK_getdualobj]
 //
-// [MSK_getdualobj] has following parameters
+// [MSK_getdualobj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - dualobj: MSKrealt *
@@ -2378,7 +2162,7 @@ func (task *Task) GetDualobj(
 
 // GetDualsolutionnorms is wrapping [MSK_getdualsolutionnorms]
 //
-// [MSK_getdualsolutionnorms] has following parameters
+// [MSK_getdualsolutionnorms] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - nrmy: MSKrealt *
@@ -2417,7 +2201,7 @@ func (task *Task) GetDualsolutionnorms(
 
 // GetDviolacc is wrapping [MSK_getdviolacc]
 //
-// [MSK_getdviolacc] has following parameters
+// [MSK_getdviolacc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - numaccidx: MSKint64t
@@ -2444,7 +2228,7 @@ func (task *Task) GetDviolacc(
 
 // GetDviolbarvar is wrapping [MSK_getdviolbarvar]
 //
-// [MSK_getdviolbarvar] has following parameters
+// [MSK_getdviolbarvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -2471,7 +2255,7 @@ func (task *Task) GetDviolbarvar(
 
 // GetDviolcon is wrapping [MSK_getdviolcon]
 //
-// [MSK_getdviolcon] has following parameters
+// [MSK_getdviolcon] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -2498,7 +2282,7 @@ func (task *Task) GetDviolcon(
 
 // GetDviolcones is wrapping [MSK_getdviolcones]
 //
-// [MSK_getdviolcones] has following parameters
+// [MSK_getdviolcones] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -2525,7 +2309,7 @@ func (task *Task) GetDviolcones(
 
 // GetDviolvar is wrapping [MSK_getdviolvar]
 //
-// [MSK_getdviolvar] has following parameters
+// [MSK_getdviolvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -2552,7 +2336,7 @@ func (task *Task) GetDviolvar(
 
 // GetInfindex is wrapping [MSK_getinfindex]
 //
-// [MSK_getinfindex] has following parameters
+// [MSK_getinfindex] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - inftype: MSKinftypee
 //   - infname: const char *
@@ -2579,7 +2363,7 @@ func (task *Task) GetInfindex(
 
 // GetInfmax is wrapping [MSK_getinfmax]
 //
-// [MSK_getinfmax] has following parameters
+// [MSK_getinfmax] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - inftype: MSKinftypee
 //   - infmax: MSKint32t *
@@ -2600,7 +2384,7 @@ func (task *Task) GetInfmax(
 
 // GetInfName is wrapping [MSK_getinfname]
 //
-// [MSK_getinfname] has following parameters
+// [MSK_getinfname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - inftype: MSKinftypee
 //   - whichinf: MSKint32t
@@ -2610,22 +2394,30 @@ func (task *Task) GetInfmax(
 func (task *Task) GetInfName(
 	inftype InfType,
 	whichinf int32,
-	infname *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, infname string) {
+	c_infname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_infname))
+
+	r = res.Code(
 		C.MSK_getinfname(
 			task.task,
 			C.MSKinftypee(inftype),
 			C.MSKint32t(whichinf),
-			(*C.char)(unsafe.Pointer(infname)),
+			c_infname,
 		),
 	)
+
+	if r.IsOk() {
+		infname = C.GoString(c_infname)
+	}
+
+	return
 }
 
 // GetIntInf is wrapping [MSK_getintinf] and
 // retrieves integer information from the task.
 //
-// [MSK_getintinf] has following parameters
+// [MSK_getintinf] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichiinf: MSKiinfiteme
 //   - ivalue: MSKint32t *
@@ -2647,7 +2439,7 @@ func (task *Task) GetIntInf(
 
 // GetIntParam is wrapping [MSK_getintparam]
 //
-// [MSK_getintparam] has following parameters
+// [MSK_getintparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - param: MSKiparame
 //   - parvalue: MSKint32t *
@@ -2668,7 +2460,7 @@ func (task *Task) GetIntParam(
 
 // GetLasterror is wrapping [MSK_getlasterror]
 //
-// [MSK_getlasterror] has following parameters
+// [MSK_getlasterror] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - lastrescode: MSKrescodee *
 //   - sizelastmsg: MSKint32t
@@ -2695,7 +2487,7 @@ func (task *Task) GetLasterror(
 
 // GetLasterror64 is wrapping [MSK_getlasterror64]
 //
-// [MSK_getlasterror64] has following parameters
+// [MSK_getlasterror64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - lastrescode: MSKrescodee *
 //   - sizelastmsg: MSKint64t
@@ -2722,7 +2514,7 @@ func (task *Task) GetLasterror64(
 
 // GetLenbarvarj is wrapping [MSK_getlenbarvarj]
 //
-// [MSK_getlenbarvarj] has following parameters
+// [MSK_getlenbarvarj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - lenbarvarj: MSKint64t *
@@ -2743,7 +2535,7 @@ func (task *Task) GetLenbarvarj(
 
 // GetLintinf is wrapping [MSK_getlintinf]
 //
-// [MSK_getlintinf] has following parameters
+// [MSK_getlintinf] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichliinf: MSKliinfiteme
 //   - ivalue: MSKint64t *
@@ -2762,27 +2554,27 @@ func (task *Task) GetLintinf(
 	)
 }
 
-// GetMaxnamelen is wrapping [MSK_getmaxnamelen]
+// GetMaxNameLen is wrapping [MSK_getmaxnamelen]
 //
-// [MSK_getmaxnamelen] has following parameters
+// [MSK_getmaxnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxlen: MSKint32t *
 //
 // [MSK_getmaxnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetMaxnamelen(
-	maxlen *int32,
-) res.Code {
-	return res.Code(
+func (task *Task) GetMaxNameLen() (r res.Code, maxlen int32) {
+	r = res.Code(
 		C.MSK_getmaxnamelen(
 			task.task,
-			(*C.MSKint32t)(maxlen),
+			(*C.MSKint32t)(&maxlen),
 		),
 	)
+
+	return
 }
 
 // GetMaxnumanz is wrapping [MSK_getmaxnumanz]
 //
-// [MSK_getmaxnumanz] has following parameters
+// [MSK_getmaxnumanz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumanz: MSKint32t *
 //
@@ -2800,7 +2592,7 @@ func (task *Task) GetMaxnumanz(
 
 // GetMaxnumanz64 is wrapping [MSK_getmaxnumanz64]
 //
-// [MSK_getmaxnumanz64] has following parameters
+// [MSK_getmaxnumanz64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumanz: MSKint64t *
 //
@@ -2818,7 +2610,7 @@ func (task *Task) GetMaxnumanz64(
 
 // GetMaxnumbarvar is wrapping [MSK_getmaxnumbarvar]
 //
-// [MSK_getmaxnumbarvar] has following parameters
+// [MSK_getmaxnumbarvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumbarvar: MSKint32t *
 //
@@ -2836,7 +2628,7 @@ func (task *Task) GetMaxnumbarvar(
 
 // GetMaxnumcon is wrapping [MSK_getmaxnumcon]
 //
-// [MSK_getmaxnumcon] has following parameters
+// [MSK_getmaxnumcon] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumcon: MSKint32t *
 //
@@ -2854,7 +2646,7 @@ func (task *Task) GetMaxnumcon(
 
 // GetMaxnumcone is wrapping [MSK_getmaxnumcone]
 //
-// [MSK_getmaxnumcone] has following parameters
+// [MSK_getmaxnumcone] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumcone: MSKint32t *
 //
@@ -2872,7 +2664,7 @@ func (task *Task) GetMaxnumcone(
 
 // GetMaxnumqnz is wrapping [MSK_getmaxnumqnz]
 //
-// [MSK_getmaxnumqnz] has following parameters
+// [MSK_getmaxnumqnz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumqnz: MSKint32t *
 //
@@ -2890,7 +2682,7 @@ func (task *Task) GetMaxnumqnz(
 
 // GetMaxnumqnz64 is wrapping [MSK_getmaxnumqnz64]
 //
-// [MSK_getmaxnumqnz64] has following parameters
+// [MSK_getmaxnumqnz64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumqnz: MSKint64t *
 //
@@ -2908,7 +2700,7 @@ func (task *Task) GetMaxnumqnz64(
 
 // GetMaxnumvar is wrapping [MSK_getmaxnumvar]
 //
-// [MSK_getmaxnumvar] has following parameters
+// [MSK_getmaxnumvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumvar: MSKint32t *
 //
@@ -2926,7 +2718,7 @@ func (task *Task) GetMaxnumvar(
 
 // GetMemusagetask is wrapping [MSK_getmemusagetask]
 //
-// [MSK_getmemusagetask] has following parameters
+// [MSK_getmemusagetask] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - meminuse: MSKint64t *
 //   - maxmemuse: MSKint64t *
@@ -2947,7 +2739,7 @@ func (task *Task) GetMemusagetask(
 
 // GetNadouinf is wrapping [MSK_getnadouinf]
 //
-// [MSK_getnadouinf] has following parameters
+// [MSK_getnadouinf] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - infitemname: const char *
 //   - dvalue: MSKrealt *
@@ -2971,7 +2763,7 @@ func (task *Task) GetNadouinf(
 
 // GetNadouparam is wrapping [MSK_getnadouparam]
 //
-// [MSK_getnadouparam] has following parameters
+// [MSK_getnadouparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - paramname: const char *
 //   - parvalue: MSKrealt *
@@ -2995,7 +2787,7 @@ func (task *Task) GetNadouparam(
 
 // GetNaintinf is wrapping [MSK_getnaintinf]
 //
-// [MSK_getnaintinf] has following parameters
+// [MSK_getnaintinf] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - infitemname: const char *
 //   - ivalue: MSKint32t *
@@ -3019,7 +2811,7 @@ func (task *Task) GetNaintinf(
 
 // GetNaintparam is wrapping [MSK_getnaintparam]
 //
-// [MSK_getnaintparam] has following parameters
+// [MSK_getnaintparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - paramname: const char *
 //   - parvalue: MSKint32t *
@@ -3043,7 +2835,7 @@ func (task *Task) GetNaintparam(
 
 // GetNastrparam is wrapping [MSK_getnastrparam]
 //
-// [MSK_getnastrparam] has following parameters
+// [MSK_getnastrparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - paramname: const char *
 //   - sizeparamname: MSKint32t
@@ -3073,7 +2865,7 @@ func (task *Task) GetNastrparam(
 
 // GetObjName is wrapping [MSK_getobjname]
 //
-// [MSK_getobjname] has following parameters
+// [MSK_getobjname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - sizeobjname: MSKint32t
 //   - objname: char *
@@ -3081,38 +2873,46 @@ func (task *Task) GetNastrparam(
 // [MSK_getobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) GetObjName(
 	sizeobjname int32,
-	objname *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, objname string) {
+	c_objname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_objname))
+
+	r = res.Code(
 		C.MSK_getobjname(
 			task.task,
 			C.MSKint32t(sizeobjname),
-			(*C.char)(unsafe.Pointer(objname)),
+			c_objname,
 		),
 	)
+
+	if r.IsOk() {
+		objname = C.GoString(c_objname)
+	}
+
+	return
 }
 
-// GetObjnamelen is wrapping [MSK_getobjnamelen]
+// GetObjNameLen is wrapping [MSK_getobjnamelen]
 //
-// [MSK_getobjnamelen] has following parameters
+// [MSK_getobjnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - len: MSKint32t *
 //
 // [MSK_getobjnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetObjnamelen(
-	len *int32,
-) res.Code {
-	return res.Code(
+func (task *Task) GetObjNameLen() (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getobjnamelen(
 			task.task,
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetObjsense is wrapping [MSK_getobjsense]
 //
-// [MSK_getobjsense] has following parameters
+// [MSK_getobjsense] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - sense: MSKobjsensee *
 //
@@ -3130,7 +2930,7 @@ func (task *Task) GetObjsense(
 
 // GetParammax is wrapping [MSK_getparammax]
 //
-// [MSK_getparammax] has following parameters
+// [MSK_getparammax] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - partype: MSKparametertypee
 //   - parammax: MSKint32t *
@@ -3151,7 +2951,7 @@ func (task *Task) GetParammax(
 
 // GetParamName is wrapping [MSK_getparamname]
 //
-// [MSK_getparamname] has following parameters
+// [MSK_getparamname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - partype: MSKparametertypee
 //   - param: MSKint32t
@@ -3161,21 +2961,29 @@ func (task *Task) GetParammax(
 func (task *Task) GetParamName(
 	partype ParameterType,
 	param int32,
-	parname *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, parname string) {
+	c_parname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_parname))
+
+	r = res.Code(
 		C.MSK_getparamname(
 			task.task,
 			C.MSKparametertypee(partype),
 			C.MSKint32t(param),
-			(*C.char)(unsafe.Pointer(parname)),
+			c_parname,
 		),
 	)
+
+	if r.IsOk() {
+		parname = C.GoString(c_parname)
+	}
+
+	return
 }
 
 // GetPowerdomainalpha is wrapping [MSK_getpowerdomainalpha]
 //
-// [MSK_getpowerdomainalpha] has following parameters
+// [MSK_getpowerdomainalpha] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - alpha: MSKrealt *
@@ -3196,7 +3004,7 @@ func (task *Task) GetPowerdomainalpha(
 
 // GetPowerdomaininfo is wrapping [MSK_getpowerdomaininfo]
 //
-// [MSK_getpowerdomaininfo] has following parameters
+// [MSK_getpowerdomaininfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - n: MSKint64t *
@@ -3220,7 +3028,7 @@ func (task *Task) GetPowerdomaininfo(
 
 // GetPrimalobj is wrapping [MSK_getprimalobj]
 //
-// [MSK_getprimalobj] has following parameters
+// [MSK_getprimalobj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - primalobj: MSKrealt *
@@ -3241,7 +3049,7 @@ func (task *Task) GetPrimalobj(
 
 // GetPrimalsolutionnorms is wrapping [MSK_getprimalsolutionnorms]
 //
-// [MSK_getprimalsolutionnorms] has following parameters
+// [MSK_getprimalsolutionnorms] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - nrmxc: MSKrealt *
@@ -3268,7 +3076,7 @@ func (task *Task) GetPrimalsolutionnorms(
 
 // GetProbtype is wrapping [MSK_getprobtype]
 //
-// [MSK_getprobtype] has following parameters
+// [MSK_getprobtype] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - probtype: MSKproblemtypee *
 //
@@ -3287,7 +3095,7 @@ func (task *Task) GetProbtype(
 // GetProSta is wrapping [MSK_getprosta] and
 // returns the problem status.
 //
-// [MSK_getprosta] has following parameters
+// [MSK_getprosta] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - problemsta: MSKprostae *
@@ -3309,7 +3117,7 @@ func (task *Task) GetProSta(
 
 // GetPviolacc is wrapping [MSK_getpviolacc]
 //
-// [MSK_getpviolacc] has following parameters
+// [MSK_getpviolacc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - numaccidx: MSKint64t
@@ -3336,7 +3144,7 @@ func (task *Task) GetPviolacc(
 
 // GetPviolbarvar is wrapping [MSK_getpviolbarvar]
 //
-// [MSK_getpviolbarvar] has following parameters
+// [MSK_getpviolbarvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -3363,7 +3171,7 @@ func (task *Task) GetPviolbarvar(
 
 // GetPviolcon is wrapping [MSK_getpviolcon]
 //
-// [MSK_getpviolcon] has following parameters
+// [MSK_getpviolcon] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -3390,7 +3198,7 @@ func (task *Task) GetPviolcon(
 
 // GetPviolcones is wrapping [MSK_getpviolcones]
 //
-// [MSK_getpviolcones] has following parameters
+// [MSK_getpviolcones] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -3417,7 +3225,7 @@ func (task *Task) GetPviolcones(
 
 // GetPvioldjc is wrapping [MSK_getpvioldjc]
 //
-// [MSK_getpvioldjc] has following parameters
+// [MSK_getpvioldjc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - numdjcidx: MSKint64t
@@ -3444,7 +3252,7 @@ func (task *Task) GetPvioldjc(
 
 // GetPviolvar is wrapping [MSK_getpviolvar]
 //
-// [MSK_getpviolvar] has following parameters
+// [MSK_getpviolvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - num: MSKint32t
@@ -3471,7 +3279,7 @@ func (task *Task) GetPviolvar(
 
 // GetQConK is wrapping [MSK_getqconk]
 //
-// [MSK_getqconk] has following parameters
+// [MSK_getqconk] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - maxnumqcnz: MSKint32t
@@ -3504,7 +3312,7 @@ func (task *Task) GetQConK(
 
 // GetQConK64 is wrapping [MSK_getqconk64]
 //
-// [MSK_getqconk64] has following parameters
+// [MSK_getqconk64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - maxnumqcnz: MSKint64t
@@ -3537,7 +3345,7 @@ func (task *Task) GetQConK64(
 
 // GetQObj is wrapping [MSK_getqobj]
 //
-// [MSK_getqobj] has following parameters
+// [MSK_getqobj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumqonz: MSKint32t
 //   - numqonz: MSKint32t *
@@ -3567,7 +3375,7 @@ func (task *Task) GetQObj(
 
 // GetQObj64 is wrapping [MSK_getqobj64]
 //
-// [MSK_getqobj64] has following parameters
+// [MSK_getqobj64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumqonz: MSKint64t
 //   - numqonz: MSKint64t *
@@ -3597,7 +3405,7 @@ func (task *Task) GetQObj64(
 
 // GetQObjIj is wrapping [MSK_getqobjij]
 //
-// [MSK_getqobjij] has following parameters
+// [MSK_getqobjij] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - j: MSKint32t
@@ -3621,7 +3429,7 @@ func (task *Task) GetQObjIj(
 
 // GetReducedcosts is wrapping [MSK_getreducedcosts]
 //
-// [MSK_getreducedcosts] has following parameters
+// [MSK_getreducedcosts] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3648,7 +3456,7 @@ func (task *Task) GetReducedcosts(
 
 // GetSkc is wrapping [MSK_getskc]
 //
-// [MSK_getskc] has following parameters
+// [MSK_getskc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - skc: MSKstakeye *
@@ -3669,7 +3477,7 @@ func (task *Task) GetSkc(
 
 // GetSkcSlice is wrapping [MSK_getskcslice]
 //
-// [MSK_getskcslice] has following parameters
+// [MSK_getskcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3696,7 +3504,7 @@ func (task *Task) GetSkcSlice(
 
 // GetSkn is wrapping [MSK_getskn]
 //
-// [MSK_getskn] has following parameters
+// [MSK_getskn] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - skn: MSKstakeye *
@@ -3717,7 +3525,7 @@ func (task *Task) GetSkn(
 
 // GetSkx is wrapping [MSK_getskx]
 //
-// [MSK_getskx] has following parameters
+// [MSK_getskx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - skx: MSKstakeye *
@@ -3738,7 +3546,7 @@ func (task *Task) GetSkx(
 
 // GetSkxSlice is wrapping [MSK_getskxslice]
 //
-// [MSK_getskxslice] has following parameters
+// [MSK_getskxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3765,7 +3573,7 @@ func (task *Task) GetSkxSlice(
 
 // GetSlc is wrapping [MSK_getslc]
 //
-// [MSK_getslc] has following parameters
+// [MSK_getslc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - slc: MSKrealt *
@@ -3786,7 +3594,7 @@ func (task *Task) GetSlc(
 
 // GetSlcSlice is wrapping [MSK_getslcslice]
 //
-// [MSK_getslcslice] has following parameters
+// [MSK_getslcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3813,7 +3621,7 @@ func (task *Task) GetSlcSlice(
 
 // GetSlx is wrapping [MSK_getslx]
 //
-// [MSK_getslx] has following parameters
+// [MSK_getslx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - slx: MSKrealt *
@@ -3834,7 +3642,7 @@ func (task *Task) GetSlx(
 
 // GetSlxSlice is wrapping [MSK_getslxslice]
 //
-// [MSK_getslxslice] has following parameters
+// [MSK_getslxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3861,7 +3669,7 @@ func (task *Task) GetSlxSlice(
 
 // GetSnx is wrapping [MSK_getsnx]
 //
-// [MSK_getsnx] has following parameters
+// [MSK_getsnx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - snx: MSKrealt *
@@ -3882,7 +3690,7 @@ func (task *Task) GetSnx(
 
 // GetSnxSlice is wrapping [MSK_getsnxslice]
 //
-// [MSK_getsnxslice] has following parameters
+// [MSK_getsnxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3910,7 +3718,7 @@ func (task *Task) GetSnxSlice(
 // GetSolSta is wrapping [MSK_getsolsta] and
 // returns the solution status.
 //
-// [MSK_getsolsta] has following parameters
+// [MSK_getsolsta] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - solutionsta: MSKsolstae *
@@ -3932,7 +3740,7 @@ func (task *Task) GetSolSta(
 
 // GetSolution is wrapping [MSK_getsolution]
 //
-// [MSK_getsolution] has following parameters
+// [MSK_getsolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - problemsta: MSKprostae *
@@ -3989,7 +3797,7 @@ func (task *Task) GetSolution(
 
 // GetSolutioninfo is wrapping [MSK_getsolutioninfo]
 //
-// [MSK_getsolutioninfo] has following parameters
+// [MSK_getsolutioninfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - pobj: MSKrealt *
@@ -4040,7 +3848,7 @@ func (task *Task) GetSolutioninfo(
 
 // GetSolutioninfoNew is wrapping [MSK_getsolutioninfonew]
 //
-// [MSK_getsolutioninfonew] has following parameters
+// [MSK_getsolutioninfonew] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - pobj: MSKrealt *
@@ -4100,7 +3908,7 @@ func (task *Task) GetSolutioninfoNew(
 
 // GetSolutionNew is wrapping [MSK_getsolutionnew]
 //
-// [MSK_getsolutionnew] has following parameters
+// [MSK_getsolutionnew] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - problemsta: MSKprostae *
@@ -4160,7 +3968,7 @@ func (task *Task) GetSolutionNew(
 
 // GetSolutionSlice is wrapping [MSK_getsolutionslice]
 //
-// [MSK_getsolutionslice] has following parameters
+// [MSK_getsolutionslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - solitem: MSKsoliteme
@@ -4190,7 +3998,7 @@ func (task *Task) GetSolutionSlice(
 
 // GetSparseSymmat is wrapping [MSK_getsparsesymmat]
 //
-// [MSK_getsparsesymmat] has following parameters
+// [MSK_getsparsesymmat] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - maxlen: MSKint64t
@@ -4220,7 +4028,7 @@ func (task *Task) GetSparseSymmat(
 
 // GetStrparam is wrapping [MSK_getstrparam]
 //
-// [MSK_getstrparam] has following parameters
+// [MSK_getstrparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - param: MSKsparame
 //   - maxlen: MSKint32t
@@ -4247,7 +4055,7 @@ func (task *Task) GetStrparam(
 
 // GetStrparamlen is wrapping [MSK_getstrparamlen]
 //
-// [MSK_getstrparamlen] has following parameters
+// [MSK_getstrparamlen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - param: MSKsparame
 //   - len: MSKint32t *
@@ -4268,7 +4076,7 @@ func (task *Task) GetStrparamlen(
 
 // GetSuc is wrapping [MSK_getsuc]
 //
-// [MSK_getsuc] has following parameters
+// [MSK_getsuc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - suc: MSKrealt *
@@ -4289,7 +4097,7 @@ func (task *Task) GetSuc(
 
 // GetSucSlice is wrapping [MSK_getsucslice]
 //
-// [MSK_getsucslice] has following parameters
+// [MSK_getsucslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -4316,7 +4124,7 @@ func (task *Task) GetSucSlice(
 
 // GetSux is wrapping [MSK_getsux]
 //
-// [MSK_getsux] has following parameters
+// [MSK_getsux] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - sux: MSKrealt *
@@ -4337,7 +4145,7 @@ func (task *Task) GetSux(
 
 // GetSuxSlice is wrapping [MSK_getsuxslice]
 //
-// [MSK_getsuxslice] has following parameters
+// [MSK_getsuxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -4364,7 +4172,7 @@ func (task *Task) GetSuxSlice(
 
 // GetSymbcon is wrapping [MSK_getsymbcon]
 //
-// [MSK_getsymbcon] has following parameters
+// [MSK_getsymbcon] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - sizevalue: MSKint32t
@@ -4391,7 +4199,7 @@ func (task *Task) GetSymbcon(
 
 // GetSymmatinfo is wrapping [MSK_getsymmatinfo]
 //
-// [MSK_getsymmatinfo] has following parameters
+// [MSK_getsymmatinfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idx: MSKint64t
 //   - dim: MSKint32t *
@@ -4418,7 +4226,7 @@ func (task *Task) GetSymmatinfo(
 
 // GetTaskName is wrapping [MSK_gettaskname]
 //
-// [MSK_gettaskname] has following parameters
+// [MSK_gettaskname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - sizetaskname: MSKint32t
 //   - taskname: char *
@@ -4426,38 +4234,46 @@ func (task *Task) GetSymmatinfo(
 // [MSK_gettaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) GetTaskName(
 	sizetaskname int32,
-	taskname *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, taskname string) {
+	c_taskname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_taskname))
+
+	r = res.Code(
 		C.MSK_gettaskname(
 			task.task,
 			C.MSKint32t(sizetaskname),
-			(*C.char)(unsafe.Pointer(taskname)),
+			c_taskname,
 		),
 	)
+
+	if r.IsOk() {
+		taskname = C.GoString(c_taskname)
+	}
+
+	return
 }
 
-// GetTasknamelen is wrapping [MSK_gettasknamelen]
+// GetTaskNameLen is wrapping [MSK_gettasknamelen]
 //
-// [MSK_gettasknamelen] has following parameters
+// [MSK_gettasknamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - len: MSKint32t *
 //
 // [MSK_gettasknamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetTasknamelen(
-	len *int32,
-) res.Code {
-	return res.Code(
+func (task *Task) GetTaskNameLen() (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_gettasknamelen(
 			task.task,
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetVarbound is wrapping [MSK_getvarbound]
 //
-// [MSK_getvarbound] has following parameters
+// [MSK_getvarbound] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - bk: MSKboundkeye *
@@ -4484,7 +4300,7 @@ func (task *Task) GetVarbound(
 
 // GetVarboundSlice is wrapping [MSK_getvarboundslice]
 //
-// [MSK_getvarboundslice] has following parameters
+// [MSK_getvarboundslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -4514,7 +4330,7 @@ func (task *Task) GetVarboundSlice(
 
 // GetVarName is wrapping [MSK_getvarname]
 //
-// [MSK_getvarname] has following parameters
+// [MSK_getvarname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - sizename: MSKint32t
@@ -4524,21 +4340,29 @@ func (task *Task) GetVarboundSlice(
 func (task *Task) GetVarName(
 	j int32,
 	sizename int32,
-	name *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, name string) {
+	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_name))
+
+	r = res.Code(
 		C.MSK_getvarname(
 			task.task,
 			C.MSKint32t(j),
 			C.MSKint32t(sizename),
-			(*C.char)(unsafe.Pointer(name)),
+			c_name,
 		),
 	)
+
+	if r.IsOk() {
+		name = C.GoString(c_name)
+	}
+
+	return
 }
 
 // GetVarnameindex is wrapping [MSK_getvarnameindex]
 //
-// [MSK_getvarnameindex] has following parameters
+// [MSK_getvarnameindex] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - somename: const char *
 //   - asgn: MSKint32t *
@@ -4563,30 +4387,31 @@ func (task *Task) GetVarnameindex(
 	)
 }
 
-// GetVarnamelen is wrapping [MSK_getvarnamelen]
+// GetVarNameLen is wrapping [MSK_getvarnamelen]
 //
-// [MSK_getvarnamelen] has following parameters
+// [MSK_getvarnamelen] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - len: MSKint32t *
 //
 // [MSK_getvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) GetVarnamelen(
+func (task *Task) GetVarNameLen(
 	i int32,
-	len *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, len int32) {
+	r = res.Code(
 		C.MSK_getvarnamelen(
 			task.task,
 			C.MSKint32t(i),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(&len),
 		),
 	)
+
+	return
 }
 
 // GetVarType is wrapping [MSK_getvartype]
 //
-// [MSK_getvartype] has following parameters
+// [MSK_getvartype] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - vartype: MSKvariabletypee *
@@ -4607,7 +4432,7 @@ func (task *Task) GetVarType(
 
 // GetVarTypeList is wrapping [MSK_getvartypelist]
 //
-// [MSK_getvartypelist] has following parameters
+// [MSK_getvartypelist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subj: const MSKint32t *
@@ -4631,7 +4456,7 @@ func (task *Task) GetVarTypeList(
 
 // GetXc is wrapping [MSK_getxc]
 //
-// [MSK_getxc] has following parameters
+// [MSK_getxc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - xc: MSKrealt *
@@ -4652,7 +4477,7 @@ func (task *Task) GetXc(
 
 // GetXcSlice is wrapping [MSK_getxcslice]
 //
-// [MSK_getxcslice] has following parameters
+// [MSK_getxcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -4679,7 +4504,7 @@ func (task *Task) GetXcSlice(
 
 // GetY is wrapping [MSK_gety]
 //
-// [MSK_gety] has following parameters
+// [MSK_gety] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - y: MSKrealt *
@@ -4700,7 +4525,7 @@ func (task *Task) GetY(
 
 // GetYSlice is wrapping [MSK_getyslice]
 //
-// [MSK_getyslice] has following parameters
+// [MSK_getyslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t

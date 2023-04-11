@@ -15,7 +15,7 @@ import (
 
 // AnalyzeNames is wrapping [MSK_analyzenames]
 //
-// [MSK_analyzenames] has following parameters
+// [MSK_analyzenames] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //   - nametype: MSKnametypee
@@ -36,7 +36,7 @@ func (task *Task) AnalyzeNames(
 
 // AnalyzeProblem is wrapping [MSK_analyzeproblem]
 //
-// [MSK_analyzeproblem] has following parameters
+// [MSK_analyzeproblem] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
@@ -54,7 +54,7 @@ func (task *Task) AnalyzeProblem(
 
 // AnalyzeSolution is wrapping [MSK_analyzesolution]
 //
-// [MSK_analyzesolution] has following parameters
+// [MSK_analyzesolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //   - whichsol: MSKsoltypee
@@ -75,7 +75,7 @@ func (task *Task) AnalyzeSolution(
 
 // Basiscond is wrapping [MSK_basiscond]
 //
-// [MSK_basiscond] has following parameters
+// [MSK_basiscond] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - nrmbasis: MSKrealt *
 //   - nrminvbasis: MSKrealt *
@@ -96,7 +96,7 @@ func (task *Task) Basiscond(
 
 // Bktostr is wrapping [MSK_bktostr]
 //
-// [MSK_bktostr] has following parameters
+// [MSK_bktostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - bk: MSKboundkeye
 //   - str: char *
@@ -117,7 +117,7 @@ func (task *Task) Bktostr(
 
 // CheckMemtask is wrapping [MSK_checkmemtask]
 //
-// [MSK_checkmemtask] has following parameters
+// [MSK_checkmemtask] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - file: const char *
 //   - line: MSKint32t
@@ -141,7 +141,7 @@ func (task *Task) CheckMemtask(
 
 // Chgconbound is wrapping [MSK_chgconbound]
 //
-// [MSK_chgconbound] has following parameters
+// [MSK_chgconbound] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - lower: MSKint32t
@@ -168,7 +168,7 @@ func (task *Task) Chgconbound(
 
 // Chgvarbound is wrapping [MSK_chgvarbound]
 //
-// [MSK_chgvarbound] has following parameters
+// [MSK_chgvarbound] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - lower: MSKint32t
@@ -195,7 +195,7 @@ func (task *Task) Chgvarbound(
 
 // Commitchanges is wrapping [MSK_commitchanges]
 //
-// [MSK_commitchanges] has following parameters
+// [MSK_commitchanges] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
 // [MSK_commitchanges]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
@@ -209,7 +209,7 @@ func (task *Task) Commitchanges() res.Code {
 
 // Conetypetostr is wrapping [MSK_conetypetostr]
 //
-// [MSK_conetypetostr] has following parameters
+// [MSK_conetypetostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - ct: MSKconetypee
 //   - str: char *
@@ -230,7 +230,7 @@ func (task *Task) Conetypetostr(
 
 // Deletesolution is wrapping [MSK_deletesolution]
 //
-// [MSK_deletesolution] has following parameters
+// [MSK_deletesolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //
@@ -248,7 +248,7 @@ func (task *Task) Deletesolution(
 
 // Dualsensitivity is wrapping [MSK_dualsensitivity]
 //
-// [MSK_dualsensitivity] has following parameters
+// [MSK_dualsensitivity] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numj: MSKint32t
 //   - subj: const MSKint32t *
@@ -281,7 +281,7 @@ func (task *Task) Dualsensitivity(
 
 // EmptyAfeBarFRow is wrapping [MSK_emptyafebarfrow]
 //
-// [MSK_emptyafebarfrow] has following parameters
+// [MSK_emptyafebarfrow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //
@@ -299,7 +299,7 @@ func (task *Task) EmptyAfeBarFRow(
 
 // EmptyAfeBarFRowList is wrapping [MSK_emptyafebarfrowlist]
 //
-// [MSK_emptyafebarfrowlist] has following parameters
+// [MSK_emptyafebarfrowlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numafeidx: MSKint64t
 //   - afeidxlist: const MSKint64t *
@@ -320,7 +320,7 @@ func (task *Task) EmptyAfeBarFRowList(
 
 // EmptyAfeFCol is wrapping [MSK_emptyafefcol]
 //
-// [MSK_emptyafefcol] has following parameters
+// [MSK_emptyafefcol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - varidx: MSKint32t
 //
@@ -338,7 +338,7 @@ func (task *Task) EmptyAfeFCol(
 
 // EmptyAfeFColList is wrapping [MSK_emptyafefcollist]
 //
-// [MSK_emptyafefcollist] has following parameters
+// [MSK_emptyafefcollist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numvaridx: MSKint64t
 //   - varidx: const MSKint32t *
@@ -359,7 +359,7 @@ func (task *Task) EmptyAfeFColList(
 
 // EmptyAfeFRow is wrapping [MSK_emptyafefrow]
 //
-// [MSK_emptyafefrow] has following parameters
+// [MSK_emptyafefrow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //
@@ -377,7 +377,7 @@ func (task *Task) EmptyAfeFRow(
 
 // EmptyAfeFRowList is wrapping [MSK_emptyafefrowlist]
 //
-// [MSK_emptyafefrowlist] has following parameters
+// [MSK_emptyafefrowlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numafeidx: MSKint64t
 //   - afeidx: const MSKint64t *
@@ -396,39 +396,15 @@ func (task *Task) EmptyAfeFRowList(
 	)
 }
 
-// Evaluateacc is wrapping [MSK_evaluateacc]
+// EvaluateAccs is wrapping [MSK_evaluateaccs]
 //
-// [MSK_evaluateacc] has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - accidx: MSKint64t
-//   - activity: MSKrealt *
-//
-// [MSK_evaluateacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Evaluateacc(
-	whichsol SolType,
-	accidx int64,
-	activity *float64,
-) res.Code {
-	return res.Code(
-		C.MSK_evaluateacc(
-			task.task,
-			C.MSKsoltypee(whichsol),
-			C.MSKint64t(accidx),
-			(*C.MSKrealt)(activity),
-		),
-	)
-}
-
-// Evaluateaccs is wrapping [MSK_evaluateaccs]
-//
-// [MSK_evaluateaccs] has following parameters
+// [MSK_evaluateaccs] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - activity: MSKrealt *
 //
 // [MSK_evaluateaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Evaluateaccs(
+func (task *Task) EvaluateAccs(
 	whichsol SolType,
 	activity *float64,
 ) res.Code {
@@ -443,7 +419,7 @@ func (task *Task) Evaluateaccs(
 
 // Infeasibilityreport is wrapping [MSK_infeasibilityreport]
 //
-// [MSK_infeasibilityreport] has following parameters
+// [MSK_infeasibilityreport] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //   - whichsol: MSKsoltypee
@@ -464,7 +440,7 @@ func (task *Task) Infeasibilityreport(
 
 // Initbasissolve is wrapping [MSK_initbasissolve]
 //
-// [MSK_initbasissolve] has following parameters
+// [MSK_initbasissolve] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - basis: MSKint32t *
 //
@@ -483,7 +459,7 @@ func (task *Task) Initbasissolve(
 // InputData is wrapping [MSK_inputdata] and
 // sets the data for objective, linear constraints, and variables.
 //
-// [MSK_inputdata] has following parameters
+// [MSK_inputdata] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumcon: MSKint32t
 //   - maxnumvar: MSKint32t
@@ -547,7 +523,7 @@ func (task *Task) InputData(
 // InputData64 is wrapping [MSK_inputdata64] and
 // sets the data for objective, linear constraints, and variables.
 //
-// [MSK_inputdata64] has following parameters
+// [MSK_inputdata64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumcon: MSKint32t
 //   - maxnumvar: MSKint32t
@@ -610,7 +586,7 @@ func (task *Task) InputData64(
 
 // IsdouparName is wrapping [MSK_isdouparname]
 //
-// [MSK_isdouparname] has following parameters
+// [MSK_isdouparname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - parname: const char *
 //   - param: MSKdparame *
@@ -634,7 +610,7 @@ func (task *Task) IsdouparName(
 
 // IsintparName is wrapping [MSK_isintparname]
 //
-// [MSK_isintparname] has following parameters
+// [MSK_isintparname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - parname: const char *
 //   - param: MSKiparame *
@@ -658,7 +634,7 @@ func (task *Task) IsintparName(
 
 // IsstrparName is wrapping [MSK_isstrparname]
 //
-// [MSK_isstrparname] has following parameters
+// [MSK_isstrparname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - parname: const char *
 //   - param: MSKsparame *
@@ -682,7 +658,7 @@ func (task *Task) IsstrparName(
 
 // LinkFiletotaskstream is wrapping [MSK_linkfiletotaskstream]
 //
-// [MSK_linkfiletotaskstream] has following parameters
+// [MSK_linkfiletotaskstream] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //   - filename: const char *
@@ -707,15 +683,15 @@ func (task *Task) LinkFiletotaskstream(
 	)
 }
 
-// Onesolutionsummary is wrapping [MSK_onesolutionsummary]
+// OnesolutionSummary is wrapping [MSK_onesolutionsummary]
 //
-// [MSK_onesolutionsummary] has following parameters
+// [MSK_onesolutionsummary] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //   - whichsol: MSKsoltypee
 //
 // [MSK_onesolutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Onesolutionsummary(
+func (task *Task) OnesolutionSummary(
 	whichstream StreamType,
 	whichsol SolType,
 ) res.Code {
@@ -730,7 +706,7 @@ func (task *Task) Onesolutionsummary(
 
 // Optimize is wrapping [MSK_optimize]
 //
-// [MSK_optimize] has following parameters
+// [MSK_optimize] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
 // [MSK_optimize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
@@ -744,7 +720,7 @@ func (task *Task) Optimize() res.Code {
 
 // Optimizermt is wrapping [MSK_optimizermt]
 //
-// [MSK_optimizermt] has following parameters
+// [MSK_optimizermt] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - address: const char *
 //   - accesstoken: const char *
@@ -772,14 +748,14 @@ func (task *Task) Optimizermt(
 	)
 }
 
-// Optimizersummary is wrapping [MSK_optimizersummary]
+// OptimizerSummary is wrapping [MSK_optimizersummary]
 //
-// [MSK_optimizersummary] has following parameters
+// [MSK_optimizersummary] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
 // [MSK_optimizersummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Optimizersummary(
+func (task *Task) OptimizerSummary(
 	whichstream StreamType,
 ) res.Code {
 	return res.Code(
@@ -793,7 +769,7 @@ func (task *Task) Optimizersummary(
 // OptimizeTrm is wrapping [MSK_optimizetrm] and
 // optimizes the problem.
 //
-// [MSK_optimizetrm] has following parameters
+// [MSK_optimizetrm] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - trmcode: MSKrescodee *
 //
@@ -811,7 +787,7 @@ func (task *Task) OptimizeTrm() (r, trmcode res.Code) {
 
 // Primalrepair is wrapping [MSK_primalrepair]
 //
-// [MSK_primalrepair] has following parameters
+// [MSK_primalrepair] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - wlc: const MSKrealt *
 //   - wuc: const MSKrealt *
@@ -838,7 +814,7 @@ func (task *Task) Primalrepair(
 
 // Primalsensitivity is wrapping [MSK_primalsensitivity]
 //
-// [MSK_primalsensitivity] has following parameters
+// [MSK_primalsensitivity] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numi: MSKint32t
 //   - subi: const MSKint32t *
@@ -895,7 +871,7 @@ func (task *Task) Primalsensitivity(
 
 // PrintParam is wrapping [MSK_printparam]
 //
-// [MSK_printparam] has following parameters
+// [MSK_printparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
 // [MSK_printparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
@@ -909,7 +885,7 @@ func (task *Task) PrintParam() res.Code {
 
 // Probtypetostr is wrapping [MSK_probtypetostr]
 //
-// [MSK_probtypetostr] has following parameters
+// [MSK_probtypetostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - probtype: MSKproblemtypee
 //   - str: char *
@@ -930,7 +906,7 @@ func (task *Task) Probtypetostr(
 
 // ProStaTostr is wrapping [MSK_prostatostr]
 //
-// [MSK_prostatostr] has following parameters
+// [MSK_prostatostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - problemsta: MSKprostae
 //   - str: char *
@@ -951,7 +927,7 @@ func (task *Task) ProStaTostr(
 
 // ReadBsolution is wrapping [MSK_readbsolution]
 //
-// [MSK_readbsolution] has following parameters
+// [MSK_readbsolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //   - compress: MSKcompresstypee
@@ -975,7 +951,7 @@ func (task *Task) ReadBsolution(
 
 // ReadData is wrapping [MSK_readdata]
 //
-// [MSK_readdata] has following parameters
+// [MSK_readdata] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
@@ -996,7 +972,7 @@ func (task *Task) ReadData(
 
 // ReadDataautoformat is wrapping [MSK_readdataautoformat]
 //
-// [MSK_readdataautoformat] has following parameters
+// [MSK_readdataautoformat] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
@@ -1017,7 +993,7 @@ func (task *Task) ReadDataautoformat(
 
 // ReadDataformat is wrapping [MSK_readdataformat]
 //
-// [MSK_readdataformat] has following parameters
+// [MSK_readdataformat] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //   - format: MSKdataformate
@@ -1044,7 +1020,7 @@ func (task *Task) ReadDataformat(
 
 // ReadJsonsol is wrapping [MSK_readjsonsol]
 //
-// [MSK_readjsonsol] has following parameters
+// [MSK_readjsonsol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
@@ -1065,7 +1041,7 @@ func (task *Task) ReadJsonsol(
 
 // ReadJsonstring is wrapping [MSK_readjsonstring]
 //
-// [MSK_readjsonstring] has following parameters
+// [MSK_readjsonstring] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - data: const char *
 //
@@ -1086,7 +1062,7 @@ func (task *Task) ReadJsonstring(
 
 // ReadLpstring is wrapping [MSK_readlpstring]
 //
-// [MSK_readlpstring] has following parameters
+// [MSK_readlpstring] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - data: const char *
 //
@@ -1107,7 +1083,7 @@ func (task *Task) ReadLpstring(
 
 // ReadOpfstring is wrapping [MSK_readopfstring]
 //
-// [MSK_readopfstring] has following parameters
+// [MSK_readopfstring] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - data: const char *
 //
@@ -1126,14 +1102,14 @@ func (task *Task) ReadOpfstring(
 	)
 }
 
-// ReadParamfile is wrapping [MSK_readparamfile]
+// ReadParamFile is wrapping [MSK_readparamfile]
 //
-// [MSK_readparamfile] has following parameters
+// [MSK_readparamfile] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
 // [MSK_readparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) ReadParamfile(
+func (task *Task) ReadParamFile(
 	filename string,
 ) res.Code {
 	c_filename := C.CString(filename)
@@ -1149,7 +1125,7 @@ func (task *Task) ReadParamfile(
 
 // ReadPtfstring is wrapping [MSK_readptfstring]
 //
-// [MSK_readptfstring] has following parameters
+// [MSK_readptfstring] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - data: const char *
 //
@@ -1170,7 +1146,7 @@ func (task *Task) ReadPtfstring(
 
 // ReadSolution is wrapping [MSK_readsolution]
 //
-// [MSK_readsolution] has following parameters
+// [MSK_readsolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - filename: const char *
@@ -1192,14 +1168,14 @@ func (task *Task) ReadSolution(
 	)
 }
 
-// ReadSolutionfile is wrapping [MSK_readsolutionfile]
+// ReadSolutionFile is wrapping [MSK_readsolutionfile]
 //
-// [MSK_readsolutionfile] has following parameters
+// [MSK_readsolutionfile] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
 // [MSK_readsolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) ReadSolutionfile(
+func (task *Task) ReadSolutionFile(
 	filename string,
 ) res.Code {
 	c_filename := C.CString(filename)
@@ -1215,7 +1191,7 @@ func (task *Task) ReadSolutionfile(
 
 // ReadSummary is wrapping [MSK_readsummary]
 //
-// [MSK_readsummary] has following parameters
+// [MSK_readsummary] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
@@ -1233,7 +1209,7 @@ func (task *Task) ReadSummary(
 
 // ReadTask is wrapping [MSK_readtask]
 //
-// [MSK_readtask] has following parameters
+// [MSK_readtask] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
@@ -1254,7 +1230,7 @@ func (task *Task) ReadTask(
 
 // RemoveBarvars is wrapping [MSK_removebarvars]
 //
-// [MSK_removebarvars] has following parameters
+// [MSK_removebarvars] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
@@ -1275,7 +1251,7 @@ func (task *Task) RemoveBarvars(
 
 // RemoveCones is wrapping [MSK_removecones]
 //
-// [MSK_removecones] has following parameters
+// [MSK_removecones] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
@@ -1296,7 +1272,7 @@ func (task *Task) RemoveCones(
 
 // RemoveCons is wrapping [MSK_removecons]
 //
-// [MSK_removecons] has following parameters
+// [MSK_removecons] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
@@ -1317,7 +1293,7 @@ func (task *Task) RemoveCons(
 
 // RemoveVars is wrapping [MSK_removevars]
 //
-// [MSK_removevars] has following parameters
+// [MSK_removevars] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
@@ -1338,7 +1314,7 @@ func (task *Task) RemoveVars(
 
 // Resizetask is wrapping [MSK_resizetask]
 //
-// [MSK_resizetask] has following parameters
+// [MSK_resizetask] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumcon: MSKint32t
 //   - maxnumvar: MSKint32t
@@ -1368,7 +1344,7 @@ func (task *Task) Resizetask(
 
 // Sensitivityreport is wrapping [MSK_sensitivityreport]
 //
-// [MSK_sensitivityreport] has following parameters
+// [MSK_sensitivityreport] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
@@ -1384,13 +1360,13 @@ func (task *Task) Sensitivityreport(
 	)
 }
 
-// Setdefaults is wrapping [MSK_setdefaults]
+// SetDefaults is wrapping [MSK_setdefaults]
 //
-// [MSK_setdefaults] has following parameters
+// [MSK_setdefaults] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
 // [MSK_setdefaults]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Setdefaults() res.Code {
+func (task *Task) SetDefaults() res.Code {
 	return res.Code(
 		C.MSK_setdefaults(
 			task.task,
@@ -1400,7 +1376,7 @@ func (task *Task) Setdefaults() res.Code {
 
 // Sktostr is wrapping [MSK_sktostr]
 //
-// [MSK_sktostr] has following parameters
+// [MSK_sktostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - sk: MSKstakeye
 //   - str: char *
@@ -1421,7 +1397,7 @@ func (task *Task) Sktostr(
 
 // SolStaTostr is wrapping [MSK_solstatostr]
 //
-// [MSK_solstatostr] has following parameters
+// [MSK_solstatostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - solutionsta: MSKsolstae
 //   - str: char *
@@ -1440,35 +1416,44 @@ func (task *Task) SolStaTostr(
 	)
 }
 
-// Solutiondef is wrapping [MSK_solutiondef]
+// SolutionDef is wrapping [MSK_solutiondef] and
+// checks if solution is defined.
 //
-// [MSK_solutiondef] has following parameters
+// [MSK_solutiondef] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - isdef: MSKbooleant *
 //
 // [MSK_solutiondef]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Solutiondef(
+func (task *Task) SolutionDef(
 	whichsol SolType,
-	isdef *int32,
-) res.Code {
-	return res.Code(
+) (r res.Code, isdef bool) {
+	c_isdef := C.MSKbooleant(0)
+
+	r = res.Code(
 		C.MSK_solutiondef(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKbooleant)(isdef),
+			&c_isdef,
 		),
 	)
+
+	if r.IsOk() {
+		isdef = intToBool(c_isdef)
+	}
+
+	return
 }
 
-// Solutionsummary is wrapping [MSK_solutionsummary]
+// SolutionSummary is wrapping [MSK_solutionsummary] and
+// prints the summary of the solution to the given stream.
 //
-// [MSK_solutionsummary] has following parameters
+// [MSK_solutionsummary] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
 // [MSK_solutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) Solutionsummary(
+func (task *Task) SolutionSummary(
 	whichstream StreamType,
 ) res.Code {
 	return res.Code(
@@ -1481,7 +1466,7 @@ func (task *Task) Solutionsummary(
 
 // Solvewithbasis is wrapping [MSK_solvewithbasis]
 //
-// [MSK_solvewithbasis] has following parameters
+// [MSK_solvewithbasis] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - transp: MSKbooleant
 //   - numnz: MSKint32t
@@ -1491,7 +1476,7 @@ func (task *Task) Solutionsummary(
 //
 // [MSK_solvewithbasis]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func (task *Task) Solvewithbasis(
-	transp int32,
+	transp bool,
 	numnz int32,
 	sub *int32,
 	val *float64,
@@ -1500,7 +1485,7 @@ func (task *Task) Solvewithbasis(
 	return res.Code(
 		C.MSK_solvewithbasis(
 			task.task,
-			C.MSKbooleant(transp),
+			boolToInt(transp),
 			C.MSKint32t(numnz),
 			(*C.MSKint32t)(sub),
 			(*C.MSKrealt)(val),
@@ -1511,7 +1496,7 @@ func (task *Task) Solvewithbasis(
 
 // Strtoconetype is wrapping [MSK_strtoconetype]
 //
-// [MSK_strtoconetype] has following parameters
+// [MSK_strtoconetype] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - str: const char *
 //   - conetype: MSKconetypee *
@@ -1535,7 +1520,7 @@ func (task *Task) Strtoconetype(
 
 // Strtosk is wrapping [MSK_strtosk]
 //
-// [MSK_strtosk] has following parameters
+// [MSK_strtosk] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - str: const char *
 //   - sk: MSKstakeye *
@@ -1559,7 +1544,7 @@ func (task *Task) Strtosk(
 
 // Toconic is wrapping [MSK_toconic]
 //
-// [MSK_toconic] has following parameters
+// [MSK_toconic] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
 // [MSK_toconic]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
@@ -1573,7 +1558,7 @@ func (task *Task) Toconic() res.Code {
 
 // UnlinkFuncfromtaskstream is wrapping [MSK_unlinkfuncfromtaskstream]
 //
-// [MSK_unlinkfuncfromtaskstream] has following parameters
+// [MSK_unlinkfuncfromtaskstream] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichstream: MSKstreamtypee
 //
@@ -1591,7 +1576,7 @@ func (task *Task) UnlinkFuncfromtaskstream(
 
 // Updatesolutioninfo is wrapping [MSK_updatesolutioninfo]
 //
-// [MSK_updatesolutioninfo] has following parameters
+// [MSK_updatesolutioninfo] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //
@@ -1609,7 +1594,7 @@ func (task *Task) Updatesolutioninfo(
 
 // Whichparam is wrapping [MSK_whichparam]
 //
-// [MSK_whichparam] has following parameters
+// [MSK_whichparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - parname: const char *
 //   - partype: MSKparametertypee *
@@ -1636,7 +1621,7 @@ func (task *Task) Whichparam(
 
 // WriteBsolution is wrapping [MSK_writebsolution]
 //
-// [MSK_writebsolution] has following parameters
+// [MSK_writebsolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //   - compress: MSKcompresstypee
@@ -1660,7 +1645,7 @@ func (task *Task) WriteBsolution(
 
 // WriteData is wrapping [MSK_writedata]
 //
-// [MSK_writedata] has following parameters
+// [MSK_writedata] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
@@ -1681,7 +1666,7 @@ func (task *Task) WriteData(
 
 // WriteJsonsol is wrapping [MSK_writejsonsol]
 //
-// [MSK_writejsonsol] has following parameters
+// [MSK_writejsonsol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
@@ -1700,14 +1685,14 @@ func (task *Task) WriteJsonsol(
 	)
 }
 
-// WriteParamfile is wrapping [MSK_writeparamfile]
+// WriteParamFile is wrapping [MSK_writeparamfile]
 //
-// [MSK_writeparamfile] has following parameters
+// [MSK_writeparamfile] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
 // [MSK_writeparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) WriteParamfile(
+func (task *Task) WriteParamFile(
 	filename string,
 ) res.Code {
 	c_filename := C.CString(filename)
@@ -1723,7 +1708,7 @@ func (task *Task) WriteParamfile(
 
 // WriteSolution is wrapping [MSK_writesolution]
 //
-// [MSK_writesolution] has following parameters
+// [MSK_writesolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - filename: const char *
@@ -1745,14 +1730,14 @@ func (task *Task) WriteSolution(
 	)
 }
 
-// WriteSolutionfile is wrapping [MSK_writesolutionfile]
+// WriteSolutionFile is wrapping [MSK_writesolutionfile]
 //
-// [MSK_writesolutionfile] has following parameters
+// [MSK_writesolutionfile] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //
 // [MSK_writesolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func (task *Task) WriteSolutionfile(
+func (task *Task) WriteSolutionFile(
 	filename string,
 ) res.Code {
 	c_filename := C.CString(filename)
@@ -1768,7 +1753,7 @@ func (task *Task) WriteSolutionfile(
 
 // WriteTask is wrapping [MSK_writetask]
 //
-// [MSK_writetask] has following parameters
+// [MSK_writetask] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - filename: const char *
 //

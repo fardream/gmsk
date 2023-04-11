@@ -15,7 +15,7 @@ import (
 
 // Callbackcodetostr is wrapping [MSK_callbackcodetostr]
 //
-// [MSK_callbackcodetostr] has following parameters
+// [MSK_callbackcodetostr] returns MSKrescodee and has following parameters
 //   - code: MSKcallbackcodee
 //   - callbackcodestr: char *
 //
@@ -32,69 +32,91 @@ func Callbackcodetostr(
 	)
 }
 
-// GetBuildinfo is wrapping [MSK_getbuildinfo]
+// GetBuildInfo is wrapping [MSK_getbuildinfo]
 //
-// [MSK_getbuildinfo] has following parameters
+// [MSK_getbuildinfo] returns MSKrescodee and has following parameters
 //   - buildstate: char *
 //   - builddate: char *
 //
 // [MSK_getbuildinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func GetBuildinfo(
-	buildstate *byte,
-	builddate *byte,
-) res.Code {
-	return res.Code(
+func GetBuildInfo() (r res.Code, buildstate, builddate string) {
+	c_buildstate := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_buildstate))
+	c_builddate := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_builddate))
+
+	r = res.Code(
 		C.MSK_getbuildinfo(
-			(*C.char)(unsafe.Pointer(buildstate)),
-			(*C.char)(unsafe.Pointer(builddate)),
+			c_buildstate,
+			c_builddate,
 		),
 	)
+
+	if r.IsOk() {
+		buildstate = C.GoString(c_buildstate)
+		builddate = C.GoString(c_builddate)
+	}
+
+	return
 }
 
-// GetCodedesc is wrapping [MSK_getcodedesc]
+// GetCodeDesc is wrapping [MSK_getcodedesc] and
+// gets description for [res.Code]. The first returned value is symbol, and the second returned value is
+// the description. The process may fail.
 //
-// [MSK_getcodedesc] has following parameters
+// [MSK_getcodedesc] returns MSKrescodee and has following parameters
 //   - code: MSKrescodee
 //   - symname: char *
 //   - str: char *
 //
 // [MSK_getcodedesc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func GetCodedesc(
+func GetCodeDesc(
 	code res.Code,
-	symname *byte,
-	str *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, symname, str string) {
+	c_symname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_symname))
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
 		C.MSK_getcodedesc(
 			C.MSKrescodee(code),
-			(*C.char)(unsafe.Pointer(symname)),
-			(*C.char)(unsafe.Pointer(str)),
+			c_symname,
+			c_str,
 		),
 	)
+
+	if r.IsOk() {
+		symname = C.GoString(c_symname)
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
-// GetResponseclass is wrapping [MSK_getresponseclass]
+// GetResponseClass is wrapping [MSK_getresponseclass]
 //
-// [MSK_getresponseclass] has following parameters
+// [MSK_getresponseclass] returns MSKrescodee and has following parameters
 //   - r: MSKrescodee
 //   - rc: MSKrescodetypee *
 //
 // [MSK_getresponseclass]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
-func GetResponseclass(
+func GetResponseClass(
 	r res.Code,
-	rc *ResCodeType,
-) res.Code {
-	return res.Code(
+) (rescode res.Code, rc ResCodeType) {
+	rescode = res.Code(
 		C.MSK_getresponseclass(
 			C.MSKrescodee(r),
-			(*C.MSKrescodetypee)(rc),
+			(*C.MSKrescodetypee)(&rc),
 		),
 	)
+
+	return
 }
 
 // GetVersion is wrapping [MSK_getversion]
 //
-// [MSK_getversion] has following parameters
+// [MSK_getversion] returns MSKrescodee and has following parameters
 //   - major: MSKint32t *
 //   - minor: MSKint32t *
 //   - revision: MSKint32t *
@@ -114,14 +136,14 @@ func GetVersion() (r res.Code, major, minor, revision int32) {
 
 // Isinfinity is wrapping [MSK_isinfinity]
 //
-// [MSK_isinfinity] has following parameters
+// [MSK_isinfinity] returns MSKbooleant and has following parameters
 //   - value: MSKrealt
 //
 // [MSK_isinfinity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Isinfinity(
 	value float64,
-) int32 {
-	return int32(
+) bool {
+	return intToBool(
 		C.MSK_isinfinity(
 			C.MSKrealt(value),
 		),
@@ -130,7 +152,7 @@ func Isinfinity(
 
 // Licensecleanup is wrapping [MSK_licensecleanup]
 //
-// [MSK_licensecleanup] has following parameters
+// [MSK_licensecleanup] returns MSKrescodee and has following parameters
 //
 // [MSK_licensecleanup]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html
 func Licensecleanup() res.Code {
@@ -141,7 +163,7 @@ func Licensecleanup() res.Code {
 
 // Symnamtovalue is wrapping [MSK_symnamtovalue]
 //
-// [MSK_symnamtovalue] has following parameters
+// [MSK_symnamtovalue] returns MSKbooleant and has following parameters
 //   - name: const char *
 //   - value: char *
 //
@@ -149,11 +171,11 @@ func Licensecleanup() res.Code {
 func Symnamtovalue(
 	name string,
 	value *byte,
-) int32 {
+) bool {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return int32(
+	return intToBool(
 		C.MSK_symnamtovalue(
 			c_name,
 			(*C.char)(unsafe.Pointer(value)),
@@ -163,7 +185,7 @@ func Symnamtovalue(
 
 // Utf8towchar is wrapping [MSK_utf8towchar]
 //
-// [MSK_utf8towchar] has following parameters
+// [MSK_utf8towchar] returns MSKrescodee and has following parameters
 //   - outputlen: size_t
 //   - len: size_t *
 //   - conv: size_t *
@@ -194,7 +216,7 @@ func Utf8towchar(
 
 // Wchartoutf8 is wrapping [MSK_wchartoutf8]
 //
-// [MSK_wchartoutf8] has following parameters
+// [MSK_wchartoutf8] returns MSKrescodee and has following parameters
 //   - outputlen: size_t
 //   - len: size_t *
 //   - conv: size_t *

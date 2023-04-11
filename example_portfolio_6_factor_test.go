@@ -16,7 +16,7 @@ func Example_portfolio_6_factor() {
 	checkOk := func(r gmsk.ResCode) {
 		res = r
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodeDesc(r)
 
 			log.Panicf("failed: %s %s", sym, desc)
 		}

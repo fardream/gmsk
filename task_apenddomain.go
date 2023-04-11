@@ -14,7 +14,7 @@ import (
 // AppendDualExpConeDomain is wrapping [MSK_appenddualexpconedomain] and
 // add a dual exponential cone to the task.
 //
-// [MSK_appenddualexpconedomain] has following parameters
+// [MSK_appenddualexpconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t *
 //
@@ -33,7 +33,7 @@ func (task *Task) AppendDualExpConeDomain() (r res.Code, domidx int64) {
 // AppendDualGeoMeanConeDomain is wrapping [MSK_appenddualgeomeanconedomain] and
 // adds a dual geometric mean cone domain to the task.
 //
-// [MSK_appenddualgeomeanconedomain] has following parameters
+// [MSK_appenddualgeomeanconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -56,7 +56,7 @@ func (task *Task) AppendDualGeoMeanConeDomain(
 // AppendDualPowerConeDomain is wrapping [MSK_appenddualpowerconedomain] and
 // add a dual power cone to the task.
 //
-// [MSK_appenddualpowerconedomain] has following parameters
+// [MSK_appenddualpowerconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - nleft: MSKint64t
@@ -85,7 +85,7 @@ func (task *Task) AppendDualPowerConeDomain(
 // AppendPrimalExpConeDomain is wrapping [MSK_appendprimalexpconedomain] and
 // add a primal exponential cone to the task.
 //
-// [MSK_appendprimalexpconedomain] has following parameters
+// [MSK_appendprimalexpconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t *
 //
@@ -104,7 +104,7 @@ func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 // AppendPrimalGeoMeanConeDomain is wrapping [MSK_appendprimalgeomeanconedomain] and
 // adds a primal geometric mean cone domain to the task.
 //
-// [MSK_appendprimalgeomeanconedomain] has following parameters
+// [MSK_appendprimalgeomeanconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -127,7 +127,7 @@ func (task *Task) AppendPrimalGeoMeanConeDomain(
 // AppendPrimalPowerConeDomain is wrapping [MSK_appendprimalpowerconedomain] and
 // add a primal power cone to the task.
 //
-// [MSK_appendprimalpowerconedomain] has following parameters
+// [MSK_appendprimalpowerconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - nleft: MSKint64t
@@ -156,7 +156,7 @@ func (task *Task) AppendPrimalPowerConeDomain(
 // AppendQuadraticConeDomain is wrapping [MSK_appendquadraticconedomain] and
 // adds a new quadratic cone of size n to the task. returns the index of the domain if successful.
 //
-// [MSK_appendquadraticconedomain] has following parameters
+// [MSK_appendquadraticconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -179,7 +179,7 @@ func (task *Task) AppendQuadraticConeDomain(
 // AppendRDomain is wrapping [MSK_appendrdomain] and
 // adds the whole n dimension R space domain to the task.
 //
-// [MSK_appendrdomain] has following parameters
+// [MSK_appendrdomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -202,7 +202,7 @@ func (task *Task) AppendRDomain(
 // AppendRMinusDomain is wrapping [MSK_appendrminusdomain] and
 // add a domain of x<0
 //
-// [MSK_appendrminusdomain] has following parameters
+// [MSK_appendrminusdomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -225,7 +225,7 @@ func (task *Task) AppendRMinusDomain(
 // AppendRPlusDomain is wrapping [MSK_appendrplusdomain] and
 // add a domain of x>=0
 //
-// [MSK_appendrplusdomain] has following parameters
+// [MSK_appendrplusdomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -249,7 +249,7 @@ func (task *Task) AppendRPlusDomain(
 // adds a new *rotated* quadratic cone of size n to the task. returns the index of the domain if successful.
 // note the function is similarly spelled to the *unrotated* quadratic cone [Task.AppendQuadraticConeDomain]
 //
-// [MSK_appendrquadraticconedomain] has following parameters
+// [MSK_appendrquadraticconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -272,7 +272,7 @@ func (task *Task) AppendRQuadraticConeDomain(
 // AppendRZeroDomain is wrapping [MSK_appendrzerodomain] and
 // add a domain of x=0
 //
-// [MSK_appendrzerodomain] has following parameters
+// [MSK_appendrzerodomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *
@@ -295,7 +295,7 @@ func (task *Task) AppendRZeroDomain(
 // AppendSvecPsdConeDomain is wrapping [MSK_appendsvecpsdconedomain] and
 // adds a SVEC_PSD domain, or vectorized postive semidefinite matrix. n must be k(k+1)/2.
 //
-// [MSK_appendsvecpsdconedomain] has following parameters
+// [MSK_appendsvecpsdconedomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - n: MSKint64t
 //   - domidx: MSKint64t *

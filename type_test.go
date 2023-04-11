@@ -7,8 +7,8 @@ import (
 )
 
 func TestGetCodeDesc(t *testing.T) {
-	_, a, b := gmsk.GetCodeDescSimple(gmsk.RES_OK)
-	if a != "MSK_RES_OK" || b != "MSK_RES_OK" {
+	_, a, b := gmsk.GetCodeDesc(gmsk.RES_OK)
+	if a != "MSK_RES_OK" || b != "No error occurred." {
 		t.Fatalf("description for RES_OK is %s %s", a, b)
 	}
 }

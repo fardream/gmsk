@@ -13,7 +13,7 @@ func MSKCALL(r gmsk.ResCode) {
 		return
 	}
 
-	b, sym, desc := gmsk.GetCodeDescSimple(r)
+	b, sym, desc := gmsk.GetCodeDesc(r)
 	if b.NotOk() {
 		log.Panicf("cannot get the description of error %d - the error code is %d for getting the description", r, b)
 	} else {

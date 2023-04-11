@@ -43,7 +43,7 @@ func Example_affineConicConstraints_acc2() {
 
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodeDesc(r)
 
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
