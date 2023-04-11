@@ -199,7 +199,7 @@ func (task *Task) GetNumCon() (r res.Code, numcon int32) {
 //   - task: MSKtask_t
 //   - numcone: MSKint32t *
 //
-// [MSK_getnumcone]/GetNumCone is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getnumcone]/GetNumCone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumcone
 func (task *Task) GetNumCone() (r res.Code, numcone int32) {
@@ -220,7 +220,7 @@ func (task *Task) GetNumCone() (r res.Code, numcone int32) {
 //   - k: MSKint32t
 //   - nummem: MSKint32t *
 //
-// [MSK_getnumconemem]/GetNumConemem is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getnumconemem]/GetNumConemem is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getnumconemem]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumconemem
 func (task *Task) GetNumConemem(
