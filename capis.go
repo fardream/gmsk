@@ -3,7 +3,7 @@
 // gmsk is based on mosek's C api, which must be installed and configured before
 // using gmsk.
 //
-// Most routines of mosek's C api returns a result code [ResCode] (whic is an enum/uint32)
+// Most routines of mosek's C api returns a [response code] [ResCode] (whic is an enum/uint32)
 // to indicate if the routine is successful or not (MSK_RES_OK or [RES_OK]
 // indicates success). Check mosek documentation for more information.
 //
@@ -15,7 +15,7 @@
 // associated with affine expression (afe) are 64-bit, or int64_t in C/C++
 // and int64 in go.
 //
-// Besides result code, MOSEK sometimes needs to return some other information
+// Besides [response code], MOSEK sometimes needs to return some other information
 // (for example, index of newly created domain). This is achieved in C/C++ by
 // passing in a "destination" pointer. This is not done in go because go supports
 // multiple return values.
@@ -40,6 +40,7 @@
 // Note that there is always overhead of calling c functions from go.
 //
 // [MOSEK ApS]: https://www.mosek.com
+// [response code]: https://docs.mosek.com/latest/capi/response-codes.html
 package gmsk
 
 // #cgo LDFLAGS: -lmosek64

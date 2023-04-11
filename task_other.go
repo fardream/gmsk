@@ -104,15 +104,23 @@ func (task *Task) Basiscond(
 // [MSK_bktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.bktostr
 func (task *Task) BkToStr(
 	bk BoundKey,
-	str *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, str string) {
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
 		C.MSK_bktostr(
 			task.task,
 			C.MSKboundkeye(bk),
-			(*C.char)(unsafe.Pointer(str)),
+			c_str,
 		),
 	)
+
+	if r.IsOk() {
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
 // CheckMemtask is wrapping [MSK_checkmemtask]
@@ -219,25 +227,33 @@ func (task *Task) Commitchanges() res.Code {
 // [MSK_conetypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.conetypetostr
 func (task *Task) ConetypeToStr(
 	ct ConeType,
-	str *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, str string) {
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
 		C.MSK_conetypetostr(
 			task.task,
 			C.MSKconetypee(ct),
-			(*C.char)(unsafe.Pointer(str)),
+			c_str,
 		),
 	)
+
+	if r.IsOk() {
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
-// Deletesolution is wrapping [MSK_deletesolution]
+// DeleteSolution is wrapping [MSK_deletesolution]
 //
 // [MSK_deletesolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //
 // [MSK_deletesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.deletesolution
-func (task *Task) Deletesolution(
+func (task *Task) DeleteSolution(
 	whichsol SolType,
 ) res.Code {
 	return res.Code(
@@ -248,7 +264,7 @@ func (task *Task) Deletesolution(
 	)
 }
 
-// Dualsensitivity is wrapping [MSK_dualsensitivity]
+// DualSensitivity is wrapping [MSK_dualsensitivity]
 //
 // [MSK_dualsensitivity] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -260,7 +276,7 @@ func (task *Task) Deletesolution(
 //   - rightrangej: MSKrealt *
 //
 // [MSK_dualsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.dualsensitivity
-func (task *Task) Dualsensitivity(
+func (task *Task) DualSensitivity(
 	numj int32,
 	subj *int32,
 	leftpricej *float64,
@@ -648,7 +664,8 @@ func (task *Task) Optimize() res.Code {
 	)
 }
 
-// Optimizermt is wrapping [MSK_optimizermt]
+// OptimizeRmt is wrapping [MSK_optimizermt] and
+// offloads optimization to a remote server.
 //
 // [MSK_optimizermt] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -657,25 +674,26 @@ func (task *Task) Optimize() res.Code {
 //   - trmcode: MSKrescodee *
 //
 // [MSK_optimizermt]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizermt
-func (task *Task) Optimizermt(
+func (task *Task) OptimizeRmt(
 	address string,
 	accesstoken string,
-	trmcode *res.Code,
-) res.Code {
+) (r, trmcode res.Code) {
 	c_address := C.CString(address)
 	defer C.free(unsafe.Pointer(c_address))
 
 	c_accesstoken := C.CString(accesstoken)
 	defer C.free(unsafe.Pointer(c_accesstoken))
 
-	return res.Code(
+	r = res.Code(
 		C.MSK_optimizermt(
 			task.task,
 			c_address,
 			c_accesstoken,
-			(*C.MSKrescodee)(trmcode),
+			(*C.MSKrescodee)(&trmcode),
 		),
 	)
+
+	return
 }
 
 // OptimizerSummary is wrapping [MSK_optimizersummary]
@@ -715,7 +733,7 @@ func (task *Task) OptimizeTrm() (r, trmcode res.Code) {
 	return
 }
 
-// Primalrepair is wrapping [MSK_primalrepair]
+// PrimalRepair is wrapping [MSK_primalrepair]
 //
 // [MSK_primalrepair] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -725,7 +743,7 @@ func (task *Task) OptimizeTrm() (r, trmcode res.Code) {
 //   - wux: const MSKrealt *
 //
 // [MSK_primalrepair]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.primalrepair
-func (task *Task) Primalrepair(
+func (task *Task) PrimalRepair(
 	wlc *float64,
 	wuc *float64,
 	wlx *float64,
@@ -742,7 +760,7 @@ func (task *Task) Primalrepair(
 	)
 }
 
-// Primalsensitivity is wrapping [MSK_primalsensitivity]
+// PrimalSensitivity is wrapping [MSK_primalsensitivity]
 //
 // [MSK_primalsensitivity] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -762,7 +780,7 @@ func (task *Task) Primalrepair(
 //   - rightrangej: MSKrealt *
 //
 // [MSK_primalsensitivity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.primalsensitivity
-func (task *Task) Primalsensitivity(
+func (task *Task) PrimalSensitivity(
 	numi int32,
 	subi *int32,
 	marki *Mark,
@@ -823,15 +841,23 @@ func (task *Task) PrintParam() res.Code {
 // [MSK_probtypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.probtypetostr
 func (task *Task) ProbtypeToStr(
 	probtype ProblemType,
-	str *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, str string) {
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
 		C.MSK_probtypetostr(
 			task.task,
 			C.MSKproblemtypee(probtype),
-			(*C.char)(unsafe.Pointer(str)),
+			c_str,
 		),
 	)
+
+	if r.IsOk() {
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
 // ProStaToStr is wrapping [MSK_prostatostr]
@@ -844,15 +870,23 @@ func (task *Task) ProbtypeToStr(
 // [MSK_prostatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.prostatostr
 func (task *Task) ProStaToStr(
 	problemsta ProSta,
-	str *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, str string) {
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
 		C.MSK_prostatostr(
 			task.task,
 			C.MSKprostae(problemsta),
-			(*C.char)(unsafe.Pointer(str)),
+			c_str,
 		),
 	)
+
+	if r.IsOk() {
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
 // ReadBsolution is wrapping [MSK_readbsolution]
@@ -1316,15 +1350,23 @@ func (task *Task) SetDefaults() res.Code {
 // [MSK_sktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sktostr
 func (task *Task) SkToStr(
 	sk StaKey,
-	str *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, str string) {
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
 		C.MSK_sktostr(
 			task.task,
 			C.MSKstakeye(sk),
-			(*C.char)(unsafe.Pointer(str)),
+			c_str,
 		),
 	)
+
+	if r.IsOk() {
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
 // SolStaToStr is wrapping [MSK_solstatostr]
@@ -1337,15 +1379,23 @@ func (task *Task) SkToStr(
 // [MSK_solstatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solstatostr
 func (task *Task) SolStaToStr(
 	solutionsta SolSta,
-	str *byte,
-) res.Code {
-	return res.Code(
+) (r res.Code, str string) {
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
 		C.MSK_solstatostr(
 			task.task,
 			C.MSKsolstae(solutionsta),
-			(*C.char)(unsafe.Pointer(str)),
+			c_str,
 		),
 	)
+
+	if r.IsOk() {
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
 // SolutionDef is wrapping [MSK_solutiondef] and
