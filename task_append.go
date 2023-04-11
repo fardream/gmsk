@@ -185,7 +185,7 @@ func (task *Task) AppendBarvars(
 //   - nummem: MSKint32t
 //   - submem: const MSKint32t *
 //
-// [MSK_appendcone]/AppendCone is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_appendcone]/AppendCone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_appendcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendcone
 func (task *Task) AppendCone(
@@ -214,7 +214,7 @@ func (task *Task) AppendCone(
 //   - nummem: MSKint32t
 //   - j: MSKint32t
 //
-// [MSK_appendconeseq]/AppendConeSeq is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_appendconeseq]/AppendConeSeq is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_appendconeseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendconeseq
 func (task *Task) AppendConeSeq(
@@ -244,7 +244,7 @@ func (task *Task) AppendConeSeq(
 //   - nummem: const MSKint32t *
 //   - j: MSKint32t
 //
-// [MSK_appendconesseq]/AppendConesSeq is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_appendconesseq]/AppendConesSeq is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_appendconesseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendconesseq
 func (task *Task) AppendConesSeq(

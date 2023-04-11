@@ -94,7 +94,7 @@ func (task *Task) Basiscond(
 	)
 }
 
-// Bktostr is wrapping [MSK_bktostr]
+// BkToStr is wrapping [MSK_bktostr]
 //
 // [MSK_bktostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -102,7 +102,7 @@ func (task *Task) Basiscond(
 //   - str: char *
 //
 // [MSK_bktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.bktostr
-func (task *Task) Bktostr(
+func (task *Task) BkToStr(
 	bk BoundKey,
 	str *byte,
 ) res.Code {
@@ -207,17 +207,17 @@ func (task *Task) Commitchanges() res.Code {
 	)
 }
 
-// Conetypetostr is wrapping [MSK_conetypetostr]
+// ConetypeToStr is wrapping [MSK_conetypetostr]
 //
 // [MSK_conetypetostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - ct: MSKconetypee
 //   - str: char *
 //
-// [MSK_conetypetostr]/Conetypetostr is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_conetypetostr]/ConetypeToStr is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_conetypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.conetypetostr
-func (task *Task) Conetypetostr(
+func (task *Task) ConetypeToStr(
 	ct ConeType,
 	str *byte,
 ) res.Code {
@@ -813,7 +813,7 @@ func (task *Task) PrintParam() res.Code {
 	)
 }
 
-// Probtypetostr is wrapping [MSK_probtypetostr]
+// ProbtypeToStr is wrapping [MSK_probtypetostr]
 //
 // [MSK_probtypetostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -821,7 +821,7 @@ func (task *Task) PrintParam() res.Code {
 //   - str: char *
 //
 // [MSK_probtypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.probtypetostr
-func (task *Task) Probtypetostr(
+func (task *Task) ProbtypeToStr(
 	probtype ProblemType,
 	str *byte,
 ) res.Code {
@@ -834,7 +834,7 @@ func (task *Task) Probtypetostr(
 	)
 }
 
-// ProStaTostr is wrapping [MSK_prostatostr]
+// ProStaToStr is wrapping [MSK_prostatostr]
 //
 // [MSK_prostatostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -842,7 +842,7 @@ func (task *Task) Probtypetostr(
 //   - str: char *
 //
 // [MSK_prostatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.prostatostr
-func (task *Task) ProStaTostr(
+func (task *Task) ProStaToStr(
 	problemsta ProSta,
 	str *byte,
 ) res.Code {
@@ -1186,7 +1186,7 @@ func (task *Task) RemoveBarvars(
 //   - num: MSKint32t
 //   - subset: const MSKint32t *
 //
-// [MSK_removecones]/RemoveCones is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_removecones]/RemoveCones is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_removecones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.removecones
 func (task *Task) RemoveCones(
@@ -1306,7 +1306,7 @@ func (task *Task) SetDefaults() res.Code {
 	)
 }
 
-// Sktostr is wrapping [MSK_sktostr]
+// SkToStr is wrapping [MSK_sktostr]
 //
 // [MSK_sktostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -1314,7 +1314,7 @@ func (task *Task) SetDefaults() res.Code {
 //   - str: char *
 //
 // [MSK_sktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sktostr
-func (task *Task) Sktostr(
+func (task *Task) SkToStr(
 	sk StaKey,
 	str *byte,
 ) res.Code {
@@ -1327,7 +1327,7 @@ func (task *Task) Sktostr(
 	)
 }
 
-// SolStaTostr is wrapping [MSK_solstatostr]
+// SolStaToStr is wrapping [MSK_solstatostr]
 //
 // [MSK_solstatostr] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
@@ -1335,7 +1335,7 @@ func (task *Task) Sktostr(
 //   - str: char *
 //
 // [MSK_solstatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solstatostr
-func (task *Task) SolStaTostr(
+func (task *Task) SolStaToStr(
 	solutionsta SolSta,
 	str *byte,
 ) res.Code {
@@ -1433,7 +1433,7 @@ func (task *Task) Solvewithbasis(
 //   - str: const char *
 //   - conetype: MSKconetypee *
 //
-// [MSK_strtoconetype]/Strtoconetype is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_strtoconetype]/Strtoconetype is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_strtoconetype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.strtoconetype
 func (task *Task) Strtoconetype(
@@ -1481,7 +1481,7 @@ func (task *Task) Strtosk(
 // [MSK_toconic] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //
-// [MSK_toconic]/Toconic is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_toconic]/Toconic is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_toconic]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.toconic
 func (task *Task) Toconic() res.Code {

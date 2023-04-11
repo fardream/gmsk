@@ -779,7 +779,7 @@ func (task *Task) PutConboundListConst(
 //   - nummem: MSKint32t
 //   - submem: const MSKint32t *
 //
-// [MSK_putcone]/PutCone is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_putcone]/PutCone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_putcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putcone
 func (task *Task) PutCone(

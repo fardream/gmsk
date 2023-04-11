@@ -129,7 +129,7 @@ func (task *Task) GetBarvarNameLen(
 //   - sizename: MSKint32t
 //   - name: char *
 //
-// [MSK_getconename]/GetConeName is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getconename]/GetConeName is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getconename]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconename
 func (task *Task) GetConeName(
@@ -162,7 +162,7 @@ func (task *Task) GetConeName(
 //   - i: MSKint32t
 //   - len: MSKint32t *
 //
-// [MSK_getconenamelen]/GetConeNameLen is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getconenamelen]/GetConeNameLen is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getconenamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconenamelen
 func (task *Task) GetConeNameLen(
@@ -699,7 +699,7 @@ func (task *Task) PutBarvarName(
 //   - j: MSKint32t
 //   - name: const char *
 //
-// [MSK_putconename]/PutConeName is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_putconename]/PutConeName is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_putconename]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconename
 func (task *Task) PutConeName(

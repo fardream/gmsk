@@ -107,7 +107,7 @@ func (task *Task) PutMaxNumCon(
 //   - task: MSKtask_t
 //   - maxnumcone: MSKint32t
 //
-// [MSK_putmaxnumcone]/PutMaxNumCone is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_putmaxnumcone]/PutMaxNumCone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_putmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumcone
 func (task *Task) PutMaxNumCone(

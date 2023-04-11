@@ -1055,7 +1055,7 @@ func (task *Task) GetConbound(
 //   - nummem: MSKint32t *
 //   - submem: MSKint32t *
 //
-// [MSK_getcone]/GetCone is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getcone]/GetCone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcone
 func (task *Task) GetCone(
@@ -1086,7 +1086,7 @@ func (task *Task) GetCone(
 //   - conepar: MSKrealt *
 //   - nummem: MSKint32t *
 //
-// [MSK_getconeinfo]/GetConeInfo is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getconeinfo]/GetConeInfo is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getconeinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconeinfo
 func (task *Task) GetConeInfo(
@@ -1114,7 +1114,7 @@ func (task *Task) GetConeInfo(
 //   - asgn: MSKint32t *
 //   - index: MSKint32t *
 //
-// [MSK_getconenameindex]/GetConenameindex is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getconenameindex]/GetConenameindex is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getconenameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconenameindex
 func (task *Task) GetConenameindex(
@@ -1587,7 +1587,7 @@ func (task *Task) GetDviolcon(
 //   - sub: const MSKint32t *
 //   - viol: MSKrealt *
 //
-// [MSK_getdviolcones]/GetDviolcones is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getdviolcones]/GetDviolcones is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getdviolcones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolcones
 func (task *Task) GetDviolcones(
@@ -1900,7 +1900,7 @@ func (task *Task) GetMaxnumcon(
 //   - task: MSKtask_t
 //   - maxnumcone: MSKint32t *
 //
-// [MSK_getmaxnumcone]/GetMaxnumcone is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getmaxnumcone]/GetMaxnumcone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcone
 func (task *Task) GetMaxnumcone(
@@ -2378,7 +2378,7 @@ func (task *Task) GetPviolcon(
 //   - sub: const MSKint32t *
 //   - viol: MSKrealt *
 //
-// [MSK_getpviolcones]/GetPviolcones is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getpviolcones]/GetPviolcones is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getpviolcones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolcones
 func (task *Task) GetPviolcones(
