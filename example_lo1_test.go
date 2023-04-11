@@ -41,7 +41,7 @@ func Example_linearOptimization1_lo1() {
 
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodeDesc(r)
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
 	}
@@ -140,7 +140,7 @@ func Example_linearOptimization1_lo1() {
 	case gmsk.SOL_STA_UNKNOWN:
 		/* If the solutions status is unknown, print the termination code
 		   indicating why the optimizer terminated prematurely. */
-		_, symname, _ := gmsk.GetCodeDescSimple(trmcode)
+		_, symname, _ := gmsk.GetCodeDesc(trmcode)
 		fmt.Printf("The solution status is unknown.\n")
 		fmt.Printf("The optimizer terminitated with code: %s\n", symname)
 	default:
@@ -149,7 +149,7 @@ func Example_linearOptimization1_lo1() {
 
 	if r != gmsk.RES_OK {
 		/* In case of an error print error code and description. */
-		_, symname, desc := gmsk.GetCodeDescSimple(r)
+		_, symname, desc := gmsk.GetCodeDesc(r)
 		fmt.Printf("Error %s - '%s'\n", symname, desc)
 	}
 

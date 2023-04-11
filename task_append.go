@@ -16,7 +16,7 @@ import (
 // by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq]
 // to avoid allocating an array.
 //
-// [MSK_appendacc] has following parameters
+// [MSK_appendacc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - numafeidx: MSKint64t
@@ -44,7 +44,7 @@ func (task *Task) AppendAcc(
 // AppendAccs is wrapping [MSK_appendaccs] and
 // adds a list of affine conic constraints to the task.
 //
-// [MSK_appendaccs] has following parameters
+// [MSK_appendaccs] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numaccs: MSKint64t
 //   - domidxs: const MSKint64t *
@@ -75,7 +75,7 @@ func (task *Task) AppendAccs(
 // AppendAccSeq is wrapping [MSK_appendaccseq] and
 // adds an affine conic constraint to the task where the affine idx is sequential.
 //
-// [MSK_appendaccseq] has following parameters
+// [MSK_appendaccseq] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - numafeidx: MSKint64t
@@ -103,7 +103,7 @@ func (task *Task) AppendAccSeq(
 // AppendAccsSeq is wrapping [MSK_appendaccsseq] and
 // append a block of accs to the tas - assuming affine expressions are sequential.
 //
-// [MSK_appendaccsseq] has following parameters
+// [MSK_appendaccsseq] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numaccs: MSKint64t
 //   - domidxs: const MSKint64t *
@@ -134,7 +134,7 @@ func (task *Task) AppendAccsSeq(
 // AppendAfes is wrapping [MSK_appendafes] and
 // adds affine expressions to the task.
 //
-// [MSK_appendafes] has following parameters
+// [MSK_appendafes] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t
 //
@@ -157,7 +157,7 @@ func (task *Task) AppendAfes(
 // The dimension of each of the semidefinite variables are provided
 // through the pointer dim.
 //
-// [MSK_appendbarvars] has following parameters
+// [MSK_appendbarvars] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - dim: const MSKint32t *
@@ -178,7 +178,7 @@ func (task *Task) AppendBarvars(
 
 // AppendCone is wrapping [MSK_appendcone]
 //
-// [MSK_appendcone] has following parameters
+// [MSK_appendcone] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - ct: MSKconetypee
 //   - conepar: MSKrealt
@@ -205,7 +205,7 @@ func (task *Task) AppendCone(
 
 // AppendConeSeq is wrapping [MSK_appendconeseq]
 //
-// [MSK_appendconeseq] has following parameters
+// [MSK_appendconeseq] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - ct: MSKconetypee
 //   - conepar: MSKrealt
@@ -232,7 +232,7 @@ func (task *Task) AppendConeSeq(
 
 // AppendConesSeq is wrapping [MSK_appendconesseq]
 //
-// [MSK_appendconesseq] has following parameters
+// [MSK_appendconesseq] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - ct: const MSKconetypee *
@@ -263,7 +263,7 @@ func (task *Task) AppendConesSeq(
 // AppendCons is wrapping [MSK_appendcons] and
 // add vanilla linear constraints to the task.
 //
-// [MSK_appendcons] has following parameters
+// [MSK_appendcons] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //
@@ -282,7 +282,7 @@ func (task *Task) AppendCons(
 // AppendDjcs is wrapping [MSK_appenddjcs] and
 // adds disjunctive constraints to the task.
 //
-// [MSK_appenddjcs] has following parameters
+// [MSK_appenddjcs] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t
 //
@@ -305,7 +305,7 @@ func (task *Task) AppendDjcs(
 // Those matrices can be used as either coefficent in the objective or constraints. The matrix is identified
 // by the returned idx.
 //
-// [MSK_appendsparsesymmat] has following parameters
+// [MSK_appendsparsesymmat] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - dim: MSKint32t
 //   - nz: MSKint64t
@@ -339,7 +339,7 @@ func (task *Task) AppendSparseSymmat(
 
 // AppendSparseSymmatList is wrapping [MSK_appendsparsesymmatlist]
 //
-// [MSK_appendsparsesymmatlist] has following parameters
+// [MSK_appendsparsesymmatlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - dims: const MSKint32t *
@@ -376,7 +376,7 @@ func (task *Task) AppendSparseSymmatList(
 // AppendVars is wrapping [MSK_appendvars] and
 // add variables to the task.
 //
-// [MSK_appendvars] has following parameters
+// [MSK_appendvars] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //

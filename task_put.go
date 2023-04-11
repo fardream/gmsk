@@ -15,7 +15,7 @@ import (
 
 // PutAcc is wrapping [MSK_putacc]
 //
-// [MSK_putacc] has following parameters
+// [MSK_putacc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - domidx: MSKint64t
@@ -45,7 +45,7 @@ func (task *Task) PutAcc(
 
 // PutAccb is wrapping [MSK_putaccb]
 //
-// [MSK_putaccb] has following parameters
+// [MSK_putaccb] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - lengthb: MSKint64t
@@ -69,7 +69,7 @@ func (task *Task) PutAccb(
 
 // PutAccbj is wrapping [MSK_putaccbj]
 //
-// [MSK_putaccbj] has following parameters
+// [MSK_putaccbj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - j: MSKint64t
@@ -93,7 +93,7 @@ func (task *Task) PutAccbj(
 
 // PutAccdoty is wrapping [MSK_putaccdoty]
 //
-// [MSK_putaccdoty] has following parameters
+// [MSK_putaccdoty] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - accidx: MSKint64t
@@ -117,7 +117,7 @@ func (task *Task) PutAccdoty(
 
 // PutAccList is wrapping [MSK_putacclist]
 //
-// [MSK_putacclist] has following parameters
+// [MSK_putacclist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numaccs: MSKint64t
 //   - accidxs: const MSKint64t *
@@ -151,7 +151,7 @@ func (task *Task) PutAccList(
 // PutAccName is wrapping [MSK_putaccname] and
 // sets a name for an affine conic constraint.
 //
-// [MSK_putaccname] has following parameters
+// [MSK_putaccname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - accidx: MSKint64t
 //   - name: const char *
@@ -176,7 +176,7 @@ func (task *Task) PutAccName(
 // PutACol is wrapping [MSK_putacol] and
 // puts a column of A matrix.
 //
-// [MSK_putacol] has following parameters
+// [MSK_putacol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - nzj: MSKint32t
@@ -203,7 +203,7 @@ func (task *Task) PutACol(
 
 // PutAColList is wrapping [MSK_putacollist]
 //
-// [MSK_putacollist] has following parameters
+// [MSK_putacollist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -236,7 +236,7 @@ func (task *Task) PutAColList(
 
 // PutAColList64 is wrapping [MSK_putacollist64]
 //
-// [MSK_putacollist64] has following parameters
+// [MSK_putacollist64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -269,7 +269,7 @@ func (task *Task) PutAColList64(
 
 // PutAColSlice is wrapping [MSK_putacolslice]
 //
-// [MSK_putacolslice] has following parameters
+// [MSK_putacolslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -302,7 +302,7 @@ func (task *Task) PutAColSlice(
 
 // PutAColSlice64 is wrapping [MSK_putacolslice64]
 //
-// [MSK_putacolslice64] has following parameters
+// [MSK_putacolslice64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -338,7 +338,7 @@ func (task *Task) PutAColSlice64(
 // the rows of afe idx is provided in afeidx, the matrix variables are indexed by barvaridx, and subk, subl are the indices
 // of the coefficients for those matrix variables, and valkl are the corresponding coefficients.
 //
-// [MSK_putafebarfblocktriplet] has following parameters
+// [MSK_putafebarfblocktriplet] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numtrip: MSKint64t
 //   - afeidx: const MSKint64t *
@@ -371,7 +371,7 @@ func (task *Task) PutAfeBarFBlockTriplet(
 
 // PutAfeBarFEntry is wrapping [MSK_putafebarfentry]
 //
-// [MSK_putafebarfentry] has following parameters
+// [MSK_putafebarfentry] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - barvaridx: MSKint32t
@@ -401,7 +401,7 @@ func (task *Task) PutAfeBarFEntry(
 
 // PutAfeBarFEntryList is wrapping [MSK_putafebarfentrylist]
 //
-// [MSK_putafebarfentrylist] has following parameters
+// [MSK_putafebarfentrylist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numafeidx: MSKint64t
 //   - afeidx: const MSKint64t *
@@ -440,7 +440,7 @@ func (task *Task) PutAfeBarFEntryList(
 
 // PutAfeBarFRow is wrapping [MSK_putafebarfrow]
 //
-// [MSK_putafebarfrow] has following parameters
+// [MSK_putafebarfrow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - numentr: MSKint32t
@@ -480,7 +480,7 @@ func (task *Task) PutAfeBarFRow(
 // PutAfeFCol is wrapping [MSK_putafefcol] and
 // sets a column of affine expression F matrix.
 //
-// [MSK_putafefcol] has following parameters
+// [MSK_putafefcol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - varidx: MSKint32t
 //   - numnz: MSKint64t
@@ -508,7 +508,7 @@ func (task *Task) PutAfeFCol(
 // PutAfeFEntry is wrapping [MSK_putafefentry] and
 // sets an entry in the  affine expression F matrix.
 //
-// [MSK_putafefentry] has following parameters
+// [MSK_putafefentry] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - varidx: MSKint32t
@@ -533,7 +533,7 @@ func (task *Task) PutAfeFEntry(
 // PutAfeFEntryList is wrapping [MSK_putafefentrylist] and
 // sets a portion of the affine expression F matrix.
 //
-// [MSK_putafefentrylist] has following parameters
+// [MSK_putafefentrylist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numentr: MSKint64t
 //   - afeidx: const MSKint64t *
@@ -561,7 +561,7 @@ func (task *Task) PutAfeFEntryList(
 // PutAfeFRow is wrapping [MSK_putafefrow] and
 // sets a row of affine expression F matrix.
 //
-// [MSK_putafefrow] has following parameters
+// [MSK_putafefrow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - numnz: MSKint32t
@@ -588,7 +588,7 @@ func (task *Task) PutAfeFRow(
 
 // PutAfeFRowList is wrapping [MSK_putafefrowlist]
 //
-// [MSK_putafefrowlist] has following parameters
+// [MSK_putafefrowlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numafeidx: MSKint64t
 //   - afeidx: const MSKint64t *
@@ -625,7 +625,7 @@ func (task *Task) PutAfeFRowList(
 // PutAfeG is wrapping [MSK_putafeg] and
 // sets the value at afeidx to g.
 //
-// [MSK_putafeg] has following parameters
+// [MSK_putafeg] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - afeidx: MSKint64t
 //   - g: MSKrealt
@@ -646,7 +646,7 @@ func (task *Task) PutAfeG(
 
 // PutAfeGList is wrapping [MSK_putafeglist]
 //
-// [MSK_putafeglist] has following parameters
+// [MSK_putafeglist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numafeidx: MSKint64t
 //   - afeidx: const MSKint64t *
@@ -671,7 +671,7 @@ func (task *Task) PutAfeGList(
 // PutAfeGSlice is wrapping [MSK_putafegslice] and
 // sets a slice of values in g.
 //
-// [MSK_putafegslice] has following parameters
+// [MSK_putafegslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint64t
 //   - last: MSKint64t
@@ -696,7 +696,7 @@ func (task *Task) PutAfeGSlice(
 // PutAij is wrapping [MSK_putaij] and
 // set the value of the constraints matrix A[i,j]
 //
-// [MSK_putaij] has following parameters
+// [MSK_putaij] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - j: MSKint32t
@@ -721,7 +721,7 @@ func (task *Task) PutAij(
 // PutAijList is wrapping [MSK_putaijlist] and
 // sets a list of constraint matrix A by index.
 //
-// [MSK_putaijlist] has following parameters
+// [MSK_putaijlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subi: const MSKint32t *
@@ -748,7 +748,7 @@ func (task *Task) PutAijList(
 
 // PutAijList64 is wrapping [MSK_putaijlist64]
 //
-// [MSK_putaijlist64] has following parameters
+// [MSK_putaijlist64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t
 //   - subi: const MSKint32t *
@@ -776,7 +776,7 @@ func (task *Task) PutAijList64(
 // PutARow is wrapping [MSK_putarow] and
 // puts a row of A matrix.
 //
-// [MSK_putarow] has following parameters
+// [MSK_putarow] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - nzi: MSKint32t
@@ -803,7 +803,7 @@ func (task *Task) PutARow(
 
 // PutARowList is wrapping [MSK_putarowlist]
 //
-// [MSK_putarowlist] has following parameters
+// [MSK_putarowlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -836,7 +836,7 @@ func (task *Task) PutARowList(
 
 // PutARowList64 is wrapping [MSK_putarowlist64]
 //
-// [MSK_putarowlist64] has following parameters
+// [MSK_putarowlist64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -869,7 +869,7 @@ func (task *Task) PutARowList64(
 
 // PutARowSlice is wrapping [MSK_putarowslice]
 //
-// [MSK_putarowslice] has following parameters
+// [MSK_putarowslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -902,7 +902,7 @@ func (task *Task) PutARowSlice(
 
 // PutARowSlice64 is wrapping [MSK_putarowslice64]
 //
-// [MSK_putarowslice64] has following parameters
+// [MSK_putarowslice64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -935,7 +935,7 @@ func (task *Task) PutARowSlice64(
 
 // PutAtruncatetol is wrapping [MSK_putatruncatetol]
 //
-// [MSK_putatruncatetol] has following parameters
+// [MSK_putatruncatetol] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - tolzero: MSKrealt
 //
@@ -956,7 +956,7 @@ func (task *Task) PutAtruncatetol(
 // subi is the index of the constraint, subj is the index of the matrix variable,
 // subk and subl are the indices of the coefficients and valijkl are the coefficients value.
 //
-// [MSK_putbarablocktriplet] has following parameters
+// [MSK_putbarablocktriplet] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t
 //   - subi: const MSKint32t *
@@ -993,7 +993,7 @@ func (task *Task) PutBarABlockTriplet(
 // num is the number of coefficients matrices, and sub/weights are the coefficient matrices'
 // idx (when they are added by [Task.AppendSparseSymmat]) and weights.
 //
-// [MSK_putbaraij] has following parameters
+// [MSK_putbaraij] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - j: MSKint32t
@@ -1023,7 +1023,7 @@ func (task *Task) PutBarAij(
 
 // PutBarAijList is wrapping [MSK_putbaraijlist]
 //
-// [MSK_putbaraijlist] has following parameters
+// [MSK_putbaraijlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subi: const MSKint32t *
@@ -1059,7 +1059,7 @@ func (task *Task) PutBarAijList(
 
 // PutBarARowList is wrapping [MSK_putbararowlist]
 //
-// [MSK_putbararowlist] has following parameters
+// [MSK_putbararowlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subi: const MSKint32t *
@@ -1101,7 +1101,7 @@ func (task *Task) PutBarARowList(
 // matrix variable. suj is the index of the matrix variable, subk/subl are row/colmn index
 // of the cofficients, and valjkl is the coefficients value.
 //
-// [MSK_putbarcblocktriplet] has following parameters
+// [MSK_putbarcblocktriplet] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t
 //   - subj: const MSKint32t *
@@ -1135,7 +1135,7 @@ func (task *Task) PutBarCBlockTriplet(
 // weight matrices are identified by sub (the idx when they are added to the task
 // by [Task.AppendSparseSymmat].
 //
-// [MSK_putbarcj] has following parameters
+// [MSK_putbarcj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - num: MSKint64t
@@ -1162,7 +1162,7 @@ func (task *Task) PutBarCj(
 
 // PutBarsj is wrapping [MSK_putbarsj]
 //
-// [MSK_putbarsj] has following parameters
+// [MSK_putbarsj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - j: MSKint32t
@@ -1186,7 +1186,7 @@ func (task *Task) PutBarsj(
 
 // PutBarvarName is wrapping [MSK_putbarvarname]
 //
-// [MSK_putbarvarname] has following parameters
+// [MSK_putbarvarname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - name: const char *
@@ -1210,7 +1210,7 @@ func (task *Task) PutBarvarName(
 
 // PutBarxj is wrapping [MSK_putbarxj]
 //
-// [MSK_putbarxj] has following parameters
+// [MSK_putbarxj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - j: MSKint32t
@@ -1235,7 +1235,7 @@ func (task *Task) PutBarxj(
 // PutCFix is wrapping [MSK_putcfix] and
 // sets the constant term in the objective.
 //
-// [MSK_putcfix] has following parameters
+// [MSK_putcfix] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - cfix: MSKrealt
 //
@@ -1254,7 +1254,7 @@ func (task *Task) PutCFix(
 // PutCj is wrapping [MSK_putcj] and
 // set the coefficient in the objective function.
 //
-// [MSK_putcj] has following parameters
+// [MSK_putcj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - cj: MSKrealt
@@ -1275,7 +1275,7 @@ func (task *Task) PutCj(
 
 // PutCList is wrapping [MSK_putclist]
 //
-// [MSK_putclist] has following parameters
+// [MSK_putclist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subj: const MSKint32t *
@@ -1300,7 +1300,7 @@ func (task *Task) PutCList(
 // PutConbound is wrapping [MSK_putconbound] and
 // set the bound for a contraint
 //
-// [MSK_putconbound] has following parameters
+// [MSK_putconbound] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - bkc: MSKboundkeye
@@ -1327,7 +1327,7 @@ func (task *Task) PutConbound(
 
 // PutConboundList is wrapping [MSK_putconboundlist]
 //
-// [MSK_putconboundlist] has following parameters
+// [MSK_putconboundlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -1357,7 +1357,7 @@ func (task *Task) PutConboundList(
 
 // PutConboundListConst is wrapping [MSK_putconboundlistconst]
 //
-// [MSK_putconboundlistconst] has following parameters
+// [MSK_putconboundlistconst] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -1388,7 +1388,7 @@ func (task *Task) PutConboundListConst(
 // PutConboundSlice is wrapping [MSK_putconboundslice] and
 // sets a list of constraint bounds.
 //
-// [MSK_putconboundslice] has following parameters
+// [MSK_putconboundslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -1419,7 +1419,7 @@ func (task *Task) PutConboundSlice(
 // PutConboundSliceConst is wrapping [MSK_putconboundsliceconst] and
 // sets a slice of constraint bounds to the same constant value.
 //
-// [MSK_putconboundsliceconst] has following parameters
+// [MSK_putconboundsliceconst] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -1449,7 +1449,7 @@ func (task *Task) PutConboundSliceConst(
 
 // PutCone is wrapping [MSK_putcone]
 //
-// [MSK_putcone] has following parameters
+// [MSK_putcone] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - ct: MSKconetypee
@@ -1479,7 +1479,7 @@ func (task *Task) PutCone(
 
 // PutConeName is wrapping [MSK_putconename]
 //
-// [MSK_putconename] has following parameters
+// [MSK_putconename] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - name: const char *
@@ -1504,7 +1504,7 @@ func (task *Task) PutConeName(
 // PutConName is wrapping [MSK_putconname] and
 // sets a name for a constraint at indext i.
 //
-// [MSK_putconname] has following parameters
+// [MSK_putconname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - name: const char *
@@ -1528,7 +1528,7 @@ func (task *Task) PutConName(
 
 // PutConsolutioni is wrapping [MSK_putconsolutioni]
 //
-// [MSK_putconsolutioni] has following parameters
+// [MSK_putconsolutioni] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - whichsol: MSKsoltypee
@@ -1561,7 +1561,7 @@ func (task *Task) PutConsolutioni(
 
 // PutCSlice is wrapping [MSK_putcslice]
 //
-// [MSK_putcslice] has following parameters
+// [MSK_putcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -1586,7 +1586,7 @@ func (task *Task) PutCSlice(
 // PutDjc is wrapping [MSK_putdjc] and
 // sets the disjunctive constraint.
 //
-// [MSK_putdjc] has following parameters
+// [MSK_putdjc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - numdomidx: MSKint64t
@@ -1625,7 +1625,7 @@ func (task *Task) PutDjc(
 
 // PutDjcName is wrapping [MSK_putdjcname]
 //
-// [MSK_putdjcname] has following parameters
+// [MSK_putdjcname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - djcidx: MSKint64t
 //   - name: const char *
@@ -1649,7 +1649,7 @@ func (task *Task) PutDjcName(
 
 // PutDjcSlice is wrapping [MSK_putdjcslice]
 //
-// [MSK_putdjcslice] has following parameters
+// [MSK_putdjcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - idxfirst: MSKint64t
 //   - idxlast: MSKint64t
@@ -1694,7 +1694,7 @@ func (task *Task) PutDjcSlice(
 
 // PutDomainName is wrapping [MSK_putdomainname]
 //
-// [MSK_putdomainname] has following parameters
+// [MSK_putdomainname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - domidx: MSKint64t
 //   - name: const char *
@@ -1719,7 +1719,7 @@ func (task *Task) PutDomainName(
 // PutDouParam is wrapping [MSK_putdouparam] and
 // sets a float point parameter.
 //
-// [MSK_putdouparam] has following parameters
+// [MSK_putdouparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - param: MSKdparame
 //   - parvalue: MSKrealt
@@ -1741,7 +1741,7 @@ func (task *Task) PutDouParam(
 // PutIntParam is wrapping [MSK_putintparam] and
 // sets an integer parameter.
 //
-// [MSK_putintparam] has following parameters
+// [MSK_putintparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - param: MSKiparame
 //   - parvalue: MSKint32t
@@ -1762,7 +1762,7 @@ func (task *Task) PutIntParam(
 
 // PutMaxnumacc is wrapping [MSK_putmaxnumacc]
 //
-// [MSK_putmaxnumacc] has following parameters
+// [MSK_putmaxnumacc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumacc: MSKint64t
 //
@@ -1780,7 +1780,7 @@ func (task *Task) PutMaxnumacc(
 
 // PutMaxnumafe is wrapping [MSK_putmaxnumafe]
 //
-// [MSK_putmaxnumafe] has following parameters
+// [MSK_putmaxnumafe] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumafe: MSKint64t
 //
@@ -1798,7 +1798,7 @@ func (task *Task) PutMaxnumafe(
 
 // PutMaxnumanz is wrapping [MSK_putmaxnumanz]
 //
-// [MSK_putmaxnumanz] has following parameters
+// [MSK_putmaxnumanz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumanz: MSKint64t
 //
@@ -1816,7 +1816,7 @@ func (task *Task) PutMaxnumanz(
 
 // PutMaxnumbarvar is wrapping [MSK_putmaxnumbarvar]
 //
-// [MSK_putmaxnumbarvar] has following parameters
+// [MSK_putmaxnumbarvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumbarvar: MSKint32t
 //
@@ -1834,7 +1834,7 @@ func (task *Task) PutMaxnumbarvar(
 
 // PutMaxnumcon is wrapping [MSK_putmaxnumcon]
 //
-// [MSK_putmaxnumcon] has following parameters
+// [MSK_putmaxnumcon] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumcon: MSKint32t
 //
@@ -1852,7 +1852,7 @@ func (task *Task) PutMaxnumcon(
 
 // PutMaxnumcone is wrapping [MSK_putmaxnumcone]
 //
-// [MSK_putmaxnumcone] has following parameters
+// [MSK_putmaxnumcone] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumcone: MSKint32t
 //
@@ -1870,7 +1870,7 @@ func (task *Task) PutMaxnumcone(
 
 // PutMaxnumdjc is wrapping [MSK_putmaxnumdjc]
 //
-// [MSK_putmaxnumdjc] has following parameters
+// [MSK_putmaxnumdjc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumdjc: MSKint64t
 //
@@ -1888,7 +1888,7 @@ func (task *Task) PutMaxnumdjc(
 
 // PutMaxnumDomain is wrapping [MSK_putmaxnumdomain]
 //
-// [MSK_putmaxnumdomain] has following parameters
+// [MSK_putmaxnumdomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumdomain: MSKint64t
 //
@@ -1906,7 +1906,7 @@ func (task *Task) PutMaxnumDomain(
 
 // PutMaxnumqnz is wrapping [MSK_putmaxnumqnz]
 //
-// [MSK_putmaxnumqnz] has following parameters
+// [MSK_putmaxnumqnz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumqnz: MSKint64t
 //
@@ -1924,7 +1924,7 @@ func (task *Task) PutMaxnumqnz(
 
 // PutMaxnumvar is wrapping [MSK_putmaxnumvar]
 //
-// [MSK_putmaxnumvar] has following parameters
+// [MSK_putmaxnumvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - maxnumvar: MSKint32t
 //
@@ -1942,7 +1942,7 @@ func (task *Task) PutMaxnumvar(
 
 // PutNadouparam is wrapping [MSK_putnadouparam]
 //
-// [MSK_putnadouparam] has following parameters
+// [MSK_putnadouparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - paramname: const char *
 //   - parvalue: MSKrealt
@@ -1966,7 +1966,7 @@ func (task *Task) PutNadouparam(
 
 // PutNaintparam is wrapping [MSK_putnaintparam]
 //
-// [MSK_putnaintparam] has following parameters
+// [MSK_putnaintparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - paramname: const char *
 //   - parvalue: MSKint32t
@@ -1990,7 +1990,7 @@ func (task *Task) PutNaintparam(
 
 // PutNastrparam is wrapping [MSK_putnastrparam]
 //
-// [MSK_putnastrparam] has following parameters
+// [MSK_putnastrparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - paramname: const char *
 //   - parvalue: const char *
@@ -2017,7 +2017,7 @@ func (task *Task) PutNastrparam(
 
 // PutObjName is wrapping [MSK_putobjname]
 //
-// [MSK_putobjname] has following parameters
+// [MSK_putobjname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - objname: const char *
 //
@@ -2039,7 +2039,7 @@ func (task *Task) PutObjName(
 // PutObjsense is wrapping [MSK_putobjsense] and
 // set the objective sense - which is either minimize or maximize
 //
-// [MSK_putobjsense] has following parameters
+// [MSK_putobjsense] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - sense: MSKobjsensee
 //
@@ -2057,7 +2057,7 @@ func (task *Task) PutObjsense(
 
 // PutOptserverhost is wrapping [MSK_putoptserverhost]
 //
-// [MSK_putoptserverhost] has following parameters
+// [MSK_putoptserverhost] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - host: const char *
 //
@@ -2078,7 +2078,7 @@ func (task *Task) PutOptserverhost(
 
 // PutParam is wrapping [MSK_putparam]
 //
-// [MSK_putparam] has following parameters
+// [MSK_putparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - parname: const char *
 //   - parvalue: const char *
@@ -2105,7 +2105,7 @@ func (task *Task) PutParam(
 
 // PutQcon is wrapping [MSK_putqcon]
 //
-// [MSK_putqcon] has following parameters
+// [MSK_putqcon] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numqcnz: MSKint32t
 //   - qcsubk: const MSKint32t *
@@ -2136,7 +2136,7 @@ func (task *Task) PutQcon(
 // PutQConK is wrapping [MSK_putqconk] and
 // sets the quandratic constraint's coefficients.
 //
-// [MSK_putqconk] has following parameters
+// [MSK_putqconk] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - numqcnz: MSKint32t
@@ -2167,7 +2167,7 @@ func (task *Task) PutQConK(
 // PutQObj is wrapping [MSK_putqobj] and
 // sets the cofficient for quadratic objective term.
 //
-// [MSK_putqobj] has following parameters
+// [MSK_putqobj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numqonz: MSKint32t
 //   - qosubi: const MSKint32t *
@@ -2194,7 +2194,7 @@ func (task *Task) PutQObj(
 
 // PutQObjIj is wrapping [MSK_putqobjij]
 //
-// [MSK_putqobjij] has following parameters
+// [MSK_putqobjij] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - j: MSKint32t
@@ -2218,7 +2218,7 @@ func (task *Task) PutQObjIj(
 
 // PutSkc is wrapping [MSK_putskc]
 //
-// [MSK_putskc] has following parameters
+// [MSK_putskc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - skc: const MSKstakeye *
@@ -2239,7 +2239,7 @@ func (task *Task) PutSkc(
 
 // PutSkcSlice is wrapping [MSK_putskcslice]
 //
-// [MSK_putskcslice] has following parameters
+// [MSK_putskcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -2266,7 +2266,7 @@ func (task *Task) PutSkcSlice(
 
 // PutSkx is wrapping [MSK_putskx]
 //
-// [MSK_putskx] has following parameters
+// [MSK_putskx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - skx: const MSKstakeye *
@@ -2287,7 +2287,7 @@ func (task *Task) PutSkx(
 
 // PutSkxSlice is wrapping [MSK_putskxslice]
 //
-// [MSK_putskxslice] has following parameters
+// [MSK_putskxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -2314,7 +2314,7 @@ func (task *Task) PutSkxSlice(
 
 // PutSlc is wrapping [MSK_putslc]
 //
-// [MSK_putslc] has following parameters
+// [MSK_putslc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - slc: const MSKrealt *
@@ -2335,7 +2335,7 @@ func (task *Task) PutSlc(
 
 // PutSlcSlice is wrapping [MSK_putslcslice]
 //
-// [MSK_putslcslice] has following parameters
+// [MSK_putslcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -2362,7 +2362,7 @@ func (task *Task) PutSlcSlice(
 
 // PutSlx is wrapping [MSK_putslx]
 //
-// [MSK_putslx] has following parameters
+// [MSK_putslx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - slx: const MSKrealt *
@@ -2383,7 +2383,7 @@ func (task *Task) PutSlx(
 
 // PutSlxSlice is wrapping [MSK_putslxslice]
 //
-// [MSK_putslxslice] has following parameters
+// [MSK_putslxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -2410,7 +2410,7 @@ func (task *Task) PutSlxSlice(
 
 // PutSnx is wrapping [MSK_putsnx]
 //
-// [MSK_putsnx] has following parameters
+// [MSK_putsnx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - sux: const MSKrealt *
@@ -2431,7 +2431,7 @@ func (task *Task) PutSnx(
 
 // PutSnxSlice is wrapping [MSK_putsnxslice]
 //
-// [MSK_putsnxslice] has following parameters
+// [MSK_putsnxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -2458,7 +2458,7 @@ func (task *Task) PutSnxSlice(
 
 // PutSolution is wrapping [MSK_putsolution]
 //
-// [MSK_putsolution] has following parameters
+// [MSK_putsolution] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - skc: const MSKstakeye *
@@ -2509,7 +2509,7 @@ func (task *Task) PutSolution(
 
 // PutSolutionNew is wrapping [MSK_putsolutionnew]
 //
-// [MSK_putsolutionnew] has following parameters
+// [MSK_putsolutionnew] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - skc: const MSKstakeye *
@@ -2563,7 +2563,7 @@ func (task *Task) PutSolutionNew(
 
 // PutSolutionyi is wrapping [MSK_putsolutionyi]
 //
-// [MSK_putsolutionyi] has following parameters
+// [MSK_putsolutionyi] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - i: MSKint32t
 //   - whichsol: MSKsoltypee
@@ -2587,7 +2587,7 @@ func (task *Task) PutSolutionyi(
 
 // PutStrparam is wrapping [MSK_putstrparam]
 //
-// [MSK_putstrparam] has following parameters
+// [MSK_putstrparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - param: MSKsparame
 //   - parvalue: const char *
@@ -2611,7 +2611,7 @@ func (task *Task) PutStrparam(
 
 // PutSuc is wrapping [MSK_putsuc]
 //
-// [MSK_putsuc] has following parameters
+// [MSK_putsuc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - suc: const MSKrealt *
@@ -2632,7 +2632,7 @@ func (task *Task) PutSuc(
 
 // PutSucSlice is wrapping [MSK_putsucslice]
 //
-// [MSK_putsucslice] has following parameters
+// [MSK_putsucslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -2659,7 +2659,7 @@ func (task *Task) PutSucSlice(
 
 // PutSux is wrapping [MSK_putsux]
 //
-// [MSK_putsux] has following parameters
+// [MSK_putsux] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - sux: const MSKrealt *
@@ -2680,7 +2680,7 @@ func (task *Task) PutSux(
 
 // PutSuxSlice is wrapping [MSK_putsuxslice]
 //
-// [MSK_putsuxslice] has following parameters
+// [MSK_putsuxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -2707,7 +2707,7 @@ func (task *Task) PutSuxSlice(
 
 // PutTaskName is wrapping [MSK_puttaskname]
 //
-// [MSK_puttaskname] has following parameters
+// [MSK_puttaskname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - taskname: const char *
 //
@@ -2729,7 +2729,7 @@ func (task *Task) PutTaskName(
 // PutVarbound is wrapping [MSK_putvarbound] and
 // set the bound for a variable.
 //
-// [MSK_putvarbound] has following parameters
+// [MSK_putvarbound] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - bkx: MSKboundkeye
@@ -2756,7 +2756,7 @@ func (task *Task) PutVarbound(
 
 // PutVarboundList is wrapping [MSK_putvarboundlist]
 //
-// [MSK_putvarboundlist] has following parameters
+// [MSK_putvarboundlist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -2786,7 +2786,7 @@ func (task *Task) PutVarboundList(
 
 // PutVarboundListConst is wrapping [MSK_putvarboundlistconst]
 //
-// [MSK_putvarboundlistconst] has following parameters
+// [MSK_putvarboundlistconst] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - sub: const MSKint32t *
@@ -2817,7 +2817,7 @@ func (task *Task) PutVarboundListConst(
 // PutVarboundSlice is wrapping [MSK_putvarboundslice] and
 // sets the bound for a slice of variables using 3 vectors.
 //
-// [MSK_putvarboundslice] has following parameters
+// [MSK_putvarboundslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -2848,7 +2848,7 @@ func (task *Task) PutVarboundSlice(
 // PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst] and
 // set the bound for a slice of variables to the same value.
 //
-// [MSK_putvarboundsliceconst] has following parameters
+// [MSK_putvarboundsliceconst] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - first: MSKint32t
 //   - last: MSKint32t
@@ -2879,7 +2879,7 @@ func (task *Task) PutVarboundSliceConst(
 // PutVarName is wrapping [MSK_putvarname] and
 // sets a name for variable at j.
 //
-// [MSK_putvarname] has following parameters
+// [MSK_putvarname] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - name: const char *
@@ -2903,7 +2903,7 @@ func (task *Task) PutVarName(
 
 // PutVarsolutionj is wrapping [MSK_putvarsolutionj]
 //
-// [MSK_putvarsolutionj] has following parameters
+// [MSK_putvarsolutionj] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - whichsol: MSKsoltypee
@@ -2940,7 +2940,7 @@ func (task *Task) PutVarsolutionj(
 // PutVarType is wrapping [MSK_putvartype] and
 // sets the type of the variable.
 //
-// [MSK_putvartype] has following parameters
+// [MSK_putvartype] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - j: MSKint32t
 //   - vartype: MSKvariabletypee
@@ -2962,7 +2962,7 @@ func (task *Task) PutVarType(
 // PutVarTypeList is wrapping [MSK_putvartypelist] and
 // sets the type of a list of variables.
 //
-// [MSK_putvartypelist] has following parameters
+// [MSK_putvartypelist] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint32t
 //   - subj: const MSKint32t *
@@ -2986,7 +2986,7 @@ func (task *Task) PutVarTypeList(
 
 // PutXc is wrapping [MSK_putxc]
 //
-// [MSK_putxc] has following parameters
+// [MSK_putxc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - xc: MSKrealt *
@@ -3007,7 +3007,7 @@ func (task *Task) PutXc(
 
 // PutXcSlice is wrapping [MSK_putxcslice]
 //
-// [MSK_putxcslice] has following parameters
+// [MSK_putxcslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3034,7 +3034,7 @@ func (task *Task) PutXcSlice(
 
 // PutXx is wrapping [MSK_putxx]
 //
-// [MSK_putxx] has following parameters
+// [MSK_putxx] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - xx: const MSKrealt *
@@ -3056,7 +3056,7 @@ func (task *Task) PutXx(
 // PutXxSlice is wrapping [MSK_putxxslice] and
 // sets the initial solution for a slice.
 //
-// [MSK_putxxslice] has following parameters
+// [MSK_putxxslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t
@@ -3083,7 +3083,7 @@ func (task *Task) PutXxSlice(
 
 // PutY is wrapping [MSK_puty]
 //
-// [MSK_puty] has following parameters
+// [MSK_puty] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - y: const MSKrealt *
@@ -3104,7 +3104,7 @@ func (task *Task) PutY(
 
 // PutYSlice is wrapping [MSK_putyslice]
 //
-// [MSK_putyslice] has following parameters
+// [MSK_putyslice] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - whichsol: MSKsoltypee
 //   - first: MSKint32t

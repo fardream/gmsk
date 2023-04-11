@@ -13,7 +13,7 @@ import (
 
 // GetNumAcc is wrapping [MSK_getnumacc]
 //
-// [MSK_getnumacc] has following parameters
+// [MSK_getnumacc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t *
 //
@@ -32,7 +32,7 @@ func (task *Task) GetNumAcc() (r res.Code, num int64) {
 // GetNumAfe is wrapping [MSK_getnumafe] and
 // gets the number of constraints in the task.
 //
-// [MSK_getnumafe] has following parameters
+// [MSK_getnumafe] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numafe: MSKint64t *
 //
@@ -50,7 +50,7 @@ func (task *Task) GetNumAfe() (r res.Code, numafe int64) {
 
 // GetNumAnz is wrapping [MSK_getnumanz]
 //
-// [MSK_getnumanz] has following parameters
+// [MSK_getnumanz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numanz: MSKint32t *
 //
@@ -68,7 +68,7 @@ func (task *Task) GetNumAnz() (r res.Code, numanz int32) {
 
 // GetNumAnz64 is wrapping [MSK_getnumanz64]
 //
-// [MSK_getnumanz64] has following parameters
+// [MSK_getnumanz64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numanz: MSKint64t *
 //
@@ -86,7 +86,7 @@ func (task *Task) GetNumAnz64() (r res.Code, numanz int64) {
 
 // GetNumBarABlocktriplets is wrapping [MSK_getnumbarablocktriplets]
 //
-// [MSK_getnumbarablocktriplets] has following parameters
+// [MSK_getnumbarablocktriplets] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t *
 //
@@ -104,7 +104,7 @@ func (task *Task) GetNumBarABlocktriplets() (r res.Code, num int64) {
 
 // GetNumBarANz is wrapping [MSK_getnumbaranz]
 //
-// [MSK_getnumbaranz] has following parameters
+// [MSK_getnumbaranz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - nz: MSKint64t *
 //
@@ -122,7 +122,7 @@ func (task *Task) GetNumBarANz() (r res.Code, nz int64) {
 
 // GetNumBarCBlocktriplets is wrapping [MSK_getnumbarcblocktriplets]
 //
-// [MSK_getnumbarcblocktriplets] has following parameters
+// [MSK_getnumbarcblocktriplets] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t *
 //
@@ -140,7 +140,7 @@ func (task *Task) GetNumBarCBlocktriplets() (r res.Code, num int64) {
 
 // GetNumBarCNz is wrapping [MSK_getnumbarcnz]
 //
-// [MSK_getnumbarcnz] has following parameters
+// [MSK_getnumbarcnz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - nz: MSKint64t *
 //
@@ -158,7 +158,7 @@ func (task *Task) GetNumBarCNz() (r res.Code, nz int64) {
 
 // GetNumBarvar is wrapping [MSK_getnumbarvar]
 //
-// [MSK_getnumbarvar] has following parameters
+// [MSK_getnumbarvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numbarvar: MSKint32t *
 //
@@ -177,7 +177,7 @@ func (task *Task) GetNumBarvar() (r res.Code, numbarvar int32) {
 // GetNumCon is wrapping [MSK_getnumcon] and
 // gets the number of linear constraints in the task.
 //
-// [MSK_getnumcon] has following parameters
+// [MSK_getnumcon] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numcon: MSKint32t *
 //
@@ -195,7 +195,7 @@ func (task *Task) GetNumCon() (r res.Code, numcon int32) {
 
 // GetNumCone is wrapping [MSK_getnumcone]
 //
-// [MSK_getnumcone] has following parameters
+// [MSK_getnumcone] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numcone: MSKint32t *
 //
@@ -213,7 +213,7 @@ func (task *Task) GetNumCone() (r res.Code, numcone int32) {
 
 // GetNumConemem is wrapping [MSK_getnumconemem]
 //
-// [MSK_getnumconemem] has following parameters
+// [MSK_getnumconemem] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - nummem: MSKint32t *
@@ -235,7 +235,7 @@ func (task *Task) GetNumConemem(
 
 // GetNumDjc is wrapping [MSK_getnumdjc]
 //
-// [MSK_getnumdjc] has following parameters
+// [MSK_getnumdjc] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t *
 //
@@ -253,7 +253,7 @@ func (task *Task) GetNumDjc() (r res.Code, num int64) {
 
 // GetNumDomain is wrapping [MSK_getnumdomain]
 //
-// [MSK_getnumdomain] has following parameters
+// [MSK_getnumdomain] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numdomain: MSKint64t *
 //
@@ -271,7 +271,7 @@ func (task *Task) GetNumDomain() (r res.Code, numdomain int64) {
 
 // GetNumIntvar is wrapping [MSK_getnumintvar]
 //
-// [MSK_getnumintvar] has following parameters
+// [MSK_getnumintvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numintvar: MSKint32t *
 //
@@ -289,7 +289,7 @@ func (task *Task) GetNumIntvar() (r res.Code, numintvar int32) {
 
 // GetNumParam is wrapping [MSK_getnumparam]
 //
-// [MSK_getnumparam] has following parameters
+// [MSK_getnumparam] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - partype: MSKparametertypee
 //   - numparam: MSKint32t *
@@ -311,7 +311,7 @@ func (task *Task) GetNumParam(
 
 // GetNumQConKNz is wrapping [MSK_getnumqconknz]
 //
-// [MSK_getnumqconknz] has following parameters
+// [MSK_getnumqconknz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - numqcnz: MSKint32t *
@@ -333,7 +333,7 @@ func (task *Task) GetNumQConKNz(
 
 // GetNumQConKNz64 is wrapping [MSK_getnumqconknz64]
 //
-// [MSK_getnumqconknz64] has following parameters
+// [MSK_getnumqconknz64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - k: MSKint32t
 //   - numqcnz: MSKint64t *
@@ -355,7 +355,7 @@ func (task *Task) GetNumQConKNz64(
 
 // GetNumQObjNz is wrapping [MSK_getnumqobjnz]
 //
-// [MSK_getnumqobjnz] has following parameters
+// [MSK_getnumqobjnz] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numqonz: MSKint32t *
 //
@@ -373,7 +373,7 @@ func (task *Task) GetNumQObjNz() (r res.Code, numqonz int32) {
 
 // GetNumQObjNz64 is wrapping [MSK_getnumqobjnz64]
 //
-// [MSK_getnumqobjnz64] has following parameters
+// [MSK_getnumqobjnz64] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numqonz: MSKint64t *
 //
@@ -391,7 +391,7 @@ func (task *Task) GetNumQObjNz64() (r res.Code, numqonz int64) {
 
 // GetNumSymmat is wrapping [MSK_getnumsymmat]
 //
-// [MSK_getnumsymmat] has following parameters
+// [MSK_getnumsymmat] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - num: MSKint64t *
 //
@@ -410,7 +410,7 @@ func (task *Task) GetNumSymmat() (r res.Code, num int64) {
 // GetNumVar is wrapping [MSK_getnumvar] and
 // gets the number of variables in the task.
 //
-// [MSK_getnumvar] has following parameters
+// [MSK_getnumvar] returns MSKrescodee and has following parameters
 //   - task: MSKtask_t
 //   - numvar: MSKint32t *
 //

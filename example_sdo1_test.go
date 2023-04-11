@@ -25,7 +25,7 @@ func Example_semidefiniteOptimization_sdo1() {
 
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodeDesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}

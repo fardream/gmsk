@@ -11,7 +11,7 @@ import (
 func ExampleTask_WriteDataHandle() {
 	CheckOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodeDesc(r)
 			log.Fatalf("Failed: %s %s", sym, desc)
 		}
 	}

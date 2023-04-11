@@ -169,45 +169,9 @@ func DeleteTask(task *Task) {
 	}
 }
 
-// GetCodeDesc set the content of sym and desc just like MSK_getcodedesc.
-// However, the size of the input slice must be greater than or equal to MAX_STR_LEN + 1
-// The returned bool indicate if the size of sym/desc is greater than [MAX_STR_LEN].
-// The function will do nothing if sym and desc are smaller than or equal to [MAX_STR_LEN].
-func GetCodeDesc(resCode res.Code, sym []byte, desc []byte) (res.Code, bool) {
-	if len(sym) <= MAX_STR_LEN || len(desc) <= MAX_STR_LEN {
-		return 0, false
-	}
-
-	symstart := unsafe.Pointer(&sym[0])
-	descstart := unsafe.Pointer(&desc[0])
-
-	r := C.MSK_getcodedesc(C.MSKrescodee(resCode), (*C.char)(symstart), (*C.char)(descstart))
-
-	return res.Code(r), true
-}
-
-// GetCodeDescSimple gets the description of the return code.
-// Please check [res.Code] to see if the operation is successful.
-// The first returned string is the symbol,
-// and the second returned string is the description.
-// This is different from [GetCodeDesc] and involves allocating and freeing two char array of
-// [MAX_STR_LEN] + 1 size.
-func GetCodeDescSimple(resCode res.Code) (res.Code, string, string) {
-	// use calloc, which will zero out the memory location.
-	symbol := (*C.char)(C.calloc(MAX_STR_LEN+1, C.sizeof_char))
-	defer C.free(unsafe.Pointer(symbol))
-
-	des := (*C.char)(C.calloc(MAX_STR_LEN+1, C.sizeof_char))
-	defer C.free(unsafe.Pointer(des))
-
-	r := C.MSK_getcodedesc(C.MSKrescodee(resCode), symbol, des)
-
-	return res.Code(r), C.GoString(symbol), C.GoString(symbol)
-}
-
 // fmtError formats the error string
 func fmtError(format string, resCode res.Code) error {
-	_, symbol, desc := GetCodeDescSimple(resCode)
+	_, symbol, desc := GetCodeDesc(resCode)
 	return fmt.Errorf(format, symbol, desc)
 }
 
@@ -380,11 +344,6 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) res.
 			(*[0]byte)(C.writeStreamToWriter)))
 }
 
-// SolutionSummary wraps MSK_solutionsummary, which prints the summary of the solution to the given stream.
-func (task *Task) SolutionSummary(whichstream StreamType) res.Code {
-	return res.Code(C.MSK_solutionsummary(task.task, C.MSKstreamtypee(whichstream)))
-}
-
 // writeFuncToWriter is the function for C api's MSKhwritefunc, which has a signature of
 //
 //	size_t  (MSKAPI * MSKhwritefunc) (
@@ -424,4 +383,18 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
 			C.MSKdataformate(format),
 			C.MSKcompresstypee(compress)))
+}
+
+// intToBool converts an integer to a bool.
+// c doesn't have a bool type and MOSEK uses int32 as bool.
+func intToBool(i C.MSKbooleant) bool {
+	return i != 0
+}
+
+func boolToInt(i bool) C.MSKbooleant {
+	if i {
+		return 1
+	} else {
+		return 0
+	}
 }

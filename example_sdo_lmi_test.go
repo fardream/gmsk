@@ -22,7 +22,7 @@ import (
 func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodeDesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
