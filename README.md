@@ -25,7 +25,7 @@ import (
 func main() {
 	CheckOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDescSimple(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Fatalf("Failed: %s %s", sym, desc)
 		}
 	}
@@ -37,10 +37,10 @@ func main() {
 	defer gmsk.DeleteTask(task)
 
 	CheckOk(task.AppendVars(1))
-	CheckOk(task.PutCj(0, 1.0))
-	CheckOk(task.PutVarbound(0, gmsk.BK_RA, 2.0, 3.0))
-	CheckOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
-	res, _ := task.OptimizeTerm()
+	CheckOk(task.PutCJ(0, 1.0))
+	CheckOk(task.PutVarBound(0, gmsk.BK_RA, 2.0, 3.0))
+	CheckOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	res, _ := task.OptimizeTrm()
 	CheckOk(res)
 	result := make([]float64, 1)
 	res, result = task.GetXx(gmsk.SOL_ITR, result)

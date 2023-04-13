@@ -11,7 +11,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAccfNumNz is wrapping [MSK_getaccfnumnz],
+// GetAccFNumnz is wrapping [MSK_getaccfnumnz],
 // Obtains the total number of nonzeros in the ACC implied F matrix.
 //
 // Returns:
@@ -19,7 +19,7 @@ import (
 //   - `accfnnz` Number of nonzeros in the F matrix implied by ACCs.
 //
 // [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccfnumnz
-func (task *Task) GetAccfNumNz() (r res.Code, accfnnz int64) {
+func (task *Task) GetAccFNumnz() (r res.Code, accfnnz int64) {
 	r = res.Code(
 		C.MSK_getaccfnumnz(
 			task.task,

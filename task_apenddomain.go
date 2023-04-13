@@ -30,7 +30,7 @@ func (task *Task) AppendDualExpConeDomain() (r res.Code, domidx int64) {
 	return
 }
 
-// AppendDualGeomeanConeDomain is wrapping [MSK_appenddualgeomeanconedomain],
+// AppendDualGeoMeanConeDomain is wrapping [MSK_appenddualgeomeanconedomain],
 // Appends the dual geometric mean cone domain.
 //
 // Arguments:
@@ -42,7 +42,7 @@ func (task *Task) AppendDualExpConeDomain() (r res.Code, domidx int64) {
 //   - `domidx` Index of the domain.
 //
 // [MSK_appenddualgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddualgeomeanconedomain
-func (task *Task) AppendDualGeomeanConeDomain(
+func (task *Task) AppendDualGeoMeanConeDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(
@@ -106,7 +106,7 @@ func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 	return
 }
 
-// AppendPrimalGeomeanConeDomain is wrapping [MSK_appendprimalgeomeanconedomain],
+// AppendPrimalGeoMeanConeDomain is wrapping [MSK_appendprimalgeomeanconedomain],
 // Appends the primal geometric mean cone domain.
 //
 // Arguments:
@@ -118,7 +118,7 @@ func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 //   - `domidx` Index of the domain.
 //
 // [MSK_appendprimalgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendprimalgeomeanconedomain
-func (task *Task) AppendPrimalGeomeanConeDomain(
+func (task *Task) AppendPrimalGeoMeanConeDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(
@@ -215,7 +215,7 @@ func (task *Task) AppendRDomain(
 	return
 }
 
-// AppendRMinusDomain is wrapping [MSK_appendrminusdomain],
+// AppendRminusDomain is wrapping [MSK_appendrminusdomain],
 // Appends the n dimensional negative orthant to the list of domains.
 //
 // Arguments:
@@ -227,7 +227,7 @@ func (task *Task) AppendRDomain(
 //   - `domidx` Index of the domain.
 //
 // [MSK_appendrminusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrminusdomain
-func (task *Task) AppendRMinusDomain(
+func (task *Task) AppendRminusDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(
@@ -241,7 +241,7 @@ func (task *Task) AppendRMinusDomain(
 	return
 }
 
-// AppendRPlusDomain is wrapping [MSK_appendrplusdomain],
+// AppendRplusDomain is wrapping [MSK_appendrplusdomain],
 // Appends the n dimensional positive orthant to the list of domains.
 //
 // Arguments:
@@ -253,7 +253,7 @@ func (task *Task) AppendRMinusDomain(
 //   - `domidx` Index of the domain.
 //
 // [MSK_appendrplusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrplusdomain
-func (task *Task) AppendRPlusDomain(
+func (task *Task) AppendRplusDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(
@@ -293,7 +293,7 @@ func (task *Task) AppendRQuadraticConeDomain(
 	return
 }
 
-// AppendRZeroDomain is wrapping [MSK_appendrzerodomain],
+// AppendRzeroDomain is wrapping [MSK_appendrzerodomain],
 // Appends the n dimensional 0 domain.
 //
 // Arguments:
@@ -305,7 +305,7 @@ func (task *Task) AppendRQuadraticConeDomain(
 //   - `domidx` Index of the domain.
 //
 // [MSK_appendrzerodomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrzerodomain
-func (task *Task) AppendRZeroDomain(
+func (task *Task) AppendRzeroDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(
@@ -319,7 +319,7 @@ func (task *Task) AppendRZeroDomain(
 	return
 }
 
-// AppendSvecpsdConeDomain is wrapping [MSK_appendsvecpsdconedomain],
+// AppendSvecPsdConeDomain is wrapping [MSK_appendsvecpsdconedomain],
 // Appends the vectorized SVEC PSD cone domain.
 //
 // Arguments:
@@ -331,7 +331,7 @@ func (task *Task) AppendRZeroDomain(
 //   - `domidx` Index of the domain.
 //
 // [MSK_appendsvecpsdconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendsvecpsdconedomain
-func (task *Task) AppendSvecpsdConeDomain(
+func (task *Task) AppendSvecPsdConeDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(

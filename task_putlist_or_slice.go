@@ -134,7 +134,7 @@ func (task *Task) PutAColSlice(
 	)
 }
 
-// PutAfeBarFEntryList is wrapping [MSK_putafebarfentrylist],
+// PutAfeBarfEntryList is wrapping [MSK_putafebarfentrylist],
 // Inputs a list of entries in barF.
 //
 // Arguments:
@@ -147,7 +147,7 @@ func (task *Task) PutAColSlice(
 //   - `termweight` Concatenated weights in the weighted sum.
 //
 // [MSK_putafebarfentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfentrylist
-func (task *Task) PutAfeBarFEntryList(
+func (task *Task) PutAfeBarfEntryList(
 	numafeidx int64,
 	afeidx *int64,
 	barvaridx *int32,
@@ -421,7 +421,7 @@ func (task *Task) PutARowSlice(
 	)
 }
 
-// PutBarAijList is wrapping [MSK_putbaraijlist],
+// PutBaraIjList is wrapping [MSK_putbaraijlist],
 // Inputs list of elements of barA.
 //
 // Arguments:
@@ -434,7 +434,7 @@ func (task *Task) PutARowSlice(
 //   - `weights` Weights in the weighted sum.
 //
 // [MSK_putbaraijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbaraijlist
-func (task *Task) PutBarAijList(
+func (task *Task) PutBaraIjList(
 	num int32,
 	subi *int32,
 	subj *int32,
@@ -457,7 +457,7 @@ func (task *Task) PutBarAijList(
 	)
 }
 
-// PutBarARowList is wrapping [MSK_putbararowlist],
+// PutBaraRowList is wrapping [MSK_putbararowlist],
 // Replace a set of rows of barA
 //
 // Arguments:
@@ -471,7 +471,7 @@ func (task *Task) PutBarAijList(
 //   - `weights` Weights for weighted sum of matrixes.
 //
 // [MSK_putbararowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbararowlist
-func (task *Task) PutBarARowList(
+func (task *Task) PutBaraRowList(
 	num int32,
 	subi *int32,
 	ptrb *int64,
@@ -520,7 +520,7 @@ func (task *Task) PutCList(
 	)
 }
 
-// PutConboundList is wrapping [MSK_putconboundlist],
+// PutConBoundList is wrapping [MSK_putconboundlist],
 // Changes the bounds of a list of constraints.
 //
 // Arguments:
@@ -531,7 +531,7 @@ func (task *Task) PutCList(
 //   - `buc` Upper bounds for the constraints.
 //
 // [MSK_putconboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundlist
-func (task *Task) PutConboundList(
+func (task *Task) PutConBoundList(
 	num int32,
 	sub *int32,
 	bkc *BoundKey,
@@ -550,7 +550,7 @@ func (task *Task) PutConboundList(
 	)
 }
 
-// PutConboundSlice is wrapping [MSK_putconboundslice],
+// PutConBoundSlice is wrapping [MSK_putconboundslice],
 // Changes the bounds for a slice of the constraints.
 //
 // Arguments:
@@ -562,7 +562,7 @@ func (task *Task) PutConboundList(
 //   - `buc` Upper bounds for the constraints.
 //
 // [MSK_putconboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundslice
-func (task *Task) PutConboundSlice(
+func (task *Task) PutConBoundSlice(
 	first int32,
 	last int32,
 	bkc *BoundKey,
@@ -581,7 +581,7 @@ func (task *Task) PutConboundSlice(
 	)
 }
 
-// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst],
+// PutConBoundSliceConst is wrapping [MSK_putconboundsliceconst],
 // Changes the bounds for a slice of the constraints.
 //
 // Arguments:
@@ -593,7 +593,7 @@ func (task *Task) PutConboundSlice(
 //   - `buc` New upper bound for all constraints in the slice.
 //
 // [MSK_putconboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundsliceconst
-func (task *Task) PutConboundSliceConst(
+func (task *Task) PutConBoundSliceConst(
 	first int32,
 	last int32,
 	bkc BoundKey,
@@ -876,7 +876,7 @@ func (task *Task) PutSuxSlice(
 	)
 }
 
-// PutVarboundList is wrapping [MSK_putvarboundlist],
+// PutVarBoundList is wrapping [MSK_putvarboundlist],
 // Changes the bounds of a list of variables.
 //
 // Arguments:
@@ -887,7 +887,7 @@ func (task *Task) PutSuxSlice(
 //   - `bux` Upper bounds for the variables.
 //
 // [MSK_putvarboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundlist
-func (task *Task) PutVarboundList(
+func (task *Task) PutVarBoundList(
 	num int32,
 	sub *int32,
 	bkx *BoundKey,
@@ -906,7 +906,7 @@ func (task *Task) PutVarboundList(
 	)
 }
 
-// PutVarboundSlice is wrapping [MSK_putvarboundslice],
+// PutVarBoundSlice is wrapping [MSK_putvarboundslice],
 // Changes the bounds for a slice of the variables.
 //
 // Arguments:
@@ -918,7 +918,7 @@ func (task *Task) PutVarboundList(
 //   - `bux` Upper bounds for the variables.
 //
 // [MSK_putvarboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundslice
-func (task *Task) PutVarboundSlice(
+func (task *Task) PutVarBoundSlice(
 	first int32,
 	last int32,
 	bkx *BoundKey,
@@ -937,7 +937,7 @@ func (task *Task) PutVarboundSlice(
 	)
 }
 
-// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst],
+// PutVarBoundSliceConst is wrapping [MSK_putvarboundsliceconst],
 // Changes the bounds for a slice of the variables.
 //
 // Arguments:
@@ -949,7 +949,7 @@ func (task *Task) PutVarboundSlice(
 //   - `bux` New upper bound for all variables in the slice.
 //
 // [MSK_putvarboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundsliceconst
-func (task *Task) PutVarboundSliceConst(
+func (task *Task) PutVarBoundSliceConst(
 	first int32,
 	last int32,
 	bkx BoundKey,
