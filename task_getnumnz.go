@@ -11,11 +11,12 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAccfNumNz is wrapping [MSK_getaccfnumnz]
+// GetAccfNumNz is wrapping [MSK_getaccfnumnz],
+// Obtains the total number of nonzeros in the ACC implied F matrix.
 //
-// [MSK_getaccfnumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accfnnz: MSKint64t *
+// Returns:
+//
+//   - `accfnnz` Number of nonzeros in the F matrix implied by ACCs.
 //
 // [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccfnumnz
 func (task *Task) GetAccfNumNz() (r res.Code, accfnnz int64) {
@@ -29,12 +30,16 @@ func (task *Task) GetAccfNumNz() (r res.Code, accfnnz int64) {
 	return
 }
 
-// GetAColNumNz is wrapping [MSK_getacolnumnz]
+// GetAColNumNz is wrapping [MSK_getacolnumnz],
+// Obtains the number of non-zero elements in one column of the linear constraint matrix
 //
-// [MSK_getacolnumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - nzj: MSKint32t *
+// Arguments:
+//
+//   - `i` Index of the column.
+//
+// Returns:
+//
+//   - `nzj` Number of non-zeros in the j'th column of (A).
 //
 // [MSK_getacolnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolnumnz
 func (task *Task) GetAColNumNz(
@@ -51,13 +56,17 @@ func (task *Task) GetAColNumNz(
 	return
 }
 
-// GetAColSliceNumNz is wrapping [MSK_getacolslicenumnz]
+// GetAColSliceNumNz is wrapping [MSK_getacolslicenumnz],
+// Obtains the number of non-zeros in a slice of columns of the coefficient matrix.
 //
-// [MSK_getacolslicenumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint32t *
+// Arguments:
+//
+//   - `first` Index of the first column in the sequence.
+//   - `last` Index of the last column plus one in the sequence.
+//
+// Returns:
+//
+//   - `numnz` Number of non-zeros in the slice.
 //
 // [MSK_getacolslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolslicenumnz
 func (task *Task) GetAColSliceNumNz(
@@ -78,12 +87,6 @@ func (task *Task) GetAColSliceNumNz(
 
 // GetAColSliceNumNz64 is wrapping [MSK_getacolslicenumnz64]
 //
-// [MSK_getacolslicenumnz64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint64t *
-//
 // [MSK_getacolslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolslicenumnz64
 func (task *Task) GetAColSliceNumNz64(
 	first int32,
@@ -101,11 +104,12 @@ func (task *Task) GetAColSliceNumNz64(
 	return
 }
 
-// GetAfeFNumNz is wrapping [MSK_getafefnumnz]
+// GetAfeFNumNz is wrapping [MSK_getafefnumnz],
+// Obtains the total number of nonzeros in F.
 //
-// [MSK_getafefnumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numnz: MSKint64t *
+// Returns:
+//
+//   - `numnz` Number of nonzeros in F.
 //
 // [MSK_getafefnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefnumnz
 func (task *Task) GetAfeFNumNz() (r res.Code, numnz int64) {
@@ -119,12 +123,16 @@ func (task *Task) GetAfeFNumNz() (r res.Code, numnz int64) {
 	return
 }
 
-// GetAfeFRowNumNz is wrapping [MSK_getafefrownumnz]
+// GetAfeFRowNumNz is wrapping [MSK_getafefrownumnz],
+// Obtains the number of nonzeros in a row of F.
 //
-// [MSK_getafefrownumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t
-//   - numnz: MSKint32t *
+// Arguments:
+//
+//   - `afeidx` Row index.
+//
+// Returns:
+//
+//   - `numnz` Number of non-zeros in the row.
 //
 // [MSK_getafefrownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefrownumnz
 func (task *Task) GetAfeFRowNumNz(
@@ -141,15 +149,19 @@ func (task *Task) GetAfeFRowNumNz(
 	return
 }
 
-// GetAPieceNumNz is wrapping [MSK_getapiecenumnz]
+// GetAPieceNumNz is wrapping [MSK_getapiecenumnz],
+// Obtains the number non-zeros in a rectangular piece of the linear constraint matrix.
 //
-// [MSK_getapiecenumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - firsti: MSKint32t
-//   - lasti: MSKint32t
-//   - firstj: MSKint32t
-//   - lastj: MSKint32t
-//   - numnz: MSKint32t *
+// Arguments:
+//
+//   - `firsti` Index of the first row in the rectangular piece.
+//   - `lasti` Index of the last row plus one in the rectangular piece.
+//   - `firstj` Index of the first column in the rectangular piece.
+//   - `lastj` Index of the last column plus one in the rectangular piece.
+//
+// Returns:
+//
+//   - `numnz` Number of non-zero elements in the rectangular piece of the linear constraint matrix.
 //
 // [MSK_getapiecenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getapiecenumnz
 func (task *Task) GetAPieceNumNz(
@@ -172,12 +184,16 @@ func (task *Task) GetAPieceNumNz(
 	return
 }
 
-// GetARowNumNz is wrapping [MSK_getarownumnz]
+// GetARowNumNz is wrapping [MSK_getarownumnz],
+// Obtains the number of non-zero elements in one row of the linear constraint matrix
 //
-// [MSK_getarownumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - nzi: MSKint32t *
+// Arguments:
+//
+//   - `i` Index of the row.
+//
+// Returns:
+//
+//   - `nzi` Number of non-zeros in the i'th row of `A`.
 //
 // [MSK_getarownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarownumnz
 func (task *Task) GetARowNumNz(
@@ -194,13 +210,17 @@ func (task *Task) GetARowNumNz(
 	return
 }
 
-// GetARowSliceNumNz is wrapping [MSK_getarowslicenumnz]
+// GetARowSliceNumNz is wrapping [MSK_getarowslicenumnz],
+// Obtains the number of non-zeros in a slice of rows of the coefficient matrix.
 //
-// [MSK_getarowslicenumnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint32t *
+// Arguments:
+//
+//   - `first` Index of the first row in the sequence.
+//   - `last` Index of the last row plus one in the sequence.
+//
+// Returns:
+//
+//   - `numnz` Number of non-zeros in the slice.
 //
 // [MSK_getarowslicenumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarowslicenumnz
 func (task *Task) GetARowSliceNumNz(
@@ -220,12 +240,6 @@ func (task *Task) GetARowSliceNumNz(
 }
 
 // GetARowSliceNumNz64 is wrapping [MSK_getarowslicenumnz64]
-//
-// [MSK_getarowslicenumnz64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - numnz: MSKint64t *
 //
 // [MSK_getarowslicenumnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarowslicenumnz64
 func (task *Task) GetARowSliceNumNz64(

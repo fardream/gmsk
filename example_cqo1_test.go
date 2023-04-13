@@ -12,7 +12,7 @@ import (
 func Example_conicQuadraticOptimization1_cqo1() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
@@ -109,12 +109,12 @@ func Example_conicQuadraticOptimization1_cqo1() {
 
 	for j := int32(0); j < numvar && r == gmsk.RES_OK; j++ {
 		/* Set the linear term c_j in the objective.*/
-		r = task.PutCj(j, c[j])
+		r = task.PutCJ(j, c[j])
 		checkOk(r)
 
 		/* Set the bounds on variable j.
 		   blx[j] <= x_j <= bux[j] */
-		r = task.PutVarbound(
+		r = task.PutVarBound(
 			j,      /* Index of variable.*/
 			bkx[j], /* Bound key.*/
 			blx[j], /* Numerical value of lower bound.*/
@@ -134,7 +134,7 @@ func Example_conicQuadraticOptimization1_cqo1() {
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
 	for i := int32(0); i < numcon && r == gmsk.RES_OK; i++ {
-		r = task.PutConbound(
+		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/

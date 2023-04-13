@@ -11,7 +11,7 @@ import (
 func ExampleTask_WriteDataHandle() {
 	CheckOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Fatalf("Failed: %s %s", sym, desc)
 		}
 	}
@@ -23,9 +23,9 @@ func ExampleTask_WriteDataHandle() {
 	defer gmsk.DeleteTask(task)
 
 	CheckOk(task.AppendVars(1))
-	CheckOk(task.PutCj(0, 1.0))
-	CheckOk(task.PutVarbound(0, gmsk.BK_RA, 2.0, 3.0))
-	CheckOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	CheckOk(task.PutCJ(0, 1.0))
+	CheckOk(task.PutVarBound(0, gmsk.BK_RA, 2.0, 3.0))
+	CheckOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
 
 	CheckOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE))
 	fmt.Println("Done")

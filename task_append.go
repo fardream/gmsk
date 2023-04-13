@@ -11,17 +11,14 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// AppendAcc is wrapping [MSK_appendacc] and
-// adds an affine conic constraint to the task, where the afe idx is provided
-// by an array or pointer - if the afe idx is sequential, use [Task.AppendAccSeq]
-// to avoid allocating an array.
+// AppendAcc is wrapping [MSK_appendacc],
+// Appends an affine conic constraint to the task.
 //
-// [MSK_appendacc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - numafeidx: MSKint64t
-//   - afeidxlist: const MSKint64t *
-//   - b: const MSKrealt *
+// Arguments:
+//
+//   - `domidx` Domain index.
+//   - `afeidxlist` List of affine expression indexes.
+//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
 //
 // [MSK_appendacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendacc
 func (task *Task) AppendAcc(
@@ -41,16 +38,14 @@ func (task *Task) AppendAcc(
 	)
 }
 
-// AppendAccs is wrapping [MSK_appendaccs] and
-// adds a list of affine conic constraints to the task.
+// AppendAccs is wrapping [MSK_appendaccs],
+// Appends a number of affine conic constraint to the task.
 //
-// [MSK_appendaccs] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numaccs: MSKint64t
-//   - domidxs: const MSKint64t *
-//   - numafeidx: MSKint64t
-//   - afeidxlist: const MSKint64t *
-//   - b: const MSKrealt *
+// Arguments:
+//
+//   - `domidxs` Domain indices.
+//   - `afeidxlist` List of affine expression indexes.
+//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
 //
 // [MSK_appendaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccs
 func (task *Task) AppendAccs(
@@ -72,15 +67,14 @@ func (task *Task) AppendAccs(
 	)
 }
 
-// AppendAccSeq is wrapping [MSK_appendaccseq] and
-// adds an affine conic constraint to the task where the affine idx is sequential.
+// AppendAccSeq is wrapping [MSK_appendaccseq],
+// Appends an affine conic constraint to the task.
 //
-// [MSK_appendaccseq] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - numafeidx: MSKint64t
-//   - afeidxfirst: MSKint64t
-//   - b: const MSKrealt *
+// Arguments:
+//
+//   - `domidx` Domain index.
+//   - `afeidxfirst` Index of the first affine expression.
+//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
 //
 // [MSK_appendaccseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccseq
 func (task *Task) AppendAccSeq(
@@ -100,16 +94,15 @@ func (task *Task) AppendAccSeq(
 	)
 }
 
-// AppendAccsSeq is wrapping [MSK_appendaccsseq] and
-// append a block of accs to the tas - assuming affine expressions are sequential.
+// AppendAccsSeq is wrapping [MSK_appendaccsseq],
+// Appends a number of affine conic constraint to the task.
 //
-// [MSK_appendaccsseq] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numaccs: MSKint64t
-//   - domidxs: const MSKint64t *
-//   - numafeidx: MSKint64t
-//   - afeidxfirst: MSKint64t
-//   - b: const MSKrealt *
+// Arguments:
+//
+//   - `domidxs` Domain indices.
+//   - `numafeidx` Number of affine expressions in the affine expression list (must equal the sum of dimensions of the domains).
+//   - `afeidxfirst` Index of the first affine expression.
+//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
 //
 // [MSK_appendaccsseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccsseq
 func (task *Task) AppendAccsSeq(
@@ -131,12 +124,12 @@ func (task *Task) AppendAccsSeq(
 	)
 }
 
-// AppendAfes is wrapping [MSK_appendafes] and
-// adds affine expressions to the task.
+// AppendAfes is wrapping [MSK_appendafes],
+// Appends a number of empty affine expressions to the optimization task.
 //
-// [MSK_appendafes] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t
+// Arguments:
+//
+//   - `num` Number of empty affine expressions which should be appended.
 //
 // [MSK_appendafes]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendafes
 func (task *Task) AppendAfes(
@@ -150,17 +143,12 @@ func (task *Task) AppendAfes(
 	)
 }
 
-// AppendBarvars is wrapping [MSK_appendbarvars] and
-// adds semidefinite matrix variables to the task.
-// Barvar because MOSEK uses bar{x} notation to indicate an element
-// of a semidefinite matrix.
-// The dimension of each of the semidefinite variables are provided
-// through the pointer dim.
+// AppendBarvars is wrapping [MSK_appendbarvars],
+// Appends semidefinite variables to the problem.
 //
-// [MSK_appendbarvars] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - dim: const MSKint32t *
+// Arguments:
+//
+//   - `dim` Dimensions of symmetric matrix variables to be added.
 //
 // [MSK_appendbarvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendbarvars
 func (task *Task) AppendBarvars(
@@ -176,14 +164,14 @@ func (task *Task) AppendBarvars(
 	)
 }
 
-// AppendCone is wrapping [MSK_appendcone]
+// AppendCone is wrapping [MSK_appendcone],
+// Appends a new conic constraint to the problem.
 //
-// [MSK_appendcone] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - ct: MSKconetypee
-//   - conepar: MSKrealt
-//   - nummem: MSKint32t
-//   - submem: const MSKint32t *
+// Arguments:
+//
+//   - `ct` Specifies the type of the cone.
+//   - `conepar` For the power cone it denotes the exponent alpha. For other cone types it is unused and can be set to 0.
+//   - `submem` Variable subscripts of the members in the cone.
 //
 // Deprecated: [MSK_appendcone]/AppendCone is deprecated by mosek and will be removed in a future release.
 //
@@ -205,14 +193,15 @@ func (task *Task) AppendCone(
 	)
 }
 
-// AppendConeSeq is wrapping [MSK_appendconeseq]
+// AppendConeSeq is wrapping [MSK_appendconeseq],
+// Appends a new conic constraint to the problem.
 //
-// [MSK_appendconeseq] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - ct: MSKconetypee
-//   - conepar: MSKrealt
-//   - nummem: MSKint32t
-//   - j: MSKint32t
+// Arguments:
+//
+//   - `ct` Specifies the type of the cone.
+//   - `conepar` For the power cone it denotes the exponent alpha. For other cone types it is unused and can be set to 0.
+//   - `nummem` Number of member variables in the cone.
+//   - `j` Index of the first variable in the conic constraint.
 //
 // Deprecated: [MSK_appendconeseq]/AppendConeSeq is deprecated by mosek and will be removed in a future release.
 //
@@ -234,15 +223,15 @@ func (task *Task) AppendConeSeq(
 	)
 }
 
-// AppendConesSeq is wrapping [MSK_appendconesseq]
+// AppendConesSeq is wrapping [MSK_appendconesseq],
+// Appends multiple conic constraints to the problem.
 //
-// [MSK_appendconesseq] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - ct: const MSKconetypee *
-//   - conepar: const MSKrealt *
-//   - nummem: const MSKint32t *
-//   - j: MSKint32t
+// Arguments:
+//
+//   - `ct` Specifies the type of the cone.
+//   - `conepar` For the power cone it denotes the exponent alpha. For other cone types it is unused and can be set to 0.
+//   - `nummem` Numbers of member variables in the cones.
+//   - `j` Index of the first variable in the first cone to be appended.
 //
 // Deprecated: [MSK_appendconesseq]/AppendConesSeq is deprecated by mosek and will be removed in a future release.
 //
@@ -266,12 +255,12 @@ func (task *Task) AppendConesSeq(
 	)
 }
 
-// AppendCons is wrapping [MSK_appendcons] and
-// add vanilla linear constraints to the task.
+// AppendCons is wrapping [MSK_appendcons],
+// Appends a number of constraints to the optimization task.
 //
-// [MSK_appendcons] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
+// Arguments:
+//
+//   - `num` Number of constraints which should be appended.
 //
 // [MSK_appendcons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendcons
 func (task *Task) AppendCons(
@@ -285,12 +274,12 @@ func (task *Task) AppendCons(
 	)
 }
 
-// AppendDjcs is wrapping [MSK_appenddjcs] and
-// adds disjunctive constraints to the task.
+// AppendDjcs is wrapping [MSK_appenddjcs],
+// Appends a number of empty disjunctive constraints to the task.
 //
-// [MSK_appenddjcs] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t
+// Arguments:
+//
+//   - `num` Number of empty disjunctive constraints which should be appended.
 //
 // [MSK_appenddjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddjcs
 func (task *Task) AppendDjcs(
@@ -304,24 +293,22 @@ func (task *Task) AppendDjcs(
 	)
 }
 
-// AppendSparseSymmat is wrapping [MSK_appendsparsesymmat] and
-// adds a sparse and symmetric matrix to the task.
-// matrix is represented in coordinate format, and only lower triangular portion of the matrix should be
-// specified.
-// Those matrices can be used as either coefficent in the objective or constraints. The matrix is identified
-// by the returned idx.
+// AppendSparseSymMat is wrapping [MSK_appendsparsesymmat],
+// Appends a general sparse symmetric matrix to the storage of symmetric matrices.
 //
-// [MSK_appendsparsesymmat] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - dim: MSKint32t
-//   - nz: MSKint64t
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - valij: const MSKrealt *
-//   - idx: MSKint64t *
+// Arguments:
+//
+//   - `dim` Dimension of the symmetric matrix that is appended.
+//   - `subi` Row subscript in the triplets.
+//   - `subj` Column subscripts in the triplets.
+//   - `valij` Values of each triplet.
+//
+// Returns:
+//
+//   - `idx` Unique index assigned to the inputted matrix.
 //
 // [MSK_appendsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendsparsesymmat
-func (task *Task) AppendSparseSymmat(
+func (task *Task) AppendSparseSymMat(
 	dim int32,
 	nz int64,
 	subi *int32,
@@ -343,29 +330,28 @@ func (task *Task) AppendSparseSymmat(
 	return
 }
 
-// AppendSparseSymmatList is wrapping [MSK_appendsparsesymmatlist]
+// AppendSparseSymMatList is wrapping [MSK_appendsparsesymmatlist],
+// Appends a general sparse symmetric matrix to the storage of symmetric matrices.
 //
-// [MSK_appendsparsesymmatlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - dims: const MSKint32t *
-//   - nz: const MSKint64t *
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - valij: const MSKrealt *
-//   - idx: MSKint64t *
+// Arguments:
+//
+//   - `dims` Dimensions of the symmetric matrixes.
+//   - `nz` Number of nonzeros for each matrix.
+//   - `subi` Row subscript in the triplets.
+//   - `subj` Column subscripts in the triplets.
+//   - `valij` Values of each triplet.
+//   - `idx` Unique index assigned to the inputted matrix.
 //
 // [MSK_appendsparsesymmatlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendsparsesymmatlist
-func (task *Task) AppendSparseSymmatList(
+func (task *Task) AppendSparseSymMatList(
 	num int32,
 	dims *int32,
 	nz *int64,
 	subi *int32,
 	subj *int32,
 	valij *float64,
-	idx *int64,
-) res.Code {
-	return res.Code(
+) (r res.Code, idx int64) {
+	r = res.Code(
 		C.MSK_appendsparsesymmatlist(
 			task.task,
 			C.MSKint32t(num),
@@ -374,17 +360,19 @@ func (task *Task) AppendSparseSymmatList(
 			(*C.MSKint32t)(subi),
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(valij),
-			(*C.MSKint64t)(idx),
+			(*C.MSKint64t)(&idx),
 		),
 	)
+
+	return
 }
 
-// AppendVars is wrapping [MSK_appendvars] and
-// add variables to the task.
+// AppendVars is wrapping [MSK_appendvars],
+// Appends a number of variables to the optimization task.
 //
-// [MSK_appendvars] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
+// Arguments:
+//
+//   - `num` Number of variables which should be appended.
 //
 // [MSK_appendvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendvars
 func (task *Task) AppendVars(

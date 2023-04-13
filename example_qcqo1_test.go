@@ -20,7 +20,7 @@ import (
 func Example_quadraticOptimization_qcqo1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -89,16 +89,16 @@ func Example_quadraticOptimization_qcqo1() {
 	checkOk(task.AppendVars(NUMVAR))
 
 	/* Optionally add a constant term to the objective. */
-	checkOk(task.PutCFix(0))
+	checkOk(task.PutCfix(0))
 
 	for j = 0; j < NUMVAR && r.IsOk(); j++ {
 		/* Set the linear term c_j in the objective.*/
-		checkOk(task.PutCj(j, c[j]))
+		checkOk(task.PutCJ(j, c[j]))
 
 		/* Set the bounds on variable j.
 		   blx[j] <= x_j <= bux[j] */
 		checkOk(
-			task.PutVarbound(
+			task.PutVarBound(
 				j,      /* Index of variable.*/
 				bkx[j], /* Bound key.*/
 				blx[j], /* Numerical value of lower bound.*/
@@ -117,7 +117,7 @@ func Example_quadraticOptimization_qcqo1() {
 	/* Set the bounds on constraints.
 	   for i=1, ...,NUMCON : blc[i] <= constraint i <= buc[i] */
 	for i = 0; i < NUMCON && r.IsOk(); i++ {
-		r = task.PutConbound(
+		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
@@ -179,7 +179,7 @@ func Example_quadraticOptimization_qcqo1() {
 			&qval[0]))
 	}
 
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
 
 	/* Run optimizer */
 	r, trmcode := task.OptimizeTrm()

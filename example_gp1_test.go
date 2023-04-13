@@ -28,7 +28,7 @@ import (
 func Example_geometricProgram1_gp1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -84,13 +84,13 @@ func Example_geometricProgram1_gp1() {
 	checkOk(task.AppendAfes(numafe))
 
 	// Objective is the sum of three first variables
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 	checkOk(task.PutCSlice(0, numvar, &cval[0]))
-	checkOk(task.PutVarboundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	checkOk(task.PutVarBoundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	// Add the three linear constraints
 	checkOk(task.PutAijList(alen, &asubi[0], &asubj[0], &aval[0]))
-	checkOk(task.PutConboundSlice(0, numvar, &bkc[0], &blc[0], &buc[0]))
+	checkOk(task.PutConBoundSlice(0, numvar, &bkc[0], &blc[0], &buc[0]))
 
 	acc1_afeidx := []int64{0, 4, 2}
 	acc2_afeidx := []int64{1, 4, 3}
@@ -100,7 +100,7 @@ func Example_geometricProgram1_gp1() {
 	// in this order:
 	// u1, u2, x+y+log(2/Awall), x+z+log(2/Awall), 1.0, u1+u2-1.0
 	checkOk(task.AppendVars(2))
-	checkOk(task.PutVarboundSliceConst(numvar, numvar+2, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	checkOk(task.PutVarBoundSliceConst(numvar, numvar+2, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
 	checkOk(task.PutAfeGSlice(0, numafe, &g[0]))
@@ -116,7 +116,7 @@ func Example_geometricProgram1_gp1() {
 	checkOk(task.AppendAcc(expdomidx, 3, &acc2_afeidx[0], nil))
 
 	/* The constraint u1+u2-1 \in \ZERO is added also as an ACC */
-	r, rzerodomidx = task.AppendRZeroDomain(1)
+	r, rzerodomidx = task.AppendRzeroDomain(1)
 	checkOk(r)
 	checkOk(task.AppendAcc(rzerodomidx, 1, &acc3_afeidx[0], nil))
 

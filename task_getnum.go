@@ -11,11 +11,12 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetNumAcc is wrapping [MSK_getnumacc]
+// GetNumAcc is wrapping [MSK_getnumacc],
+// Obtains the number of affine conic constraints.
 //
-// [MSK_getnumacc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t *
+// Returns:
+//
+//   - `num` The number of affine conic constraints.
 //
 // [MSK_getnumacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumacc
 func (task *Task) GetNumAcc() (r res.Code, num int64) {
@@ -29,12 +30,12 @@ func (task *Task) GetNumAcc() (r res.Code, num int64) {
 	return
 }
 
-// GetNumAfe is wrapping [MSK_getnumafe] and
-// gets the number of constraints in the task.
+// GetNumAfe is wrapping [MSK_getnumafe],
+// Obtains the number of affine expressions.
 //
-// [MSK_getnumafe] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafe: MSKint64t *
+// Returns:
+//
+//   - `numafe` Number of affine expressions.
 //
 // [MSK_getnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumafe
 func (task *Task) GetNumAfe() (r res.Code, numafe int64) {
@@ -48,11 +49,12 @@ func (task *Task) GetNumAfe() (r res.Code, numafe int64) {
 	return
 }
 
-// GetNumAnz is wrapping [MSK_getnumanz]
+// GetNumAnz is wrapping [MSK_getnumanz],
+// Obtains the number of non-zeros in the coefficient matrix.
 //
-// [MSK_getnumanz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numanz: MSKint32t *
+// Returns:
+//
+//   - `numanz` Number of non-zero elements in the linear constraint matrix.
 //
 // [MSK_getnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz
 func (task *Task) GetNumAnz() (r res.Code, numanz int32) {
@@ -66,11 +68,12 @@ func (task *Task) GetNumAnz() (r res.Code, numanz int32) {
 	return
 }
 
-// GetNumAnz64 is wrapping [MSK_getnumanz64]
+// GetNumAnz64 is wrapping [MSK_getnumanz64],
+// Obtains the number of non-zeros in the coefficient matrix.
 //
-// [MSK_getnumanz64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numanz: MSKint64t *
+// Returns:
+//
+//   - `numanz` Number of non-zero elements in the linear constraint matrix.
 //
 // [MSK_getnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz64
 func (task *Task) GetNumAnz64() (r res.Code, numanz int64) {
@@ -84,11 +87,12 @@ func (task *Task) GetNumAnz64() (r res.Code, numanz int64) {
 	return
 }
 
-// GetNumBarABlockTriplets is wrapping [MSK_getnumbarablocktriplets]
+// GetNumBarABlockTriplets is wrapping [MSK_getnumbarablocktriplets],
+// Obtains an upper bound on the number of scalar elements in the block triplet form of bara.
 //
-// [MSK_getnumbarablocktriplets] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t *
+// Returns:
+//
+//   - `num` An upper bound on the number of elements in the block triplet form of bara.
 //
 // [MSK_getnumbarablocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarablocktriplets
 func (task *Task) GetNumBarABlockTriplets() (r res.Code, num int64) {
@@ -102,11 +106,12 @@ func (task *Task) GetNumBarABlockTriplets() (r res.Code, num int64) {
 	return
 }
 
-// GetNumBarANz is wrapping [MSK_getnumbaranz]
+// GetNumBarANz is wrapping [MSK_getnumbaranz],
+// Get the number of nonzero elements in barA.
 //
-// [MSK_getnumbaranz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - nz: MSKint64t *
+// Returns:
+//
+//   - `nz` The number of nonzero block elements in barA.
 //
 // [MSK_getnumbaranz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbaranz
 func (task *Task) GetNumBarANz() (r res.Code, nz int64) {
@@ -120,11 +125,12 @@ func (task *Task) GetNumBarANz() (r res.Code, nz int64) {
 	return
 }
 
-// GetNumBarCBlockTriplets is wrapping [MSK_getnumbarcblocktriplets]
+// GetNumBarCBlockTriplets is wrapping [MSK_getnumbarcblocktriplets],
+// Obtains an upper bound on the number of elements in the block triplet form of barc.
 //
-// [MSK_getnumbarcblocktriplets] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t *
+// Returns:
+//
+//   - `num` An upper bound on the number of elements in the block triplet form of barc.
 //
 // [MSK_getnumbarcblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarcblocktriplets
 func (task *Task) GetNumBarCBlockTriplets() (r res.Code, num int64) {
@@ -138,11 +144,12 @@ func (task *Task) GetNumBarCBlockTriplets() (r res.Code, num int64) {
 	return
 }
 
-// GetNumBarCNz is wrapping [MSK_getnumbarcnz]
+// GetNumBarCNz is wrapping [MSK_getnumbarcnz],
+// Obtains the number of nonzero elements in barc.
 //
-// [MSK_getnumbarcnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - nz: MSKint64t *
+// Returns:
+//
+//   - `nz` The number of nonzero elements in barc.
 //
 // [MSK_getnumbarcnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarcnz
 func (task *Task) GetNumBarCNz() (r res.Code, nz int64) {
@@ -156,11 +163,12 @@ func (task *Task) GetNumBarCNz() (r res.Code, nz int64) {
 	return
 }
 
-// GetNumBarvar is wrapping [MSK_getnumbarvar]
+// GetNumBarvar is wrapping [MSK_getnumbarvar],
+// Obtains the number of semidefinite variables.
 //
-// [MSK_getnumbarvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numbarvar: MSKint32t *
+// Returns:
+//
+//   - `numbarvar` Number of semidefinite variables in the problem.
 //
 // [MSK_getnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarvar
 func (task *Task) GetNumBarvar() (r res.Code, numbarvar int32) {
@@ -174,12 +182,12 @@ func (task *Task) GetNumBarvar() (r res.Code, numbarvar int32) {
 	return
 }
 
-// GetNumCon is wrapping [MSK_getnumcon] and
-// gets the number of linear constraints in the task.
+// GetNumCon is wrapping [MSK_getnumcon],
+// Obtains the number of constraints.
 //
-// [MSK_getnumcon] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numcon: MSKint32t *
+// Returns:
+//
+//   - `numcon` Number of constraints.
 //
 // [MSK_getnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumcon
 func (task *Task) GetNumCon() (r res.Code, numcon int32) {
@@ -193,11 +201,12 @@ func (task *Task) GetNumCon() (r res.Code, numcon int32) {
 	return
 }
 
-// GetNumCone is wrapping [MSK_getnumcone]
+// GetNumCone is wrapping [MSK_getnumcone],
+// Obtains the number of cones.
 //
-// [MSK_getnumcone] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numcone: MSKint32t *
+// Returns:
+//
+//   - `numcone` Number of conic constraints.
 //
 // Deprecated: [MSK_getnumcone]/GetNumCone is deprecated by mosek and will be removed in a future release.
 //
@@ -213,12 +222,13 @@ func (task *Task) GetNumCone() (r res.Code, numcone int32) {
 	return
 }
 
-// GetNumConemem is wrapping [MSK_getnumconemem]
+// GetNumConemem is wrapping [MSK_getnumconemem],
+// Obtains the number of members in a cone.
 //
-// [MSK_getnumconemem] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - k: MSKint32t
-//   - nummem: MSKint32t *
+// Arguments:
+//
+//   - `k` Index of the cone.
+//   - `nummem` Number of member variables in the cone.
 //
 // Deprecated: [MSK_getnumconemem]/GetNumConemem is deprecated by mosek and will be removed in a future release.
 //
@@ -237,11 +247,12 @@ func (task *Task) GetNumConemem(
 	return
 }
 
-// GetNumDjc is wrapping [MSK_getnumdjc]
+// GetNumDjc is wrapping [MSK_getnumdjc],
+// Obtains the number of disjunctive constraints.
 //
-// [MSK_getnumdjc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t *
+// Returns:
+//
+//   - `num` The number of disjunctive constraints.
 //
 // [MSK_getnumdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumdjc
 func (task *Task) GetNumDjc() (r res.Code, num int64) {
@@ -255,11 +266,12 @@ func (task *Task) GetNumDjc() (r res.Code, num int64) {
 	return
 }
 
-// GetNumDomain is wrapping [MSK_getnumdomain]
+// GetNumDomain is wrapping [MSK_getnumdomain],
+// Obtain the number of domains defined.
 //
-// [MSK_getnumdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numdomain: MSKint64t *
+// Returns:
+//
+//   - `numdomain` Number of domains in the task.
 //
 // [MSK_getnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumdomain
 func (task *Task) GetNumDomain() (r res.Code, numdomain int64) {
@@ -273,11 +285,12 @@ func (task *Task) GetNumDomain() (r res.Code, numdomain int64) {
 	return
 }
 
-// GetNumIntvar is wrapping [MSK_getnumintvar]
+// GetNumIntvar is wrapping [MSK_getnumintvar],
+// Obtains the number of integer-constrained variables.
 //
-// [MSK_getnumintvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numintvar: MSKint32t *
+// Returns:
+//
+//   - `numintvar` Number of integer variables.
 //
 // [MSK_getnumintvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumintvar
 func (task *Task) GetNumIntvar() (r res.Code, numintvar int32) {
@@ -291,12 +304,13 @@ func (task *Task) GetNumIntvar() (r res.Code, numintvar int32) {
 	return
 }
 
-// GetNumParam is wrapping [MSK_getnumparam]
+// GetNumParam is wrapping [MSK_getnumparam],
+// Obtains the number of parameters of a given type.
 //
-// [MSK_getnumparam] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - partype: MSKparametertypee
-//   - numparam: MSKint32t *
+// Arguments:
+//
+//   - `partype` Parameter type.
+//   - `numparam` Returns the number of parameters of the requested type.
 //
 // [MSK_getnumparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumparam
 func (task *Task) GetNumParam(
@@ -313,12 +327,16 @@ func (task *Task) GetNumParam(
 	return
 }
 
-// GetNumQConKNz is wrapping [MSK_getnumqconknz]
+// GetNumQConKNz is wrapping [MSK_getnumqconknz],
+// Obtains the number of non-zero quadratic terms in a constraint.
 //
-// [MSK_getnumqconknz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - k: MSKint32t
-//   - numqcnz: MSKint32t *
+// Arguments:
+//
+//   - `k` Index of the constraint for which the number quadratic terms should be obtained.
+//
+// Returns:
+//
+//   - `numqcnz` Number of quadratic terms.
 //
 // [MSK_getnumqconknz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumqconknz
 func (task *Task) GetNumQConKNz(
@@ -337,11 +355,6 @@ func (task *Task) GetNumQConKNz(
 
 // GetNumQConKNz64 is wrapping [MSK_getnumqconknz64]
 //
-// [MSK_getnumqconknz64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - k: MSKint32t
-//   - numqcnz: MSKint64t *
-//
 // [MSK_getnumqconknz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumqconknz64
 func (task *Task) GetNumQConKNz64(
 	k int32,
@@ -357,11 +370,12 @@ func (task *Task) GetNumQConKNz64(
 	return
 }
 
-// GetNumQObjNz is wrapping [MSK_getnumqobjnz]
+// GetNumQObjNz is wrapping [MSK_getnumqobjnz],
+// Obtains the number of non-zero quadratic terms in the objective.
 //
-// [MSK_getnumqobjnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numqonz: MSKint32t *
+// Returns:
+//
+//   - `numqonz` Number of non-zero elements in the quadratic objective terms.
 //
 // [MSK_getnumqobjnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumqobjnz
 func (task *Task) GetNumQObjNz() (r res.Code, numqonz int32) {
@@ -377,10 +391,6 @@ func (task *Task) GetNumQObjNz() (r res.Code, numqonz int32) {
 
 // GetNumQObjNz64 is wrapping [MSK_getnumqobjnz64]
 //
-// [MSK_getnumqobjnz64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numqonz: MSKint64t *
-//
 // [MSK_getnumqobjnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumqobjnz64
 func (task *Task) GetNumQObjNz64() (r res.Code, numqonz int64) {
 	r = res.Code(
@@ -393,11 +403,12 @@ func (task *Task) GetNumQObjNz64() (r res.Code, numqonz int64) {
 	return
 }
 
-// GetNumSymmat is wrapping [MSK_getnumsymmat]
+// GetNumSymmat is wrapping [MSK_getnumsymmat],
+// Obtains the number of symmetric matrices stored.
 //
-// [MSK_getnumsymmat] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t *
+// Arguments:
+//
+//   - `num` The number of symmetric sparse matrices.
 //
 // [MSK_getnumsymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumsymmat
 func (task *Task) GetNumSymmat() (r res.Code, num int64) {
@@ -411,12 +422,12 @@ func (task *Task) GetNumSymmat() (r res.Code, num int64) {
 	return
 }
 
-// GetNumVar is wrapping [MSK_getnumvar] and
-// gets the number of variables in the task.
+// GetNumVar is wrapping [MSK_getnumvar],
+// Obtains the number of variables.
 //
-// [MSK_getnumvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numvar: MSKint32t *
+// Returns:
+//
+//   - `numvar` Number of variables.
 //
 // [MSK_getnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumvar
 func (task *Task) GetNumVar() (r res.Code, numvar int32) {

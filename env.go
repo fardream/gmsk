@@ -13,15 +13,8 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// Axpy is wrapping [MSK_axpy] and
+// Axpy is wrapping [MSK_axpy],
 // performs y = a*x + y where x/y are vectors.
-//
-// [MSK_axpy] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - n: MSKint32t
-//   - alpha: MSKrealt
-//   - x: const MSKrealt *
-//   - y: MSKrealt *
 //
 // [MSK_axpy]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.axpy
 func (env *Env) Axpy(
@@ -41,10 +34,8 @@ func (env *Env) Axpy(
 	)
 }
 
-// CheckInAll is wrapping [MSK_checkinall]
-//
-// [MSK_checkinall] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
+// CheckInAll is wrapping [MSK_checkinall],
+// Check in all unused license features to the license token server.
 //
 // [MSK_checkinall]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkinall
 func (env *Env) CheckInAll() res.Code {
@@ -55,11 +46,12 @@ func (env *Env) CheckInAll() res.Code {
 	)
 }
 
-// CheckInLicense is wrapping [MSK_checkinlicense]
+// CheckInLicense is wrapping [MSK_checkinlicense],
+// Check in a license feature back to the license server ahead of time.
 //
-// [MSK_checkinlicense] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - feature: MSKfeaturee
+// Arguments:
+//
+//   - `feature` Feature to check in to the license system.
 //
 // [MSK_checkinlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkinlicense
 func (env *Env) CheckInLicense(
@@ -74,11 +66,6 @@ func (env *Env) CheckInLicense(
 }
 
 // CheckMemenv is wrapping [MSK_checkmemenv]
-//
-// [MSK_checkmemenv] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - file: const char *
-//   - line: MSKint32t
 //
 // [MSK_checkmemenv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkmemenv
 func (env *Env) CheckMemenv(
@@ -97,11 +84,12 @@ func (env *Env) CheckMemenv(
 	)
 }
 
-// CheckOutlicense is wrapping [MSK_checkoutlicense]
+// CheckOutlicense is wrapping [MSK_checkoutlicense],
+// Check out a license feature from the license server ahead of time.
 //
-// [MSK_checkoutlicense] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - feature: MSKfeaturee
+// Arguments:
+//
+//   - `feature` Feature to check out from the license system.
 //
 // [MSK_checkoutlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkoutlicense
 func (env *Env) CheckOutlicense(
@@ -115,13 +103,14 @@ func (env *Env) CheckOutlicense(
 	)
 }
 
-// CheckVersion is wrapping [MSK_checkversion]
+// CheckVersion is wrapping [MSK_checkversion],
+// Compares a version of the MOSEK DLL with a specified version.
 //
-// [MSK_checkversion] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - major: MSKint32t
-//   - minor: MSKint32t
-//   - revision: MSKint32t
+// Arguments:
+//
+//   - `major` Major version number.
+//   - `minor` Minor version number.
+//   - `revision` Revision number.
 //
 // [MSK_checkversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkversion
 func (env *Env) CheckVersion(
@@ -139,15 +128,15 @@ func (env *Env) CheckVersion(
 	)
 }
 
-// Dot is wrapping [MSK_dot] and
-// performs a dot product of two vectors
+// Dot is wrapping [MSK_dot],
+// Computes the inner product of two vectors.
 //
-// [MSK_dot] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - n: MSKint32t
-//   - x: const MSKrealt *
-//   - y: const MSKrealt *
-//   - xty: MSKrealt *
+// Arguments:
+//
+//   - `n` Length of the vectors.
+//   - `x` The x vector.
+//   - `y` The y vector.
+//   - `xty` The result of the inner product.
 //
 // [MSK_dot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.dot
 func (env *Env) Dot(
@@ -168,11 +157,12 @@ func (env *Env) Dot(
 	return
 }
 
-// Echointro is wrapping [MSK_echointro]
+// Echointro is wrapping [MSK_echointro],
+// Prints an intro to message stream.
 //
-// [MSK_echointro] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - longver: MSKint32t
+// Arguments:
+//
+//   - `longver` If non-zero, then the intro is slightly longer.
 //
 // [MSK_echointro]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.echointro
 func (env *Env) Echointro(
@@ -186,40 +176,40 @@ func (env *Env) Echointro(
 	)
 }
 
-// Expirylicenses is wrapping [MSK_expirylicenses]
+// Expirylicenses is wrapping [MSK_expirylicenses],
+// Reports when the first license feature expires.
 //
-// [MSK_expirylicenses] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - expiry: MSKint64t *
+// Arguments:
+//
+//   - `expiry` If nonnegative, then it is the minimum number days to expiry of any feature that has been checked out.
 //
 // [MSK_expirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.expirylicenses
-func (env *Env) Expirylicenses(
-	expiry *int64,
-) res.Code {
-	return res.Code(
+func (env *Env) Expirylicenses() (r res.Code, expiry int64) {
+	r = res.Code(
 		C.MSK_expirylicenses(
 			env.getEnv(),
-			(*C.MSKint64t)(expiry),
+			(*C.MSKint64t)(&expiry),
 		),
 	)
+
+	return
 }
 
-// Gemm is wrapping [MSK_gemm] and
-// performs a general matrix multiplication
-// C = alpha * A * B + beta * C
+// Gemm is wrapping [MSK_gemm],
+// Performs a dense matrix multiplication.
 //
-// [MSK_gemm] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - transa: MSKtransposee
-//   - transb: MSKtransposee
-//   - m: MSKint32t
-//   - n: MSKint32t
-//   - k: MSKint32t
-//   - alpha: MSKrealt
-//   - a: const MSKrealt *
-//   - b: const MSKrealt *
-//   - beta: MSKrealt
-//   - c: MSKrealt *
+// Arguments:
+//
+//   - `transa` Indicates whether the matrix A must be transposed.
+//   - `transb` Indicates whether the matrix B must be transposed.
+//   - `m` Indicates the number of rows of matrix C.
+//   - `n` Indicates the number of columns of matrix C.
+//   - `k` Specifies the common dimension along which op(A) and op(B) are multiplied.
+//   - `alpha` A scalar value multiplying the result of the matrix multiplication.
+//   - `a` The pointer to the array storing matrix A in a column-major format.
+//   - `b` The pointer to the array storing matrix B in a column-major format.
+//   - `beta` A scalar value that multiplies C.
+//   - `c` The pointer to the array storing matrix C in a column-major format.
 //
 // [MSK_gemm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.gemm
 func (env *Env) Gemm(
@@ -251,19 +241,8 @@ func (env *Env) Gemm(
 	)
 }
 
-// Gemv is wrapping [MSK_gemv] and
+// Gemv is wrapping [MSK_gemv],
 // calculates y = aAx + by, where A is matrix, x,y is vector, and a b are scalars.
-//
-// [MSK_gemv] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - transa: MSKtransposee
-//   - m: MSKint32t
-//   - n: MSKint32t
-//   - alpha: MSKrealt
-//   - a: const MSKrealt *
-//   - x: const MSKrealt *
-//   - beta: MSKrealt
-//   - y: MSKrealt *
 //
 // [MSK_gemv]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.gemv
 func (env *Env) Gemv(
@@ -293,11 +272,6 @@ func (env *Env) Gemv(
 
 // GetSymbcondim is wrapping [MSK_getsymbcondim]
 //
-// [MSK_getsymbcondim] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - num: MSKint32t *
-//   - maxlen: size_t *
-//
 // [MSK_getsymbcondim]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getsymbcondim
 func (env *Env) GetSymbcondim(
 	num *int32,
@@ -313,12 +287,6 @@ func (env *Env) GetSymbcondim(
 }
 
 // Iparvaltosymnam is wrapping [MSK_iparvaltosymnam]
-//
-// [MSK_iparvaltosymnam] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - whichparam: MSKiparame
-//   - whichvalue: MSKint32t
-//   - symbolicname: char *
 //
 // [MSK_iparvaltosymnam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.iparvaltosymnam
 func (env *Env) Iparvaltosymnam(
@@ -337,12 +305,6 @@ func (env *Env) Iparvaltosymnam(
 }
 
 // LinkFiletoenvstream is wrapping [MSK_linkfiletoenvstream]
-//
-// [MSK_linkfiletoenvstream] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - whichstream: MSKstreamtypee
-//   - filename: const char *
-//   - append: MSKint32t
 //
 // [MSK_linkfiletoenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.linkfiletoenvstream
 func (env *Env) LinkFiletoenvstream(
@@ -363,14 +325,14 @@ func (env *Env) LinkFiletoenvstream(
 	)
 }
 
-// Potrf is wrapping [MSK_potrf] and
-// performs Cholesky decomposition of symmetric square matrix a
+// Potrf is wrapping [MSK_potrf],
+// Computes a Cholesky factorization of a dense matrix.
 //
-// [MSK_potrf] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - uplo: MSKuploe
-//   - n: MSKint32t
-//   - a: MSKrealt *
+// Arguments:
+//
+//   - `uplo` Indicates whether the upper or lower triangular part of the matrix is stored.
+//   - `n` Dimension of the symmetric matrix.
+//   - `a` A symmetric matrix stored in column-major order.
 //
 // [MSK_potrf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.potrf
 func (env *Env) Potrf(
@@ -388,11 +350,12 @@ func (env *Env) Potrf(
 	)
 }
 
-// PutLicensecode is wrapping [MSK_putlicensecode]
+// PutLicensecode is wrapping [MSK_putlicensecode],
+// Input a runtime license code.
 //
-// [MSK_putlicensecode] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - code: const MSKint32t *
+// Arguments:
+//
+//   - `code` A license key string.
 //
 // [MSK_putlicensecode]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensecode
 func (env *Env) PutLicensecode(
@@ -406,11 +369,12 @@ func (env *Env) PutLicensecode(
 	)
 }
 
-// PutLicensedebug is wrapping [MSK_putlicensedebug]
+// PutLicensedebug is wrapping [MSK_putlicensedebug],
+// Enables debug information for the license system.
 //
-// [MSK_putlicensedebug] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - licdebug: MSKint32t
+// Arguments:
+//
+//   - `licdebug` Enable output of license check-out debug information.
 //
 // [MSK_putlicensedebug]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensedebug
 func (env *Env) PutLicensedebug(
@@ -424,11 +388,12 @@ func (env *Env) PutLicensedebug(
 	)
 }
 
-// PutLicensepath is wrapping [MSK_putlicensepath]
+// PutLicensepath is wrapping [MSK_putlicensepath],
+// Set the path to the license file.
 //
-// [MSK_putlicensepath] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - licensepath: const char *
+// Arguments:
+//
+//   - `licensepath` A path specifying where to search for the license.
 //
 // [MSK_putlicensepath]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensepath
 func (env *Env) PutLicensepath(
@@ -445,11 +410,12 @@ func (env *Env) PutLicensepath(
 	)
 }
 
-// PutLicensewait is wrapping [MSK_putlicensewait]
+// PutLicensewait is wrapping [MSK_putlicensewait],
+// Control whether mosek should wait for an available license if no license is available.
 //
-// [MSK_putlicensewait] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - licwait: MSKint32t
+// Arguments:
+//
+//   - `licwait` Enable waiting for a license.
 //
 // [MSK_putlicensewait]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensewait
 func (env *Env) PutLicensewait(
@@ -463,10 +429,8 @@ func (env *Env) PutLicensewait(
 	)
 }
 
-// Resetexpirylicenses is wrapping [MSK_resetexpirylicenses]
-//
-// [MSK_resetexpirylicenses] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
+// Resetexpirylicenses is wrapping [MSK_resetexpirylicenses],
+// Reset the license expiry reporting startpoint.
 //
 // [MSK_resetexpirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.resetexpirylicenses
 func (env *Env) Resetexpirylicenses() res.Code {
@@ -477,18 +441,17 @@ func (env *Env) Resetexpirylicenses() res.Code {
 	)
 }
 
-// SparseTriangularsolvedense is wrapping [MSK_sparsetriangularsolvedense]
+// SparseTriangularsolvedense is wrapping [MSK_sparsetriangularsolvedense],
+// Solves a sparse triangular system of linear equations.
 //
-// [MSK_sparsetriangularsolvedense] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - transposed: MSKtransposee
-//   - n: MSKint32t
-//   - lnzc: const MSKint32t *
-//   - lptrc: const MSKint64t *
-//   - lensubnval: MSKint64t
-//   - lsubc: const MSKint32t *
-//   - lvalc: const MSKrealt *
-//   - b: MSKrealt *
+// Arguments:
+//
+//   - `transposed` Controls whether the solve is with L or the transposed L.
+//   - `lnzc` lnzc\[j\] is the number of nonzeros in column j.
+//   - `lptrc` lptrc\[j\] is a pointer to the first row index and value in column j.
+//   - `lsubc` Row indexes for each column stored sequentially.
+//   - `lvalc` The value corresponding to row indexed stored lsubc.
+//   - `b` The right-hand side of linear equation system to be solved as a dense vector.
 //
 // [MSK_sparsetriangularsolvedense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.sparsetriangularsolvedense
 func (env *Env) SparseTriangularsolvedense(
@@ -516,15 +479,15 @@ func (env *Env) SparseTriangularsolvedense(
 	)
 }
 
-// Syeig is wrapping [MSK_syeig] and
-// calculates the eigen values of a symmetric matrix.
+// Syeig is wrapping [MSK_syeig],
+// Computes all eigenvalues of a symmetric dense matrix.
 //
-// [MSK_syeig] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - uplo: MSKuploe
-//   - n: MSKint32t
-//   - a: const MSKrealt *
-//   - w: MSKrealt *
+// Arguments:
+//
+//   - `uplo` Indicates whether the upper or lower triangular part is used.
+//   - `n` Dimension of the symmetric input matrix.
+//   - `a` Input matrix A.
+//   - `w` Array of length at least n containing the eigenvalues of A.
 //
 // [MSK_syeig]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.syeig
 func (env *Env) Syeig(
@@ -544,15 +507,15 @@ func (env *Env) Syeig(
 	)
 }
 
-// Syevd is wrapping [MSK_syevd] and
-// calculates the eigen values and eigen vectors of a symmetric matrix.
+// Syevd is wrapping [MSK_syevd],
+// Computes all the eigenvalues and eigenvectors of a symmetric dense matrix, and thus its eigenvalue decomposition.
 //
-// [MSK_syevd] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - uplo: MSKuploe
-//   - n: MSKint32t
-//   - a: MSKrealt *
-//   - w: MSKrealt *
+// Arguments:
+//
+//   - `uplo` Indicates whether the upper or lower triangular part is used.
+//   - `n` Dimension of the symmetric input matrix.
+//   - `a` Input matrix A.
+//   - `w` Array of length at least n containing the eigenvalues of A.
 //
 // [MSK_syevd]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.syevd
 func (env *Env) Syevd(
@@ -572,19 +535,19 @@ func (env *Env) Syevd(
 	)
 }
 
-// Syrk is wrapping [MSK_syrk] and
-// performs rank k update of matrix C, C = aAA^T + bC where A/C is matrix and a, b are scalars.
+// Syrk is wrapping [MSK_syrk],
+// Performs a rank-k update of a symmetric matrix.
 //
-// [MSK_syrk] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - uplo: MSKuploe
-//   - trans: MSKtransposee
-//   - n: MSKint32t
-//   - k: MSKint32t
-//   - alpha: MSKrealt
-//   - a: const MSKrealt *
-//   - beta: MSKrealt
-//   - c: MSKrealt *
+// Arguments:
+//
+//   - `uplo` Indicates whether the upper or lower triangular part of C is used.
+//   - `trans` Indicates whether the matrix A must be transposed.
+//   - `n` Specifies the order of C.
+//   - `k` Indicates the number of rows or columns of A, and its rank.
+//   - `alpha` A scalar value multiplying the result of the matrix multiplication.
+//   - `a` The pointer to the array storing matrix A in a column-major format.
+//   - `beta` A scalar value that multiplies C.
+//   - `c` The pointer to the array storing matrix C in a column-major format.
 //
 // [MSK_syrk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.syrk
 func (env *Env) Syrk(
@@ -613,10 +576,6 @@ func (env *Env) Syrk(
 }
 
 // UnlinkFuncfromenvstream is wrapping [MSK_unlinkfuncfromenvstream]
-//
-// [MSK_unlinkfuncfromenvstream] returns MSKrescodee and has following parameters
-//   - env: MSKenv_t
-//   - whichstream: MSKstreamtypee
 //
 // [MSK_unlinkfuncfromenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.unlinkfuncfromenvstream
 func (env *Env) UnlinkFuncfromenvstream(

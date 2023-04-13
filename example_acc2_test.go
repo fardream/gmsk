@@ -43,7 +43,7 @@ func Example_affineConicConstraints_acc2() {
 
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
@@ -53,13 +53,13 @@ func Example_affineConicConstraints_acc2() {
 
 	/* Create n free variables */
 	checkOk(task.AppendVars(n))
-	checkOk(task.PutVarboundSliceConst(0, n, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	checkOk(task.PutVarBoundSliceConst(0, n, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	/* Set up the objective */
 	{
 		c := []float64{2.0, 3.0, -1.0}
 		checkOk(task.PutCSlice(0, n, &c[0]))
-		checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+		checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 	}
 
 	{
@@ -89,7 +89,7 @@ func Example_affineConicConstraints_acc2() {
 		checkOk(task.PutAfeGSlice(2, k+2, &h[0]))
 	}
 
-	r, zeroDom := task.AppendRZeroDomain(1)
+	r, zeroDom := task.AppendRzeroDomain(1)
 	checkOk(r)
 	/* Define a conic quadratic domain */
 	r, quadDom := task.AppendQuadraticConeDomain(k + 1)

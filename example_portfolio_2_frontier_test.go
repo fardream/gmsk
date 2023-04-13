@@ -14,7 +14,7 @@ import (
 func Example_portfolio_2_frontier() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
@@ -70,11 +70,11 @@ func Example_portfolio_2_frontier() {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 		/* No short-selling - x^l = 0, x^u = inf */
-		checkOk(task.PutVarbound(voff_x+j, gmsk.BK_LO, 0, gmsk.INFINITY))
+		checkOk(task.PutVarBound(voff_x+j, gmsk.BK_LO, 0, gmsk.INFINITY))
 	}
 
 	checkOk(task.PutVarName(voff_s, "s"))
-	checkOk(task.PutVarbound(voff_s, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	checkOk(task.PutVarBound(voff_s, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	// One linear constraint: total budget
 	checkOk(task.AppendCons(numcon))
@@ -88,7 +88,7 @@ func Example_portfolio_2_frontier() {
 	for _, x0i := range x0 {
 		totalBudget += x0i
 	}
-	checkOk(task.PutConbound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
+	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// Input (gamma, GTx) in the AFE (affine expression) storage
 	// We build the following F and g for variables [x, s]:
@@ -121,9 +121,9 @@ func Example_portfolio_2_frontier() {
 
 	// Objective: maximize expected return mu^T x
 	for j := int32(0); j < n; j++ {
-		checkOk(task.PutCj(voff_x+j, mu[j]))
+		checkOk(task.PutCJ(voff_x+j, mu[j]))
 	}
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	/* Set the log level */
 	checkOk(task.PutIntParam(gmsk.IPAR_LOG, 0)) // #define LOGLEVEL 0
@@ -134,7 +134,7 @@ func Example_portfolio_2_frontier() {
 		alpha := alphas[i]
 
 		/* Sets the objective function coefficient for s. */
-		checkOk(task.PutCj(voff_s+0, -alpha))
+		checkOk(task.PutCJ(voff_s+0, -alpha))
 
 		res, _ := task.OptimizeTrm()
 		checkOk(res)

@@ -19,7 +19,7 @@ import (
 func Example_disjunctiveConstraint_djc1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -47,7 +47,7 @@ func Example_disjunctiveConstraint_djc1() {
 	// Append free variables
 	numvar = 4
 	checkOk(task.AppendVars(numvar))
-	checkOk(task.PutVarboundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	checkOk(task.PutVarBoundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	{
 		// The linear part: the linear constraint
@@ -56,13 +56,13 @@ func Example_disjunctiveConstraint_djc1() {
 
 		checkOk(task.AppendCons(1))
 		checkOk(task.PutARow(0, 4, &idx[0], &val[0]))
-		checkOk(task.PutConbound(0, gmsk.BK_LO, -10, -10))
+		checkOk(task.PutConBound(0, gmsk.BK_LO, -10, -10))
 	}
 	{
 		// The linear part: objective
 		idx := []int32{0, 1, 2, 3}
 		val := []float64{2, 1, 3, 1}
-		checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+		checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
 		checkOk(task.PutCList(4, &idx[0], &val[0]))
 	}
 
@@ -79,11 +79,11 @@ func Example_disjunctiveConstraint_djc1() {
 	checkOk(task.PutAfeGSlice(0, numafe, &g[0]))
 
 	// Create domains
-	r, zero1 = task.AppendRZeroDomain(1)
+	r, zero1 = task.AppendRzeroDomain(1)
 	checkOk(r)
-	r, zero2 = task.AppendRZeroDomain(2)
+	r, zero2 = task.AppendRzeroDomain(2)
 	checkOk(r)
-	r, rminus1 = task.AppendRMinusDomain(1)
+	r, rminus1 = task.AppendRminusDomain(1)
 	checkOk(r)
 
 	// Append disjunctive constraints
