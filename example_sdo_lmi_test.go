@@ -22,7 +22,7 @@ import (
 func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -83,29 +83,29 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk(task.AppendBarvars(NUMBARVAR, &DIMBARVAR[0]))
 
 	/* Set the constant term in the objective. */
-	checkOk(task.PutCFix(1))
+	checkOk(task.PutCfix(1))
 
 	/* Set c_j and the bounds for each scalar variable*/
 	for j = 0; j < NUMVAR && r == gmsk.RES_OK; j++ {
-		r = task.PutCj(j, 1.0)
+		r = task.PutCJ(j, 1.0)
 		checkOk(r)
-		r = task.PutVarbound(j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY)
+		r = task.PutVarBound(j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY)
 	}
 	checkOk(r)
 
 	/* Set the linear term barc_j in the objective.*/
-	checkOk(task.PutBarCBlockTriplet(2, &barc_j[0], &barc_k[0], &barc_l[0], &barc_v[0]))
+	checkOk(task.PutBarcBlockTriplet(2, &barc_j[0], &barc_k[0], &barc_l[0], &barc_v[0]))
 
 	/* Set the F matrix */
 	checkOk(task.PutAfeFEntryList(NUMFNZ, &afeidx[0], &varidx[0], &f_val[0]))
 	/* Set the g vector */
 	checkOk(task.PutAfeGSlice(0, NUMAFE, &g[0]))
 	/* Set the barF matrix */
-	checkOk(task.PutAfeBarFBlockTriplet(2, &barf_i[0], &barf_j[0], &barf_k[0], &barf_l[0], &barf_v[0]))
+	checkOk(task.PutAfeBarfBlockTriplet(2, &barf_i[0], &barf_j[0], &barf_k[0], &barf_l[0], &barf_v[0]))
 
 	/* Append R+ domain and the corresponding ACC */
 	acc1_afeidx := []int64{0}
-	r, rplusdom := task.AppendRPlusDomain(1)
+	r, rplusdom := task.AppendRplusDomain(1)
 	checkOk(r)
 	checkOk(task.AppendAcc(rplusdom, 1, &acc1_afeidx[0], nil))
 

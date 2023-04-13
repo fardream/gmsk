@@ -13,7 +13,7 @@ import (
 func Example_reoptimization() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -81,20 +81,20 @@ func Example_reoptimization() {
 	checkOk(task.AppendVars(numvar))
 
 	/* Put C. */
-	checkOk(task.PutCFix(0))
+	checkOk(task.PutCfix(0))
 
 	for j = 0; j < numvar; j++ {
-		checkOk(task.PutCj(j, c[j]))
+		checkOk(task.PutCJ(j, c[j]))
 	}
 
 	/* Put constraint bounds. */
 	for i = 0; i < numcon; i++ {
-		checkOk(task.PutConbound(i, bkc[i], blc[i], buc[i]))
+		checkOk(task.PutConBound(i, bkc[i], blc[i], buc[i]))
 	}
 
 	/* Put variable bounds. */
 	for j = 0; j < numvar; j++ {
-		checkOk(task.PutVarbound(j, bkx[j], blx[j], bux[j]))
+		checkOk(task.PutVarBound(j, bkx[j], blx[j], bux[j]))
 	}
 
 	/* Put A. */
@@ -108,7 +108,7 @@ func Example_reoptimization() {
 		}
 	}
 
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	r, _ = task.OptimizeTrm()
 	checkOk(r)
@@ -141,14 +141,14 @@ func Example_reoptimization() {
 	checkOk(task.AppendVars(1))
 	numvar++
 	/* Set bounds on new variable */
-	task.PutVarbound(
+	task.PutVarBound(
 		varidx,
 		gmsk.BK_LO,
 		0,
 		gmsk.INFINITY)
 
 	/* Change objective */
-	checkOk(task.PutCj(varidx, 1))
+	checkOk(task.PutCJ(varidx, 1))
 
 	/* Put new values in the A matrix */
 	{
@@ -186,7 +186,7 @@ func Example_reoptimization() {
 
 	/* Set bounds on new constraint */
 	checkOk(
-		task.PutConbound(
+		task.PutConBound(
 			conidx,
 			gmsk.BK_UP,
 			-gmsk.INFINITY,
@@ -221,7 +221,7 @@ func Example_reoptimization() {
 		newblc := []float64{-gmsk.INFINITY, -gmsk.INFINITY, -gmsk.INFINITY, -gmsk.INFINITY}
 		newbuc := []float64{80000, 40000, 50000, 22000}
 
-		checkOk(task.PutConboundSlice(0, numcon, &newbkc[0], &newblc[0], &newbuc[0]))
+		checkOk(task.PutConBoundSlice(0, numcon, &newbkc[0], &newblc[0], &newbuc[0]))
 	}
 
 	r, _ = task.OptimizeTrm()

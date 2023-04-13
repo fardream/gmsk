@@ -19,7 +19,7 @@ import (
 func Example_mixedIntegerConicOptimization_mico1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -47,14 +47,14 @@ func Example_mixedIntegerConicOptimization_mico1() {
 
 	checkOk(task.AppendVars(numvar))
 
-	checkOk(task.PutVarboundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	checkOk(task.PutVarBoundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	/* Integrality constraints */
 	checkOk(task.PutVarTypeList(2, &intsub[0], &vart[0]))
 
 	/* Objective */
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
-	checkOk(task.PutCj(2, 1.0)) /* Minimize t */
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	checkOk(task.PutCJ(2, 1.0)) /* Minimize t */
 
 	/* Set up the affine expressions */
 	/* x, x-3.8, y, t, 1.0 */

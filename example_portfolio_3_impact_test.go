@@ -12,7 +12,7 @@ import (
 func Example_portfolio_3_impact() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
@@ -81,9 +81,9 @@ func Example_portfolio_3_impact() {
 		checkOk(task.PutVarName(voff_c+j, fmt.Sprintf("c[%d]", j+1)))
 		checkOk(task.PutVarName(voff_z+j, fmt.Sprintf("z[%d]", j+1)))
 		/* Apply variable bounds (x >= 0, c and z free) */
-		checkOk(task.PutVarbound(voff_x+j, gmsk.BK_LO, 0, gmsk.INFINITY))
-		checkOk(task.PutVarbound(voff_c+j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
-		checkOk(task.PutVarbound(voff_z+j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+		checkOk(task.PutVarBound(voff_x+j, gmsk.BK_LO, 0, gmsk.INFINITY))
+		checkOk(task.PutVarBound(voff_c+j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+		checkOk(task.PutVarBound(voff_z+j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 	}
 
 	// Linear constraints
@@ -99,7 +99,7 @@ func Example_portfolio_3_impact() {
 	for i := int32(0); i < n; i++ {
 		totalBudget += x0[i]
 	}
-	checkOk(task.PutConbound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
+	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// - Absolute value
 	checkOk(task.AppendCons(2 * n))
@@ -107,11 +107,11 @@ func Example_portfolio_3_impact() {
 		checkOk(task.PutConName(coff_abs1+i, fmt.Sprintf("zabs1[%d]", 1+i)))
 		checkOk(task.PutAij(coff_abs1+i, voff_x+i, -1))
 		checkOk(task.PutAij(coff_abs1+i, voff_z+i, 1))
-		checkOk(task.PutConbound(coff_abs1+i, gmsk.BK_LO, -x0[i], gmsk.INFINITY))
+		checkOk(task.PutConBound(coff_abs1+i, gmsk.BK_LO, -x0[i], gmsk.INFINITY))
 		checkOk(task.PutConName(coff_abs2+i, fmt.Sprintf("zabs2[%d]", 1+i)))
 		checkOk(task.PutAij(coff_abs2+i, voff_x+i, 1))
 		checkOk(task.PutAij(coff_abs2+i, voff_z+i, 1))
-		checkOk(task.PutConbound(coff_abs2+i, gmsk.BK_LO, x0[i], gmsk.INFINITY))
+		checkOk(task.PutConBound(coff_abs2+i, gmsk.BK_LO, x0[i], gmsk.INFINITY))
 	}
 
 	// ACCs
@@ -167,9 +167,9 @@ func Example_portfolio_3_impact() {
 
 	// Objective: maximize expected return mu^T x
 	for j := int32(0); j < n; j++ {
-		checkOk(task.PutCj(voff_x+j, mu[j]))
+		checkOk(task.PutCJ(voff_x+j, mu[j]))
 	}
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	/* No log output */
 	checkOk(task.PutIntParam(gmsk.IPAR_LOG, 0))

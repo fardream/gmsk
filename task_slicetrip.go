@@ -11,16 +11,16 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAColSliceTrip is wrapping [MSK_getacolslicetrip]
+// GetAColSliceTrip is wrapping [MSK_getacolslicetrip],
+// Obtains a sequence of columns from the coefficient matrix in triplet format.
 //
-// [MSK_getacolslicetrip] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - maxnumnz: MSKint64t
-//   - subi: MSKint32t *
-//   - subj: MSKint32t *
-//   - val: MSKrealt *
+// Arguments:
+//
+//   - `first` Index of the first column in the sequence.
+//   - `last` Index of the last column in the sequence plus one.
+//   - `subi` Constraint subscripts.
+//   - `subj` Column subscripts.
+//   - `val` Values.
 //
 // [MSK_getacolslicetrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolslicetrip
 func (task *Task) GetAColSliceTrip(
@@ -44,16 +44,16 @@ func (task *Task) GetAColSliceTrip(
 	)
 }
 
-// GetARowSliceTrip is wrapping [MSK_getarowslicetrip]
+// GetARowSliceTrip is wrapping [MSK_getarowslicetrip],
+// Obtains a sequence of rows from the coefficient matrix in sparse triplet format.
 //
-// [MSK_getarowslicetrip] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - maxnumnz: MSKint64t
-//   - subi: MSKint32t *
-//   - subj: MSKint32t *
-//   - val: MSKrealt *
+// Arguments:
+//
+//   - `first` Index of the first row in the sequence.
+//   - `last` Index of the last row in the sequence plus one.
+//   - `subi` Constraint subscripts.
+//   - `subj` Column subscripts.
+//   - `val` Values.
 //
 // [MSK_getarowslicetrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarowslicetrip
 func (task *Task) GetARowSliceTrip(

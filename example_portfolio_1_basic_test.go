@@ -12,7 +12,7 @@ import (
 func Example_portfolio_1_basic() {
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
@@ -69,7 +69,7 @@ func Example_portfolio_1_basic() {
 		/* Optionally we can give the variables names */
 		checkOk(task.PutVarName(voff_x+j, fmt.Sprintf("x[%d]", 1+j)))
 		/* No short-selling - x^l = 0, x^u = inf */
-		checkOk(task.PutVarbound(voff_x+j, gmsk.BK_LO, 0, gmsk.INFINITY))
+		checkOk(task.PutVarBound(voff_x+j, gmsk.BK_LO, 0, gmsk.INFINITY))
 	}
 	// One linear constraint: total budget
 	checkOk(task.AppendCons(numcon))
@@ -82,7 +82,7 @@ func Example_portfolio_1_basic() {
 	for _, ax0 := range x0 {
 		totalBudget += ax0
 	}
-	checkOk(task.PutConbound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
+	checkOk(task.PutConBound(coff_bud, gmsk.BK_FX, totalBudget, totalBudget))
 
 	// Input (gamma, GTx) in the AFE (affine expression) storage
 	// We need k+1 rows
@@ -109,9 +109,9 @@ func Example_portfolio_1_basic() {
 
 	// Objective: maximize expected return mu^T x
 	for j := int32(0); j < n; j++ {
-		checkOk(task.PutCj(voff_x+j, mu[j]))
+		checkOk(task.PutCJ(voff_x+j, mu[j]))
 	}
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	/* No log output */
 	checkOk(task.PutIntParam(gmsk.IPAR_LOG, 0))

@@ -11,11 +11,12 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// PutMaxNumAcc is wrapping [MSK_putmaxnumacc]
+// PutMaxNumAcc is wrapping [MSK_putmaxnumacc],
+// Sets the number of preallocated affine conic constraints.
 //
-// [MSK_putmaxnumacc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumacc: MSKint64t
+// Arguments:
+//
+//   - `maxnumacc` Number of preallocated affine conic constraints.
 //
 // [MSK_putmaxnumacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumacc
 func (task *Task) PutMaxNumAcc(
@@ -29,11 +30,12 @@ func (task *Task) PutMaxNumAcc(
 	)
 }
 
-// PutMaxNumAfe is wrapping [MSK_putmaxnumafe]
+// PutMaxNumAfe is wrapping [MSK_putmaxnumafe],
+// Sets the number of preallocated affine expressions in the optimization task.
 //
-// [MSK_putmaxnumafe] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumafe: MSKint64t
+// Arguments:
+//
+//   - `maxnumafe` Number of preallocated affine expressions.
 //
 // [MSK_putmaxnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumafe
 func (task *Task) PutMaxNumAfe(
@@ -47,11 +49,12 @@ func (task *Task) PutMaxNumAfe(
 	)
 }
 
-// PutMaxNumAnz is wrapping [MSK_putmaxnumanz]
+// PutMaxNumAnz is wrapping [MSK_putmaxnumanz],
+// Sets the number of preallocated non-zero entries in the linear coefficient matrix.
 //
-// [MSK_putmaxnumanz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumanz: MSKint64t
+// Arguments:
+//
+//   - `maxnumanz` New size of the storage reserved for storing the linear coefficient matrix.
 //
 // [MSK_putmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumanz
 func (task *Task) PutMaxNumAnz(
@@ -65,11 +68,12 @@ func (task *Task) PutMaxNumAnz(
 	)
 }
 
-// PutMaxNumBarvar is wrapping [MSK_putmaxnumbarvar]
+// PutMaxNumBarvar is wrapping [MSK_putmaxnumbarvar],
+// Sets the number of preallocated symmetric matrix variables.
 //
-// [MSK_putmaxnumbarvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumbarvar: MSKint32t
+// Arguments:
+//
+//   - `maxnumbarvar` Number of preallocated symmetric matrix variables.
 //
 // [MSK_putmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumbarvar
 func (task *Task) PutMaxNumBarvar(
@@ -83,11 +87,12 @@ func (task *Task) PutMaxNumBarvar(
 	)
 }
 
-// PutMaxNumCon is wrapping [MSK_putmaxnumcon]
+// PutMaxNumCon is wrapping [MSK_putmaxnumcon],
+// Sets the number of preallocated constraints in the optimization task.
 //
-// [MSK_putmaxnumcon] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumcon: MSKint32t
+// Arguments:
+//
+//   - `maxnumcon` Number of preallocated constraints in the optimization task.
 //
 // [MSK_putmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumcon
 func (task *Task) PutMaxNumCon(
@@ -101,11 +106,12 @@ func (task *Task) PutMaxNumCon(
 	)
 }
 
-// PutMaxNumCone is wrapping [MSK_putmaxnumcone]
+// PutMaxNumCone is wrapping [MSK_putmaxnumcone],
+// Sets the number of preallocated conic constraints in the optimization task.
 //
-// [MSK_putmaxnumcone] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumcone: MSKint32t
+// Arguments:
+//
+//   - `maxnumcone` Number of preallocated conic constraints in the optimization task.
 //
 // Deprecated: [MSK_putmaxnumcone]/PutMaxNumCone is deprecated by mosek and will be removed in a future release.
 //
@@ -121,11 +127,12 @@ func (task *Task) PutMaxNumCone(
 	)
 }
 
-// PutMaxNumDjc is wrapping [MSK_putmaxnumdjc]
+// PutMaxNumDjc is wrapping [MSK_putmaxnumdjc],
+// Sets the number of preallocated disjunctive constraints.
 //
-// [MSK_putmaxnumdjc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumdjc: MSKint64t
+// Arguments:
+//
+//   - `maxnumdjc` Number of preallocated disjunctive constraints in the task.
 //
 // [MSK_putmaxnumdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumdjc
 func (task *Task) PutMaxNumDjc(
@@ -139,11 +146,12 @@ func (task *Task) PutMaxNumDjc(
 	)
 }
 
-// PutMaxNumDomain is wrapping [MSK_putmaxnumdomain]
+// PutMaxNumDomain is wrapping [MSK_putmaxnumdomain],
+// Sets the number of preallocated domains in the optimization task.
 //
-// [MSK_putmaxnumdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumdomain: MSKint64t
+// Arguments:
+//
+//   - `maxnumdomain` Number of preallocated domains.
 //
 // [MSK_putmaxnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumdomain
 func (task *Task) PutMaxNumDomain(
@@ -157,11 +165,12 @@ func (task *Task) PutMaxNumDomain(
 	)
 }
 
-// PutMaxNumQnz is wrapping [MSK_putmaxnumqnz]
+// PutMaxNumQnz is wrapping [MSK_putmaxnumqnz],
+// Sets the number of preallocated non-zero entries in quadratic terms.
 //
-// [MSK_putmaxnumqnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumqnz: MSKint64t
+// Arguments:
+//
+//   - `maxnumqnz` Number of non-zero elements preallocated in quadratic coefficient matrices.
 //
 // [MSK_putmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumqnz
 func (task *Task) PutMaxNumQnz(
@@ -175,11 +184,12 @@ func (task *Task) PutMaxNumQnz(
 	)
 }
 
-// PutMaxNumVar is wrapping [MSK_putmaxnumvar]
+// PutMaxNumVar is wrapping [MSK_putmaxnumvar],
+// Sets the number of preallocated variables in the optimization task.
 //
-// [MSK_putmaxnumvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumvar: MSKint32t
+// Arguments:
+//
+//   - `maxnumvar` Number of preallocated variables in the optimization task.
 //
 // [MSK_putmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumvar
 func (task *Task) PutMaxNumVar(

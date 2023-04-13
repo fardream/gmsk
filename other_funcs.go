@@ -13,14 +13,10 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// CallbackCodeToStr is wrapping [MSK_callbackcodetostr]
-//
-// [MSK_callbackcodetostr] returns MSKrescodee and has following parameters
-//   - code: MSKcallbackcodee
-//   - callbackcodestr: char *
+// CallbackcodeToStr is wrapping [MSK_callbackcodetostr]
 //
 // [MSK_callbackcodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.callbackcodetostr
-func CallbackCodeToStr(
+func CallbackcodeToStr(
 	code CallbackCode,
 ) (r res.Code, callbackcodestr string) {
 	c_callbackcodestr := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
@@ -41,10 +37,6 @@ func CallbackCodeToStr(
 }
 
 // GetBuildInfo is wrapping [MSK_getbuildinfo]
-//
-// [MSK_getbuildinfo] returns MSKrescodee and has following parameters
-//   - buildstate: char *
-//   - builddate: char *
 //
 // [MSK_getbuildinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getbuildinfo
 func GetBuildInfo() (r res.Code, buildstate, builddate string) {
@@ -68,17 +60,10 @@ func GetBuildInfo() (r res.Code, buildstate, builddate string) {
 	return
 }
 
-// GetCodeDesc is wrapping [MSK_getcodedesc] and
-// gets description for [res.Code]. The first returned value is symbol, and the second returned value is
-// the description. The process may fail.
-//
-// [MSK_getcodedesc] returns MSKrescodee and has following parameters
-//   - code: MSKrescodee
-//   - symname: char *
-//   - str: char *
+// GetCodedesc is wrapping [MSK_getcodedesc]
 //
 // [MSK_getcodedesc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getcodedesc
-func GetCodeDesc(
+func GetCodedesc(
 	code res.Code,
 ) (r res.Code, symname, str string) {
 	c_symname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
@@ -102,14 +87,10 @@ func GetCodeDesc(
 	return
 }
 
-// GetResponseClass is wrapping [MSK_getresponseclass]
-//
-// [MSK_getresponseclass] returns MSKrescodee and has following parameters
-//   - r: MSKrescodee
-//   - rc: MSKrescodetypee *
+// GetResponseclass is wrapping [MSK_getresponseclass]
 //
 // [MSK_getresponseclass]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getresponseclass
-func GetResponseClass(
+func GetResponseclass(
 	r res.Code,
 ) (rescode res.Code, rc ResCodeType) {
 	rescode = res.Code(
@@ -124,11 +105,6 @@ func GetResponseClass(
 
 // GetVersion is wrapping [MSK_getversion]
 //
-// [MSK_getversion] returns MSKrescodee and has following parameters
-//   - major: MSKint32t *
-//   - minor: MSKint32t *
-//   - revision: MSKint32t *
-//
 // [MSK_getversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getversion
 func GetVersion() (r res.Code, major, minor, revision int32) {
 	r = res.Code(
@@ -142,13 +118,10 @@ func GetVersion() (r res.Code, major, minor, revision int32) {
 	return
 }
 
-// IsInfinity is wrapping [MSK_isinfinity]
-//
-// [MSK_isinfinity] returns MSKbooleant and has following parameters
-//   - value: MSKrealt
+// Isinfinity is wrapping [MSK_isinfinity]
 //
 // [MSK_isinfinity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.isinfinity
-func IsInfinity(
+func Isinfinity(
 	value float64,
 ) bool {
 	return intToBool(
@@ -158,22 +131,16 @@ func IsInfinity(
 	)
 }
 
-// LicenseCleanUp is wrapping [MSK_licensecleanup]
-//
-// [MSK_licensecleanup] returns MSKrescodee and has following parameters
+// Licensecleanup is wrapping [MSK_licensecleanup]
 //
 // [MSK_licensecleanup]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.licensecleanup
-func LicenseCleanUp() res.Code {
+func Licensecleanup() res.Code {
 	return res.Code(
 		C.MSK_licensecleanup(),
 	)
 }
 
 // Symnamtovalue is wrapping [MSK_symnamtovalue]
-//
-// [MSK_symnamtovalue] returns MSKbooleant and has following parameters
-//   - name: const char *
-//   - value: char *
 //
 // [MSK_symnamtovalue]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.symnamtovalue
 func Symnamtovalue(
@@ -192,13 +159,6 @@ func Symnamtovalue(
 }
 
 // Utf8towchar is wrapping [MSK_utf8towchar]
-//
-// [MSK_utf8towchar] returns MSKrescodee and has following parameters
-//   - outputlen: size_t
-//   - len: size_t *
-//   - conv: size_t *
-//   - output: MSKwchart *
-//   - input: const char *
 //
 // [MSK_utf8towchar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.utf8towchar
 func Utf8towchar(
@@ -223,13 +183,6 @@ func Utf8towchar(
 }
 
 // Wchartoutf8 is wrapping [MSK_wchartoutf8]
-//
-// [MSK_wchartoutf8] returns MSKrescodee and has following parameters
-//   - outputlen: size_t
-//   - len: size_t *
-//   - conv: size_t *
-//   - output: char *
-//   - input: const MSKwchart *
 //
 // [MSK_wchartoutf8]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.wchartoutf8
 func Wchartoutf8(

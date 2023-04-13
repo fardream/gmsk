@@ -18,7 +18,7 @@ import (
 func Example_powerCone_pow1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -79,11 +79,11 @@ func Example_powerCone_pow1() {
 	/* Set up the linear part */
 	checkOk(task.PutCList(3, &sub[0], &val[0]))
 	checkOk(task.PutARow(0, 3, &asub[0], &aval[0]))
-	checkOk(task.PutConbound(0, gmsk.BK_FX, 2, 2))
+	checkOk(task.PutConBound(0, gmsk.BK_FX, 2, 2))
 	for i := 0; i < 5; i++ {
 		bkx[i], blx[i], bux[i] = gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY
 	}
-	checkOk(task.PutVarboundSlice(0, numvar, &bkx[0], &blx[0], &bux[0]))
+	checkOk(task.PutVarBoundSlice(0, numvar, &bkx[0], &blx[0], &bux[0]))
 
 	/* Set the non-zero entries of the F matrix */
 	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
@@ -99,7 +99,7 @@ func Example_powerCone_pow1() {
 	/* Append two ACCs made up of the AFEs and the domains defined above. */
 	checkOk(task.AppendAccsSeq(numacc, &domidx[0], numafe, afeidx[0], nil))
 
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	/* Run optimizer */
 	r, trmcode := task.OptimizeTrm()

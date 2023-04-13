@@ -13,7 +13,7 @@ func MSKCALL(r gmsk.ResCode) {
 		return
 	}
 
-	b, sym, desc := gmsk.GetCodeDesc(r)
+	b, sym, desc := gmsk.GetCodedesc(r)
 	if b.NotOk() {
 		log.Panicf("cannot get the description of error %d - the error code is %d for getting the description", r, b)
 	} else {
@@ -76,8 +76,8 @@ func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float
 	}
 
 	MSKCALL(task.PutAijList(2*n, &subi[0], &subj[0], &aval[0]))
-	MSKCALL(task.PutConboundSliceConst(zcon, zcon+n, gmsk.BK_FX, 1, 1))
-	MSKCALL(task.PutVarboundSliceConst(nvar, nvar+2*n, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	MSKCALL(task.PutConBoundSliceConst(zcon, zcon+n, gmsk.BK_FX, 1, 1))
+	MSKCALL(task.PutVarBoundSliceConst(nvar, nvar+2*n, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	// Affine conic expressions
 	k = 0
@@ -173,13 +173,13 @@ func logisticRegression(env *gmsk.Env,
 
 	// Variables [r; theta; t]
 	MSKCALL(task.AppendVars(nvar))
-	MSKCALL(task.PutVarboundSliceConst(0, nvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	MSKCALL(task.PutVarBoundSliceConst(0, nvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	// Objective lambda*r + sum(t)
-	MSKCALL(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
-	MSKCALL(task.PutCj(r, lamb))
+	MSKCALL(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	MSKCALL(task.PutCJ(r, lamb))
 	for i = 0; i < n && res.IsOk(); i++ {
-		MSKCALL(task.PutCj(t+i, 1))
+		MSKCALL(task.PutCJ(t+i, 1))
 	}
 
 	// Softplus function constraints

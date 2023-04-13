@@ -13,13 +13,16 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAccName is wrapping [MSK_getaccname]
+// GetAccName is wrapping [MSK_getaccname],
+// Obtains the name of an affine conic constraint.
 //
-// [MSK_getaccname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - sizename: MSKint32t
-//   - name: char *
+// Arguments:
+//
+//   - `accidx` Index of an affine conic constraint.
+//
+// Returns:
+//
+//   - `name` Returns the required name.
 //
 // [MSK_getaccname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccname
 func (task *Task) GetAccName(
@@ -45,12 +48,16 @@ func (task *Task) GetAccName(
 	return
 }
 
-// GetAccNameLen is wrapping [MSK_getaccnamelen]
+// GetAccNameLen is wrapping [MSK_getaccnamelen],
+// Obtains the length of the name of an affine conic constraint.
 //
-// [MSK_getaccnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `accidx` Index of an affine conic constraint.
+//
+// Returns:
+//
+//   - `len` Returns the length of the indicated name.
 //
 // [MSK_getaccnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccnamelen
 func (task *Task) GetAccNameLen(
@@ -67,13 +74,16 @@ func (task *Task) GetAccNameLen(
 	return
 }
 
-// GetBarvarName is wrapping [MSK_getbarvarname]
+// GetBarvarName is wrapping [MSK_getbarvarname],
+// Obtains the name of a semidefinite variable.
 //
-// [MSK_getbarvarname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - sizename: MSKint32t
-//   - name: char *
+// Arguments:
+//
+//   - `i` Index of the variable.
+//
+// Returns:
+//
+//   - `name` The requested name is copied to this buffer.
 //
 // [MSK_getbarvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarvarname
 func (task *Task) GetBarvarName(
@@ -99,12 +109,16 @@ func (task *Task) GetBarvarName(
 	return
 }
 
-// GetBarvarNameLen is wrapping [MSK_getbarvarnamelen]
+// GetBarvarNameLen is wrapping [MSK_getbarvarnamelen],
+// Obtains the length of the name of a semidefinite variable.
 //
-// [MSK_getbarvarnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `i` Index of the variable.
+//
+// Returns:
+//
+//   - `len` Returns the length of the indicated name.
 //
 // [MSK_getbarvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarvarnamelen
 func (task *Task) GetBarvarNameLen(
@@ -121,13 +135,16 @@ func (task *Task) GetBarvarNameLen(
 	return
 }
 
-// GetConeName is wrapping [MSK_getconename]
+// GetConeName is wrapping [MSK_getconename],
+// Obtains the name of a cone.
 //
-// [MSK_getconename] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - sizename: MSKint32t
-//   - name: char *
+// Arguments:
+//
+//   - `i` Index of the cone.
+//
+// Returns:
+//
+//   - `name` The required name.
 //
 // Deprecated: [MSK_getconename]/GetConeName is deprecated by mosek and will be removed in a future release.
 //
@@ -155,12 +172,16 @@ func (task *Task) GetConeName(
 	return
 }
 
-// GetConeNameLen is wrapping [MSK_getconenamelen]
+// GetConeNameLen is wrapping [MSK_getconenamelen],
+// Obtains the length of the name of a cone.
 //
-// [MSK_getconenamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `i` Index of the cone.
+//
+// Returns:
+//
+//   - `len` Returns the length of the indicated name.
 //
 // Deprecated: [MSK_getconenamelen]/GetConeNameLen is deprecated by mosek and will be removed in a future release.
 //
@@ -179,13 +200,16 @@ func (task *Task) GetConeNameLen(
 	return
 }
 
-// GetConName is wrapping [MSK_getconname]
+// GetConName is wrapping [MSK_getconname],
+// Obtains the name of a constraint.
 //
-// [MSK_getconname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - sizename: MSKint32t
-//   - name: char *
+// Arguments:
+//
+//   - `i` Index of the constraint.
+//
+// Returns:
+//
+//   - `name` The required name.
 //
 // [MSK_getconname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconname
 func (task *Task) GetConName(
@@ -211,12 +235,16 @@ func (task *Task) GetConName(
 	return
 }
 
-// GetConNameLen is wrapping [MSK_getconnamelen]
+// GetConNameLen is wrapping [MSK_getconnamelen],
+// Obtains the length of the name of a constraint.
 //
-// [MSK_getconnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `i` Index of the constraint.
+//
+// Returns:
+//
+//   - `len` Returns the length of the indicated name.
 //
 // [MSK_getconnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconnamelen
 func (task *Task) GetConNameLen(
@@ -233,13 +261,16 @@ func (task *Task) GetConNameLen(
 	return
 }
 
-// GetDjcName is wrapping [MSK_getdjcname]
+// GetDjcName is wrapping [MSK_getdjcname],
+// Obtains the name of a disjunctive constraint.
 //
-// [MSK_getdjcname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - sizename: MSKint32t
-//   - name: char *
+// Arguments:
+//
+//   - `djcidx` Index of a disjunctive constraint.
+//
+// Returns:
+//
+//   - `name` Returns the required name.
 //
 // [MSK_getdjcname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcname
 func (task *Task) GetDjcName(
@@ -265,12 +296,16 @@ func (task *Task) GetDjcName(
 	return
 }
 
-// GetDjcNameLen is wrapping [MSK_getdjcnamelen]
+// GetDjcNameLen is wrapping [MSK_getdjcnamelen],
+// Obtains the length of the name of a disjunctive constraint.
 //
-// [MSK_getdjcnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `djcidx` Index of a disjunctive constraint.
+//
+// Returns:
+//
+//   - `len` Returns the length of the indicated name.
 //
 // [MSK_getdjcnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnamelen
 func (task *Task) GetDjcNameLen(
@@ -287,13 +322,16 @@ func (task *Task) GetDjcNameLen(
 	return
 }
 
-// GetDomainName is wrapping [MSK_getdomainname]
+// GetDomainName is wrapping [MSK_getdomainname],
+// Obtains the name of a domain.
 //
-// [MSK_getdomainname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - sizename: MSKint32t
-//   - name: char *
+// Arguments:
+//
+//   - `domidx` Index of a domain.
+//
+// Returns:
+//
+//   - `name` Returns the required name.
 //
 // [MSK_getdomainname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdomainname
 func (task *Task) GetDomainName(
@@ -319,12 +357,16 @@ func (task *Task) GetDomainName(
 	return
 }
 
-// GetDomainNameLen is wrapping [MSK_getdomainnamelen]
+// GetDomainNameLen is wrapping [MSK_getdomainnamelen],
+// Obtains the length of the name of a domain.
 //
-// [MSK_getdomainnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `domidx` Index of a domain.
+//
+// Returns:
+//
+//   - `len` Returns the length of the indicated name.
 //
 // [MSK_getdomainnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdomainnamelen
 func (task *Task) GetDomainNameLen(
@@ -341,13 +383,17 @@ func (task *Task) GetDomainNameLen(
 	return
 }
 
-// GetInfName is wrapping [MSK_getinfname]
+// GetInfName is wrapping [MSK_getinfname],
+// Obtains the name of an information item.
 //
-// [MSK_getinfname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - inftype: MSKinftypee
-//   - whichinf: MSKint32t
-//   - infname: char *
+// Arguments:
+//
+//   - `inftype` Type of the information item.
+//   - `whichinf` An information item.
+//
+// Returns:
+//
+//   - `infname` Name of the information item.
 //
 // [MSK_getinfname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getinfname
 func (task *Task) GetInfName(
@@ -373,11 +419,12 @@ func (task *Task) GetInfName(
 	return
 }
 
-// GetMaxNameLen is wrapping [MSK_getmaxnamelen]
+// GetMaxNameLen is wrapping [MSK_getmaxnamelen],
+// Obtains the maximum length (not including terminating zero character) of any objective, constraint, variable, domain or cone name.
 //
-// [MSK_getmaxnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxlen: MSKint32t *
+// Arguments:
+//
+//   - `maxlen` The maximum length of any name.
 //
 // [MSK_getmaxnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnamelen
 func (task *Task) GetMaxNameLen() (r res.Code, maxlen int32) {
@@ -391,12 +438,12 @@ func (task *Task) GetMaxNameLen() (r res.Code, maxlen int32) {
 	return
 }
 
-// GetObjName is wrapping [MSK_getobjname]
+// GetObjName is wrapping [MSK_getobjname],
+// Obtains the name assigned to the objective function.
 //
-// [MSK_getobjname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - sizeobjname: MSKint32t
-//   - objname: char *
+// Returns:
+//
+//   - `objname` Assigned the objective name.
 //
 // [MSK_getobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getobjname
 func (task *Task) GetObjName(
@@ -420,11 +467,12 @@ func (task *Task) GetObjName(
 	return
 }
 
-// GetObjNameLen is wrapping [MSK_getobjnamelen]
+// GetObjNameLen is wrapping [MSK_getobjnamelen],
+// Obtains the length of the name assigned to the objective function.
 //
-// [MSK_getobjnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - len: MSKint32t *
+// Returns:
+//
+//   - `len` Assigned the length of the objective name.
 //
 // [MSK_getobjnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getobjnamelen
 func (task *Task) GetObjNameLen() (r res.Code, len int32) {
@@ -438,13 +486,17 @@ func (task *Task) GetObjNameLen() (r res.Code, len int32) {
 	return
 }
 
-// GetParamName is wrapping [MSK_getparamname]
+// GetParamName is wrapping [MSK_getparamname],
+// Obtains the name of a parameter.
 //
-// [MSK_getparamname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - partype: MSKparametertypee
-//   - param: MSKint32t
-//   - parname: char *
+// Arguments:
+//
+//   - `partype` Parameter type.
+//   - `param` Which parameter.
+//
+// Returns:
+//
+//   - `parname` Parameter name.
 //
 // [MSK_getparamname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getparamname
 func (task *Task) GetParamName(
@@ -470,12 +522,12 @@ func (task *Task) GetParamName(
 	return
 }
 
-// GetTaskName is wrapping [MSK_gettaskname]
+// GetTaskName is wrapping [MSK_gettaskname],
+// Obtains the task name.
 //
-// [MSK_gettaskname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - sizetaskname: MSKint32t
-//   - taskname: char *
+// Returns:
+//
+//   - `taskname` Returns the task name.
 //
 // [MSK_gettaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.gettaskname
 func (task *Task) GetTaskName(
@@ -499,11 +551,12 @@ func (task *Task) GetTaskName(
 	return
 }
 
-// GetTaskNameLen is wrapping [MSK_gettasknamelen]
+// GetTaskNameLen is wrapping [MSK_gettasknamelen],
+// Obtains the length the task name.
 //
-// [MSK_gettasknamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - len: MSKint32t *
+// Returns:
+//
+//   - `len` Returns the length of the task name.
 //
 // [MSK_gettasknamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.gettasknamelen
 func (task *Task) GetTaskNameLen() (r res.Code, len int32) {
@@ -517,13 +570,16 @@ func (task *Task) GetTaskNameLen() (r res.Code, len int32) {
 	return
 }
 
-// GetVarName is wrapping [MSK_getvarname]
+// GetVarName is wrapping [MSK_getvarname],
+// Obtains the name of a variable.
 //
-// [MSK_getvarname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - sizename: MSKint32t
-//   - name: char *
+// Arguments:
+//
+//   - `j` Index of a variable.
+//
+// Returns:
+//
+//   - `name` Returns the required name.
 //
 // [MSK_getvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarname
 func (task *Task) GetVarName(
@@ -549,12 +605,16 @@ func (task *Task) GetVarName(
 	return
 }
 
-// GetVarNameLen is wrapping [MSK_getvarnamelen]
+// GetVarNameLen is wrapping [MSK_getvarnamelen],
+// Obtains the length of the name of a variable.
 //
-// [MSK_getvarnamelen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `i` Index of a variable.
+//
+// Returns:
+//
+//   - `len` Returns the length of the indicated name.
 //
 // [MSK_getvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarnamelen
 func (task *Task) GetVarNameLen(
@@ -571,12 +631,13 @@ func (task *Task) GetVarNameLen(
 	return
 }
 
-// IsdouparName is wrapping [MSK_isdouparname]
+// IsdouparName is wrapping [MSK_isdouparname],
+// Checks a double parameter name.
 //
-// [MSK_isdouparname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - parname: const char *
-//   - param: MSKdparame *
+// Arguments:
+//
+//   - `parname` Parameter name.
+//   - `param` Returns the parameter corresponding to the name, if one exists.
 //
 // [MSK_isdouparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isdouparname
 func (task *Task) IsdouparName(
@@ -595,12 +656,13 @@ func (task *Task) IsdouparName(
 	)
 }
 
-// IsintparName is wrapping [MSK_isintparname]
+// IsintparName is wrapping [MSK_isintparname],
+// Checks an integer parameter name.
 //
-// [MSK_isintparname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - parname: const char *
-//   - param: MSKiparame *
+// Arguments:
+//
+//   - `parname` Parameter name.
+//   - `param` Returns the parameter corresponding to the name, if one exists.
 //
 // [MSK_isintparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isintparname
 func (task *Task) IsintparName(
@@ -619,12 +681,13 @@ func (task *Task) IsintparName(
 	)
 }
 
-// IsstrparName is wrapping [MSK_isstrparname]
+// IsstrparName is wrapping [MSK_isstrparname],
+// Checks a string parameter name.
 //
-// [MSK_isstrparname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - parname: const char *
-//   - param: MSKsparame *
+// Arguments:
+//
+//   - `parname` Parameter name.
+//   - `param` Returns the parameter corresponding to the name, if one exists.
 //
 // [MSK_isstrparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isstrparname
 func (task *Task) IsstrparName(
@@ -643,13 +706,13 @@ func (task *Task) IsstrparName(
 	)
 }
 
-// PutAccName is wrapping [MSK_putaccname] and
-// sets a name for an affine conic constraint.
+// PutAccName is wrapping [MSK_putaccname],
+// Sets the name of an affine conic constraint.
 //
-// [MSK_putaccname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - name: const char *
+// Arguments:
+//
+//   - `accidx` Index of the affine conic constraint.
+//   - `name` The name of the affine conic constraint.
 //
 // [MSK_putaccname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaccname
 func (task *Task) PutAccName(
@@ -668,12 +731,13 @@ func (task *Task) PutAccName(
 	)
 }
 
-// PutBarvarName is wrapping [MSK_putbarvarname]
+// PutBarvarName is wrapping [MSK_putbarvarname],
+// Sets the name of a semidefinite variable.
 //
-// [MSK_putbarvarname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - name: const char *
+// Arguments:
+//
+//   - `j` Index of the variable.
+//   - `name` The variable name.
 //
 // [MSK_putbarvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarvarname
 func (task *Task) PutBarvarName(
@@ -692,12 +756,13 @@ func (task *Task) PutBarvarName(
 	)
 }
 
-// PutConeName is wrapping [MSK_putconename]
+// PutConeName is wrapping [MSK_putconename],
+// Sets the name of a cone.
 //
-// [MSK_putconename] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - name: const char *
+// Arguments:
+//
+//   - `j` Index of the cone.
+//   - `name` The name of the cone.
 //
 // Deprecated: [MSK_putconename]/PutConeName is deprecated by mosek and will be removed in a future release.
 //
@@ -718,13 +783,13 @@ func (task *Task) PutConeName(
 	)
 }
 
-// PutConName is wrapping [MSK_putconname] and
-// sets a name for a constraint at indext i.
+// PutConName is wrapping [MSK_putconname],
+// Sets the name of a constraint.
 //
-// [MSK_putconname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - name: const char *
+// Arguments:
+//
+//   - `i` Index of the constraint.
+//   - `name` The name of the constraint.
 //
 // [MSK_putconname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconname
 func (task *Task) PutConName(
@@ -743,12 +808,13 @@ func (task *Task) PutConName(
 	)
 }
 
-// PutDjcName is wrapping [MSK_putdjcname]
+// PutDjcName is wrapping [MSK_putdjcname],
+// Sets the name of a disjunctive constraint.
 //
-// [MSK_putdjcname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - name: const char *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//   - `name` The name of the disjunctive constraint.
 //
 // [MSK_putdjcname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putdjcname
 func (task *Task) PutDjcName(
@@ -767,12 +833,13 @@ func (task *Task) PutDjcName(
 	)
 }
 
-// PutDomainName is wrapping [MSK_putdomainname]
+// PutDomainName is wrapping [MSK_putdomainname],
+// Sets the name of a domain.
 //
-// [MSK_putdomainname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - name: const char *
+// Arguments:
+//
+//   - `domidx` Index of the domain.
+//   - `name` The name of the domain.
 //
 // [MSK_putdomainname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putdomainname
 func (task *Task) PutDomainName(
@@ -791,11 +858,12 @@ func (task *Task) PutDomainName(
 	)
 }
 
-// PutObjName is wrapping [MSK_putobjname]
+// PutObjName is wrapping [MSK_putobjname],
+// Assigns a new name to the objective.
 //
-// [MSK_putobjname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - objname: const char *
+// Arguments:
+//
+//   - `objname` Name of the objective.
 //
 // [MSK_putobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putobjname
 func (task *Task) PutObjName(
@@ -812,11 +880,12 @@ func (task *Task) PutObjName(
 	)
 }
 
-// PutTaskName is wrapping [MSK_puttaskname]
+// PutTaskName is wrapping [MSK_puttaskname],
+// Assigns a new name to the task.
 //
-// [MSK_puttaskname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - taskname: const char *
+// Arguments:
+//
+//   - `taskname` Name assigned to the task.
 //
 // [MSK_puttaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.puttaskname
 func (task *Task) PutTaskName(
@@ -833,13 +902,13 @@ func (task *Task) PutTaskName(
 	)
 }
 
-// PutVarName is wrapping [MSK_putvarname] and
-// sets a name for variable at j.
+// PutVarName is wrapping [MSK_putvarname],
+// Sets the name of a variable.
 //
-// [MSK_putvarname] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - name: const char *
+// Arguments:
+//
+//   - `j` Index of the variable.
+//   - `name` The variable name.
 //
 // [MSK_putvarname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarname
 func (task *Task) PutVarName(

@@ -12,7 +12,7 @@ import (
 func Example_mixedIntegeLinearOptimization1_milo1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -61,16 +61,16 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	checkOk(task.AppendVars(numvar))
 
 	/* Optionally add a constant term to the objective. */
-	checkOk(task.PutCFix(0))
+	checkOk(task.PutCfix(0))
 
 	for j = 0; j < numvar && r.IsOk(); j++ {
 		/* Set the linear term c_j in the objective.*/
-		checkOk(task.PutCj(j, c[j]))
+		checkOk(task.PutCJ(j, c[j]))
 
 		/* Set the bounds on variable j.
 		   blx[j] <= x_j <= bux[j] */
 
-		checkOk(task.PutVarbound(
+		checkOk(task.PutVarBound(
 			j,       /* Index of variable.*/
 			bkx[j],  /* Bound key.*/
 			blx[j],  /* Numerical value of lower bound.*/
@@ -91,7 +91,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
 	for i = 0; i < numcon && r.IsOk(); i++ {
-		r = task.PutConbound(
+		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
@@ -105,7 +105,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	}
 	checkOk(r)
 
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	/* Set max solution time */
 	checkOk(task.PutDouParam(gmsk.DPAR_MIO_MAX_TIME, 60))

@@ -12,7 +12,7 @@ import (
 func Example_conicExponentialOptimization1_ceo1() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -88,8 +88,8 @@ func Example_conicExponentialOptimization1_ceo1() {
 	/* Set up the linear part */
 	checkOk(task.PutCSlice(0, numvar, &c[0]))
 	checkOk(task.PutARow(0, numvar, &asub[0], &a[0]))
-	checkOk(task.PutConbound(0, bkc, blc, buc))
-	checkOk(task.PutVarboundSlice(0, numvar, &bkx[0], &blx[0], &bux[0]))
+	checkOk(task.PutConBound(0, bkc, blc, buc))
+	checkOk(task.PutVarBoundSlice(0, numvar, &bkx[0], &blx[0], &bux[0]))
 
 	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
 	r, domidx = task.AppendPrimalExpConeDomain()

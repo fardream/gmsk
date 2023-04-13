@@ -25,7 +25,7 @@ func Example_semidefiniteOptimization_sdo1() {
 
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -92,25 +92,25 @@ func Example_semidefiniteOptimization_sdo1() {
 	checkOk(task.AppendBarvars(NUMBARVAR, &DIMBARVAR[0]))
 
 	/* Optionally add a constant term to the objective. */
-	checkOk(task.PutCFix(0))
+	checkOk(task.PutCfix(0))
 
 	/* Set the linear term c_j in the objective.*/
-	checkOk(task.PutCj(0, 1))
+	checkOk(task.PutCJ(0, 1))
 
 	for j = 0; j < NUMVAR && r == gmsk.RES_OK; j++ {
-		r = task.PutVarbound(j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY)
+		r = task.PutVarBound(j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY)
 	}
 	checkOk(r)
 
 	/* Set the linear term barc_j in the objective.*/
-	r, idx = task.AppendSparseSymmat(DIMBARVAR[0], 5, &barc_i[0], &barc_j[0], &barc_v[0])
+	r, idx = task.AppendSparseSymMat(DIMBARVAR[0], 5, &barc_i[0], &barc_j[0], &barc_v[0])
 	checkOk(r)
-	checkOk(task.PutBarCj(0, 1, &idx, &falpha))
+	checkOk(task.PutBarcJ(0, 1, &idx, &falpha))
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,NUMCON : blc[i] <= constraint i <= buc[i] */
 	for i = 0; i < NUMCON && r == gmsk.RES_OK; i++ {
-		r = task.PutConbound(
+		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
@@ -134,14 +134,14 @@ func Example_semidefiniteOptimization_sdo1() {
 	checkOk(task.AppendAcc(qdomidx, 3, &afeidx[0], nil))
 
 	/* Add the first row of barA */
-	r, idx = task.AppendSparseSymmat(DIMBARVAR[0], 3, &bara_i[0], &bara_j[0], &bara_v[0])
+	r, idx = task.AppendSparseSymMat(DIMBARVAR[0], 3, &bara_i[0], &bara_j[0], &bara_v[0])
 	checkOk(r)
-	checkOk(task.PutBarAij(0, 0, 1, &idx, &falpha))
+	checkOk(task.PutBaraIj(0, 0, 1, &idx, &falpha))
 
 	/* Add the second row of barA */
-	r, idx = task.AppendSparseSymmat(DIMBARVAR[0], 6, &bara_i[3], &bara_j[3], &bara_v[3])
+	r, idx = task.AppendSparseSymMat(DIMBARVAR[0], 6, &bara_i[3], &bara_j[3], &bara_v[3])
 	checkOk(r)
-	checkOk(task.PutBarAij(1, 0, 1, &idx, &falpha))
+	checkOk(task.PutBaraIj(1, 0, 1, &idx, &falpha))
 
 	r, trmcode := task.OptimizeTrm()
 

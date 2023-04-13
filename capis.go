@@ -172,7 +172,7 @@ func DeleteTask(task *Task) {
 
 // fmtError formats the error string
 func fmtError(format string, resCode res.Code) error {
-	_, symbol, desc := GetCodeDesc(resCode)
+	_, symbol, desc := GetCodedesc(resCode)
 	return fmt.Errorf(format, symbol, desc)
 }
 
@@ -222,17 +222,6 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 			prl(&xx[0])))
 
 	return r, xx
-}
-
-// GetLenBarVarJ wraps MSK_getlenbarvarj and returns the length of semidefinite matrix variable's length at j
-func (task *Task) GetLenBarvarJ(j int32) (r res.Code, lengthbarvarj int64) {
-	r = res.Code(
-		C.MSK_getlenbarvarj(
-			task.task,
-			mi32(j),
-			pi64(&lengthbarvarj)),
-	)
-	return
 }
 
 // GetBarxj wraps MSK_getbarxj and retrieves the semi definite matrix at j.

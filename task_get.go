@@ -13,12 +13,13 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAccb is wrapping [MSK_getaccb]
+// GetAccb is wrapping [MSK_getaccb],
+// Obtains the additional constant term vector appearing in the affine conic constraint.
 //
-// [MSK_getaccb] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - b: MSKrealt *
+// Arguments:
+//
+//   - `accidx` Index of the affine conic constraint.
+//   - `b` The vector b appearing in the constraint.
 //
 // [MSK_getaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccb
 func (task *Task) GetAccb(
@@ -34,17 +35,20 @@ func (task *Task) GetAccb(
 	)
 }
 
-// GetAccbarfBlockTriplet is wrapping [MSK_getaccbarfblocktriplet]
+// GetAccbarfBlockTriplet is wrapping [MSK_getaccbarfblocktriplet],
+// Obtains barF, implied by the ACCs, in block triplet form.
 //
-// [MSK_getaccbarfblocktriplet] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumtrip: MSKint64t
-//   - numtrip: MSKint64t *
-//   - acc_afe: MSKint64t *
-//   - bar_var: MSKint32t *
-//   - blk_row: MSKint32t *
-//   - blk_col: MSKint32t *
-//   - blk_val: MSKrealt *
+// Arguments:
+//
+//   - `acc_afe` Index of the AFE within the concatenated list of AFEs in ACCs.
+//   - `bar_var` Symmetric matrix variable index.
+//   - `blk_row` Block row index.
+//   - `blk_col` Block column index.
+//   - `blk_val` The numerical value associated with each block triplet.
+//
+// Returns:
+//
+//   - `numtrip` Number of elements in the block triplet form.
 //
 // [MSK_getaccbarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccbarfblocktriplet
 func (task *Task) GetAccbarfBlockTriplet(
@@ -70,11 +74,12 @@ func (task *Task) GetAccbarfBlockTriplet(
 	)
 }
 
-// GetAccbarfnumBlockTriplets is wrapping [MSK_getaccbarfnumblocktriplets]
+// GetAccbarfnumBlockTriplets is wrapping [MSK_getaccbarfnumblocktriplets],
+// Obtains an upper bound on the number of elements in the block triplet form of barf, as used within the ACCs.
 //
-// [MSK_getaccbarfnumblocktriplets] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numtrip: MSKint64t *
+// Returns:
+//
+//   - `numtrip` An upper bound on the number of elements in the block triplet form of barf, as used within the ACCs.
 //
 // [MSK_getaccbarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccbarfnumblocktriplets
 func (task *Task) GetAccbarfnumBlockTriplets(
@@ -88,12 +93,13 @@ func (task *Task) GetAccbarfnumBlockTriplets(
 	)
 }
 
-// GetAccDomain is wrapping [MSK_getaccdomain]
+// GetAccDomain is wrapping [MSK_getaccdomain],
+// Obtains the domain appearing in the affine conic constraint.
 //
-// [MSK_getaccdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `accidx` The index of the affine conic constraint.
+//   - `domidx` The index of domain in the affine conic constraint.
 //
 // [MSK_getaccdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccdomain
 func (task *Task) GetAccDomain(
@@ -109,12 +115,13 @@ func (task *Task) GetAccDomain(
 	)
 }
 
-// GetAccDotYs is wrapping [MSK_getaccdotys]
+// GetAccDotYs is wrapping [MSK_getaccdotys],
+// Obtains the doty vector for a solution.
 //
-// [MSK_getaccdotys] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - doty: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `doty` The dual values of affine conic constraints. The array should have length equal to the sum of dimensions of all affine conic constraints.
 //
 // [MSK_getaccdotys]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccdotys
 func (task *Task) GetAccDotYs(
@@ -130,13 +137,14 @@ func (task *Task) GetAccDotYs(
 	)
 }
 
-// GetAccFTrip is wrapping [MSK_getaccftrip]
+// GetAccFTrip is wrapping [MSK_getaccftrip],
+// Obtains the F matrix (implied by the AFE ordering within the ACCs) in triplet format.
 //
-// [MSK_getaccftrip] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - frow: MSKint64t *
-//   - fcol: MSKint32t *
-//   - fval: MSKrealt *
+// Arguments:
+//
+//   - `frow` Row indices of nonzeros in the implied F matrix.
+//   - `fcol` Column indices of nonzeros in the implied F matrix.
+//   - `fval` Values of nonzero entries in the implied F matrix.
 //
 // [MSK_getaccftrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccftrip
 func (task *Task) GetAccFTrip(
@@ -154,11 +162,12 @@ func (task *Task) GetAccFTrip(
 	)
 }
 
-// GetAccGVector is wrapping [MSK_getaccgvector]
+// GetAccGVector is wrapping [MSK_getaccgvector],
+// The g vector as used within the ACCs.
 //
-// [MSK_getaccgvector] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - g: MSKrealt *
+// Arguments:
+//
+//   - `g` The g vector as used within the ACCs.
 //
 // [MSK_getaccgvector]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccgvector
 func (task *Task) GetAccGVector(
@@ -172,11 +181,12 @@ func (task *Task) GetAccGVector(
 	)
 }
 
-// GetAccntot is wrapping [MSK_getaccntot]
+// GetAccntot is wrapping [MSK_getaccntot],
+// Obtains the total dimension of all affine conic constraints.
 //
-// [MSK_getaccntot] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t *
+// Returns:
+//
+//   - `n` The total dimension of all affine conic constraints.
 //
 // [MSK_getaccntot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccntot
 func (task *Task) GetAccntot(
@@ -190,13 +200,14 @@ func (task *Task) GetAccntot(
 	)
 }
 
-// GetAccs is wrapping [MSK_getaccs]
+// GetAccs is wrapping [MSK_getaccs],
+// Obtains full data of all affine conic constraints.
 //
-// [MSK_getaccs] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidxlist: MSKint64t *
-//   - afeidxlist: MSKint64t *
-//   - b: MSKrealt *
+// Arguments:
+//
+//   - `domidxlist` The list of domains appearing in all affine conic constraints.
+//   - `afeidxlist` The concatenation of index lists of affine expressions appearing in all affine conic constraints.
+//   - `b` The concatenation of vectors b appearing in all affine conic constraints.
 //
 // [MSK_getaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccs
 func (task *Task) GetAccs(
@@ -214,14 +225,15 @@ func (task *Task) GetAccs(
 	)
 }
 
-// GetACol is wrapping [MSK_getacol]
+// GetACol is wrapping [MSK_getacol],
+// Obtains one column of the linear constraint matrix.
 //
-// [MSK_getacol] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - nzj: MSKint32t *
-//   - subj: MSKint32t *
-//   - valj: MSKrealt *
+// Arguments:
+//
+//   - `j` Index of the column.
+//   - `nzj` Number of non-zeros in the column obtained.
+//   - `subj` Row indices of the non-zeros in the column obtained.
+//   - `valj` Numerical values in the column obtained.
 //
 // [MSK_getacol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacol
 func (task *Task) GetACol(
@@ -242,16 +254,6 @@ func (task *Task) GetACol(
 }
 
 // GetAColSlice64 is wrapping [MSK_getacolslice64]
-//
-// [MSK_getacolslice64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - maxnumnz: MSKint64t
-//   - ptrb: MSKint64t *
-//   - ptre: MSKint64t *
-//   - sub: MSKint32t *
-//   - val: MSKrealt *
 //
 // [MSK_getacolslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolslice64
 func (task *Task) GetAColSlice64(
@@ -277,17 +279,20 @@ func (task *Task) GetAColSlice64(
 	)
 }
 
-// GetAfeBarFBlockTriplet is wrapping [MSK_getafebarfblocktriplet]
+// GetAfeBarFBlockTriplet is wrapping [MSK_getafebarfblocktriplet],
+// Obtains barF in block triplet form.
 //
-// [MSK_getafebarfblocktriplet] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumtrip: MSKint64t
-//   - numtrip: MSKint64t *
-//   - afeidx: MSKint64t *
-//   - barvaridx: MSKint32t *
-//   - subk: MSKint32t *
-//   - subl: MSKint32t *
-//   - valkl: MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Constraint index.
+//   - `barvaridx` Symmetric matrix variable index.
+//   - `subk` Block row index.
+//   - `subl` Block column index.
+//   - `valkl` The numerical value associated with each block triplet.
+//
+// Returns:
+//
+//   - `numtrip` Number of elements in the block triplet form.
 //
 // [MSK_getafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfblocktriplet
 func (task *Task) GetAfeBarFBlockTriplet(
@@ -313,11 +318,12 @@ func (task *Task) GetAfeBarFBlockTriplet(
 	)
 }
 
-// GetAfeBarFNumBlockTriplets is wrapping [MSK_getafebarfnumblocktriplets]
+// GetAfeBarFNumBlockTriplets is wrapping [MSK_getafebarfnumblocktriplets],
+// Obtains an upper bound on the number of elements in the block triplet form of barf.
 //
-// [MSK_getafebarfnumblocktriplets] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numtrip: MSKint64t *
+// Returns:
+//
+//   - `numtrip` An upper bound on the number of elements in the block triplet form of barf.
 //
 // [MSK_getafebarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfnumblocktriplets
 func (task *Task) GetAfeBarFNumBlockTriplets(
@@ -331,12 +337,16 @@ func (task *Task) GetAfeBarFNumBlockTriplets(
 	)
 }
 
-// GetAfeBarFNumrowentries is wrapping [MSK_getafebarfnumrowentries]
+// GetAfeBarFNumrowentries is wrapping [MSK_getafebarfnumrowentries],
+// Obtains the number of nonzero entries in a row of barF.
 //
-// [MSK_getafebarfnumrowentries] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t
-//   - numentr: MSKint32t *
+// Arguments:
+//
+//   - `afeidx` Row index of barF.
+//
+// Returns:
+//
+//   - `numentr` Number of nonzero entries in a row of barF.
 //
 // [MSK_getafebarfnumrowentries]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfnumrowentries
 func (task *Task) GetAfeBarFNumrowentries(
@@ -352,16 +362,17 @@ func (task *Task) GetAfeBarFNumrowentries(
 	)
 }
 
-// GetAfeBarFRow is wrapping [MSK_getafebarfrow]
+// GetAfeBarFRow is wrapping [MSK_getafebarfrow],
+// Obtains nonzero entries in one row of barF.
 //
-// [MSK_getafebarfrow] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t
-//   - barvaridx: MSKint32t *
-//   - ptrterm: MSKint64t *
-//   - numterm: MSKint64t *
-//   - termidx: MSKint64t *
-//   - termweight: MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Row index of barF.
+//   - `barvaridx` Semidefinite variable indices.
+//   - `ptrterm` Pointers to the description of entries.
+//   - `numterm` Number of terms in each entry.
+//   - `termidx` Indices of semidefinite matrices from E.
+//   - `termweight` Weights appearing in the weighted sum representation.
 //
 // [MSK_getafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfrow
 func (task *Task) GetAfeBarFRow(
@@ -385,13 +396,14 @@ func (task *Task) GetAfeBarFRow(
 	)
 }
 
-// GetAfeBarFRowInfo is wrapping [MSK_getafebarfrowinfo]
+// GetAfeBarFRowInfo is wrapping [MSK_getafebarfrowinfo],
+// Obtains information about one row of barF.
 //
-// [MSK_getafebarfrowinfo] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t
-//   - numentr: MSKint32t *
-//   - numterm: MSKint64t *
+// Arguments:
+//
+//   - `afeidx` Row index of barF.
+//   - `numentr` Number of nonzero entries in a row of barF.
+//   - `numterm` Number of terms in the weighted sums representation of the row of barF.
 //
 // [MSK_getafebarfrowinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfrowinfo
 func (task *Task) GetAfeBarFRowInfo(
@@ -409,14 +421,15 @@ func (task *Task) GetAfeBarFRowInfo(
 	)
 }
 
-// GetAfeFRow is wrapping [MSK_getafefrow]
+// GetAfeFRow is wrapping [MSK_getafefrow],
+// Obtains one row of F in sparse format.
 //
-// [MSK_getafefrow] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t
-//   - numnz: MSKint32t *
-//   - varidx: MSKint32t *
-//   - val: MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Row index.
+//   - `numnz` Number of non-zeros in the row obtained.
+//   - `varidx` Column indices of the non-zeros in the row obtained.
+//   - `val` Values of the non-zeros in the row obtained.
 //
 // [MSK_getafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefrow
 func (task *Task) GetAfeFRow(
@@ -436,13 +449,14 @@ func (task *Task) GetAfeFRow(
 	)
 }
 
-// GetAfeFTrip is wrapping [MSK_getafeftrip]
+// GetAfeFTrip is wrapping [MSK_getafeftrip],
+// Obtains the F matrix in triplet format.
 //
-// [MSK_getafeftrip] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t *
-//   - varidx: MSKint32t *
-//   - val: MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Row indices of nonzeros.
+//   - `varidx` Column indices of nonzeros.
+//   - `val` Values of nonzero entries.
 //
 // [MSK_getafeftrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafeftrip
 func (task *Task) GetAfeFTrip(
@@ -460,12 +474,16 @@ func (task *Task) GetAfeFTrip(
 	)
 }
 
-// GetAfeG is wrapping [MSK_getafeg]
+// GetAfeG is wrapping [MSK_getafeg],
+// Obtains a single coefficient in g.
 //
-// [MSK_getafeg] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - afeidx: MSKint64t
-//   - g: MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Element index.
+//
+// Returns:
+//
+//   - `g` The entry in g.
 //
 // [MSK_getafeg]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafeg
 func (task *Task) GetAfeG(
@@ -481,13 +499,17 @@ func (task *Task) GetAfeG(
 	)
 }
 
-// GetAij is wrapping [MSK_getaij]
+// GetAij is wrapping [MSK_getaij],
+// Obtains a single coefficient in linear constraint matrix.
 //
-// [MSK_getaij] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - j: MSKint32t
-//   - aij: MSKrealt *
+// Arguments:
+//
+//   - `i` Row index of the coefficient to be returned.
+//   - `j` Column index of the coefficient to be returned.
+//
+// Returns:
+//
+//   - `aij` Returns the requested coefficient.
 //
 // [MSK_getaij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaij
 func (task *Task) GetAij(
@@ -505,14 +527,15 @@ func (task *Task) GetAij(
 	)
 }
 
-// GetARow is wrapping [MSK_getarow]
+// GetARow is wrapping [MSK_getarow],
+// Obtains one row of the linear constraint matrix.
 //
-// [MSK_getarow] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - nzi: MSKint32t *
-//   - subi: MSKint32t *
-//   - vali: MSKrealt *
+// Arguments:
+//
+//   - `i` Index of the row.
+//   - `nzi` Number of non-zeros in the row obtained.
+//   - `subi` Column indices of the non-zeros in the row obtained.
+//   - `vali` Numerical values of the row obtained.
 //
 // [MSK_getarow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarow
 func (task *Task) GetARow(
@@ -533,16 +556,6 @@ func (task *Task) GetARow(
 }
 
 // GetARowSlice64 is wrapping [MSK_getarowslice64]
-//
-// [MSK_getarowslice64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - maxnumnz: MSKint64t
-//   - ptrb: MSKint64t *
-//   - ptre: MSKint64t *
-//   - sub: MSKint32t *
-//   - val: MSKrealt *
 //
 // [MSK_getarowslice64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarowslice64
 func (task *Task) GetARowSlice64(
@@ -568,14 +581,14 @@ func (task *Task) GetARowSlice64(
 	)
 }
 
-// GetAtrip is wrapping [MSK_getatrip]
+// GetAtrip is wrapping [MSK_getatrip],
+// Obtains the A matrix in sparse triplet format.
 //
-// [MSK_getatrip] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumnz: MSKint64t
-//   - subi: MSKint32t *
-//   - subj: MSKint32t *
-//   - val: MSKrealt *
+// Arguments:
+//
+//   - `subi` Constraint subscripts.
+//   - `subj` Column subscripts.
+//   - `val` Values.
 //
 // [MSK_getatrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getatrip
 func (task *Task) GetAtrip(
@@ -595,11 +608,12 @@ func (task *Task) GetAtrip(
 	)
 }
 
-// GetAtruncatetol is wrapping [MSK_getatruncatetol]
+// GetAtruncatetol is wrapping [MSK_getatruncatetol],
+// Gets the current A matrix truncation threshold.
 //
-// [MSK_getatruncatetol] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - tolzero: MSKrealt *
+// Arguments:
+//
+//   - `tolzero` Truncation tolerance.
 //
 // [MSK_getatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getatruncatetol
 func (task *Task) GetAtruncatetol(
@@ -613,17 +627,20 @@ func (task *Task) GetAtruncatetol(
 	)
 }
 
-// GetBarABlockTriplet is wrapping [MSK_getbarablocktriplet]
+// GetBarABlockTriplet is wrapping [MSK_getbarablocktriplet],
+// Obtains barA in block triplet form.
 //
-// [MSK_getbarablocktriplet] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnum: MSKint64t
-//   - num: MSKint64t *
-//   - subi: MSKint32t *
-//   - subj: MSKint32t *
-//   - subk: MSKint32t *
-//   - subl: MSKint32t *
-//   - valijkl: MSKrealt *
+// Arguments:
+//
+//   - `subi` Constraint index.
+//   - `subj` Symmetric matrix variable index.
+//   - `subk` Block row index.
+//   - `subl` Block column index.
+//   - `valijkl` The numerical value associated with each block triplet.
+//
+// Returns:
+//
+//   - `num` Number of elements in the block triplet form.
 //
 // [MSK_getbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarablocktriplet
 func (task *Task) GetBarABlockTriplet(
@@ -649,17 +666,20 @@ func (task *Task) GetBarABlockTriplet(
 	)
 }
 
-// GetBarAIdx is wrapping [MSK_getbaraidx]
+// GetBarAIdx is wrapping [MSK_getbaraidx],
+// Obtains information about an element in barA.
 //
-// [MSK_getbaraidx] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - maxnum: MSKint64t
-//   - i: MSKint32t *
-//   - j: MSKint32t *
-//   - num: MSKint64t *
-//   - sub: MSKint64t *
-//   - weights: MSKrealt *
+// Arguments:
+//
+//   - `idx` Position of the element in the vectorized form.
+//   - `i` Row index of the element at position idx.
+//   - `j` Column index of the element at position idx.
+//   - `sub` A list indexes of the elements from symmetric matrix storage that appear in the weighted sum.
+//   - `weights` The weights associated with each term in the weighted sum.
+//
+// Returns:
+//
+//   - `num` Number of terms in weighted sum that forms the element.
 //
 // [MSK_getbaraidx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidx
 func (task *Task) GetBarAIdx(
@@ -685,13 +705,14 @@ func (task *Task) GetBarAIdx(
 	)
 }
 
-// GetBarAIdxij is wrapping [MSK_getbaraidxij]
+// GetBarAIdxij is wrapping [MSK_getbaraidxij],
+// Obtains information about an element in barA.
 //
-// [MSK_getbaraidxij] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - i: MSKint32t *
-//   - j: MSKint32t *
+// Arguments:
+//
+//   - `idx` Position of the element in the vectorized form.
+//   - `i` Row index of the element at position idx.
+//   - `j` Column index of the element at position idx.
 //
 // [MSK_getbaraidxij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidxij
 func (task *Task) GetBarAIdxij(
@@ -709,12 +730,16 @@ func (task *Task) GetBarAIdxij(
 	)
 }
 
-// GetBarAIdxInfo is wrapping [MSK_getbaraidxinfo]
+// GetBarAIdxInfo is wrapping [MSK_getbaraidxinfo],
+// Obtains the number of terms in the weighted sum that form a particular element in barA.
 //
-// [MSK_getbaraidxinfo] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - num: MSKint64t *
+// Arguments:
+//
+//   - `idx` The internal position of the element for which information should be obtained.
+//
+// Returns:
+//
+//   - `num` Number of terms in the weighted sum that form the specified element in barA.
 //
 // [MSK_getbaraidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidxinfo
 func (task *Task) GetBarAIdxInfo(
@@ -730,13 +755,13 @@ func (task *Task) GetBarAIdxInfo(
 	)
 }
 
-// GetBarASparsity is wrapping [MSK_getbarasparsity]
+// GetBarASparsity is wrapping [MSK_getbarasparsity],
+// Obtains the sparsity pattern of the barA matrix.
 //
-// [MSK_getbarasparsity] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumnz: MSKint64t
-//   - numnz: MSKint64t *
-//   - idxij: MSKint64t *
+// Arguments:
+//
+//   - `numnz` Number of nonzero elements in barA.
+//   - `idxij` Position of each nonzero element in the vector representation of barA.
 //
 // [MSK_getbarasparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarasparsity
 func (task *Task) GetBarASparsity(
@@ -754,16 +779,19 @@ func (task *Task) GetBarASparsity(
 	)
 }
 
-// GetBarCBlockTriplet is wrapping [MSK_getbarcblocktriplet]
+// GetBarCBlockTriplet is wrapping [MSK_getbarcblocktriplet],
+// Obtains barC in block triplet form.
 //
-// [MSK_getbarcblocktriplet] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnum: MSKint64t
-//   - num: MSKint64t *
-//   - subj: MSKint32t *
-//   - subk: MSKint32t *
-//   - subl: MSKint32t *
-//   - valjkl: MSKrealt *
+// Arguments:
+//
+//   - `subj` Symmetric matrix variable index.
+//   - `subk` Block row index.
+//   - `subl` Block column index.
+//   - `valjkl` The numerical value associated with each block triplet.
+//
+// Returns:
+//
+//   - `num` Number of elements in the block triplet form.
 //
 // [MSK_getbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcblocktriplet
 func (task *Task) GetBarCBlockTriplet(
@@ -787,16 +815,16 @@ func (task *Task) GetBarCBlockTriplet(
 	)
 }
 
-// GetBarCIdx is wrapping [MSK_getbarcidx]
+// GetBarCIdx is wrapping [MSK_getbarcidx],
+// Obtains information about an element in barc.
 //
-// [MSK_getbarcidx] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - maxnum: MSKint64t
-//   - j: MSKint32t *
-//   - num: MSKint64t *
-//   - sub: MSKint64t *
-//   - weights: MSKrealt *
+// Arguments:
+//
+//   - `idx` Index of the element for which information should be obtained.
+//   - `j` Row index in barc.
+//   - `num` Number of terms in the weighted sum.
+//   - `sub` Elements appearing the weighted sum.
+//   - `weights` Weights of terms in the weighted sum.
 //
 // [MSK_getbarcidx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidx
 func (task *Task) GetBarCIdx(
@@ -820,12 +848,16 @@ func (task *Task) GetBarCIdx(
 	)
 }
 
-// GetBarCIdxInfo is wrapping [MSK_getbarcidxinfo]
+// GetBarCIdxInfo is wrapping [MSK_getbarcidxinfo],
+// Obtains information about an element in barc.
 //
-// [MSK_getbarcidxinfo] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - num: MSKint64t *
+// Arguments:
+//
+//   - `idx` Index of the element for which information should be obtained. The value is an index of a symmetric sparse variable.
+//
+// Returns:
+//
+//   - `num` Number of terms that appear in the weighted sum that forms the requested element.
 //
 // [MSK_getbarcidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidxinfo
 func (task *Task) GetBarCIdxInfo(
@@ -841,12 +873,13 @@ func (task *Task) GetBarCIdxInfo(
 	)
 }
 
-// GetBarCIdxj is wrapping [MSK_getbarcidxj]
+// GetBarCIdxj is wrapping [MSK_getbarcidxj],
+// Obtains the row index of an element in barc.
 //
-// [MSK_getbarcidxj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - j: MSKint32t *
+// Arguments:
+//
+//   - `idx` Index of the element for which information should be obtained.
+//   - `j` Row index in barc.
 //
 // [MSK_getbarcidxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidxj
 func (task *Task) GetBarCIdxj(
@@ -862,13 +895,13 @@ func (task *Task) GetBarCIdxj(
 	)
 }
 
-// GetBarCSparsity is wrapping [MSK_getbarcsparsity]
+// GetBarCSparsity is wrapping [MSK_getbarcsparsity],
+// Get the positions of the nonzero elements in barc.
 //
-// [MSK_getbarcsparsity] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumnz: MSKint64t
-//   - numnz: MSKint64t *
-//   - idxj: MSKint64t *
+// Arguments:
+//
+//   - `numnz` Number of nonzero elements in barc.
+//   - `idxj` Internal positions of the nonzeros elements in barc.
 //
 // [MSK_getbarcsparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcsparsity
 func (task *Task) GetBarCSparsity(
@@ -886,13 +919,14 @@ func (task *Task) GetBarCSparsity(
 	)
 }
 
-// GetBarsj is wrapping [MSK_getbarsj]
+// GetBarsj is wrapping [MSK_getbarsj],
+// Obtains the dual solution for a semidefinite variable.
 //
-// [MSK_getbarsj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - j: MSKint32t
-//   - barsj: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `j` Index of the semidefinite variable.
+//   - `barsj` Value of the j'th dual variable of barx.
 //
 // [MSK_getbarsj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarsj
 func (task *Task) GetBarsj(
@@ -910,13 +944,17 @@ func (task *Task) GetBarsj(
 	)
 }
 
-// GetBarvarnameindex is wrapping [MSK_getbarvarnameindex]
+// GetBarvarnameindex is wrapping [MSK_getbarvarnameindex],
+// Obtains the index of semidefinite variable from its name.
 //
-// [MSK_getbarvarnameindex] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - somename: const char *
-//   - asgn: MSKint32t *
-//   - index: MSKint32t *
+// Arguments:
+//
+//   - `somename` The name of the variable.
+//   - `asgn` Non-zero if the name somename is assigned to some semidefinite variable.
+//
+// Returns:
+//
+//   - `index` The index of a semidefinite variable with the name somename (if one exists).
 //
 // [MSK_getbarvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarvarnameindex
 func (task *Task) GetBarvarnameindex(
@@ -937,13 +975,14 @@ func (task *Task) GetBarvarnameindex(
 	)
 }
 
-// GetBarxj is wrapping [MSK_getbarxj]
+// GetBarxj is wrapping [MSK_getbarxj],
+// Obtains the primal solution for a semidefinite variable.
 //
-// [MSK_getbarxj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - j: MSKint32t
-//   - barxj: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `j` Index of the semidefinite variable.
+//   - `barxj` Value of the j'th variable of barx.
 //
 // [MSK_getbarxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarxj
 func (task *Task) GetBarxj(
@@ -961,11 +1000,12 @@ func (task *Task) GetBarxj(
 	)
 }
 
-// GetC is wrapping [MSK_getc]
+// GetC is wrapping [MSK_getc],
+// Obtains all objective coefficients.
 //
-// [MSK_getc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - c: MSKrealt *
+// Arguments:
+//
+//   - `c` Linear terms of the objective as a dense vector. The length is the number of variables.
 //
 // [MSK_getc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getc
 func (task *Task) GetC(
@@ -979,11 +1019,12 @@ func (task *Task) GetC(
 	)
 }
 
-// GetCFix is wrapping [MSK_getcfix]
+// GetCFix is wrapping [MSK_getcfix],
+// Obtains the fixed term in the objective.
 //
-// [MSK_getcfix] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - cfix: MSKrealt *
+// Returns:
+//
+//   - `cfix` Fixed term in the objective.
 //
 // [MSK_getcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcfix
 func (task *Task) GetCFix(
@@ -997,12 +1038,13 @@ func (task *Task) GetCFix(
 	)
 }
 
-// GetCj is wrapping [MSK_getcj]
+// GetCj is wrapping [MSK_getcj],
+// Obtains one objective coefficient.
 //
-// [MSK_getcj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - cj: MSKrealt *
+// Arguments:
+//
+//   - `j` Index of the variable for which the c coefficient should be obtained.
+//   - `cj` The c coefficient value.
 //
 // [MSK_getcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcj
 func (task *Task) GetCj(
@@ -1018,14 +1060,15 @@ func (task *Task) GetCj(
 	)
 }
 
-// GetConbound is wrapping [MSK_getconbound]
+// GetConbound is wrapping [MSK_getconbound],
+// Obtains bound information for one constraint.
 //
-// [MSK_getconbound] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - bk: MSKboundkeye *
-//   - bl: MSKrealt *
-//   - bu: MSKrealt *
+// Arguments:
+//
+//   - `i` Index of the constraint for which the bound information should be obtained.
+//   - `bk` Bound keys.
+//   - `bl` Values for lower bounds.
+//   - `bu` Values for upper bounds.
 //
 // [MSK_getconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconbound
 func (task *Task) GetConbound(
@@ -1045,15 +1088,16 @@ func (task *Task) GetConbound(
 	)
 }
 
-// GetCone is wrapping [MSK_getcone]
+// GetCone is wrapping [MSK_getcone],
+// Obtains a cone.
 //
-// [MSK_getcone] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - k: MSKint32t
-//   - ct: MSKconetypee *
-//   - conepar: MSKrealt *
-//   - nummem: MSKint32t *
-//   - submem: MSKint32t *
+// Arguments:
+//
+//   - `k` Index of the cone.
+//   - `ct` Specifies the type of the cone.
+//   - `conepar` For the power cone it denotes the exponent alpha. For other cone types it is unused and can be set to 0.
+//   - `nummem` Number of member variables in the cone.
+//   - `submem` Variable subscripts of the members in the cone.
 //
 // Deprecated: [MSK_getcone]/GetCone is deprecated by mosek and will be removed in a future release.
 //
@@ -1077,14 +1121,15 @@ func (task *Task) GetCone(
 	)
 }
 
-// GetConeInfo is wrapping [MSK_getconeinfo]
+// GetConeInfo is wrapping [MSK_getconeinfo],
+// Obtains information about a cone.
 //
-// [MSK_getconeinfo] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - k: MSKint32t
-//   - ct: MSKconetypee *
-//   - conepar: MSKrealt *
-//   - nummem: MSKint32t *
+// Arguments:
+//
+//   - `k` Index of the cone.
+//   - `ct` Specifies the type of the cone.
+//   - `conepar` For the power cone it denotes the exponent alpha. For other cone types it is unused and can be set to 0.
+//   - `nummem` Number of member variables in the cone.
 //
 // Deprecated: [MSK_getconeinfo]/GetConeInfo is deprecated by mosek and will be removed in a future release.
 //
@@ -1106,13 +1151,17 @@ func (task *Task) GetConeInfo(
 	)
 }
 
-// GetConenameindex is wrapping [MSK_getconenameindex]
+// GetConenameindex is wrapping [MSK_getconenameindex],
+// Checks whether the name has been assigned to any cone.
 //
-// [MSK_getconenameindex] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - somename: const char *
-//   - asgn: MSKint32t *
-//   - index: MSKint32t *
+// Arguments:
+//
+//   - `somename` The name which should be checked.
+//   - `asgn` Is non-zero if the name somename is assigned to some cone.
+//
+// Returns:
+//
+//   - `index` If the name somename is assigned to some cone, this is the index of the cone.
 //
 // Deprecated: [MSK_getconenameindex]/GetConenameindex is deprecated by mosek and will be removed in a future release.
 //
@@ -1135,13 +1184,17 @@ func (task *Task) GetConenameindex(
 	)
 }
 
-// GetConnameindex is wrapping [MSK_getconnameindex]
+// GetConnameindex is wrapping [MSK_getconnameindex],
+// Checks whether the name has been assigned to any constraint.
 //
-// [MSK_getconnameindex] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - somename: const char *
-//   - asgn: MSKint32t *
-//   - index: MSKint32t *
+// Arguments:
+//
+//   - `somename` The name which should be checked.
+//   - `asgn` Is non-zero if the name somename is assigned to some constraint.
+//
+// Returns:
+//
+//   - `index` If the name somename is assigned to a constraint, then return the index of the constraint.
 //
 // [MSK_getconnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconnameindex
 func (task *Task) GetConnameindex(
@@ -1162,12 +1215,16 @@ func (task *Task) GetConnameindex(
 	)
 }
 
-// GetDimbarvarj is wrapping [MSK_getdimbarvarj]
+// GetDimbarvarj is wrapping [MSK_getdimbarvarj],
+// Obtains the dimension of a symmetric matrix variable.
 //
-// [MSK_getdimbarvarj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - dimbarvarj: MSKint32t *
+// Arguments:
+//
+//   - `j` Index of the semidefinite variable whose dimension is requested.
+//
+// Returns:
+//
+//   - `dimbarvarj` The dimension of the j'th semidefinite variable.
 //
 // [MSK_getdimbarvarj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdimbarvarj
 func (task *Task) GetDimbarvarj(
@@ -1183,12 +1240,13 @@ func (task *Task) GetDimbarvarj(
 	)
 }
 
-// GetDjcb is wrapping [MSK_getdjcb]
+// GetDjcb is wrapping [MSK_getdjcb],
+// Obtains the optional constant term vector of a disjunctive constraint.
 //
-// [MSK_getdjcb] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - b: MSKrealt *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//   - `b` The vector b.
 //
 // [MSK_getdjcb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcb
 func (task *Task) GetDjcb(
@@ -1204,12 +1262,16 @@ func (task *Task) GetDjcb(
 	)
 }
 
-// GetDjcnumafe is wrapping [MSK_getdjcnumafe]
+// GetDjcnumafe is wrapping [MSK_getdjcnumafe],
+// Obtains the number of affine expressions in the disjunctive constraint.
 //
-// [MSK_getdjcnumafe] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - numafe: MSKint64t *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//
+// Returns:
+//
+//   - `numafe` Number of affine expressions in the disjunctive constraint.
 //
 // [MSK_getdjcnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumafe
 func (task *Task) GetDjcnumafe(
@@ -1225,11 +1287,12 @@ func (task *Task) GetDjcnumafe(
 	)
 }
 
-// GetDjcnumafetot is wrapping [MSK_getdjcnumafetot]
+// GetDjcnumafetot is wrapping [MSK_getdjcnumafetot],
+// Obtains the number of affine expressions in all disjunctive constraints.
 //
-// [MSK_getdjcnumafetot] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafetot: MSKint64t *
+// Returns:
+//
+//   - `numafetot` Number of affine expressions in all disjunctive constraints.
 //
 // [MSK_getdjcnumafetot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumafetot
 func (task *Task) GetDjcnumafetot(
@@ -1243,12 +1306,16 @@ func (task *Task) GetDjcnumafetot(
 	)
 }
 
-// GetDjcnumDomain is wrapping [MSK_getdjcnumdomain]
+// GetDjcnumDomain is wrapping [MSK_getdjcnumdomain],
+// Obtains the number of domains in the disjunctive constraint.
 //
-// [MSK_getdjcnumdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - numdomain: MSKint64t *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//
+// Returns:
+//
+//   - `numdomain` Number of domains in the disjunctive constraint.
 //
 // [MSK_getdjcnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumdomain
 func (task *Task) GetDjcnumDomain(
@@ -1264,11 +1331,12 @@ func (task *Task) GetDjcnumDomain(
 	)
 }
 
-// GetDjcnumdomaintot is wrapping [MSK_getdjcnumdomaintot]
+// GetDjcnumdomaintot is wrapping [MSK_getdjcnumdomaintot],
+// Obtains the number of domains in all disjunctive constraints.
 //
-// [MSK_getdjcnumdomaintot] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numdomaintot: MSKint64t *
+// Returns:
+//
+//   - `numdomaintot` Number of domains in all disjunctive constraints.
 //
 // [MSK_getdjcnumdomaintot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumdomaintot
 func (task *Task) GetDjcnumdomaintot(
@@ -1282,12 +1350,16 @@ func (task *Task) GetDjcnumdomaintot(
 	)
 }
 
-// GetDjcnumterm is wrapping [MSK_getdjcnumterm]
+// GetDjcnumterm is wrapping [MSK_getdjcnumterm],
+// Obtains the number terms in the disjunctive constraint.
 //
-// [MSK_getdjcnumterm] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - numterm: MSKint64t *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//
+// Returns:
+//
+//   - `numterm` Number of terms in the disjunctive constraint.
 //
 // [MSK_getdjcnumterm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumterm
 func (task *Task) GetDjcnumterm(
@@ -1303,11 +1375,12 @@ func (task *Task) GetDjcnumterm(
 	)
 }
 
-// GetDjcnumtermtot is wrapping [MSK_getdjcnumtermtot]
+// GetDjcnumtermtot is wrapping [MSK_getdjcnumtermtot],
+// Obtains the number of terms in all disjunctive constraints.
 //
-// [MSK_getdjcnumtermtot] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numtermtot: MSKint64t *
+// Returns:
+//
+//   - `numtermtot` Total number of terms in all disjunctive constraints.
 //
 // [MSK_getdjcnumtermtot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumtermtot
 func (task *Task) GetDjcnumtermtot(
@@ -1321,15 +1394,16 @@ func (task *Task) GetDjcnumtermtot(
 	)
 }
 
-// GetDjcs is wrapping [MSK_getdjcs]
+// GetDjcs is wrapping [MSK_getdjcs],
+// Obtains full data of all disjunctive constraints.
 //
-// [MSK_getdjcs] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidxlist: MSKint64t *
-//   - afeidxlist: MSKint64t *
-//   - b: MSKrealt *
-//   - termsizelist: MSKint64t *
-//   - numterms: MSKint64t *
+// Arguments:
+//
+//   - `domidxlist` The concatenation of index lists of domains appearing in all disjunctive constraints.
+//   - `afeidxlist` The concatenation of index lists of affine expressions appearing in all disjunctive constraints.
+//   - `b` The concatenation of vectors b appearing in all disjunctive constraints.
+//   - `termsizelist` The concatenation of lists of term sizes appearing in all disjunctive constraints.
+//   - `numterms` The number of terms in each of the disjunctive constraints.
 //
 // [MSK_getdjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcs
 func (task *Task) GetDjcs(
@@ -1351,12 +1425,16 @@ func (task *Task) GetDjcs(
 	)
 }
 
-// GetDomainn is wrapping [MSK_getdomainn]
+// GetDomainn is wrapping [MSK_getdomainn],
+// Obtains the dimension of the domain.
 //
-// [MSK_getdomainn] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - n: MSKint64t *
+// Arguments:
+//
+//   - `domidx` Index of the domain.
+//
+// Returns:
+//
+//   - `n` Dimension of the domain.
 //
 // [MSK_getdomainn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdomainn
 func (task *Task) GetDomainn(
@@ -1372,12 +1450,16 @@ func (task *Task) GetDomainn(
 	)
 }
 
-// GetDomaintype is wrapping [MSK_getdomaintype]
+// GetDomaintype is wrapping [MSK_getdomaintype],
+// Returns the type of the domain.
 //
-// [MSK_getdomaintype] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - domtype: MSKdomaintypee *
+// Arguments:
+//
+//   - `domidx` Index of the domain.
+//
+// Returns:
+//
+//   - `domtype` The type of the domain.
 //
 // [MSK_getdomaintype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdomaintype
 func (task *Task) GetDomaintype(
@@ -1393,13 +1475,16 @@ func (task *Task) GetDomaintype(
 	)
 }
 
-// GetDouInf is wrapping [MSK_getdouinf] and
-// retrieves float point information from the task.
+// GetDouInf is wrapping [MSK_getdouinf],
+// Obtains a double information item.
 //
-// [MSK_getdouinf] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichdinf: MSKdinfiteme
-//   - dvalue: MSKrealt *
+// Arguments:
+//
+//   - `whichdinf` Specifies a double information item.
+//
+// Returns:
+//
+//   - `dvalue` The value of the required double information item.
 //
 // [MSK_getdouinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdouinf
 func (task *Task) GetDouInf(
@@ -1416,12 +1501,16 @@ func (task *Task) GetDouInf(
 	return
 }
 
-// GetDouParam is wrapping [MSK_getdouparam]
+// GetDouParam is wrapping [MSK_getdouparam],
+// Obtains a double parameter.
 //
-// [MSK_getdouparam] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - param: MSKdparame
-//   - parvalue: MSKrealt *
+// Arguments:
+//
+//   - `param` Which parameter.
+//
+// Returns:
+//
+//   - `parvalue` Parameter value.
 //
 // [MSK_getdouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdouparam
 func (task *Task) GetDouParam(
@@ -1437,12 +1526,13 @@ func (task *Task) GetDouParam(
 	)
 }
 
-// GetDualObj is wrapping [MSK_getdualobj]
+// GetDualObj is wrapping [MSK_getdualobj],
+// Computes the dual objective value associated with the solution.
 //
-// [MSK_getdualobj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - dualobj: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `dualobj` Objective value corresponding to the dual solution.
 //
 // [MSK_getdualobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdualobj
 func (task *Task) GetDualObj(
@@ -1458,18 +1548,19 @@ func (task *Task) GetDualObj(
 	)
 }
 
-// GetDualSolutionnorms is wrapping [MSK_getdualsolutionnorms]
+// GetDualSolutionnorms is wrapping [MSK_getdualsolutionnorms],
+// Compute norms of the dual solution.
 //
-// [MSK_getdualsolutionnorms] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - nrmy: MSKrealt *
-//   - nrmslc: MSKrealt *
-//   - nrmsuc: MSKrealt *
-//   - nrmslx: MSKrealt *
-//   - nrmsux: MSKrealt *
-//   - nrmsnx: MSKrealt *
-//   - nrmbars: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `nrmy` The norm of the y vector.
+//   - `nrmslc` The norm of the slc vector.
+//   - `nrmsuc` The norm of the suc vector.
+//   - `nrmslx` The norm of the slx vector.
+//   - `nrmsux` The norm of the sux vector.
+//   - `nrmsnx` The norm of the snx vector.
+//   - `nrmbars` The norm of the bars vector.
 //
 // [MSK_getdualsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdualsolutionnorms
 func (task *Task) GetDualSolutionnorms(
@@ -1497,14 +1588,14 @@ func (task *Task) GetDualSolutionnorms(
 	)
 }
 
-// GetDviolacc is wrapping [MSK_getdviolacc]
+// GetDviolacc is wrapping [MSK_getdviolacc],
+// Computes the violation of the dual solution for set of affine conic constraints.
 //
-// [MSK_getdviolacc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - numaccidx: MSKint64t
-//   - accidxlist: const MSKint64t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `accidxlist` An array of indexes of conic constraints.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolacc
 func (task *Task) GetDviolacc(
@@ -1524,14 +1615,14 @@ func (task *Task) GetDviolacc(
 	)
 }
 
-// GetDviolbarvar is wrapping [MSK_getdviolbarvar]
+// GetDviolbarvar is wrapping [MSK_getdviolbarvar],
+// Computes the violation of dual solution for a set of semidefinite variables.
 //
-// [MSK_getdviolbarvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of barx variables.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolbarvar
 func (task *Task) GetDviolbarvar(
@@ -1551,14 +1642,14 @@ func (task *Task) GetDviolbarvar(
 	)
 }
 
-// GetDviolcon is wrapping [MSK_getdviolcon]
+// GetDviolcon is wrapping [MSK_getdviolcon],
+// Computes the violation of a dual solution associated with a set of constraints.
 //
-// [MSK_getdviolcon] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of constraints.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolcon
 func (task *Task) GetDviolcon(
@@ -1578,14 +1669,14 @@ func (task *Task) GetDviolcon(
 	)
 }
 
-// GetDviolcones is wrapping [MSK_getdviolcones]
+// GetDviolcones is wrapping [MSK_getdviolcones],
+// Computes the violation of a solution for set of dual conic constraints.
 //
-// [MSK_getdviolcones] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of conic constraints.
+//   - `viol` List of violations corresponding to sub.
 //
 // Deprecated: [MSK_getdviolcones]/GetDviolcones is deprecated by mosek and will be removed in a future release.
 //
@@ -1607,14 +1698,14 @@ func (task *Task) GetDviolcones(
 	)
 }
 
-// GetDviolvar is wrapping [MSK_getdviolvar]
+// GetDviolvar is wrapping [MSK_getdviolvar],
+// Computes the violation of a dual solution associated with a set of scalar variables.
 //
-// [MSK_getdviolvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of x variables.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolvar
 func (task *Task) GetDviolvar(
@@ -1634,13 +1725,14 @@ func (task *Task) GetDviolvar(
 	)
 }
 
-// GetInfindex is wrapping [MSK_getinfindex]
+// GetInfindex is wrapping [MSK_getinfindex],
+// Obtains the index of a named information item.
 //
-// [MSK_getinfindex] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - inftype: MSKinftypee
-//   - infname: const char *
-//   - infindex: MSKint32t *
+// Arguments:
+//
+//   - `inftype` Type of the information item.
+//   - `infname` Name of the information item.
+//   - `infindex` The item index.
 //
 // [MSK_getinfindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getinfindex
 func (task *Task) GetInfindex(
@@ -1661,12 +1753,13 @@ func (task *Task) GetInfindex(
 	)
 }
 
-// GetInfmax is wrapping [MSK_getinfmax]
+// GetInfmax is wrapping [MSK_getinfmax],
+// Obtains the maximum index of an information item of a given type.
 //
-// [MSK_getinfmax] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - inftype: MSKinftypee
-//   - infmax: MSKint32t *
+// Arguments:
+//
+//   - `inftype` Type of the information item.
+//   - `infmax` The maximum index (plus 1) requested.
 //
 // [MSK_getinfmax]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getinfmax
 func (task *Task) GetInfmax(
@@ -1682,13 +1775,16 @@ func (task *Task) GetInfmax(
 	)
 }
 
-// GetIntInf is wrapping [MSK_getintinf] and
-// retrieves integer information from the task.
+// GetIntInf is wrapping [MSK_getintinf],
+// Obtains an integer information item.
 //
-// [MSK_getintinf] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichiinf: MSKiinfiteme
-//   - ivalue: MSKint32t *
+// Arguments:
+//
+//   - `whichiinf` Specifies an integer information item.
+//
+// Returns:
+//
+//   - `ivalue` The value of the required integer information item.
 //
 // [MSK_getintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getintinf
 func (task *Task) GetIntInf(
@@ -1705,12 +1801,16 @@ func (task *Task) GetIntInf(
 	return
 }
 
-// GetIntParam is wrapping [MSK_getintparam]
+// GetIntParam is wrapping [MSK_getintparam],
+// Obtains an integer parameter.
 //
-// [MSK_getintparam] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - param: MSKiparame
-//   - parvalue: MSKint32t *
+// Arguments:
+//
+//   - `param` Which parameter.
+//
+// Returns:
+//
+//   - `parvalue` Parameter value.
 //
 // [MSK_getintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getintparam
 func (task *Task) GetIntParam(
@@ -1727,13 +1827,6 @@ func (task *Task) GetIntParam(
 }
 
 // GetLasterror is wrapping [MSK_getlasterror]
-//
-// [MSK_getlasterror] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - lastrescode: MSKrescodee *
-//   - sizelastmsg: MSKint32t
-//   - lastmsglen: MSKint32t *
-//   - lastmsg: char *
 //
 // [MSK_getlasterror]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlasterror
 func (task *Task) GetLasterror(
@@ -1755,13 +1848,6 @@ func (task *Task) GetLasterror(
 
 // GetLasterror64 is wrapping [MSK_getlasterror64]
 //
-// [MSK_getlasterror64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - lastrescode: MSKrescodee *
-//   - sizelastmsg: MSKint64t
-//   - lastmsglen: MSKint64t *
-//   - lastmsg: char *
-//
 // [MSK_getlasterror64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlasterror64
 func (task *Task) GetLasterror64(
 	lastrescode *res.Code,
@@ -1780,33 +1866,42 @@ func (task *Task) GetLasterror64(
 	)
 }
 
-// GetLenbarvarj is wrapping [MSK_getlenbarvarj]
+// GetLenBarvarJ is wrapping [MSK_getlenbarvarj],
+// Obtains the length of one semidefinite variable.
 //
-// [MSK_getlenbarvarj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - lenbarvarj: MSKint64t *
+// Arguments:
+//
+//   - `j` Index of the semidefinite variable whose length if requested.
+//
+// Returns:
+//
+//   - `lenbarvarj` Number of scalar elements in the lower triangular part of the semidefinite variable.
 //
 // [MSK_getlenbarvarj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlenbarvarj
-func (task *Task) GetLenbarvarj(
+func (task *Task) GetLenBarvarJ(
 	j int32,
-	lenbarvarj *int64,
-) res.Code {
-	return res.Code(
+) (r res.Code, lenbarvarj int64) {
+	r = res.Code(
 		C.MSK_getlenbarvarj(
 			task.task,
 			C.MSKint32t(j),
-			(*C.MSKint64t)(lenbarvarj),
+			(*C.MSKint64t)(&lenbarvarj),
 		),
 	)
+
+	return
 }
 
-// GetLintinf is wrapping [MSK_getlintinf]
+// GetLintinf is wrapping [MSK_getlintinf],
+// Obtains a long integer information item.
 //
-// [MSK_getlintinf] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichliinf: MSKliinfiteme
-//   - ivalue: MSKint64t *
+// Arguments:
+//
+//   - `whichliinf` Specifies a long information item.
+//
+// Returns:
+//
+//   - `ivalue` The value of the required long integer information item.
 //
 // [MSK_getlintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlintinf
 func (task *Task) GetLintinf(
@@ -1822,11 +1917,12 @@ func (task *Task) GetLintinf(
 	)
 }
 
-// GetMaxnumanz is wrapping [MSK_getmaxnumanz]
+// GetMaxnumanz is wrapping [MSK_getmaxnumanz],
+// Obtains number of preallocated non-zeros in the linear constraint matrix.
 //
-// [MSK_getmaxnumanz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumanz: MSKint32t *
+// Returns:
+//
+//   - `maxnumanz` Number of preallocated non-zero linear matrix elements.
 //
 // [MSK_getmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz
 func (task *Task) GetMaxnumanz(
@@ -1842,10 +1938,6 @@ func (task *Task) GetMaxnumanz(
 
 // GetMaxnumanz64 is wrapping [MSK_getmaxnumanz64]
 //
-// [MSK_getmaxnumanz64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumanz: MSKint64t *
-//
 // [MSK_getmaxnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz64
 func (task *Task) GetMaxnumanz64(
 	maxnumanz *int64,
@@ -1858,11 +1950,12 @@ func (task *Task) GetMaxnumanz64(
 	)
 }
 
-// GetMaxnumbarvar is wrapping [MSK_getmaxnumbarvar]
+// GetMaxnumbarvar is wrapping [MSK_getmaxnumbarvar],
+// Obtains maximum number of symmetric matrix variables for which space is currently preallocated.
 //
-// [MSK_getmaxnumbarvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumbarvar: MSKint32t *
+// Returns:
+//
+//   - `maxnumbarvar` Maximum number of symmetric matrix variables for which space is currently preallocated.
 //
 // [MSK_getmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumbarvar
 func (task *Task) GetMaxnumbarvar(
@@ -1876,11 +1969,12 @@ func (task *Task) GetMaxnumbarvar(
 	)
 }
 
-// GetMaxnumcon is wrapping [MSK_getmaxnumcon]
+// GetMaxnumcon is wrapping [MSK_getmaxnumcon],
+// Obtains the number of preallocated constraints in the optimization task.
 //
-// [MSK_getmaxnumcon] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumcon: MSKint32t *
+// Arguments:
+//
+//   - `maxnumcon` Number of preallocated constraints in the optimization task.
 //
 // [MSK_getmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcon
 func (task *Task) GetMaxnumcon(
@@ -1894,11 +1988,12 @@ func (task *Task) GetMaxnumcon(
 	)
 }
 
-// GetMaxnumcone is wrapping [MSK_getmaxnumcone]
+// GetMaxnumcone is wrapping [MSK_getmaxnumcone],
+// Obtains the number of preallocated cones in the optimization task.
 //
-// [MSK_getmaxnumcone] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumcone: MSKint32t *
+// Arguments:
+//
+//   - `maxnumcone` Number of preallocated conic constraints in the optimization task.
 //
 // Deprecated: [MSK_getmaxnumcone]/GetMaxnumcone is deprecated by mosek and will be removed in a future release.
 //
@@ -1914,11 +2009,12 @@ func (task *Task) GetMaxnumcone(
 	)
 }
 
-// GetMaxnumqnz is wrapping [MSK_getmaxnumqnz]
+// GetMaxnumqnz is wrapping [MSK_getmaxnumqnz],
+// Obtains the number of preallocated non-zeros for all quadratic terms in objective and constraints.
 //
-// [MSK_getmaxnumqnz] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumqnz: MSKint32t *
+// Arguments:
+//
+//   - `maxnumqnz` Number of non-zero elements preallocated in quadratic coefficient matrices.
 //
 // [MSK_getmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz
 func (task *Task) GetMaxnumqnz(
@@ -1934,10 +2030,6 @@ func (task *Task) GetMaxnumqnz(
 
 // GetMaxnumqnz64 is wrapping [MSK_getmaxnumqnz64]
 //
-// [MSK_getmaxnumqnz64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumqnz: MSKint64t *
-//
 // [MSK_getmaxnumqnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz64
 func (task *Task) GetMaxnumqnz64(
 	maxnumqnz *int64,
@@ -1950,11 +2042,12 @@ func (task *Task) GetMaxnumqnz64(
 	)
 }
 
-// GetMaxnumvar is wrapping [MSK_getmaxnumvar]
+// GetMaxnumvar is wrapping [MSK_getmaxnumvar],
+// Obtains the maximum number variables allowed.
 //
-// [MSK_getmaxnumvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumvar: MSKint32t *
+// Arguments:
+//
+//   - `maxnumvar` Number of preallocated variables in the optimization task.
 //
 // [MSK_getmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumvar
 func (task *Task) GetMaxnumvar(
@@ -1970,11 +2063,6 @@ func (task *Task) GetMaxnumvar(
 
 // GetMemusagetask is wrapping [MSK_getmemusagetask]
 //
-// [MSK_getmemusagetask] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - meminuse: MSKint64t *
-//   - maxmemuse: MSKint64t *
-//
 // [MSK_getmemusagetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmemusagetask
 func (task *Task) GetMemusagetask(
 	meminuse *int64,
@@ -1989,12 +2077,13 @@ func (task *Task) GetMemusagetask(
 	)
 }
 
-// GetNadouinf is wrapping [MSK_getnadouinf]
+// GetNadouinf is wrapping [MSK_getnadouinf],
+// Obtains a named double information item.
 //
-// [MSK_getnadouinf] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - infitemname: const char *
-//   - dvalue: MSKrealt *
+// Arguments:
+//
+//   - `infitemname` The name of a double information item.
+//   - `dvalue` The value of the required double information item.
 //
 // [MSK_getnadouinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnadouinf
 func (task *Task) GetNadouinf(
@@ -2013,12 +2102,13 @@ func (task *Task) GetNadouinf(
 	)
 }
 
-// GetNadouparam is wrapping [MSK_getnadouparam]
+// GetNadouparam is wrapping [MSK_getnadouparam],
+// Obtains a double parameter.
 //
-// [MSK_getnadouparam] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - paramname: const char *
-//   - parvalue: MSKrealt *
+// Arguments:
+//
+//   - `paramname` Name of a parameter.
+//   - `parvalue` Parameter value.
 //
 // [MSK_getnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnadouparam
 func (task *Task) GetNadouparam(
@@ -2037,12 +2127,13 @@ func (task *Task) GetNadouparam(
 	)
 }
 
-// GetNaintinf is wrapping [MSK_getnaintinf]
+// GetNaintinf is wrapping [MSK_getnaintinf],
+// Obtains a named integer information item.
 //
-// [MSK_getnaintinf] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - infitemname: const char *
-//   - ivalue: MSKint32t *
+// Arguments:
+//
+//   - `infitemname` The name of an integer information item.
+//   - `ivalue` The value of the required integer information item.
 //
 // [MSK_getnaintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnaintinf
 func (task *Task) GetNaintinf(
@@ -2061,12 +2152,13 @@ func (task *Task) GetNaintinf(
 	)
 }
 
-// GetNaintparam is wrapping [MSK_getnaintparam]
+// GetNaintparam is wrapping [MSK_getnaintparam],
+// Obtains an integer parameter.
 //
-// [MSK_getnaintparam] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - paramname: const char *
-//   - parvalue: MSKint32t *
+// Arguments:
+//
+//   - `paramname` Name of a parameter.
+//   - `parvalue` Parameter value.
 //
 // [MSK_getnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnaintparam
 func (task *Task) GetNaintparam(
@@ -2085,14 +2177,18 @@ func (task *Task) GetNaintparam(
 	)
 }
 
-// GetNastrparam is wrapping [MSK_getnastrparam]
+// GetNastrparam is wrapping [MSK_getnastrparam],
+// Obtains a string parameter.
 //
-// [MSK_getnastrparam] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - paramname: const char *
-//   - sizeparamname: MSKint32t
-//   - len: MSKint32t *
-//   - parvalue: char *
+// Arguments:
+//
+//   - `paramname` Name of a parameter.
+//   - `sizeparamname` Size of the name buffer.
+//   - `len` Returns the length of the parameter value.
+//
+// Returns:
+//
+//   - `parvalue` Parameter value.
 //
 // [MSK_getnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnastrparam
 func (task *Task) GetNastrparam(
@@ -2115,11 +2211,12 @@ func (task *Task) GetNastrparam(
 	)
 }
 
-// GetObjsense is wrapping [MSK_getobjsense]
+// GetObjsense is wrapping [MSK_getobjsense],
+// Gets the objective sense.
 //
-// [MSK_getobjsense] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - sense: MSKobjsensee *
+// Returns:
+//
+//   - `sense` The returned objective sense.
 //
 // [MSK_getobjsense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getobjsense
 func (task *Task) GetObjsense(
@@ -2133,12 +2230,13 @@ func (task *Task) GetObjsense(
 	)
 }
 
-// GetParammax is wrapping [MSK_getparammax]
+// GetParammax is wrapping [MSK_getparammax],
+// Obtains the maximum index of a parameter of a given type.
 //
-// [MSK_getparammax] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - partype: MSKparametertypee
-//   - parammax: MSKint32t *
+// Arguments:
+//
+//   - `partype` Parameter type.
+//   - `parammax` The maximum index (plus 1) of the given parameter type.
 //
 // [MSK_getparammax]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getparammax
 func (task *Task) GetParammax(
@@ -2154,12 +2252,13 @@ func (task *Task) GetParammax(
 	)
 }
 
-// GetPowerdomainalpha is wrapping [MSK_getpowerdomainalpha]
+// GetPowerdomainalpha is wrapping [MSK_getpowerdomainalpha],
+// Obtains the exponent vector of a power domain.
 //
-// [MSK_getpowerdomainalpha] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - alpha: MSKrealt *
+// Arguments:
+//
+//   - `domidx` Index of the domain.
+//   - `alpha` The exponent vector of the domain.
 //
 // [MSK_getpowerdomainalpha]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpowerdomainalpha
 func (task *Task) GetPowerdomainalpha(
@@ -2175,13 +2274,14 @@ func (task *Task) GetPowerdomainalpha(
 	)
 }
 
-// GetPowerdomainInfo is wrapping [MSK_getpowerdomaininfo]
+// GetPowerdomainInfo is wrapping [MSK_getpowerdomaininfo],
+// Obtains structural information about a power domain.
 //
-// [MSK_getpowerdomaininfo] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t
-//   - n: MSKint64t *
-//   - nleft: MSKint64t *
+// Arguments:
+//
+//   - `domidx` Index of the domain.
+//   - `n` Dimension of the domain.
+//   - `nleft` Number of variables on the left hand side.
 //
 // [MSK_getpowerdomaininfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpowerdomaininfo
 func (task *Task) GetPowerdomainInfo(
@@ -2199,12 +2299,16 @@ func (task *Task) GetPowerdomainInfo(
 	)
 }
 
-// GetPrimalObj is wrapping [MSK_getprimalobj]
+// GetPrimalObj is wrapping [MSK_getprimalobj],
+// Computes the primal objective value for the desired solution.
 //
-// [MSK_getprimalobj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - primalobj: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//
+// Returns:
+//
+//   - `primalobj` Objective value corresponding to the primal solution.
 //
 // [MSK_getprimalobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprimalobj
 func (task *Task) GetPrimalObj(
@@ -2220,14 +2324,15 @@ func (task *Task) GetPrimalObj(
 	)
 }
 
-// GetPrimalSolutionnorms is wrapping [MSK_getprimalsolutionnorms]
+// GetPrimalSolutionnorms is wrapping [MSK_getprimalsolutionnorms],
+// Compute norms of the primal solution.
 //
-// [MSK_getprimalsolutionnorms] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - nrmxc: MSKrealt *
-//   - nrmxx: MSKrealt *
-//   - nrmbarx: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `nrmxc` The norm of the xc vector.
+//   - `nrmxx` The norm of the xx vector.
+//   - `nrmbarx` The norm of the barX vector.
 //
 // [MSK_getprimalsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprimalsolutionnorms
 func (task *Task) GetPrimalSolutionnorms(
@@ -2247,11 +2352,12 @@ func (task *Task) GetPrimalSolutionnorms(
 	)
 }
 
-// GetProbtype is wrapping [MSK_getprobtype]
+// GetProbtype is wrapping [MSK_getprobtype],
+// Obtains the problem type.
 //
-// [MSK_getprobtype] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - probtype: MSKproblemtypee *
+// Returns:
+//
+//   - `probtype` The problem type.
 //
 // [MSK_getprobtype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprobtype
 func (task *Task) GetProbtype(
@@ -2265,13 +2371,16 @@ func (task *Task) GetProbtype(
 	)
 }
 
-// GetProSta is wrapping [MSK_getprosta] and
-// returns the problem status.
+// GetProSta is wrapping [MSK_getprosta],
+// Obtains the problem status.
 //
-// [MSK_getprosta] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - problemsta: MSKprostae *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//
+// Returns:
+//
+//   - `problemsta` Problem status.
 //
 // [MSK_getprosta]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprosta
 func (task *Task) GetProSta(
@@ -2288,14 +2397,14 @@ func (task *Task) GetProSta(
 	return
 }
 
-// GetPviolacc is wrapping [MSK_getpviolacc]
+// GetPviolacc is wrapping [MSK_getpviolacc],
+// Computes the violation of a solution for set of affine conic constraints.
 //
-// [MSK_getpviolacc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - numaccidx: MSKint64t
-//   - accidxlist: const MSKint64t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `accidxlist` An array of indexes of conic constraints.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolacc
 func (task *Task) GetPviolacc(
@@ -2315,14 +2424,14 @@ func (task *Task) GetPviolacc(
 	)
 }
 
-// GetPviolbarvar is wrapping [MSK_getpviolbarvar]
+// GetPviolbarvar is wrapping [MSK_getpviolbarvar],
+// Computes the violation of a primal solution for a list of semidefinite variables.
 //
-// [MSK_getpviolbarvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of barX variables.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolbarvar
 func (task *Task) GetPviolbarvar(
@@ -2342,14 +2451,14 @@ func (task *Task) GetPviolbarvar(
 	)
 }
 
-// GetPviolcon is wrapping [MSK_getpviolcon]
+// GetPviolcon is wrapping [MSK_getpviolcon],
+// Computes the violation of a primal solution associated to a constraint.
 //
-// [MSK_getpviolcon] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of constraints.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolcon
 func (task *Task) GetPviolcon(
@@ -2369,14 +2478,14 @@ func (task *Task) GetPviolcon(
 	)
 }
 
-// GetPviolcones is wrapping [MSK_getpviolcones]
+// GetPviolcones is wrapping [MSK_getpviolcones],
+// Computes the violation of a solution for set of conic constraints.
 //
-// [MSK_getpviolcones] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of conic constraints.
+//   - `viol` List of violations corresponding to sub.
 //
 // Deprecated: [MSK_getpviolcones]/GetPviolcones is deprecated by mosek and will be removed in a future release.
 //
@@ -2398,14 +2507,14 @@ func (task *Task) GetPviolcones(
 	)
 }
 
-// GetPvioldjc is wrapping [MSK_getpvioldjc]
+// GetPvioldjc is wrapping [MSK_getpvioldjc],
+// Computes the violation of a solution for set of disjunctive constraints.
 //
-// [MSK_getpvioldjc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - numdjcidx: MSKint64t
-//   - djcidxlist: const MSKint64t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `djcidxlist` An array of indexes of disjunctive constraints.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpvioldjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpvioldjc
 func (task *Task) GetPvioldjc(
@@ -2425,14 +2534,14 @@ func (task *Task) GetPvioldjc(
 	)
 }
 
-// GetPviolvar is wrapping [MSK_getpviolvar]
+// GetPviolvar is wrapping [MSK_getpviolvar],
+// Computes the violation of a primal solution for a list of scalar variables.
 //
-// [MSK_getpviolvar] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - viol: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sub` An array of indexes of x variables.
+//   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolvar
 func (task *Task) GetPviolvar(
@@ -2452,16 +2561,19 @@ func (task *Task) GetPviolvar(
 	)
 }
 
-// GetQConK is wrapping [MSK_getqconk]
+// GetQConK is wrapping [MSK_getqconk],
+// Obtains all the quadratic terms in a constraint.
 //
-// [MSK_getqconk] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - k: MSKint32t
-//   - maxnumqcnz: MSKint32t
-//   - numqcnz: MSKint32t *
-//   - qcsubi: MSKint32t *
-//   - qcsubj: MSKint32t *
-//   - qcval: MSKrealt *
+// Arguments:
+//
+//   - `k` Which constraint.
+//   - `qcsubi` Row subscripts for quadratic constraint matrix.
+//   - `qcsubj` Column subscripts for quadratic constraint matrix.
+//   - `qcval` Quadratic constraint coefficient values.
+//
+// Returns:
+//
+//   - `numqcnz` Number of quadratic terms.
 //
 // [MSK_getqconk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqconk
 func (task *Task) GetQConK(
@@ -2487,15 +2599,6 @@ func (task *Task) GetQConK(
 
 // GetQConK64 is wrapping [MSK_getqconk64]
 //
-// [MSK_getqconk64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - k: MSKint32t
-//   - maxnumqcnz: MSKint64t
-//   - numqcnz: MSKint64t *
-//   - qcsubi: MSKint32t *
-//   - qcsubj: MSKint32t *
-//   - qcval: MSKrealt *
-//
 // [MSK_getqconk64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqconk64
 func (task *Task) GetQConK64(
 	k int32,
@@ -2518,15 +2621,15 @@ func (task *Task) GetQConK64(
 	)
 }
 
-// GetQObj is wrapping [MSK_getqobj]
+// GetQObj is wrapping [MSK_getqobj],
+// Obtains all the quadratic terms in the objective.
 //
-// [MSK_getqobj] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumqonz: MSKint32t
-//   - numqonz: MSKint32t *
-//   - qosubi: MSKint32t *
-//   - qosubj: MSKint32t *
-//   - qoval: MSKrealt *
+// Arguments:
+//
+//   - `numqonz` Number of non-zero elements in the quadratic objective terms.
+//   - `qosubi` Row subscripts for quadratic objective coefficients.
+//   - `qosubj` Column subscripts for quadratic objective coefficients.
+//   - `qoval` Quadratic objective coefficient values.
 //
 // [MSK_getqobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqobj
 func (task *Task) GetQObj(
@@ -2550,14 +2653,6 @@ func (task *Task) GetQObj(
 
 // GetQObj64 is wrapping [MSK_getqobj64]
 //
-// [MSK_getqobj64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - maxnumqonz: MSKint64t
-//   - numqonz: MSKint64t *
-//   - qosubi: MSKint32t *
-//   - qosubj: MSKint32t *
-//   - qoval: MSKrealt *
-//
 // [MSK_getqobj64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqobj64
 func (task *Task) GetQObj64(
 	maxnumqonz int64,
@@ -2578,13 +2673,14 @@ func (task *Task) GetQObj64(
 	)
 }
 
-// GetQObjIj is wrapping [MSK_getqobjij]
+// GetQObjIj is wrapping [MSK_getqobjij],
+// Obtains one coefficient from the quadratic term of the objective
 //
-// [MSK_getqobjij] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - j: MSKint32t
-//   - qoij: MSKrealt *
+// Arguments:
+//
+//   - `i` Row index of the coefficient.
+//   - `j` Column index of coefficient.
+//   - `qoij` The required coefficient.
 //
 // [MSK_getqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqobjij
 func (task *Task) GetQObjIj(
@@ -2602,14 +2698,15 @@ func (task *Task) GetQObjIj(
 	)
 }
 
-// GetReducedcosts is wrapping [MSK_getreducedcosts]
+// GetReducedcosts is wrapping [MSK_getreducedcosts],
+// Obtains the reduced costs for a sequence of variables.
 //
-// [MSK_getreducedcosts] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - redcosts: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` The index of the first variable in the sequence.
+//   - `last` The index of the last variable in the sequence plus 1.
+//   - `redcosts` Returns the requested reduced costs.
 //
 // [MSK_getreducedcosts]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getreducedcosts
 func (task *Task) GetReducedcosts(
@@ -2629,12 +2726,13 @@ func (task *Task) GetReducedcosts(
 	)
 }
 
-// GetSkc is wrapping [MSK_getskc]
+// GetSkc is wrapping [MSK_getskc],
+// Obtains the status keys for the constraints.
 //
-// [MSK_getskc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - skc: MSKstakeye *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `skc` Status keys for the constraints.
 //
 // [MSK_getskc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskc
 func (task *Task) GetSkc(
@@ -2650,12 +2748,13 @@ func (task *Task) GetSkc(
 	)
 }
 
-// GetSkn is wrapping [MSK_getskn]
+// GetSkn is wrapping [MSK_getskn],
+// Obtains the status keys for the conic constraints.
 //
-// [MSK_getskn] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - skn: MSKstakeye *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `skn` Status keys for the conic constraints.
 //
 // [MSK_getskn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskn
 func (task *Task) GetSkn(
@@ -2671,12 +2770,13 @@ func (task *Task) GetSkn(
 	)
 }
 
-// GetSkx is wrapping [MSK_getskx]
+// GetSkx is wrapping [MSK_getskx],
+// Obtains the status keys for the scalar variables.
 //
-// [MSK_getskx] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - skx: MSKstakeye *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `skx` Status keys for the variables.
 //
 // [MSK_getskx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskx
 func (task *Task) GetSkx(
@@ -2692,12 +2792,13 @@ func (task *Task) GetSkx(
 	)
 }
 
-// GetSlc is wrapping [MSK_getslc]
+// GetSlc is wrapping [MSK_getslc],
+// Obtains the slc vector for a solution.
 //
-// [MSK_getslc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - slc: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `slc` Dual variables corresponding to the lower bounds on the constraints.
 //
 // [MSK_getslc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getslc
 func (task *Task) GetSlc(
@@ -2713,12 +2814,13 @@ func (task *Task) GetSlc(
 	)
 }
 
-// GetSlx is wrapping [MSK_getslx]
+// GetSlx is wrapping [MSK_getslx],
+// Obtains the slx vector for a solution.
 //
-// [MSK_getslx] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - slx: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `slx` Dual variables corresponding to the lower bounds on the variables.
 //
 // [MSK_getslx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getslx
 func (task *Task) GetSlx(
@@ -2734,12 +2836,13 @@ func (task *Task) GetSlx(
 	)
 }
 
-// GetSnx is wrapping [MSK_getsnx]
+// GetSnx is wrapping [MSK_getsnx],
+// Obtains the snx vector for a solution.
 //
-// [MSK_getsnx] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - snx: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `snx` Dual variables corresponding to the conic constraints on the variables.
 //
 // [MSK_getsnx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsnx
 func (task *Task) GetSnx(
@@ -2755,13 +2858,16 @@ func (task *Task) GetSnx(
 	)
 }
 
-// GetSolSta is wrapping [MSK_getsolsta] and
-// returns the solution status.
+// GetSolSta is wrapping [MSK_getsolsta],
+// Obtains the solution status.
 //
-// [MSK_getsolsta] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - solutionsta: MSKsolstae *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//
+// Returns:
+//
+//   - `solutionsta` Solution status.
 //
 // [MSK_getsolsta]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolsta
 func (task *Task) GetSolSta(
@@ -2778,24 +2884,25 @@ func (task *Task) GetSolSta(
 	return
 }
 
-// GetSolution is wrapping [MSK_getsolution]
+// GetSolution is wrapping [MSK_getsolution],
+// Obtains the complete solution.
 //
-// [MSK_getsolution] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - problemsta: MSKprostae *
-//   - solutionsta: MSKsolstae *
-//   - skc: MSKstakeye *
-//   - skx: MSKstakeye *
-//   - skn: MSKstakeye *
-//   - xc: MSKrealt *
-//   - xx: MSKrealt *
-//   - y: MSKrealt *
-//   - slc: MSKrealt *
-//   - suc: MSKrealt *
-//   - slx: MSKrealt *
-//   - sux: MSKrealt *
-//   - snx: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `problemsta` Problem status.
+//   - `solutionsta` Solution status.
+//   - `skc` Status keys for the constraints.
+//   - `skx` Status keys for the variables.
+//   - `skn` Status keys for the conic constraints.
+//   - `xc` Primal constraint solution.
+//   - `xx` Primal variable solution.
+//   - `y` Vector of dual variables corresponding to the constraints.
+//   - `slc` Dual variables corresponding to the lower bounds on the constraints.
+//   - `suc` Dual variables corresponding to the upper bounds on the constraints.
+//   - `slx` Dual variables corresponding to the lower bounds on the variables.
+//   - `sux` Dual variables corresponding to the upper bounds on the variables.
+//   - `snx` Dual variables corresponding to the conic constraints on the variables.
 //
 // [MSK_getsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolution
 func (task *Task) GetSolution(
@@ -2835,22 +2942,23 @@ func (task *Task) GetSolution(
 	)
 }
 
-// GetSolutionInfo is wrapping [MSK_getsolutioninfo]
+// GetSolutionInfo is wrapping [MSK_getsolutioninfo],
+// Obtains information about of a solution.
 //
-// [MSK_getsolutioninfo] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - pobj: MSKrealt *
-//   - pviolcon: MSKrealt *
-//   - pviolvar: MSKrealt *
-//   - pviolbarvar: MSKrealt *
-//   - pviolcone: MSKrealt *
-//   - pviolitg: MSKrealt *
-//   - dobj: MSKrealt *
-//   - dviolcon: MSKrealt *
-//   - dviolvar: MSKrealt *
-//   - dviolbarvar: MSKrealt *
-//   - dviolcone: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `pobj` The primal objective value.
+//   - `pviolcon` Maximal primal bound violation for a xc variable.
+//   - `pviolvar` Maximal primal bound violation for a xx variable.
+//   - `pviolbarvar` Maximal primal bound violation for a barx variable.
+//   - `pviolcone` Maximal primal violation of the solution with respect to the conic constraints.
+//   - `pviolitg` Maximal violation in the integer constraints.
+//   - `dobj` Dual objective value.
+//   - `dviolcon` Maximal dual bound violation for a xc variable.
+//   - `dviolvar` Maximal dual bound violation for a xx variable.
+//   - `dviolbarvar` Maximal dual bound violation for a bars variable.
+//   - `dviolcone` Maximum violation of the dual solution in the dual conic constraints.
 //
 // [MSK_getsolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutioninfo
 func (task *Task) GetSolutionInfo(
@@ -2886,25 +2994,26 @@ func (task *Task) GetSolutionInfo(
 	)
 }
 
-// GetSolutioninfoNew is wrapping [MSK_getsolutioninfonew]
+// GetSolutioninfoNew is wrapping [MSK_getsolutioninfonew],
+// Obtains information about of a solution.
 //
-// [MSK_getsolutioninfonew] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - pobj: MSKrealt *
-//   - pviolcon: MSKrealt *
-//   - pviolvar: MSKrealt *
-//   - pviolbarvar: MSKrealt *
-//   - pviolcone: MSKrealt *
-//   - pviolacc: MSKrealt *
-//   - pvioldjc: MSKrealt *
-//   - pviolitg: MSKrealt *
-//   - dobj: MSKrealt *
-//   - dviolcon: MSKrealt *
-//   - dviolvar: MSKrealt *
-//   - dviolbarvar: MSKrealt *
-//   - dviolcone: MSKrealt *
-//   - dviolacc: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `pobj` The primal objective value.
+//   - `pviolcon` Maximal primal bound violation for a xc variable.
+//   - `pviolvar` Maximal primal bound violation for a xx variable.
+//   - `pviolbarvar` Maximal primal bound violation for a barx variable.
+//   - `pviolcone` Maximal primal violation of the solution with respect to the conic constraints.
+//   - `pviolacc` Maximal primal violation of the solution with respect to the affine conic constraints.
+//   - `pvioldjc` Maximal primal violation of the solution with respect to the disjunctive constraints.
+//   - `pviolitg` Maximal violation in the integer constraints.
+//   - `dobj` Dual objective value.
+//   - `dviolcon` Maximal dual bound violation for a xc variable.
+//   - `dviolvar` Maximal dual bound violation for a xx variable.
+//   - `dviolbarvar` Maximal dual bound violation for a bars variable.
+//   - `dviolcone` Maximum violation of the dual solution in the dual conic constraints.
+//   - `dviolacc` Maximum violation of the dual solution in the dual affine conic constraints.
 //
 // [MSK_getsolutioninfonew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutioninfonew
 func (task *Task) GetSolutioninfoNew(
@@ -2946,25 +3055,26 @@ func (task *Task) GetSolutioninfoNew(
 	)
 }
 
-// GetSolutionNew is wrapping [MSK_getsolutionnew]
+// GetSolutionNew is wrapping [MSK_getsolutionnew],
+// Obtains the complete solution.
 //
-// [MSK_getsolutionnew] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - problemsta: MSKprostae *
-//   - solutionsta: MSKsolstae *
-//   - skc: MSKstakeye *
-//   - skx: MSKstakeye *
-//   - skn: MSKstakeye *
-//   - xc: MSKrealt *
-//   - xx: MSKrealt *
-//   - y: MSKrealt *
-//   - slc: MSKrealt *
-//   - suc: MSKrealt *
-//   - slx: MSKrealt *
-//   - sux: MSKrealt *
-//   - snx: MSKrealt *
-//   - doty: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `problemsta` Problem status.
+//   - `solutionsta` Solution status.
+//   - `skc` Status keys for the constraints.
+//   - `skx` Status keys for the variables.
+//   - `skn` Status keys for the conic constraints.
+//   - `xc` Primal constraint solution.
+//   - `xx` Primal variable solution.
+//   - `y` Vector of dual variables corresponding to the constraints.
+//   - `slc` Dual variables corresponding to the lower bounds on the constraints.
+//   - `suc` Dual variables corresponding to the upper bounds on the constraints.
+//   - `slx` Dual variables corresponding to the lower bounds on the variables.
+//   - `sux` Dual variables corresponding to the upper bounds on the variables.
+//   - `snx` Dual variables corresponding to the conic constraints on the variables.
+//   - `doty` Dual variables corresponding to affine conic constraints.
 //
 // [MSK_getsolutionnew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutionnew
 func (task *Task) GetSolutionNew(
@@ -3006,15 +3116,15 @@ func (task *Task) GetSolutionNew(
 	)
 }
 
-// GetSparseSymmat is wrapping [MSK_getsparsesymmat]
+// GetSparseSymmat is wrapping [MSK_getsparsesymmat],
+// Gets a single symmetric matrix from the matrix store.
 //
-// [MSK_getsparsesymmat] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - maxlen: MSKint64t
-//   - subi: MSKint32t *
-//   - subj: MSKint32t *
-//   - valij: MSKrealt *
+// Arguments:
+//
+//   - `idx` Index of the matrix to retrieve.
+//   - `subi` Row subscripts of the matrix non-zero elements.
+//   - `subj` Column subscripts of the matrix non-zero elements.
+//   - `valij` Coefficients of the matrix non-zero elements.
 //
 // [MSK_getsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsparsesymmat
 func (task *Task) GetSparseSymmat(
@@ -3036,14 +3146,17 @@ func (task *Task) GetSparseSymmat(
 	)
 }
 
-// GetStrParam is wrapping [MSK_getstrparam]
+// GetStrParam is wrapping [MSK_getstrparam],
+// Obtains the value of a string parameter.
 //
-// [MSK_getstrparam] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - param: MSKsparame
-//   - maxlen: MSKint32t
-//   - len: MSKint32t *
-//   - parvalue: char *
+// Arguments:
+//
+//   - `param` Which parameter.
+//   - `len` The length of the parameter value.
+//
+// Returns:
+//
+//   - `parvalue` If this is not a null pointer, the parameter value is stored here.
 //
 // [MSK_getstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getstrparam
 func (task *Task) GetStrParam(
@@ -3063,12 +3176,16 @@ func (task *Task) GetStrParam(
 	)
 }
 
-// GetStrParamLen is wrapping [MSK_getstrparamlen]
+// GetStrParamLen is wrapping [MSK_getstrparamlen],
+// Obtains the length of a string parameter.
 //
-// [MSK_getstrparamlen] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - param: MSKsparame
-//   - len: MSKint32t *
+// Arguments:
+//
+//   - `param` Which parameter.
+//
+// Returns:
+//
+//   - `len` The length of the parameter value.
 //
 // [MSK_getstrparamlen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getstrparamlen
 func (task *Task) GetStrParamLen(
@@ -3085,12 +3202,13 @@ func (task *Task) GetStrParamLen(
 	return
 }
 
-// GetSuc is wrapping [MSK_getsuc]
+// GetSuc is wrapping [MSK_getsuc],
+// Obtains the suc vector for a solution.
 //
-// [MSK_getsuc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - suc: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `suc` Dual variables corresponding to the upper bounds on the constraints.
 //
 // [MSK_getsuc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsuc
 func (task *Task) GetSuc(
@@ -3106,12 +3224,13 @@ func (task *Task) GetSuc(
 	)
 }
 
-// GetSux is wrapping [MSK_getsux]
+// GetSux is wrapping [MSK_getsux],
+// Obtains the sux vector for a solution.
 //
-// [MSK_getsux] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - sux: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `sux` Dual variables corresponding to the upper bounds on the variables.
 //
 // [MSK_getsux]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsux
 func (task *Task) GetSux(
@@ -3127,14 +3246,17 @@ func (task *Task) GetSux(
 	)
 }
 
-// GetSymbcon is wrapping [MSK_getsymbcon]
+// GetSymbcon is wrapping [MSK_getsymbcon],
+// Obtains a cone type string identifier.
 //
-// [MSK_getsymbcon] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - sizevalue: MSKint32t
-//   - name: char *
-//   - value: MSKint32t *
+// Arguments:
+//
+//   - `i` Index.
+//   - `value` The corresponding value.
+//
+// Returns:
+//
+//   - `name` Name of the i'th symbolic constant.
 //
 // [MSK_getsymbcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsymbcon
 func (task *Task) GetSymbcon(
@@ -3154,14 +3276,15 @@ func (task *Task) GetSymbcon(
 	)
 }
 
-// GetSymmatInfo is wrapping [MSK_getsymmatinfo]
+// GetSymmatInfo is wrapping [MSK_getsymmatinfo],
+// Obtains information about a matrix from the symmetric matrix storage.
 //
-// [MSK_getsymmatinfo] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idx: MSKint64t
-//   - dim: MSKint32t *
-//   - nz: MSKint64t *
-//   - mattype: MSKsymmattypee *
+// Arguments:
+//
+//   - `idx` Index of the matrix for which information is requested.
+//   - `dim` Returns the dimension of the requested matrix.
+//   - `nz` Returns the number of non-zeros in the requested matrix.
+//   - `mattype` Returns the type of the requested matrix.
 //
 // [MSK_getsymmatinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsymmatinfo
 func (task *Task) GetSymmatInfo(
@@ -3181,14 +3304,15 @@ func (task *Task) GetSymmatInfo(
 	)
 }
 
-// GetVarbound is wrapping [MSK_getvarbound]
+// GetVarbound is wrapping [MSK_getvarbound],
+// Obtains bound information for one variable.
 //
-// [MSK_getvarbound] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - i: MSKint32t
-//   - bk: MSKboundkeye *
-//   - bl: MSKrealt *
-//   - bu: MSKrealt *
+// Arguments:
+//
+//   - `i` Index of the variable for which the bound information should be obtained.
+//   - `bk` Bound keys.
+//   - `bl` Values for lower bounds.
+//   - `bu` Values for upper bounds.
 //
 // [MSK_getvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarbound
 func (task *Task) GetVarbound(
@@ -3208,13 +3332,17 @@ func (task *Task) GetVarbound(
 	)
 }
 
-// GetVarnameindex is wrapping [MSK_getvarnameindex]
+// GetVarnameindex is wrapping [MSK_getvarnameindex],
+// Checks whether the name has been assigned to any variable.
 //
-// [MSK_getvarnameindex] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - somename: const char *
-//   - asgn: MSKint32t *
-//   - index: MSKint32t *
+// Arguments:
+//
+//   - `somename` The name which should be checked.
+//   - `asgn` Is non-zero if the name somename is assigned to a variable.
+//
+// Returns:
+//
+//   - `index` If the name somename is assigned to a variable, then return the index of the variable.
 //
 // [MSK_getvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarnameindex
 func (task *Task) GetVarnameindex(
@@ -3235,12 +3363,16 @@ func (task *Task) GetVarnameindex(
 	)
 }
 
-// GetVarType is wrapping [MSK_getvartype]
+// GetVarType is wrapping [MSK_getvartype],
+// Gets the variable type of one variable.
 //
-// [MSK_getvartype] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - j: MSKint32t
-//   - vartype: MSKvariabletypee *
+// Arguments:
+//
+//   - `j` Index of the variable.
+//
+// Returns:
+//
+//   - `vartype` Variable type of variable index j.
 //
 // [MSK_getvartype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvartype
 func (task *Task) GetVarType(
@@ -3256,12 +3388,13 @@ func (task *Task) GetVarType(
 	)
 }
 
-// GetXc is wrapping [MSK_getxc]
+// GetXc is wrapping [MSK_getxc],
+// Obtains the xc vector for a solution.
 //
-// [MSK_getxc] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - xc: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `xc` Primal constraint solution.
 //
 // [MSK_getxc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getxc
 func (task *Task) GetXc(
@@ -3277,12 +3410,13 @@ func (task *Task) GetXc(
 	)
 }
 
-// GetY is wrapping [MSK_gety]
+// GetY is wrapping [MSK_gety],
+// Obtains the y vector for a solution.
 //
-// [MSK_gety] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - y: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `y` Vector of dual variables corresponding to the constraints.
 //
 // [MSK_gety]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.gety
 func (task *Task) GetY(

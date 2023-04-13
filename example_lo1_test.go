@@ -41,7 +41,7 @@ func Example_linearOptimization1_lo1() {
 
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
 	}
@@ -68,12 +68,12 @@ func Example_linearOptimization1_lo1() {
 
 	for j := int32(0); j < numvar && r == gmsk.RES_OK; j++ {
 		/* Set the linear term c_j in the objective.*/
-		r = task.PutCj(j, c[j])
+		r = task.PutCJ(j, c[j])
 		if r != gmsk.RES_OK {
 			break
 		}
 
-		r = task.PutVarbound(
+		r = task.PutVarBound(
 			j,      /* Index of variable.*/
 			bkx[j], /* Bound key.*/
 			blx[j], /* Numerical value of lower bound.*/
@@ -95,7 +95,7 @@ func Example_linearOptimization1_lo1() {
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
 	for i := int32(0); i < numcon && r == gmsk.RES_OK; i++ {
-		r = task.PutConbound(
+		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
@@ -105,7 +105,7 @@ func Example_linearOptimization1_lo1() {
 	checkOk(r)
 
 	/* Maximize objective function. */
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	var trmcode gmsk.ResCode
 	/* Run optimizer */
@@ -140,7 +140,7 @@ func Example_linearOptimization1_lo1() {
 	case gmsk.SOL_STA_UNKNOWN:
 		/* If the solutions status is unknown, print the termination code
 		   indicating why the optimizer terminated prematurely. */
-		_, symname, _ := gmsk.GetCodeDesc(trmcode)
+		_, symname, _ := gmsk.GetCodedesc(trmcode)
 		fmt.Printf("The solution status is unknown.\n")
 		fmt.Printf("The optimizer terminitated with code: %s\n", symname)
 	default:
@@ -149,7 +149,7 @@ func Example_linearOptimization1_lo1() {
 
 	if r != gmsk.RES_OK {
 		/* In case of an error print error code and description. */
-		_, symname, desc := gmsk.GetCodeDesc(r)
+		_, symname, desc := gmsk.GetCodedesc(r)
 		fmt.Printf("Error %s - '%s'\n", symname, desc)
 	}
 

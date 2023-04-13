@@ -11,16 +11,15 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// PutAccList is wrapping [MSK_putacclist]
+// PutAccList is wrapping [MSK_putacclist],
+// Puts a number of affine conic constraints.
 //
-// [MSK_putacclist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numaccs: MSKint64t
-//   - accidxs: const MSKint64t *
-//   - domidxs: const MSKint64t *
-//   - numafeidx: MSKint64t
-//   - afeidxlist: const MSKint64t *
-//   - b: const MSKrealt *
+// Arguments:
+//
+//   - `accidxs` Affine conic constraint indices.
+//   - `domidxs` Domain indices.
+//   - `afeidxlist` List of affine expression indexes.
+//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
 //
 // [MSK_putacclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacclist
 func (task *Task) PutAccList(
@@ -44,16 +43,16 @@ func (task *Task) PutAccList(
 	)
 }
 
-// PutAColList is wrapping [MSK_putacollist]
+// PutAColList is wrapping [MSK_putacollist],
+// Replaces all elements in several columns the linear constraint matrix.
 //
-// [MSK_putacollist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
+// Arguments:
+//
+//   - `sub` Indexes of columns that should be replaced.
+//   - `ptrb` Array of pointers to the first element in the columns.
+//   - `ptre` Array of pointers to the last element plus one in the columns.
+//   - `asub` Row indexes
+//   - `aval` Coefficient values.
 //
 // [MSK_putacollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacollist
 func (task *Task) PutAColList(
@@ -79,15 +78,6 @@ func (task *Task) PutAColList(
 
 // PutAColList64 is wrapping [MSK_putacollist64]
 //
-// [MSK_putacollist64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint64t *
-//   - ptre: const MSKint64t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
 // [MSK_putacollist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacollist64
 func (task *Task) PutAColList64(
 	num int32,
@@ -110,16 +100,17 @@ func (task *Task) PutAColList64(
 	)
 }
 
-// PutAColSlice is wrapping [MSK_putacolslice]
+// PutAColSlice is wrapping [MSK_putacolslice],
+// Replaces all elements in a sequence of columns the linear constraint matrix.
 //
-// [MSK_putacolslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
+// Arguments:
+//
+//   - `first` First column in the slice.
+//   - `last` Last column plus one in the slice.
+//   - `ptrb` Array of pointers to the first element in the columns.
+//   - `ptre` Array of pointers to the last element plus one in the columns.
+//   - `asub` Row indexes
+//   - `aval` Coefficient values.
 //
 // [MSK_putacolslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacolslice
 func (task *Task) PutAColSlice(
@@ -143,18 +134,17 @@ func (task *Task) PutAColSlice(
 	)
 }
 
-// PutAfeBarFEntryList is wrapping [MSK_putafebarfentrylist]
+// PutAfeBarFEntryList is wrapping [MSK_putafebarfentrylist],
+// Inputs a list of entries in barF.
 //
-// [MSK_putafebarfentrylist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafeidx: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - barvaridx: const MSKint32t *
-//   - numterm: const MSKint64t *
-//   - ptrterm: const MSKint64t *
-//   - lenterm: MSKint64t
-//   - termidx: const MSKint64t *
-//   - termweight: const MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Row indexes of barF.
+//   - `barvaridx` Semidefinite variable indexes.
+//   - `numterm` Number of terms in the weighted sums.
+//   - `ptrterm` Pointer to the terms forming each entry.
+//   - `termidx` Concatenated element indexes in matrix storage.
+//   - `termweight` Concatenated weights in the weighted sum.
 //
 // [MSK_putafebarfentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfentrylist
 func (task *Task) PutAfeBarFEntryList(
@@ -182,15 +172,14 @@ func (task *Task) PutAfeBarFEntryList(
 	)
 }
 
-// PutAfeFEntryList is wrapping [MSK_putafefentrylist] and
-// sets a portion of the affine expression F matrix.
+// PutAfeFEntryList is wrapping [MSK_putafefentrylist],
+// Replaces a list of entries in F.
 //
-// [MSK_putafefentrylist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numentr: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - varidx: const MSKint32t *
-//   - val: const MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Row indices in F.
+//   - `varidx` Column indices in F.
+//   - `val` Values of the entries in F.
 //
 // [MSK_putafefentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafefentrylist
 func (task *Task) PutAfeFEntryList(
@@ -210,17 +199,16 @@ func (task *Task) PutAfeFEntryList(
 	)
 }
 
-// PutAfeFRowList is wrapping [MSK_putafefrowlist]
+// PutAfeFRowList is wrapping [MSK_putafefrowlist],
+// Replaces all elements in a number of rows of the F matrix in the affine expressions.
 //
-// [MSK_putafefrowlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafeidx: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - numnzrow: const MSKint32t *
-//   - ptrrow: const MSKint64t *
-//   - lenidxval: MSKint64t
-//   - varidx: const MSKint32t *
-//   - val: const MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Row indices.
+//   - `numnzrow` Number of non-zeros in each row.
+//   - `ptrrow` Pointer to the first nonzero in each row.
+//   - `varidx` Column indexes of non-zero values.
+//   - `val` New non-zero values in the rows.
 //
 // [MSK_putafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafefrowlist
 func (task *Task) PutAfeFRowList(
@@ -246,13 +234,13 @@ func (task *Task) PutAfeFRowList(
 	)
 }
 
-// PutAfeGList is wrapping [MSK_putafeglist]
+// PutAfeGList is wrapping [MSK_putafeglist],
+// Replaces a list of elements in the g vector in the affine expressions.
 //
-// [MSK_putafeglist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - numafeidx: MSKint64t
-//   - afeidx: const MSKint64t *
-//   - g: const MSKrealt *
+// Arguments:
+//
+//   - `afeidx` Indices of entries in g.
+//   - `g` New values for the elements of g.
 //
 // [MSK_putafeglist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafeglist
 func (task *Task) PutAfeGList(
@@ -270,14 +258,14 @@ func (task *Task) PutAfeGList(
 	)
 }
 
-// PutAfeGSlice is wrapping [MSK_putafegslice] and
-// sets a slice of values in g.
+// PutAfeGSlice is wrapping [MSK_putafegslice],
+// Modifies a slice of the vector g.
 //
-// [MSK_putafegslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint64t
-//   - last: MSKint64t
-//   - slice: const MSKrealt *
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `slice` The slice of g as a dense vector.
 //
 // [MSK_putafegslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafegslice
 func (task *Task) PutAfeGSlice(
@@ -295,15 +283,14 @@ func (task *Task) PutAfeGSlice(
 	)
 }
 
-// PutAijList is wrapping [MSK_putaijlist] and
-// sets a list of constraint matrix A by index.
+// PutAijList is wrapping [MSK_putaijlist],
+// Changes one or more coefficients in the linear constraint matrix.
 //
-// [MSK_putaijlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - valij: const MSKrealt *
+// Arguments:
+//
+//   - `subi` Constraint (row) indices.
+//   - `subj` Variable (column) indices.
+//   - `valij` New coefficient values.
 //
 // [MSK_putaijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaijlist
 func (task *Task) PutAijList(
@@ -325,13 +312,6 @@ func (task *Task) PutAijList(
 
 // PutAijList64 is wrapping [MSK_putaijlist64]
 //
-// [MSK_putaijlist64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint64t
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - valij: const MSKrealt *
-//
 // [MSK_putaijlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaijlist64
 func (task *Task) PutAijList64(
 	num int64,
@@ -350,16 +330,16 @@ func (task *Task) PutAijList64(
 	)
 }
 
-// PutARowList is wrapping [MSK_putarowlist]
+// PutARowList is wrapping [MSK_putarowlist],
+// Replaces all elements in several rows of the linear constraint matrix.
 //
-// [MSK_putarowlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
+// Arguments:
+//
+//   - `sub` Indexes of rows or columns that should be replaced.
+//   - `ptrb` Array of pointers to the first element in the rows.
+//   - `ptre` Array of pointers to the last element plus one in the rows.
+//   - `asub` Variable indexes.
+//   - `aval` Coefficient values.
 //
 // [MSK_putarowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putarowlist
 func (task *Task) PutARowList(
@@ -385,15 +365,6 @@ func (task *Task) PutARowList(
 
 // PutARowList64 is wrapping [MSK_putarowlist64]
 //
-// [MSK_putarowlist64] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - ptrb: const MSKint64t *
-//   - ptre: const MSKint64t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
-//
 // [MSK_putarowlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putarowlist64
 func (task *Task) PutARowList64(
 	num int32,
@@ -416,16 +387,17 @@ func (task *Task) PutARowList64(
 	)
 }
 
-// PutARowSlice is wrapping [MSK_putarowslice]
+// PutARowSlice is wrapping [MSK_putarowslice],
+// Replaces all elements in several rows the linear constraint matrix.
 //
-// [MSK_putarowslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - ptrb: const MSKint32t *
-//   - ptre: const MSKint32t *
-//   - asub: const MSKint32t *
-//   - aval: const MSKrealt *
+// Arguments:
+//
+//   - `first` First row in the slice.
+//   - `last` Last row plus one in the slice.
+//   - `ptrb` Array of pointers to the first element in the rows.
+//   - `ptre` Array of pointers to the last element plus one in the rows.
+//   - `asub` Column indexes of new elements.
+//   - `aval` Coefficient values.
 //
 // [MSK_putarowslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putarowslice
 func (task *Task) PutARowSlice(
@@ -449,17 +421,17 @@ func (task *Task) PutARowSlice(
 	)
 }
 
-// PutBarAijList is wrapping [MSK_putbaraijlist]
+// PutBarAijList is wrapping [MSK_putbaraijlist],
+// Inputs list of elements of barA.
 //
-// [MSK_putbaraijlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subi: const MSKint32t *
-//   - subj: const MSKint32t *
-//   - alphaptrb: const MSKint64t *
-//   - alphaptre: const MSKint64t *
-//   - matidx: const MSKint64t *
-//   - weights: const MSKrealt *
+// Arguments:
+//
+//   - `subi` Row index of barA.
+//   - `subj` Column index of barA.
+//   - `alphaptrb` Start entries for terms in the weighted sum.
+//   - `alphaptre` End entries for terms in the weighted sum.
+//   - `matidx` Element indexes in matrix storage.
+//   - `weights` Weights in the weighted sum.
 //
 // [MSK_putbaraijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbaraijlist
 func (task *Task) PutBarAijList(
@@ -485,18 +457,18 @@ func (task *Task) PutBarAijList(
 	)
 }
 
-// PutBarARowList is wrapping [MSK_putbararowlist]
+// PutBarARowList is wrapping [MSK_putbararowlist],
+// Replace a set of rows of barA
 //
-// [MSK_putbararowlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subi: const MSKint32t *
-//   - ptrb: const MSKint64t *
-//   - ptre: const MSKint64t *
-//   - subj: const MSKint32t *
-//   - nummat: const MSKint64t *
-//   - matidx: const MSKint64t *
-//   - weights: const MSKrealt *
+// Arguments:
+//
+//   - `subi` Row indexes of barA.
+//   - `ptrb` Start of rows in barA.
+//   - `ptre` End of rows in barA.
+//   - `subj` Column index of barA.
+//   - `nummat` Number of entries in weighted sum of matrixes.
+//   - `matidx` Matrix indexes for weighted sum of matrixes.
+//   - `weights` Weights for weighted sum of matrixes.
 //
 // [MSK_putbararowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbararowlist
 func (task *Task) PutBarARowList(
@@ -524,13 +496,13 @@ func (task *Task) PutBarARowList(
 	)
 }
 
-// PutCList is wrapping [MSK_putclist]
+// PutCList is wrapping [MSK_putclist],
+// Modifies a part of the linear objective coefficients.
 //
-// [MSK_putclist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subj: const MSKint32t *
-//   - val: const MSKrealt *
+// Arguments:
+//
+//   - `subj` Indices of variables for which objective coefficients should be changed.
+//   - `val` New numerical values for the objective coefficients that should be modified.
 //
 // [MSK_putclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putclist
 func (task *Task) PutCList(
@@ -548,15 +520,15 @@ func (task *Task) PutCList(
 	)
 }
 
-// PutConboundList is wrapping [MSK_putconboundlist]
+// PutConboundList is wrapping [MSK_putconboundlist],
+// Changes the bounds of a list of constraints.
 //
-// [MSK_putconboundlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - bkc: const MSKboundkeye *
-//   - blc: const MSKrealt *
-//   - buc: const MSKrealt *
+// Arguments:
+//
+//   - `sub` List of constraint indexes.
+//   - `bkc` Bound keys for the constraints.
+//   - `blc` Lower bounds for the constraints.
+//   - `buc` Upper bounds for the constraints.
 //
 // [MSK_putconboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundlist
 func (task *Task) PutConboundList(
@@ -578,16 +550,16 @@ func (task *Task) PutConboundList(
 	)
 }
 
-// PutConboundSlice is wrapping [MSK_putconboundslice] and
-// sets a list of constraint bounds.
+// PutConboundSlice is wrapping [MSK_putconboundslice],
+// Changes the bounds for a slice of the constraints.
 //
-// [MSK_putconboundslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkc: const MSKboundkeye *
-//   - blc: const MSKrealt *
-//   - buc: const MSKrealt *
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `bkc` Bound keys for the constraints.
+//   - `blc` Lower bounds for the constraints.
+//   - `buc` Upper bounds for the constraints.
 //
 // [MSK_putconboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundslice
 func (task *Task) PutConboundSlice(
@@ -609,16 +581,16 @@ func (task *Task) PutConboundSlice(
 	)
 }
 
-// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst] and
-// sets a slice of constraint bounds to the same constant value.
+// PutConboundSliceConst is wrapping [MSK_putconboundsliceconst],
+// Changes the bounds for a slice of the constraints.
 //
-// [MSK_putconboundsliceconst] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkc: MSKboundkeye
-//   - blc: MSKrealt
-//   - buc: MSKrealt
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `bkc` New bound key for all constraints in the slice.
+//   - `blc` New lower bound for all constraints in the slice.
+//   - `buc` New upper bound for all constraints in the slice.
 //
 // [MSK_putconboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundsliceconst
 func (task *Task) PutConboundSliceConst(
@@ -640,13 +612,14 @@ func (task *Task) PutConboundSliceConst(
 	)
 }
 
-// PutCSlice is wrapping [MSK_putcslice]
+// PutCSlice is wrapping [MSK_putcslice],
+// Modifies a slice of the linear objective coefficients.
 //
-// [MSK_putcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slice: const MSKrealt *
+// Arguments:
+//
+//   - `first` First element in the slice of c.
+//   - `last` Last element plus 1 of the slice in c to be changed.
+//   - `slice` New numerical values for the objective coefficients that should be modified.
 //
 // [MSK_putcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putcslice
 func (task *Task) PutCSlice(
@@ -664,20 +637,18 @@ func (task *Task) PutCSlice(
 	)
 }
 
-// PutDjcSlice is wrapping [MSK_putdjcslice]
+// PutDjcSlice is wrapping [MSK_putdjcslice],
+// Inputs a slice of disjunctive constraints.
 //
-// [MSK_putdjcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - idxfirst: MSKint64t
-//   - idxlast: MSKint64t
-//   - numdomidx: MSKint64t
-//   - domidxlist: const MSKint64t *
-//   - numafeidx: MSKint64t
-//   - afeidxlist: const MSKint64t *
-//   - b: const MSKrealt *
-//   - numterms: MSKint64t
-//   - termsizelist: const MSKint64t *
-//   - termsindjc: const MSKint64t *
+// Arguments:
+//
+//   - `idxfirst` Index of the first disjunctive constraint in the slice.
+//   - `idxlast` Index of the last disjunctive constraint in the slice plus 1.
+//   - `domidxlist` List of domain indexes.
+//   - `afeidxlist` List of affine expression indexes.
+//   - `b` The vector of constant terms added to affine expressions. Optional, may be NULL.
+//   - `termsizelist` List of term sizes.
+//   - `termsindjc` Number of terms in each of the disjunctive constraints in the slice.
 //
 // [MSK_putdjcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putdjcslice
 func (task *Task) PutDjcSlice(
@@ -709,14 +680,15 @@ func (task *Task) PutDjcSlice(
 	)
 }
 
-// PutSkcSlice is wrapping [MSK_putskcslice]
+// PutSkcSlice is wrapping [MSK_putskcslice],
+// Sets the status keys for a slice of the constraints.
 //
-// [MSK_putskcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - skc: const MSKstakeye *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `skc` Status keys for the constraints.
 //
 // [MSK_putskcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putskcslice
 func (task *Task) PutSkcSlice(
@@ -736,14 +708,15 @@ func (task *Task) PutSkcSlice(
 	)
 }
 
-// PutSkxSlice is wrapping [MSK_putskxslice]
+// PutSkxSlice is wrapping [MSK_putskxslice],
+// Sets the status keys for a slice of the variables.
 //
-// [MSK_putskxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - skx: const MSKstakeye *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `skx` Status keys for the variables.
 //
 // [MSK_putskxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putskxslice
 func (task *Task) PutSkxSlice(
@@ -763,14 +736,15 @@ func (task *Task) PutSkxSlice(
 	)
 }
 
-// PutSlcSlice is wrapping [MSK_putslcslice]
+// PutSlcSlice is wrapping [MSK_putslcslice],
+// Sets a slice of the slc vector for a solution.
 //
-// [MSK_putslcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slc: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `slc` Dual variables corresponding to the lower bounds on the constraints.
 //
 // [MSK_putslcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putslcslice
 func (task *Task) PutSlcSlice(
@@ -790,14 +764,15 @@ func (task *Task) PutSlcSlice(
 	)
 }
 
-// PutSlxSlice is wrapping [MSK_putslxslice]
+// PutSlxSlice is wrapping [MSK_putslxslice],
+// Sets a slice of the slx vector for a solution.
 //
-// [MSK_putslxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slx: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `slx` Dual variables corresponding to the lower bounds on the variables.
 //
 // [MSK_putslxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putslxslice
 func (task *Task) PutSlxSlice(
@@ -817,14 +792,15 @@ func (task *Task) PutSlxSlice(
 	)
 }
 
-// PutSnxSlice is wrapping [MSK_putsnxslice]
+// PutSnxSlice is wrapping [MSK_putsnxslice],
+// Sets a slice of the snx vector for a solution.
 //
-// [MSK_putsnxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - snx: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `snx` Dual variables corresponding to the conic constraints on the variables.
 //
 // [MSK_putsnxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsnxslice
 func (task *Task) PutSnxSlice(
@@ -844,14 +820,15 @@ func (task *Task) PutSnxSlice(
 	)
 }
 
-// PutSucSlice is wrapping [MSK_putsucslice]
+// PutSucSlice is wrapping [MSK_putsucslice],
+// Sets a slice of the suc vector for a solution.
 //
-// [MSK_putsucslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - suc: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `suc` Dual variables corresponding to the upper bounds on the constraints.
 //
 // [MSK_putsucslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsucslice
 func (task *Task) PutSucSlice(
@@ -871,14 +848,15 @@ func (task *Task) PutSucSlice(
 	)
 }
 
-// PutSuxSlice is wrapping [MSK_putsuxslice]
+// PutSuxSlice is wrapping [MSK_putsuxslice],
+// Sets a slice of the sux vector for a solution.
 //
-// [MSK_putsuxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - sux: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `sux` Dual variables corresponding to the upper bounds on the variables.
 //
 // [MSK_putsuxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsuxslice
 func (task *Task) PutSuxSlice(
@@ -898,15 +876,15 @@ func (task *Task) PutSuxSlice(
 	)
 }
 
-// PutVarboundList is wrapping [MSK_putvarboundlist]
+// PutVarboundList is wrapping [MSK_putvarboundlist],
+// Changes the bounds of a list of variables.
 //
-// [MSK_putvarboundlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - sub: const MSKint32t *
-//   - bkx: const MSKboundkeye *
-//   - blx: const MSKrealt *
-//   - bux: const MSKrealt *
+// Arguments:
+//
+//   - `sub` List of variable indexes.
+//   - `bkx` Bound keys for the variables.
+//   - `blx` Lower bounds for the variables.
+//   - `bux` Upper bounds for the variables.
 //
 // [MSK_putvarboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundlist
 func (task *Task) PutVarboundList(
@@ -928,16 +906,16 @@ func (task *Task) PutVarboundList(
 	)
 }
 
-// PutVarboundSlice is wrapping [MSK_putvarboundslice] and
-// sets the bound for a slice of variables using 3 vectors.
+// PutVarboundSlice is wrapping [MSK_putvarboundslice],
+// Changes the bounds for a slice of the variables.
 //
-// [MSK_putvarboundslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkx: const MSKboundkeye *
-//   - blx: const MSKrealt *
-//   - bux: const MSKrealt *
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `bkx` Bound keys for the variables.
+//   - `blx` Lower bounds for the variables.
+//   - `bux` Upper bounds for the variables.
 //
 // [MSK_putvarboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundslice
 func (task *Task) PutVarboundSlice(
@@ -959,16 +937,16 @@ func (task *Task) PutVarboundSlice(
 	)
 }
 
-// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst] and
-// set the bound for a slice of variables to the same value.
+// PutVarboundSliceConst is wrapping [MSK_putvarboundsliceconst],
+// Changes the bounds for a slice of the variables.
 //
-// [MSK_putvarboundsliceconst] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bkx: MSKboundkeye
-//   - blx: MSKrealt
-//   - bux: MSKrealt
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `bkx` New bound key for all variables in the slice.
+//   - `blx` New lower bound for all variables in the slice.
+//   - `bux` New upper bound for all variables in the slice.
 //
 // [MSK_putvarboundsliceconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundsliceconst
 func (task *Task) PutVarboundSliceConst(
@@ -990,14 +968,13 @@ func (task *Task) PutVarboundSliceConst(
 	)
 }
 
-// PutVarTypeList is wrapping [MSK_putvartypelist] and
-// sets the type of a list of variables.
+// PutVarTypeList is wrapping [MSK_putvartypelist],
+// Sets the variable type for one or more variables.
 //
-// [MSK_putvartypelist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subj: const MSKint32t *
-//   - vartype: const MSKvariabletypee *
+// Arguments:
+//
+//   - `subj` A list of variable indexes for which the variable type should be changed.
+//   - `vartype` A list of variable types.
 //
 // [MSK_putvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvartypelist
 func (task *Task) PutVarTypeList(
@@ -1015,14 +992,15 @@ func (task *Task) PutVarTypeList(
 	)
 }
 
-// PutXcSlice is wrapping [MSK_putxcslice]
+// PutXcSlice is wrapping [MSK_putxcslice],
+// Sets a slice of the xc vector for a solution.
 //
-// [MSK_putxcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - xc: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `xc` Primal constraint solution.
 //
 // [MSK_putxcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putxcslice
 func (task *Task) PutXcSlice(
@@ -1042,15 +1020,15 @@ func (task *Task) PutXcSlice(
 	)
 }
 
-// PutXxSlice is wrapping [MSK_putxxslice] and
-// sets the initial solution for a slice.
+// PutXxSlice is wrapping [MSK_putxxslice],
+// Sets a slice of the xx vector for a solution.
 //
-// [MSK_putxxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - xx: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `xx` Primal variable solution.
 //
 // [MSK_putxxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putxxslice
 func (task *Task) PutXxSlice(
@@ -1070,14 +1048,15 @@ func (task *Task) PutXxSlice(
 	)
 }
 
-// PutYSlice is wrapping [MSK_putyslice]
+// PutYSlice is wrapping [MSK_putyslice],
+// Sets a slice of the y vector for a solution.
 //
-// [MSK_putyslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - y: const MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `y` Vector of dual variables corresponding to the constraints.
 //
 // [MSK_putyslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putyslice
 func (task *Task) PutYSlice(

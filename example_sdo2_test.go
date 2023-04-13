@@ -22,7 +22,7 @@ import (
 func Example_semidefiniteOptimization_sdo2() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -86,16 +86,16 @@ func Example_semidefiniteOptimization_sdo2() {
 	checkOk(task.AppendBarvars(numbarvar, &dimbarvar[0]))
 
 	/* Set objective (6 nonzeros).*/
-	checkOk(task.PutBarCBlockTriplet(6, &Cj[0], &Ck[0], &Cl[0], &Cv[0]))
+	checkOk(task.PutBarcBlockTriplet(6, &Cj[0], &Ck[0], &Cl[0], &Cv[0]))
 
 	/* Set the equality constraint (6 nonzeros).*/
-	checkOk(task.PutBarABlockTriplet(6, &Ai[0], &Aj[0], &Ak[0], &Al[0], &Av[0]))
+	checkOk(task.PutBaraBlockTriplet(6, &Ai[0], &Aj[0], &Ak[0], &Al[0], &Av[0]))
 
 	/* Set the inequality constraint (1 nonzero).*/
-	checkOk(task.PutBarABlockTriplet(1, &A2i, &A2j, &A2k, &A2l, &A2v))
+	checkOk(task.PutBaraBlockTriplet(1, &A2i, &A2j, &A2k, &A2l, &A2v))
 
 	/* Set constraint bounds */
-	checkOk(task.PutConboundSlice(0, 2, &bkc[0], &blc[0], &buc[0]))
+	checkOk(task.PutConBoundSlice(0, 2, &bkc[0], &blc[0], &buc[0]))
 
 	/* Run optimizer */
 	r, trmcode := task.OptimizeTrm()

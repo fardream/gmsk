@@ -12,7 +12,7 @@ import (
 func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 	checkOk := func(r gmsk.ResCode) {
 		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 			log.Panicf("failed: %s %s", sym, desc)
 		}
 	}
@@ -73,7 +73,7 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 		&blx[0],
 		&bux[0]))
 
-	checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	for j = 0; j < numintvar && r.IsOk(); j++ {
 		r = task.PutVarType(intsub[j], gmsk.VAR_TYPE_INT)

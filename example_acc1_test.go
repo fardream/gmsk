@@ -40,7 +40,7 @@ func Example_affineConicConstraints_acc1() {
 
 	checkOk := func(r gmsk.ResCode) {
 		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodeDesc(r)
+			_, sym, desc := gmsk.GetCodedesc(r)
 
 			log.Fatalf("failed: %s %s", sym, desc)
 		}
@@ -50,18 +50,18 @@ func Example_affineConicConstraints_acc1() {
 
 	/* Create n free variables */
 	checkOk(task.AppendVars(n))
-	checkOk(task.PutVarboundSliceConst(0, n, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
+	checkOk(task.PutVarBoundSliceConst(0, n, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	/* Set up the objective */
 	{
 		c := []float64{2.0, 3.0, -1.0}
 		checkOk(task.PutCSlice(0, n, &c[0]))
-		checkOk(task.PutObjsense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
+		checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 	}
 
 	/* One linear constraint sum(x) == 1 */
 	checkOk(task.AppendCons(1))
-	checkOk(task.PutConbound(0, gmsk.BK_FX, 1, 1))
+	checkOk(task.PutConBound(0, gmsk.BK_FX, 1, 1))
 	for i := int32(0); i < n; i++ {
 		checkOk(task.PutAij(0, i, 1))
 	}

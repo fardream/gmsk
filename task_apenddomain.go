@@ -11,12 +11,12 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// AppendDualExpConeDomain is wrapping [MSK_appenddualexpconedomain] and
-// add a dual exponential cone to the task.
+// AppendDualExpConeDomain is wrapping [MSK_appenddualexpconedomain],
+// Appends the dual exponential cone domain.
 //
-// [MSK_appenddualexpconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t *
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appenddualexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddualexpconedomain
 func (task *Task) AppendDualExpConeDomain() (r res.Code, domidx int64) {
@@ -30,16 +30,19 @@ func (task *Task) AppendDualExpConeDomain() (r res.Code, domidx int64) {
 	return
 }
 
-// AppendDualGeoMeanConeDomain is wrapping [MSK_appenddualgeomeanconedomain] and
-// adds a dual geometric mean cone domain to the task.
+// AppendDualGeomeanConeDomain is wrapping [MSK_appenddualgeomeanconedomain],
+// Appends the dual geometric mean cone domain.
 //
-// [MSK_appenddualgeomeanconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appenddualgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddualgeomeanconedomain
-func (task *Task) AppendDualGeoMeanConeDomain(
+func (task *Task) AppendDualGeomeanConeDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(
@@ -53,15 +56,17 @@ func (task *Task) AppendDualGeoMeanConeDomain(
 	return
 }
 
-// AppendDualPowerConeDomain is wrapping [MSK_appenddualpowerconedomain] and
-// add a dual power cone to the task.
+// AppendDualPowerConeDomain is wrapping [MSK_appenddualpowerconedomain],
+// Appends the dual power cone domain.
 //
-// [MSK_appenddualpowerconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - nleft: MSKint64t
-//   - alpha: const MSKrealt *
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimension of the domain.
+//   - `alpha` The sequence proportional to exponents. Must be positive.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appenddualpowerconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddualpowerconedomain
 func (task *Task) AppendDualPowerConeDomain(
@@ -82,12 +87,12 @@ func (task *Task) AppendDualPowerConeDomain(
 	return
 }
 
-// AppendPrimalExpConeDomain is wrapping [MSK_appendprimalexpconedomain] and
-// add a primal exponential cone to the task.
+// AppendPrimalExpConeDomain is wrapping [MSK_appendprimalexpconedomain],
+// Appends the primal exponential cone domain.
 //
-// [MSK_appendprimalexpconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - domidx: MSKint64t *
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendprimalexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendprimalexpconedomain
 func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
@@ -101,16 +106,19 @@ func (task *Task) AppendPrimalExpConeDomain() (r res.Code, domidx int64) {
 	return
 }
 
-// AppendPrimalGeoMeanConeDomain is wrapping [MSK_appendprimalgeomeanconedomain] and
-// adds a primal geometric mean cone domain to the task.
+// AppendPrimalGeomeanConeDomain is wrapping [MSK_appendprimalgeomeanconedomain],
+// Appends the primal geometric mean cone domain.
 //
-// [MSK_appendprimalgeomeanconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendprimalgeomeanconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendprimalgeomeanconedomain
-func (task *Task) AppendPrimalGeoMeanConeDomain(
+func (task *Task) AppendPrimalGeomeanConeDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(
@@ -124,15 +132,17 @@ func (task *Task) AppendPrimalGeoMeanConeDomain(
 	return
 }
 
-// AppendPrimalPowerConeDomain is wrapping [MSK_appendprimalpowerconedomain] and
-// add a primal power cone to the task.
+// AppendPrimalPowerConeDomain is wrapping [MSK_appendprimalpowerconedomain],
+// Appends the primal power cone domain.
 //
-// [MSK_appendprimalpowerconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - nleft: MSKint64t
-//   - alpha: const MSKrealt *
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimension of the domain.
+//   - `alpha` The sequence proportional to exponents. Must be positive.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendprimalpowerconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendprimalpowerconedomain
 func (task *Task) AppendPrimalPowerConeDomain(
@@ -153,13 +163,16 @@ func (task *Task) AppendPrimalPowerConeDomain(
 	return
 }
 
-// AppendQuadraticConeDomain is wrapping [MSK_appendquadraticconedomain] and
-// adds a new quadratic cone of size n to the task. returns the index of the domain if successful.
+// AppendQuadraticConeDomain is wrapping [MSK_appendquadraticconedomain],
+// Appends the n dimensional quadratic cone domain.
 //
-// [MSK_appendquadraticconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendquadraticconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendquadraticconedomain
 func (task *Task) AppendQuadraticConeDomain(
@@ -176,13 +189,16 @@ func (task *Task) AppendQuadraticConeDomain(
 	return
 }
 
-// AppendRDomain is wrapping [MSK_appendrdomain] and
-// adds the whole n dimension R space domain to the task.
+// AppendRDomain is wrapping [MSK_appendrdomain],
+// Appends the n dimensional real number domain.
 //
-// [MSK_appendrdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendrdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrdomain
 func (task *Task) AppendRDomain(
@@ -199,13 +215,16 @@ func (task *Task) AppendRDomain(
 	return
 }
 
-// AppendRMinusDomain is wrapping [MSK_appendrminusdomain] and
-// add a domain of x<0
+// AppendRMinusDomain is wrapping [MSK_appendrminusdomain],
+// Appends the n dimensional negative orthant to the list of domains.
 //
-// [MSK_appendrminusdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendrminusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrminusdomain
 func (task *Task) AppendRMinusDomain(
@@ -222,13 +241,16 @@ func (task *Task) AppendRMinusDomain(
 	return
 }
 
-// AppendRPlusDomain is wrapping [MSK_appendrplusdomain] and
-// add a domain of x>=0
+// AppendRPlusDomain is wrapping [MSK_appendrplusdomain],
+// Appends the n dimensional positive orthant to the list of domains.
 //
-// [MSK_appendrplusdomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendrplusdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrplusdomain
 func (task *Task) AppendRPlusDomain(
@@ -245,14 +267,16 @@ func (task *Task) AppendRPlusDomain(
 	return
 }
 
-// AppendRQuadraticConeDomain is wrapping [MSK_appendrquadraticconedomain] and
-// adds a new *rotated* quadratic cone of size n to the task. returns the index of the domain if successful.
-// note the function is similarly spelled to the *unrotated* quadratic cone [Task.AppendQuadraticConeDomain]
+// AppendRQuadraticConeDomain is wrapping [MSK_appendrquadraticconedomain],
+// Appends the n dimensional rotated quadratic cone domain.
 //
-// [MSK_appendrquadraticconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendrquadraticconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrquadraticconedomain
 func (task *Task) AppendRQuadraticConeDomain(
@@ -269,13 +293,16 @@ func (task *Task) AppendRQuadraticConeDomain(
 	return
 }
 
-// AppendRZeroDomain is wrapping [MSK_appendrzerodomain] and
-// add a domain of x=0
+// AppendRZeroDomain is wrapping [MSK_appendrzerodomain],
+// Appends the n dimensional 0 domain.
 //
-// [MSK_appendrzerodomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimmension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendrzerodomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendrzerodomain
 func (task *Task) AppendRZeroDomain(
@@ -292,16 +319,19 @@ func (task *Task) AppendRZeroDomain(
 	return
 }
 
-// AppendSvecPsdConeDomain is wrapping [MSK_appendsvecpsdconedomain] and
-// adds a SVEC_PSD domain, or vectorized postive semidefinite matrix. n must be k(k+1)/2.
+// AppendSvecpsdConeDomain is wrapping [MSK_appendsvecpsdconedomain],
+// Appends the vectorized SVEC PSD cone domain.
 //
-// [MSK_appendsvecpsdconedomain] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - n: MSKint64t
-//   - domidx: MSKint64t *
+// Arguments:
+//
+//   - `n` Dimension of the domain.
+//
+// Returns:
+//
+//   - `domidx` Index of the domain.
 //
 // [MSK_appendsvecpsdconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendsvecpsdconedomain
-func (task *Task) AppendSvecPsdConeDomain(
+func (task *Task) AppendSvecpsdConeDomain(
 	n int64,
 ) (r res.Code, domidx int64) {
 	r = res.Code(

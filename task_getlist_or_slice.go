@@ -11,12 +11,13 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAccafeidxList is wrapping [MSK_getaccafeidxlist]
+// GetAccafeidxList is wrapping [MSK_getaccafeidxlist],
+// Obtains the list of affine expressions appearing in the affine conic constraint.
 //
-// [MSK_getaccafeidxlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - accidx: MSKint64t
-//   - afeidxlist: MSKint64t *
+// Arguments:
+//
+//   - `accidx` Index of the affine conic constraint.
+//   - `afeidxlist` List of indexes of affine expressions appearing in the constraint.
 //
 // [MSK_getaccafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccafeidxlist
 func (task *Task) GetAccafeidxList(
@@ -32,17 +33,17 @@ func (task *Task) GetAccafeidxList(
 	)
 }
 
-// GetAColSlice is wrapping [MSK_getacolslice]
+// GetAColSlice is wrapping [MSK_getacolslice],
+// Obtains a sequence of columns from the coefficient matrix.
 //
-// [MSK_getacolslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - maxnumnz: MSKint32t
-//   - ptrb: MSKint32t *
-//   - ptre: MSKint32t *
-//   - sub: MSKint32t *
-//   - val: MSKrealt *
+// Arguments:
+//
+//   - `first` Index of the first column in the sequence.
+//   - `last` Index of the last column in the sequence plus one.
+//   - `ptrb` Column start pointers.
+//   - `ptre` Column end pointers.
+//   - `sub` Contains the row subscripts.
+//   - `val` Contains the coefficient values.
 //
 // [MSK_getacolslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolslice
 func (task *Task) GetAColSlice(
@@ -68,13 +69,14 @@ func (task *Task) GetAColSlice(
 	)
 }
 
-// GetAfeGSlice is wrapping [MSK_getafegslice]
+// GetAfeGSlice is wrapping [MSK_getafegslice],
+// Obtains a sequence of coefficients from the vector g.
 //
-// [MSK_getafegslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint64t
-//   - last: MSKint64t
-//   - g: MSKrealt *
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `g` The slice of g as a dense vector.
 //
 // [MSK_getafegslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafegslice
 func (task *Task) GetAfeGSlice(
@@ -92,17 +94,17 @@ func (task *Task) GetAfeGSlice(
 	)
 }
 
-// GetARowSlice is wrapping [MSK_getarowslice]
+// GetARowSlice is wrapping [MSK_getarowslice],
+// Obtains a sequence of rows from the coefficient matrix.
 //
-// [MSK_getarowslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - maxnumnz: MSKint32t
-//   - ptrb: MSKint32t *
-//   - ptre: MSKint32t *
-//   - sub: MSKint32t *
-//   - val: MSKrealt *
+// Arguments:
+//
+//   - `first` Index of the first row in the sequence.
+//   - `last` Index of the last row in the sequence plus one.
+//   - `ptrb` Row start pointers.
+//   - `ptre` Row end pointers.
+//   - `sub` Contains the column subscripts.
+//   - `val` Contains the coefficient values.
 //
 // [MSK_getarowslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarowslice
 func (task *Task) GetARowSlice(
@@ -128,15 +130,16 @@ func (task *Task) GetARowSlice(
 	)
 }
 
-// GetBarsSlice is wrapping [MSK_getbarsslice]
+// GetBarsSlice is wrapping [MSK_getbarsslice],
+// Obtains the dual solution for a sequence of semidefinite variables.
 //
-// [MSK_getbarsslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slicesize: MSKint64t
-//   - barsslice: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` Index of the first semidefinite variable in the slice.
+//   - `last` Index of the last semidefinite variable in the slice plus one.
+//   - `slicesize` Denotes the length of the array barsslice.
+//   - `barsslice` Dual solution values of symmetric matrix variables in the slice, stored sequentially.
 //
 // [MSK_getbarsslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarsslice
 func (task *Task) GetBarsSlice(
@@ -158,15 +161,16 @@ func (task *Task) GetBarsSlice(
 	)
 }
 
-// GetBarxSlice is wrapping [MSK_getbarxslice]
+// GetBarxSlice is wrapping [MSK_getbarxslice],
+// Obtains the primal solution for a sequence of semidefinite variables.
 //
-// [MSK_getbarxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slicesize: MSKint64t
-//   - barxslice: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` Index of the first semidefinite variable in the slice.
+//   - `last` Index of the last semidefinite variable in the slice plus one.
+//   - `slicesize` Denotes the length of the array barxslice.
+//   - `barxslice` Solution values of symmetric matrix variables in the slice, stored sequentially.
 //
 // [MSK_getbarxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarxslice
 func (task *Task) GetBarxSlice(
@@ -188,13 +192,13 @@ func (task *Task) GetBarxSlice(
 	)
 }
 
-// GetCList is wrapping [MSK_getclist]
+// GetCList is wrapping [MSK_getclist],
+// Obtains a sequence of coefficients from the objective.
 //
-// [MSK_getclist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subj: const MSKint32t *
-//   - c: MSKrealt *
+// Arguments:
+//
+//   - `subj` A list of variable indexes.
+//   - `c` Linear terms of the requested list of the objective as a dense vector.
 //
 // [MSK_getclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getclist
 func (task *Task) GetCList(
@@ -212,15 +216,16 @@ func (task *Task) GetCList(
 	)
 }
 
-// GetConboundSlice is wrapping [MSK_getconboundslice]
+// GetConboundSlice is wrapping [MSK_getconboundslice],
+// Obtains bounds information for a slice of the constraints.
 //
-// [MSK_getconboundslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bk: MSKboundkeye *
-//   - bl: MSKrealt *
-//   - bu: MSKrealt *
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `bk` Bound keys.
+//   - `bl` Values for lower bounds.
+//   - `bu` Values for upper bounds.
 //
 // [MSK_getconboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconboundslice
 func (task *Task) GetConboundSlice(
@@ -242,13 +247,14 @@ func (task *Task) GetConboundSlice(
 	)
 }
 
-// GetCSlice is wrapping [MSK_getcslice]
+// GetCSlice is wrapping [MSK_getcslice],
+// Obtains a sequence of coefficients from the objective.
 //
-// [MSK_getcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - c: MSKrealt *
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `c` Linear terms of the requested slice of the objective as a dense vector.
 //
 // [MSK_getcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcslice
 func (task *Task) GetCSlice(
@@ -266,12 +272,13 @@ func (task *Task) GetCSlice(
 	)
 }
 
-// GetDjcafeidxList is wrapping [MSK_getdjcafeidxlist]
+// GetDjcafeidxList is wrapping [MSK_getdjcafeidxlist],
+// Obtains the list of affine expression indexes in a disjunctive constraint.
 //
-// [MSK_getdjcafeidxlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - afeidxlist: MSKint64t *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//   - `afeidxlist` List of affine expression indexes.
 //
 // [MSK_getdjcafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcafeidxlist
 func (task *Task) GetDjcafeidxList(
@@ -287,12 +294,13 @@ func (task *Task) GetDjcafeidxList(
 	)
 }
 
-// GetDjcdomainidxList is wrapping [MSK_getdjcdomainidxlist]
+// GetDjcdomainidxList is wrapping [MSK_getdjcdomainidxlist],
+// Obtains the list of domain indexes in a disjunctive constraint.
 //
-// [MSK_getdjcdomainidxlist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - domidxlist: MSKint64t *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//   - `domidxlist` List of term sizes.
 //
 // [MSK_getdjcdomainidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcdomainidxlist
 func (task *Task) GetDjcdomainidxList(
@@ -308,12 +316,13 @@ func (task *Task) GetDjcdomainidxList(
 	)
 }
 
-// GetDjctermsizeList is wrapping [MSK_getdjctermsizelist]
+// GetDjctermsizeList is wrapping [MSK_getdjctermsizelist],
+// Obtains the list of term sizes in a disjunctive constraint.
 //
-// [MSK_getdjctermsizelist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - djcidx: MSKint64t
-//   - termsizelist: MSKint64t *
+// Arguments:
+//
+//   - `djcidx` Index of the disjunctive constraint.
+//   - `termsizelist` List of term sizes.
 //
 // [MSK_getdjctermsizelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjctermsizelist
 func (task *Task) GetDjctermsizeList(
@@ -329,14 +338,15 @@ func (task *Task) GetDjctermsizeList(
 	)
 }
 
-// GetSkcSlice is wrapping [MSK_getskcslice]
+// GetSkcSlice is wrapping [MSK_getskcslice],
+// Obtains the status keys for a slice of the constraints.
 //
-// [MSK_getskcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - skc: MSKstakeye *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `skc` Status keys for the constraints.
 //
 // [MSK_getskcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskcslice
 func (task *Task) GetSkcSlice(
@@ -356,14 +366,15 @@ func (task *Task) GetSkcSlice(
 	)
 }
 
-// GetSkxSlice is wrapping [MSK_getskxslice]
+// GetSkxSlice is wrapping [MSK_getskxslice],
+// Obtains the status keys for a slice of the scalar variables.
 //
-// [MSK_getskxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - skx: MSKstakeye *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `skx` Status keys for the variables.
 //
 // [MSK_getskxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskxslice
 func (task *Task) GetSkxSlice(
@@ -383,14 +394,15 @@ func (task *Task) GetSkxSlice(
 	)
 }
 
-// GetSlcSlice is wrapping [MSK_getslcslice]
+// GetSlcSlice is wrapping [MSK_getslcslice],
+// Obtains a slice of the slc vector for a solution.
 //
-// [MSK_getslcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slc: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `slc` Dual variables corresponding to the lower bounds on the constraints.
 //
 // [MSK_getslcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getslcslice
 func (task *Task) GetSlcSlice(
@@ -410,14 +422,15 @@ func (task *Task) GetSlcSlice(
 	)
 }
 
-// GetSlxSlice is wrapping [MSK_getslxslice]
+// GetSlxSlice is wrapping [MSK_getslxslice],
+// Obtains a slice of the slx vector for a solution.
 //
-// [MSK_getslxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - slx: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `slx` Dual variables corresponding to the lower bounds on the variables.
 //
 // [MSK_getslxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getslxslice
 func (task *Task) GetSlxSlice(
@@ -437,14 +450,15 @@ func (task *Task) GetSlxSlice(
 	)
 }
 
-// GetSnxSlice is wrapping [MSK_getsnxslice]
+// GetSnxSlice is wrapping [MSK_getsnxslice],
+// Obtains a slice of the snx vector for a solution.
 //
-// [MSK_getsnxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - snx: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `snx` Dual variables corresponding to the conic constraints on the variables.
 //
 // [MSK_getsnxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsnxslice
 func (task *Task) GetSnxSlice(
@@ -464,15 +478,16 @@ func (task *Task) GetSnxSlice(
 	)
 }
 
-// GetSolutionSlice is wrapping [MSK_getsolutionslice]
+// GetSolutionSlice is wrapping [MSK_getsolutionslice],
+// Obtains a slice of the solution.
 //
-// [MSK_getsolutionslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - solitem: MSKsoliteme
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - values: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `solitem` Which part of the solution is required.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `values` The values of the requested solution elements.
 //
 // [MSK_getsolutionslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutionslice
 func (task *Task) GetSolutionSlice(
@@ -494,14 +509,15 @@ func (task *Task) GetSolutionSlice(
 	)
 }
 
-// GetSucSlice is wrapping [MSK_getsucslice]
+// GetSucSlice is wrapping [MSK_getsucslice],
+// Obtains a slice of the suc vector for a solution.
 //
-// [MSK_getsucslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - suc: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `suc` Dual variables corresponding to the upper bounds on the constraints.
 //
 // [MSK_getsucslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsucslice
 func (task *Task) GetSucSlice(
@@ -521,14 +537,15 @@ func (task *Task) GetSucSlice(
 	)
 }
 
-// GetSuxSlice is wrapping [MSK_getsuxslice]
+// GetSuxSlice is wrapping [MSK_getsuxslice],
+// Obtains a slice of the sux vector for a solution.
 //
-// [MSK_getsuxslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - sux: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `sux` Dual variables corresponding to the upper bounds on the variables.
 //
 // [MSK_getsuxslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsuxslice
 func (task *Task) GetSuxSlice(
@@ -548,15 +565,16 @@ func (task *Task) GetSuxSlice(
 	)
 }
 
-// GetVarboundSlice is wrapping [MSK_getvarboundslice]
+// GetVarboundSlice is wrapping [MSK_getvarboundslice],
+// Obtains bounds information for a slice of the variables.
 //
-// [MSK_getvarboundslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - bk: MSKboundkeye *
-//   - bl: MSKrealt *
-//   - bu: MSKrealt *
+// Arguments:
+//
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `bk` Bound keys.
+//   - `bl` Values for lower bounds.
+//   - `bu` Values for upper bounds.
 //
 // [MSK_getvarboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarboundslice
 func (task *Task) GetVarboundSlice(
@@ -578,13 +596,13 @@ func (task *Task) GetVarboundSlice(
 	)
 }
 
-// GetVarTypeList is wrapping [MSK_getvartypelist]
+// GetVarTypeList is wrapping [MSK_getvartypelist],
+// Obtains the variable type for one or more variables.
 //
-// [MSK_getvartypelist] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - num: MSKint32t
-//   - subj: const MSKint32t *
-//   - vartype: MSKvariabletypee *
+// Arguments:
+//
+//   - `subj` A list of variable indexes.
+//   - `vartype` Returns the variables types corresponding the variable indexes requested.
 //
 // [MSK_getvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvartypelist
 func (task *Task) GetVarTypeList(
@@ -602,14 +620,15 @@ func (task *Task) GetVarTypeList(
 	)
 }
 
-// GetXcSlice is wrapping [MSK_getxcslice]
+// GetXcSlice is wrapping [MSK_getxcslice],
+// Obtains a slice of the xc vector for a solution.
 //
-// [MSK_getxcslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - xc: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `xc` Primal constraint solution.
 //
 // [MSK_getxcslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getxcslice
 func (task *Task) GetXcSlice(
@@ -629,14 +648,15 @@ func (task *Task) GetXcSlice(
 	)
 }
 
-// GetYSlice is wrapping [MSK_getyslice]
+// GetYSlice is wrapping [MSK_getyslice],
+// Obtains a slice of the y vector for a solution.
 //
-// [MSK_getyslice] returns MSKrescodee and has following parameters
-//   - task: MSKtask_t
-//   - whichsol: MSKsoltypee
-//   - first: MSKint32t
-//   - last: MSKint32t
-//   - y: MSKrealt *
+// Arguments:
+//
+//   - `whichsol` Selects a solution.
+//   - `first` First index in the sequence.
+//   - `last` Last index plus 1 in the sequence.
+//   - `y` Vector of dual variables corresponding to the constraints.
 //
 // [MSK_getyslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getyslice
 func (task *Task) GetYSlice(
