@@ -49,7 +49,7 @@ func (task *Task) GetNumAfe() (r res.Code, numafe int64) {
 	return
 }
 
-// GetNumAnz is wrapping [MSK_getnumanz],
+// GetNumANz is wrapping [MSK_getnumanz],
 // Obtains the number of non-zeros in the coefficient matrix.
 //
 // Returns:
@@ -57,7 +57,7 @@ func (task *Task) GetNumAfe() (r res.Code, numafe int64) {
 //   - `numanz` Number of non-zero elements in the linear constraint matrix.
 //
 // [MSK_getnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz
-func (task *Task) GetNumAnz() (r res.Code, numanz int32) {
+func (task *Task) GetNumANz() (r res.Code, numanz int32) {
 	r = res.Code(
 		C.MSK_getnumanz(
 			task.task,
@@ -68,7 +68,7 @@ func (task *Task) GetNumAnz() (r res.Code, numanz int32) {
 	return
 }
 
-// GetNumAnz64 is wrapping [MSK_getnumanz64],
+// GetNumANz64 is wrapping [MSK_getnumanz64],
 // Obtains the number of non-zeros in the coefficient matrix.
 //
 // Returns:
@@ -76,7 +76,7 @@ func (task *Task) GetNumAnz() (r res.Code, numanz int32) {
 //   - `numanz` Number of non-zero elements in the linear constraint matrix.
 //
 // [MSK_getnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz64
-func (task *Task) GetNumAnz64() (r res.Code, numanz int64) {
+func (task *Task) GetNumANz64() (r res.Code, numanz int64) {
 	r = res.Code(
 		C.MSK_getnumanz64(
 			task.task,
@@ -87,7 +87,7 @@ func (task *Task) GetNumAnz64() (r res.Code, numanz int64) {
 	return
 }
 
-// GetNumBarABlockTriplets is wrapping [MSK_getnumbarablocktriplets],
+// GetNumBaraBlockTriplets is wrapping [MSK_getnumbarablocktriplets],
 // Obtains an upper bound on the number of scalar elements in the block triplet form of bara.
 //
 // Returns:
@@ -95,7 +95,7 @@ func (task *Task) GetNumAnz64() (r res.Code, numanz int64) {
 //   - `num` An upper bound on the number of elements in the block triplet form of bara.
 //
 // [MSK_getnumbarablocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarablocktriplets
-func (task *Task) GetNumBarABlockTriplets() (r res.Code, num int64) {
+func (task *Task) GetNumBaraBlockTriplets() (r res.Code, num int64) {
 	r = res.Code(
 		C.MSK_getnumbarablocktriplets(
 			task.task,
@@ -106,7 +106,7 @@ func (task *Task) GetNumBarABlockTriplets() (r res.Code, num int64) {
 	return
 }
 
-// GetNumBarANz is wrapping [MSK_getnumbaranz],
+// GetNumBaraNz is wrapping [MSK_getnumbaranz],
 // Get the number of nonzero elements in barA.
 //
 // Returns:
@@ -114,7 +114,7 @@ func (task *Task) GetNumBarABlockTriplets() (r res.Code, num int64) {
 //   - `nz` The number of nonzero block elements in barA.
 //
 // [MSK_getnumbaranz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbaranz
-func (task *Task) GetNumBarANz() (r res.Code, nz int64) {
+func (task *Task) GetNumBaraNz() (r res.Code, nz int64) {
 	r = res.Code(
 		C.MSK_getnumbaranz(
 			task.task,
@@ -125,7 +125,7 @@ func (task *Task) GetNumBarANz() (r res.Code, nz int64) {
 	return
 }
 
-// GetNumBarCBlockTriplets is wrapping [MSK_getnumbarcblocktriplets],
+// GetNumBarcBlockTriplets is wrapping [MSK_getnumbarcblocktriplets],
 // Obtains an upper bound on the number of elements in the block triplet form of barc.
 //
 // Returns:
@@ -133,7 +133,7 @@ func (task *Task) GetNumBarANz() (r res.Code, nz int64) {
 //   - `num` An upper bound on the number of elements in the block triplet form of barc.
 //
 // [MSK_getnumbarcblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarcblocktriplets
-func (task *Task) GetNumBarCBlockTriplets() (r res.Code, num int64) {
+func (task *Task) GetNumBarcBlockTriplets() (r res.Code, num int64) {
 	r = res.Code(
 		C.MSK_getnumbarcblocktriplets(
 			task.task,
@@ -144,7 +144,7 @@ func (task *Task) GetNumBarCBlockTriplets() (r res.Code, num int64) {
 	return
 }
 
-// GetNumBarCNz is wrapping [MSK_getnumbarcnz],
+// GetNumBarcNz is wrapping [MSK_getnumbarcnz],
 // Obtains the number of nonzero elements in barc.
 //
 // Returns:
@@ -152,7 +152,7 @@ func (task *Task) GetNumBarCBlockTriplets() (r res.Code, num int64) {
 //   - `nz` The number of nonzero elements in barc.
 //
 // [MSK_getnumbarcnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarcnz
-func (task *Task) GetNumBarCNz() (r res.Code, nz int64) {
+func (task *Task) GetNumBarcNz() (r res.Code, nz int64) {
 	r = res.Code(
 		C.MSK_getnumbarcnz(
 			task.task,
@@ -222,7 +222,7 @@ func (task *Task) GetNumCone() (r res.Code, numcone int32) {
 	return
 }
 
-// GetNumConemem is wrapping [MSK_getnumconemem],
+// GetNumConeMem is wrapping [MSK_getnumconemem],
 // Obtains the number of members in a cone.
 //
 // Arguments:
@@ -230,10 +230,10 @@ func (task *Task) GetNumCone() (r res.Code, numcone int32) {
 //   - `k` Index of the cone.
 //   - `nummem` Number of member variables in the cone.
 //
-// Deprecated: [MSK_getnumconemem]/GetNumConemem is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getnumconemem]/GetNumConeMem is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getnumconemem]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumconemem
-func (task *Task) GetNumConemem(
+func (task *Task) GetNumConeMem(
 	k int32,
 ) (r res.Code, nummem int32) {
 	r = res.Code(
@@ -285,7 +285,7 @@ func (task *Task) GetNumDomain() (r res.Code, numdomain int64) {
 	return
 }
 
-// GetNumIntvar is wrapping [MSK_getnumintvar],
+// GetNumIntVar is wrapping [MSK_getnumintvar],
 // Obtains the number of integer-constrained variables.
 //
 // Returns:
@@ -293,7 +293,7 @@ func (task *Task) GetNumDomain() (r res.Code, numdomain int64) {
 //   - `numintvar` Number of integer variables.
 //
 // [MSK_getnumintvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumintvar
-func (task *Task) GetNumIntvar() (r res.Code, numintvar int32) {
+func (task *Task) GetNumIntVar() (r res.Code, numintvar int32) {
 	r = res.Code(
 		C.MSK_getnumintvar(
 			task.task,
@@ -403,7 +403,7 @@ func (task *Task) GetNumQObjNz64() (r res.Code, numqonz int64) {
 	return
 }
 
-// GetNumSymmat is wrapping [MSK_getnumsymmat],
+// GetNumSymMat is wrapping [MSK_getnumsymmat],
 // Obtains the number of symmetric matrices stored.
 //
 // Arguments:
@@ -411,7 +411,7 @@ func (task *Task) GetNumQObjNz64() (r res.Code, numqonz int64) {
 //   - `num` The number of symmetric sparse matrices.
 //
 // [MSK_getnumsymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumsymmat
-func (task *Task) GetNumSymmat() (r res.Code, num int64) {
+func (task *Task) GetNumSymMat() (r res.Code, num int64) {
 	r = res.Code(
 		C.MSK_getnumsymmat(
 			task.task,

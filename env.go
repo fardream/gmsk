@@ -84,7 +84,7 @@ func (env *Env) CheckMemenv(
 	)
 }
 
-// CheckOutlicense is wrapping [MSK_checkoutlicense],
+// CheckOutLicense is wrapping [MSK_checkoutlicense],
 // Check out a license feature from the license server ahead of time.
 //
 // Arguments:
@@ -92,7 +92,7 @@ func (env *Env) CheckMemenv(
 //   - `feature` Feature to check out from the license system.
 //
 // [MSK_checkoutlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkoutlicense
-func (env *Env) CheckOutlicense(
+func (env *Env) CheckOutLicense(
 	feature Feature,
 ) res.Code {
 	return res.Code(
@@ -157,7 +157,7 @@ func (env *Env) Dot(
 	return
 }
 
-// Echointro is wrapping [MSK_echointro],
+// EchoIntro is wrapping [MSK_echointro],
 // Prints an intro to message stream.
 //
 // Arguments:
@@ -165,7 +165,7 @@ func (env *Env) Dot(
 //   - `longver` If non-zero, then the intro is slightly longer.
 //
 // [MSK_echointro]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.echointro
-func (env *Env) Echointro(
+func (env *Env) EchoIntro(
 	longver int32,
 ) res.Code {
 	return res.Code(
@@ -350,7 +350,7 @@ func (env *Env) Potrf(
 	)
 }
 
-// PutLicensecode is wrapping [MSK_putlicensecode],
+// PutLicenseCode is wrapping [MSK_putlicensecode],
 // Input a runtime license code.
 //
 // Arguments:
@@ -358,7 +358,7 @@ func (env *Env) Potrf(
 //   - `code` A license key string.
 //
 // [MSK_putlicensecode]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensecode
-func (env *Env) PutLicensecode(
+func (env *Env) PutLicenseCode(
 	code *int32,
 ) res.Code {
 	return res.Code(
@@ -369,7 +369,7 @@ func (env *Env) PutLicensecode(
 	)
 }
 
-// PutLicensedebug is wrapping [MSK_putlicensedebug],
+// PutLicenseDebug is wrapping [MSK_putlicensedebug],
 // Enables debug information for the license system.
 //
 // Arguments:
@@ -377,7 +377,7 @@ func (env *Env) PutLicensecode(
 //   - `licdebug` Enable output of license check-out debug information.
 //
 // [MSK_putlicensedebug]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensedebug
-func (env *Env) PutLicensedebug(
+func (env *Env) PutLicenseDebug(
 	licdebug int32,
 ) res.Code {
 	return res.Code(
@@ -388,7 +388,7 @@ func (env *Env) PutLicensedebug(
 	)
 }
 
-// PutLicensepath is wrapping [MSK_putlicensepath],
+// PutLicensePath is wrapping [MSK_putlicensepath],
 // Set the path to the license file.
 //
 // Arguments:
@@ -396,7 +396,7 @@ func (env *Env) PutLicensedebug(
 //   - `licensepath` A path specifying where to search for the license.
 //
 // [MSK_putlicensepath]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensepath
-func (env *Env) PutLicensepath(
+func (env *Env) PutLicensePath(
 	licensepath string,
 ) res.Code {
 	c_licensepath := C.CString(licensepath)
@@ -410,7 +410,7 @@ func (env *Env) PutLicensepath(
 	)
 }
 
-// PutLicensewait is wrapping [MSK_putlicensewait],
+// PutLicenseWait is wrapping [MSK_putlicensewait],
 // Control whether mosek should wait for an available license if no license is available.
 //
 // Arguments:
@@ -418,7 +418,7 @@ func (env *Env) PutLicensepath(
 //   - `licwait` Enable waiting for a license.
 //
 // [MSK_putlicensewait]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensewait
-func (env *Env) PutLicensewait(
+func (env *Env) PutLicenseWait(
 	licwait int32,
 ) res.Code {
 	return res.Code(
@@ -429,11 +429,11 @@ func (env *Env) PutLicensewait(
 	)
 }
 
-// Resetexpirylicenses is wrapping [MSK_resetexpirylicenses],
+// ResetExpiryLicenses is wrapping [MSK_resetexpirylicenses],
 // Reset the license expiry reporting startpoint.
 //
 // [MSK_resetexpirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.resetexpirylicenses
-func (env *Env) Resetexpirylicenses() res.Code {
+func (env *Env) ResetExpiryLicenses() res.Code {
 	return res.Code(
 		C.MSK_resetexpirylicenses(
 			env.getEnv(),
@@ -441,7 +441,7 @@ func (env *Env) Resetexpirylicenses() res.Code {
 	)
 }
 
-// SparseTriangularsolvedense is wrapping [MSK_sparsetriangularsolvedense],
+// SparseTriangularSolveDense is wrapping [MSK_sparsetriangularsolvedense],
 // Solves a sparse triangular system of linear equations.
 //
 // Arguments:
@@ -454,7 +454,7 @@ func (env *Env) Resetexpirylicenses() res.Code {
 //   - `b` The right-hand side of linear equation system to be solved as a dense vector.
 //
 // [MSK_sparsetriangularsolvedense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.sparsetriangularsolvedense
-func (env *Env) SparseTriangularsolvedense(
+func (env *Env) SparseTriangularSolveDense(
 	transposed Transpose,
 	n int32,
 	lnzc *int32,

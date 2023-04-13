@@ -43,7 +43,7 @@ func (task *Task) PutAcc(
 	)
 }
 
-// PutAccb is wrapping [MSK_putaccb],
+// PutAccB is wrapping [MSK_putaccb],
 // Puts the constant vector b in an affine conic constraint.
 //
 // Arguments:
@@ -52,7 +52,7 @@ func (task *Task) PutAcc(
 //   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
 //
 // [MSK_putaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaccb
-func (task *Task) PutAccb(
+func (task *Task) PutAccB(
 	accidx int64,
 	lengthb int64,
 	b *float64,
@@ -67,7 +67,7 @@ func (task *Task) PutAccb(
 	)
 }
 
-// PutAccbj is wrapping [MSK_putaccbj],
+// PutAccBJ is wrapping [MSK_putaccbj],
 // Sets one element in the b vector of an affine conic constraint.
 //
 // Arguments:
@@ -77,7 +77,7 @@ func (task *Task) PutAccb(
 //   - `bj` The new value of b\[j\].
 //
 // [MSK_putaccbj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaccbj
-func (task *Task) PutAccbj(
+func (task *Task) PutAccBJ(
 	accidx int64,
 	j int64,
 	bj float64,
@@ -168,7 +168,7 @@ func (task *Task) PutAColSlice64(
 	)
 }
 
-// PutAfeBarFBlockTriplet is wrapping [MSK_putafebarfblocktriplet],
+// PutAfeBarfBlockTriplet is wrapping [MSK_putafebarfblocktriplet],
 // Inputs barF in block triplet form.
 //
 // Arguments:
@@ -180,7 +180,7 @@ func (task *Task) PutAColSlice64(
 //   - `valkl` The numerical value associated with each block triplet.
 //
 // [MSK_putafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfblocktriplet
-func (task *Task) PutAfeBarFBlockTriplet(
+func (task *Task) PutAfeBarfBlockTriplet(
 	numtrip int64,
 	afeidx *int64,
 	barvaridx *int32,
@@ -201,7 +201,7 @@ func (task *Task) PutAfeBarFBlockTriplet(
 	)
 }
 
-// PutAfeBarFEntry is wrapping [MSK_putafebarfentry],
+// PutAfeBarfEntry is wrapping [MSK_putafebarfentry],
 // Inputs one entry in barF.
 //
 // Arguments:
@@ -212,7 +212,7 @@ func (task *Task) PutAfeBarFBlockTriplet(
 //   - `termweight` Weights in the weighted sum.
 //
 // [MSK_putafebarfentry]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfentry
-func (task *Task) PutAfeBarFEntry(
+func (task *Task) PutAfeBarfEntry(
 	afeidx int64,
 	barvaridx int32,
 	numterm int64,
@@ -231,7 +231,7 @@ func (task *Task) PutAfeBarFEntry(
 	)
 }
 
-// PutAfeBarFRow is wrapping [MSK_putafebarfrow],
+// PutAfeBarfRow is wrapping [MSK_putafebarfrow],
 // Inputs a row of barF.
 //
 // Arguments:
@@ -244,7 +244,7 @@ func (task *Task) PutAfeBarFEntry(
 //   - `termweight` Concatenated weights in the weighted sum.
 //
 // [MSK_putafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfrow
-func (task *Task) PutAfeBarFRow(
+func (task *Task) PutAfeBarfRow(
 	afeidx int64,
 	numentr int32,
 	barvaridx *int32,
@@ -446,7 +446,7 @@ func (task *Task) PutARowSlice64(
 	)
 }
 
-// PutAtruncatetol is wrapping [MSK_putatruncatetol],
+// PutATruncateTol is wrapping [MSK_putatruncatetol],
 // Truncates all elements in A below a certain tolerance to zero.
 //
 // Arguments:
@@ -454,7 +454,7 @@ func (task *Task) PutARowSlice64(
 //   - `tolzero` Truncation tolerance.
 //
 // [MSK_putatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putatruncatetol
-func (task *Task) PutAtruncatetol(
+func (task *Task) PutATruncateTol(
 	tolzero float64,
 ) res.Code {
 	return res.Code(
@@ -465,7 +465,7 @@ func (task *Task) PutAtruncatetol(
 	)
 }
 
-// PutBarABlockTriplet is wrapping [MSK_putbarablocktriplet],
+// PutBaraBlockTriplet is wrapping [MSK_putbarablocktriplet],
 // Inputs barA in block triplet form.
 //
 // Arguments:
@@ -477,7 +477,7 @@ func (task *Task) PutAtruncatetol(
 //   - `valijkl` The numerical value associated with each block triplet.
 //
 // [MSK_putbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarablocktriplet
-func (task *Task) PutBarABlockTriplet(
+func (task *Task) PutBaraBlockTriplet(
 	num int64,
 	subi *int32,
 	subj *int32,
@@ -498,7 +498,7 @@ func (task *Task) PutBarABlockTriplet(
 	)
 }
 
-// PutBarAij is wrapping [MSK_putbaraij],
+// PutBaraIj is wrapping [MSK_putbaraij],
 // Inputs an element of barA.
 //
 // Arguments:
@@ -509,7 +509,7 @@ func (task *Task) PutBarABlockTriplet(
 //   - `weights` Weights in the weighted sum.
 //
 // [MSK_putbaraij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbaraij
-func (task *Task) PutBarAij(
+func (task *Task) PutBaraIj(
 	i int32,
 	j int32,
 	num int64,
@@ -528,7 +528,7 @@ func (task *Task) PutBarAij(
 	)
 }
 
-// PutBarCBlockTriplet is wrapping [MSK_putbarcblocktriplet],
+// PutBarcBlockTriplet is wrapping [MSK_putbarcblocktriplet],
 // Inputs barC in block triplet form.
 //
 // Arguments:
@@ -539,7 +539,7 @@ func (task *Task) PutBarAij(
 //   - `valjkl` The numerical value associated with each block triplet.
 //
 // [MSK_putbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarcblocktriplet
-func (task *Task) PutBarCBlockTriplet(
+func (task *Task) PutBarcBlockTriplet(
 	num int64,
 	subj *int32,
 	subk *int32,
@@ -558,7 +558,7 @@ func (task *Task) PutBarCBlockTriplet(
 	)
 }
 
-// PutBarCj is wrapping [MSK_putbarcj],
+// PutBarcJ is wrapping [MSK_putbarcj],
 // Changes one element in barc.
 //
 // Arguments:
@@ -568,7 +568,7 @@ func (task *Task) PutBarCBlockTriplet(
 //   - `weights` The weights of the terms in the weighted sum.
 //
 // [MSK_putbarcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarcj
-func (task *Task) PutBarCj(
+func (task *Task) PutBarcJ(
 	j int32,
 	num int64,
 	sub *int64,
@@ -585,7 +585,7 @@ func (task *Task) PutBarCj(
 	)
 }
 
-// PutBarsj is wrapping [MSK_putbarsj],
+// PutBarsJ is wrapping [MSK_putbarsj],
 // Sets the dual solution for a semidefinite variable.
 //
 // Arguments:
@@ -595,7 +595,7 @@ func (task *Task) PutBarCj(
 //   - `barsj` Value of the j'th variable of barx.
 //
 // [MSK_putbarsj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarsj
-func (task *Task) PutBarsj(
+func (task *Task) PutBarsJ(
 	whichsol SolType,
 	j int32,
 	barsj *float64,
@@ -610,7 +610,7 @@ func (task *Task) PutBarsj(
 	)
 }
 
-// PutBarxj is wrapping [MSK_putbarxj],
+// PutBarxJ is wrapping [MSK_putbarxj],
 // Sets the primal solution for a semidefinite variable.
 //
 // Arguments:
@@ -620,7 +620,7 @@ func (task *Task) PutBarsj(
 //   - `barxj` Value of the j'th variable of barx.
 //
 // [MSK_putbarxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbarxj
-func (task *Task) PutBarxj(
+func (task *Task) PutBarxJ(
 	whichsol SolType,
 	j int32,
 	barxj *float64,
@@ -635,7 +635,7 @@ func (task *Task) PutBarxj(
 	)
 }
 
-// PutCFix is wrapping [MSK_putcfix],
+// PutCfix is wrapping [MSK_putcfix],
 // Replaces the fixed term in the objective.
 //
 // Arguments:
@@ -643,7 +643,7 @@ func (task *Task) PutBarxj(
 //   - `cfix` Fixed term in the objective.
 //
 // [MSK_putcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putcfix
-func (task *Task) PutCFix(
+func (task *Task) PutCfix(
 	cfix float64,
 ) res.Code {
 	return res.Code(
@@ -654,7 +654,7 @@ func (task *Task) PutCFix(
 	)
 }
 
-// PutCj is wrapping [MSK_putcj],
+// PutCJ is wrapping [MSK_putcj],
 // Modifies one linear coefficient in the objective.
 //
 // Arguments:
@@ -663,7 +663,7 @@ func (task *Task) PutCFix(
 //   - `cj` New coefficient value.
 //
 // [MSK_putcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putcj
-func (task *Task) PutCj(
+func (task *Task) PutCJ(
 	j int32,
 	cj float64,
 ) res.Code {
@@ -676,7 +676,7 @@ func (task *Task) PutCj(
 	)
 }
 
-// PutConbound is wrapping [MSK_putconbound],
+// PutConBound is wrapping [MSK_putconbound],
 // Changes the bound for one constraint.
 //
 // Arguments:
@@ -687,7 +687,7 @@ func (task *Task) PutCj(
 //   - `buc` New upper bound.
 //
 // [MSK_putconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconbound
-func (task *Task) PutConbound(
+func (task *Task) PutConBound(
 	i int32,
 	bkc BoundKey,
 	blc float64,
@@ -704,7 +704,7 @@ func (task *Task) PutConbound(
 	)
 }
 
-// PutConboundListConst is wrapping [MSK_putconboundlistconst],
+// PutConBoundListConst is wrapping [MSK_putconboundlistconst],
 // Changes the bounds of a list of constraints.
 //
 // Arguments:
@@ -715,7 +715,7 @@ func (task *Task) PutConbound(
 //   - `buc` New upper bound for all constraints in the list.
 //
 // [MSK_putconboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundlistconst
-func (task *Task) PutConboundListConst(
+func (task *Task) PutConBoundListConst(
 	num int32,
 	sub *int32,
 	bkc BoundKey,
@@ -766,7 +766,7 @@ func (task *Task) PutCone(
 	)
 }
 
-// PutConsolutioni is wrapping [MSK_putconsolutioni],
+// PutConSolutionI is wrapping [MSK_putconsolutioni],
 // Sets the primal and dual solution information for a single constraint.
 //
 // Arguments:
@@ -779,7 +779,7 @@ func (task *Task) PutCone(
 //   - `su` Solution value of the dual variable associated with the upper bound.
 //
 // [MSK_putconsolutioni]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconsolutioni
-func (task *Task) PutConsolutioni(
+func (task *Task) PutConSolutionI(
 	i int32,
 	whichsol SolType,
 	sk StaKey,
@@ -881,7 +881,7 @@ func (task *Task) PutIntParam(
 	)
 }
 
-// PutNadouparam is wrapping [MSK_putnadouparam],
+// PutNaDouParam is wrapping [MSK_putnadouparam],
 // Sets a double parameter.
 //
 // Arguments:
@@ -890,7 +890,7 @@ func (task *Task) PutIntParam(
 //   - `parvalue` Parameter value.
 //
 // [MSK_putnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putnadouparam
-func (task *Task) PutNadouparam(
+func (task *Task) PutNaDouParam(
 	paramname string,
 	parvalue float64,
 ) res.Code {
@@ -906,7 +906,7 @@ func (task *Task) PutNadouparam(
 	)
 }
 
-// PutNaintparam is wrapping [MSK_putnaintparam],
+// PutNaIntParam is wrapping [MSK_putnaintparam],
 // Sets an integer parameter.
 //
 // Arguments:
@@ -915,7 +915,7 @@ func (task *Task) PutNadouparam(
 //   - `parvalue` Parameter value.
 //
 // [MSK_putnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putnaintparam
-func (task *Task) PutNaintparam(
+func (task *Task) PutNaIntParam(
 	paramname string,
 	parvalue int32,
 ) res.Code {
@@ -931,7 +931,7 @@ func (task *Task) PutNaintparam(
 	)
 }
 
-// PutNastrparam is wrapping [MSK_putnastrparam],
+// PutNaStrParam is wrapping [MSK_putnastrparam],
 // Sets a string parameter.
 //
 // Arguments:
@@ -940,7 +940,7 @@ func (task *Task) PutNaintparam(
 //   - `parvalue` Parameter value.
 //
 // [MSK_putnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putnastrparam
-func (task *Task) PutNastrparam(
+func (task *Task) PutNaStrParam(
 	paramname string,
 	parvalue string,
 ) res.Code {
@@ -959,7 +959,7 @@ func (task *Task) PutNastrparam(
 	)
 }
 
-// PutObjsense is wrapping [MSK_putobjsense],
+// PutObjSense is wrapping [MSK_putobjsense],
 // Sets the objective sense.
 //
 // Arguments:
@@ -967,7 +967,7 @@ func (task *Task) PutNastrparam(
 //   - `sense` The objective sense of the task
 //
 // [MSK_putobjsense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putobjsense
-func (task *Task) PutObjsense(
+func (task *Task) PutObjSense(
 	sense ObjectiveSense,
 ) res.Code {
 	return res.Code(
@@ -978,7 +978,7 @@ func (task *Task) PutObjsense(
 	)
 }
 
-// PutOptserverhost is wrapping [MSK_putoptserverhost],
+// PutOptserverHost is wrapping [MSK_putoptserverhost],
 // Specify an OptServer for remote calls.
 //
 // Arguments:
@@ -986,7 +986,7 @@ func (task *Task) PutObjsense(
 //   - `host` A URL specifying the optimization server to be used.
 //
 // [MSK_putoptserverhost]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putoptserverhost
-func (task *Task) PutOptserverhost(
+func (task *Task) PutOptserverHost(
 	host string,
 ) res.Code {
 	c_host := C.CString(host)
@@ -1028,7 +1028,7 @@ func (task *Task) PutParam(
 	)
 }
 
-// PutQcon is wrapping [MSK_putqcon],
+// PutQCon is wrapping [MSK_putqcon],
 // Replaces all quadratic terms in constraints.
 //
 // Arguments:
@@ -1039,7 +1039,7 @@ func (task *Task) PutParam(
 //   - `qcval` Quadratic constraint coefficient values.
 //
 // [MSK_putqcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putqcon
-func (task *Task) PutQcon(
+func (task *Task) PutQCon(
 	numqcnz int32,
 	qcsubk *int32,
 	qcsubi *int32,
@@ -1115,7 +1115,7 @@ func (task *Task) PutQObj(
 	)
 }
 
-// PutQObjIj is wrapping [MSK_putqobjij],
+// PutQObjIJ is wrapping [MSK_putqobjij],
 // Replaces one coefficient in the quadratic term in the objective.
 //
 // Arguments:
@@ -1125,7 +1125,7 @@ func (task *Task) PutQObj(
 //   - `qoij` The new coefficient value.
 //
 // [MSK_putqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putqobjij
-func (task *Task) PutQObjIj(
+func (task *Task) PutQObjIJ(
 	i int32,
 	j int32,
 	qoij float64,
@@ -1357,7 +1357,7 @@ func (task *Task) PutSolutionNew(
 	)
 }
 
-// PutSolutionyi is wrapping [MSK_putsolutionyi],
+// PutSolutionYI is wrapping [MSK_putsolutionyi],
 // Inputs the dual variable of a solution.
 //
 // Arguments:
@@ -1367,7 +1367,7 @@ func (task *Task) PutSolutionNew(
 //   - `y` Solution value of the dual variable.
 //
 // [MSK_putsolutionyi]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putsolutionyi
-func (task *Task) PutSolutionyi(
+func (task *Task) PutSolutionYI(
 	i int32,
 	whichsol SolType,
 	y float64,
@@ -1451,7 +1451,7 @@ func (task *Task) PutSux(
 	)
 }
 
-// PutVarbound is wrapping [MSK_putvarbound],
+// PutVarBound is wrapping [MSK_putvarbound],
 // Changes the bounds for one variable.
 //
 // Arguments:
@@ -1462,7 +1462,7 @@ func (task *Task) PutSux(
 //   - `bux` New upper bound.
 //
 // [MSK_putvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarbound
-func (task *Task) PutVarbound(
+func (task *Task) PutVarBound(
 	j int32,
 	bkx BoundKey,
 	blx float64,
@@ -1479,7 +1479,7 @@ func (task *Task) PutVarbound(
 	)
 }
 
-// PutVarboundListConst is wrapping [MSK_putvarboundlistconst],
+// PutVarBoundListConst is wrapping [MSK_putvarboundlistconst],
 // Changes the bounds of a list of variables.
 //
 // Arguments:
@@ -1490,7 +1490,7 @@ func (task *Task) PutVarbound(
 //   - `bux` New upper bound for all variables in the list.
 //
 // [MSK_putvarboundlistconst]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundlistconst
-func (task *Task) PutVarboundListConst(
+func (task *Task) PutVarBoundListConst(
 	num int32,
 	sub *int32,
 	bkx BoundKey,
@@ -1509,7 +1509,7 @@ func (task *Task) PutVarboundListConst(
 	)
 }
 
-// PutVarsolutionj is wrapping [MSK_putvarsolutionj],
+// PutVarSolutionJ is wrapping [MSK_putvarsolutionj],
 // Sets the primal and dual solution information for a single variable.
 //
 // Arguments:
@@ -1523,7 +1523,7 @@ func (task *Task) PutVarboundListConst(
 //   - `sn` Solution value of the dual variable associated with the conic constraint.
 //
 // [MSK_putvarsolutionj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarsolutionj
-func (task *Task) PutVarsolutionj(
+func (task *Task) PutVarSolutionJ(
 	j int32,
 	whichsol SolType,
 	sk StaKey,

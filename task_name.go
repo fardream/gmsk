@@ -631,7 +631,7 @@ func (task *Task) GetVarNameLen(
 	return
 }
 
-// IsdouparName is wrapping [MSK_isdouparname],
+// IsDouParName is wrapping [MSK_isdouparname],
 // Checks a double parameter name.
 //
 // Arguments:
@@ -640,7 +640,7 @@ func (task *Task) GetVarNameLen(
 //   - `param` Returns the parameter corresponding to the name, if one exists.
 //
 // [MSK_isdouparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isdouparname
-func (task *Task) IsdouparName(
+func (task *Task) IsDouParName(
 	parname string,
 	param *DParam,
 ) res.Code {
@@ -656,7 +656,7 @@ func (task *Task) IsdouparName(
 	)
 }
 
-// IsintparName is wrapping [MSK_isintparname],
+// IsIntParName is wrapping [MSK_isintparname],
 // Checks an integer parameter name.
 //
 // Arguments:
@@ -665,7 +665,7 @@ func (task *Task) IsdouparName(
 //   - `param` Returns the parameter corresponding to the name, if one exists.
 //
 // [MSK_isintparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isintparname
-func (task *Task) IsintparName(
+func (task *Task) IsIntParName(
 	parname string,
 	param *IParam,
 ) res.Code {
@@ -681,7 +681,7 @@ func (task *Task) IsintparName(
 	)
 }
 
-// IsstrparName is wrapping [MSK_isstrparname],
+// IsStrParName is wrapping [MSK_isstrparname],
 // Checks a string parameter name.
 //
 // Arguments:
@@ -690,7 +690,7 @@ func (task *Task) IsintparName(
 //   - `param` Returns the parameter corresponding to the name, if one exists.
 //
 // [MSK_isstrparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isstrparname
-func (task *Task) IsstrparName(
+func (task *Task) IsStrParName(
 	parname string,
 	param *SParam,
 ) res.Code {

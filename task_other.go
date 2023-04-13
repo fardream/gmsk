@@ -76,7 +76,7 @@ func (task *Task) AnalyzeSolution(
 	)
 }
 
-// Basiscond is wrapping [MSK_basiscond],
+// BasisCond is wrapping [MSK_basiscond],
 // Computes conditioning information for the basis matrix.
 //
 // Arguments:
@@ -85,7 +85,7 @@ func (task *Task) AnalyzeSolution(
 //   - `nrminvbasis` An estimate for the 1-norm of the inverse of the basis.
 //
 // [MSK_basiscond]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.basiscond
-func (task *Task) Basiscond(
+func (task *Task) BasisCond(
 	nrmbasis *float64,
 	nrminvbasis *float64,
 ) res.Code {
@@ -141,7 +141,7 @@ func (task *Task) CheckMemtask(
 	)
 }
 
-// Chgconbound is wrapping [MSK_chgconbound],
+// ChgConBound is wrapping [MSK_chgconbound],
 // Changes the bounds for one constraint.
 //
 // Arguments:
@@ -152,7 +152,7 @@ func (task *Task) CheckMemtask(
 //   - `value` New value for the bound.
 //
 // [MSK_chgconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.chgconbound
-func (task *Task) Chgconbound(
+func (task *Task) ChgConBound(
 	i int32,
 	lower int32,
 	finite int32,
@@ -169,7 +169,7 @@ func (task *Task) Chgconbound(
 	)
 }
 
-// Chgvarbound is wrapping [MSK_chgvarbound],
+// ChgVarBound is wrapping [MSK_chgvarbound],
 // Changes the bounds for one variable.
 //
 // Arguments:
@@ -180,7 +180,7 @@ func (task *Task) Chgconbound(
 //   - `value` New value for the bound.
 //
 // [MSK_chgvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.chgvarbound
-func (task *Task) Chgvarbound(
+func (task *Task) ChgVarBound(
 	j int32,
 	lower int32,
 	finite int32,
@@ -197,11 +197,11 @@ func (task *Task) Chgvarbound(
 	)
 }
 
-// Commitchanges is wrapping [MSK_commitchanges],
+// CommitChanges is wrapping [MSK_commitchanges],
 // Commits all cached problem changes.
 //
 // [MSK_commitchanges]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.commitchanges
-func (task *Task) Commitchanges() res.Code {
+func (task *Task) CommitChanges() res.Code {
 	return res.Code(
 		C.MSK_commitchanges(
 			task.task,
@@ -287,7 +287,7 @@ func (task *Task) DualSensitivity(
 	)
 }
 
-// EmptyAfeBarFRow is wrapping [MSK_emptyafebarfrow],
+// EmptyAfeBarfRow is wrapping [MSK_emptyafebarfrow],
 // Clears a row in barF
 //
 // Arguments:
@@ -295,7 +295,7 @@ func (task *Task) DualSensitivity(
 //   - `afeidx` Row index of barF.
 //
 // [MSK_emptyafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafebarfrow
-func (task *Task) EmptyAfeBarFRow(
+func (task *Task) EmptyAfeBarfRow(
 	afeidx int64,
 ) res.Code {
 	return res.Code(
@@ -306,7 +306,7 @@ func (task *Task) EmptyAfeBarFRow(
 	)
 }
 
-// EmptyAfeBarFRowList is wrapping [MSK_emptyafebarfrowlist],
+// EmptyAfeBarfRowList is wrapping [MSK_emptyafebarfrowlist],
 // Clears rows in barF.
 //
 // Arguments:
@@ -314,7 +314,7 @@ func (task *Task) EmptyAfeBarFRow(
 //   - `afeidxlist` Indices of rows in barF to clear.
 //
 // [MSK_emptyafebarfrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafebarfrowlist
-func (task *Task) EmptyAfeBarFRowList(
+func (task *Task) EmptyAfeBarfRowList(
 	numafeidx int64,
 	afeidxlist *int64,
 ) res.Code {
@@ -429,7 +429,7 @@ func (task *Task) EvaluateAccs(
 	)
 }
 
-// Infeasibilityreport is wrapping [MSK_infeasibilityreport],
+// InfeasibilityReport is wrapping [MSK_infeasibilityreport],
 // Prints the infeasibility report to an output stream.
 //
 // Arguments:
@@ -438,7 +438,7 @@ func (task *Task) EvaluateAccs(
 //   - `whichsol` Selects a solution.
 //
 // [MSK_infeasibilityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.infeasibilityreport
-func (task *Task) Infeasibilityreport(
+func (task *Task) InfeasibilityReport(
 	whichstream StreamType,
 	whichsol SolType,
 ) res.Code {
@@ -451,7 +451,7 @@ func (task *Task) Infeasibilityreport(
 	)
 }
 
-// Initbasissolve is wrapping [MSK_initbasissolve],
+// InitBasisSolve is wrapping [MSK_initbasissolve],
 // Prepare a task for basis solver.
 //
 // Arguments:
@@ -459,7 +459,7 @@ func (task *Task) Infeasibilityreport(
 //   - `basis` The array of basis indexes to use.
 //
 // [MSK_initbasissolve]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.initbasissolve
-func (task *Task) Initbasissolve(
+func (task *Task) InitBasisSolve(
 	basis *int32,
 ) res.Code {
 	return res.Code(
@@ -470,7 +470,7 @@ func (task *Task) Initbasissolve(
 	)
 }
 
-// Inputdata is wrapping [MSK_inputdata],
+// InputData is wrapping [MSK_inputdata],
 // Input the linear part of an optimization task in one function call.
 //
 // Arguments:
@@ -491,7 +491,7 @@ func (task *Task) Initbasissolve(
 //   - `bux` Upper bounds for the variables.
 //
 // [MSK_inputdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.inputdata
-func (task *Task) Inputdata(
+func (task *Task) InputData(
 	maxnumcon int32,
 	maxnumvar int32,
 	numcon int32,
@@ -597,7 +597,7 @@ func (task *Task) LinkFiletotaskstream(
 	)
 }
 
-// OnesolutionSummary is wrapping [MSK_onesolutionsummary],
+// OneSolutionSummary is wrapping [MSK_onesolutionsummary],
 // Prints a short summary of a specified solution.
 //
 // Arguments:
@@ -606,7 +606,7 @@ func (task *Task) LinkFiletotaskstream(
 //   - `whichsol` Selects a solution.
 //
 // [MSK_onesolutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.onesolutionsummary
-func (task *Task) OnesolutionSummary(
+func (task *Task) OneSolutionSummary(
 	whichstream StreamType,
 	whichsol SolType,
 ) res.Code {
@@ -686,10 +686,15 @@ func (task *Task) OptimizerSummary(
 	)
 }
 
-// Optimizetrm is wrapping [MSK_optimizetrm]
+// OptimizeTrm is wrapping [MSK_optimizetrm],
+// Optimizes the problem.
+//
+// # Returns
+//
+// - `trmcode` Is either OK or a termination response code.
 //
 // [MSK_optimizetrm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizetrm
-func (task *Task) Optimizetrm() (r, trmcode res.Code) {
+func (task *Task) OptimizeTrm() (r, trmcode res.Code) {
 	r = res.Code(
 		C.MSK_optimizetrm(
 			task.task,
@@ -844,7 +849,7 @@ func (task *Task) ProStaToStr(
 	return
 }
 
-// ReadBsolution is wrapping [MSK_readbsolution],
+// ReadBSolution is wrapping [MSK_readbsolution],
 // Read a binary dump of the task solution and information items.
 //
 // Arguments:
@@ -853,7 +858,7 @@ func (task *Task) ProStaToStr(
 //   - `compress` Data compression type.
 //
 // [MSK_readbsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readbsolution
-func (task *Task) ReadBsolution(
+func (task *Task) ReadBSolution(
 	filename string,
 	compress CompressType,
 ) res.Code {
@@ -908,7 +913,7 @@ func (task *Task) ReadDataautoformat(
 	)
 }
 
-// ReadDataformat is wrapping [MSK_readdataformat],
+// ReadDataFormat is wrapping [MSK_readdataformat],
 // Reads problem data from a file.
 //
 // Arguments:
@@ -918,7 +923,7 @@ func (task *Task) ReadDataautoformat(
 //   - `compress` File compression type.
 //
 // [MSK_readdataformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readdataformat
-func (task *Task) ReadDataformat(
+func (task *Task) ReadDataFormat(
 	filename string,
 	format DataFormat,
 	compress CompressType,
@@ -936,7 +941,7 @@ func (task *Task) ReadDataformat(
 	)
 }
 
-// ReadJsonsol is wrapping [MSK_readjsonsol],
+// ReadJsonSol is wrapping [MSK_readjsonsol],
 // Reads a solution from a JSOL file.
 //
 // Arguments:
@@ -944,7 +949,7 @@ func (task *Task) ReadDataformat(
 //   - `filename` A valid file name.
 //
 // [MSK_readjsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readjsonsol
-func (task *Task) ReadJsonsol(
+func (task *Task) ReadJsonSol(
 	filename string,
 ) res.Code {
 	c_filename := C.CString(filename)
@@ -958,7 +963,7 @@ func (task *Task) ReadJsonsol(
 	)
 }
 
-// ReadJsonstring is wrapping [MSK_readjsonstring],
+// ReadJsonString is wrapping [MSK_readjsonstring],
 // Load task data from a string in JSON format.
 //
 // Arguments:
@@ -966,7 +971,7 @@ func (task *Task) ReadJsonsol(
 //   - `data` Problem data in text format.
 //
 // [MSK_readjsonstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readjsonstring
-func (task *Task) ReadJsonstring(
+func (task *Task) ReadJsonString(
 	data string,
 ) res.Code {
 	c_data := C.CString(data)
@@ -980,7 +985,7 @@ func (task *Task) ReadJsonstring(
 	)
 }
 
-// ReadLpstring is wrapping [MSK_readlpstring],
+// ReadLpString is wrapping [MSK_readlpstring],
 // Load task data from a string in LP format.
 //
 // Arguments:
@@ -988,7 +993,7 @@ func (task *Task) ReadJsonstring(
 //   - `data` Problem data in text format.
 //
 // [MSK_readlpstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readlpstring
-func (task *Task) ReadLpstring(
+func (task *Task) ReadLpString(
 	data string,
 ) res.Code {
 	c_data := C.CString(data)
@@ -1002,7 +1007,7 @@ func (task *Task) ReadLpstring(
 	)
 }
 
-// ReadOpfstring is wrapping [MSK_readopfstring],
+// ReadOpfString is wrapping [MSK_readopfstring],
 // Load task data from a string in OPF format.
 //
 // Arguments:
@@ -1010,7 +1015,7 @@ func (task *Task) ReadLpstring(
 //   - `data` Problem data in text format.
 //
 // [MSK_readopfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readopfstring
-func (task *Task) ReadOpfstring(
+func (task *Task) ReadOpfString(
 	data string,
 ) res.Code {
 	c_data := C.CString(data)
@@ -1046,7 +1051,7 @@ func (task *Task) ReadParamFile(
 	)
 }
 
-// ReadPtfstring is wrapping [MSK_readptfstring],
+// ReadPtfString is wrapping [MSK_readptfstring],
 // Load task data from a string in PTF format.
 //
 // Arguments:
@@ -1054,7 +1059,7 @@ func (task *Task) ReadParamFile(
 //   - `data` Problem data in text format.
 //
 // [MSK_readptfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readptfstring
-func (task *Task) ReadPtfstring(
+func (task *Task) ReadPtfString(
 	data string,
 ) res.Code {
 	c_data := C.CString(data)
@@ -1242,7 +1247,7 @@ func (task *Task) RemoveVars(
 	)
 }
 
-// Resizetask is wrapping [MSK_resizetask],
+// ResizeTask is wrapping [MSK_resizetask],
 // Resizes an optimization task.
 //
 // Arguments:
@@ -1254,7 +1259,7 @@ func (task *Task) RemoveVars(
 //   - `maxnumqnz` New maximum number of quadratic non-zeros elements.
 //
 // [MSK_resizetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.resizetask
-func (task *Task) Resizetask(
+func (task *Task) ResizeTask(
 	maxnumcon int32,
 	maxnumvar int32,
 	maxnumcone int32,
@@ -1273,7 +1278,7 @@ func (task *Task) Resizetask(
 	)
 }
 
-// Sensitivityreport is wrapping [MSK_sensitivityreport],
+// SensitivityReport is wrapping [MSK_sensitivityreport],
 // Creates a sensitivity report.
 //
 // Arguments:
@@ -1281,7 +1286,7 @@ func (task *Task) Resizetask(
 //   - `whichstream` Index of the stream.
 //
 // [MSK_sensitivityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sensitivityreport
-func (task *Task) Sensitivityreport(
+func (task *Task) SensitivityReport(
 	whichstream StreamType,
 ) res.Code {
 	return res.Code(
@@ -1403,7 +1408,7 @@ func (task *Task) SolutionSummary(
 	)
 }
 
-// Solvewithbasis is wrapping [MSK_solvewithbasis],
+// SolveWithBasis is wrapping [MSK_solvewithbasis],
 // Solve a linear equation system involving a basis matrix.
 //
 // Arguments:
@@ -1418,7 +1423,7 @@ func (task *Task) SolutionSummary(
 //   - `numnzout` Output (number of non-zeros in solution vector).
 //
 // [MSK_solvewithbasis]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solvewithbasis
-func (task *Task) Solvewithbasis(
+func (task *Task) SolveWithBasis(
 	transp bool,
 	numnz int32,
 	sub *int32,
@@ -1437,7 +1442,7 @@ func (task *Task) Solvewithbasis(
 	)
 }
 
-// Strtoconetype is wrapping [MSK_strtoconetype],
+// StrToConeType is wrapping [MSK_strtoconetype],
 // Obtains a cone type code.
 //
 // Arguments:
@@ -1445,10 +1450,10 @@ func (task *Task) Solvewithbasis(
 //   - `str` String corresponding to the cone type code.
 //   - `conetype` The cone type corresponding to str.
 //
-// Deprecated: [MSK_strtoconetype]/Strtoconetype is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_strtoconetype]/StrToConeType is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_strtoconetype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.strtoconetype
-func (task *Task) Strtoconetype(
+func (task *Task) StrToConeType(
 	str string,
 	conetype *ConeType,
 ) res.Code {
@@ -1464,7 +1469,7 @@ func (task *Task) Strtoconetype(
 	)
 }
 
-// Strtosk is wrapping [MSK_strtosk],
+// StrToSk is wrapping [MSK_strtosk],
 // Obtains a status key.
 //
 // Arguments:
@@ -1473,7 +1478,7 @@ func (task *Task) Strtoconetype(
 //   - `sk` Status key corresponding to the string.
 //
 // [MSK_strtosk]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.strtosk
-func (task *Task) Strtosk(
+func (task *Task) StrToSk(
 	str string,
 	sk *StaKey,
 ) res.Code {
@@ -1517,7 +1522,7 @@ func (task *Task) UnlinkFuncfromtaskstream(
 	)
 }
 
-// UpdatesolutionInfo is wrapping [MSK_updatesolutioninfo],
+// UpdateSolutionInfo is wrapping [MSK_updatesolutioninfo],
 // Update the information items related to the solution.
 //
 // Arguments:
@@ -1525,7 +1530,7 @@ func (task *Task) UnlinkFuncfromtaskstream(
 //   - `whichsol` Selects a solution.
 //
 // [MSK_updatesolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.updatesolutioninfo
-func (task *Task) UpdatesolutionInfo(
+func (task *Task) UpdateSolutionInfo(
 	whichsol SolType,
 ) res.Code {
 	return res.Code(
@@ -1536,7 +1541,7 @@ func (task *Task) UpdatesolutionInfo(
 	)
 }
 
-// Whichparam is wrapping [MSK_whichparam],
+// WhichParam is wrapping [MSK_whichparam],
 // Checks a parameter name.
 //
 // Arguments:
@@ -1546,7 +1551,7 @@ func (task *Task) UpdatesolutionInfo(
 //   - `param` Which parameter.
 //
 // [MSK_whichparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.whichparam
-func (task *Task) Whichparam(
+func (task *Task) WhichParam(
 	parname string,
 	partype *ParameterType,
 	param *int32,
@@ -1564,7 +1569,7 @@ func (task *Task) Whichparam(
 	)
 }
 
-// WriteBsolution is wrapping [MSK_writebsolution],
+// WriteBSolution is wrapping [MSK_writebsolution],
 // Write a binary dump of the task solution and information items.
 //
 // Arguments:
@@ -1573,7 +1578,7 @@ func (task *Task) Whichparam(
 //   - `compress` Data compression type.
 //
 // [MSK_writebsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writebsolution
-func (task *Task) WriteBsolution(
+func (task *Task) WriteBSolution(
 	filename string,
 	compress CompressType,
 ) res.Code {
@@ -1611,7 +1616,7 @@ func (task *Task) WriteData(
 	)
 }
 
-// WriteJsonsol is wrapping [MSK_writejsonsol],
+// WriteJsonSol is wrapping [MSK_writejsonsol],
 // Writes a solution to a JSON file.
 //
 // Arguments:
@@ -1619,7 +1624,7 @@ func (task *Task) WriteData(
 //   - `filename` A valid file name.
 //
 // [MSK_writejsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writejsonsol
-func (task *Task) WriteJsonsol(
+func (task *Task) WriteJsonSol(
 	filename string,
 ) res.Code {
 	c_filename := C.CString(filename)

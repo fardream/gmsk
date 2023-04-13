@@ -49,7 +49,7 @@ func (task *Task) PutMaxNumAfe(
 	)
 }
 
-// PutMaxNumAnz is wrapping [MSK_putmaxnumanz],
+// PutMaxNumANz is wrapping [MSK_putmaxnumanz],
 // Sets the number of preallocated non-zero entries in the linear coefficient matrix.
 //
 // Arguments:
@@ -57,7 +57,7 @@ func (task *Task) PutMaxNumAfe(
 //   - `maxnumanz` New size of the storage reserved for storing the linear coefficient matrix.
 //
 // [MSK_putmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumanz
-func (task *Task) PutMaxNumAnz(
+func (task *Task) PutMaxNumANz(
 	maxnumanz int64,
 ) res.Code {
 	return res.Code(
@@ -165,7 +165,7 @@ func (task *Task) PutMaxNumDomain(
 	)
 }
 
-// PutMaxNumQnz is wrapping [MSK_putmaxnumqnz],
+// PutMaxNumQNz is wrapping [MSK_putmaxnumqnz],
 // Sets the number of preallocated non-zero entries in quadratic terms.
 //
 // Arguments:
@@ -173,7 +173,7 @@ func (task *Task) PutMaxNumDomain(
 //   - `maxnumqnz` Number of non-zero elements preallocated in quadratic coefficient matrices.
 //
 // [MSK_putmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumqnz
-func (task *Task) PutMaxNumQnz(
+func (task *Task) PutMaxNumQNz(
 	maxnumqnz int64,
 ) res.Code {
 	return res.Code(

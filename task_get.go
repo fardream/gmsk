@@ -13,7 +13,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAccb is wrapping [MSK_getaccb],
+// GetAccB is wrapping [MSK_getaccb],
 // Obtains the additional constant term vector appearing in the affine conic constraint.
 //
 // Arguments:
@@ -22,7 +22,7 @@ import (
 //   - `b` The vector b appearing in the constraint.
 //
 // [MSK_getaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccb
-func (task *Task) GetAccb(
+func (task *Task) GetAccB(
 	accidx int64,
 	b *float64,
 ) res.Code {
@@ -35,7 +35,7 @@ func (task *Task) GetAccb(
 	)
 }
 
-// GetAccbarfBlockTriplet is wrapping [MSK_getaccbarfblocktriplet],
+// GetAccBarfBlockTriplet is wrapping [MSK_getaccbarfblocktriplet],
 // Obtains barF, implied by the ACCs, in block triplet form.
 //
 // Arguments:
@@ -51,7 +51,7 @@ func (task *Task) GetAccb(
 //   - `numtrip` Number of elements in the block triplet form.
 //
 // [MSK_getaccbarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccbarfblocktriplet
-func (task *Task) GetAccbarfBlockTriplet(
+func (task *Task) GetAccBarfBlockTriplet(
 	maxnumtrip int64,
 	numtrip *int64,
 	acc_afe *int64,
@@ -74,7 +74,7 @@ func (task *Task) GetAccbarfBlockTriplet(
 	)
 }
 
-// GetAccbarfnumBlockTriplets is wrapping [MSK_getaccbarfnumblocktriplets],
+// GetAccBarfNumBlockTriplets is wrapping [MSK_getaccbarfnumblocktriplets],
 // Obtains an upper bound on the number of elements in the block triplet form of barf, as used within the ACCs.
 //
 // Returns:
@@ -82,7 +82,7 @@ func (task *Task) GetAccbarfBlockTriplet(
 //   - `numtrip` An upper bound on the number of elements in the block triplet form of barf, as used within the ACCs.
 //
 // [MSK_getaccbarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccbarfnumblocktriplets
-func (task *Task) GetAccbarfnumBlockTriplets(
+func (task *Task) GetAccBarfNumBlockTriplets(
 	numtrip *int64,
 ) res.Code {
 	return res.Code(
@@ -115,7 +115,7 @@ func (task *Task) GetAccDomain(
 	)
 }
 
-// GetAccDotYs is wrapping [MSK_getaccdotys],
+// GetAccDotYS is wrapping [MSK_getaccdotys],
 // Obtains the doty vector for a solution.
 //
 // Arguments:
@@ -124,7 +124,7 @@ func (task *Task) GetAccDomain(
 //   - `doty` The dual values of affine conic constraints. The array should have length equal to the sum of dimensions of all affine conic constraints.
 //
 // [MSK_getaccdotys]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccdotys
-func (task *Task) GetAccDotYs(
+func (task *Task) GetAccDotYS(
 	whichsol SolType,
 	doty *float64,
 ) res.Code {
@@ -181,7 +181,7 @@ func (task *Task) GetAccGVector(
 	)
 }
 
-// GetAccntot is wrapping [MSK_getaccntot],
+// GetAccNTot is wrapping [MSK_getaccntot],
 // Obtains the total dimension of all affine conic constraints.
 //
 // Returns:
@@ -189,7 +189,7 @@ func (task *Task) GetAccGVector(
 //   - `n` The total dimension of all affine conic constraints.
 //
 // [MSK_getaccntot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccntot
-func (task *Task) GetAccntot(
+func (task *Task) GetAccNTot(
 	n *int64,
 ) res.Code {
 	return res.Code(
@@ -279,7 +279,7 @@ func (task *Task) GetAColSlice64(
 	)
 }
 
-// GetAfeBarFBlockTriplet is wrapping [MSK_getafebarfblocktriplet],
+// GetAfeBarfBlockTriplet is wrapping [MSK_getafebarfblocktriplet],
 // Obtains barF in block triplet form.
 //
 // Arguments:
@@ -295,7 +295,7 @@ func (task *Task) GetAColSlice64(
 //   - `numtrip` Number of elements in the block triplet form.
 //
 // [MSK_getafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfblocktriplet
-func (task *Task) GetAfeBarFBlockTriplet(
+func (task *Task) GetAfeBarfBlockTriplet(
 	maxnumtrip int64,
 	numtrip *int64,
 	afeidx *int64,
@@ -318,7 +318,7 @@ func (task *Task) GetAfeBarFBlockTriplet(
 	)
 }
 
-// GetAfeBarFNumBlockTriplets is wrapping [MSK_getafebarfnumblocktriplets],
+// GetAfeBarfNumBlockTriplets is wrapping [MSK_getafebarfnumblocktriplets],
 // Obtains an upper bound on the number of elements in the block triplet form of barf.
 //
 // Returns:
@@ -326,7 +326,7 @@ func (task *Task) GetAfeBarFBlockTriplet(
 //   - `numtrip` An upper bound on the number of elements in the block triplet form of barf.
 //
 // [MSK_getafebarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfnumblocktriplets
-func (task *Task) GetAfeBarFNumBlockTriplets(
+func (task *Task) GetAfeBarfNumBlockTriplets(
 	numtrip *int64,
 ) res.Code {
 	return res.Code(
@@ -337,7 +337,7 @@ func (task *Task) GetAfeBarFNumBlockTriplets(
 	)
 }
 
-// GetAfeBarFNumrowentries is wrapping [MSK_getafebarfnumrowentries],
+// GetAfeBarfNumRowEntries is wrapping [MSK_getafebarfnumrowentries],
 // Obtains the number of nonzero entries in a row of barF.
 //
 // Arguments:
@@ -349,7 +349,7 @@ func (task *Task) GetAfeBarFNumBlockTriplets(
 //   - `numentr` Number of nonzero entries in a row of barF.
 //
 // [MSK_getafebarfnumrowentries]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfnumrowentries
-func (task *Task) GetAfeBarFNumrowentries(
+func (task *Task) GetAfeBarfNumRowEntries(
 	afeidx int64,
 	numentr *int32,
 ) res.Code {
@@ -362,7 +362,7 @@ func (task *Task) GetAfeBarFNumrowentries(
 	)
 }
 
-// GetAfeBarFRow is wrapping [MSK_getafebarfrow],
+// GetAfeBarfRow is wrapping [MSK_getafebarfrow],
 // Obtains nonzero entries in one row of barF.
 //
 // Arguments:
@@ -375,7 +375,7 @@ func (task *Task) GetAfeBarFNumrowentries(
 //   - `termweight` Weights appearing in the weighted sum representation.
 //
 // [MSK_getafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfrow
-func (task *Task) GetAfeBarFRow(
+func (task *Task) GetAfeBarfRow(
 	afeidx int64,
 	barvaridx *int32,
 	ptrterm *int64,
@@ -396,7 +396,7 @@ func (task *Task) GetAfeBarFRow(
 	)
 }
 
-// GetAfeBarFRowInfo is wrapping [MSK_getafebarfrowinfo],
+// GetAfeBarfRowInfo is wrapping [MSK_getafebarfrowinfo],
 // Obtains information about one row of barF.
 //
 // Arguments:
@@ -406,7 +406,7 @@ func (task *Task) GetAfeBarFRow(
 //   - `numterm` Number of terms in the weighted sums representation of the row of barF.
 //
 // [MSK_getafebarfrowinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfrowinfo
-func (task *Task) GetAfeBarFRowInfo(
+func (task *Task) GetAfeBarfRowInfo(
 	afeidx int64,
 	numentr *int32,
 	numterm *int64,
@@ -581,7 +581,7 @@ func (task *Task) GetARowSlice64(
 	)
 }
 
-// GetAtrip is wrapping [MSK_getatrip],
+// GetATrip is wrapping [MSK_getatrip],
 // Obtains the A matrix in sparse triplet format.
 //
 // Arguments:
@@ -591,7 +591,7 @@ func (task *Task) GetARowSlice64(
 //   - `val` Values.
 //
 // [MSK_getatrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getatrip
-func (task *Task) GetAtrip(
+func (task *Task) GetATrip(
 	maxnumnz int64,
 	subi *int32,
 	subj *int32,
@@ -608,7 +608,7 @@ func (task *Task) GetAtrip(
 	)
 }
 
-// GetAtruncatetol is wrapping [MSK_getatruncatetol],
+// GetATruncateTol is wrapping [MSK_getatruncatetol],
 // Gets the current A matrix truncation threshold.
 //
 // Arguments:
@@ -616,7 +616,7 @@ func (task *Task) GetAtrip(
 //   - `tolzero` Truncation tolerance.
 //
 // [MSK_getatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getatruncatetol
-func (task *Task) GetAtruncatetol(
+func (task *Task) GetATruncateTol(
 	tolzero *float64,
 ) res.Code {
 	return res.Code(
@@ -627,7 +627,7 @@ func (task *Task) GetAtruncatetol(
 	)
 }
 
-// GetBarABlockTriplet is wrapping [MSK_getbarablocktriplet],
+// GetBaraBlockTriplet is wrapping [MSK_getbarablocktriplet],
 // Obtains barA in block triplet form.
 //
 // Arguments:
@@ -643,7 +643,7 @@ func (task *Task) GetAtruncatetol(
 //   - `num` Number of elements in the block triplet form.
 //
 // [MSK_getbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarablocktriplet
-func (task *Task) GetBarABlockTriplet(
+func (task *Task) GetBaraBlockTriplet(
 	maxnum int64,
 	num *int64,
 	subi *int32,
@@ -666,7 +666,7 @@ func (task *Task) GetBarABlockTriplet(
 	)
 }
 
-// GetBarAIdx is wrapping [MSK_getbaraidx],
+// GetBaraIdx is wrapping [MSK_getbaraidx],
 // Obtains information about an element in barA.
 //
 // Arguments:
@@ -682,7 +682,7 @@ func (task *Task) GetBarABlockTriplet(
 //   - `num` Number of terms in weighted sum that forms the element.
 //
 // [MSK_getbaraidx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidx
-func (task *Task) GetBarAIdx(
+func (task *Task) GetBaraIdx(
 	idx int64,
 	maxnum int64,
 	i *int32,
@@ -705,7 +705,7 @@ func (task *Task) GetBarAIdx(
 	)
 }
 
-// GetBarAIdxij is wrapping [MSK_getbaraidxij],
+// GetBaraIdxIJ is wrapping [MSK_getbaraidxij],
 // Obtains information about an element in barA.
 //
 // Arguments:
@@ -715,7 +715,7 @@ func (task *Task) GetBarAIdx(
 //   - `j` Column index of the element at position idx.
 //
 // [MSK_getbaraidxij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidxij
-func (task *Task) GetBarAIdxij(
+func (task *Task) GetBaraIdxIJ(
 	idx int64,
 	i *int32,
 	j *int32,
@@ -730,7 +730,7 @@ func (task *Task) GetBarAIdxij(
 	)
 }
 
-// GetBarAIdxInfo is wrapping [MSK_getbaraidxinfo],
+// GetBaraIdxInfo is wrapping [MSK_getbaraidxinfo],
 // Obtains the number of terms in the weighted sum that form a particular element in barA.
 //
 // Arguments:
@@ -742,7 +742,7 @@ func (task *Task) GetBarAIdxij(
 //   - `num` Number of terms in the weighted sum that form the specified element in barA.
 //
 // [MSK_getbaraidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidxinfo
-func (task *Task) GetBarAIdxInfo(
+func (task *Task) GetBaraIdxInfo(
 	idx int64,
 	num *int64,
 ) res.Code {
@@ -755,7 +755,7 @@ func (task *Task) GetBarAIdxInfo(
 	)
 }
 
-// GetBarASparsity is wrapping [MSK_getbarasparsity],
+// GetBaraSparsity is wrapping [MSK_getbarasparsity],
 // Obtains the sparsity pattern of the barA matrix.
 //
 // Arguments:
@@ -764,7 +764,7 @@ func (task *Task) GetBarAIdxInfo(
 //   - `idxij` Position of each nonzero element in the vector representation of barA.
 //
 // [MSK_getbarasparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarasparsity
-func (task *Task) GetBarASparsity(
+func (task *Task) GetBaraSparsity(
 	maxnumnz int64,
 	numnz *int64,
 	idxij *int64,
@@ -779,7 +779,7 @@ func (task *Task) GetBarASparsity(
 	)
 }
 
-// GetBarCBlockTriplet is wrapping [MSK_getbarcblocktriplet],
+// GetBarcBlockTriplet is wrapping [MSK_getbarcblocktriplet],
 // Obtains barC in block triplet form.
 //
 // Arguments:
@@ -794,7 +794,7 @@ func (task *Task) GetBarASparsity(
 //   - `num` Number of elements in the block triplet form.
 //
 // [MSK_getbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcblocktriplet
-func (task *Task) GetBarCBlockTriplet(
+func (task *Task) GetBarcBlockTriplet(
 	maxnum int64,
 	num *int64,
 	subj *int32,
@@ -815,7 +815,7 @@ func (task *Task) GetBarCBlockTriplet(
 	)
 }
 
-// GetBarCIdx is wrapping [MSK_getbarcidx],
+// GetBarcIdx is wrapping [MSK_getbarcidx],
 // Obtains information about an element in barc.
 //
 // Arguments:
@@ -827,7 +827,7 @@ func (task *Task) GetBarCBlockTriplet(
 //   - `weights` Weights of terms in the weighted sum.
 //
 // [MSK_getbarcidx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidx
-func (task *Task) GetBarCIdx(
+func (task *Task) GetBarcIdx(
 	idx int64,
 	maxnum int64,
 	j *int32,
@@ -848,7 +848,7 @@ func (task *Task) GetBarCIdx(
 	)
 }
 
-// GetBarCIdxInfo is wrapping [MSK_getbarcidxinfo],
+// GetBarcIdxInfo is wrapping [MSK_getbarcidxinfo],
 // Obtains information about an element in barc.
 //
 // Arguments:
@@ -860,7 +860,7 @@ func (task *Task) GetBarCIdx(
 //   - `num` Number of terms that appear in the weighted sum that forms the requested element.
 //
 // [MSK_getbarcidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidxinfo
-func (task *Task) GetBarCIdxInfo(
+func (task *Task) GetBarcIdxInfo(
 	idx int64,
 	num *int64,
 ) res.Code {
@@ -873,7 +873,7 @@ func (task *Task) GetBarCIdxInfo(
 	)
 }
 
-// GetBarCIdxj is wrapping [MSK_getbarcidxj],
+// GetBarcIdxJ is wrapping [MSK_getbarcidxj],
 // Obtains the row index of an element in barc.
 //
 // Arguments:
@@ -882,7 +882,7 @@ func (task *Task) GetBarCIdxInfo(
 //   - `j` Row index in barc.
 //
 // [MSK_getbarcidxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidxj
-func (task *Task) GetBarCIdxj(
+func (task *Task) GetBarcIdxJ(
 	idx int64,
 	j *int32,
 ) res.Code {
@@ -895,7 +895,7 @@ func (task *Task) GetBarCIdxj(
 	)
 }
 
-// GetBarCSparsity is wrapping [MSK_getbarcsparsity],
+// GetBarcSparsity is wrapping [MSK_getbarcsparsity],
 // Get the positions of the nonzero elements in barc.
 //
 // Arguments:
@@ -904,7 +904,7 @@ func (task *Task) GetBarCIdxj(
 //   - `idxj` Internal positions of the nonzeros elements in barc.
 //
 // [MSK_getbarcsparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcsparsity
-func (task *Task) GetBarCSparsity(
+func (task *Task) GetBarcSparsity(
 	maxnumnz int64,
 	numnz *int64,
 	idxj *int64,
@@ -919,7 +919,7 @@ func (task *Task) GetBarCSparsity(
 	)
 }
 
-// GetBarsj is wrapping [MSK_getbarsj],
+// GetBarsJ is wrapping [MSK_getbarsj],
 // Obtains the dual solution for a semidefinite variable.
 //
 // Arguments:
@@ -929,7 +929,7 @@ func (task *Task) GetBarCSparsity(
 //   - `barsj` Value of the j'th dual variable of barx.
 //
 // [MSK_getbarsj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarsj
-func (task *Task) GetBarsj(
+func (task *Task) GetBarsJ(
 	whichsol SolType,
 	j int32,
 	barsj *float64,
@@ -944,7 +944,7 @@ func (task *Task) GetBarsj(
 	)
 }
 
-// GetBarvarnameindex is wrapping [MSK_getbarvarnameindex],
+// GetBarvarNameIndex is wrapping [MSK_getbarvarnameindex],
 // Obtains the index of semidefinite variable from its name.
 //
 // Arguments:
@@ -957,7 +957,7 @@ func (task *Task) GetBarsj(
 //   - `index` The index of a semidefinite variable with the name somename (if one exists).
 //
 // [MSK_getbarvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarvarnameindex
-func (task *Task) GetBarvarnameindex(
+func (task *Task) GetBarvarNameIndex(
 	somename string,
 	asgn *int32,
 	index *int32,
@@ -975,7 +975,7 @@ func (task *Task) GetBarvarnameindex(
 	)
 }
 
-// GetBarxj is wrapping [MSK_getbarxj],
+// GetBarxJ is wrapping [MSK_getbarxj],
 // Obtains the primal solution for a semidefinite variable.
 //
 // Arguments:
@@ -985,7 +985,7 @@ func (task *Task) GetBarvarnameindex(
 //   - `barxj` Value of the j'th variable of barx.
 //
 // [MSK_getbarxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarxj
-func (task *Task) GetBarxj(
+func (task *Task) GetBarxJ(
 	whichsol SolType,
 	j int32,
 	barxj *float64,
@@ -1019,7 +1019,7 @@ func (task *Task) GetC(
 	)
 }
 
-// GetCFix is wrapping [MSK_getcfix],
+// GetCfix is wrapping [MSK_getcfix],
 // Obtains the fixed term in the objective.
 //
 // Returns:
@@ -1027,7 +1027,7 @@ func (task *Task) GetC(
 //   - `cfix` Fixed term in the objective.
 //
 // [MSK_getcfix]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcfix
-func (task *Task) GetCFix(
+func (task *Task) GetCfix(
 	cfix *float64,
 ) res.Code {
 	return res.Code(
@@ -1038,7 +1038,7 @@ func (task *Task) GetCFix(
 	)
 }
 
-// GetCj is wrapping [MSK_getcj],
+// GetCJ is wrapping [MSK_getcj],
 // Obtains one objective coefficient.
 //
 // Arguments:
@@ -1047,7 +1047,7 @@ func (task *Task) GetCFix(
 //   - `cj` The c coefficient value.
 //
 // [MSK_getcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcj
-func (task *Task) GetCj(
+func (task *Task) GetCJ(
 	j int32,
 	cj *float64,
 ) res.Code {
@@ -1060,7 +1060,7 @@ func (task *Task) GetCj(
 	)
 }
 
-// GetConbound is wrapping [MSK_getconbound],
+// GetConBound is wrapping [MSK_getconbound],
 // Obtains bound information for one constraint.
 //
 // Arguments:
@@ -1071,7 +1071,7 @@ func (task *Task) GetCj(
 //   - `bu` Values for upper bounds.
 //
 // [MSK_getconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconbound
-func (task *Task) GetConbound(
+func (task *Task) GetConBound(
 	i int32,
 	bk *BoundKey,
 	bl *float64,
@@ -1151,7 +1151,7 @@ func (task *Task) GetConeInfo(
 	)
 }
 
-// GetConenameindex is wrapping [MSK_getconenameindex],
+// GetConeNameIndex is wrapping [MSK_getconenameindex],
 // Checks whether the name has been assigned to any cone.
 //
 // Arguments:
@@ -1163,10 +1163,10 @@ func (task *Task) GetConeInfo(
 //
 //   - `index` If the name somename is assigned to some cone, this is the index of the cone.
 //
-// Deprecated: [MSK_getconenameindex]/GetConenameindex is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getconenameindex]/GetConeNameIndex is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getconenameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconenameindex
-func (task *Task) GetConenameindex(
+func (task *Task) GetConeNameIndex(
 	somename string,
 	asgn *int32,
 	index *int32,
@@ -1184,7 +1184,7 @@ func (task *Task) GetConenameindex(
 	)
 }
 
-// GetConnameindex is wrapping [MSK_getconnameindex],
+// GetConNameIndex is wrapping [MSK_getconnameindex],
 // Checks whether the name has been assigned to any constraint.
 //
 // Arguments:
@@ -1197,7 +1197,7 @@ func (task *Task) GetConenameindex(
 //   - `index` If the name somename is assigned to a constraint, then return the index of the constraint.
 //
 // [MSK_getconnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconnameindex
-func (task *Task) GetConnameindex(
+func (task *Task) GetConNameIndex(
 	somename string,
 	asgn *int32,
 	index *int32,
@@ -1215,7 +1215,7 @@ func (task *Task) GetConnameindex(
 	)
 }
 
-// GetDimbarvarj is wrapping [MSK_getdimbarvarj],
+// GetDimBarvarJ is wrapping [MSK_getdimbarvarj],
 // Obtains the dimension of a symmetric matrix variable.
 //
 // Arguments:
@@ -1227,7 +1227,7 @@ func (task *Task) GetConnameindex(
 //   - `dimbarvarj` The dimension of the j'th semidefinite variable.
 //
 // [MSK_getdimbarvarj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdimbarvarj
-func (task *Task) GetDimbarvarj(
+func (task *Task) GetDimBarvarJ(
 	j int32,
 	dimbarvarj *int32,
 ) res.Code {
@@ -1240,7 +1240,7 @@ func (task *Task) GetDimbarvarj(
 	)
 }
 
-// GetDjcb is wrapping [MSK_getdjcb],
+// GetDjcB is wrapping [MSK_getdjcb],
 // Obtains the optional constant term vector of a disjunctive constraint.
 //
 // Arguments:
@@ -1249,7 +1249,7 @@ func (task *Task) GetDimbarvarj(
 //   - `b` The vector b.
 //
 // [MSK_getdjcb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcb
-func (task *Task) GetDjcb(
+func (task *Task) GetDjcB(
 	djcidx int64,
 	b *float64,
 ) res.Code {
@@ -1262,7 +1262,7 @@ func (task *Task) GetDjcb(
 	)
 }
 
-// GetDjcnumafe is wrapping [MSK_getdjcnumafe],
+// GetDjcNumAfe is wrapping [MSK_getdjcnumafe],
 // Obtains the number of affine expressions in the disjunctive constraint.
 //
 // Arguments:
@@ -1274,7 +1274,7 @@ func (task *Task) GetDjcb(
 //   - `numafe` Number of affine expressions in the disjunctive constraint.
 //
 // [MSK_getdjcnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumafe
-func (task *Task) GetDjcnumafe(
+func (task *Task) GetDjcNumAfe(
 	djcidx int64,
 	numafe *int64,
 ) res.Code {
@@ -1287,7 +1287,7 @@ func (task *Task) GetDjcnumafe(
 	)
 }
 
-// GetDjcnumafetot is wrapping [MSK_getdjcnumafetot],
+// GetDjcNumAfeTot is wrapping [MSK_getdjcnumafetot],
 // Obtains the number of affine expressions in all disjunctive constraints.
 //
 // Returns:
@@ -1295,7 +1295,7 @@ func (task *Task) GetDjcnumafe(
 //   - `numafetot` Number of affine expressions in all disjunctive constraints.
 //
 // [MSK_getdjcnumafetot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumafetot
-func (task *Task) GetDjcnumafetot(
+func (task *Task) GetDjcNumAfeTot(
 	numafetot *int64,
 ) res.Code {
 	return res.Code(
@@ -1306,7 +1306,7 @@ func (task *Task) GetDjcnumafetot(
 	)
 }
 
-// GetDjcnumDomain is wrapping [MSK_getdjcnumdomain],
+// GetDjcNumDomain is wrapping [MSK_getdjcnumdomain],
 // Obtains the number of domains in the disjunctive constraint.
 //
 // Arguments:
@@ -1318,7 +1318,7 @@ func (task *Task) GetDjcnumafetot(
 //   - `numdomain` Number of domains in the disjunctive constraint.
 //
 // [MSK_getdjcnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumdomain
-func (task *Task) GetDjcnumDomain(
+func (task *Task) GetDjcNumDomain(
 	djcidx int64,
 	numdomain *int64,
 ) res.Code {
@@ -1331,7 +1331,7 @@ func (task *Task) GetDjcnumDomain(
 	)
 }
 
-// GetDjcnumdomaintot is wrapping [MSK_getdjcnumdomaintot],
+// GetDjcNumDomainTot is wrapping [MSK_getdjcnumdomaintot],
 // Obtains the number of domains in all disjunctive constraints.
 //
 // Returns:
@@ -1339,7 +1339,7 @@ func (task *Task) GetDjcnumDomain(
 //   - `numdomaintot` Number of domains in all disjunctive constraints.
 //
 // [MSK_getdjcnumdomaintot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumdomaintot
-func (task *Task) GetDjcnumdomaintot(
+func (task *Task) GetDjcNumDomainTot(
 	numdomaintot *int64,
 ) res.Code {
 	return res.Code(
@@ -1350,7 +1350,7 @@ func (task *Task) GetDjcnumdomaintot(
 	)
 }
 
-// GetDjcnumterm is wrapping [MSK_getdjcnumterm],
+// GetDjcNumTerm is wrapping [MSK_getdjcnumterm],
 // Obtains the number terms in the disjunctive constraint.
 //
 // Arguments:
@@ -1362,7 +1362,7 @@ func (task *Task) GetDjcnumdomaintot(
 //   - `numterm` Number of terms in the disjunctive constraint.
 //
 // [MSK_getdjcnumterm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumterm
-func (task *Task) GetDjcnumterm(
+func (task *Task) GetDjcNumTerm(
 	djcidx int64,
 	numterm *int64,
 ) res.Code {
@@ -1375,7 +1375,7 @@ func (task *Task) GetDjcnumterm(
 	)
 }
 
-// GetDjcnumtermtot is wrapping [MSK_getdjcnumtermtot],
+// GetDjcNumTermTot is wrapping [MSK_getdjcnumtermtot],
 // Obtains the number of terms in all disjunctive constraints.
 //
 // Returns:
@@ -1383,7 +1383,7 @@ func (task *Task) GetDjcnumterm(
 //   - `numtermtot` Total number of terms in all disjunctive constraints.
 //
 // [MSK_getdjcnumtermtot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnumtermtot
-func (task *Task) GetDjcnumtermtot(
+func (task *Task) GetDjcNumTermTot(
 	numtermtot *int64,
 ) res.Code {
 	return res.Code(
@@ -1425,7 +1425,7 @@ func (task *Task) GetDjcs(
 	)
 }
 
-// GetDomainn is wrapping [MSK_getdomainn],
+// GetDomainN is wrapping [MSK_getdomainn],
 // Obtains the dimension of the domain.
 //
 // Arguments:
@@ -1437,7 +1437,7 @@ func (task *Task) GetDjcs(
 //   - `n` Dimension of the domain.
 //
 // [MSK_getdomainn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdomainn
-func (task *Task) GetDomainn(
+func (task *Task) GetDomainN(
 	domidx int64,
 	n *int64,
 ) res.Code {
@@ -1450,7 +1450,7 @@ func (task *Task) GetDomainn(
 	)
 }
 
-// GetDomaintype is wrapping [MSK_getdomaintype],
+// GetDomainType is wrapping [MSK_getdomaintype],
 // Returns the type of the domain.
 //
 // Arguments:
@@ -1462,7 +1462,7 @@ func (task *Task) GetDomainn(
 //   - `domtype` The type of the domain.
 //
 // [MSK_getdomaintype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdomaintype
-func (task *Task) GetDomaintype(
+func (task *Task) GetDomainType(
 	domidx int64,
 	domtype *DomainType,
 ) res.Code {
@@ -1548,7 +1548,7 @@ func (task *Task) GetDualObj(
 	)
 }
 
-// GetDualSolutionnorms is wrapping [MSK_getdualsolutionnorms],
+// GetDualSolutionNorms is wrapping [MSK_getdualsolutionnorms],
 // Compute norms of the dual solution.
 //
 // Arguments:
@@ -1563,7 +1563,7 @@ func (task *Task) GetDualObj(
 //   - `nrmbars` The norm of the bars vector.
 //
 // [MSK_getdualsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdualsolutionnorms
-func (task *Task) GetDualSolutionnorms(
+func (task *Task) GetDualSolutionNorms(
 	whichsol SolType,
 	nrmy *float64,
 	nrmslc *float64,
@@ -1588,7 +1588,7 @@ func (task *Task) GetDualSolutionnorms(
 	)
 }
 
-// GetDviolacc is wrapping [MSK_getdviolacc],
+// GetDviolAcc is wrapping [MSK_getdviolacc],
 // Computes the violation of the dual solution for set of affine conic constraints.
 //
 // Arguments:
@@ -1598,7 +1598,7 @@ func (task *Task) GetDualSolutionnorms(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolacc
-func (task *Task) GetDviolacc(
+func (task *Task) GetDviolAcc(
 	whichsol SolType,
 	numaccidx int64,
 	accidxlist *int64,
@@ -1615,7 +1615,7 @@ func (task *Task) GetDviolacc(
 	)
 }
 
-// GetDviolbarvar is wrapping [MSK_getdviolbarvar],
+// GetDviolBarvar is wrapping [MSK_getdviolbarvar],
 // Computes the violation of dual solution for a set of semidefinite variables.
 //
 // Arguments:
@@ -1625,7 +1625,7 @@ func (task *Task) GetDviolacc(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolbarvar
-func (task *Task) GetDviolbarvar(
+func (task *Task) GetDviolBarvar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -1642,7 +1642,7 @@ func (task *Task) GetDviolbarvar(
 	)
 }
 
-// GetDviolcon is wrapping [MSK_getdviolcon],
+// GetDviolCon is wrapping [MSK_getdviolcon],
 // Computes the violation of a dual solution associated with a set of constraints.
 //
 // Arguments:
@@ -1652,7 +1652,7 @@ func (task *Task) GetDviolbarvar(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolcon
-func (task *Task) GetDviolcon(
+func (task *Task) GetDviolCon(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -1669,7 +1669,7 @@ func (task *Task) GetDviolcon(
 	)
 }
 
-// GetDviolcones is wrapping [MSK_getdviolcones],
+// GetDviolCones is wrapping [MSK_getdviolcones],
 // Computes the violation of a solution for set of dual conic constraints.
 //
 // Arguments:
@@ -1678,10 +1678,10 @@ func (task *Task) GetDviolcon(
 //   - `sub` An array of indexes of conic constraints.
 //   - `viol` List of violations corresponding to sub.
 //
-// Deprecated: [MSK_getdviolcones]/GetDviolcones is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getdviolcones]/GetDviolCones is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getdviolcones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolcones
-func (task *Task) GetDviolcones(
+func (task *Task) GetDviolCones(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -1698,7 +1698,7 @@ func (task *Task) GetDviolcones(
 	)
 }
 
-// GetDviolvar is wrapping [MSK_getdviolvar],
+// GetDviolVar is wrapping [MSK_getdviolvar],
 // Computes the violation of a dual solution associated with a set of scalar variables.
 //
 // Arguments:
@@ -1708,7 +1708,7 @@ func (task *Task) GetDviolcones(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getdviolvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdviolvar
-func (task *Task) GetDviolvar(
+func (task *Task) GetDviolVar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -1725,7 +1725,7 @@ func (task *Task) GetDviolvar(
 	)
 }
 
-// GetInfindex is wrapping [MSK_getinfindex],
+// GetInfIndex is wrapping [MSK_getinfindex],
 // Obtains the index of a named information item.
 //
 // Arguments:
@@ -1735,7 +1735,7 @@ func (task *Task) GetDviolvar(
 //   - `infindex` The item index.
 //
 // [MSK_getinfindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getinfindex
-func (task *Task) GetInfindex(
+func (task *Task) GetInfIndex(
 	inftype InfType,
 	infname string,
 	infindex *int32,
@@ -1753,7 +1753,7 @@ func (task *Task) GetInfindex(
 	)
 }
 
-// GetInfmax is wrapping [MSK_getinfmax],
+// GetInfMax is wrapping [MSK_getinfmax],
 // Obtains the maximum index of an information item of a given type.
 //
 // Arguments:
@@ -1762,7 +1762,7 @@ func (task *Task) GetInfindex(
 //   - `infmax` The maximum index (plus 1) requested.
 //
 // [MSK_getinfmax]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getinfmax
-func (task *Task) GetInfmax(
+func (task *Task) GetInfMax(
 	inftype InfType,
 	infmax *int32,
 ) res.Code {
@@ -1892,7 +1892,7 @@ func (task *Task) GetLenBarvarJ(
 	return
 }
 
-// GetLintinf is wrapping [MSK_getlintinf],
+// GetLintInf is wrapping [MSK_getlintinf],
 // Obtains a long integer information item.
 //
 // Arguments:
@@ -1904,7 +1904,7 @@ func (task *Task) GetLenBarvarJ(
 //   - `ivalue` The value of the required long integer information item.
 //
 // [MSK_getlintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlintinf
-func (task *Task) GetLintinf(
+func (task *Task) GetLintInf(
 	whichliinf LIInfItem,
 	ivalue *int64,
 ) res.Code {
@@ -1917,7 +1917,7 @@ func (task *Task) GetLintinf(
 	)
 }
 
-// GetMaxnumanz is wrapping [MSK_getmaxnumanz],
+// GetMaxNumANz is wrapping [MSK_getmaxnumanz],
 // Obtains number of preallocated non-zeros in the linear constraint matrix.
 //
 // Returns:
@@ -1925,7 +1925,7 @@ func (task *Task) GetLintinf(
 //   - `maxnumanz` Number of preallocated non-zero linear matrix elements.
 //
 // [MSK_getmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz
-func (task *Task) GetMaxnumanz(
+func (task *Task) GetMaxNumANz(
 	maxnumanz *int32,
 ) res.Code {
 	return res.Code(
@@ -1950,7 +1950,7 @@ func (task *Task) GetMaxnumanz64(
 	)
 }
 
-// GetMaxnumbarvar is wrapping [MSK_getmaxnumbarvar],
+// GetMaxNumBarvar is wrapping [MSK_getmaxnumbarvar],
 // Obtains maximum number of symmetric matrix variables for which space is currently preallocated.
 //
 // Returns:
@@ -1958,7 +1958,7 @@ func (task *Task) GetMaxnumanz64(
 //   - `maxnumbarvar` Maximum number of symmetric matrix variables for which space is currently preallocated.
 //
 // [MSK_getmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumbarvar
-func (task *Task) GetMaxnumbarvar(
+func (task *Task) GetMaxNumBarvar(
 	maxnumbarvar *int32,
 ) res.Code {
 	return res.Code(
@@ -1969,7 +1969,7 @@ func (task *Task) GetMaxnumbarvar(
 	)
 }
 
-// GetMaxnumcon is wrapping [MSK_getmaxnumcon],
+// GetMaxNumCon is wrapping [MSK_getmaxnumcon],
 // Obtains the number of preallocated constraints in the optimization task.
 //
 // Arguments:
@@ -1977,7 +1977,7 @@ func (task *Task) GetMaxnumbarvar(
 //   - `maxnumcon` Number of preallocated constraints in the optimization task.
 //
 // [MSK_getmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcon
-func (task *Task) GetMaxnumcon(
+func (task *Task) GetMaxNumCon(
 	maxnumcon *int32,
 ) res.Code {
 	return res.Code(
@@ -1988,17 +1988,17 @@ func (task *Task) GetMaxnumcon(
 	)
 }
 
-// GetMaxnumcone is wrapping [MSK_getmaxnumcone],
+// GetMaxNumCone is wrapping [MSK_getmaxnumcone],
 // Obtains the number of preallocated cones in the optimization task.
 //
 // Arguments:
 //
 //   - `maxnumcone` Number of preallocated conic constraints in the optimization task.
 //
-// Deprecated: [MSK_getmaxnumcone]/GetMaxnumcone is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getmaxnumcone]/GetMaxNumCone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcone
-func (task *Task) GetMaxnumcone(
+func (task *Task) GetMaxNumCone(
 	maxnumcone *int32,
 ) res.Code {
 	return res.Code(
@@ -2009,7 +2009,7 @@ func (task *Task) GetMaxnumcone(
 	)
 }
 
-// GetMaxnumqnz is wrapping [MSK_getmaxnumqnz],
+// GetMaxNumQNz is wrapping [MSK_getmaxnumqnz],
 // Obtains the number of preallocated non-zeros for all quadratic terms in objective and constraints.
 //
 // Arguments:
@@ -2017,7 +2017,7 @@ func (task *Task) GetMaxnumcone(
 //   - `maxnumqnz` Number of non-zero elements preallocated in quadratic coefficient matrices.
 //
 // [MSK_getmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz
-func (task *Task) GetMaxnumqnz(
+func (task *Task) GetMaxNumQNz(
 	maxnumqnz *int32,
 ) res.Code {
 	return res.Code(
@@ -2042,7 +2042,7 @@ func (task *Task) GetMaxnumqnz64(
 	)
 }
 
-// GetMaxnumvar is wrapping [MSK_getmaxnumvar],
+// GetMaxNumVar is wrapping [MSK_getmaxnumvar],
 // Obtains the maximum number variables allowed.
 //
 // Arguments:
@@ -2050,7 +2050,7 @@ func (task *Task) GetMaxnumqnz64(
 //   - `maxnumvar` Number of preallocated variables in the optimization task.
 //
 // [MSK_getmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumvar
-func (task *Task) GetMaxnumvar(
+func (task *Task) GetMaxNumVar(
 	maxnumvar *int32,
 ) res.Code {
 	return res.Code(
@@ -2077,7 +2077,7 @@ func (task *Task) GetMemusagetask(
 	)
 }
 
-// GetNadouinf is wrapping [MSK_getnadouinf],
+// GetNaDouInf is wrapping [MSK_getnadouinf],
 // Obtains a named double information item.
 //
 // Arguments:
@@ -2086,7 +2086,7 @@ func (task *Task) GetMemusagetask(
 //   - `dvalue` The value of the required double information item.
 //
 // [MSK_getnadouinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnadouinf
-func (task *Task) GetNadouinf(
+func (task *Task) GetNaDouInf(
 	infitemname string,
 	dvalue *float64,
 ) res.Code {
@@ -2102,7 +2102,7 @@ func (task *Task) GetNadouinf(
 	)
 }
 
-// GetNadouparam is wrapping [MSK_getnadouparam],
+// GetNaDouParam is wrapping [MSK_getnadouparam],
 // Obtains a double parameter.
 //
 // Arguments:
@@ -2111,7 +2111,7 @@ func (task *Task) GetNadouinf(
 //   - `parvalue` Parameter value.
 //
 // [MSK_getnadouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnadouparam
-func (task *Task) GetNadouparam(
+func (task *Task) GetNaDouParam(
 	paramname string,
 	parvalue *float64,
 ) res.Code {
@@ -2127,7 +2127,7 @@ func (task *Task) GetNadouparam(
 	)
 }
 
-// GetNaintinf is wrapping [MSK_getnaintinf],
+// GetNaIntInf is wrapping [MSK_getnaintinf],
 // Obtains a named integer information item.
 //
 // Arguments:
@@ -2136,7 +2136,7 @@ func (task *Task) GetNadouparam(
 //   - `ivalue` The value of the required integer information item.
 //
 // [MSK_getnaintinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnaintinf
-func (task *Task) GetNaintinf(
+func (task *Task) GetNaIntInf(
 	infitemname string,
 	ivalue *int32,
 ) res.Code {
@@ -2152,7 +2152,7 @@ func (task *Task) GetNaintinf(
 	)
 }
 
-// GetNaintparam is wrapping [MSK_getnaintparam],
+// GetNaIntParam is wrapping [MSK_getnaintparam],
 // Obtains an integer parameter.
 //
 // Arguments:
@@ -2161,7 +2161,7 @@ func (task *Task) GetNaintinf(
 //   - `parvalue` Parameter value.
 //
 // [MSK_getnaintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnaintparam
-func (task *Task) GetNaintparam(
+func (task *Task) GetNaIntParam(
 	paramname string,
 	parvalue *int32,
 ) res.Code {
@@ -2177,7 +2177,7 @@ func (task *Task) GetNaintparam(
 	)
 }
 
-// GetNastrparam is wrapping [MSK_getnastrparam],
+// GetNaStrParam is wrapping [MSK_getnastrparam],
 // Obtains a string parameter.
 //
 // Arguments:
@@ -2191,7 +2191,7 @@ func (task *Task) GetNaintparam(
 //   - `parvalue` Parameter value.
 //
 // [MSK_getnastrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnastrparam
-func (task *Task) GetNastrparam(
+func (task *Task) GetNaStrParam(
 	paramname string,
 	sizeparamname int32,
 	len *int32,
@@ -2211,7 +2211,7 @@ func (task *Task) GetNastrparam(
 	)
 }
 
-// GetObjsense is wrapping [MSK_getobjsense],
+// GetObjSense is wrapping [MSK_getobjsense],
 // Gets the objective sense.
 //
 // Returns:
@@ -2219,7 +2219,7 @@ func (task *Task) GetNastrparam(
 //   - `sense` The returned objective sense.
 //
 // [MSK_getobjsense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getobjsense
-func (task *Task) GetObjsense(
+func (task *Task) GetObjSense(
 	sense *ObjectiveSense,
 ) res.Code {
 	return res.Code(
@@ -2230,7 +2230,7 @@ func (task *Task) GetObjsense(
 	)
 }
 
-// GetParammax is wrapping [MSK_getparammax],
+// GetParamMax is wrapping [MSK_getparammax],
 // Obtains the maximum index of a parameter of a given type.
 //
 // Arguments:
@@ -2239,7 +2239,7 @@ func (task *Task) GetObjsense(
 //   - `parammax` The maximum index (plus 1) of the given parameter type.
 //
 // [MSK_getparammax]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getparammax
-func (task *Task) GetParammax(
+func (task *Task) GetParamMax(
 	partype ParameterType,
 	parammax *int32,
 ) res.Code {
@@ -2252,7 +2252,7 @@ func (task *Task) GetParammax(
 	)
 }
 
-// GetPowerdomainalpha is wrapping [MSK_getpowerdomainalpha],
+// GetPowerDomainAlpha is wrapping [MSK_getpowerdomainalpha],
 // Obtains the exponent vector of a power domain.
 //
 // Arguments:
@@ -2261,7 +2261,7 @@ func (task *Task) GetParammax(
 //   - `alpha` The exponent vector of the domain.
 //
 // [MSK_getpowerdomainalpha]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpowerdomainalpha
-func (task *Task) GetPowerdomainalpha(
+func (task *Task) GetPowerDomainAlpha(
 	domidx int64,
 	alpha *float64,
 ) res.Code {
@@ -2274,7 +2274,7 @@ func (task *Task) GetPowerdomainalpha(
 	)
 }
 
-// GetPowerdomainInfo is wrapping [MSK_getpowerdomaininfo],
+// GetPowerDomainInfo is wrapping [MSK_getpowerdomaininfo],
 // Obtains structural information about a power domain.
 //
 // Arguments:
@@ -2284,7 +2284,7 @@ func (task *Task) GetPowerdomainalpha(
 //   - `nleft` Number of variables on the left hand side.
 //
 // [MSK_getpowerdomaininfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpowerdomaininfo
-func (task *Task) GetPowerdomainInfo(
+func (task *Task) GetPowerDomainInfo(
 	domidx int64,
 	n *int64,
 	nleft *int64,
@@ -2324,7 +2324,7 @@ func (task *Task) GetPrimalObj(
 	)
 }
 
-// GetPrimalSolutionnorms is wrapping [MSK_getprimalsolutionnorms],
+// GetPrimalSolutionNorms is wrapping [MSK_getprimalsolutionnorms],
 // Compute norms of the primal solution.
 //
 // Arguments:
@@ -2335,7 +2335,7 @@ func (task *Task) GetPrimalObj(
 //   - `nrmbarx` The norm of the barX vector.
 //
 // [MSK_getprimalsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprimalsolutionnorms
-func (task *Task) GetPrimalSolutionnorms(
+func (task *Task) GetPrimalSolutionNorms(
 	whichsol SolType,
 	nrmxc *float64,
 	nrmxx *float64,
@@ -2352,7 +2352,7 @@ func (task *Task) GetPrimalSolutionnorms(
 	)
 }
 
-// GetProbtype is wrapping [MSK_getprobtype],
+// GetProbType is wrapping [MSK_getprobtype],
 // Obtains the problem type.
 //
 // Returns:
@@ -2360,7 +2360,7 @@ func (task *Task) GetPrimalSolutionnorms(
 //   - `probtype` The problem type.
 //
 // [MSK_getprobtype]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprobtype
-func (task *Task) GetProbtype(
+func (task *Task) GetProbType(
 	probtype *ProblemType,
 ) res.Code {
 	return res.Code(
@@ -2397,7 +2397,7 @@ func (task *Task) GetProSta(
 	return
 }
 
-// GetPviolacc is wrapping [MSK_getpviolacc],
+// GetPviolAcc is wrapping [MSK_getpviolacc],
 // Computes the violation of a solution for set of affine conic constraints.
 //
 // Arguments:
@@ -2407,7 +2407,7 @@ func (task *Task) GetProSta(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolacc
-func (task *Task) GetPviolacc(
+func (task *Task) GetPviolAcc(
 	whichsol SolType,
 	numaccidx int64,
 	accidxlist *int64,
@@ -2424,7 +2424,7 @@ func (task *Task) GetPviolacc(
 	)
 }
 
-// GetPviolbarvar is wrapping [MSK_getpviolbarvar],
+// GetPviolBarvar is wrapping [MSK_getpviolbarvar],
 // Computes the violation of a primal solution for a list of semidefinite variables.
 //
 // Arguments:
@@ -2434,7 +2434,7 @@ func (task *Task) GetPviolacc(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolbarvar
-func (task *Task) GetPviolbarvar(
+func (task *Task) GetPviolBarvar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -2451,7 +2451,7 @@ func (task *Task) GetPviolbarvar(
 	)
 }
 
-// GetPviolcon is wrapping [MSK_getpviolcon],
+// GetPviolCon is wrapping [MSK_getpviolcon],
 // Computes the violation of a primal solution associated to a constraint.
 //
 // Arguments:
@@ -2461,7 +2461,7 @@ func (task *Task) GetPviolbarvar(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolcon
-func (task *Task) GetPviolcon(
+func (task *Task) GetPviolCon(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -2478,7 +2478,7 @@ func (task *Task) GetPviolcon(
 	)
 }
 
-// GetPviolcones is wrapping [MSK_getpviolcones],
+// GetPviolCones is wrapping [MSK_getpviolcones],
 // Computes the violation of a solution for set of conic constraints.
 //
 // Arguments:
@@ -2487,10 +2487,10 @@ func (task *Task) GetPviolcon(
 //   - `sub` An array of indexes of conic constraints.
 //   - `viol` List of violations corresponding to sub.
 //
-// Deprecated: [MSK_getpviolcones]/GetPviolcones is deprecated by mosek and will be removed in a future release.
+// Deprecated: [MSK_getpviolcones]/GetPviolCones is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getpviolcones]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolcones
-func (task *Task) GetPviolcones(
+func (task *Task) GetPviolCones(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -2507,7 +2507,7 @@ func (task *Task) GetPviolcones(
 	)
 }
 
-// GetPvioldjc is wrapping [MSK_getpvioldjc],
+// GetPviolDjc is wrapping [MSK_getpvioldjc],
 // Computes the violation of a solution for set of disjunctive constraints.
 //
 // Arguments:
@@ -2517,7 +2517,7 @@ func (task *Task) GetPviolcones(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpvioldjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpvioldjc
-func (task *Task) GetPvioldjc(
+func (task *Task) GetPviolDjc(
 	whichsol SolType,
 	numdjcidx int64,
 	djcidxlist *int64,
@@ -2534,7 +2534,7 @@ func (task *Task) GetPvioldjc(
 	)
 }
 
-// GetPviolvar is wrapping [MSK_getpviolvar],
+// GetPviolVar is wrapping [MSK_getpviolvar],
 // Computes the violation of a primal solution for a list of scalar variables.
 //
 // Arguments:
@@ -2544,7 +2544,7 @@ func (task *Task) GetPvioldjc(
 //   - `viol` List of violations corresponding to sub.
 //
 // [MSK_getpviolvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpviolvar
-func (task *Task) GetPviolvar(
+func (task *Task) GetPviolVar(
 	whichsol SolType,
 	num int32,
 	sub *int32,
@@ -2673,7 +2673,7 @@ func (task *Task) GetQObj64(
 	)
 }
 
-// GetQObjIj is wrapping [MSK_getqobjij],
+// GetQObjIJ is wrapping [MSK_getqobjij],
 // Obtains one coefficient from the quadratic term of the objective
 //
 // Arguments:
@@ -2683,7 +2683,7 @@ func (task *Task) GetQObj64(
 //   - `qoij` The required coefficient.
 //
 // [MSK_getqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqobjij
-func (task *Task) GetQObjIj(
+func (task *Task) GetQObjIJ(
 	i int32,
 	j int32,
 	qoij *float64,
@@ -2698,7 +2698,7 @@ func (task *Task) GetQObjIj(
 	)
 }
 
-// GetReducedcosts is wrapping [MSK_getreducedcosts],
+// GetReducedCosts is wrapping [MSK_getreducedcosts],
 // Obtains the reduced costs for a sequence of variables.
 //
 // Arguments:
@@ -2709,7 +2709,7 @@ func (task *Task) GetQObjIj(
 //   - `redcosts` Returns the requested reduced costs.
 //
 // [MSK_getreducedcosts]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getreducedcosts
-func (task *Task) GetReducedcosts(
+func (task *Task) GetReducedCosts(
 	whichsol SolType,
 	first int32,
 	last int32,
@@ -2994,7 +2994,7 @@ func (task *Task) GetSolutionInfo(
 	)
 }
 
-// GetSolutioninfoNew is wrapping [MSK_getsolutioninfonew],
+// GetSolutionInfoNew is wrapping [MSK_getsolutioninfonew],
 // Obtains information about of a solution.
 //
 // Arguments:
@@ -3016,7 +3016,7 @@ func (task *Task) GetSolutionInfo(
 //   - `dviolacc` Maximum violation of the dual solution in the dual affine conic constraints.
 //
 // [MSK_getsolutioninfonew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutioninfonew
-func (task *Task) GetSolutioninfoNew(
+func (task *Task) GetSolutionInfoNew(
 	whichsol SolType,
 	pobj *float64,
 	pviolcon *float64,
@@ -3116,7 +3116,7 @@ func (task *Task) GetSolutionNew(
 	)
 }
 
-// GetSparseSymmat is wrapping [MSK_getsparsesymmat],
+// GetSparseSymMat is wrapping [MSK_getsparsesymmat],
 // Gets a single symmetric matrix from the matrix store.
 //
 // Arguments:
@@ -3127,7 +3127,7 @@ func (task *Task) GetSolutionNew(
 //   - `valij` Coefficients of the matrix non-zero elements.
 //
 // [MSK_getsparsesymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsparsesymmat
-func (task *Task) GetSparseSymmat(
+func (task *Task) GetSparseSymMat(
 	idx int64,
 	maxlen int64,
 	subi *int32,
@@ -3246,7 +3246,7 @@ func (task *Task) GetSux(
 	)
 }
 
-// GetSymbcon is wrapping [MSK_getsymbcon],
+// GetSymbCon is wrapping [MSK_getsymbcon],
 // Obtains a cone type string identifier.
 //
 // Arguments:
@@ -3259,7 +3259,7 @@ func (task *Task) GetSux(
 //   - `name` Name of the i'th symbolic constant.
 //
 // [MSK_getsymbcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsymbcon
-func (task *Task) GetSymbcon(
+func (task *Task) GetSymbCon(
 	i int32,
 	sizevalue int32,
 	name *byte,
@@ -3276,7 +3276,7 @@ func (task *Task) GetSymbcon(
 	)
 }
 
-// GetSymmatInfo is wrapping [MSK_getsymmatinfo],
+// GetSymMatInfo is wrapping [MSK_getsymmatinfo],
 // Obtains information about a matrix from the symmetric matrix storage.
 //
 // Arguments:
@@ -3287,7 +3287,7 @@ func (task *Task) GetSymbcon(
 //   - `mattype` Returns the type of the requested matrix.
 //
 // [MSK_getsymmatinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsymmatinfo
-func (task *Task) GetSymmatInfo(
+func (task *Task) GetSymMatInfo(
 	idx int64,
 	dim *int32,
 	nz *int64,
@@ -3304,7 +3304,7 @@ func (task *Task) GetSymmatInfo(
 	)
 }
 
-// GetVarbound is wrapping [MSK_getvarbound],
+// GetVarBound is wrapping [MSK_getvarbound],
 // Obtains bound information for one variable.
 //
 // Arguments:
@@ -3315,7 +3315,7 @@ func (task *Task) GetSymmatInfo(
 //   - `bu` Values for upper bounds.
 //
 // [MSK_getvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarbound
-func (task *Task) GetVarbound(
+func (task *Task) GetVarBound(
 	i int32,
 	bk *BoundKey,
 	bl *float64,
@@ -3332,7 +3332,7 @@ func (task *Task) GetVarbound(
 	)
 }
 
-// GetVarnameindex is wrapping [MSK_getvarnameindex],
+// GetVarNameIndex is wrapping [MSK_getvarnameindex],
 // Checks whether the name has been assigned to any variable.
 //
 // Arguments:
@@ -3345,7 +3345,7 @@ func (task *Task) GetVarbound(
 //   - `index` If the name somename is assigned to a variable, then return the index of the variable.
 //
 // [MSK_getvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarnameindex
-func (task *Task) GetVarnameindex(
+func (task *Task) GetVarNameIndex(
 	somename string,
 	asgn *int32,
 	index *int32,

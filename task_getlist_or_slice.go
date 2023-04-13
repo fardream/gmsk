@@ -11,7 +11,7 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// GetAccafeidxList is wrapping [MSK_getaccafeidxlist],
+// GetAccAfeIdxList is wrapping [MSK_getaccafeidxlist],
 // Obtains the list of affine expressions appearing in the affine conic constraint.
 //
 // Arguments:
@@ -20,7 +20,7 @@ import (
 //   - `afeidxlist` List of indexes of affine expressions appearing in the constraint.
 //
 // [MSK_getaccafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccafeidxlist
-func (task *Task) GetAccafeidxList(
+func (task *Task) GetAccAfeIdxList(
 	accidx int64,
 	afeidxlist *int64,
 ) res.Code {
@@ -216,7 +216,7 @@ func (task *Task) GetCList(
 	)
 }
 
-// GetConboundSlice is wrapping [MSK_getconboundslice],
+// GetConBoundSlice is wrapping [MSK_getconboundslice],
 // Obtains bounds information for a slice of the constraints.
 //
 // Arguments:
@@ -228,7 +228,7 @@ func (task *Task) GetCList(
 //   - `bu` Values for upper bounds.
 //
 // [MSK_getconboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconboundslice
-func (task *Task) GetConboundSlice(
+func (task *Task) GetConBoundSlice(
 	first int32,
 	last int32,
 	bk *BoundKey,
@@ -272,7 +272,7 @@ func (task *Task) GetCSlice(
 	)
 }
 
-// GetDjcafeidxList is wrapping [MSK_getdjcafeidxlist],
+// GetDjcAfeIdxList is wrapping [MSK_getdjcafeidxlist],
 // Obtains the list of affine expression indexes in a disjunctive constraint.
 //
 // Arguments:
@@ -281,7 +281,7 @@ func (task *Task) GetCSlice(
 //   - `afeidxlist` List of affine expression indexes.
 //
 // [MSK_getdjcafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcafeidxlist
-func (task *Task) GetDjcafeidxList(
+func (task *Task) GetDjcAfeIdxList(
 	djcidx int64,
 	afeidxlist *int64,
 ) res.Code {
@@ -294,7 +294,7 @@ func (task *Task) GetDjcafeidxList(
 	)
 }
 
-// GetDjcdomainidxList is wrapping [MSK_getdjcdomainidxlist],
+// GetDjcDomainIdxList is wrapping [MSK_getdjcdomainidxlist],
 // Obtains the list of domain indexes in a disjunctive constraint.
 //
 // Arguments:
@@ -303,7 +303,7 @@ func (task *Task) GetDjcafeidxList(
 //   - `domidxlist` List of term sizes.
 //
 // [MSK_getdjcdomainidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcdomainidxlist
-func (task *Task) GetDjcdomainidxList(
+func (task *Task) GetDjcDomainIdxList(
 	djcidx int64,
 	domidxlist *int64,
 ) res.Code {
@@ -316,7 +316,7 @@ func (task *Task) GetDjcdomainidxList(
 	)
 }
 
-// GetDjctermsizeList is wrapping [MSK_getdjctermsizelist],
+// GetDjcTermSizeList is wrapping [MSK_getdjctermsizelist],
 // Obtains the list of term sizes in a disjunctive constraint.
 //
 // Arguments:
@@ -325,7 +325,7 @@ func (task *Task) GetDjcdomainidxList(
 //   - `termsizelist` List of term sizes.
 //
 // [MSK_getdjctermsizelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjctermsizelist
-func (task *Task) GetDjctermsizeList(
+func (task *Task) GetDjcTermSizeList(
 	djcidx int64,
 	termsizelist *int64,
 ) res.Code {
@@ -565,7 +565,7 @@ func (task *Task) GetSuxSlice(
 	)
 }
 
-// GetVarboundSlice is wrapping [MSK_getvarboundslice],
+// GetVarBoundSlice is wrapping [MSK_getvarboundslice],
 // Obtains bounds information for a slice of the variables.
 //
 // Arguments:
@@ -577,7 +577,7 @@ func (task *Task) GetSuxSlice(
 //   - `bu` Values for upper bounds.
 //
 // [MSK_getvarboundslice]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarboundslice
-func (task *Task) GetVarboundSlice(
+func (task *Task) GetVarBoundSlice(
 	first int32,
 	last int32,
 	bk *BoundKey,
