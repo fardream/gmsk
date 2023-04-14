@@ -429,6 +429,150 @@ func (task *Task) EvaluateAccs(
 	)
 }
 
+// GetMaxNumANz is wrapping [MSK_getmaxnumanz],
+// Obtains number of preallocated non-zeros in the linear constraint matrix.
+//
+// Returns:
+//
+//   - `maxnumanz` Number of preallocated non-zero linear matrix elements.
+//
+// [MSK_getmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz
+func (task *Task) GetMaxNumANz() (r res.Code, maxnumanz int32) {
+	r = res.Code(
+		C.MSK_getmaxnumanz(
+			task.task,
+			(*C.MSKint32t)(&maxnumanz),
+		),
+	)
+
+	return
+}
+
+// GetMaxNumAnz64 is wrapping [MSK_getmaxnumanz64]
+//
+// [MSK_getmaxnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz64
+func (task *Task) GetMaxNumAnz64() (r res.Code, maxnumanz int64) {
+	r = res.Code(
+		C.MSK_getmaxnumanz64(
+			task.task,
+			(*C.MSKint64t)(&maxnumanz),
+		),
+	)
+
+	return
+}
+
+// GetMaxNumBarvar is wrapping [MSK_getmaxnumbarvar],
+// Obtains maximum number of symmetric matrix variables for which space is currently preallocated.
+//
+// Returns:
+//
+//   - `maxnumbarvar` Maximum number of symmetric matrix variables for which space is currently preallocated.
+//
+// [MSK_getmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumbarvar
+func (task *Task) GetMaxNumBarvar() (r res.Code, maxnumbarvar int32) {
+	r = res.Code(
+		C.MSK_getmaxnumbarvar(
+			task.task,
+			(*C.MSKint32t)(&maxnumbarvar),
+		),
+	)
+
+	return
+}
+
+// GetMaxNumCon is wrapping [MSK_getmaxnumcon],
+// Obtains the number of preallocated constraints in the optimization task.
+//
+// Arguments:
+//
+//   - `maxnumcon` Number of preallocated constraints in the optimization task.
+//
+// [MSK_getmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcon
+func (task *Task) GetMaxNumCon() (r res.Code, maxnumcon int32) {
+	r = res.Code(
+		C.MSK_getmaxnumcon(
+			task.task,
+			(*C.MSKint32t)(&maxnumcon),
+		),
+	)
+
+	return
+}
+
+// GetMaxNumCone is wrapping [MSK_getmaxnumcone],
+// Obtains the number of preallocated cones in the optimization task.
+//
+// Arguments:
+//
+//   - `maxnumcone` Number of preallocated conic constraints in the optimization task.
+//
+// Deprecated: [MSK_getmaxnumcone]/GetMaxNumCone is deprecated by mosek and will be removed in a future release.
+//
+// [MSK_getmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcone
+func (task *Task) GetMaxNumCone() (r res.Code, maxnumcone int32) {
+	r = res.Code(
+		C.MSK_getmaxnumcone(
+			task.task,
+			(*C.MSKint32t)(&maxnumcone),
+		),
+	)
+
+	return
+}
+
+// GetMaxNumQNz is wrapping [MSK_getmaxnumqnz],
+// Obtains the number of preallocated non-zeros for all quadratic terms in objective and constraints.
+//
+// Arguments:
+//
+//   - `maxnumqnz` Number of non-zero elements preallocated in quadratic coefficient matrices.
+//
+// [MSK_getmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz
+func (task *Task) GetMaxNumQNz() (r res.Code, maxnumqnz int32) {
+	r = res.Code(
+		C.MSK_getmaxnumqnz(
+			task.task,
+			(*C.MSKint32t)(&maxnumqnz),
+		),
+	)
+
+	return
+}
+
+// GetMaxNumQnz64 is wrapping [MSK_getmaxnumqnz64]
+//
+// [MSK_getmaxnumqnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz64
+func (task *Task) GetMaxNumQnz64() (r res.Code, maxnumqnz int64) {
+	r = res.Code(
+		C.MSK_getmaxnumqnz64(
+			task.task,
+			(*C.MSKint64t)(&maxnumqnz),
+		),
+	)
+
+	return
+}
+
+// GetMaxNumVar is wrapping [MSK_getmaxnumvar],
+// Obtains the maximum number variables allowed.
+//
+// Arguments:
+//
+//   - `maxnumvar` Number of preallocated variables in the optimization task.
+//
+// [MSK_getmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumvar
+func (task *Task) GetMaxNumVar() (r res.Code, maxnumvar int32) {
+	r = res.Code(
+		C.MSK_getmaxnumvar(
+			task.task,
+			(*C.MSKint32t)(&maxnumvar),
+		),
+	)
+
+	return
+}
+
 // InfeasibilityReport is wrapping [MSK_infeasibilityreport],
 // Prints the infeasibility report to an output stream.
 //
@@ -689,7 +833,7 @@ func (task *Task) OptimizerSummary(
 // OptimizeTrm is wrapping [MSK_optimizetrm],
 // Optimizes the problem.
 //
-// # Returns
+// Returns:
 //
 // - `trmcode` Is either OK or a termination response code.
 //

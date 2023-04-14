@@ -642,18 +642,19 @@ func (task *Task) GetVarNameLen(
 // [MSK_isdouparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isdouparname
 func (task *Task) IsDouParName(
 	parname string,
-	param *DParam,
-) res.Code {
+) (r res.Code, param DParam) {
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
-	return res.Code(
+	r = res.Code(
 		C.MSK_isdouparname(
 			task.task,
 			c_parname,
-			(*C.MSKdparame)(param),
+			(*C.MSKdparame)(&param),
 		),
 	)
+
+	return
 }
 
 // IsIntParName is wrapping [MSK_isintparname],
@@ -667,18 +668,19 @@ func (task *Task) IsDouParName(
 // [MSK_isintparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isintparname
 func (task *Task) IsIntParName(
 	parname string,
-	param *IParam,
-) res.Code {
+) (r res.Code, param IParam) {
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
-	return res.Code(
+	r = res.Code(
 		C.MSK_isintparname(
 			task.task,
 			c_parname,
-			(*C.MSKiparame)(param),
+			(*C.MSKiparame)(&param),
 		),
 	)
+
+	return
 }
 
 // IsStrParName is wrapping [MSK_isstrparname],
@@ -692,18 +694,19 @@ func (task *Task) IsIntParName(
 // [MSK_isstrparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isstrparname
 func (task *Task) IsStrParName(
 	parname string,
-	param *SParam,
-) res.Code {
+) (r res.Code, param SParam) {
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
-	return res.Code(
+	r = res.Code(
 		C.MSK_isstrparname(
 			task.task,
 			c_parname,
-			(*C.MSKsparame)(param),
+			(*C.MSKsparame)(&param),
 		),
 	)
+
+	return
 }
 
 // PutAccName is wrapping [MSK_putaccname],
