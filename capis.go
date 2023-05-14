@@ -105,7 +105,7 @@ func MakeEnv(dbgfile ...string) (*Env, error) {
 
 	r := res.Code(C.MSK_makeenv(&env, cdbgfile))
 	if r != RES_OK {
-		return nil, fmtError("failed to create environment: %s %s", r)
+		return nil, NewError(r)
 	}
 
 	return &Env{env: env}, nil
@@ -125,10 +125,12 @@ func (env *Env) MakeTask(maxnumcon int32, maxnumvar int32) (*Task, error) {
 }
 
 // DeleteEnv deletes the environment
-func DeleteEnv(env *Env) {
+func DeleteEnv(env *Env) error {
 	if env.env != nil {
-		C.MSK_deleteenv(&env.env)
+		return NewError(res.Code(C.MSK_deleteenv(&env.env)))
 	}
+
+	return nil
 }
 
 // MSKTask holds a MSKtask_t, MOSEK task
@@ -150,7 +152,7 @@ func MakeTask(env *Env, maxnumcon, maxnumvar int32) (*Task, error) {
 	}
 	r := res.Code(C.MSK_maketask(e, mi32(maxnumcon), mi32(maxnumvar), &task))
 	if r != RES_OK {
-		return nil, fmtError("failed to create task: %s %s", r)
+		return nil, NewError(r)
 	}
 
 	return &Task{task: task}, nil
