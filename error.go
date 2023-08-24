@@ -13,7 +13,7 @@ type MskError struct {
 
 var _ error = (*MskError)(nil)
 
-// NewError creates an error from [res.Code]
+// NewError creates an error from [res.Code]. The returned error will be nil for [res.OK].
 func NewError(code res.Code) *MskError {
 	if code.IsOk() {
 		return nil
