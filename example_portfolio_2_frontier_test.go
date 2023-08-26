@@ -12,11 +12,9 @@ import (
 
 // Portfolio frontier optimization, reproduced from portfolio_2_frontier.c in MOSEK C api.
 func Example_portfolio_2_frontier() {
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Fatalf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
@@ -113,7 +111,7 @@ func Example_portfolio_2_frontier() {
 
 	// Input the affine conic constraint (gamma, GT*x) \in QCone
 	// Add the quadratic domain of dimension k+1
-	res, rqdom := task.AppendRQuadraticConeDomain(k + 2)
+	rqdom, res := task.AppendRQuadraticConeDomain(k + 2)
 	checkOk(res)
 	// Add the constraint
 	checkOk(task.AppendAccSeq(rqdom, k+2, 0, nil))
@@ -136,10 +134,10 @@ func Example_portfolio_2_frontier() {
 		/* Sets the objective function coefficient for s. */
 		checkOk(task.PutCJ(voff_s+0, -alpha))
 
-		res, _ := task.OptimizeTrm()
+		_, res := task.OptimizeTrm()
 		checkOk(res)
 
-		res, solsta := task.GetSolSta(gmsk.SOL_ITR)
+		solsta, res := task.GetSolSta(gmsk.SOL_ITR)
 		checkOk(res)
 
 		if solsta != gmsk.SOL_STA_OPTIMAL {
@@ -149,13 +147,13 @@ func Example_portfolio_2_frontier() {
 		var expret, stddev float64
 
 		for j := int32(0); j < n; j++ {
-			res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
+			xx, res := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 			checkOk(res)
 			xj := xx[0]
 			expret += mu[j] * xj
 		}
 
-		res, stddevd := task.GetXxSlice(gmsk.SOL_ITR, voff_s, voff_s+1, nil)
+		stddevd, res := task.GetXxSlice(gmsk.SOL_ITR, voff_s, voff_s+1, nil)
 		stddev = stddevd[0]
 		fmt.Println(strings.TrimRight(fmt.Sprintf("%-12.3e  %-12.3e  %-12.3e", alpha, expret, math.Sqrt(float64(stddev))), " ")) // the last column will be width 12, so we need to trim to match the below output
 	}

@@ -6,19 +6,18 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/res"
 )
 
 // Conic Quadratic Optimization, reproduced from cqo1.c in MOSEK example.
 func Example_conicQuadraticOptimization1_cqo1() {
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Fatalf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
-	r := gmsk.RES_OK
+	var r error
 
 	const (
 		numvar = int32(6)
@@ -107,7 +106,7 @@ func Example_conicQuadraticOptimization1_cqo1() {
 	   The affine expressions will initially be empty. */
 	checkOk(task.AppendAfes(numafe))
 
-	for j := int32(0); j < numvar && r == gmsk.RES_OK; j++ {
+	for j := int32(0); j < numvar && r == nil; j++ {
 		/* Set the linear term c_j in the objective.*/
 		r = task.PutCJ(j, c[j])
 		checkOk(r)
@@ -133,7 +132,7 @@ func Example_conicQuadraticOptimization1_cqo1() {
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
-	for i := int32(0); i < numcon && r == gmsk.RES_OK; i++ {
+	for i := int32(0); i < numcon && r == nil; i++ {
 		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
@@ -146,31 +145,31 @@ func Example_conicQuadraticOptimization1_cqo1() {
 	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
 
 	/* Append quadratic cone domain */
-	r, domidx[0] = task.AppendQuadraticConeDomain(3)
+	domidx[0], r = task.AppendQuadraticConeDomain(3)
 	checkOk(r)
 	/* Append rotated quadratic cone domain */
-	r, domidx[1] = task.AppendRQuadraticConeDomain(3)
+	domidx[1], r = task.AppendRQuadraticConeDomain(3)
 	checkOk(r)
 	/* Append two ACCs made up of the AFEs and the domains defined above. */
 	checkOk(task.AppendAccsSeq(numacc, &domidx[0], numafe, afeidx[0], nil))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	task.SolutionSummary(gmsk.STREAM_LOG)
 
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
-		r, xx := task.GetXx(
+		xx, r := task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			nil)
-		if r != gmsk.RES_OK {
-			r = gmsk.RES_ERR_SPACE
+		if r != nil {
+			r = res.NewErrorFromInt(gmsk.RES_ERR_SPACE)
 			break
 		}
 		fmt.Print("Optimal primal solution\n")

@@ -11,11 +11,9 @@ import (
 // Portfolio optimization fixed setup costs and transaction costs as a mixed integer problem,
 // reproduced from portfolio_4_transcost.c in MOSEK C api.
 func Example_portfolio_4_transcost() {
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
@@ -144,7 +142,7 @@ func Example_portfolio_4_transcost() {
 		checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
 	}
 
-	res, qdom := task.AppendQuadraticConeDomain(k + 1)
+	qdom, res := task.AppendQuadraticConeDomain(k + 1)
 	checkOk(res)
 	checkOk(task.AppendAccSeq(qdom, k+1, aoff_q, nil))
 	checkOk(task.PutAccName(aoff_q, "risk"))
@@ -161,14 +159,14 @@ func Example_portfolio_4_transcost() {
 	/* Dump the problem to a human readable PTF file. */
 	checkOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE))
 
-	res, _ = task.OptimizeTrm()
+	_, res = task.OptimizeTrm()
 
 	/* Display the solution summary for quick inspection of results. */
 	checkOk(task.SolutionSummary(gmsk.STREAM_LOG))
 	checkOk(res)
 
 	for j := int32(0); j < n; j++ {
-		res, xx := task.GetXxSlice(gmsk.SOL_ITG, voff_x+j, voff_x+j+1, nil)
+		xx, res := task.GetXxSlice(gmsk.SOL_ITG, voff_x+j, voff_x+j+1, nil)
 		checkOk(res)
 		xj := xx[0]
 		expret += mu[j] * xj

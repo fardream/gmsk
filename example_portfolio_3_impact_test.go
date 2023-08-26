@@ -10,11 +10,9 @@ import (
 
 // Portfolio optimization example with 3/2 impact. Reproduced from portfolio_3_impact.c in MOSEK C api.
 func Example_portfolio_3_impact() {
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Fatalf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
@@ -57,7 +55,7 @@ func Example_portfolio_3_impact() {
 
 	var expret float64
 
-	res := gmsk.RES_OK
+	var res error
 
 	/* Initial setup. */
 	env, err := gmsk.MakeEnv()
@@ -131,7 +129,7 @@ func Example_portfolio_3_impact() {
 		checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
 	}
 
-	res, qdom := task.AppendQuadraticConeDomain(k + 1)
+	qdom, res := task.AppendQuadraticConeDomain(k + 1)
 	checkOk(res)
 	checkOk(task.AppendAccSeq(qdom, k+1, aoff_q, nil))
 	checkOk(task.PutAccName(aoff_q, "risk"))
@@ -150,7 +148,7 @@ func Example_portfolio_3_impact() {
 	// We use one row from F and g for both c_j and z_j, and the last row of F and g for the constant 1.
 	// NOTE: Here we reuse the last AFE and the power cone n times, but we store them only once.
 	exponents := []float64{2, 1}
-	res, powdom := task.AppendPrimalPowerConeDomain(3, 2, &exponents[0])
+	powdom, res := task.AppendPrimalPowerConeDomain(3, 2, &exponents[0])
 	checkOk(res)
 	flat_afe_list := make([]int64, 3*n)
 	dom_list := make([]int64, n)
@@ -177,14 +175,14 @@ func Example_portfolio_3_impact() {
 	/* Dump the problem to a human readable PTF file. */
 	checkOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE))
 
-	res, _ = task.OptimizeTrm()
+	_, res = task.OptimizeTrm()
 
 	/* Display the solution summary for quick inspection of results. */
 	checkOk(task.SolutionSummary(gmsk.STREAM_LOG))
 	checkOk(res)
 
 	for j := int32(0); j < n; j++ {
-		res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
+		xx, res := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 		checkOk(res)
 		xj := xx[0]
 		expret += mu[j] * xj

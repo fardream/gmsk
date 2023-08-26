@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/res"
 )
 
 // Quadratic optimization example with quadratic objective and constraints,
@@ -18,18 +19,17 @@ import (
 //	           s.t 1 <=  x_1 + x_2 + x_3 - x_1^2 - x_2^2 - 0.1 x_3^2 + 0.2 x_1 x_3
 //	           x >= 0
 func Example_quadraticOptimization_qcqo1() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	const NUMCON = 1 /* Number of constraints.             */
 	const NUMVAR = 3 /* Number of variables.               */
 	const NUMQNZ = 4 /* Number of non-zeros in Q.          */
-
-	r := gmsk.RES_OK
 
 	c := []float64{0.0, -1.0, 0.0}
 
@@ -91,7 +91,7 @@ func Example_quadraticOptimization_qcqo1() {
 	/* Optionally add a constant term to the objective. */
 	checkOk(task.PutCfix(0))
 
-	for j = 0; j < NUMVAR && r.IsOk(); j++ {
+	for j = 0; j < NUMVAR && r == nil; j++ {
 		/* Set the linear term c_j in the objective.*/
 		checkOk(task.PutCJ(j, c[j]))
 
@@ -116,7 +116,7 @@ func Example_quadraticOptimization_qcqo1() {
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,NUMCON : blc[i] <= constraint i <= buc[i] */
-	for i = 0; i < NUMCON && r.IsOk(); i++ {
+	for i = 0; i < NUMCON && r == nil; i++ {
 		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
@@ -182,22 +182,22 @@ func Example_quadraticOptimization_qcqo1() {
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
 	task.SolutionSummary(gmsk.STREAM_LOG)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
-		r, xx = task.GetXx(
+		xx, r = task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			xx)
-		if r != gmsk.RES_OK {
-			r = gmsk.RES_ERR_SPACE
+		if r != nil {
+			r = gmsk.NewError(res.ERR_SPACE)
 			break
 		}
 		fmt.Print("Optimal primal solution\n")

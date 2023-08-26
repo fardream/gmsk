@@ -17,14 +17,13 @@ import (
 //	               (x0-2x1<=-1 and x2=x3=0) or (x2-3x3<=-2 and x1=x2=0)
 //	               x0=2.5 or x1=2.5 or x2=2.5 or x3=2.5
 func Example_disjunctiveConstraint_djc1() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
-	r := gmsk.RES_OK
+	var r error
 
 	var j, numvar int32
 	var numafe, numdjc int64
@@ -79,11 +78,11 @@ func Example_disjunctiveConstraint_djc1() {
 	checkOk(task.PutAfeGSlice(0, numafe, &g[0]))
 
 	// Create domains
-	r, zero1 = task.AppendRzeroDomain(1)
+	zero1, r = task.AppendRzeroDomain(1)
 	checkOk(r)
-	r, zero2 = task.AppendRzeroDomain(2)
+	zero2, r = task.AppendRzeroDomain(2)
 	checkOk(r)
-	r, rminus1 = task.AppendRminusDomain(1)
+	rminus1, r = task.AppendRminusDomain(1)
 	checkOk(r)
 
 	// Append disjunctive constraints
@@ -126,20 +125,20 @@ func Example_disjunctiveConstraint_djc1() {
 	}
 
 	// Solve the problem
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes. */
 	task.SolutionSummary(gmsk.STREAM_LOG)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITG)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITG)
 	checkOk(r)
 
 	switch solsta {
 	case gmsk.SOL_STA_INTEGER_OPTIMAL:
 		xx := make([]float64, numvar)
-		r, xx = task.GetXx(gmsk.SOL_ITG, xx)
+		xx, r = task.GetXx(gmsk.SOL_ITG, xx)
 		fmt.Printf("Optimal primal solution\n")
 		for j = 0; j < numvar; j++ {
 			fmt.Printf("x[%d]: %e\n", j, xx[j])

@@ -10,13 +10,13 @@ import (
 
 // Portfolio optimization example, reproduced from portfolio_1_basic.c in MOSEK C api example.
 func Example_portfolio_1_basic() {
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Fatalf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	const (
 		n     int32   = 8
@@ -101,7 +101,7 @@ func Example_portfolio_1_basic() {
 
 	// Input the affine conic constraint (gamma, GT*x) \in QCone
 	// Add the quadratic domain of dimension k+1
-	r, qdom := task.AppendQuadraticConeDomain(k + 1)
+	qdom, r := task.AppendQuadraticConeDomain(k + 1)
 	checkOk(r)
 	// Add the constraint
 	checkOk(task.AppendAccSeq(qdom, k+1, 0, nil))
@@ -119,13 +119,13 @@ func Example_portfolio_1_basic() {
 	/* Dump the problem to a human readable PTF file. */
 	checkOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE)) // dump to stderr instead.
 
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 
 	var expret float64
 
 	for j := int32(0); j < n; j++ {
-		r, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
+		xx, r := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 		checkOk(r)
 		xj := xx[0]
 		expret += mu[j] * xj

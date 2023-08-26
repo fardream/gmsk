@@ -11,11 +11,9 @@ import (
 // Portfolio optimization with cardinality constraints on the number of assets traded,
 // reproduced from portfolio_5_card.c in MOSEK C api.
 func Example_portfolio_5_Card() {
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
@@ -40,7 +38,7 @@ func Example_portfolio_5_Card() {
 
 	xx := []float64{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 
-	markowitz_with_card := func(K int32) gmsk.ResCode {
+	markowitz_with_card := func(K int32) error {
 		// Offset of variables
 		const numvar int32 = 3 * n
 		const voff_x int32 = 0
@@ -145,7 +143,7 @@ func Example_portfolio_5_Card() {
 			checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
 		}
 
-		res, qdom := task.AppendQuadraticConeDomain(k + 1)
+		qdom, res := task.AppendQuadraticConeDomain(k + 1)
 		checkOk(res)
 		checkOk(task.AppendAccSeq(qdom, k+1, aoff_q, nil))
 		checkOk(task.PutAccName(aoff_q, "risk"))
@@ -162,13 +160,13 @@ func Example_portfolio_5_Card() {
 		/* Dump the problem to a human readable PTF file. */
 		checkOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE))
 
-		res, _ = task.OptimizeTrm()
+		_, res = task.OptimizeTrm()
 
 		/* Display the solution summary for quick inspection of results. */
 		checkOk(task.SolutionSummary(gmsk.STREAM_LOG))
 		checkOk(res)
 
-		res, _ = task.GetXxSlice(gmsk.SOL_ITG, voff_x, voff_x+n, xx)
+		_, res = task.GetXxSlice(gmsk.SOL_ITG, voff_x, voff_x+n, xx)
 
 		return res
 	}

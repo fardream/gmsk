@@ -12,15 +12,13 @@ import (
 // Portfolio optimization example with factor model, reproduced from
 // portfolio_6_factor.c in MOSEK C api.
 func Example_portfolio_6_factor() {
-	res := gmsk.RES_OK
-	checkOk := func(r gmsk.ResCode) {
-		res = r
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var res error
 
 	get_nr_nc := func(m [][]float64) (nr int, nc int) {
 		nr = len(m)
@@ -247,7 +245,7 @@ func Example_portfolio_6_factor() {
 
 	// Input the affine conic constraint (gamma, G_factor_T x, diag(sqrt(theta))*x) \in QCone
 	// Add the quadratic domain of dimension k+n+1
-	res, qdom := task.AppendQuadraticConeDomain(k + 1 + int64(n))
+	qdom, res := task.AppendQuadraticConeDomain(k + 1 + int64(n))
 	checkOk(res)
 	// Add the constraint
 	checkOk(task.AppendAccSeq(qdom, k+1+int64(n), 0, nil))
@@ -271,7 +269,7 @@ func Example_portfolio_6_factor() {
 		/* Dump the problem to a human readable PTF file. */
 		checkOk(task.WriteDataHandle(os.Stderr, gmsk.DATA_FORMAT_PTF, gmsk.COMPRESS_NONE))
 
-		res, _ = task.OptimizeTrm()
+		_, res = task.OptimizeTrm()
 		checkOk(res)
 
 		/* Display the solution summary for quick inspection of results. */
@@ -282,7 +280,7 @@ func Example_portfolio_6_factor() {
 		/* Read the x variables one by one and compute expected return. */
 		/* Can also be obtained as value of the objective. */
 		for j := int32(0); j < n; j++ {
-			res, xx := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
+			xx, res := task.GetXxSlice(gmsk.SOL_ITR, voff_x+j, voff_x+j+1, nil)
 			checkOk(res)
 			xj := xx[0]
 			expret += mu[j] * xj

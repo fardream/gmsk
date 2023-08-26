@@ -22,7 +22,7 @@ import (
 //
 // This version inputs the linear constraint as an affine conic constraint.
 func Example_affineConicConstraints_acc2() {
-	r := gmsk.RES_OK
+	var r error
 	/* Input data dimensions */
 	var n int32 = 3
 	var k int64 = 2
@@ -41,11 +41,9 @@ func Example_affineConicConstraints_acc2() {
 	}
 	defer gmsk.DeleteTask(task)
 
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Fatalf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
@@ -65,7 +63,7 @@ func Example_affineConicConstraints_acc2() {
 	{
 		/* Set AFE rows representing the linear constraint */
 		checkOk(task.AppendAfes(1))
-		for i := int32(0); i < n && r == gmsk.RES_OK; i++ {
+		for i := int32(0); i < n && r == nil; i++ {
 			r = task.PutAfeFEntry(0, i, 1)
 		}
 		checkOk(r)
@@ -89,10 +87,10 @@ func Example_affineConicConstraints_acc2() {
 		checkOk(task.PutAfeGSlice(2, k+2, &h[0]))
 	}
 
-	r, zeroDom := task.AppendRzeroDomain(1)
+	zeroDom, r := task.AppendRzeroDomain(1)
 	checkOk(r)
 	/* Define a conic quadratic domain */
-	r, quadDom := task.AppendQuadraticConeDomain(k + 1)
+	quadDom, r := task.AppendQuadraticConeDomain(k + 1)
 	checkOk(r)
 
 	/* Append affine conic constraints */
@@ -121,21 +119,21 @@ func Example_affineConicConstraints_acc2() {
 	}
 
 	/* Begin optimization and fetching the solution */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 	checkOk(r)
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
 	task.SolutionSummary(gmsk.STREAM_LOG) // use stream log and direct it to stderr
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
 		/* Fetch the primal solution */
 		xx := make([]float64, n)
-		r, xx = task.GetXx(
+		xx, r = task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			xx)
 		checkOk(r)
@@ -146,7 +144,7 @@ func Example_affineConicConstraints_acc2() {
 
 		/* Fetch the doty dual of the ACC */
 		doty := make([]float64, k+1)
-		r, doty = task.GetAccDotY(
+		doty, r = task.GetAccDotY(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			1,            /* ACC index of quadratic ACC. */
 			doty)
@@ -159,7 +157,7 @@ func Example_affineConicConstraints_acc2() {
 
 		/* Fetch the activity of the ACC */
 		activity := make([]float64, k+1)
-		r, activity = task.EvaluateAcc(
+		activity, r = task.EvaluateAcc(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			1,            /* ACC index. */
 			activity)

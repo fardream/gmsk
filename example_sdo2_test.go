@@ -20,14 +20,13 @@ import (
 //	C1, C2, A1, A2 are assumed to be constant symmetric matrices,
 //	and b, k are constants.
 func Example_semidefiniteOptimization_sdo2() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
-	r := gmsk.RES_OK
+	var r error
 
 	/* Input data */
 	const numbarvar int32 = 2
@@ -98,13 +97,13 @@ func Example_semidefiniteOptimization_sdo2() {
 	checkOk(task.PutConBoundSlice(0, 2, &bkc[0], &blc[0], &buc[0]))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	task.SolutionSummary(gmsk.STREAM_LOG)
 
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	switch solsta {
@@ -116,7 +115,7 @@ func Example_semidefiniteOptimization_sdo2() {
 
 			dim = dimbarvar[i] * (dimbarvar[i] + 1) / 2
 			barx := make([]float64, dim)
-			r, barx = task.GetBarXj(gmsk.SOL_ITR, i, barx)
+			barx, r = task.GetBarXj(gmsk.SOL_ITR, i, barx)
 			checkOk(r)
 			fmt.Fprintf(&b, "X%d: ", i+1)
 			for j = 0; j < dim; j++ {

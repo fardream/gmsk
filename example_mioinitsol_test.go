@@ -10,18 +10,17 @@ import (
 
 // Mixed integer programming with initial solution, reproduced from mioinitsol.c in MOSEK C api.
 func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	const numvar int32 = 4
 	const numcon int32 = 1
 	const numintvar int32 = 3
-
-	r := gmsk.RES_OK
 
 	c := []float64{7.0, 10.0, 1.0, 5.0}
 
@@ -75,7 +74,7 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
-	for j = 0; j < numintvar && r.IsOk(); j++ {
+	for j = 0; j < numintvar && r == nil; j++ {
 		r = task.PutVarType(intsub[j], gmsk.VAR_TYPE_INT)
 	}
 	checkOk(r)
@@ -88,12 +87,12 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 	checkOk(task.PutIntParam(gmsk.IPAR_MIO_CONSTRUCT_SOL, gmsk.ON))
 
 	/* solve */
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	task.SolutionSummary(gmsk.STREAM_LOG)
 	checkOk(r)
 
 	/* Read back the solution */
-	r, xx = task.GetXx(gmsk.SOL_ITG, xx)
+	xx, r = task.GetXx(gmsk.SOL_ITG, xx)
 	checkOk(r)
 
 	fmt.Printf("Solution:\n")
@@ -105,9 +104,9 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 		}
 	}
 
-	r, constr := task.GetIntInf(gmsk.IINF_MIO_CONSTRUCT_SOLUTION)
+	constr, r := task.GetIntInf(gmsk.IINF_MIO_CONSTRUCT_SOLUTION)
 	checkOk(r)
-	r, constr_obj := task.GetDouInf(gmsk.DINF_MIO_CONSTRUCT_SOLUTION_OBJ)
+	constr_obj, r := task.GetDouInf(gmsk.DINF_MIO_CONSTRUCT_SOLUTION_OBJ)
 	checkOk(r)
 	fmt.Printf("Construct solution utilization: %d\nConstruct solution objective: %.3f\n", constr, constr_obj)
 	// Output:

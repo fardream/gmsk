@@ -17,19 +17,18 @@ import (
 //	            subject to  x >= e^y + 3.8
 //	                        x, y - integer
 func Example_mixedIntegerConicOptimization_mico1() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	var numvar int32 = 3 /* x, y, t */
 
 	vart := []gmsk.VariableType{gmsk.VAR_TYPE_INT, gmsk.VAR_TYPE_INT}
 	intsub := []int32{0, 1}
-
-	var r gmsk.ResCode
 
 	env, err := gmsk.MakeEnv()
 	if err != nil {
@@ -72,21 +71,21 @@ func Example_mixedIntegerConicOptimization_mico1() {
 	checkOk(task.PutAfeGSlice(0, 5, &g[0]))
 
 	// Add constraint (x-3.8, 1, y) \in \EXP
-	r, domExp := task.AppendPrimalExpConeDomain()
+	domExp, r := task.AppendPrimalExpConeDomain()
 	checkOk(r)
 	checkOk(task.AppendAcc(domExp, 3, &afeidxExp[0], nil))
 
 	// Add constraint (t, x, y) \in \QUAD
-	r, domQuad := task.AppendQuadraticConeDomain(3)
+	domQuad, r := task.AppendQuadraticConeDomain(3)
 	checkOk(r)
 	checkOk(task.AppendAcc(domQuad, 3, &afeidxQuad[0], nil))
 
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 
 	xx := make([]float64, 2)
 
-	r, xx = task.GetXxSlice(gmsk.SOL_ITG, 0, 2, xx)
+	xx, r = task.GetXxSlice(gmsk.SOL_ITG, 0, 2, xx)
 	checkOk(r)
 
 	fmt.Printf("x = %.2f, y = %.2f\n", xx[0], xx[1])
