@@ -22,7 +22,7 @@ func (env *Env) Axpy(
 	alpha float64,
 	x *float64,
 	y *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_axpy(
 			env.getEnv(),
@@ -31,19 +31,19 @@ func (env *Env) Axpy(
 			(*C.MSKrealt)(x),
 			(*C.MSKrealt)(y),
 		),
-	)
+	).ToError()
 }
 
 // CheckInAll is wrapping [MSK_checkinall],
 // Check in all unused license features to the license token server.
 //
 // [MSK_checkinall]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkinall
-func (env *Env) CheckInAll() res.Code {
+func (env *Env) CheckInAll() error {
 	return res.Code(
 		C.MSK_checkinall(
 			env.getEnv(),
 		),
-	)
+	).ToError()
 }
 
 // CheckInLicense is wrapping [MSK_checkinlicense],
@@ -56,13 +56,13 @@ func (env *Env) CheckInAll() res.Code {
 // [MSK_checkinlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkinlicense
 func (env *Env) CheckInLicense(
 	feature Feature,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_checkinlicense(
 			env.getEnv(),
 			C.MSKfeaturee(feature),
 		),
-	)
+	).ToError()
 }
 
 // CheckMemenv is wrapping [MSK_checkmemenv]
@@ -71,7 +71,7 @@ func (env *Env) CheckInLicense(
 func (env *Env) CheckMemenv(
 	file string,
 	line int32,
-) res.Code {
+) error {
 	c_file := C.CString(file)
 	defer C.free(unsafe.Pointer(c_file))
 
@@ -81,7 +81,7 @@ func (env *Env) CheckMemenv(
 			c_file,
 			C.MSKint32t(line),
 		),
-	)
+	).ToError()
 }
 
 // CheckOutLicense is wrapping [MSK_checkoutlicense],
@@ -94,13 +94,13 @@ func (env *Env) CheckMemenv(
 // [MSK_checkoutlicense]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkoutlicense
 func (env *Env) CheckOutLicense(
 	feature Feature,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_checkoutlicense(
 			env.getEnv(),
 			C.MSKfeaturee(feature),
 		),
-	)
+	).ToError()
 }
 
 // CheckVersion is wrapping [MSK_checkversion],
@@ -117,7 +117,7 @@ func (env *Env) CheckVersion(
 	major int32,
 	minor int32,
 	revision int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_checkversion(
 			env.getEnv(),
@@ -125,7 +125,7 @@ func (env *Env) CheckVersion(
 			C.MSKint32t(minor),
 			C.MSKint32t(revision),
 		),
-	)
+	).ToError()
 }
 
 // Dot is wrapping [MSK_dot],
@@ -143,7 +143,7 @@ func (env *Env) Dot(
 	n int32,
 	x *float64,
 	y *float64,
-) (r res.Code, xty float64) {
+) (xty float64, r error) {
 	r = res.Code(
 		C.MSK_dot(
 			env.getEnv(),
@@ -152,7 +152,7 @@ func (env *Env) Dot(
 			(*C.MSKrealt)(y),
 			(*C.MSKrealt)(&xty),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -167,13 +167,13 @@ func (env *Env) Dot(
 // [MSK_echointro]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.echointro
 func (env *Env) EchoIntro(
 	longver int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_echointro(
 			env.getEnv(),
 			C.MSKint32t(longver),
 		),
-	)
+	).ToError()
 }
 
 // Expirylicenses is wrapping [MSK_expirylicenses],
@@ -184,13 +184,13 @@ func (env *Env) EchoIntro(
 //   - `expiry` If nonnegative, then it is the minimum number days to expiry of any feature that has been checked out.
 //
 // [MSK_expirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.expirylicenses
-func (env *Env) Expirylicenses() (r res.Code, expiry int64) {
+func (env *Env) Expirylicenses() (expiry int64, r error) {
 	r = res.Code(
 		C.MSK_expirylicenses(
 			env.getEnv(),
 			(*C.MSKint64t)(&expiry),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -223,7 +223,7 @@ func (env *Env) Gemm(
 	b *float64,
 	beta float64,
 	c *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_gemm(
 			env.getEnv(),
@@ -238,7 +238,7 @@ func (env *Env) Gemm(
 			C.MSKrealt(beta),
 			(*C.MSKrealt)(c),
 		),
-	)
+	).ToError()
 }
 
 // Gemv is wrapping [MSK_gemv],
@@ -254,7 +254,7 @@ func (env *Env) Gemv(
 	x *float64,
 	beta float64,
 	y *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_gemv(
 			env.getEnv(),
@@ -267,7 +267,7 @@ func (env *Env) Gemv(
 			C.MSKrealt(beta),
 			(*C.MSKrealt)(y),
 		),
-	)
+	).ToError()
 }
 
 // GetSymbcondim is wrapping [MSK_getsymbcondim]
@@ -276,14 +276,14 @@ func (env *Env) Gemv(
 func (env *Env) GetSymbcondim(
 	num *int32,
 	maxlen *uint64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getsymbcondim(
 			env.getEnv(),
 			(*C.MSKint32t)(num),
 			(*C.size_t)(maxlen),
 		),
-	)
+	).ToError()
 }
 
 // Iparvaltosymnam is wrapping [MSK_iparvaltosymnam]
@@ -293,7 +293,7 @@ func (env *Env) Iparvaltosymnam(
 	whichparam IParam,
 	whichvalue int32,
 	symbolicname *byte,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_iparvaltosymnam(
 			env.getEnv(),
@@ -301,7 +301,7 @@ func (env *Env) Iparvaltosymnam(
 			C.MSKint32t(whichvalue),
 			(*C.char)(unsafe.Pointer(symbolicname)),
 		),
-	)
+	).ToError()
 }
 
 // LinkFiletoenvstream is wrapping [MSK_linkfiletoenvstream]
@@ -311,7 +311,7 @@ func (env *Env) LinkFiletoenvstream(
 	whichstream StreamType,
 	filename string,
 	append int32,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -322,7 +322,7 @@ func (env *Env) LinkFiletoenvstream(
 			c_filename,
 			C.MSKint32t(append),
 		),
-	)
+	).ToError()
 }
 
 // Potrf is wrapping [MSK_potrf],
@@ -339,7 +339,7 @@ func (env *Env) Potrf(
 	uplo UpLo,
 	n int32,
 	a *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_potrf(
 			env.getEnv(),
@@ -347,7 +347,7 @@ func (env *Env) Potrf(
 			C.MSKint32t(n),
 			(*C.MSKrealt)(a),
 		),
-	)
+	).ToError()
 }
 
 // PutLicenseCode is wrapping [MSK_putlicensecode],
@@ -360,13 +360,13 @@ func (env *Env) Potrf(
 // [MSK_putlicensecode]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensecode
 func (env *Env) PutLicenseCode(
 	code *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putlicensecode(
 			env.getEnv(),
 			(*C.MSKint32t)(code),
 		),
-	)
+	).ToError()
 }
 
 // PutLicenseDebug is wrapping [MSK_putlicensedebug],
@@ -379,13 +379,13 @@ func (env *Env) PutLicenseCode(
 // [MSK_putlicensedebug]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensedebug
 func (env *Env) PutLicenseDebug(
 	licdebug int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putlicensedebug(
 			env.getEnv(),
 			C.MSKint32t(licdebug),
 		),
-	)
+	).ToError()
 }
 
 // PutLicensePath is wrapping [MSK_putlicensepath],
@@ -398,7 +398,7 @@ func (env *Env) PutLicenseDebug(
 // [MSK_putlicensepath]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensepath
 func (env *Env) PutLicensePath(
 	licensepath string,
-) res.Code {
+) error {
 	c_licensepath := C.CString(licensepath)
 	defer C.free(unsafe.Pointer(c_licensepath))
 
@@ -407,7 +407,7 @@ func (env *Env) PutLicensePath(
 			env.getEnv(),
 			c_licensepath,
 		),
-	)
+	).ToError()
 }
 
 // PutLicenseWait is wrapping [MSK_putlicensewait],
@@ -420,25 +420,25 @@ func (env *Env) PutLicensePath(
 // [MSK_putlicensewait]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensewait
 func (env *Env) PutLicenseWait(
 	licwait int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putlicensewait(
 			env.getEnv(),
 			C.MSKint32t(licwait),
 		),
-	)
+	).ToError()
 }
 
 // ResetExpiryLicenses is wrapping [MSK_resetexpirylicenses],
 // Reset the license expiry reporting startpoint.
 //
 // [MSK_resetexpirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.resetexpirylicenses
-func (env *Env) ResetExpiryLicenses() res.Code {
+func (env *Env) ResetExpiryLicenses() error {
 	return res.Code(
 		C.MSK_resetexpirylicenses(
 			env.getEnv(),
 		),
-	)
+	).ToError()
 }
 
 // SparseTriangularSolveDense is wrapping [MSK_sparsetriangularsolvedense],
@@ -463,7 +463,7 @@ func (env *Env) SparseTriangularSolveDense(
 	lsubc *int32,
 	lvalc *float64,
 	b *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_sparsetriangularsolvedense(
 			env.getEnv(),
@@ -476,7 +476,7 @@ func (env *Env) SparseTriangularSolveDense(
 			(*C.MSKrealt)(lvalc),
 			(*C.MSKrealt)(b),
 		),
-	)
+	).ToError()
 }
 
 // Syeig is wrapping [MSK_syeig],
@@ -495,7 +495,7 @@ func (env *Env) Syeig(
 	n int32,
 	a *float64,
 	w *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_syeig(
 			env.getEnv(),
@@ -504,7 +504,7 @@ func (env *Env) Syeig(
 			(*C.MSKrealt)(a),
 			(*C.MSKrealt)(w),
 		),
-	)
+	).ToError()
 }
 
 // Syevd is wrapping [MSK_syevd],
@@ -523,7 +523,7 @@ func (env *Env) Syevd(
 	n int32,
 	a *float64,
 	w *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_syevd(
 			env.getEnv(),
@@ -532,7 +532,7 @@ func (env *Env) Syevd(
 			(*C.MSKrealt)(a),
 			(*C.MSKrealt)(w),
 		),
-	)
+	).ToError()
 }
 
 // Syrk is wrapping [MSK_syrk],
@@ -559,7 +559,7 @@ func (env *Env) Syrk(
 	a *float64,
 	beta float64,
 	c *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_syrk(
 			env.getEnv(),
@@ -572,7 +572,7 @@ func (env *Env) Syrk(
 			C.MSKrealt(beta),
 			(*C.MSKrealt)(c),
 		),
-	)
+	).ToError()
 }
 
 // UnlinkFuncfromenvstream is wrapping [MSK_unlinkfuncfromenvstream]
@@ -580,11 +580,11 @@ func (env *Env) Syrk(
 // [MSK_unlinkfuncfromenvstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.unlinkfuncfromenvstream
 func (env *Env) UnlinkFuncfromenvstream(
 	whichstream StreamType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_unlinkfuncfromenvstream(
 			env.getEnv(),
 			C.MSKstreamtypee(whichstream),
 		),
-	)
+	).ToError()
 }

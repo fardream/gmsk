@@ -28,7 +28,8 @@ import (
 func (task *Task) GetAccName(
 	accidx int64,
 	sizename int32,
-) (r res.Code, name string) {
+) (name string, r error) {
+	// function template: prepare for output of booleans
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -39,9 +40,9 @@ func (task *Task) GetAccName(
 			C.MSKint32t(sizename),
 			c_name,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		name = C.GoString(c_name)
 	}
 
@@ -62,14 +63,14 @@ func (task *Task) GetAccName(
 // [MSK_getaccnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccnamelen
 func (task *Task) GetAccNameLen(
 	accidx int64,
-) (r res.Code, len int32) {
+) (len int32, r error) {
 	r = res.Code(
 		C.MSK_getaccnamelen(
 			task.task,
 			C.MSKint64t(accidx),
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -89,7 +90,8 @@ func (task *Task) GetAccNameLen(
 func (task *Task) GetBarvarName(
 	i int32,
 	sizename int32,
-) (r res.Code, name string) {
+) (name string, r error) {
+	// function template: prepare for output of booleans
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -100,9 +102,9 @@ func (task *Task) GetBarvarName(
 			C.MSKint32t(sizename),
 			c_name,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		name = C.GoString(c_name)
 	}
 
@@ -123,14 +125,14 @@ func (task *Task) GetBarvarName(
 // [MSK_getbarvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarvarnamelen
 func (task *Task) GetBarvarNameLen(
 	i int32,
-) (r res.Code, len int32) {
+) (len int32, r error) {
 	r = res.Code(
 		C.MSK_getbarvarnamelen(
 			task.task,
 			C.MSKint32t(i),
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -152,7 +154,8 @@ func (task *Task) GetBarvarNameLen(
 func (task *Task) GetConeName(
 	i int32,
 	sizename int32,
-) (r res.Code, name string) {
+) (name string, r error) {
+	// function template: prepare for output of booleans
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -163,9 +166,9 @@ func (task *Task) GetConeName(
 			C.MSKint32t(sizename),
 			c_name,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		name = C.GoString(c_name)
 	}
 
@@ -188,14 +191,14 @@ func (task *Task) GetConeName(
 // [MSK_getconenamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconenamelen
 func (task *Task) GetConeNameLen(
 	i int32,
-) (r res.Code, len int32) {
+) (len int32, r error) {
 	r = res.Code(
 		C.MSK_getconenamelen(
 			task.task,
 			C.MSKint32t(i),
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -215,7 +218,8 @@ func (task *Task) GetConeNameLen(
 func (task *Task) GetConName(
 	i int32,
 	sizename int32,
-) (r res.Code, name string) {
+) (name string, r error) {
+	// function template: prepare for output of booleans
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -226,9 +230,9 @@ func (task *Task) GetConName(
 			C.MSKint32t(sizename),
 			c_name,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		name = C.GoString(c_name)
 	}
 
@@ -249,14 +253,14 @@ func (task *Task) GetConName(
 // [MSK_getconnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconnamelen
 func (task *Task) GetConNameLen(
 	i int32,
-) (r res.Code, len int32) {
+) (len int32, r error) {
 	r = res.Code(
 		C.MSK_getconnamelen(
 			task.task,
 			C.MSKint32t(i),
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -276,7 +280,8 @@ func (task *Task) GetConNameLen(
 func (task *Task) GetDjcName(
 	djcidx int64,
 	sizename int32,
-) (r res.Code, name string) {
+) (name string, r error) {
+	// function template: prepare for output of booleans
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -287,9 +292,9 @@ func (task *Task) GetDjcName(
 			C.MSKint32t(sizename),
 			c_name,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		name = C.GoString(c_name)
 	}
 
@@ -310,14 +315,14 @@ func (task *Task) GetDjcName(
 // [MSK_getdjcnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcnamelen
 func (task *Task) GetDjcNameLen(
 	djcidx int64,
-) (r res.Code, len int32) {
+) (len int32, r error) {
 	r = res.Code(
 		C.MSK_getdjcnamelen(
 			task.task,
 			C.MSKint64t(djcidx),
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -337,7 +342,8 @@ func (task *Task) GetDjcNameLen(
 func (task *Task) GetDomainName(
 	domidx int64,
 	sizename int32,
-) (r res.Code, name string) {
+) (name string, r error) {
+	// function template: prepare for output of booleans
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -348,9 +354,9 @@ func (task *Task) GetDomainName(
 			C.MSKint32t(sizename),
 			c_name,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		name = C.GoString(c_name)
 	}
 
@@ -371,14 +377,14 @@ func (task *Task) GetDomainName(
 // [MSK_getdomainnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdomainnamelen
 func (task *Task) GetDomainNameLen(
 	domidx int64,
-) (r res.Code, len int32) {
+) (len int32, r error) {
 	r = res.Code(
 		C.MSK_getdomainnamelen(
 			task.task,
 			C.MSKint64t(domidx),
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -399,7 +405,8 @@ func (task *Task) GetDomainNameLen(
 func (task *Task) GetInfName(
 	inftype InfType,
 	whichinf int32,
-) (r res.Code, infname string) {
+) (infname string, r error) {
+	// function template: prepare for output of booleans
 	c_infname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_infname))
 
@@ -410,9 +417,9 @@ func (task *Task) GetInfName(
 			C.MSKint32t(whichinf),
 			c_infname,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		infname = C.GoString(c_infname)
 	}
 
@@ -427,13 +434,13 @@ func (task *Task) GetInfName(
 //   - `maxlen` The maximum length of any name.
 //
 // [MSK_getmaxnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnamelen
-func (task *Task) GetMaxNameLen() (r res.Code, maxlen int32) {
+func (task *Task) GetMaxNameLen() (maxlen int32, r error) {
 	r = res.Code(
 		C.MSK_getmaxnamelen(
 			task.task,
 			(*C.MSKint32t)(&maxlen),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -448,7 +455,8 @@ func (task *Task) GetMaxNameLen() (r res.Code, maxlen int32) {
 // [MSK_getobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getobjname
 func (task *Task) GetObjName(
 	sizeobjname int32,
-) (r res.Code, objname string) {
+) (objname string, r error) {
+	// function template: prepare for output of booleans
 	c_objname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_objname))
 
@@ -458,9 +466,9 @@ func (task *Task) GetObjName(
 			C.MSKint32t(sizeobjname),
 			c_objname,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		objname = C.GoString(c_objname)
 	}
 
@@ -475,13 +483,13 @@ func (task *Task) GetObjName(
 //   - `len` Assigned the length of the objective name.
 //
 // [MSK_getobjnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getobjnamelen
-func (task *Task) GetObjNameLen() (r res.Code, len int32) {
+func (task *Task) GetObjNameLen() (len int32, r error) {
 	r = res.Code(
 		C.MSK_getobjnamelen(
 			task.task,
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -502,7 +510,8 @@ func (task *Task) GetObjNameLen() (r res.Code, len int32) {
 func (task *Task) GetParamName(
 	partype ParameterType,
 	param int32,
-) (r res.Code, parname string) {
+) (parname string, r error) {
+	// function template: prepare for output of booleans
 	c_parname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_parname))
 
@@ -513,9 +522,9 @@ func (task *Task) GetParamName(
 			C.MSKint32t(param),
 			c_parname,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		parname = C.GoString(c_parname)
 	}
 
@@ -532,7 +541,8 @@ func (task *Task) GetParamName(
 // [MSK_gettaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.gettaskname
 func (task *Task) GetTaskName(
 	sizetaskname int32,
-) (r res.Code, taskname string) {
+) (taskname string, r error) {
+	// function template: prepare for output of booleans
 	c_taskname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_taskname))
 
@@ -542,9 +552,9 @@ func (task *Task) GetTaskName(
 			C.MSKint32t(sizetaskname),
 			c_taskname,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		taskname = C.GoString(c_taskname)
 	}
 
@@ -559,13 +569,13 @@ func (task *Task) GetTaskName(
 //   - `len` Returns the length of the task name.
 //
 // [MSK_gettasknamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.gettasknamelen
-func (task *Task) GetTaskNameLen() (r res.Code, len int32) {
+func (task *Task) GetTaskNameLen() (len int32, r error) {
 	r = res.Code(
 		C.MSK_gettasknamelen(
 			task.task,
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -585,7 +595,8 @@ func (task *Task) GetTaskNameLen() (r res.Code, len int32) {
 func (task *Task) GetVarName(
 	j int32,
 	sizename int32,
-) (r res.Code, name string) {
+) (name string, r error) {
+	// function template: prepare for output of booleans
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -596,9 +607,9 @@ func (task *Task) GetVarName(
 			C.MSKint32t(sizename),
 			c_name,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		name = C.GoString(c_name)
 	}
 
@@ -619,14 +630,14 @@ func (task *Task) GetVarName(
 // [MSK_getvarnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarnamelen
 func (task *Task) GetVarNameLen(
 	i int32,
-) (r res.Code, len int32) {
+) (len int32, r error) {
 	r = res.Code(
 		C.MSK_getvarnamelen(
 			task.task,
 			C.MSKint32t(i),
 			(*C.MSKint32t)(&len),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -642,7 +653,7 @@ func (task *Task) GetVarNameLen(
 // [MSK_isdouparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isdouparname
 func (task *Task) IsDouParName(
 	parname string,
-) (r res.Code, param DParam) {
+) (param DParam, r error) {
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
@@ -652,7 +663,7 @@ func (task *Task) IsDouParName(
 			c_parname,
 			(*C.MSKdparame)(&param),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -668,7 +679,7 @@ func (task *Task) IsDouParName(
 // [MSK_isintparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isintparname
 func (task *Task) IsIntParName(
 	parname string,
-) (r res.Code, param IParam) {
+) (param IParam, r error) {
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
@@ -678,7 +689,7 @@ func (task *Task) IsIntParName(
 			c_parname,
 			(*C.MSKiparame)(&param),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -694,7 +705,7 @@ func (task *Task) IsIntParName(
 // [MSK_isstrparname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.isstrparname
 func (task *Task) IsStrParName(
 	parname string,
-) (r res.Code, param SParam) {
+) (param SParam, r error) {
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
@@ -704,7 +715,7 @@ func (task *Task) IsStrParName(
 			c_parname,
 			(*C.MSKsparame)(&param),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -721,7 +732,7 @@ func (task *Task) IsStrParName(
 func (task *Task) PutAccName(
 	accidx int64,
 	name string,
-) res.Code {
+) error {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -731,7 +742,7 @@ func (task *Task) PutAccName(
 			C.MSKint64t(accidx),
 			c_name,
 		),
-	)
+	).ToError()
 }
 
 // PutBarvarName is wrapping [MSK_putbarvarname],
@@ -746,7 +757,7 @@ func (task *Task) PutAccName(
 func (task *Task) PutBarvarName(
 	j int32,
 	name string,
-) res.Code {
+) error {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -756,7 +767,7 @@ func (task *Task) PutBarvarName(
 			C.MSKint32t(j),
 			c_name,
 		),
-	)
+	).ToError()
 }
 
 // PutConeName is wrapping [MSK_putconename],
@@ -773,7 +784,7 @@ func (task *Task) PutBarvarName(
 func (task *Task) PutConeName(
 	j int32,
 	name string,
-) res.Code {
+) error {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -783,7 +794,7 @@ func (task *Task) PutConeName(
 			C.MSKint32t(j),
 			c_name,
 		),
-	)
+	).ToError()
 }
 
 // PutConName is wrapping [MSK_putconname],
@@ -798,7 +809,7 @@ func (task *Task) PutConeName(
 func (task *Task) PutConName(
 	i int32,
 	name string,
-) res.Code {
+) error {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -808,7 +819,7 @@ func (task *Task) PutConName(
 			C.MSKint32t(i),
 			c_name,
 		),
-	)
+	).ToError()
 }
 
 // PutDjcName is wrapping [MSK_putdjcname],
@@ -823,7 +834,7 @@ func (task *Task) PutConName(
 func (task *Task) PutDjcName(
 	djcidx int64,
 	name string,
-) res.Code {
+) error {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -833,7 +844,7 @@ func (task *Task) PutDjcName(
 			C.MSKint64t(djcidx),
 			c_name,
 		),
-	)
+	).ToError()
 }
 
 // PutDomainName is wrapping [MSK_putdomainname],
@@ -848,7 +859,7 @@ func (task *Task) PutDjcName(
 func (task *Task) PutDomainName(
 	domidx int64,
 	name string,
-) res.Code {
+) error {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -858,7 +869,7 @@ func (task *Task) PutDomainName(
 			C.MSKint64t(domidx),
 			c_name,
 		),
-	)
+	).ToError()
 }
 
 // PutObjName is wrapping [MSK_putobjname],
@@ -871,7 +882,7 @@ func (task *Task) PutDomainName(
 // [MSK_putobjname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putobjname
 func (task *Task) PutObjName(
 	objname string,
-) res.Code {
+) error {
 	c_objname := C.CString(objname)
 	defer C.free(unsafe.Pointer(c_objname))
 
@@ -880,7 +891,7 @@ func (task *Task) PutObjName(
 			task.task,
 			c_objname,
 		),
-	)
+	).ToError()
 }
 
 // PutTaskName is wrapping [MSK_puttaskname],
@@ -893,7 +904,7 @@ func (task *Task) PutObjName(
 // [MSK_puttaskname]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.puttaskname
 func (task *Task) PutTaskName(
 	taskname string,
-) res.Code {
+) error {
 	c_taskname := C.CString(taskname)
 	defer C.free(unsafe.Pointer(c_taskname))
 
@@ -902,7 +913,7 @@ func (task *Task) PutTaskName(
 			task.task,
 			c_taskname,
 		),
-	)
+	).ToError()
 }
 
 // PutVarName is wrapping [MSK_putvarname],
@@ -917,7 +928,7 @@ func (task *Task) PutTaskName(
 func (task *Task) PutVarName(
 	j int32,
 	name string,
-) res.Code {
+) error {
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
@@ -927,5 +938,5 @@ func (task *Task) PutVarName(
 			C.MSKint32t(j),
 			c_name,
 		),
-	)
+	).ToError()
 }

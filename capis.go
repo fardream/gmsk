@@ -174,7 +174,7 @@ func DeleteTask(task *Task) {
 
 // fmtError formats the error string
 func fmtError(format string, resCode res.Code) error {
-	_, symbol, desc := GetCodedesc(resCode)
+	symbol, desc, _ := GetCodedesc(resCode)
 	return fmt.Errorf(format, symbol, desc)
 }
 
@@ -183,33 +183,34 @@ func fmtError(format string, resCode res.Code) error {
 // returns the index of the domain if successful.
 // This is same as [Task.AppendRQuadraticConeDomain],
 // but with the word "rotated" fully spelled out.
-func (task *Task) AppendRotatedQuadraticConeDomain(n int64) (r res.Code, domidx int64) {
-	r = res.Code(C.MSK_appendrquadraticconedomain(task.task, mi64(n), pi64(&domidx)))
+func (task *Task) AppendRotatedQuadraticConeDomain(n int64) (domidx int64, err error) {
+	err = res.NewErrorFromInt(C.MSK_appendrquadraticconedomain(task.task, mi64(n), pi64(&domidx)))
+
 	return
 }
 
 // GetXx wraps MSK_getxx, which gets the solution from the task.
 // xx can be nil, in which case the number of variables will be queried from the task and
 // a new slice created.
-func (task *Task) GetXx(whichsol SolType, xx []float64) (res.Code, []float64) {
-	var r res.Code
+func (task *Task) GetXx(whichsol SolType, xx []float64) ([]float64, error) {
+	var err error
 	var numVar int32
 	if xx == nil {
-		r, numVar = task.GetNumVar()
-		if r != RES_OK {
-			return r, nil
+		numVar, err = task.GetNumVar()
+		if err != nil {
+			return nil, err
 		}
 		xx = make([]float64, numVar)
 	}
 
-	r = res.Code(C.MSK_getxx(task.task, C.MSKsoltypee(whichsol), prl(&xx[0])))
+	err = res.Code(C.MSK_getxx(task.task, C.MSKsoltypee(whichsol), prl(&xx[0]))).ToError()
 
-	return r, xx
+	return xx, err
 }
 
 // GetXxSlice wraps MSK_getxxslice, which gets a slice of the solution. xx can be nil, in which case the number of variables
 // will be last - first and a new slice will be created.
-func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) (res.Code, []float64) {
+func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) ([]float64, error) {
 	var r res.Code
 	if xx == nil {
 		xx = make([]float64, last-first)
@@ -223,72 +224,72 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 			mi32(last),
 			prl(&xx[0])))
 
-	return r, xx
+	return xx, r.ToError()
 }
 
 // GetBarxj wraps MSK_getbarxj and retrieves the semi definite matrix at j.
-func (task *Task) GetBarXj(whichsol SolType, j int32, barxj []float64) (res.Code, []float64) {
-	var r res.Code
+func (task *Task) GetBarXj(whichsol SolType, j int32, barxj []float64) ([]float64, error) {
+	var err error
 
 	if barxj == nil {
 		var lenbarvarj int64
-		r, lenbarvarj = task.GetLenBarvarJ(j)
-		if r != RES_OK {
-			return r, barxj
+		lenbarvarj, err = task.GetLenBarvarJ(j)
+		if err != nil {
+			return barxj, err
 		}
 		barxj = make([]float64, lenbarvarj)
 	}
 
-	r = res.Code(
+	err = res.NewErrorFromInt(
 		C.MSK_getbarxj(task.task, C.MSKsoltypee(whichsol), mi32(j), prl(&barxj[0])),
 	)
 
-	return r, barxj
+	return barxj, err
 }
 
 // GetAccN wraps MSK_getaccn and returns the dimension of cone at index accidx.
-func (task *Task) GetAccN(accidx int64) (res.Code, int64) {
+func (task *Task) GetAccN(accidx int64) (int64, error) {
 	var accn int64
-	res := res.Code(C.MSK_getaccn(task.task, mi64(accidx), pi64(&accn)))
-	return res, accn
+	err := res.NewErrorFromInt(C.MSK_getaccn(task.task, mi64(accidx), pi64(&accn)))
+	return accn, err
 }
 
 // GetAccDotY wraps MSK_getaccdoty and returns doty dual result of cone at idnex accidx.
 // doty can be nil, in which case the dimension of the cone will be queried from the task and
 // a new slice will be created.
-func (task *Task) GetAccDotY(whichsol SolType, accidx int64, doty []float64) (res.Code, []float64) {
-	var r res.Code
+func (task *Task) GetAccDotY(whichsol SolType, accidx int64, doty []float64) ([]float64, error) {
+	var err error
 
 	if doty == nil {
 		var numdoty int64
-		r, numdoty = task.GetAccN(accidx)
-		if r != RES_OK {
-			return r, nil
+		numdoty, err = task.GetAccN(accidx)
+		if err != nil {
+			return nil, err
 		}
 		doty = make([]float64, numdoty)
 	}
 
-	r = res.Code(C.MSK_getaccdoty(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&doty[0])))
+	err = res.NewErrorFromInt(C.MSK_getaccdoty(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&doty[0])))
 
-	return r, doty
+	return doty, err
 }
 
 // EvaluateAcc gets the activity of the cone at index accidx
-func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64) (res.Code, []float64) {
-	var r res.Code
+func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64) ([]float64, error) {
+	var err error
 
 	if activity == nil {
 		var numdoty int64
-		r, numdoty = task.GetAccN(accidx)
-		if r != RES_OK {
-			return r, nil
+		numdoty, err = task.GetAccN(accidx)
+		if err != nil {
+			return nil, err
 		}
 		activity = make([]float64, numdoty)
 	}
 
-	r = res.Code(C.MSK_evaluateacc(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&activity[0])))
+	err = res.NewErrorFromInt(C.MSK_evaluateacc(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&activity[0])))
 
-	return r, activity
+	return activity, err
 }
 
 // writerHolder holds a writer. This must be passed to C api with a handle.
@@ -320,7 +321,7 @@ func writeStreamToWriter(p unsafe.Pointer, v *C.char) {
 }
 
 // LinkFuncToTaskStream wraps MSK_linkfuctotaskstream using [io.Writer] instead of callbacks.
-func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) res.Code {
+func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) error {
 	writer := writerHolder{
 		writer: w,
 	}
@@ -333,7 +334,7 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) res.
 			task.task,
 			C.MSKstreamtypee(whichstream),
 			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
-			(*[0]byte)(C.writeStreamToWriter)))
+			(*[0]byte)(C.writeStreamToWriter))).ToError()
 }
 
 // writeFuncToWriter is the function for C api's MSKhwritefunc, which has a signature of
@@ -362,7 +363,7 @@ func writeFuncToWriter(handle unsafe.Pointer, src unsafe.Pointer, count C.size_t
 }
 
 // WriteDataHandle wraps MSK_writedatahandle using [io.Writer] instead of using callbacks.
-func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress CompressType) res.Code {
+func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress CompressType) error {
 	writer := writerHolder{writer: handle}
 
 	ptr := cgo.NewHandle(writer)
@@ -374,7 +375,7 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 			(*[0]byte)(C.writeFuncToWriter),
 			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
 			C.MSKdataformate(format),
-			C.MSKcompresstypee(compress)))
+			C.MSKcompresstypee(compress))).ToError()
 }
 
 // intToBool converts an integer to a bool.

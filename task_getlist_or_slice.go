@@ -23,14 +23,14 @@ import (
 func (task *Task) GetAccAfeIdxList(
 	accidx int64,
 	afeidxlist *int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getaccafeidxlist(
 			task.task,
 			C.MSKint64t(accidx),
 			(*C.MSKint64t)(afeidxlist),
 		),
-	)
+	).ToError()
 }
 
 // GetAColSlice is wrapping [MSK_getacolslice],
@@ -54,7 +54,7 @@ func (task *Task) GetAColSlice(
 	ptre *int32,
 	sub *int32,
 	val *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getacolslice(
 			task.task,
@@ -66,7 +66,7 @@ func (task *Task) GetAColSlice(
 			(*C.MSKint32t)(sub),
 			(*C.MSKrealt)(val),
 		),
-	)
+	).ToError()
 }
 
 // GetAfeGSlice is wrapping [MSK_getafegslice],
@@ -83,7 +83,7 @@ func (task *Task) GetAfeGSlice(
 	first int64,
 	last int64,
 	g *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getafegslice(
 			task.task,
@@ -91,7 +91,7 @@ func (task *Task) GetAfeGSlice(
 			C.MSKint64t(last),
 			(*C.MSKrealt)(g),
 		),
-	)
+	).ToError()
 }
 
 // GetARowSlice is wrapping [MSK_getarowslice],
@@ -115,7 +115,7 @@ func (task *Task) GetARowSlice(
 	ptre *int32,
 	sub *int32,
 	val *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getarowslice(
 			task.task,
@@ -127,7 +127,7 @@ func (task *Task) GetARowSlice(
 			(*C.MSKint32t)(sub),
 			(*C.MSKrealt)(val),
 		),
-	)
+	).ToError()
 }
 
 // GetBarsSlice is wrapping [MSK_getbarsslice],
@@ -148,7 +148,7 @@ func (task *Task) GetBarsSlice(
 	last int32,
 	slicesize int64,
 	barsslice *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getbarsslice(
 			task.task,
@@ -158,7 +158,7 @@ func (task *Task) GetBarsSlice(
 			C.MSKint64t(slicesize),
 			(*C.MSKrealt)(barsslice),
 		),
-	)
+	).ToError()
 }
 
 // GetBarxSlice is wrapping [MSK_getbarxslice],
@@ -179,7 +179,7 @@ func (task *Task) GetBarxSlice(
 	last int32,
 	slicesize int64,
 	barxslice *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getbarxslice(
 			task.task,
@@ -189,7 +189,7 @@ func (task *Task) GetBarxSlice(
 			C.MSKint64t(slicesize),
 			(*C.MSKrealt)(barxslice),
 		),
-	)
+	).ToError()
 }
 
 // GetCList is wrapping [MSK_getclist],
@@ -205,7 +205,7 @@ func (task *Task) GetCList(
 	num int32,
 	subj *int32,
 	c *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getclist(
 			task.task,
@@ -213,7 +213,7 @@ func (task *Task) GetCList(
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(c),
 		),
-	)
+	).ToError()
 }
 
 // GetConBoundSlice is wrapping [MSK_getconboundslice],
@@ -234,7 +234,7 @@ func (task *Task) GetConBoundSlice(
 	bk *BoundKey,
 	bl *float64,
 	bu *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getconboundslice(
 			task.task,
@@ -244,7 +244,7 @@ func (task *Task) GetConBoundSlice(
 			(*C.MSKrealt)(bl),
 			(*C.MSKrealt)(bu),
 		),
-	)
+	).ToError()
 }
 
 // GetCSlice is wrapping [MSK_getcslice],
@@ -261,7 +261,7 @@ func (task *Task) GetCSlice(
 	first int32,
 	last int32,
 	c *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getcslice(
 			task.task,
@@ -269,7 +269,7 @@ func (task *Task) GetCSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(c),
 		),
-	)
+	).ToError()
 }
 
 // GetDjcAfeIdxList is wrapping [MSK_getdjcafeidxlist],
@@ -284,14 +284,14 @@ func (task *Task) GetCSlice(
 func (task *Task) GetDjcAfeIdxList(
 	djcidx int64,
 	afeidxlist *int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getdjcafeidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
 			(*C.MSKint64t)(afeidxlist),
 		),
-	)
+	).ToError()
 }
 
 // GetDjcDomainIdxList is wrapping [MSK_getdjcdomainidxlist],
@@ -306,14 +306,14 @@ func (task *Task) GetDjcAfeIdxList(
 func (task *Task) GetDjcDomainIdxList(
 	djcidx int64,
 	domidxlist *int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getdjcdomainidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
 			(*C.MSKint64t)(domidxlist),
 		),
-	)
+	).ToError()
 }
 
 // GetDjcTermSizeList is wrapping [MSK_getdjctermsizelist],
@@ -328,14 +328,14 @@ func (task *Task) GetDjcDomainIdxList(
 func (task *Task) GetDjcTermSizeList(
 	djcidx int64,
 	termsizelist *int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getdjctermsizelist(
 			task.task,
 			C.MSKint64t(djcidx),
 			(*C.MSKint64t)(termsizelist),
 		),
-	)
+	).ToError()
 }
 
 // GetSkcSlice is wrapping [MSK_getskcslice],
@@ -354,7 +354,7 @@ func (task *Task) GetSkcSlice(
 	first int32,
 	last int32,
 	skc *StaKey,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getskcslice(
 			task.task,
@@ -363,7 +363,7 @@ func (task *Task) GetSkcSlice(
 			C.MSKint32t(last),
 			(*C.MSKstakeye)(skc),
 		),
-	)
+	).ToError()
 }
 
 // GetSkxSlice is wrapping [MSK_getskxslice],
@@ -382,7 +382,7 @@ func (task *Task) GetSkxSlice(
 	first int32,
 	last int32,
 	skx *StaKey,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getskxslice(
 			task.task,
@@ -391,7 +391,7 @@ func (task *Task) GetSkxSlice(
 			C.MSKint32t(last),
 			(*C.MSKstakeye)(skx),
 		),
-	)
+	).ToError()
 }
 
 // GetSlcSlice is wrapping [MSK_getslcslice],
@@ -410,7 +410,7 @@ func (task *Task) GetSlcSlice(
 	first int32,
 	last int32,
 	slc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getslcslice(
 			task.task,
@@ -419,7 +419,7 @@ func (task *Task) GetSlcSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(slc),
 		),
-	)
+	).ToError()
 }
 
 // GetSlxSlice is wrapping [MSK_getslxslice],
@@ -438,7 +438,7 @@ func (task *Task) GetSlxSlice(
 	first int32,
 	last int32,
 	slx *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getslxslice(
 			task.task,
@@ -447,7 +447,7 @@ func (task *Task) GetSlxSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(slx),
 		),
-	)
+	).ToError()
 }
 
 // GetSnxSlice is wrapping [MSK_getsnxslice],
@@ -466,7 +466,7 @@ func (task *Task) GetSnxSlice(
 	first int32,
 	last int32,
 	snx *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getsnxslice(
 			task.task,
@@ -475,7 +475,7 @@ func (task *Task) GetSnxSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(snx),
 		),
-	)
+	).ToError()
 }
 
 // GetSolutionSlice is wrapping [MSK_getsolutionslice],
@@ -496,7 +496,7 @@ func (task *Task) GetSolutionSlice(
 	first int32,
 	last int32,
 	values *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getsolutionslice(
 			task.task,
@@ -506,7 +506,7 @@ func (task *Task) GetSolutionSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(values),
 		),
-	)
+	).ToError()
 }
 
 // GetSucSlice is wrapping [MSK_getsucslice],
@@ -525,7 +525,7 @@ func (task *Task) GetSucSlice(
 	first int32,
 	last int32,
 	suc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getsucslice(
 			task.task,
@@ -534,7 +534,7 @@ func (task *Task) GetSucSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(suc),
 		),
-	)
+	).ToError()
 }
 
 // GetSuxSlice is wrapping [MSK_getsuxslice],
@@ -553,7 +553,7 @@ func (task *Task) GetSuxSlice(
 	first int32,
 	last int32,
 	sux *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getsuxslice(
 			task.task,
@@ -562,7 +562,7 @@ func (task *Task) GetSuxSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(sux),
 		),
-	)
+	).ToError()
 }
 
 // GetVarBoundSlice is wrapping [MSK_getvarboundslice],
@@ -583,7 +583,7 @@ func (task *Task) GetVarBoundSlice(
 	bk *BoundKey,
 	bl *float64,
 	bu *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getvarboundslice(
 			task.task,
@@ -593,7 +593,7 @@ func (task *Task) GetVarBoundSlice(
 			(*C.MSKrealt)(bl),
 			(*C.MSKrealt)(bu),
 		),
-	)
+	).ToError()
 }
 
 // GetVarTypeList is wrapping [MSK_getvartypelist],
@@ -609,7 +609,7 @@ func (task *Task) GetVarTypeList(
 	num int32,
 	subj *int32,
 	vartype *VariableType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getvartypelist(
 			task.task,
@@ -617,7 +617,7 @@ func (task *Task) GetVarTypeList(
 			(*C.MSKint32t)(subj),
 			(*C.MSKvariabletypee)(vartype),
 		),
-	)
+	).ToError()
 }
 
 // GetXcSlice is wrapping [MSK_getxcslice],
@@ -636,7 +636,7 @@ func (task *Task) GetXcSlice(
 	first int32,
 	last int32,
 	xc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getxcslice(
 			task.task,
@@ -645,7 +645,7 @@ func (task *Task) GetXcSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(xc),
 		),
-	)
+	).ToError()
 }
 
 // GetYSlice is wrapping [MSK_getyslice],
@@ -664,7 +664,7 @@ func (task *Task) GetYSlice(
 	first int32,
 	last int32,
 	y *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getyslice(
 			task.task,
@@ -673,5 +673,5 @@ func (task *Task) GetYSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(y),
 		),
-	)
+	).ToError()
 }

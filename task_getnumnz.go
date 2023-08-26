@@ -19,13 +19,13 @@ import (
 //   - `accfnnz` Number of nonzeros in the F matrix implied by ACCs.
 //
 // [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccfnumnz
-func (task *Task) GetAccFNumnz() (r res.Code, accfnnz int64) {
+func (task *Task) GetAccFNumnz() (accfnnz int64, r error) {
 	r = res.Code(
 		C.MSK_getaccfnumnz(
 			task.task,
 			(*C.MSKint64t)(&accfnnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -44,14 +44,14 @@ func (task *Task) GetAccFNumnz() (r res.Code, accfnnz int64) {
 // [MSK_getacolnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacolnumnz
 func (task *Task) GetAColNumNz(
 	i int32,
-) (r res.Code, nzj int32) {
+) (nzj int32, r error) {
 	r = res.Code(
 		C.MSK_getacolnumnz(
 			task.task,
 			C.MSKint32t(i),
 			(*C.MSKint32t)(&nzj),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -72,7 +72,7 @@ func (task *Task) GetAColNumNz(
 func (task *Task) GetAColSliceNumNz(
 	first int32,
 	last int32,
-) (r res.Code, numnz int32) {
+) (numnz int32, r error) {
 	r = res.Code(
 		C.MSK_getacolslicenumnz(
 			task.task,
@@ -80,7 +80,7 @@ func (task *Task) GetAColSliceNumNz(
 			C.MSKint32t(last),
 			(*C.MSKint32t)(&numnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -91,7 +91,7 @@ func (task *Task) GetAColSliceNumNz(
 func (task *Task) GetAColSliceNumNz64(
 	first int32,
 	last int32,
-) (r res.Code, numnz int64) {
+) (numnz int64, r error) {
 	r = res.Code(
 		C.MSK_getacolslicenumnz64(
 			task.task,
@@ -99,7 +99,7 @@ func (task *Task) GetAColSliceNumNz64(
 			C.MSKint32t(last),
 			(*C.MSKint64t)(&numnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -112,13 +112,13 @@ func (task *Task) GetAColSliceNumNz64(
 //   - `numnz` Number of nonzeros in F.
 //
 // [MSK_getafefnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefnumnz
-func (task *Task) GetAfeFNumNz() (r res.Code, numnz int64) {
+func (task *Task) GetAfeFNumNz() (numnz int64, r error) {
 	r = res.Code(
 		C.MSK_getafefnumnz(
 			task.task,
 			(*C.MSKint64t)(&numnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -137,14 +137,14 @@ func (task *Task) GetAfeFNumNz() (r res.Code, numnz int64) {
 // [MSK_getafefrownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefrownumnz
 func (task *Task) GetAfeFRowNumNz(
 	afeidx int64,
-) (r res.Code, numnz int32) {
+) (numnz int32, r error) {
 	r = res.Code(
 		C.MSK_getafefrownumnz(
 			task.task,
 			C.MSKint64t(afeidx),
 			(*C.MSKint32t)(&numnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -169,7 +169,7 @@ func (task *Task) GetAPieceNumNz(
 	lasti int32,
 	firstj int32,
 	lastj int32,
-) (r res.Code, numnz int32) {
+) (numnz int32, r error) {
 	r = res.Code(
 		C.MSK_getapiecenumnz(
 			task.task,
@@ -179,7 +179,7 @@ func (task *Task) GetAPieceNumNz(
 			C.MSKint32t(lastj),
 			(*C.MSKint32t)(&numnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -198,14 +198,14 @@ func (task *Task) GetAPieceNumNz(
 // [MSK_getarownumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarownumnz
 func (task *Task) GetARowNumNz(
 	i int32,
-) (r res.Code, nzi int32) {
+) (nzi int32, r error) {
 	r = res.Code(
 		C.MSK_getarownumnz(
 			task.task,
 			C.MSKint32t(i),
 			(*C.MSKint32t)(&nzi),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -226,7 +226,7 @@ func (task *Task) GetARowNumNz(
 func (task *Task) GetARowSliceNumNz(
 	first int32,
 	last int32,
-) (r res.Code, numnz int32) {
+) (numnz int32, r error) {
 	r = res.Code(
 		C.MSK_getarowslicenumnz(
 			task.task,
@@ -234,7 +234,7 @@ func (task *Task) GetARowSliceNumNz(
 			C.MSKint32t(last),
 			(*C.MSKint32t)(&numnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -245,7 +245,7 @@ func (task *Task) GetARowSliceNumNz(
 func (task *Task) GetARowSliceNumNz64(
 	first int32,
 	last int32,
-) (r res.Code, numnz int64) {
+) (numnz int64, r error) {
 	r = res.Code(
 		C.MSK_getarowslicenumnz64(
 			task.task,
@@ -253,7 +253,7 @@ func (task *Task) GetARowSliceNumNz64(
 			C.MSKint32t(last),
 			(*C.MSKint64t)(&numnz),
 		),
-	)
+	).ToError()
 
 	return
 }

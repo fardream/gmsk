@@ -23,3 +23,7 @@ func (code Code) ToError() error {
 
 	return &Error{code: code}
 }
+
+func NewErrorFromInt[TInt ~int | ~uint | ~int32 | ~uint32 | ~int64 | ~uint64 | ~int8 | ~uint8 | ~int16 | ~uint16](code TInt) error {
+	return Code(code).ToError()
+}

@@ -26,7 +26,7 @@ func (task *Task) AppendAcc(
 	numafeidx int64,
 	afeidxlist *int64,
 	b *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendacc(
 			task.task,
@@ -35,7 +35,7 @@ func (task *Task) AppendAcc(
 			(*C.MSKint64t)(afeidxlist),
 			(*C.MSKrealt)(b),
 		),
-	)
+	).ToError()
 }
 
 // AppendAccs is wrapping [MSK_appendaccs],
@@ -54,7 +54,7 @@ func (task *Task) AppendAccs(
 	numafeidx int64,
 	afeidxlist *int64,
 	b *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendaccs(
 			task.task,
@@ -64,7 +64,7 @@ func (task *Task) AppendAccs(
 			(*C.MSKint64t)(afeidxlist),
 			(*C.MSKrealt)(b),
 		),
-	)
+	).ToError()
 }
 
 // AppendAccSeq is wrapping [MSK_appendaccseq],
@@ -82,7 +82,7 @@ func (task *Task) AppendAccSeq(
 	numafeidx int64,
 	afeidxfirst int64,
 	b *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendaccseq(
 			task.task,
@@ -91,7 +91,7 @@ func (task *Task) AppendAccSeq(
 			C.MSKint64t(afeidxfirst),
 			(*C.MSKrealt)(b),
 		),
-	)
+	).ToError()
 }
 
 // AppendAccsSeq is wrapping [MSK_appendaccsseq],
@@ -111,7 +111,7 @@ func (task *Task) AppendAccsSeq(
 	numafeidx int64,
 	afeidxfirst int64,
 	b *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendaccsseq(
 			task.task,
@@ -121,7 +121,7 @@ func (task *Task) AppendAccsSeq(
 			C.MSKint64t(afeidxfirst),
 			(*C.MSKrealt)(b),
 		),
-	)
+	).ToError()
 }
 
 // AppendAfes is wrapping [MSK_appendafes],
@@ -134,13 +134,13 @@ func (task *Task) AppendAccsSeq(
 // [MSK_appendafes]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendafes
 func (task *Task) AppendAfes(
 	num int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendafes(
 			task.task,
 			C.MSKint64t(num),
 		),
-	)
+	).ToError()
 }
 
 // AppendBarvars is wrapping [MSK_appendbarvars],
@@ -154,14 +154,14 @@ func (task *Task) AppendAfes(
 func (task *Task) AppendBarvars(
 	num int32,
 	dim *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendbarvars(
 			task.task,
 			C.MSKint32t(num),
 			(*C.MSKint32t)(dim),
 		),
-	)
+	).ToError()
 }
 
 // AppendCone is wrapping [MSK_appendcone],
@@ -181,7 +181,7 @@ func (task *Task) AppendCone(
 	conepar float64,
 	nummem int32,
 	submem *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendcone(
 			task.task,
@@ -190,7 +190,7 @@ func (task *Task) AppendCone(
 			C.MSKint32t(nummem),
 			(*C.MSKint32t)(submem),
 		),
-	)
+	).ToError()
 }
 
 // AppendConeSeq is wrapping [MSK_appendconeseq],
@@ -211,7 +211,7 @@ func (task *Task) AppendConeSeq(
 	conepar float64,
 	nummem int32,
 	j int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendconeseq(
 			task.task,
@@ -220,7 +220,7 @@ func (task *Task) AppendConeSeq(
 			C.MSKint32t(nummem),
 			C.MSKint32t(j),
 		),
-	)
+	).ToError()
 }
 
 // AppendConesSeq is wrapping [MSK_appendconesseq],
@@ -242,7 +242,7 @@ func (task *Task) AppendConesSeq(
 	conepar *float64,
 	nummem *int32,
 	j int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendconesseq(
 			task.task,
@@ -252,7 +252,7 @@ func (task *Task) AppendConesSeq(
 			(*C.MSKint32t)(nummem),
 			C.MSKint32t(j),
 		),
-	)
+	).ToError()
 }
 
 // AppendCons is wrapping [MSK_appendcons],
@@ -265,13 +265,13 @@ func (task *Task) AppendConesSeq(
 // [MSK_appendcons]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendcons
 func (task *Task) AppendCons(
 	num int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendcons(
 			task.task,
 			C.MSKint32t(num),
 		),
-	)
+	).ToError()
 }
 
 // AppendDjcs is wrapping [MSK_appenddjcs],
@@ -284,13 +284,13 @@ func (task *Task) AppendCons(
 // [MSK_appenddjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddjcs
 func (task *Task) AppendDjcs(
 	num int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appenddjcs(
 			task.task,
 			C.MSKint64t(num),
 		),
-	)
+	).ToError()
 }
 
 // AppendSparseSymMat is wrapping [MSK_appendsparsesymmat],
@@ -314,7 +314,7 @@ func (task *Task) AppendSparseSymMat(
 	subi *int32,
 	subj *int32,
 	valij *float64,
-) (r res.Code, idx int64) {
+) (idx int64, r error) {
 	r = res.Code(
 		C.MSK_appendsparsesymmat(
 			task.task,
@@ -325,7 +325,7 @@ func (task *Task) AppendSparseSymMat(
 			(*C.MSKrealt)(valij),
 			(*C.MSKint64t)(&idx),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -350,7 +350,7 @@ func (task *Task) AppendSparseSymMatList(
 	subi *int32,
 	subj *int32,
 	valij *float64,
-) (r res.Code, idx int64) {
+) (idx int64, r error) {
 	r = res.Code(
 		C.MSK_appendsparsesymmatlist(
 			task.task,
@@ -362,7 +362,7 @@ func (task *Task) AppendSparseSymMatList(
 			(*C.MSKrealt)(valij),
 			(*C.MSKint64t)(&idx),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -377,11 +377,11 @@ func (task *Task) AppendSparseSymMatList(
 // [MSK_appendvars]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendvars
 func (task *Task) AppendVars(
 	num int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_appendvars(
 			task.task,
 			C.MSKint32t(num),
 		),
-	)
+	).ToError()
 }

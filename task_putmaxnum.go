@@ -21,13 +21,13 @@ import (
 // [MSK_putmaxnumacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumacc
 func (task *Task) PutMaxNumAcc(
 	maxnumacc int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumacc(
 			task.task,
 			C.MSKint64t(maxnumacc),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumAfe is wrapping [MSK_putmaxnumafe],
@@ -40,13 +40,13 @@ func (task *Task) PutMaxNumAcc(
 // [MSK_putmaxnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumafe
 func (task *Task) PutMaxNumAfe(
 	maxnumafe int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumafe(
 			task.task,
 			C.MSKint64t(maxnumafe),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumANz is wrapping [MSK_putmaxnumanz],
@@ -59,13 +59,13 @@ func (task *Task) PutMaxNumAfe(
 // [MSK_putmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumanz
 func (task *Task) PutMaxNumANz(
 	maxnumanz int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumanz(
 			task.task,
 			C.MSKint64t(maxnumanz),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumBarvar is wrapping [MSK_putmaxnumbarvar],
@@ -78,13 +78,13 @@ func (task *Task) PutMaxNumANz(
 // [MSK_putmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumbarvar
 func (task *Task) PutMaxNumBarvar(
 	maxnumbarvar int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumbarvar(
 			task.task,
 			C.MSKint32t(maxnumbarvar),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumCon is wrapping [MSK_putmaxnumcon],
@@ -97,13 +97,13 @@ func (task *Task) PutMaxNumBarvar(
 // [MSK_putmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumcon
 func (task *Task) PutMaxNumCon(
 	maxnumcon int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumcon(
 			task.task,
 			C.MSKint32t(maxnumcon),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumCone is wrapping [MSK_putmaxnumcone],
@@ -118,13 +118,13 @@ func (task *Task) PutMaxNumCon(
 // [MSK_putmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumcone
 func (task *Task) PutMaxNumCone(
 	maxnumcone int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumcone(
 			task.task,
 			C.MSKint32t(maxnumcone),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumDjc is wrapping [MSK_putmaxnumdjc],
@@ -137,13 +137,13 @@ func (task *Task) PutMaxNumCone(
 // [MSK_putmaxnumdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumdjc
 func (task *Task) PutMaxNumDjc(
 	maxnumdjc int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumdjc(
 			task.task,
 			C.MSKint64t(maxnumdjc),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumDomain is wrapping [MSK_putmaxnumdomain],
@@ -156,13 +156,13 @@ func (task *Task) PutMaxNumDjc(
 // [MSK_putmaxnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumdomain
 func (task *Task) PutMaxNumDomain(
 	maxnumdomain int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumdomain(
 			task.task,
 			C.MSKint64t(maxnumdomain),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumQNz is wrapping [MSK_putmaxnumqnz],
@@ -175,13 +175,13 @@ func (task *Task) PutMaxNumDomain(
 // [MSK_putmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumqnz
 func (task *Task) PutMaxNumQNz(
 	maxnumqnz int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumqnz(
 			task.task,
 			C.MSKint64t(maxnumqnz),
 		),
-	)
+	).ToError()
 }
 
 // PutMaxNumVar is wrapping [MSK_putmaxnumvar],
@@ -194,11 +194,11 @@ func (task *Task) PutMaxNumQNz(
 // [MSK_putmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putmaxnumvar
 func (task *Task) PutMaxNumVar(
 	maxnumvar int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putmaxnumvar(
 			task.task,
 			C.MSKint32t(maxnumvar),
 		),
-	)
+	).ToError()
 }
