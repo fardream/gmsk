@@ -6,30 +6,13 @@ import (
 	"github.com/fardream/gmsk/res"
 )
 
-// MskError wraps the response codes [res.Code].
-type MskError struct {
-	code res.Code
-}
-
-var _ error = (*MskError)(nil)
+// MskError is [res.Error] and wraps the response codes [res.Code].
+type MskError = res.Error
 
 // NewError creates an error from [res.Code]. The returned error will be nil for [res.OK].
 // The underlying type of the error is a [MskError].
 func NewError(code res.Code) error {
-	if code.IsOk() {
-		return nil
-	}
-
-	return &MskError{code: code}
-}
-
-func (err MskError) Error() string {
-	return err.code.String()
-}
-
-// Ok checks if the error is nil or if the contained [res.Code] is [res.OK].
-func (err MskError) Ok() bool {
-	return err.code.IsOk()
+	return code.ToError()
 }
 
 // IsMskError checks if the err wraps [MskError]
