@@ -25,14 +25,14 @@ import (
 func (task *Task) AnalyzeNames(
 	whichstream StreamType,
 	nametype NameType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_analyzenames(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 			C.MSKnametypee(nametype),
 		),
-	)
+	).ToError()
 }
 
 // AnalyzeProblem is wrapping [MSK_analyzeproblem],
@@ -45,13 +45,13 @@ func (task *Task) AnalyzeNames(
 // [MSK_analyzeproblem]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.analyzeproblem
 func (task *Task) AnalyzeProblem(
 	whichstream StreamType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_analyzeproblem(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 		),
-	)
+	).ToError()
 }
 
 // AnalyzeSolution is wrapping [MSK_analyzesolution],
@@ -66,14 +66,14 @@ func (task *Task) AnalyzeProblem(
 func (task *Task) AnalyzeSolution(
 	whichstream StreamType,
 	whichsol SolType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_analyzesolution(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 			C.MSKsoltypee(whichsol),
 		),
-	)
+	).ToError()
 }
 
 // BasisCond is wrapping [MSK_basiscond],
@@ -88,14 +88,14 @@ func (task *Task) AnalyzeSolution(
 func (task *Task) BasisCond(
 	nrmbasis *float64,
 	nrminvbasis *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_basiscond(
 			task.task,
 			(*C.MSKrealt)(nrmbasis),
 			(*C.MSKrealt)(nrminvbasis),
 		),
-	)
+	).ToError()
 }
 
 // BkToStr is wrapping [MSK_bktostr]
@@ -103,7 +103,8 @@ func (task *Task) BasisCond(
 // [MSK_bktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.bktostr
 func (task *Task) BkToStr(
 	bk BoundKey,
-) (r res.Code, str string) {
+) (str string, r error) {
+	// function template: prepare for output of booleans
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -113,9 +114,9 @@ func (task *Task) BkToStr(
 			C.MSKboundkeye(bk),
 			c_str,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		str = C.GoString(c_str)
 	}
 
@@ -128,7 +129,7 @@ func (task *Task) BkToStr(
 func (task *Task) CheckMemtask(
 	file string,
 	line int32,
-) res.Code {
+) error {
 	c_file := C.CString(file)
 	defer C.free(unsafe.Pointer(c_file))
 
@@ -138,7 +139,7 @@ func (task *Task) CheckMemtask(
 			c_file,
 			C.MSKint32t(line),
 		),
-	)
+	).ToError()
 }
 
 // ChgConBound is wrapping [MSK_chgconbound],
@@ -157,7 +158,7 @@ func (task *Task) ChgConBound(
 	lower int32,
 	finite int32,
 	value float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_chgconbound(
 			task.task,
@@ -166,7 +167,7 @@ func (task *Task) ChgConBound(
 			C.MSKint32t(finite),
 			C.MSKrealt(value),
 		),
-	)
+	).ToError()
 }
 
 // ChgVarBound is wrapping [MSK_chgvarbound],
@@ -185,7 +186,7 @@ func (task *Task) ChgVarBound(
 	lower int32,
 	finite int32,
 	value float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_chgvarbound(
 			task.task,
@@ -194,19 +195,19 @@ func (task *Task) ChgVarBound(
 			C.MSKint32t(finite),
 			C.MSKrealt(value),
 		),
-	)
+	).ToError()
 }
 
 // CommitChanges is wrapping [MSK_commitchanges],
 // Commits all cached problem changes.
 //
 // [MSK_commitchanges]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.commitchanges
-func (task *Task) CommitChanges() res.Code {
+func (task *Task) CommitChanges() error {
 	return res.Code(
 		C.MSK_commitchanges(
 			task.task,
 		),
-	)
+	).ToError()
 }
 
 // ConetypeToStr is wrapping [MSK_conetypetostr]
@@ -216,7 +217,8 @@ func (task *Task) CommitChanges() res.Code {
 // [MSK_conetypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.conetypetostr
 func (task *Task) ConetypeToStr(
 	ct ConeType,
-) (r res.Code, str string) {
+) (str string, r error) {
+	// function template: prepare for output of booleans
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -226,9 +228,9 @@ func (task *Task) ConetypeToStr(
 			C.MSKconetypee(ct),
 			c_str,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		str = C.GoString(c_str)
 	}
 
@@ -245,13 +247,13 @@ func (task *Task) ConetypeToStr(
 // [MSK_deletesolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.deletesolution
 func (task *Task) DeleteSolution(
 	whichsol SolType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_deletesolution(
 			task.task,
 			C.MSKsoltypee(whichsol),
 		),
-	)
+	).ToError()
 }
 
 // DualSensitivity is wrapping [MSK_dualsensitivity],
@@ -273,7 +275,7 @@ func (task *Task) DualSensitivity(
 	rightpricej *float64,
 	leftrangej *float64,
 	rightrangej *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_dualsensitivity(
 			task.task,
@@ -284,7 +286,7 @@ func (task *Task) DualSensitivity(
 			(*C.MSKrealt)(leftrangej),
 			(*C.MSKrealt)(rightrangej),
 		),
-	)
+	).ToError()
 }
 
 // EmptyAfeBarfRow is wrapping [MSK_emptyafebarfrow],
@@ -297,13 +299,13 @@ func (task *Task) DualSensitivity(
 // [MSK_emptyafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafebarfrow
 func (task *Task) EmptyAfeBarfRow(
 	afeidx int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_emptyafebarfrow(
 			task.task,
 			C.MSKint64t(afeidx),
 		),
-	)
+	).ToError()
 }
 
 // EmptyAfeBarfRowList is wrapping [MSK_emptyafebarfrowlist],
@@ -317,14 +319,14 @@ func (task *Task) EmptyAfeBarfRow(
 func (task *Task) EmptyAfeBarfRowList(
 	numafeidx int64,
 	afeidxlist *int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_emptyafebarfrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
 			(*C.MSKint64t)(afeidxlist),
 		),
-	)
+	).ToError()
 }
 
 // EmptyAfeFCol is wrapping [MSK_emptyafefcol],
@@ -337,13 +339,13 @@ func (task *Task) EmptyAfeBarfRowList(
 // [MSK_emptyafefcol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafefcol
 func (task *Task) EmptyAfeFCol(
 	varidx int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_emptyafefcol(
 			task.task,
 			C.MSKint32t(varidx),
 		),
-	)
+	).ToError()
 }
 
 // EmptyAfeFColList is wrapping [MSK_emptyafefcollist],
@@ -357,14 +359,14 @@ func (task *Task) EmptyAfeFCol(
 func (task *Task) EmptyAfeFColList(
 	numvaridx int64,
 	varidx *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_emptyafefcollist(
 			task.task,
 			C.MSKint64t(numvaridx),
 			(*C.MSKint32t)(varidx),
 		),
-	)
+	).ToError()
 }
 
 // EmptyAfeFRow is wrapping [MSK_emptyafefrow],
@@ -377,13 +379,13 @@ func (task *Task) EmptyAfeFColList(
 // [MSK_emptyafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.emptyafefrow
 func (task *Task) EmptyAfeFRow(
 	afeidx int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_emptyafefrow(
 			task.task,
 			C.MSKint64t(afeidx),
 		),
-	)
+	).ToError()
 }
 
 // EmptyAfeFRowList is wrapping [MSK_emptyafefrowlist],
@@ -397,14 +399,14 @@ func (task *Task) EmptyAfeFRow(
 func (task *Task) EmptyAfeFRowList(
 	numafeidx int64,
 	afeidx *int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_emptyafefrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
 			(*C.MSKint64t)(afeidx),
 		),
-	)
+	).ToError()
 }
 
 // EvaluateAccs is wrapping [MSK_evaluateaccs],
@@ -419,14 +421,14 @@ func (task *Task) EmptyAfeFRowList(
 func (task *Task) EvaluateAccs(
 	whichsol SolType,
 	activity *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_evaluateaccs(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			(*C.MSKrealt)(activity),
 		),
-	)
+	).ToError()
 }
 
 // GetMaxNumANz is wrapping [MSK_getmaxnumanz],
@@ -437,13 +439,13 @@ func (task *Task) EvaluateAccs(
 //   - `maxnumanz` Number of preallocated non-zero linear matrix elements.
 //
 // [MSK_getmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz
-func (task *Task) GetMaxNumANz() (r res.Code, maxnumanz int32) {
+func (task *Task) GetMaxNumANz() (maxnumanz int32, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumanz(
 			task.task,
 			(*C.MSKint32t)(&maxnumanz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -451,13 +453,13 @@ func (task *Task) GetMaxNumANz() (r res.Code, maxnumanz int32) {
 // GetMaxNumAnz64 is wrapping [MSK_getmaxnumanz64]
 //
 // [MSK_getmaxnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz64
-func (task *Task) GetMaxNumAnz64() (r res.Code, maxnumanz int64) {
+func (task *Task) GetMaxNumAnz64() (maxnumanz int64, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumanz64(
 			task.task,
 			(*C.MSKint64t)(&maxnumanz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -470,13 +472,13 @@ func (task *Task) GetMaxNumAnz64() (r res.Code, maxnumanz int64) {
 //   - `maxnumbarvar` Maximum number of symmetric matrix variables for which space is currently preallocated.
 //
 // [MSK_getmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumbarvar
-func (task *Task) GetMaxNumBarvar() (r res.Code, maxnumbarvar int32) {
+func (task *Task) GetMaxNumBarvar() (maxnumbarvar int32, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumbarvar(
 			task.task,
 			(*C.MSKint32t)(&maxnumbarvar),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -489,13 +491,13 @@ func (task *Task) GetMaxNumBarvar() (r res.Code, maxnumbarvar int32) {
 //   - `maxnumcon` Number of preallocated constraints in the optimization task.
 //
 // [MSK_getmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcon
-func (task *Task) GetMaxNumCon() (r res.Code, maxnumcon int32) {
+func (task *Task) GetMaxNumCon() (maxnumcon int32, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumcon(
 			task.task,
 			(*C.MSKint32t)(&maxnumcon),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -510,13 +512,13 @@ func (task *Task) GetMaxNumCon() (r res.Code, maxnumcon int32) {
 // Deprecated: [MSK_getmaxnumcone]/GetMaxNumCone is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_getmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcone
-func (task *Task) GetMaxNumCone() (r res.Code, maxnumcone int32) {
+func (task *Task) GetMaxNumCone() (maxnumcone int32, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumcone(
 			task.task,
 			(*C.MSKint32t)(&maxnumcone),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -529,13 +531,13 @@ func (task *Task) GetMaxNumCone() (r res.Code, maxnumcone int32) {
 //   - `maxnumqnz` Number of non-zero elements preallocated in quadratic coefficient matrices.
 //
 // [MSK_getmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz
-func (task *Task) GetMaxNumQNz() (r res.Code, maxnumqnz int32) {
+func (task *Task) GetMaxNumQNz() (maxnumqnz int32, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumqnz(
 			task.task,
 			(*C.MSKint32t)(&maxnumqnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -543,13 +545,13 @@ func (task *Task) GetMaxNumQNz() (r res.Code, maxnumqnz int32) {
 // GetMaxNumQnz64 is wrapping [MSK_getmaxnumqnz64]
 //
 // [MSK_getmaxnumqnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz64
-func (task *Task) GetMaxNumQnz64() (r res.Code, maxnumqnz int64) {
+func (task *Task) GetMaxNumQnz64() (maxnumqnz int64, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumqnz64(
 			task.task,
 			(*C.MSKint64t)(&maxnumqnz),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -562,13 +564,13 @@ func (task *Task) GetMaxNumQnz64() (r res.Code, maxnumqnz int64) {
 //   - `maxnumvar` Number of preallocated variables in the optimization task.
 //
 // [MSK_getmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumvar
-func (task *Task) GetMaxNumVar() (r res.Code, maxnumvar int32) {
+func (task *Task) GetMaxNumVar() (maxnumvar int32, r error) {
 	r = res.Code(
 		C.MSK_getmaxnumvar(
 			task.task,
 			(*C.MSKint32t)(&maxnumvar),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -585,14 +587,14 @@ func (task *Task) GetMaxNumVar() (r res.Code, maxnumvar int32) {
 func (task *Task) InfeasibilityReport(
 	whichstream StreamType,
 	whichsol SolType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_infeasibilityreport(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 			C.MSKsoltypee(whichsol),
 		),
-	)
+	).ToError()
 }
 
 // InitBasisSolve is wrapping [MSK_initbasissolve],
@@ -605,13 +607,13 @@ func (task *Task) InfeasibilityReport(
 // [MSK_initbasissolve]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.initbasissolve
 func (task *Task) InitBasisSolve(
 	basis *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_initbasissolve(
 			task.task,
 			(*C.MSKint32t)(basis),
 		),
-	)
+	).ToError()
 }
 
 // InputData is wrapping [MSK_inputdata],
@@ -652,7 +654,7 @@ func (task *Task) InputData(
 	bkx *BoundKey,
 	blx *float64,
 	bux *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_inputdata(
 			task.task,
@@ -673,7 +675,7 @@ func (task *Task) InputData(
 			(*C.MSKrealt)(blx),
 			(*C.MSKrealt)(bux),
 		),
-	)
+	).ToError()
 }
 
 // Inputdata64 is wrapping [MSK_inputdata64]
@@ -696,7 +698,7 @@ func (task *Task) Inputdata64(
 	bkx *BoundKey,
 	blx *float64,
 	bux *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_inputdata64(
 			task.task,
@@ -717,7 +719,7 @@ func (task *Task) Inputdata64(
 			(*C.MSKrealt)(blx),
 			(*C.MSKrealt)(bux),
 		),
-	)
+	).ToError()
 }
 
 // LinkFiletotaskstream is wrapping [MSK_linkfiletotaskstream]
@@ -727,7 +729,7 @@ func (task *Task) LinkFiletotaskstream(
 	whichstream StreamType,
 	filename string,
 	append int32,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -738,7 +740,7 @@ func (task *Task) LinkFiletotaskstream(
 			c_filename,
 			C.MSKint32t(append),
 		),
-	)
+	).ToError()
 }
 
 // OneSolutionSummary is wrapping [MSK_onesolutionsummary],
@@ -753,14 +755,14 @@ func (task *Task) LinkFiletotaskstream(
 func (task *Task) OneSolutionSummary(
 	whichstream StreamType,
 	whichsol SolType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_onesolutionsummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 			C.MSKsoltypee(whichsol),
 		),
-	)
+	).ToError()
 }
 
 // Optimize is wrapping [MSK_optimize],
@@ -771,12 +773,12 @@ func (task *Task) OneSolutionSummary(
 //   - `trmcode` Is either OK or a termination response code.
 //
 // [MSK_optimize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimize
-func (task *Task) Optimize() res.Code {
+func (task *Task) Optimize() error {
 	return res.Code(
 		C.MSK_optimize(
 			task.task,
 		),
-	)
+	).ToError()
 }
 
 // OptimizeRmt is wrapping [MSK_optimizermt],
@@ -792,7 +794,7 @@ func (task *Task) Optimize() res.Code {
 func (task *Task) OptimizeRmt(
 	address string,
 	accesstoken string,
-) (r, trmcode res.Code) {
+) (trmcode res.Code, r error) {
 	c_address := C.CString(address)
 	defer C.free(unsafe.Pointer(c_address))
 
@@ -806,7 +808,7 @@ func (task *Task) OptimizeRmt(
 			c_accesstoken,
 			(*C.MSKrescodee)(&trmcode),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -821,13 +823,13 @@ func (task *Task) OptimizeRmt(
 // [MSK_optimizersummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizersummary
 func (task *Task) OptimizerSummary(
 	whichstream StreamType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_optimizersummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 		),
-	)
+	).ToError()
 }
 
 // OptimizeTrm is wrapping [MSK_optimizetrm],
@@ -838,13 +840,13 @@ func (task *Task) OptimizerSummary(
 // - `trmcode` Is either OK or a termination response code.
 //
 // [MSK_optimizetrm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizetrm
-func (task *Task) OptimizeTrm() (r, trmcode res.Code) {
+func (task *Task) OptimizeTrm() (trmcode res.Code, r error) {
 	r = res.Code(
 		C.MSK_optimizetrm(
 			task.task,
 			(*C.MSKrescodee)(&trmcode),
 		),
-	)
+	).ToError()
 
 	return
 }
@@ -865,7 +867,7 @@ func (task *Task) PrimalRepair(
 	wuc *float64,
 	wlx *float64,
 	wux *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_primalrepair(
 			task.task,
@@ -874,7 +876,7 @@ func (task *Task) PrimalRepair(
 			(*C.MSKrealt)(wlx),
 			(*C.MSKrealt)(wux),
 		),
-	)
+	).ToError()
 }
 
 // PrimalSensitivity is wrapping [MSK_primalsensitivity],
@@ -911,7 +913,7 @@ func (task *Task) PrimalSensitivity(
 	rightpricej *float64,
 	leftrangej *float64,
 	rightrangej *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_primalsensitivity(
 			task.task,
@@ -930,19 +932,19 @@ func (task *Task) PrimalSensitivity(
 			(*C.MSKrealt)(leftrangej),
 			(*C.MSKrealt)(rightrangej),
 		),
-	)
+	).ToError()
 }
 
 // PrintParam is wrapping [MSK_printparam],
 // Prints the current parameter settings.
 //
 // [MSK_printparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.printparam
-func (task *Task) PrintParam() res.Code {
+func (task *Task) PrintParam() error {
 	return res.Code(
 		C.MSK_printparam(
 			task.task,
 		),
-	)
+	).ToError()
 }
 
 // ProbtypeToStr is wrapping [MSK_probtypetostr]
@@ -950,7 +952,8 @@ func (task *Task) PrintParam() res.Code {
 // [MSK_probtypetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.probtypetostr
 func (task *Task) ProbtypeToStr(
 	probtype ProblemType,
-) (r res.Code, str string) {
+) (str string, r error) {
+	// function template: prepare for output of booleans
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -960,9 +963,9 @@ func (task *Task) ProbtypeToStr(
 			C.MSKproblemtypee(probtype),
 			c_str,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		str = C.GoString(c_str)
 	}
 
@@ -974,7 +977,8 @@ func (task *Task) ProbtypeToStr(
 // [MSK_prostatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.prostatostr
 func (task *Task) ProStaToStr(
 	problemsta ProSta,
-) (r res.Code, str string) {
+) (str string, r error) {
+	// function template: prepare for output of booleans
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -984,9 +988,9 @@ func (task *Task) ProStaToStr(
 			C.MSKprostae(problemsta),
 			c_str,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		str = C.GoString(c_str)
 	}
 
@@ -1005,7 +1009,7 @@ func (task *Task) ProStaToStr(
 func (task *Task) ReadBSolution(
 	filename string,
 	compress CompressType,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1015,7 +1019,7 @@ func (task *Task) ReadBSolution(
 			c_filename,
 			C.MSKcompresstypee(compress),
 		),
-	)
+	).ToError()
 }
 
 // ReadData is wrapping [MSK_readdata],
@@ -1028,7 +1032,7 @@ func (task *Task) ReadBSolution(
 // [MSK_readdata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readdata
 func (task *Task) ReadData(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1037,7 +1041,7 @@ func (task *Task) ReadData(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // ReadDataautoformat is wrapping [MSK_readdataautoformat]
@@ -1045,7 +1049,7 @@ func (task *Task) ReadData(
 // [MSK_readdataautoformat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readdataautoformat
 func (task *Task) ReadDataautoformat(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1054,7 +1058,7 @@ func (task *Task) ReadDataautoformat(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // ReadDataFormat is wrapping [MSK_readdataformat],
@@ -1071,7 +1075,7 @@ func (task *Task) ReadDataFormat(
 	filename string,
 	format DataFormat,
 	compress CompressType,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1082,7 +1086,7 @@ func (task *Task) ReadDataFormat(
 			C.MSKdataformate(format),
 			C.MSKcompresstypee(compress),
 		),
-	)
+	).ToError()
 }
 
 // ReadJsonSol is wrapping [MSK_readjsonsol],
@@ -1095,7 +1099,7 @@ func (task *Task) ReadDataFormat(
 // [MSK_readjsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readjsonsol
 func (task *Task) ReadJsonSol(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1104,7 +1108,7 @@ func (task *Task) ReadJsonSol(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // ReadJsonString is wrapping [MSK_readjsonstring],
@@ -1117,7 +1121,7 @@ func (task *Task) ReadJsonSol(
 // [MSK_readjsonstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readjsonstring
 func (task *Task) ReadJsonString(
 	data string,
-) res.Code {
+) error {
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
@@ -1126,7 +1130,7 @@ func (task *Task) ReadJsonString(
 			task.task,
 			c_data,
 		),
-	)
+	).ToError()
 }
 
 // ReadLpString is wrapping [MSK_readlpstring],
@@ -1139,7 +1143,7 @@ func (task *Task) ReadJsonString(
 // [MSK_readlpstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readlpstring
 func (task *Task) ReadLpString(
 	data string,
-) res.Code {
+) error {
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
@@ -1148,7 +1152,7 @@ func (task *Task) ReadLpString(
 			task.task,
 			c_data,
 		),
-	)
+	).ToError()
 }
 
 // ReadOpfString is wrapping [MSK_readopfstring],
@@ -1161,7 +1165,7 @@ func (task *Task) ReadLpString(
 // [MSK_readopfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readopfstring
 func (task *Task) ReadOpfString(
 	data string,
-) res.Code {
+) error {
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
@@ -1170,7 +1174,7 @@ func (task *Task) ReadOpfString(
 			task.task,
 			c_data,
 		),
-	)
+	).ToError()
 }
 
 // ReadParamFile is wrapping [MSK_readparamfile],
@@ -1183,7 +1187,7 @@ func (task *Task) ReadOpfString(
 // [MSK_readparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readparamfile
 func (task *Task) ReadParamFile(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1192,7 +1196,7 @@ func (task *Task) ReadParamFile(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // ReadPtfString is wrapping [MSK_readptfstring],
@@ -1205,7 +1209,7 @@ func (task *Task) ReadParamFile(
 // [MSK_readptfstring]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readptfstring
 func (task *Task) ReadPtfString(
 	data string,
-) res.Code {
+) error {
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
@@ -1214,7 +1218,7 @@ func (task *Task) ReadPtfString(
 			task.task,
 			c_data,
 		),
-	)
+	).ToError()
 }
 
 // ReadSolution is wrapping [MSK_readsolution],
@@ -1229,7 +1233,7 @@ func (task *Task) ReadPtfString(
 func (task *Task) ReadSolution(
 	whichsol SolType,
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1239,7 +1243,7 @@ func (task *Task) ReadSolution(
 			C.MSKsoltypee(whichsol),
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // ReadSolutionFile is wrapping [MSK_readsolutionfile],
@@ -1252,7 +1256,7 @@ func (task *Task) ReadSolution(
 // [MSK_readsolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readsolutionfile
 func (task *Task) ReadSolutionFile(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1261,7 +1265,7 @@ func (task *Task) ReadSolutionFile(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // ReadSummary is wrapping [MSK_readsummary],
@@ -1274,13 +1278,13 @@ func (task *Task) ReadSolutionFile(
 // [MSK_readsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readsummary
 func (task *Task) ReadSummary(
 	whichstream StreamType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_readsummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 		),
-	)
+	).ToError()
 }
 
 // ReadTask is wrapping [MSK_readtask],
@@ -1293,7 +1297,7 @@ func (task *Task) ReadSummary(
 // [MSK_readtask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.readtask
 func (task *Task) ReadTask(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1302,7 +1306,7 @@ func (task *Task) ReadTask(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // RemoveBarvars is wrapping [MSK_removebarvars],
@@ -1316,14 +1320,14 @@ func (task *Task) ReadTask(
 func (task *Task) RemoveBarvars(
 	num int32,
 	subset *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_removebarvars(
 			task.task,
 			C.MSKint32t(num),
 			(*C.MSKint32t)(subset),
 		),
-	)
+	).ToError()
 }
 
 // RemoveCones is wrapping [MSK_removecones],
@@ -1339,14 +1343,14 @@ func (task *Task) RemoveBarvars(
 func (task *Task) RemoveCones(
 	num int32,
 	subset *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_removecones(
 			task.task,
 			C.MSKint32t(num),
 			(*C.MSKint32t)(subset),
 		),
-	)
+	).ToError()
 }
 
 // RemoveCons is wrapping [MSK_removecons],
@@ -1360,14 +1364,14 @@ func (task *Task) RemoveCones(
 func (task *Task) RemoveCons(
 	num int32,
 	subset *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_removecons(
 			task.task,
 			C.MSKint32t(num),
 			(*C.MSKint32t)(subset),
 		),
-	)
+	).ToError()
 }
 
 // RemoveVars is wrapping [MSK_removevars],
@@ -1381,14 +1385,14 @@ func (task *Task) RemoveCons(
 func (task *Task) RemoveVars(
 	num int32,
 	subset *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_removevars(
 			task.task,
 			C.MSKint32t(num),
 			(*C.MSKint32t)(subset),
 		),
-	)
+	).ToError()
 }
 
 // ResizeTask is wrapping [MSK_resizetask],
@@ -1409,7 +1413,7 @@ func (task *Task) ResizeTask(
 	maxnumcone int32,
 	maxnumanz int64,
 	maxnumqnz int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_resizetask(
 			task.task,
@@ -1419,7 +1423,7 @@ func (task *Task) ResizeTask(
 			C.MSKint64t(maxnumanz),
 			C.MSKint64t(maxnumqnz),
 		),
-	)
+	).ToError()
 }
 
 // SensitivityReport is wrapping [MSK_sensitivityreport],
@@ -1432,25 +1436,25 @@ func (task *Task) ResizeTask(
 // [MSK_sensitivityreport]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sensitivityreport
 func (task *Task) SensitivityReport(
 	whichstream StreamType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_sensitivityreport(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 		),
-	)
+	).ToError()
 }
 
 // SetDefaults is wrapping [MSK_setdefaults],
 // Resets all parameter values.
 //
 // [MSK_setdefaults]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.setdefaults
-func (task *Task) SetDefaults() res.Code {
+func (task *Task) SetDefaults() error {
 	return res.Code(
 		C.MSK_setdefaults(
 			task.task,
 		),
-	)
+	).ToError()
 }
 
 // SkToStr is wrapping [MSK_sktostr]
@@ -1458,7 +1462,8 @@ func (task *Task) SetDefaults() res.Code {
 // [MSK_sktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sktostr
 func (task *Task) SkToStr(
 	sk StaKey,
-) (r res.Code, str string) {
+) (str string, r error) {
+	// function template: prepare for output of booleans
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -1468,9 +1473,9 @@ func (task *Task) SkToStr(
 			C.MSKstakeye(sk),
 			c_str,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		str = C.GoString(c_str)
 	}
 
@@ -1482,7 +1487,8 @@ func (task *Task) SkToStr(
 // [MSK_solstatostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solstatostr
 func (task *Task) SolStaToStr(
 	solutionsta SolSta,
-) (r res.Code, str string) {
+) (str string, r error) {
+	// function template: prepare for output of booleans
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -1492,9 +1498,9 @@ func (task *Task) SolStaToStr(
 			C.MSKsolstae(solutionsta),
 			c_str,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		str = C.GoString(c_str)
 	}
 
@@ -1515,7 +1521,8 @@ func (task *Task) SolStaToStr(
 // [MSK_solutiondef]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solutiondef
 func (task *Task) SolutionDef(
 	whichsol SolType,
-) (r res.Code, isdef bool) {
+) (isdef bool, r error) {
+	// function template: prepare for output of booleans
 	c_isdef := C.MSKbooleant(0)
 
 	r = res.Code(
@@ -1524,9 +1531,9 @@ func (task *Task) SolutionDef(
 			C.MSKsoltypee(whichsol),
 			&c_isdef,
 		),
-	)
+	).ToError()
 
-	if r.IsOk() {
+	if r == nil {
 		isdef = intToBool(c_isdef)
 	}
 
@@ -1543,13 +1550,13 @@ func (task *Task) SolutionDef(
 // [MSK_solutionsummary]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.solutionsummary
 func (task *Task) SolutionSummary(
 	whichstream StreamType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_solutionsummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 		),
-	)
+	).ToError()
 }
 
 // SolveWithBasis is wrapping [MSK_solvewithbasis],
@@ -1573,7 +1580,7 @@ func (task *Task) SolveWithBasis(
 	sub *int32,
 	val *float64,
 	numnzout *int32,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_solvewithbasis(
 			task.task,
@@ -1583,7 +1590,7 @@ func (task *Task) SolveWithBasis(
 			(*C.MSKrealt)(val),
 			(*C.MSKint32t)(numnzout),
 		),
-	)
+	).ToError()
 }
 
 // StrToConeType is wrapping [MSK_strtoconetype],
@@ -1600,7 +1607,7 @@ func (task *Task) SolveWithBasis(
 func (task *Task) StrToConeType(
 	str string,
 	conetype *ConeType,
-) res.Code {
+) error {
 	c_str := C.CString(str)
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -1610,7 +1617,7 @@ func (task *Task) StrToConeType(
 			c_str,
 			(*C.MSKconetypee)(conetype),
 		),
-	)
+	).ToError()
 }
 
 // StrToSk is wrapping [MSK_strtosk],
@@ -1625,7 +1632,7 @@ func (task *Task) StrToConeType(
 func (task *Task) StrToSk(
 	str string,
 	sk *StaKey,
-) res.Code {
+) error {
 	c_str := C.CString(str)
 	defer C.free(unsafe.Pointer(c_str))
 
@@ -1635,7 +1642,7 @@ func (task *Task) StrToSk(
 			c_str,
 			(*C.MSKstakeye)(sk),
 		),
-	)
+	).ToError()
 }
 
 // Toconic is wrapping [MSK_toconic],
@@ -1644,12 +1651,12 @@ func (task *Task) StrToSk(
 // Deprecated: [MSK_toconic]/Toconic is deprecated by mosek and will be removed in a future release.
 //
 // [MSK_toconic]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.toconic
-func (task *Task) Toconic() res.Code {
+func (task *Task) Toconic() error {
 	return res.Code(
 		C.MSK_toconic(
 			task.task,
 		),
-	)
+	).ToError()
 }
 
 // UnlinkFuncfromtaskstream is wrapping [MSK_unlinkfuncfromtaskstream]
@@ -1657,13 +1664,13 @@ func (task *Task) Toconic() res.Code {
 // [MSK_unlinkfuncfromtaskstream]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.unlinkfuncfromtaskstream
 func (task *Task) UnlinkFuncfromtaskstream(
 	whichstream StreamType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_unlinkfuncfromtaskstream(
 			task.task,
 			C.MSKstreamtypee(whichstream),
 		),
-	)
+	).ToError()
 }
 
 // UpdateSolutionInfo is wrapping [MSK_updatesolutioninfo],
@@ -1676,13 +1683,13 @@ func (task *Task) UnlinkFuncfromtaskstream(
 // [MSK_updatesolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.updatesolutioninfo
 func (task *Task) UpdateSolutionInfo(
 	whichsol SolType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_updatesolutioninfo(
 			task.task,
 			C.MSKsoltypee(whichsol),
 		),
-	)
+	).ToError()
 }
 
 // WhichParam is wrapping [MSK_whichparam],
@@ -1699,7 +1706,7 @@ func (task *Task) WhichParam(
 	parname string,
 	partype *ParameterType,
 	param *int32,
-) res.Code {
+) error {
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
@@ -1710,7 +1717,7 @@ func (task *Task) WhichParam(
 			(*C.MSKparametertypee)(partype),
 			(*C.MSKint32t)(param),
 		),
-	)
+	).ToError()
 }
 
 // WriteBSolution is wrapping [MSK_writebsolution],
@@ -1725,7 +1732,7 @@ func (task *Task) WhichParam(
 func (task *Task) WriteBSolution(
 	filename string,
 	compress CompressType,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1735,7 +1742,7 @@ func (task *Task) WriteBSolution(
 			c_filename,
 			C.MSKcompresstypee(compress),
 		),
-	)
+	).ToError()
 }
 
 // WriteData is wrapping [MSK_writedata],
@@ -1748,7 +1755,7 @@ func (task *Task) WriteBSolution(
 // [MSK_writedata]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writedata
 func (task *Task) WriteData(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1757,7 +1764,7 @@ func (task *Task) WriteData(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // WriteJsonSol is wrapping [MSK_writejsonsol],
@@ -1770,7 +1777,7 @@ func (task *Task) WriteData(
 // [MSK_writejsonsol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writejsonsol
 func (task *Task) WriteJsonSol(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1779,7 +1786,7 @@ func (task *Task) WriteJsonSol(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // WriteParamFile is wrapping [MSK_writeparamfile],
@@ -1792,7 +1799,7 @@ func (task *Task) WriteJsonSol(
 // [MSK_writeparamfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writeparamfile
 func (task *Task) WriteParamFile(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1801,7 +1808,7 @@ func (task *Task) WriteParamFile(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // WriteSolution is wrapping [MSK_writesolution],
@@ -1816,7 +1823,7 @@ func (task *Task) WriteParamFile(
 func (task *Task) WriteSolution(
 	whichsol SolType,
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1826,7 +1833,7 @@ func (task *Task) WriteSolution(
 			C.MSKsoltypee(whichsol),
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // WriteSolutionFile is wrapping [MSK_writesolutionfile],
@@ -1839,7 +1846,7 @@ func (task *Task) WriteSolution(
 // [MSK_writesolutionfile]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writesolutionfile
 func (task *Task) WriteSolutionFile(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1848,7 +1855,7 @@ func (task *Task) WriteSolutionFile(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }
 
 // WriteTask is wrapping [MSK_writetask],
@@ -1861,7 +1868,7 @@ func (task *Task) WriteSolutionFile(
 // [MSK_writetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writetask
 func (task *Task) WriteTask(
 	filename string,
-) res.Code {
+) error {
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
@@ -1870,5 +1877,5 @@ func (task *Task) WriteTask(
 			task.task,
 			c_filename,
 		),
-	)
+	).ToError()
 }

@@ -9,10 +9,9 @@ import (
 )
 
 func ExampleTask_WriteDataHandle() {
-	CheckOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Fatalf("Failed: %s %s", sym, desc)
+	CheckOk := func(r error) {
+		if r != nil {
+			log.Fatalf("Failed: %#v", r)
 		}
 	}
 

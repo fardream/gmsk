@@ -30,7 +30,7 @@ func (task *Task) GetAColSliceTrip(
 	subi *int32,
 	subj *int32,
 	val *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getacolslicetrip(
 			task.task,
@@ -41,7 +41,7 @@ func (task *Task) GetAColSliceTrip(
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(val),
 		),
-	)
+	).ToError()
 }
 
 // GetARowSliceTrip is wrapping [MSK_getarowslicetrip],
@@ -63,7 +63,7 @@ func (task *Task) GetARowSliceTrip(
 	subi *int32,
 	subj *int32,
 	val *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_getarowslicetrip(
 			task.task,
@@ -74,5 +74,5 @@ func (task *Task) GetARowSliceTrip(
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(val),
 		),
-	)
+	).ToError()
 }

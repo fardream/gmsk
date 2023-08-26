@@ -29,7 +29,7 @@ func (task *Task) PutAccList(
 	numafeidx int64,
 	afeidxlist *int64,
 	b *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putacclist(
 			task.task,
@@ -40,7 +40,7 @@ func (task *Task) PutAccList(
 			(*C.MSKint64t)(afeidxlist),
 			(*C.MSKrealt)(b),
 		),
-	)
+	).ToError()
 }
 
 // PutAColList is wrapping [MSK_putacollist],
@@ -62,7 +62,7 @@ func (task *Task) PutAColList(
 	ptre *int32,
 	asub *int32,
 	aval *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putacollist(
 			task.task,
@@ -73,7 +73,7 @@ func (task *Task) PutAColList(
 			(*C.MSKint32t)(asub),
 			(*C.MSKrealt)(aval),
 		),
-	)
+	).ToError()
 }
 
 // PutAColList64 is wrapping [MSK_putacollist64]
@@ -86,7 +86,7 @@ func (task *Task) PutAColList64(
 	ptre *int64,
 	asub *int32,
 	aval *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putacollist64(
 			task.task,
@@ -97,7 +97,7 @@ func (task *Task) PutAColList64(
 			(*C.MSKint32t)(asub),
 			(*C.MSKrealt)(aval),
 		),
-	)
+	).ToError()
 }
 
 // PutAColSlice is wrapping [MSK_putacolslice],
@@ -120,7 +120,7 @@ func (task *Task) PutAColSlice(
 	ptre *int32,
 	asub *int32,
 	aval *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putacolslice(
 			task.task,
@@ -131,7 +131,7 @@ func (task *Task) PutAColSlice(
 			(*C.MSKint32t)(asub),
 			(*C.MSKrealt)(aval),
 		),
-	)
+	).ToError()
 }
 
 // PutAfeBarfEntryList is wrapping [MSK_putafebarfentrylist],
@@ -156,7 +156,7 @@ func (task *Task) PutAfeBarfEntryList(
 	lenterm int64,
 	termidx *int64,
 	termweight *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putafebarfentrylist(
 			task.task,
@@ -169,7 +169,7 @@ func (task *Task) PutAfeBarfEntryList(
 			(*C.MSKint64t)(termidx),
 			(*C.MSKrealt)(termweight),
 		),
-	)
+	).ToError()
 }
 
 // PutAfeFEntryList is wrapping [MSK_putafefentrylist],
@@ -187,7 +187,7 @@ func (task *Task) PutAfeFEntryList(
 	afeidx *int64,
 	varidx *int32,
 	val *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putafefentrylist(
 			task.task,
@@ -196,7 +196,7 @@ func (task *Task) PutAfeFEntryList(
 			(*C.MSKint32t)(varidx),
 			(*C.MSKrealt)(val),
 		),
-	)
+	).ToError()
 }
 
 // PutAfeFRowList is wrapping [MSK_putafefrowlist],
@@ -219,7 +219,7 @@ func (task *Task) PutAfeFRowList(
 	lenidxval int64,
 	varidx *int32,
 	val *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putafefrowlist(
 			task.task,
@@ -231,7 +231,7 @@ func (task *Task) PutAfeFRowList(
 			(*C.MSKint32t)(varidx),
 			(*C.MSKrealt)(val),
 		),
-	)
+	).ToError()
 }
 
 // PutAfeGList is wrapping [MSK_putafeglist],
@@ -247,7 +247,7 @@ func (task *Task) PutAfeGList(
 	numafeidx int64,
 	afeidx *int64,
 	g *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putafeglist(
 			task.task,
@@ -255,7 +255,7 @@ func (task *Task) PutAfeGList(
 			(*C.MSKint64t)(afeidx),
 			(*C.MSKrealt)(g),
 		),
-	)
+	).ToError()
 }
 
 // PutAfeGSlice is wrapping [MSK_putafegslice],
@@ -272,7 +272,7 @@ func (task *Task) PutAfeGSlice(
 	first int64,
 	last int64,
 	slice *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putafegslice(
 			task.task,
@@ -280,7 +280,7 @@ func (task *Task) PutAfeGSlice(
 			C.MSKint64t(last),
 			(*C.MSKrealt)(slice),
 		),
-	)
+	).ToError()
 }
 
 // PutAijList is wrapping [MSK_putaijlist],
@@ -298,7 +298,7 @@ func (task *Task) PutAijList(
 	subi *int32,
 	subj *int32,
 	valij *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putaijlist(
 			task.task,
@@ -307,7 +307,7 @@ func (task *Task) PutAijList(
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(valij),
 		),
-	)
+	).ToError()
 }
 
 // PutAijList64 is wrapping [MSK_putaijlist64]
@@ -318,7 +318,7 @@ func (task *Task) PutAijList64(
 	subi *int32,
 	subj *int32,
 	valij *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putaijlist64(
 			task.task,
@@ -327,7 +327,7 @@ func (task *Task) PutAijList64(
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(valij),
 		),
-	)
+	).ToError()
 }
 
 // PutARowList is wrapping [MSK_putarowlist],
@@ -349,7 +349,7 @@ func (task *Task) PutARowList(
 	ptre *int32,
 	asub *int32,
 	aval *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putarowlist(
 			task.task,
@@ -360,7 +360,7 @@ func (task *Task) PutARowList(
 			(*C.MSKint32t)(asub),
 			(*C.MSKrealt)(aval),
 		),
-	)
+	).ToError()
 }
 
 // PutARowList64 is wrapping [MSK_putarowlist64]
@@ -373,7 +373,7 @@ func (task *Task) PutARowList64(
 	ptre *int64,
 	asub *int32,
 	aval *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putarowlist64(
 			task.task,
@@ -384,7 +384,7 @@ func (task *Task) PutARowList64(
 			(*C.MSKint32t)(asub),
 			(*C.MSKrealt)(aval),
 		),
-	)
+	).ToError()
 }
 
 // PutARowSlice is wrapping [MSK_putarowslice],
@@ -407,7 +407,7 @@ func (task *Task) PutARowSlice(
 	ptre *int32,
 	asub *int32,
 	aval *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putarowslice(
 			task.task,
@@ -418,7 +418,7 @@ func (task *Task) PutARowSlice(
 			(*C.MSKint32t)(asub),
 			(*C.MSKrealt)(aval),
 		),
-	)
+	).ToError()
 }
 
 // PutBaraIjList is wrapping [MSK_putbaraijlist],
@@ -442,7 +442,7 @@ func (task *Task) PutBaraIjList(
 	alphaptre *int64,
 	matidx *int64,
 	weights *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putbaraijlist(
 			task.task,
@@ -454,7 +454,7 @@ func (task *Task) PutBaraIjList(
 			(*C.MSKint64t)(matidx),
 			(*C.MSKrealt)(weights),
 		),
-	)
+	).ToError()
 }
 
 // PutBaraRowList is wrapping [MSK_putbararowlist],
@@ -480,7 +480,7 @@ func (task *Task) PutBaraRowList(
 	nummat *int64,
 	matidx *int64,
 	weights *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putbararowlist(
 			task.task,
@@ -493,7 +493,7 @@ func (task *Task) PutBaraRowList(
 			(*C.MSKint64t)(matidx),
 			(*C.MSKrealt)(weights),
 		),
-	)
+	).ToError()
 }
 
 // PutCList is wrapping [MSK_putclist],
@@ -509,7 +509,7 @@ func (task *Task) PutCList(
 	num int32,
 	subj *int32,
 	val *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putclist(
 			task.task,
@@ -517,7 +517,7 @@ func (task *Task) PutCList(
 			(*C.MSKint32t)(subj),
 			(*C.MSKrealt)(val),
 		),
-	)
+	).ToError()
 }
 
 // PutConBoundList is wrapping [MSK_putconboundlist],
@@ -537,7 +537,7 @@ func (task *Task) PutConBoundList(
 	bkc *BoundKey,
 	blc *float64,
 	buc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putconboundlist(
 			task.task,
@@ -547,7 +547,7 @@ func (task *Task) PutConBoundList(
 			(*C.MSKrealt)(blc),
 			(*C.MSKrealt)(buc),
 		),
-	)
+	).ToError()
 }
 
 // PutConBoundSlice is wrapping [MSK_putconboundslice],
@@ -568,7 +568,7 @@ func (task *Task) PutConBoundSlice(
 	bkc *BoundKey,
 	blc *float64,
 	buc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putconboundslice(
 			task.task,
@@ -578,7 +578,7 @@ func (task *Task) PutConBoundSlice(
 			(*C.MSKrealt)(blc),
 			(*C.MSKrealt)(buc),
 		),
-	)
+	).ToError()
 }
 
 // PutConBoundSliceConst is wrapping [MSK_putconboundsliceconst],
@@ -599,7 +599,7 @@ func (task *Task) PutConBoundSliceConst(
 	bkc BoundKey,
 	blc float64,
 	buc float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putconboundsliceconst(
 			task.task,
@@ -609,7 +609,7 @@ func (task *Task) PutConBoundSliceConst(
 			C.MSKrealt(blc),
 			C.MSKrealt(buc),
 		),
-	)
+	).ToError()
 }
 
 // PutCSlice is wrapping [MSK_putcslice],
@@ -626,7 +626,7 @@ func (task *Task) PutCSlice(
 	first int32,
 	last int32,
 	slice *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putcslice(
 			task.task,
@@ -634,7 +634,7 @@ func (task *Task) PutCSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(slice),
 		),
-	)
+	).ToError()
 }
 
 // PutDjcSlice is wrapping [MSK_putdjcslice],
@@ -662,7 +662,7 @@ func (task *Task) PutDjcSlice(
 	numterms int64,
 	termsizelist *int64,
 	termsindjc *int64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putdjcslice(
 			task.task,
@@ -677,7 +677,7 @@ func (task *Task) PutDjcSlice(
 			(*C.MSKint64t)(termsizelist),
 			(*C.MSKint64t)(termsindjc),
 		),
-	)
+	).ToError()
 }
 
 // PutSkcSlice is wrapping [MSK_putskcslice],
@@ -696,7 +696,7 @@ func (task *Task) PutSkcSlice(
 	first int32,
 	last int32,
 	skc *StaKey,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putskcslice(
 			task.task,
@@ -705,7 +705,7 @@ func (task *Task) PutSkcSlice(
 			C.MSKint32t(last),
 			(*C.MSKstakeye)(skc),
 		),
-	)
+	).ToError()
 }
 
 // PutSkxSlice is wrapping [MSK_putskxslice],
@@ -724,7 +724,7 @@ func (task *Task) PutSkxSlice(
 	first int32,
 	last int32,
 	skx *StaKey,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putskxslice(
 			task.task,
@@ -733,7 +733,7 @@ func (task *Task) PutSkxSlice(
 			C.MSKint32t(last),
 			(*C.MSKstakeye)(skx),
 		),
-	)
+	).ToError()
 }
 
 // PutSlcSlice is wrapping [MSK_putslcslice],
@@ -752,7 +752,7 @@ func (task *Task) PutSlcSlice(
 	first int32,
 	last int32,
 	slc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putslcslice(
 			task.task,
@@ -761,7 +761,7 @@ func (task *Task) PutSlcSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(slc),
 		),
-	)
+	).ToError()
 }
 
 // PutSlxSlice is wrapping [MSK_putslxslice],
@@ -780,7 +780,7 @@ func (task *Task) PutSlxSlice(
 	first int32,
 	last int32,
 	slx *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putslxslice(
 			task.task,
@@ -789,7 +789,7 @@ func (task *Task) PutSlxSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(slx),
 		),
-	)
+	).ToError()
 }
 
 // PutSnxSlice is wrapping [MSK_putsnxslice],
@@ -808,7 +808,7 @@ func (task *Task) PutSnxSlice(
 	first int32,
 	last int32,
 	snx *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putsnxslice(
 			task.task,
@@ -817,7 +817,7 @@ func (task *Task) PutSnxSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(snx),
 		),
-	)
+	).ToError()
 }
 
 // PutSucSlice is wrapping [MSK_putsucslice],
@@ -836,7 +836,7 @@ func (task *Task) PutSucSlice(
 	first int32,
 	last int32,
 	suc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putsucslice(
 			task.task,
@@ -845,7 +845,7 @@ func (task *Task) PutSucSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(suc),
 		),
-	)
+	).ToError()
 }
 
 // PutSuxSlice is wrapping [MSK_putsuxslice],
@@ -864,7 +864,7 @@ func (task *Task) PutSuxSlice(
 	first int32,
 	last int32,
 	sux *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putsuxslice(
 			task.task,
@@ -873,7 +873,7 @@ func (task *Task) PutSuxSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(sux),
 		),
-	)
+	).ToError()
 }
 
 // PutVarBoundList is wrapping [MSK_putvarboundlist],
@@ -893,7 +893,7 @@ func (task *Task) PutVarBoundList(
 	bkx *BoundKey,
 	blx *float64,
 	bux *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putvarboundlist(
 			task.task,
@@ -903,7 +903,7 @@ func (task *Task) PutVarBoundList(
 			(*C.MSKrealt)(blx),
 			(*C.MSKrealt)(bux),
 		),
-	)
+	).ToError()
 }
 
 // PutVarBoundSlice is wrapping [MSK_putvarboundslice],
@@ -924,7 +924,7 @@ func (task *Task) PutVarBoundSlice(
 	bkx *BoundKey,
 	blx *float64,
 	bux *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putvarboundslice(
 			task.task,
@@ -934,7 +934,7 @@ func (task *Task) PutVarBoundSlice(
 			(*C.MSKrealt)(blx),
 			(*C.MSKrealt)(bux),
 		),
-	)
+	).ToError()
 }
 
 // PutVarBoundSliceConst is wrapping [MSK_putvarboundsliceconst],
@@ -955,7 +955,7 @@ func (task *Task) PutVarBoundSliceConst(
 	bkx BoundKey,
 	blx float64,
 	bux float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putvarboundsliceconst(
 			task.task,
@@ -965,7 +965,7 @@ func (task *Task) PutVarBoundSliceConst(
 			C.MSKrealt(blx),
 			C.MSKrealt(bux),
 		),
-	)
+	).ToError()
 }
 
 // PutVarTypeList is wrapping [MSK_putvartypelist],
@@ -981,7 +981,7 @@ func (task *Task) PutVarTypeList(
 	num int32,
 	subj *int32,
 	vartype *VariableType,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putvartypelist(
 			task.task,
@@ -989,7 +989,7 @@ func (task *Task) PutVarTypeList(
 			(*C.MSKint32t)(subj),
 			(*C.MSKvariabletypee)(vartype),
 		),
-	)
+	).ToError()
 }
 
 // PutXcSlice is wrapping [MSK_putxcslice],
@@ -1008,7 +1008,7 @@ func (task *Task) PutXcSlice(
 	first int32,
 	last int32,
 	xc *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putxcslice(
 			task.task,
@@ -1017,7 +1017,7 @@ func (task *Task) PutXcSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(xc),
 		),
-	)
+	).ToError()
 }
 
 // PutXxSlice is wrapping [MSK_putxxslice],
@@ -1036,7 +1036,7 @@ func (task *Task) PutXxSlice(
 	first int32,
 	last int32,
 	xx *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putxxslice(
 			task.task,
@@ -1045,7 +1045,7 @@ func (task *Task) PutXxSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(xx),
 		),
-	)
+	).ToError()
 }
 
 // PutYSlice is wrapping [MSK_putyslice],
@@ -1064,7 +1064,7 @@ func (task *Task) PutYSlice(
 	first int32,
 	last int32,
 	y *float64,
-) res.Code {
+) error {
 	return res.Code(
 		C.MSK_putyslice(
 			task.task,
@@ -1073,5 +1073,5 @@ func (task *Task) PutYSlice(
 			C.MSKint32t(last),
 			(*C.MSKrealt)(y),
 		),
-	)
+	).ToError()
 }
