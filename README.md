@@ -23,10 +23,9 @@ import (
 // This is reproduced from MOSEK C example hellowworld.c
 // However, the response code is checked here.
 func main() {
-	CheckOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Fatalf("Failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
@@ -36,14 +35,14 @@ func main() {
 	}
 	defer gmsk.DeleteTask(task)
 
-	CheckOk(task.AppendVars(1))
-	CheckOk(task.PutCJ(0, 1.0))
-	CheckOk(task.PutVarBound(0, gmsk.BK_RA, 2.0, 3.0))
-	CheckOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
-	res, _ := task.OptimizeTrm()
-	CheckOk(res)
+	checkOk(task.AppendVars(1))
+	checkOk(task.PutCJ(0, 1.0))
+	checkOk(task.PutVarBound(0, gmsk.BK_RA, 2.0, 3.0))
+	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
+	_, res := task.OptimizeTrm()
+	checkOk(res)
 	result := make([]float64, 1)
-	res, result = task.GetXx(gmsk.SOL_ITR, result)
+	result, res = task.GetXx(gmsk.SOL_ITR, result)
 
 	fmt.Printf("Solution x = %.6f\n", result[0])
 }
