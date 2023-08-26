@@ -10,12 +10,13 @@ import (
 
 // Example of mixed integer linear optimization, reproduced from milo1.c in MOSEK C api.
 func Example_mixedIntegeLinearOptimization1_milo1() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	const numvar, numcon int32 = 2, 2
 
@@ -34,7 +35,6 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	aval := []float64{50, 3, 31, -2}
 
 	var i, j int32
-	r := gmsk.RES_OK
 
 	/* Create the mosek environment. */
 	env, err := gmsk.MakeEnv()
@@ -63,7 +63,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	/* Optionally add a constant term to the objective. */
 	checkOk(task.PutCfix(0))
 
-	for j = 0; j < numvar && r.IsOk(); j++ {
+	for j = 0; j < numvar && r == nil; j++ {
 		/* Set the linear term c_j in the objective.*/
 		checkOk(task.PutCJ(j, c[j]))
 
@@ -90,7 +90,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
-	for i = 0; i < numcon && r.IsOk(); i++ {
+	for i = 0; i < numcon && r == nil; i++ {
 		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
@@ -100,7 +100,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	checkOk(r)
 
 	/* Specify integer variables. */
-	for j = 0; j < numvar && r.IsOk(); j++ {
+	for j = 0; j < numvar && r == nil; j++ {
 		r = task.PutVarType(j, gmsk.VAR_TYPE_INT)
 	}
 	checkOk(r)
@@ -111,7 +111,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	checkOk(task.PutDouParam(gmsk.DPAR_MIO_MAX_TIME, 60))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
@@ -119,14 +119,14 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITG)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITG)
 	checkOk(r)
 
 	xx := make([]float64, numvar)
 
 	switch solsta {
 	case gmsk.SOL_STA_INTEGER_OPTIMAL:
-		r, xx = task.GetXx(
+		xx, r = task.GetXx(
 			gmsk.SOL_ITG, /* Request the integer solution. */
 			xx)
 		checkOk(r)
@@ -140,7 +140,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 
 	case gmsk.SOL_STA_PRIM_FEAS:
 		/* A feasible but not necessarily optimal solution was located. */
-		r, xx = task.GetXx(gmsk.SOL_ITG, xx)
+		xx, r = task.GetXx(gmsk.SOL_ITG, xx)
 		checkOk(r)
 		fmt.Printf("Feasible solution.\n")
 		for j = 0; j < numvar; j++ {
@@ -151,7 +151,7 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 		}
 
 	case gmsk.SOL_STA_UNKNOWN:
-		r, prosta := task.GetProSta(gmsk.SOL_ITG)
+		prosta, r := task.GetProSta(gmsk.SOL_ITG)
 		checkOk(r)
 		switch prosta {
 		case gmsk.PRO_STA_PRIM_INFEAS_OR_UNBOUNDED:

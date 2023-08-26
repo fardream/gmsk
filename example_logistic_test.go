@@ -8,22 +8,17 @@ import (
 	"github.com/fardream/gmsk"
 )
 
-func MSKCALL(r gmsk.ResCode) {
-	if r.IsOk() {
+func MSKCALL(r error) {
+	if r == nil {
 		return
 	}
 
-	b, sym, desc := gmsk.GetCodedesc(r)
-	if b.NotOk() {
-		log.Panicf("cannot get the description of error %d - the error code is %d for getting the description", r, b)
-	} else {
-		log.Panicf("failed: %d %s %s", r, sym, desc)
-	}
+	log.Panicf("failed: %s", r.Error())
 }
 
 // Adds ACCs for t_i >= log ( 1 + exp((1-2*y[i]) * theta' * X[i]) )
 // Adds auxiliary variables, AFE rows and constraints
-func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float64, y []int32) gmsk.ResCode {
+func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float64, y []int32) error {
 	var thetaafe, tafe, z1afe, z2afe, oneafe, expdomain int64
 	var z1, z2, zcon int32
 	subi := make([]int32, 2*n)
@@ -34,18 +29,18 @@ func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float
 	fval := make([]float64, d*n+4*n)
 	idx := make([]int64, 3)
 	var k, i, j int32
-	res := gmsk.RES_OK
+	var res error
 
-	res, nvar := task.GetNumVar()
-	if res.NotOk() {
+	nvar, res := task.GetNumVar()
+	if res != nil {
 		return res
 	}
-	res, ncon := task.GetNumCon()
-	if res.NotOk() {
+	ncon, res := task.GetNumCon()
+	if res != nil {
 		return res
 	}
-	res, nafe := task.GetNumAfe()
-	if res.NotOk() {
+	nafe, res := task.GetNumAfe()
+	if res != nil {
 		return res
 	}
 
@@ -125,13 +120,13 @@ func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float
 	MSKCALL(task.PutAfeFEntryList(int64(d*n+4*n), &afeidx[0], &varidx[0], &fval[0]))
 
 	// Add a single row with the constant expression "1.0"
-	res, oneafe = task.GetNumAfe()
+	oneafe, res = task.GetNumAfe()
 	MSKCALL(res)
 	MSKCALL(task.AppendAfes(1))
 	MSKCALL(task.PutAfeG(oneafe, 1))
 
 	// Add an exponential cone domain
-	res, expdomain = task.AppendPrimalExpConeDomain()
+	expdomain, res = task.AppendPrimalExpConeDomain()
 
 	// Conic constraints
 	for i = 0; i < n; i++ {
@@ -159,8 +154,8 @@ func logisticRegression(env *gmsk.Env,
 	y []int32,
 	lamb float64,
 	thetaVal []float64, // result
-) gmsk.ResCode {
-	res := gmsk.RES_OK
+) error {
+	var res error
 	var nvar int32 = 1 + d + n
 	var r, theta, t int32 = 0, 1, 1 + d
 	var numafe, quadDom int64
@@ -178,7 +173,7 @@ func logisticRegression(env *gmsk.Env,
 	// Objective lambda*r + sum(t)
 	MSKCALL(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
 	MSKCALL(task.PutCJ(r, lamb))
-	for i = 0; i < n && res.IsOk(); i++ {
+	for i = 0; i < n && res == nil; i++ {
 		MSKCALL(task.PutCJ(t+i, 1))
 	}
 
@@ -187,7 +182,7 @@ func logisticRegression(env *gmsk.Env,
 
 	// Regularization
 	// Append a sequence of linear expressions (r, theta) to F
-	res, numafe = task.GetNumAfe()
+	numafe, res = task.GetNumAfe()
 	MSKCALL(res)
 	MSKCALL(task.AppendAfes(1 + int64(d)))
 	MSKCALL(task.PutAfeFEntry(numafe, r, 1.0))
@@ -196,15 +191,15 @@ func logisticRegression(env *gmsk.Env,
 	}
 
 	// Add the constraint
-	res, quadDom = task.AppendQuadraticConeDomain(1 + int64(d))
+	quadDom, res = task.AppendQuadraticConeDomain(1 + int64(d))
 	MSKCALL(res)
 	MSKCALL(task.AppendAccSeq(quadDom, int64(d)+1, numafe, nil))
 
-	res, _ = task.OptimizeTrm()
+	_, res = task.OptimizeTrm()
 	MSKCALL(res)
 	MSKCALL(task.SolutionSummary(gmsk.STREAM_LOG))
 
-	res, _ = task.GetXxSlice(gmsk.SOL_ITR, theta, theta+d, thetaVal)
+	_, res = task.GetXxSlice(gmsk.SOL_ITR, theta, theta+d, thetaVal)
 	return res
 }
 

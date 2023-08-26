@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/res"
 )
 
 // Power cone example, reproduced from pow1.c in MOSEK C api.
@@ -16,14 +17,13 @@ import (
 //	      st x + y + 0.5z = 2
 //	         x,y,z >= 0
 func Example_powerCone_pow1() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
-	r := gmsk.RES_OK
+	var r error
 
 	const numvar, numcon int32 = 5, 1
 
@@ -91,9 +91,9 @@ func Example_powerCone_pow1() {
 	checkOk(task.PutAfeG(4, g))
 
 	/* Append the primal power cone domains with their respective parameter values. */
-	r, domidx[0] = task.AppendPrimalPowerConeDomain(3, 2, &alpha_1[0])
+	domidx[0], r = task.AppendPrimalPowerConeDomain(3, 2, &alpha_1[0])
 	checkOk(r)
-	r, domidx[1] = task.AppendPrimalPowerConeDomain(3, 2, &alpha_2[0])
+	domidx[1], r = task.AppendPrimalPowerConeDomain(3, 2, &alpha_2[0])
 	checkOk(r)
 
 	/* Append two ACCs made up of the AFEs and the domains defined above. */
@@ -102,7 +102,7 @@ func Example_powerCone_pow1() {
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
@@ -110,14 +110,14 @@ func Example_powerCone_pow1() {
 
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
-		r, xx := task.GetXx(gmsk.SOL_ITR, nil)
-		if r.NotOk() {
-			checkOk(gmsk.RES_ERR_SPACE)
+		xx, r := task.GetXx(gmsk.SOL_ITR, nil)
+		if r != nil {
+			checkOk(gmsk.NewError(res.ERR_SPACE))
 		}
 
 		fmt.Printf("Optimal primal solution\n")

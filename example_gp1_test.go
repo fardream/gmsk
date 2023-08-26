@@ -26,12 +26,13 @@ import (
 //	             log( alpha ) <= x-y <= log( beta )
 //	             log( gamma ) <= z-y <= log( delta )
 func Example_geometricProgram1_gp1() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	const Aw float64 = 200.0
 	const Af float64 = 50.0
@@ -40,7 +41,6 @@ func Example_geometricProgram1_gp1() {
 	const gamma float64 = 2.0
 	// const delta float64 = 10.0
 
-	r := gmsk.RES_OK
 	hwd := [3]float64{}
 
 	// max_volume_box - begin ------------------------------------------------
@@ -106,7 +106,7 @@ func Example_geometricProgram1_gp1() {
 	checkOk(task.PutAfeGSlice(0, numafe, &g[0]))
 
 	/* Append the primal exponential cone domain */
-	r, expdomidx = task.AppendPrimalExpConeDomain()
+	expdomidx, r = task.AppendPrimalExpConeDomain()
 	checkOk(r)
 
 	/* (u1, 1, x+y+log(2/Awall)) \in EXP */
@@ -116,23 +116,23 @@ func Example_geometricProgram1_gp1() {
 	checkOk(task.AppendAcc(expdomidx, 3, &acc2_afeidx[0], nil))
 
 	/* The constraint u1+u2-1 \in \ZERO is added also as an ACC */
-	r, rzerodomidx = task.AppendRzeroDomain(1)
+	rzerodomidx, r = task.AppendRzeroDomain(1)
 	checkOk(r)
 	checkOk(task.AppendAcc(rzerodomidx, 1, &acc3_afeidx[0], nil))
 
 	// Solve and map to original h, w, d
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	if solsta != gmsk.SOL_STA_OPTIMAL {
 		fmt.Printf("Solution not optimal, termination code %d.\n", trmcode)
-		checkOk(trmcode)
+		checkOk(gmsk.NewError(trmcode))
 	}
 
-	r, xyz = task.GetXxSlice(gmsk.SOL_ITR, 0, numvar, xyz)
+	xyz, r = task.GetXxSlice(gmsk.SOL_ITR, 0, numvar, xyz)
 	checkOk(r)
 	for i := 0; i < int(numvar); i++ {
 		hwd[i] = math.Exp(xyz[i])

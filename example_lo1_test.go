@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/res"
 )
 
 // Linear programming example 1, reproduced from mosek c api example lo1.c
@@ -39,14 +40,13 @@ func Example_linearOptimization1_lo1() {
 	blx := []float64{0, 0, 0, 0}
 	bux := []float64{gmsk.INFINITY, 10, gmsk.INFINITY, gmsk.INFINITY}
 
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Fatalf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
-	r := gmsk.RES_OK
+	var r error
 
 	/* Create the optimization task. */
 	task, err := gmsk.MakeTask(nil, numcon, numvar)
@@ -66,10 +66,10 @@ func Example_linearOptimization1_lo1() {
 	   The variables will initially be fixed at zero (x=0). */
 	checkOk(task.AppendVars(numvar))
 
-	for j := int32(0); j < numvar && r == gmsk.RES_OK; j++ {
+	for j := int32(0); j < numvar && r == nil; j++ {
 		/* Set the linear term c_j in the objective.*/
 		r = task.PutCJ(j, c[j])
-		if r != gmsk.RES_OK {
+		if r != nil {
 			break
 		}
 
@@ -78,7 +78,7 @@ func Example_linearOptimization1_lo1() {
 			bkx[j], /* Bound key.*/
 			blx[j], /* Numerical value of lower bound.*/
 			bux[j]) /* Numerical value of upper bound.*/
-		if r != gmsk.RES_OK {
+		if r != nil {
 			break
 		}
 
@@ -94,7 +94,7 @@ func Example_linearOptimization1_lo1() {
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,numcon : blc[i] <= constraint i <= buc[i] */
-	for i := int32(0); i < numcon && r == gmsk.RES_OK; i++ {
+	for i := int32(0); i < numcon && r == nil; i++ {
 		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
@@ -109,7 +109,7 @@ func Example_linearOptimization1_lo1() {
 
 	var trmcode gmsk.ResCode
 	/* Run optimizer */
-	r, trmcode = task.OptimizeTrm()
+	trmcode, r = task.OptimizeTrm()
 	checkOk(r)
 
 	/* Print a summary containing information
@@ -118,15 +118,15 @@ func Example_linearOptimization1_lo1() {
 
 	var solsta gmsk.SolSta
 
-	r, solsta = task.GetSolSta(gmsk.SOL_BAS)
+	solsta, r = task.GetSolSta(gmsk.SOL_BAS)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
-		r, xx := task.GetXx(
+		xx, r := task.GetXx(
 			gmsk.SOL_BAS, /* Request the basic solution. */
 			nil)
-		if r != gmsk.RES_OK {
-			r = gmsk.RES_ERR_SPACE
+		if r != nil {
+			r = gmsk.NewError(res.ERR_SPACE)
 			break
 		}
 		fmt.Print("Optimal primal solution\n")
@@ -147,9 +147,10 @@ func Example_linearOptimization1_lo1() {
 		fmt.Printf("Other solution status.\n")
 	}
 
-	if r != gmsk.RES_OK {
+	if r != nil && gmsk.IsMskError(r) {
+		e, _ := gmsk.AsMskError(r)
 		/* In case of an error print error code and description. */
-		_, symname, desc := gmsk.GetCodedesc(r)
+		_, symname, desc := gmsk.GetCodedesc(e.ToResCode())
 		fmt.Printf("Error %s - '%s'\n", symname, desc)
 	}
 

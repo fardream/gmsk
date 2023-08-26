@@ -6,18 +6,18 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/res"
 )
 
 // Conic exponential optimization, reproduced from ceo1.c in MOSEK C api.
 func Example_conicExponentialOptimization1_ceo1() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
-	r := gmsk.RES_OK
+	var r error
 
 	const numvar, numcon int32 = 3, 1
 	const numafe, f_nnz int64 = 3, 3
@@ -92,12 +92,12 @@ func Example_conicExponentialOptimization1_ceo1() {
 	checkOk(task.PutVarBoundSlice(0, numvar, &bkx[0], &blx[0], &bux[0]))
 
 	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
-	r, domidx = task.AppendPrimalExpConeDomain()
+	domidx, r = task.AppendPrimalExpConeDomain()
 	checkOk(r)
 	checkOk(task.AppendAccSeq(domidx, numafe, 0, nil))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
@@ -105,14 +105,14 @@ func Example_conicExponentialOptimization1_ceo1() {
 
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
-		r, xx := task.GetXx(gmsk.SOL_ITR, nil)
-		if r.NotOk() {
-			checkOk(gmsk.RES_ERR_SPACE)
+		xx, r := task.GetXx(gmsk.SOL_ITR, nil)
+		if r != nil {
+			checkOk(res.NewErrorFromInt(gmsk.RES_ERR_SPACE))
 		}
 
 		fmt.Printf("Optimal primal solution\n")

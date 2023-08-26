@@ -11,12 +11,13 @@ import (
 
 // Reoptimization example, reproduced from reoptimization.c in MOSEK C api.
 func Example_reoptimization() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	printres := func(n int32, x *float64) {
 		for i, v := range unsafe.Slice(x, n) {
@@ -56,7 +57,6 @@ func Example_reoptimization() {
 
 	var xx []float64
 	var varidx, conidx int32
-	var r gmsk.ResCode
 
 	/* Create the mosek environment. */
 	env, err := gmsk.MakeEnv()
@@ -110,12 +110,12 @@ func Example_reoptimization() {
 
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 
 	xx = make([]float64, numvar)
 
-	r, xx = task.GetXx(
+	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
 		xx)
 	checkOk(r)
@@ -124,10 +124,10 @@ func Example_reoptimization() {
 
 	/******************** Make a change to the A matrix **********/
 	checkOk(task.PutAij(0, 0, 3))
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 
-	r, xx = task.GetXx(
+	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
 		xx)
 	checkOk(r)
@@ -136,7 +136,7 @@ func Example_reoptimization() {
 
 	/*********************** Add a new variable ******************/
 	/* Get index of new variable, this should be 3 */
-	r, varidx = task.GetNumVar()
+	varidx, r = task.GetNumVar()
 	/* Append a new variable x_3 to the problem */
 	checkOk(task.AppendVars(1))
 	numvar++
@@ -165,10 +165,10 @@ func Example_reoptimization() {
 	/* Change optimizer to free simplex and reoptimize */
 	checkOk(task.PutIntParam(gmsk.IPAR_OPTIMIZER, gmsk.OPTIMIZER_FREE_SIMPLEX))
 
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 	xx = make([]float64, numvar)
-	r, xx = task.GetXx(
+	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
 		xx)
 	checkOk(r)
@@ -177,7 +177,7 @@ func Example_reoptimization() {
 
 	/* **************** Add a new constraint ******************* */
 	/* Get index of new constraint*/
-	r, conidx = task.GetNumCon()
+	conidx, r = task.GetNumCon()
 	checkOk(r)
 
 	/* Append a new constraint */
@@ -205,10 +205,10 @@ func Example_reoptimization() {
 				&arowval[0]))
 	}
 
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 
-	r, xx = task.GetXx(
+	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
 		xx)
 	checkOk(r)
@@ -224,10 +224,10 @@ func Example_reoptimization() {
 		checkOk(task.PutConBoundSlice(0, numcon, &newbkc[0], &newblc[0], &newbuc[0]))
 	}
 
-	r, _ = task.OptimizeTrm()
+	_, r = task.OptimizeTrm()
 	checkOk(r)
 
-	r, xx = task.GetXx(
+	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
 		xx)
 	checkOk(r)

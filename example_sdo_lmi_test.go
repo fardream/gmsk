@@ -20,19 +20,18 @@ import (
 //	                         x(1) [0, 1; 1, 3] + x(2) [3, 1; 1, 0] - [1, 0; 0, 1] >> 0
 //	                         X >> 0
 func Example_semidefiniteOptimization_sdo_lmi() {
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
+
+	var r error
 
 	const NUMVAR = 2    /* Number of scalar variables */
 	const NUMAFE = 4    /* Number of affine expressions        */
 	const NUMFNZ = 6    /* Number of non-zeros in F            */
 	const NUMBARVAR = 1 /* Number of semidefinite variables    */
-
-	r := gmsk.RES_OK
 
 	DIMBARVAR := []int32{2}               /* Dimension of semidefinite cone */
 	LENBARVAR := []int64{2 * (2 + 1) / 2} /* Number of scalar SD variables  */
@@ -86,7 +85,7 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk(task.PutCfix(1))
 
 	/* Set c_j and the bounds for each scalar variable*/
-	for j = 0; j < NUMVAR && r == gmsk.RES_OK; j++ {
+	for j = 0; j < NUMVAR && r == nil; j++ {
 		r = task.PutCJ(j, 1.0)
 		checkOk(r)
 		r = task.PutVarBound(j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY)
@@ -105,18 +104,18 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 
 	/* Append R+ domain and the corresponding ACC */
 	acc1_afeidx := []int64{0}
-	r, rplusdom := task.AppendRplusDomain(1)
+	rplusdom, r := task.AppendRplusDomain(1)
 	checkOk(r)
 	checkOk(task.AppendAcc(rplusdom, 1, &acc1_afeidx[0], nil))
 
 	/* Append the SVEC_PSD domain and the corresponding ACC */
 	acc2_afeidx := []int64{1, 2, 3}
-	r, svecpsddom := task.AppendSvecPsdConeDomain(3)
+	svecpsddom, r := task.AppendSvecPsdConeDomain(3)
 	checkOk(r)
 	checkOk(task.AppendAcc(svecpsddom, 3, &acc2_afeidx[0], nil))
 
 	/* Run optimizer */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
@@ -124,16 +123,16 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
 		xx := make([]float64, NUMVAR)
 		barx := make([]float64, LENBARVAR[0])
 
-		r, xx = task.GetXx(gmsk.SOL_ITR, xx)
+		xx, r = task.GetXx(gmsk.SOL_ITR, xx)
 		checkOk(r)
-		r, barx = task.GetBarXj(gmsk.SOL_ITR, 0, barx)
+		barx, r = task.GetBarXj(gmsk.SOL_ITR, 0, barx)
 		checkOk(r)
 
 		fmt.Printf("Optimal primal solution\n")

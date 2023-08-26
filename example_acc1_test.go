@@ -38,11 +38,9 @@ func Example_affineConicConstraints_acc1() {
 	}
 	defer gmsk.DeleteTask(task)
 
-	checkOk := func(r gmsk.ResCode) {
-		if r != gmsk.RES_OK {
-			_, sym, desc := gmsk.GetCodedesc(r)
-
-			log.Fatalf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
@@ -89,7 +87,7 @@ func Example_affineConicConstraints_acc1() {
 	}
 
 	/* Define a conic quadratic domain */
-	r, quadDom := task.AppendQuadraticConeDomain(k + 1)
+	quadDom, r := task.AppendQuadraticConeDomain(k + 1)
 	checkOk(r)
 
 	{
@@ -99,21 +97,21 @@ func Example_affineConicConstraints_acc1() {
 	}
 
 	/* Begin optimization and fetching the solution */
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 	checkOk(r)
 
 	/* Print a summary containing information
 	   about the solution for debugging purposes*/
 	task.SolutionSummary(gmsk.STREAM_LOG) // use stream log and direct it to stderr
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 	checkOk(r)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
 		/* Fetch the solution */
 		xx := make([]float64, n)
-		r, xx = task.GetXx(
+		xx, r = task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			xx)
 		checkOk(r)
@@ -124,7 +122,7 @@ func Example_affineConicConstraints_acc1() {
 
 		/* Fetch the doty dual of the ACC */
 		doty := make([]float64, k+1)
-		r, doty = task.GetAccDotY(
+		doty, r = task.GetAccDotY(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			0,            /* ACC index. */
 			doty)
@@ -137,7 +135,7 @@ func Example_affineConicConstraints_acc1() {
 
 		/* Fetch the activity of the ACC */
 		activity := make([]float64, k+1)
-		r, activity = task.EvaluateAcc(
+		activity, r = task.EvaluateAcc(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			0,            /* ACC index. */
 			activity)

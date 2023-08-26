@@ -23,14 +23,13 @@ func Example_semidefiniteOptimization_sdo1() {
 	const NUMFNZ = 3    /* Number of non-zeros in F            */
 	const NUMBARVAR = 1 /* Number of semidefinite variables    */
 
-	checkOk := func(r gmsk.ResCode) {
-		if !r.IsOk() {
-			_, sym, desc := gmsk.GetCodedesc(r)
-			log.Panicf("failed: %s %s", sym, desc)
+	checkOk := func(err error) {
+		if err != nil {
+			log.Fatalf("failed: %s", err.Error())
 		}
 	}
 
-	r := gmsk.RES_OK
+	var r error
 
 	DIMBARVAR := []int32{3}               /* Dimension of semidefinite cone */
 	LENBARVAR := []int32{3 * (3 + 1) / 2} /* Number of scalar SD variables  */
@@ -97,19 +96,19 @@ func Example_semidefiniteOptimization_sdo1() {
 	/* Set the linear term c_j in the objective.*/
 	checkOk(task.PutCJ(0, 1))
 
-	for j = 0; j < NUMVAR && r == gmsk.RES_OK; j++ {
+	for j = 0; j < NUMVAR && r == nil; j++ {
 		r = task.PutVarBound(j, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY)
 	}
 	checkOk(r)
 
 	/* Set the linear term barc_j in the objective.*/
-	r, idx = task.AppendSparseSymMat(DIMBARVAR[0], 5, &barc_i[0], &barc_j[0], &barc_v[0])
+	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 5, &barc_i[0], &barc_j[0], &barc_v[0])
 	checkOk(r)
 	checkOk(task.PutBarcJ(0, 1, &idx, &falpha))
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,NUMCON : blc[i] <= constraint i <= buc[i] */
-	for i = 0; i < NUMCON && r == gmsk.RES_OK; i++ {
+	for i = 0; i < NUMCON && r == nil; i++ {
 		r = task.PutConBound(
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
@@ -119,7 +118,7 @@ func Example_semidefiniteOptimization_sdo1() {
 	checkOk(r)
 
 	/* Input A row by row */
-	for i = 0; i < NUMCON && r == gmsk.RES_OK; i++ {
+	for i = 0; i < NUMCON && r == nil; i++ {
 		ni := aptre[i] - aptrb[i] // need to check zero since go checks
 		if ni <= 0 {
 			continue
@@ -129,36 +128,36 @@ func Example_semidefiniteOptimization_sdo1() {
 
 	/* Append the affine conic constraint with quadratic cone */
 	checkOk(task.PutAfeFEntryList(NUMFNZ, &afeidx[0], &varidx[0], &f_val[0]))
-	r, qdomidx := task.AppendQuadraticConeDomain(3)
+	qdomidx, r := task.AppendQuadraticConeDomain(3)
 	checkOk(r)
 	checkOk(task.AppendAcc(qdomidx, 3, &afeidx[0], nil))
 
 	/* Add the first row of barA */
-	r, idx = task.AppendSparseSymMat(DIMBARVAR[0], 3, &bara_i[0], &bara_j[0], &bara_v[0])
+	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 3, &bara_i[0], &bara_j[0], &bara_v[0])
 	checkOk(r)
 	checkOk(task.PutBaraIj(0, 0, 1, &idx, &falpha))
 
 	/* Add the second row of barA */
-	r, idx = task.AppendSparseSymMat(DIMBARVAR[0], 6, &bara_i[3], &bara_j[3], &bara_v[3])
+	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 6, &bara_i[3], &bara_j[3], &bara_v[3])
 	checkOk(r)
 	checkOk(task.PutBaraIj(1, 0, 1, &idx, &falpha))
 
-	r, trmcode := task.OptimizeTrm()
+	trmcode, r := task.OptimizeTrm()
 
 	task.SolutionSummary(gmsk.STREAM_LOG)
 
 	checkOk(r)
 
-	r, solsta := task.GetSolSta(gmsk.SOL_ITR)
+	solsta, r := task.GetSolSta(gmsk.SOL_ITR)
 
 	switch solsta {
 	case gmsk.SOL_STA_OPTIMAL:
 		xx := make([]float64, NUMVAR)
 		barx := make([]float64, LENBARVAR[0])
 
-		r, xx = task.GetXx(gmsk.SOL_ITR, xx)
+		xx, r = task.GetXx(gmsk.SOL_ITR, xx)
 		checkOk(r)
-		r, barx = task.GetBarXj(gmsk.SOL_ITR, 0, barx)
+		barx, r = task.GetBarXj(gmsk.SOL_ITR, 0, barx)
 		checkOk(r)
 
 		fmt.Printf("Optimal primal solution\n")
