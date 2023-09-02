@@ -20,16 +20,16 @@ import (
 func (env *Env) Axpy(
 	n int32,
 	alpha float64,
-	x *float64,
-	y *float64,
+	x []float64,
+	y []float64,
 ) error {
 	return res.Code(
 		C.MSK_axpy(
 			env.getEnv(),
 			C.MSKint32t(n),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(x),
-			(*C.MSKrealt)(y),
+			(*C.MSKrealt)(&x[0]),
+			(*C.MSKrealt)(&y[0]),
 		),
 	).ToError()
 }
@@ -141,15 +141,15 @@ func (env *Env) CheckVersion(
 // [MSK_dot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.dot
 func (env *Env) Dot(
 	n int32,
-	x *float64,
-	y *float64,
+	x []float64,
+	y []float64,
 ) (xty float64, r error) {
 	r = res.Code(
 		C.MSK_dot(
 			env.getEnv(),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(x),
-			(*C.MSKrealt)(y),
+			(*C.MSKrealt)(&x[0]),
+			(*C.MSKrealt)(&y[0]),
 			(*C.MSKrealt)(&xty),
 		),
 	).ToError()
@@ -219,10 +219,10 @@ func (env *Env) Gemm(
 	n int32,
 	k int32,
 	alpha float64,
-	a *float64,
-	b *float64,
+	a []float64,
+	b []float64,
 	beta float64,
-	c *float64,
+	c []float64,
 ) error {
 	return res.Code(
 		C.MSK_gemm(
@@ -233,10 +233,10 @@ func (env *Env) Gemm(
 			C.MSKint32t(n),
 			C.MSKint32t(k),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(a),
-			(*C.MSKrealt)(b),
+			(*C.MSKrealt)(&a[0]),
+			(*C.MSKrealt)(&b[0]),
 			C.MSKrealt(beta),
-			(*C.MSKrealt)(c),
+			(*C.MSKrealt)(&c[0]),
 		),
 	).ToError()
 }
@@ -250,10 +250,10 @@ func (env *Env) Gemv(
 	m int32,
 	n int32,
 	alpha float64,
-	a *float64,
-	x *float64,
+	a []float64,
+	x []float64,
 	beta float64,
-	y *float64,
+	y []float64,
 ) error {
 	return res.Code(
 		C.MSK_gemv(
@@ -262,10 +262,10 @@ func (env *Env) Gemv(
 			C.MSKint32t(m),
 			C.MSKint32t(n),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(a),
-			(*C.MSKrealt)(x),
+			(*C.MSKrealt)(&a[0]),
+			(*C.MSKrealt)(&x[0]),
 			C.MSKrealt(beta),
-			(*C.MSKrealt)(y),
+			(*C.MSKrealt)(&y[0]),
 		),
 	).ToError()
 }
@@ -274,14 +274,14 @@ func (env *Env) Gemv(
 //
 // [MSK_getsymbcondim]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getsymbcondim
 func (env *Env) GetSymbcondim(
-	num *int32,
-	maxlen *uint64,
+	num []int32,
+	maxlen []uint64,
 ) error {
 	return res.Code(
 		C.MSK_getsymbcondim(
 			env.getEnv(),
-			(*C.MSKint32t)(num),
-			(*C.size_t)(maxlen),
+			(*C.MSKint32t)(&num[0]),
+			(*C.size_t)(&maxlen[0]),
 		),
 	).ToError()
 }
@@ -338,14 +338,14 @@ func (env *Env) LinkFiletoenvstream(
 func (env *Env) Potrf(
 	uplo UpLo,
 	n int32,
-	a *float64,
+	a []float64,
 ) error {
 	return res.Code(
 		C.MSK_potrf(
 			env.getEnv(),
 			C.MSKuploe(uplo),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(a),
+			(*C.MSKrealt)(&a[0]),
 		),
 	).ToError()
 }
@@ -359,12 +359,12 @@ func (env *Env) Potrf(
 //
 // [MSK_putlicensecode]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.putlicensecode
 func (env *Env) PutLicenseCode(
-	code *int32,
+	code []int32,
 ) error {
 	return res.Code(
 		C.MSK_putlicensecode(
 			env.getEnv(),
-			(*C.MSKint32t)(code),
+			(*C.MSKint32t)(&code[0]),
 		),
 	).ToError()
 }
@@ -457,24 +457,24 @@ func (env *Env) ResetExpiryLicenses() error {
 func (env *Env) SparseTriangularSolveDense(
 	transposed Transpose,
 	n int32,
-	lnzc *int32,
-	lptrc *int64,
+	lnzc []int32,
+	lptrc []int64,
 	lensubnval int64,
-	lsubc *int32,
-	lvalc *float64,
-	b *float64,
+	lsubc []int32,
+	lvalc []float64,
+	b []float64,
 ) error {
 	return res.Code(
 		C.MSK_sparsetriangularsolvedense(
 			env.getEnv(),
 			C.MSKtransposee(transposed),
 			C.MSKint32t(n),
-			(*C.MSKint32t)(lnzc),
-			(*C.MSKint64t)(lptrc),
+			(*C.MSKint32t)(&lnzc[0]),
+			(*C.MSKint64t)(&lptrc[0]),
 			C.MSKint64t(lensubnval),
-			(*C.MSKint32t)(lsubc),
-			(*C.MSKrealt)(lvalc),
-			(*C.MSKrealt)(b),
+			(*C.MSKint32t)(&lsubc[0]),
+			(*C.MSKrealt)(&lvalc[0]),
+			(*C.MSKrealt)(&b[0]),
 		),
 	).ToError()
 }
@@ -493,16 +493,16 @@ func (env *Env) SparseTriangularSolveDense(
 func (env *Env) Syeig(
 	uplo UpLo,
 	n int32,
-	a *float64,
-	w *float64,
+	a []float64,
+	w []float64,
 ) error {
 	return res.Code(
 		C.MSK_syeig(
 			env.getEnv(),
 			C.MSKuploe(uplo),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(a),
-			(*C.MSKrealt)(w),
+			(*C.MSKrealt)(&a[0]),
+			(*C.MSKrealt)(&w[0]),
 		),
 	).ToError()
 }
@@ -521,16 +521,16 @@ func (env *Env) Syeig(
 func (env *Env) Syevd(
 	uplo UpLo,
 	n int32,
-	a *float64,
-	w *float64,
+	a []float64,
+	w []float64,
 ) error {
 	return res.Code(
 		C.MSK_syevd(
 			env.getEnv(),
 			C.MSKuploe(uplo),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(a),
-			(*C.MSKrealt)(w),
+			(*C.MSKrealt)(&a[0]),
+			(*C.MSKrealt)(&w[0]),
 		),
 	).ToError()
 }
@@ -556,9 +556,9 @@ func (env *Env) Syrk(
 	n int32,
 	k int32,
 	alpha float64,
-	a *float64,
+	a []float64,
 	beta float64,
-	c *float64,
+	c []float64,
 ) error {
 	return res.Code(
 		C.MSK_syrk(
@@ -568,9 +568,9 @@ func (env *Env) Syrk(
 			C.MSKint32t(n),
 			C.MSKint32t(k),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(a),
+			(*C.MSKrealt)(&a[0]),
 			C.MSKrealt(beta),
-			(*C.MSKrealt)(c),
+			(*C.MSKrealt)(&c[0]),
 		),
 	).ToError()
 }

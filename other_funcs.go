@@ -166,9 +166,9 @@ func Symnamtovalue(
 // [MSK_utf8towchar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.utf8towchar
 func Utf8towchar(
 	outputlen uint64,
-	len *uint64,
-	conv *uint64,
-	output *int32,
+	len []uint64,
+	conv []uint64,
+	output []int32,
 	input string,
 ) error {
 	c_input := C.CString(input)
@@ -177,9 +177,9 @@ func Utf8towchar(
 	return res.Code(
 		C.MSK_utf8towchar(
 			C.size_t(outputlen),
-			(*C.size_t)(len),
-			(*C.size_t)(conv),
-			(*C.MSKwchart)(output),
+			(*C.size_t)(&len[0]),
+			(*C.size_t)(&conv[0]),
+			(*C.MSKwchart)(&output[0]),
 			c_input,
 		),
 	).ToError()
@@ -190,18 +190,18 @@ func Utf8towchar(
 // [MSK_wchartoutf8]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.wchartoutf8
 func Wchartoutf8(
 	outputlen uint64,
-	len *uint64,
-	conv *uint64,
+	len []uint64,
+	conv []uint64,
 	output *byte,
-	input *int32,
+	input []int32,
 ) error {
 	return res.Code(
 		C.MSK_wchartoutf8(
 			C.size_t(outputlen),
-			(*C.size_t)(len),
-			(*C.size_t)(conv),
+			(*C.size_t)(&len[0]),
+			(*C.size_t)(&conv[0]),
 			(*C.char)(unsafe.Pointer(output)),
-			(*C.MSKwchart)(input),
+			(*C.MSKwchart)(&input[0]),
 		),
 	).ToError()
 }

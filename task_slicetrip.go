@@ -27,9 +27,9 @@ func (task *Task) GetAColSliceTrip(
 	first int32,
 	last int32,
 	maxnumnz int64,
-	subi *int32,
-	subj *int32,
-	val *float64,
+	subi []int32,
+	subj []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getacolslicetrip(
@@ -37,9 +37,9 @@ func (task *Task) GetAColSliceTrip(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(&subi[0]),
+			(*C.MSKint32t)(&subj[0]),
+			(*C.MSKrealt)(&val[0]),
 		),
 	).ToError()
 }
@@ -60,9 +60,9 @@ func (task *Task) GetARowSliceTrip(
 	first int32,
 	last int32,
 	maxnumnz int64,
-	subi *int32,
-	subj *int32,
-	val *float64,
+	subi []int32,
+	subj []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getarowslicetrip(
@@ -70,9 +70,9 @@ func (task *Task) GetARowSliceTrip(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(&subi[0]),
+			(*C.MSKint32t)(&subj[0]),
+			(*C.MSKrealt)(&val[0]),
 		),
 	).ToError()
 }
