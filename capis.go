@@ -3,8 +3,8 @@
 // gmsk is based on mosek's C api, which must be installed and configured before
 // using gmsk.
 //
-// Most routines of mosek's C api returns a [response code] [ResCode] (whic is an enum/uint32)
-// to indicate if the routine is successful or not (MSK_RES_OK or [RES_OK]
+// Most routines of mosek's C api returns a [response code] [ResCode] (which is an enum/uint32)
+// to indicate if the routine is successful or not (MSK_RES_OK or [RES_OK] or 0
 // indicates success). Check mosek documentation for more information.
 //
 // Almost all float point numbers in MOSEK are IEEE-754 64-bit float point number,
@@ -31,7 +31,8 @@
 //	 MSKint64t *afeidx,
 //	 MSKrealt *val);
 //
-// The input to val can be `&val[0]`.
+// The input to val can be `&val[0]`. That being said, gmsk takes care of this, and
+// most of the pointer inputs in gmsk are slices.
 //
 // Wrappers for routines accepting C string (or "const char *" type)
 // instead accept go's string. However, this will create a new C.CString
