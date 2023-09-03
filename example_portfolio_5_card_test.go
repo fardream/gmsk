@@ -140,7 +140,7 @@ func Example_portfolio_5_Card() {
 			vslice_x[i] = voff_x + i
 		}
 		for i := int64(0); i < k; i++ {
-			checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
+			checkOk(task.PutAfeFRow(aoff_q+i+1, n, vslice_x, GT[i][:]))
 		}
 
 		qdom, res := task.AppendQuadraticConeDomain(k + 1)

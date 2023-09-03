@@ -82,19 +82,19 @@ func Example_semidefiniteOptimization_sdo2() {
 	checkOk(task.AppendCons(numcon))
 
 	/* Append semidefinite variables. */
-	checkOk(task.AppendBarvars(numbarvar, &dimbarvar[0]))
+	checkOk(task.AppendBarvars(numbarvar, dimbarvar))
 
 	/* Set objective (6 nonzeros).*/
-	checkOk(task.PutBarcBlockTriplet(6, &Cj[0], &Ck[0], &Cl[0], &Cv[0]))
+	checkOk(task.PutBarcBlockTriplet(6, Cj, Ck, Cl, Cv))
 
 	/* Set the equality constraint (6 nonzeros).*/
-	checkOk(task.PutBaraBlockTriplet(6, &Ai[0], &Aj[0], &Ak[0], &Al[0], &Av[0]))
+	checkOk(task.PutBaraBlockTriplet(6, Ai, Aj, Ak, Al, Av))
 
 	/* Set the inequality constraint (1 nonzero).*/
-	checkOk(task.PutBaraBlockTriplet(1, &A2i, &A2j, &A2k, &A2l, &A2v))
+	checkOk(task.PutBaraBlockTriplet(1, []int32{A2i}, []int32{A2j}, []int32{A2k}, []int32{A2l}, []float64{A2v}))
 
 	/* Set constraint bounds */
-	checkOk(task.PutConBoundSlice(0, 2, &bkc[0], &blc[0], &buc[0]))
+	checkOk(task.PutConBoundSlice(0, 2, bkc, blc, buc))
 
 	/* Run optimizer */
 	trmcode, r := task.OptimizeTrm()

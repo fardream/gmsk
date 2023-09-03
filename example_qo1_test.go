@@ -99,10 +99,10 @@ func Example_quadraticOptimization_qo1() {
 			))
 		/* Input column j of A */
 		r = task.PutACol(
-			j,                 /* Variable (column) index.*/
-			aptre[j]-aptrb[j], /* Number of non-zeros in column j.*/
-			&asub[aptrb[j]],   /* Pointer to row indexes of column j.*/
-			&aval[aptrb[j]])   /* Pointer to Values of column j.*/
+			j,                       /* Variable (column) index.*/
+			aptre[j]-aptrb[j],       /* Number of non-zeros in column j.*/
+			asub[aptrb[j]:aptre[j]], /* Pointer to row indexes of column j.*/
+			aval[aptrb[j]:aptre[j]]) /* Pointer to Values of column j.*/
 	}
 
 	checkOk(r)
@@ -137,7 +137,7 @@ func Example_quadraticOptimization_qo1() {
 	qval[3] = 2.0
 
 	/* Input the Q for the objective. */
-	checkOk(task.PutQObj(NUMQNZ, &qsubi[0], &qsubj[0], &qval[0]))
+	checkOk(task.PutQObj(NUMQNZ, qsubi[:], qsubj[:], qval[:]))
 
 	/* Run optimizer */
 	trmcode, r := task.OptimizeTrm()

@@ -59,18 +59,18 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 	checkOk(task.InputData(
 		numcon, numvar,
 		numcon, numvar,
-		&c[0],
+		c,
 		0,
-		&ptrb[0],
-		&ptre[0],
-		&asub[0],
-		&aval[0],
-		&bkc[0],
-		&blc[0],
-		&buc[0],
-		&bkx[0],
-		&blx[0],
-		&bux[0]))
+		ptrb,
+		ptre,
+		asub,
+		aval,
+		bkc,
+		blc,
+		buc,
+		bkx,
+		blx,
+		bux))
 
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 
@@ -81,7 +81,7 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 	/* Assign values to integer variables
 	   (we only set a slice of xx) */
 	xxInit := []float64{1, 1, 0}
-	checkOk(task.PutXxSlice(gmsk.SOL_ITG, 0, 3, &xxInit[0]))
+	checkOk(task.PutXxSlice(gmsk.SOL_ITG, 0, 3, xxInit))
 
 	/* Request constructing the solution from integer variable values */
 	checkOk(task.PutIntParam(gmsk.IPAR_MIO_CONSTRUCT_SOL, gmsk.ON))

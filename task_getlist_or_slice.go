@@ -22,13 +22,13 @@ import (
 // [MSK_getaccafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccafeidxlist
 func (task *Task) GetAccAfeIdxList(
 	accidx int64,
-	afeidxlist *int64,
+	afeidxlist []int64,
 ) error {
 	return res.Code(
 		C.MSK_getaccafeidxlist(
 			task.task,
 			C.MSKint64t(accidx),
-			(*C.MSKint64t)(afeidxlist),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
 		),
 	).ToError()
 }
@@ -50,10 +50,10 @@ func (task *Task) GetAColSlice(
 	first int32,
 	last int32,
 	maxnumnz int32,
-	ptrb *int32,
-	ptre *int32,
-	sub *int32,
-	val *float64,
+	ptrb []int32,
+	ptre []int32,
+	sub []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getacolslice(
@@ -61,10 +61,10 @@ func (task *Task) GetAColSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint32t(maxnumnz),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -82,14 +82,14 @@ func (task *Task) GetAColSlice(
 func (task *Task) GetAfeGSlice(
 	first int64,
 	last int64,
-	g *float64,
+	g []float64,
 ) error {
 	return res.Code(
 		C.MSK_getafegslice(
 			task.task,
 			C.MSKint64t(first),
 			C.MSKint64t(last),
-			(*C.MSKrealt)(g),
+			(*C.MSKrealt)(getPtrToFirst(g)),
 		),
 	).ToError()
 }
@@ -111,10 +111,10 @@ func (task *Task) GetARowSlice(
 	first int32,
 	last int32,
 	maxnumnz int32,
-	ptrb *int32,
-	ptre *int32,
-	sub *int32,
-	val *float64,
+	ptrb []int32,
+	ptre []int32,
+	sub []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getarowslice(
@@ -122,10 +122,10 @@ func (task *Task) GetARowSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint32t(maxnumnz),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -147,7 +147,7 @@ func (task *Task) GetBarsSlice(
 	first int32,
 	last int32,
 	slicesize int64,
-	barsslice *float64,
+	barsslice []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbarsslice(
@@ -156,7 +156,7 @@ func (task *Task) GetBarsSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(slicesize),
-			(*C.MSKrealt)(barsslice),
+			(*C.MSKrealt)(getPtrToFirst(barsslice)),
 		),
 	).ToError()
 }
@@ -178,7 +178,7 @@ func (task *Task) GetBarxSlice(
 	first int32,
 	last int32,
 	slicesize int64,
-	barxslice *float64,
+	barxslice []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbarxslice(
@@ -187,7 +187,7 @@ func (task *Task) GetBarxSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(slicesize),
-			(*C.MSKrealt)(barxslice),
+			(*C.MSKrealt)(getPtrToFirst(barxslice)),
 		),
 	).ToError()
 }
@@ -203,15 +203,15 @@ func (task *Task) GetBarxSlice(
 // [MSK_getclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getclist
 func (task *Task) GetCList(
 	num int32,
-	subj *int32,
-	c *float64,
+	subj []int32,
+	c []float64,
 ) error {
 	return res.Code(
 		C.MSK_getclist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(c),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 		),
 	).ToError()
 }
@@ -231,18 +231,18 @@ func (task *Task) GetCList(
 func (task *Task) GetConBoundSlice(
 	first int32,
 	last int32,
-	bk *BoundKey,
-	bl *float64,
-	bu *float64,
+	bk []BoundKey,
+	bl []float64,
+	bu []float64,
 ) error {
 	return res.Code(
 		C.MSK_getconboundslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(bk),
-			(*C.MSKrealt)(bl),
-			(*C.MSKrealt)(bu),
+			(*C.MSKboundkeye)(getPtrToFirst(bk)),
+			(*C.MSKrealt)(getPtrToFirst(bl)),
+			(*C.MSKrealt)(getPtrToFirst(bu)),
 		),
 	).ToError()
 }
@@ -260,14 +260,14 @@ func (task *Task) GetConBoundSlice(
 func (task *Task) GetCSlice(
 	first int32,
 	last int32,
-	c *float64,
+	c []float64,
 ) error {
 	return res.Code(
 		C.MSK_getcslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(c),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 		),
 	).ToError()
 }
@@ -283,13 +283,13 @@ func (task *Task) GetCSlice(
 // [MSK_getdjcafeidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcafeidxlist
 func (task *Task) GetDjcAfeIdxList(
 	djcidx int64,
-	afeidxlist *int64,
+	afeidxlist []int64,
 ) error {
 	return res.Code(
 		C.MSK_getdjcafeidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKint64t)(afeidxlist),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
 		),
 	).ToError()
 }
@@ -305,13 +305,13 @@ func (task *Task) GetDjcAfeIdxList(
 // [MSK_getdjcdomainidxlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcdomainidxlist
 func (task *Task) GetDjcDomainIdxList(
 	djcidx int64,
-	domidxlist *int64,
+	domidxlist []int64,
 ) error {
 	return res.Code(
 		C.MSK_getdjcdomainidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKint64t)(domidxlist),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
 		),
 	).ToError()
 }
@@ -327,13 +327,13 @@ func (task *Task) GetDjcDomainIdxList(
 // [MSK_getdjctermsizelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjctermsizelist
 func (task *Task) GetDjcTermSizeList(
 	djcidx int64,
-	termsizelist *int64,
+	termsizelist []int64,
 ) error {
 	return res.Code(
 		C.MSK_getdjctermsizelist(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKint64t)(termsizelist),
+			(*C.MSKint64t)(getPtrToFirst(termsizelist)),
 		),
 	).ToError()
 }
@@ -353,7 +353,7 @@ func (task *Task) GetSkcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	skc *StaKey,
+	skc []StaKey,
 ) error {
 	return res.Code(
 		C.MSK_getskcslice(
@@ -361,7 +361,7 @@ func (task *Task) GetSkcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(skc),
+			(*C.MSKstakeye)(getPtrToFirst(skc)),
 		),
 	).ToError()
 }
@@ -381,7 +381,7 @@ func (task *Task) GetSkxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	skx *StaKey,
+	skx []StaKey,
 ) error {
 	return res.Code(
 		C.MSK_getskxslice(
@@ -389,7 +389,7 @@ func (task *Task) GetSkxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(skx),
+			(*C.MSKstakeye)(getPtrToFirst(skx)),
 		),
 	).ToError()
 }
@@ -409,7 +409,7 @@ func (task *Task) GetSlcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	slc *float64,
+	slc []float64,
 ) error {
 	return res.Code(
 		C.MSK_getslcslice(
@@ -417,7 +417,7 @@ func (task *Task) GetSlcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(slc),
+			(*C.MSKrealt)(getPtrToFirst(slc)),
 		),
 	).ToError()
 }
@@ -437,7 +437,7 @@ func (task *Task) GetSlxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	slx *float64,
+	slx []float64,
 ) error {
 	return res.Code(
 		C.MSK_getslxslice(
@@ -445,7 +445,7 @@ func (task *Task) GetSlxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(slx),
+			(*C.MSKrealt)(getPtrToFirst(slx)),
 		),
 	).ToError()
 }
@@ -465,7 +465,7 @@ func (task *Task) GetSnxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	snx *float64,
+	snx []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsnxslice(
@@ -473,7 +473,7 @@ func (task *Task) GetSnxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(snx),
+			(*C.MSKrealt)(getPtrToFirst(snx)),
 		),
 	).ToError()
 }
@@ -495,7 +495,7 @@ func (task *Task) GetSolutionSlice(
 	solitem SolItem,
 	first int32,
 	last int32,
-	values *float64,
+	values []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsolutionslice(
@@ -504,7 +504,7 @@ func (task *Task) GetSolutionSlice(
 			C.MSKsoliteme(solitem),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(values),
+			(*C.MSKrealt)(getPtrToFirst(values)),
 		),
 	).ToError()
 }
@@ -524,7 +524,7 @@ func (task *Task) GetSucSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	suc *float64,
+	suc []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsucslice(
@@ -532,7 +532,7 @@ func (task *Task) GetSucSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(suc),
+			(*C.MSKrealt)(getPtrToFirst(suc)),
 		),
 	).ToError()
 }
@@ -552,7 +552,7 @@ func (task *Task) GetSuxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	sux *float64,
+	sux []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsuxslice(
@@ -560,7 +560,7 @@ func (task *Task) GetSuxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(sux),
+			(*C.MSKrealt)(getPtrToFirst(sux)),
 		),
 	).ToError()
 }
@@ -580,18 +580,18 @@ func (task *Task) GetSuxSlice(
 func (task *Task) GetVarBoundSlice(
 	first int32,
 	last int32,
-	bk *BoundKey,
-	bl *float64,
-	bu *float64,
+	bk []BoundKey,
+	bl []float64,
+	bu []float64,
 ) error {
 	return res.Code(
 		C.MSK_getvarboundslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(bk),
-			(*C.MSKrealt)(bl),
-			(*C.MSKrealt)(bu),
+			(*C.MSKboundkeye)(getPtrToFirst(bk)),
+			(*C.MSKrealt)(getPtrToFirst(bl)),
+			(*C.MSKrealt)(getPtrToFirst(bu)),
 		),
 	).ToError()
 }
@@ -607,15 +607,15 @@ func (task *Task) GetVarBoundSlice(
 // [MSK_getvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvartypelist
 func (task *Task) GetVarTypeList(
 	num int32,
-	subj *int32,
-	vartype *VariableType,
+	subj []int32,
+	vartype []VariableType,
 ) error {
 	return res.Code(
 		C.MSK_getvartypelist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKvariabletypee)(vartype),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKvariabletypee)(getPtrToFirst(vartype)),
 		),
 	).ToError()
 }
@@ -635,7 +635,7 @@ func (task *Task) GetXcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	xc *float64,
+	xc []float64,
 ) error {
 	return res.Code(
 		C.MSK_getxcslice(
@@ -643,7 +643,7 @@ func (task *Task) GetXcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(xc),
+			(*C.MSKrealt)(getPtrToFirst(xc)),
 		),
 	).ToError()
 }
@@ -663,7 +663,7 @@ func (task *Task) GetYSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	y *float64,
+	y []float64,
 ) error {
 	return res.Code(
 		C.MSK_getyslice(
@@ -671,7 +671,7 @@ func (task *Task) GetYSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(y),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 		),
 	).ToError()
 }

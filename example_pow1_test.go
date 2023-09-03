@@ -77,27 +77,27 @@ func Example_powerCone_pow1() {
 	checkOk(task.AppendAfes(numafe))
 
 	/* Set up the linear part */
-	checkOk(task.PutCList(3, &sub[0], &val[0]))
-	checkOk(task.PutARow(0, 3, &asub[0], &aval[0]))
+	checkOk(task.PutCList(3, sub[:], val[:]))
+	checkOk(task.PutARow(0, 3, asub[:], aval[:]))
 	checkOk(task.PutConBound(0, gmsk.BK_FX, 2, 2))
 	for i := 0; i < 5; i++ {
 		bkx[i], blx[i], bux[i] = gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY
 	}
-	checkOk(task.PutVarBoundSlice(0, numvar, &bkx[0], &blx[0], &bux[0]))
+	checkOk(task.PutVarBoundSlice(0, numvar, bkx[:], blx[:], bux[:]))
 
 	/* Set the non-zero entries of the F matrix */
-	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
+	checkOk(task.PutAfeFEntryList(f_nnz, afeidx, varidx, f_val))
 	/* Set the non-zero element of the g vector */
 	checkOk(task.PutAfeG(4, g))
 
 	/* Append the primal power cone domains with their respective parameter values. */
-	domidx[0], r = task.AppendPrimalPowerConeDomain(3, 2, &alpha_1[0])
+	domidx[0], r = task.AppendPrimalPowerConeDomain(3, 2, alpha_1)
 	checkOk(r)
-	domidx[1], r = task.AppendPrimalPowerConeDomain(3, 2, &alpha_2[0])
+	domidx[1], r = task.AppendPrimalPowerConeDomain(3, 2, alpha_2)
 	checkOk(r)
 
 	/* Append two ACCs made up of the AFEs and the domains defined above. */
-	checkOk(task.AppendAccsSeq(numacc, &domidx[0], numafe, afeidx[0], nil))
+	checkOk(task.AppendAccsSeq(numacc, domidx, numafe, afeidx[0], nil))
 
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 

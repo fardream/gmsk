@@ -3,7 +3,6 @@ package gmsk_test
 import (
 	"fmt"
 	"log"
-	"unsafe"
 
 	"github.com/fardream/gmsk"
 )
@@ -11,9 +10,8 @@ import (
 // Example on how to use included BLAS/LAPACK routines in MOSEK,
 // reproduced from blas_lapack.c in MOSEK C api.
 func Example_blas_lapack() {
-	print_matrix := func(x *float64, r, c int32) {
+	print_matrix := func(s []float64, r, c int32) {
 		var i, j int32
-		s := unsafe.Slice(x, r*c)
 		for i = 0; i < r; i++ {
 			for j = 0; j < c; j++ {
 				if j >= c-1 {
@@ -59,42 +57,42 @@ func Example_blas_lapack() {
 	fmt.Printf("alpha=%f\n", alpha)
 	fmt.Printf("beta=%f\n", beta)
 
-	xy, r = env.Dot(n, &x[0], &y[0])
+	xy, r = env.Dot(n, x, y)
 	fmt.Printf("dot results= %f r=%d\n", xy, errToCode(r))
 
-	print_matrix(&x[0], 1, n)
-	print_matrix(&y[0], 1, n)
+	print_matrix(x, 1, n)
+	print_matrix(y, 1, n)
 
-	r = env.Axpy(n, alpha, &x[0], &y[0])
+	r = env.Axpy(n, alpha, x, y)
 	fmt.Println("axpy results is")
-	print_matrix(&y[0], 1, n)
+	print_matrix(y, 1, n)
 
-	r = env.Gemv(gmsk.TRANSPOSE_NO, m, n, alpha, &A[0], &x[0], beta, &z[0])
+	r = env.Gemv(gmsk.TRANSPOSE_NO, m, n, alpha, A, x, beta, z)
 	fmt.Printf("gemv results is (r=%d)\n", errToCode(r))
-	print_matrix(&z[0], 1, m)
+	print_matrix(z, 1, m)
 
-	r = env.Gemm(gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, m, n, k, alpha, &A[0], &B[0], beta, &C[0])
+	r = env.Gemm(gmsk.TRANSPOSE_NO, gmsk.TRANSPOSE_NO, m, n, k, alpha, A, B, beta, C)
 	fmt.Printf("gemm results is (r=%d)\n", errToCode(r))
-	print_matrix(&C[0], m, n)
+	print_matrix(C, m, n)
 
-	r = env.Syrk(gmsk.UPLO_LO, gmsk.TRANSPOSE_NO, m, k, 1., &A[0], beta, &D[0])
+	r = env.Syrk(gmsk.UPLO_LO, gmsk.TRANSPOSE_NO, m, k, 1., A, beta, D)
 	fmt.Printf("syrk results is (r=%d)\n", errToCode(r))
-	print_matrix(&D[0], m, m)
+	print_matrix(D, m, m)
 
 	/* LAPACK routines*/
 
-	r = env.Potrf(gmsk.UPLO_LO, m, &Q[0])
+	r = env.Potrf(gmsk.UPLO_LO, m, Q)
 	fmt.Printf("potrf results is (r=%d)\n", errToCode(r))
-	print_matrix(&Q[0], m, m)
+	print_matrix(Q, m, m)
 
-	r = env.Syeig(gmsk.UPLO_LO, m, &Q[0], &v[0])
+	r = env.Syeig(gmsk.UPLO_LO, m, Q, v)
 	fmt.Printf("syeig results is (r=%d)\n", errToCode(r))
-	print_matrix(&v[0], 1, m)
+	print_matrix(v, 1, m)
 
-	r = env.Syevd(gmsk.UPLO_LO, m, &Q[0], &v[0])
+	r = env.Syevd(gmsk.UPLO_LO, m, Q, v)
 	fmt.Printf("syevd results is (r=%d)\n", errToCode(r))
-	print_matrix(&v[0], 1, m)
-	print_matrix(&Q[0], m, m)
+	print_matrix(v, 1, m)
+	print_matrix(Q, m, m)
 	// Output:
 	// n=2 m=3 k=3
 	// alpha=2.000000

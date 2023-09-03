@@ -72,14 +72,14 @@ func (task *Task) AppendDualGeoMeanConeDomain(
 func (task *Task) AppendDualPowerConeDomain(
 	n int64,
 	nleft int64,
-	alpha *float64,
+	alpha []float64,
 ) (domidx int64, r error) {
 	r = res.Code(
 		C.MSK_appenddualpowerconedomain(
 			task.task,
 			C.MSKint64t(n),
 			C.MSKint64t(nleft),
-			(*C.MSKrealt)(alpha),
+			(*C.MSKrealt)(getPtrToFirst(alpha)),
 			(*C.MSKint64t)(&domidx),
 		),
 	).ToError()
@@ -148,14 +148,14 @@ func (task *Task) AppendPrimalGeoMeanConeDomain(
 func (task *Task) AppendPrimalPowerConeDomain(
 	n int64,
 	nleft int64,
-	alpha *float64,
+	alpha []float64,
 ) (domidx int64, r error) {
 	r = res.Code(
 		C.MSK_appendprimalpowerconedomain(
 			task.task,
 			C.MSKint64t(n),
 			C.MSKint64t(nleft),
-			(*C.MSKrealt)(alpha),
+			(*C.MSKrealt)(getPtrToFirst(alpha)),
 			(*C.MSKint64t)(&domidx),
 		),
 	).ToError()

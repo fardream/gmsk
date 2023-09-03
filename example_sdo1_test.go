@@ -88,7 +88,7 @@ func Example_semidefiniteOptimization_sdo1() {
 	checkOk(task.AppendAfes(NUMAFE))
 
 	/* Append 'NUMBARVAR' semidefinite variables. */
-	checkOk(task.AppendBarvars(NUMBARVAR, &DIMBARVAR[0]))
+	checkOk(task.AppendBarvars(NUMBARVAR, DIMBARVAR))
 
 	/* Optionally add a constant term to the objective. */
 	checkOk(task.PutCfix(0))
@@ -102,9 +102,9 @@ func Example_semidefiniteOptimization_sdo1() {
 	checkOk(r)
 
 	/* Set the linear term barc_j in the objective.*/
-	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 5, &barc_i[0], &barc_j[0], &barc_v[0])
+	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 5, barc_i, barc_j, barc_v)
 	checkOk(r)
-	checkOk(task.PutBarcJ(0, 1, &idx, &falpha))
+	checkOk(task.PutBarcJ(0, 1, []int64{idx}, []float64{falpha}))
 
 	/* Set the bounds on constraints.
 	   for i=1, ...,NUMCON : blc[i] <= constraint i <= buc[i] */
@@ -123,24 +123,24 @@ func Example_semidefiniteOptimization_sdo1() {
 		if ni <= 0 {
 			continue
 		}
-		r = task.PutARow(i, ni, &asub[aptrb[i]], &aval[aptrb[i]])
+		r = task.PutARow(i, ni, asub[aptrb[i]:aptre[i]], aval[aptrb[i]:aptre[i]])
 	}
 
 	/* Append the affine conic constraint with quadratic cone */
-	checkOk(task.PutAfeFEntryList(NUMFNZ, &afeidx[0], &varidx[0], &f_val[0]))
+	checkOk(task.PutAfeFEntryList(NUMFNZ, afeidx, varidx, f_val))
 	qdomidx, r := task.AppendQuadraticConeDomain(3)
 	checkOk(r)
-	checkOk(task.AppendAcc(qdomidx, 3, &afeidx[0], nil))
+	checkOk(task.AppendAcc(qdomidx, 3, afeidx, nil))
 
 	/* Add the first row of barA */
-	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 3, &bara_i[0], &bara_j[0], &bara_v[0])
+	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 3, bara_i, bara_j, bara_v)
 	checkOk(r)
-	checkOk(task.PutBaraIj(0, 0, 1, &idx, &falpha))
+	checkOk(task.PutBaraIj(0, 0, 1, []int64{idx}, []float64{falpha}))
 
 	/* Add the second row of barA */
-	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 6, &bara_i[3], &bara_j[3], &bara_v[3])
+	idx, r = task.AppendSparseSymMat(DIMBARVAR[0], 6, bara_i[3:], bara_j[3:], bara_v[3:])
 	checkOk(r)
-	checkOk(task.PutBaraIj(1, 0, 1, &idx, &falpha))
+	checkOk(task.PutBaraIj(1, 0, 1, []int64{idx}, []float64{falpha}))
 
 	trmcode, r := task.OptimizeTrm()
 

@@ -24,21 +24,21 @@ import (
 // [MSK_putacclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacclist
 func (task *Task) PutAccList(
 	numaccs int64,
-	accidxs *int64,
-	domidxs *int64,
+	accidxs []int64,
+	domidxs []int64,
 	numafeidx int64,
-	afeidxlist *int64,
-	b *float64,
+	afeidxlist []int64,
+	b []float64,
 ) error {
 	return res.Code(
 		C.MSK_putacclist(
 			task.task,
 			C.MSKint64t(numaccs),
-			(*C.MSKint64t)(accidxs),
-			(*C.MSKint64t)(domidxs),
+			(*C.MSKint64t)(getPtrToFirst(accidxs)),
+			(*C.MSKint64t)(getPtrToFirst(domidxs)),
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidxlist),
-			(*C.MSKrealt)(b),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -57,21 +57,21 @@ func (task *Task) PutAccList(
 // [MSK_putacollist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacollist
 func (task *Task) PutAColList(
 	num int32,
-	sub *int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
+	sub []int32,
+	ptrb []int32,
+	ptre []int32,
+	asub []int32,
+	aval []float64,
 ) error {
 	return res.Code(
 		C.MSK_putacollist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -81,21 +81,21 @@ func (task *Task) PutAColList(
 // [MSK_putacollist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacollist64
 func (task *Task) PutAColList64(
 	num int32,
-	sub *int32,
-	ptrb *int64,
-	ptre *int64,
-	asub *int32,
-	aval *float64,
+	sub []int32,
+	ptrb []int64,
+	ptre []int64,
+	asub []int32,
+	aval []float64,
 ) error {
 	return res.Code(
 		C.MSK_putacollist64(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -116,20 +116,20 @@ func (task *Task) PutAColList64(
 func (task *Task) PutAColSlice(
 	first int32,
 	last int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
+	ptrb []int32,
+	ptre []int32,
+	asub []int32,
+	aval []float64,
 ) error {
 	return res.Code(
 		C.MSK_putacolslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -149,25 +149,25 @@ func (task *Task) PutAColSlice(
 // [MSK_putafebarfentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafebarfentrylist
 func (task *Task) PutAfeBarfEntryList(
 	numafeidx int64,
-	afeidx *int64,
-	barvaridx *int32,
-	numterm *int64,
-	ptrterm *int64,
+	afeidx []int64,
+	barvaridx []int32,
+	numterm []int64,
+	ptrterm []int64,
 	lenterm int64,
-	termidx *int64,
-	termweight *float64,
+	termidx []int64,
+	termweight []float64,
 ) error {
 	return res.Code(
 		C.MSK_putafebarfentrylist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(barvaridx),
-			(*C.MSKint64t)(numterm),
-			(*C.MSKint64t)(ptrterm),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(barvaridx)),
+			(*C.MSKint64t)(getPtrToFirst(numterm)),
+			(*C.MSKint64t)(getPtrToFirst(ptrterm)),
 			C.MSKint64t(lenterm),
-			(*C.MSKint64t)(termidx),
-			(*C.MSKrealt)(termweight),
+			(*C.MSKint64t)(getPtrToFirst(termidx)),
+			(*C.MSKrealt)(getPtrToFirst(termweight)),
 		),
 	).ToError()
 }
@@ -184,17 +184,17 @@ func (task *Task) PutAfeBarfEntryList(
 // [MSK_putafefentrylist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafefentrylist
 func (task *Task) PutAfeFEntryList(
 	numentr int64,
-	afeidx *int64,
-	varidx *int32,
-	val *float64,
+	afeidx []int64,
+	varidx []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_putafefentrylist(
 			task.task,
 			C.MSKint64t(numentr),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(varidx),
-			(*C.MSKrealt)(val),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(varidx)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -213,23 +213,23 @@ func (task *Task) PutAfeFEntryList(
 // [MSK_putafefrowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafefrowlist
 func (task *Task) PutAfeFRowList(
 	numafeidx int64,
-	afeidx *int64,
-	numnzrow *int32,
-	ptrrow *int64,
+	afeidx []int64,
+	numnzrow []int32,
+	ptrrow []int64,
 	lenidxval int64,
-	varidx *int32,
-	val *float64,
+	varidx []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_putafefrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(numnzrow),
-			(*C.MSKint64t)(ptrrow),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(numnzrow)),
+			(*C.MSKint64t)(getPtrToFirst(ptrrow)),
 			C.MSKint64t(lenidxval),
-			(*C.MSKint32t)(varidx),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(getPtrToFirst(varidx)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -245,15 +245,15 @@ func (task *Task) PutAfeFRowList(
 // [MSK_putafeglist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putafeglist
 func (task *Task) PutAfeGList(
 	numafeidx int64,
-	afeidx *int64,
-	g *float64,
+	afeidx []int64,
+	g []float64,
 ) error {
 	return res.Code(
 		C.MSK_putafeglist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKrealt)(g),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKrealt)(getPtrToFirst(g)),
 		),
 	).ToError()
 }
@@ -271,14 +271,14 @@ func (task *Task) PutAfeGList(
 func (task *Task) PutAfeGSlice(
 	first int64,
 	last int64,
-	slice *float64,
+	slice []float64,
 ) error {
 	return res.Code(
 		C.MSK_putafegslice(
 			task.task,
 			C.MSKint64t(first),
 			C.MSKint64t(last),
-			(*C.MSKrealt)(slice),
+			(*C.MSKrealt)(getPtrToFirst(slice)),
 		),
 	).ToError()
 }
@@ -295,17 +295,17 @@ func (task *Task) PutAfeGSlice(
 // [MSK_putaijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaijlist
 func (task *Task) PutAijList(
 	num int32,
-	subi *int32,
-	subj *int32,
-	valij *float64,
+	subi []int32,
+	subj []int32,
+	valij []float64,
 ) error {
 	return res.Code(
 		C.MSK_putaijlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valij),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valij)),
 		),
 	).ToError()
 }
@@ -315,17 +315,17 @@ func (task *Task) PutAijList(
 // [MSK_putaijlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaijlist64
 func (task *Task) PutAijList64(
 	num int64,
-	subi *int32,
-	subj *int32,
-	valij *float64,
+	subi []int32,
+	subj []int32,
+	valij []float64,
 ) error {
 	return res.Code(
 		C.MSK_putaijlist64(
 			task.task,
 			C.MSKint64t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valij),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valij)),
 		),
 	).ToError()
 }
@@ -344,21 +344,21 @@ func (task *Task) PutAijList64(
 // [MSK_putarowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putarowlist
 func (task *Task) PutARowList(
 	num int32,
-	sub *int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
+	sub []int32,
+	ptrb []int32,
+	ptre []int32,
+	asub []int32,
+	aval []float64,
 ) error {
 	return res.Code(
 		C.MSK_putarowlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -368,21 +368,21 @@ func (task *Task) PutARowList(
 // [MSK_putarowlist64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putarowlist64
 func (task *Task) PutARowList64(
 	num int32,
-	sub *int32,
-	ptrb *int64,
-	ptre *int64,
-	asub *int32,
-	aval *float64,
+	sub []int32,
+	ptrb []int64,
+	ptre []int64,
+	asub []int32,
+	aval []float64,
 ) error {
 	return res.Code(
 		C.MSK_putarowlist64(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -403,20 +403,20 @@ func (task *Task) PutARowList64(
 func (task *Task) PutARowSlice(
 	first int32,
 	last int32,
-	ptrb *int32,
-	ptre *int32,
-	asub *int32,
-	aval *float64,
+	ptrb []int32,
+	ptre []int32,
+	asub []int32,
+	aval []float64,
 ) error {
 	return res.Code(
 		C.MSK_putarowslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKint32t)(ptrb),
-			(*C.MSKint32t)(ptre),
-			(*C.MSKint32t)(asub),
-			(*C.MSKrealt)(aval),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -436,23 +436,23 @@ func (task *Task) PutARowSlice(
 // [MSK_putbaraijlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbaraijlist
 func (task *Task) PutBaraIjList(
 	num int32,
-	subi *int32,
-	subj *int32,
-	alphaptrb *int64,
-	alphaptre *int64,
-	matidx *int64,
-	weights *float64,
+	subi []int32,
+	subj []int32,
+	alphaptrb []int64,
+	alphaptre []int64,
+	matidx []int64,
+	weights []float64,
 ) error {
 	return res.Code(
 		C.MSK_putbaraijlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint64t)(alphaptrb),
-			(*C.MSKint64t)(alphaptre),
-			(*C.MSKint64t)(matidx),
-			(*C.MSKrealt)(weights),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKint64t)(getPtrToFirst(alphaptrb)),
+			(*C.MSKint64t)(getPtrToFirst(alphaptre)),
+			(*C.MSKint64t)(getPtrToFirst(matidx)),
+			(*C.MSKrealt)(getPtrToFirst(weights)),
 		),
 	).ToError()
 }
@@ -473,25 +473,25 @@ func (task *Task) PutBaraIjList(
 // [MSK_putbararowlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putbararowlist
 func (task *Task) PutBaraRowList(
 	num int32,
-	subi *int32,
-	ptrb *int64,
-	ptre *int64,
-	subj *int32,
-	nummat *int64,
-	matidx *int64,
-	weights *float64,
+	subi []int32,
+	ptrb []int64,
+	ptre []int64,
+	subj []int32,
+	nummat []int64,
+	matidx []int64,
+	weights []float64,
 ) error {
 	return res.Code(
 		C.MSK_putbararowlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint64t)(nummat),
-			(*C.MSKint64t)(matidx),
-			(*C.MSKrealt)(weights),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKint64t)(getPtrToFirst(nummat)),
+			(*C.MSKint64t)(getPtrToFirst(matidx)),
+			(*C.MSKrealt)(getPtrToFirst(weights)),
 		),
 	).ToError()
 }
@@ -507,15 +507,15 @@ func (task *Task) PutBaraRowList(
 // [MSK_putclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putclist
 func (task *Task) PutCList(
 	num int32,
-	subj *int32,
-	val *float64,
+	subj []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_putclist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -533,19 +533,19 @@ func (task *Task) PutCList(
 // [MSK_putconboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putconboundlist
 func (task *Task) PutConBoundList(
 	num int32,
-	sub *int32,
-	bkc *BoundKey,
-	blc *float64,
-	buc *float64,
+	sub []int32,
+	bkc []BoundKey,
+	blc []float64,
+	buc []float64,
 ) error {
 	return res.Code(
 		C.MSK_putconboundlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKboundkeye)(bkc),
-			(*C.MSKrealt)(blc),
-			(*C.MSKrealt)(buc),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkc)),
+			(*C.MSKrealt)(getPtrToFirst(blc)),
+			(*C.MSKrealt)(getPtrToFirst(buc)),
 		),
 	).ToError()
 }
@@ -565,18 +565,18 @@ func (task *Task) PutConBoundList(
 func (task *Task) PutConBoundSlice(
 	first int32,
 	last int32,
-	bkc *BoundKey,
-	blc *float64,
-	buc *float64,
+	bkc []BoundKey,
+	blc []float64,
+	buc []float64,
 ) error {
 	return res.Code(
 		C.MSK_putconboundslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(bkc),
-			(*C.MSKrealt)(blc),
-			(*C.MSKrealt)(buc),
+			(*C.MSKboundkeye)(getPtrToFirst(bkc)),
+			(*C.MSKrealt)(getPtrToFirst(blc)),
+			(*C.MSKrealt)(getPtrToFirst(buc)),
 		),
 	).ToError()
 }
@@ -625,14 +625,14 @@ func (task *Task) PutConBoundSliceConst(
 func (task *Task) PutCSlice(
 	first int32,
 	last int32,
-	slice *float64,
+	slice []float64,
 ) error {
 	return res.Code(
 		C.MSK_putcslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(slice),
+			(*C.MSKrealt)(getPtrToFirst(slice)),
 		),
 	).ToError()
 }
@@ -655,13 +655,13 @@ func (task *Task) PutDjcSlice(
 	idxfirst int64,
 	idxlast int64,
 	numdomidx int64,
-	domidxlist *int64,
+	domidxlist []int64,
 	numafeidx int64,
-	afeidxlist *int64,
-	b *float64,
+	afeidxlist []int64,
+	b []float64,
 	numterms int64,
-	termsizelist *int64,
-	termsindjc *int64,
+	termsizelist []int64,
+	termsindjc []int64,
 ) error {
 	return res.Code(
 		C.MSK_putdjcslice(
@@ -669,13 +669,13 @@ func (task *Task) PutDjcSlice(
 			C.MSKint64t(idxfirst),
 			C.MSKint64t(idxlast),
 			C.MSKint64t(numdomidx),
-			(*C.MSKint64t)(domidxlist),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(afeidxlist),
-			(*C.MSKrealt)(b),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 			C.MSKint64t(numterms),
-			(*C.MSKint64t)(termsizelist),
-			(*C.MSKint64t)(termsindjc),
+			(*C.MSKint64t)(getPtrToFirst(termsizelist)),
+			(*C.MSKint64t)(getPtrToFirst(termsindjc)),
 		),
 	).ToError()
 }
@@ -695,7 +695,7 @@ func (task *Task) PutSkcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	skc *StaKey,
+	skc []StaKey,
 ) error {
 	return res.Code(
 		C.MSK_putskcslice(
@@ -703,7 +703,7 @@ func (task *Task) PutSkcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(skc),
+			(*C.MSKstakeye)(getPtrToFirst(skc)),
 		),
 	).ToError()
 }
@@ -723,7 +723,7 @@ func (task *Task) PutSkxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	skx *StaKey,
+	skx []StaKey,
 ) error {
 	return res.Code(
 		C.MSK_putskxslice(
@@ -731,7 +731,7 @@ func (task *Task) PutSkxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(skx),
+			(*C.MSKstakeye)(getPtrToFirst(skx)),
 		),
 	).ToError()
 }
@@ -751,7 +751,7 @@ func (task *Task) PutSlcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	slc *float64,
+	slc []float64,
 ) error {
 	return res.Code(
 		C.MSK_putslcslice(
@@ -759,7 +759,7 @@ func (task *Task) PutSlcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(slc),
+			(*C.MSKrealt)(getPtrToFirst(slc)),
 		),
 	).ToError()
 }
@@ -779,7 +779,7 @@ func (task *Task) PutSlxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	slx *float64,
+	slx []float64,
 ) error {
 	return res.Code(
 		C.MSK_putslxslice(
@@ -787,7 +787,7 @@ func (task *Task) PutSlxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(slx),
+			(*C.MSKrealt)(getPtrToFirst(slx)),
 		),
 	).ToError()
 }
@@ -807,7 +807,7 @@ func (task *Task) PutSnxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	snx *float64,
+	snx []float64,
 ) error {
 	return res.Code(
 		C.MSK_putsnxslice(
@@ -815,7 +815,7 @@ func (task *Task) PutSnxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(snx),
+			(*C.MSKrealt)(getPtrToFirst(snx)),
 		),
 	).ToError()
 }
@@ -835,7 +835,7 @@ func (task *Task) PutSucSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	suc *float64,
+	suc []float64,
 ) error {
 	return res.Code(
 		C.MSK_putsucslice(
@@ -843,7 +843,7 @@ func (task *Task) PutSucSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(suc),
+			(*C.MSKrealt)(getPtrToFirst(suc)),
 		),
 	).ToError()
 }
@@ -863,7 +863,7 @@ func (task *Task) PutSuxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	sux *float64,
+	sux []float64,
 ) error {
 	return res.Code(
 		C.MSK_putsuxslice(
@@ -871,7 +871,7 @@ func (task *Task) PutSuxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(sux),
+			(*C.MSKrealt)(getPtrToFirst(sux)),
 		),
 	).ToError()
 }
@@ -889,19 +889,19 @@ func (task *Task) PutSuxSlice(
 // [MSK_putvarboundlist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvarboundlist
 func (task *Task) PutVarBoundList(
 	num int32,
-	sub *int32,
-	bkx *BoundKey,
-	blx *float64,
-	bux *float64,
+	sub []int32,
+	bkx []BoundKey,
+	blx []float64,
+	bux []float64,
 ) error {
 	return res.Code(
 		C.MSK_putvarboundlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKboundkeye)(bkx),
-			(*C.MSKrealt)(blx),
-			(*C.MSKrealt)(bux),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkx)),
+			(*C.MSKrealt)(getPtrToFirst(blx)),
+			(*C.MSKrealt)(getPtrToFirst(bux)),
 		),
 	).ToError()
 }
@@ -921,18 +921,18 @@ func (task *Task) PutVarBoundList(
 func (task *Task) PutVarBoundSlice(
 	first int32,
 	last int32,
-	bkx *BoundKey,
-	blx *float64,
-	bux *float64,
+	bkx []BoundKey,
+	blx []float64,
+	bux []float64,
 ) error {
 	return res.Code(
 		C.MSK_putvarboundslice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(bkx),
-			(*C.MSKrealt)(blx),
-			(*C.MSKrealt)(bux),
+			(*C.MSKboundkeye)(getPtrToFirst(bkx)),
+			(*C.MSKrealt)(getPtrToFirst(blx)),
+			(*C.MSKrealt)(getPtrToFirst(bux)),
 		),
 	).ToError()
 }
@@ -979,15 +979,15 @@ func (task *Task) PutVarBoundSliceConst(
 // [MSK_putvartypelist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putvartypelist
 func (task *Task) PutVarTypeList(
 	num int32,
-	subj *int32,
-	vartype *VariableType,
+	subj []int32,
+	vartype []VariableType,
 ) error {
 	return res.Code(
 		C.MSK_putvartypelist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKvariabletypee)(vartype),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKvariabletypee)(getPtrToFirst(vartype)),
 		),
 	).ToError()
 }
@@ -1007,7 +1007,7 @@ func (task *Task) PutXcSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	xc *float64,
+	xc []float64,
 ) error {
 	return res.Code(
 		C.MSK_putxcslice(
@@ -1015,7 +1015,7 @@ func (task *Task) PutXcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(xc),
+			(*C.MSKrealt)(getPtrToFirst(xc)),
 		),
 	).ToError()
 }
@@ -1035,7 +1035,7 @@ func (task *Task) PutXxSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	xx *float64,
+	xx []float64,
 ) error {
 	return res.Code(
 		C.MSK_putxxslice(
@@ -1043,7 +1043,7 @@ func (task *Task) PutXxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(xx),
+			(*C.MSKrealt)(getPtrToFirst(xx)),
 		),
 	).ToError()
 }
@@ -1063,7 +1063,7 @@ func (task *Task) PutYSlice(
 	whichsol SolType,
 	first int32,
 	last int32,
-	y *float64,
+	y []float64,
 ) error {
 	return res.Code(
 		C.MSK_putyslice(
@@ -1071,7 +1071,7 @@ func (task *Task) PutYSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(y),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 		),
 	).ToError()
 }

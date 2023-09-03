@@ -86,12 +86,12 @@ func Example_conicExponentialOptimization1_ceo1() {
 	checkOk(task.AppendAfes(numafe))
 
 	/* Set up the linear part */
-	checkOk(task.PutCSlice(0, numvar, &c[0]))
-	checkOk(task.PutARow(0, numvar, &asub[0], &a[0]))
+	checkOk(task.PutCSlice(0, numvar, c))
+	checkOk(task.PutARow(0, numvar, asub, a))
 	checkOk(task.PutConBound(0, bkc, blc, buc))
-	checkOk(task.PutVarBoundSlice(0, numvar, &bkx[0], &blx[0], &bux[0]))
+	checkOk(task.PutVarBoundSlice(0, numvar, bkx, blx, bux))
 
-	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
+	checkOk(task.PutAfeFEntryList(f_nnz, afeidx, varidx, f_val))
 	domidx, r = task.AppendPrimalExpConeDomain()
 	checkOk(r)
 	checkOk(task.AppendAccSeq(domidx, numafe, 0, nil))

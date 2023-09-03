@@ -85,12 +85,12 @@ func Example_geometricProgram1_gp1() {
 
 	// Objective is the sum of three first variables
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
-	checkOk(task.PutCSlice(0, numvar, &cval[0]))
+	checkOk(task.PutCSlice(0, numvar, cval))
 	checkOk(task.PutVarBoundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	// Add the three linear constraints
-	checkOk(task.PutAijList(alen, &asubi[0], &asubj[0], &aval[0]))
-	checkOk(task.PutConBoundSlice(0, numvar, &bkc[0], &blc[0], &buc[0]))
+	checkOk(task.PutAijList(alen, asubi, asubj, aval))
+	checkOk(task.PutConBoundSlice(0, numvar, bkc, blc, buc))
 
 	acc1_afeidx := []int64{0, 4, 2}
 	acc2_afeidx := []int64{1, 4, 3}
@@ -102,23 +102,23 @@ func Example_geometricProgram1_gp1() {
 	checkOk(task.AppendVars(2))
 	checkOk(task.PutVarBoundSliceConst(numvar, numvar+2, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
-	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
-	checkOk(task.PutAfeGSlice(0, numafe, &g[0]))
+	checkOk(task.PutAfeFEntryList(f_nnz, afeidx[:], varidx[:], f_val[:]))
+	checkOk(task.PutAfeGSlice(0, numafe, g[:]))
 
 	/* Append the primal exponential cone domain */
 	expdomidx, r = task.AppendPrimalExpConeDomain()
 	checkOk(r)
 
 	/* (u1, 1, x+y+log(2/Awall)) \in EXP */
-	checkOk(task.AppendAcc(expdomidx, 3, &acc1_afeidx[0], nil))
+	checkOk(task.AppendAcc(expdomidx, 3, acc1_afeidx, nil))
 
 	/* (u2, 1, x+z+log(2/Awall)) \in EXP */
-	checkOk(task.AppendAcc(expdomidx, 3, &acc2_afeidx[0], nil))
+	checkOk(task.AppendAcc(expdomidx, 3, acc2_afeidx, nil))
 
 	/* The constraint u1+u2-1 \in \ZERO is added also as an ACC */
 	rzerodomidx, r = task.AppendRzeroDomain(1)
 	checkOk(r)
-	checkOk(task.AppendAcc(rzerodomidx, 1, &acc3_afeidx[0], nil))
+	checkOk(task.AppendAcc(rzerodomidx, 1, acc3_afeidx, nil))
 
 	// Solve and map to original h, w, d
 	trmcode, r := task.OptimizeTrm()

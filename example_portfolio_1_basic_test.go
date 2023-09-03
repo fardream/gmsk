@@ -96,7 +96,7 @@ func Example_portfolio_1_basic() {
 		vslice_x[i] = voff_x + i
 	}
 	for i := int64(0); i < k; i++ {
-		checkOk(task.PutAfeFRow(i+1, n, &vslice_x[0], &GT[i][0]))
+		checkOk(task.PutAfeFRow(i+1, n, vslice_x, GT[i][:]))
 	}
 
 	// Input the affine conic constraint (gamma, GT*x) \in QCone

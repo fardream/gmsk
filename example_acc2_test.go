@@ -56,7 +56,7 @@ func Example_affineConicConstraints_acc2() {
 	/* Set up the objective */
 	{
 		c := []float64{2.0, 3.0, -1.0}
-		checkOk(task.PutCSlice(0, n, &c[0]))
+		checkOk(task.PutCSlice(0, n, c))
 		checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 	}
 
@@ -82,9 +82,9 @@ func Example_affineConicConstraints_acc2() {
 		var gamma float64 = 0.03
 
 		checkOk(task.AppendAfes(k + 1))
-		checkOk(task.PutAfeFEntryList(numEntries, &Fsubi[0], &Fsubj[0], &Fval[0]))
+		checkOk(task.PutAfeFEntryList(numEntries, Fsubi, Fsubj, Fval))
 		checkOk(task.PutAfeG(1, gamma))
-		checkOk(task.PutAfeGSlice(2, k+2, &h[0]))
+		checkOk(task.PutAfeGSlice(2, k+2, h))
 	}
 
 	zeroDom, r := task.AppendRzeroDomain(1)
@@ -99,10 +99,10 @@ func Example_affineConicConstraints_acc2() {
 		afeidx := []int64{0}
 
 		checkOk(task.AppendAcc(
-			zeroDom,    /* Domain index */
-			1,          /* Dimension */
-			&afeidx[0], /* Indices of AFE rows */
-			nil),       /* Ignored */
+			zeroDom, /* Domain index */
+			1,       /* Dimension */
+			afeidx,  /* Indices of AFE rows */
+			nil),    /* Ignored */
 		)
 	}
 
@@ -111,10 +111,10 @@ func Example_affineConicConstraints_acc2() {
 		afeidx := []int64{1, 2, 3}
 
 		checkOk(task.AppendAcc(
-			quadDom,    /* Domain index */
-			k+1,        /* Dimension */
-			&afeidx[0], /* Indices of AFE rows */
-			nil),       /* Ignored */
+			quadDom, /* Domain index */
+			k+1,     /* Dimension */
+			afeidx,  /* Indices of AFE rows */
+			nil),    /* Ignored */
 		)
 	}
 

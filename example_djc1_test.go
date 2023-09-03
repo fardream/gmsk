@@ -54,7 +54,7 @@ func Example_disjunctiveConstraint_djc1() {
 		val := []float64{1, 1, 1, 1}
 
 		checkOk(task.AppendCons(1))
-		checkOk(task.PutARow(0, 4, &idx[0], &val[0]))
+		checkOk(task.PutARow(0, 4, idx, val))
 		checkOk(task.PutConBound(0, gmsk.BK_LO, -10, -10))
 	}
 	{
@@ -62,7 +62,7 @@ func Example_disjunctiveConstraint_djc1() {
 		idx := []int32{0, 1, 2, 3}
 		val := []float64{2, 1, 3, 1}
 		checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
-		checkOk(task.PutCList(4, &idx[0], &val[0]))
+		checkOk(task.PutCList(4, idx, val))
 	}
 
 	// Fill in the affine expression storage F, g
@@ -74,8 +74,8 @@ func Example_disjunctiveConstraint_djc1() {
 	fval := []float64{1.0, -2.0, 1.0, -3.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0}
 	g := []float64{1.0, 2.0, 0.0, 0.0, 0.0, 0.0, -2.5, -2.5, -2.5, -2.5}
 
-	checkOk(task.PutAfeFEntryList(12, &fafeidx[0], &fvaridx[0], &fval[0]))
-	checkOk(task.PutAfeGSlice(0, numafe, &g[0]))
+	checkOk(task.PutAfeFEntryList(12, fafeidx, fvaridx, fval))
+	checkOk(task.PutAfeGSlice(0, numafe, g))
 
 	// Create domains
 	zero1, r = task.AppendRzeroDomain(1)
@@ -97,10 +97,10 @@ func Example_disjunctiveConstraint_djc1() {
 
 		checkOk(task.PutDjc(
 			0, // DJC index
-			4, &domidxlist[0],
-			6, &afeidxlist[0],
+			4, domidxlist,
+			6, afeidxlist,
 			nil, // Unused
-			2, &termsizelist[0]))
+			2, termsizelist))
 	}
 
 	{
@@ -110,10 +110,10 @@ func Example_disjunctiveConstraint_djc1() {
 		termsizelist := []int64{1, 1, 1, 1}
 		checkOk(task.PutDjc(
 			1, // DJC index
-			4, &domidxlist[0],
-			4, &afeidxlist[0],
+			4, domidxlist,
+			4, afeidxlist,
 			nil, // Unused
-			4, &termsizelist[0]))
+			4, termsizelist))
 	}
 
 	// Useful for debugging

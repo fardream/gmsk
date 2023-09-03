@@ -53,7 +53,7 @@ func Example_affineConicConstraints_acc1() {
 	/* Set up the objective */
 	{
 		c := []float64{2.0, 3.0, -1.0}
-		checkOk(task.PutCSlice(0, n, &c[0]))
+		checkOk(task.PutCSlice(0, n, c))
 		checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 	}
 
@@ -79,11 +79,11 @@ func Example_affineConicConstraints_acc1() {
 		var gamma float64 = 0.03
 
 		/* Fill in F storage */
-		checkOk(task.PutAfeFEntryList(numEntries, &Fsubi[0], &Fsubj[0], &Fval[0]))
+		checkOk(task.PutAfeFEntryList(numEntries, Fsubi, Fsubj, Fval))
 
 		/* Fill in g storage */
 		checkOk(task.PutAfeG(0, gamma))
-		checkOk(task.PutAfeGSlice(1, k+1, &h[0]))
+		checkOk(task.PutAfeGSlice(1, k+1, h))
 	}
 
 	/* Define a conic quadratic domain */
@@ -93,7 +93,7 @@ func Example_affineConicConstraints_acc1() {
 	{
 		/* Create the ACC */
 		afeidx := []int64{0, 1, 2}
-		checkOk(task.AppendAcc(quadDom, k+1, &afeidx[0], nil))
+		checkOk(task.AppendAcc(quadDom, k+1, afeidx, nil))
 	}
 
 	/* Begin optimization and fetching the solution */

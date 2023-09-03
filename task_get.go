@@ -24,13 +24,13 @@ import (
 // [MSK_getaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccb
 func (task *Task) GetAccB(
 	accidx int64,
-	b *float64,
+	b []float64,
 ) error {
 	return res.Code(
 		C.MSK_getaccb(
 			task.task,
 			C.MSKint64t(accidx),
-			(*C.MSKrealt)(b),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -53,23 +53,23 @@ func (task *Task) GetAccB(
 // [MSK_getaccbarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccbarfblocktriplet
 func (task *Task) GetAccBarfBlockTriplet(
 	maxnumtrip int64,
-	numtrip *int64,
-	acc_afe *int64,
-	bar_var *int32,
-	blk_row *int32,
-	blk_col *int32,
-	blk_val *float64,
+	numtrip []int64,
+	acc_afe []int64,
+	bar_var []int32,
+	blk_row []int32,
+	blk_col []int32,
+	blk_val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getaccbarfblocktriplet(
 			task.task,
 			C.MSKint64t(maxnumtrip),
-			(*C.MSKint64t)(numtrip),
-			(*C.MSKint64t)(acc_afe),
-			(*C.MSKint32t)(bar_var),
-			(*C.MSKint32t)(blk_row),
-			(*C.MSKint32t)(blk_col),
-			(*C.MSKrealt)(blk_val),
+			(*C.MSKint64t)(getPtrToFirst(numtrip)),
+			(*C.MSKint64t)(getPtrToFirst(acc_afe)),
+			(*C.MSKint32t)(getPtrToFirst(bar_var)),
+			(*C.MSKint32t)(getPtrToFirst(blk_row)),
+			(*C.MSKint32t)(getPtrToFirst(blk_col)),
+			(*C.MSKrealt)(getPtrToFirst(blk_val)),
 		),
 	).ToError()
 }
@@ -83,12 +83,12 @@ func (task *Task) GetAccBarfBlockTriplet(
 //
 // [MSK_getaccbarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccbarfnumblocktriplets
 func (task *Task) GetAccBarfNumBlockTriplets(
-	numtrip *int64,
+	numtrip []int64,
 ) error {
 	return res.Code(
 		C.MSK_getaccbarfnumblocktriplets(
 			task.task,
-			(*C.MSKint64t)(numtrip),
+			(*C.MSKint64t)(getPtrToFirst(numtrip)),
 		),
 	).ToError()
 }
@@ -127,13 +127,13 @@ func (task *Task) GetAccDomain(
 // [MSK_getaccdotys]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccdotys
 func (task *Task) GetAccDotYS(
 	whichsol SolType,
-	doty *float64,
+	doty []float64,
 ) error {
 	return res.Code(
 		C.MSK_getaccdotys(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(doty),
+			(*C.MSKrealt)(getPtrToFirst(doty)),
 		),
 	).ToError()
 }
@@ -149,16 +149,16 @@ func (task *Task) GetAccDotYS(
 //
 // [MSK_getaccftrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccftrip
 func (task *Task) GetAccFTrip(
-	frow *int64,
-	fcol *int32,
-	fval *float64,
+	frow []int64,
+	fcol []int32,
+	fval []float64,
 ) error {
 	return res.Code(
 		C.MSK_getaccftrip(
 			task.task,
-			(*C.MSKint64t)(frow),
-			(*C.MSKint32t)(fcol),
-			(*C.MSKrealt)(fval),
+			(*C.MSKint64t)(getPtrToFirst(frow)),
+			(*C.MSKint32t)(getPtrToFirst(fcol)),
+			(*C.MSKrealt)(getPtrToFirst(fval)),
 		),
 	).ToError()
 }
@@ -172,12 +172,12 @@ func (task *Task) GetAccFTrip(
 //
 // [MSK_getaccgvector]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccgvector
 func (task *Task) GetAccGVector(
-	g *float64,
+	g []float64,
 ) error {
 	return res.Code(
 		C.MSK_getaccgvector(
 			task.task,
-			(*C.MSKrealt)(g),
+			(*C.MSKrealt)(getPtrToFirst(g)),
 		),
 	).ToError()
 }
@@ -191,12 +191,12 @@ func (task *Task) GetAccGVector(
 //
 // [MSK_getaccntot]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccntot
 func (task *Task) GetAccNTot(
-	n *int64,
+	n []int64,
 ) error {
 	return res.Code(
 		C.MSK_getaccntot(
 			task.task,
-			(*C.MSKint64t)(n),
+			(*C.MSKint64t)(getPtrToFirst(n)),
 		),
 	).ToError()
 }
@@ -212,16 +212,16 @@ func (task *Task) GetAccNTot(
 //
 // [MSK_getaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccs
 func (task *Task) GetAccs(
-	domidxlist *int64,
-	afeidxlist *int64,
-	b *float64,
+	domidxlist []int64,
+	afeidxlist []int64,
+	b []float64,
 ) error {
 	return res.Code(
 		C.MSK_getaccs(
 			task.task,
-			(*C.MSKint64t)(domidxlist),
-			(*C.MSKint64t)(afeidxlist),
-			(*C.MSKrealt)(b),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -239,17 +239,17 @@ func (task *Task) GetAccs(
 // [MSK_getacol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getacol
 func (task *Task) GetACol(
 	j int32,
-	nzj *int32,
-	subj *int32,
-	valj *float64,
+	nzj []int32,
+	subj []int32,
+	valj []float64,
 ) error {
 	return res.Code(
 		C.MSK_getacol(
 			task.task,
 			C.MSKint32t(j),
-			(*C.MSKint32t)(nzj),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valj),
+			(*C.MSKint32t)(getPtrToFirst(nzj)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valj)),
 		),
 	).ToError()
 }
@@ -261,10 +261,10 @@ func (task *Task) GetAColSlice64(
 	first int32,
 	last int32,
 	maxnumnz int64,
-	ptrb *int64,
-	ptre *int64,
-	sub *int32,
-	val *float64,
+	ptrb []int64,
+	ptre []int64,
+	sub []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getacolslice64(
@@ -272,10 +272,10 @@ func (task *Task) GetAColSlice64(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(val),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -298,23 +298,23 @@ func (task *Task) GetAColSlice64(
 // [MSK_getafebarfblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfblocktriplet
 func (task *Task) GetAfeBarfBlockTriplet(
 	maxnumtrip int64,
-	numtrip *int64,
-	afeidx *int64,
-	barvaridx *int32,
-	subk *int32,
-	subl *int32,
-	valkl *float64,
+	numtrip []int64,
+	afeidx []int64,
+	barvaridx []int32,
+	subk []int32,
+	subl []int32,
+	valkl []float64,
 ) error {
 	return res.Code(
 		C.MSK_getafebarfblocktriplet(
 			task.task,
 			C.MSKint64t(maxnumtrip),
-			(*C.MSKint64t)(numtrip),
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(barvaridx),
-			(*C.MSKint32t)(subk),
-			(*C.MSKint32t)(subl),
-			(*C.MSKrealt)(valkl),
+			(*C.MSKint64t)(getPtrToFirst(numtrip)),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(barvaridx)),
+			(*C.MSKint32t)(getPtrToFirst(subk)),
+			(*C.MSKint32t)(getPtrToFirst(subl)),
+			(*C.MSKrealt)(getPtrToFirst(valkl)),
 		),
 	).ToError()
 }
@@ -328,12 +328,12 @@ func (task *Task) GetAfeBarfBlockTriplet(
 //
 // [MSK_getafebarfnumblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfnumblocktriplets
 func (task *Task) GetAfeBarfNumBlockTriplets(
-	numtrip *int64,
+	numtrip []int64,
 ) error {
 	return res.Code(
 		C.MSK_getafebarfnumblocktriplets(
 			task.task,
-			(*C.MSKint64t)(numtrip),
+			(*C.MSKint64t)(getPtrToFirst(numtrip)),
 		),
 	).ToError()
 }
@@ -352,13 +352,13 @@ func (task *Task) GetAfeBarfNumBlockTriplets(
 // [MSK_getafebarfnumrowentries]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfnumrowentries
 func (task *Task) GetAfeBarfNumRowEntries(
 	afeidx int64,
-	numentr *int32,
+	numentr []int32,
 ) error {
 	return res.Code(
 		C.MSK_getafebarfnumrowentries(
 			task.task,
 			C.MSKint64t(afeidx),
-			(*C.MSKint32t)(numentr),
+			(*C.MSKint32t)(getPtrToFirst(numentr)),
 		),
 	).ToError()
 }
@@ -378,21 +378,21 @@ func (task *Task) GetAfeBarfNumRowEntries(
 // [MSK_getafebarfrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfrow
 func (task *Task) GetAfeBarfRow(
 	afeidx int64,
-	barvaridx *int32,
-	ptrterm *int64,
-	numterm *int64,
-	termidx *int64,
-	termweight *float64,
+	barvaridx []int32,
+	ptrterm []int64,
+	numterm []int64,
+	termidx []int64,
+	termweight []float64,
 ) error {
 	return res.Code(
 		C.MSK_getafebarfrow(
 			task.task,
 			C.MSKint64t(afeidx),
-			(*C.MSKint32t)(barvaridx),
-			(*C.MSKint64t)(ptrterm),
-			(*C.MSKint64t)(numterm),
-			(*C.MSKint64t)(termidx),
-			(*C.MSKrealt)(termweight),
+			(*C.MSKint32t)(getPtrToFirst(barvaridx)),
+			(*C.MSKint64t)(getPtrToFirst(ptrterm)),
+			(*C.MSKint64t)(getPtrToFirst(numterm)),
+			(*C.MSKint64t)(getPtrToFirst(termidx)),
+			(*C.MSKrealt)(getPtrToFirst(termweight)),
 		),
 	).ToError()
 }
@@ -409,15 +409,15 @@ func (task *Task) GetAfeBarfRow(
 // [MSK_getafebarfrowinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafebarfrowinfo
 func (task *Task) GetAfeBarfRowInfo(
 	afeidx int64,
-	numentr *int32,
-	numterm *int64,
+	numentr []int32,
+	numterm []int64,
 ) error {
 	return res.Code(
 		C.MSK_getafebarfrowinfo(
 			task.task,
 			C.MSKint64t(afeidx),
-			(*C.MSKint32t)(numentr),
-			(*C.MSKint64t)(numterm),
+			(*C.MSKint32t)(getPtrToFirst(numentr)),
+			(*C.MSKint64t)(getPtrToFirst(numterm)),
 		),
 	).ToError()
 }
@@ -435,17 +435,17 @@ func (task *Task) GetAfeBarfRowInfo(
 // [MSK_getafefrow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefrow
 func (task *Task) GetAfeFRow(
 	afeidx int64,
-	numnz *int32,
-	varidx *int32,
-	val *float64,
+	numnz []int32,
+	varidx []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getafefrow(
 			task.task,
 			C.MSKint64t(afeidx),
-			(*C.MSKint32t)(numnz),
-			(*C.MSKint32t)(varidx),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(getPtrToFirst(numnz)),
+			(*C.MSKint32t)(getPtrToFirst(varidx)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -461,16 +461,16 @@ func (task *Task) GetAfeFRow(
 //
 // [MSK_getafeftrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafeftrip
 func (task *Task) GetAfeFTrip(
-	afeidx *int64,
-	varidx *int32,
-	val *float64,
+	afeidx []int64,
+	varidx []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getafeftrip(
 			task.task,
-			(*C.MSKint64t)(afeidx),
-			(*C.MSKint32t)(varidx),
-			(*C.MSKrealt)(val),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(varidx)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -489,13 +489,13 @@ func (task *Task) GetAfeFTrip(
 // [MSK_getafeg]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafeg
 func (task *Task) GetAfeG(
 	afeidx int64,
-	g *float64,
+	g []float64,
 ) error {
 	return res.Code(
 		C.MSK_getafeg(
 			task.task,
 			C.MSKint64t(afeidx),
-			(*C.MSKrealt)(g),
+			(*C.MSKrealt)(getPtrToFirst(g)),
 		),
 	).ToError()
 }
@@ -516,14 +516,14 @@ func (task *Task) GetAfeG(
 func (task *Task) GetAij(
 	i int32,
 	j int32,
-	aij *float64,
+	aij []float64,
 ) error {
 	return res.Code(
 		C.MSK_getaij(
 			task.task,
 			C.MSKint32t(i),
 			C.MSKint32t(j),
-			(*C.MSKrealt)(aij),
+			(*C.MSKrealt)(getPtrToFirst(aij)),
 		),
 	).ToError()
 }
@@ -541,17 +541,17 @@ func (task *Task) GetAij(
 // [MSK_getarow]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getarow
 func (task *Task) GetARow(
 	i int32,
-	nzi *int32,
-	subi *int32,
-	vali *float64,
+	nzi []int32,
+	subi []int32,
+	vali []float64,
 ) error {
 	return res.Code(
 		C.MSK_getarow(
 			task.task,
 			C.MSKint32t(i),
-			(*C.MSKint32t)(nzi),
-			(*C.MSKint32t)(subi),
-			(*C.MSKrealt)(vali),
+			(*C.MSKint32t)(getPtrToFirst(nzi)),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKrealt)(getPtrToFirst(vali)),
 		),
 	).ToError()
 }
@@ -563,10 +563,10 @@ func (task *Task) GetARowSlice64(
 	first int32,
 	last int32,
 	maxnumnz int64,
-	ptrb *int64,
-	ptre *int64,
-	sub *int32,
-	val *float64,
+	ptrb []int64,
+	ptre []int64,
+	sub []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getarowslice64(
@@ -574,10 +574,10 @@ func (task *Task) GetARowSlice64(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint64t)(ptrb),
-			(*C.MSKint64t)(ptre),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(val),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -594,17 +594,17 @@ func (task *Task) GetARowSlice64(
 // [MSK_getatrip]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getatrip
 func (task *Task) GetATrip(
 	maxnumnz int64,
-	subi *int32,
-	subj *int32,
-	val *float64,
+	subi []int32,
+	subj []int32,
+	val []float64,
 ) error {
 	return res.Code(
 		C.MSK_getatrip(
 			task.task,
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(val),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -618,12 +618,12 @@ func (task *Task) GetATrip(
 //
 // [MSK_getatruncatetol]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getatruncatetol
 func (task *Task) GetATruncateTol(
-	tolzero *float64,
+	tolzero []float64,
 ) error {
 	return res.Code(
 		C.MSK_getatruncatetol(
 			task.task,
-			(*C.MSKrealt)(tolzero),
+			(*C.MSKrealt)(getPtrToFirst(tolzero)),
 		),
 	).ToError()
 }
@@ -646,23 +646,23 @@ func (task *Task) GetATruncateTol(
 // [MSK_getbarablocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarablocktriplet
 func (task *Task) GetBaraBlockTriplet(
 	maxnum int64,
-	num *int64,
-	subi *int32,
-	subj *int32,
-	subk *int32,
-	subl *int32,
-	valijkl *float64,
+	num []int64,
+	subi []int32,
+	subj []int32,
+	subk []int32,
+	subl []int32,
+	valijkl []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbarablocktriplet(
 			task.task,
 			C.MSKint64t(maxnum),
-			(*C.MSKint64t)(num),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint32t)(subk),
-			(*C.MSKint32t)(subl),
-			(*C.MSKrealt)(valijkl),
+			(*C.MSKint64t)(getPtrToFirst(num)),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKint32t)(getPtrToFirst(subk)),
+			(*C.MSKint32t)(getPtrToFirst(subl)),
+			(*C.MSKrealt)(getPtrToFirst(valijkl)),
 		),
 	).ToError()
 }
@@ -686,22 +686,22 @@ func (task *Task) GetBaraBlockTriplet(
 func (task *Task) GetBaraIdx(
 	idx int64,
 	maxnum int64,
-	i *int32,
-	j *int32,
-	num *int64,
-	sub *int64,
-	weights *float64,
+	i []int32,
+	j []int32,
+	num []int64,
+	sub []int64,
+	weights []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbaraidx(
 			task.task,
 			C.MSKint64t(idx),
 			C.MSKint64t(maxnum),
-			(*C.MSKint32t)(i),
-			(*C.MSKint32t)(j),
-			(*C.MSKint64t)(num),
-			(*C.MSKint64t)(sub),
-			(*C.MSKrealt)(weights),
+			(*C.MSKint32t)(getPtrToFirst(i)),
+			(*C.MSKint32t)(getPtrToFirst(j)),
+			(*C.MSKint64t)(getPtrToFirst(num)),
+			(*C.MSKint64t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(weights)),
 		),
 	).ToError()
 }
@@ -718,15 +718,15 @@ func (task *Task) GetBaraIdx(
 // [MSK_getbaraidxij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidxij
 func (task *Task) GetBaraIdxIJ(
 	idx int64,
-	i *int32,
-	j *int32,
+	i []int32,
+	j []int32,
 ) error {
 	return res.Code(
 		C.MSK_getbaraidxij(
 			task.task,
 			C.MSKint64t(idx),
-			(*C.MSKint32t)(i),
-			(*C.MSKint32t)(j),
+			(*C.MSKint32t)(getPtrToFirst(i)),
+			(*C.MSKint32t)(getPtrToFirst(j)),
 		),
 	).ToError()
 }
@@ -745,13 +745,13 @@ func (task *Task) GetBaraIdxIJ(
 // [MSK_getbaraidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbaraidxinfo
 func (task *Task) GetBaraIdxInfo(
 	idx int64,
-	num *int64,
+	num []int64,
 ) error {
 	return res.Code(
 		C.MSK_getbaraidxinfo(
 			task.task,
 			C.MSKint64t(idx),
-			(*C.MSKint64t)(num),
+			(*C.MSKint64t)(getPtrToFirst(num)),
 		),
 	).ToError()
 }
@@ -767,15 +767,15 @@ func (task *Task) GetBaraIdxInfo(
 // [MSK_getbarasparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarasparsity
 func (task *Task) GetBaraSparsity(
 	maxnumnz int64,
-	numnz *int64,
-	idxij *int64,
+	numnz []int64,
+	idxij []int64,
 ) error {
 	return res.Code(
 		C.MSK_getbarasparsity(
 			task.task,
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint64t)(numnz),
-			(*C.MSKint64t)(idxij),
+			(*C.MSKint64t)(getPtrToFirst(numnz)),
+			(*C.MSKint64t)(getPtrToFirst(idxij)),
 		),
 	).ToError()
 }
@@ -797,21 +797,21 @@ func (task *Task) GetBaraSparsity(
 // [MSK_getbarcblocktriplet]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcblocktriplet
 func (task *Task) GetBarcBlockTriplet(
 	maxnum int64,
-	num *int64,
-	subj *int32,
-	subk *int32,
-	subl *int32,
-	valjkl *float64,
+	num []int64,
+	subj []int32,
+	subk []int32,
+	subl []int32,
+	valjkl []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbarcblocktriplet(
 			task.task,
 			C.MSKint64t(maxnum),
-			(*C.MSKint64t)(num),
-			(*C.MSKint32t)(subj),
-			(*C.MSKint32t)(subk),
-			(*C.MSKint32t)(subl),
-			(*C.MSKrealt)(valjkl),
+			(*C.MSKint64t)(getPtrToFirst(num)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKint32t)(getPtrToFirst(subk)),
+			(*C.MSKint32t)(getPtrToFirst(subl)),
+			(*C.MSKrealt)(getPtrToFirst(valjkl)),
 		),
 	).ToError()
 }
@@ -831,20 +831,20 @@ func (task *Task) GetBarcBlockTriplet(
 func (task *Task) GetBarcIdx(
 	idx int64,
 	maxnum int64,
-	j *int32,
-	num *int64,
-	sub *int64,
-	weights *float64,
+	j []int32,
+	num []int64,
+	sub []int64,
+	weights []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbarcidx(
 			task.task,
 			C.MSKint64t(idx),
 			C.MSKint64t(maxnum),
-			(*C.MSKint32t)(j),
-			(*C.MSKint64t)(num),
-			(*C.MSKint64t)(sub),
-			(*C.MSKrealt)(weights),
+			(*C.MSKint32t)(getPtrToFirst(j)),
+			(*C.MSKint64t)(getPtrToFirst(num)),
+			(*C.MSKint64t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(weights)),
 		),
 	).ToError()
 }
@@ -863,13 +863,13 @@ func (task *Task) GetBarcIdx(
 // [MSK_getbarcidxinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidxinfo
 func (task *Task) GetBarcIdxInfo(
 	idx int64,
-	num *int64,
+	num []int64,
 ) error {
 	return res.Code(
 		C.MSK_getbarcidxinfo(
 			task.task,
 			C.MSKint64t(idx),
-			(*C.MSKint64t)(num),
+			(*C.MSKint64t)(getPtrToFirst(num)),
 		),
 	).ToError()
 }
@@ -885,13 +885,13 @@ func (task *Task) GetBarcIdxInfo(
 // [MSK_getbarcidxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidxj
 func (task *Task) GetBarcIdxJ(
 	idx int64,
-	j *int32,
+	j []int32,
 ) error {
 	return res.Code(
 		C.MSK_getbarcidxj(
 			task.task,
 			C.MSKint64t(idx),
-			(*C.MSKint32t)(j),
+			(*C.MSKint32t)(getPtrToFirst(j)),
 		),
 	).ToError()
 }
@@ -907,15 +907,15 @@ func (task *Task) GetBarcIdxJ(
 // [MSK_getbarcsparsity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcsparsity
 func (task *Task) GetBarcSparsity(
 	maxnumnz int64,
-	numnz *int64,
-	idxj *int64,
+	numnz []int64,
+	idxj []int64,
 ) error {
 	return res.Code(
 		C.MSK_getbarcsparsity(
 			task.task,
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint64t)(numnz),
-			(*C.MSKint64t)(idxj),
+			(*C.MSKint64t)(getPtrToFirst(numnz)),
+			(*C.MSKint64t)(getPtrToFirst(idxj)),
 		),
 	).ToError()
 }
@@ -933,14 +933,14 @@ func (task *Task) GetBarcSparsity(
 func (task *Task) GetBarsJ(
 	whichsol SolType,
 	j int32,
-	barsj *float64,
+	barsj []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbarsj(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(j),
-			(*C.MSKrealt)(barsj),
+			(*C.MSKrealt)(getPtrToFirst(barsj)),
 		),
 	).ToError()
 }
@@ -960,8 +960,8 @@ func (task *Task) GetBarsJ(
 // [MSK_getbarvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarvarnameindex
 func (task *Task) GetBarvarNameIndex(
 	somename string,
-	asgn *int32,
-	index *int32,
+	asgn []int32,
+	index []int32,
 ) error {
 	c_somename := C.CString(somename)
 	defer C.free(unsafe.Pointer(c_somename))
@@ -970,8 +970,8 @@ func (task *Task) GetBarvarNameIndex(
 		C.MSK_getbarvarnameindex(
 			task.task,
 			c_somename,
-			(*C.MSKint32t)(asgn),
-			(*C.MSKint32t)(index),
+			(*C.MSKint32t)(getPtrToFirst(asgn)),
+			(*C.MSKint32t)(getPtrToFirst(index)),
 		),
 	).ToError()
 }
@@ -989,14 +989,14 @@ func (task *Task) GetBarvarNameIndex(
 func (task *Task) GetBarxJ(
 	whichsol SolType,
 	j int32,
-	barxj *float64,
+	barxj []float64,
 ) error {
 	return res.Code(
 		C.MSK_getbarxj(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(j),
-			(*C.MSKrealt)(barxj),
+			(*C.MSKrealt)(getPtrToFirst(barxj)),
 		),
 	).ToError()
 }
@@ -1010,12 +1010,12 @@ func (task *Task) GetBarxJ(
 //
 // [MSK_getc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getc
 func (task *Task) GetC(
-	c *float64,
+	c []float64,
 ) error {
 	return res.Code(
 		C.MSK_getc(
 			task.task,
-			(*C.MSKrealt)(c),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 		),
 	).ToError()
 }
@@ -1075,17 +1075,17 @@ func (task *Task) GetCJ(
 // [MSK_getconbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconbound
 func (task *Task) GetConBound(
 	i int32,
-	bk *BoundKey,
-	bl *float64,
-	bu *float64,
+	bk []BoundKey,
+	bl []float64,
+	bu []float64,
 ) error {
 	return res.Code(
 		C.MSK_getconbound(
 			task.task,
 			C.MSKint32t(i),
-			(*C.MSKboundkeye)(bk),
-			(*C.MSKrealt)(bl),
-			(*C.MSKrealt)(bu),
+			(*C.MSKboundkeye)(getPtrToFirst(bk)),
+			(*C.MSKrealt)(getPtrToFirst(bl)),
+			(*C.MSKrealt)(getPtrToFirst(bu)),
 		),
 	).ToError()
 }
@@ -1106,19 +1106,19 @@ func (task *Task) GetConBound(
 // [MSK_getcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcone
 func (task *Task) GetCone(
 	k int32,
-	ct *ConeType,
-	conepar *float64,
-	nummem *int32,
-	submem *int32,
+	ct []ConeType,
+	conepar []float64,
+	nummem []int32,
+	submem []int32,
 ) error {
 	return res.Code(
 		C.MSK_getcone(
 			task.task,
 			C.MSKint32t(k),
-			(*C.MSKconetypee)(ct),
-			(*C.MSKrealt)(conepar),
-			(*C.MSKint32t)(nummem),
-			(*C.MSKint32t)(submem),
+			(*C.MSKconetypee)(getPtrToFirst(ct)),
+			(*C.MSKrealt)(getPtrToFirst(conepar)),
+			(*C.MSKint32t)(getPtrToFirst(nummem)),
+			(*C.MSKint32t)(getPtrToFirst(submem)),
 		),
 	).ToError()
 }
@@ -1138,17 +1138,17 @@ func (task *Task) GetCone(
 // [MSK_getconeinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconeinfo
 func (task *Task) GetConeInfo(
 	k int32,
-	ct *ConeType,
-	conepar *float64,
-	nummem *int32,
+	ct []ConeType,
+	conepar []float64,
+	nummem []int32,
 ) error {
 	return res.Code(
 		C.MSK_getconeinfo(
 			task.task,
 			C.MSKint32t(k),
-			(*C.MSKconetypee)(ct),
-			(*C.MSKrealt)(conepar),
-			(*C.MSKint32t)(nummem),
+			(*C.MSKconetypee)(getPtrToFirst(ct)),
+			(*C.MSKrealt)(getPtrToFirst(conepar)),
+			(*C.MSKint32t)(getPtrToFirst(nummem)),
 		),
 	).ToError()
 }
@@ -1170,8 +1170,8 @@ func (task *Task) GetConeInfo(
 // [MSK_getconenameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconenameindex
 func (task *Task) GetConeNameIndex(
 	somename string,
-	asgn *int32,
-	index *int32,
+	asgn []int32,
+	index []int32,
 ) error {
 	c_somename := C.CString(somename)
 	defer C.free(unsafe.Pointer(c_somename))
@@ -1180,8 +1180,8 @@ func (task *Task) GetConeNameIndex(
 		C.MSK_getconenameindex(
 			task.task,
 			c_somename,
-			(*C.MSKint32t)(asgn),
-			(*C.MSKint32t)(index),
+			(*C.MSKint32t)(getPtrToFirst(asgn)),
+			(*C.MSKint32t)(getPtrToFirst(index)),
 		),
 	).ToError()
 }
@@ -1201,7 +1201,7 @@ func (task *Task) GetConeNameIndex(
 // [MSK_getconnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getconnameindex
 func (task *Task) GetConNameIndex(
 	somename string,
-	asgn *int32,
+	asgn []int32,
 ) (index int32, r error) {
 	c_somename := C.CString(somename)
 	defer C.free(unsafe.Pointer(c_somename))
@@ -1210,7 +1210,7 @@ func (task *Task) GetConNameIndex(
 		C.MSK_getconnameindex(
 			task.task,
 			c_somename,
-			(*C.MSKint32t)(asgn),
+			(*C.MSKint32t)(getPtrToFirst(asgn)),
 			(*C.MSKint32t)(&index),
 		),
 	).ToError()
@@ -1255,13 +1255,13 @@ func (task *Task) GetDimBarvarJ(
 // [MSK_getdjcb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcb
 func (task *Task) GetDjcB(
 	djcidx int64,
-	b *float64,
+	b []float64,
 ) error {
 	return res.Code(
 		C.MSK_getdjcb(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKrealt)(b),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -1414,20 +1414,20 @@ func (task *Task) GetDjcNumTermTot() (numtermtot int64, r error) {
 //
 // [MSK_getdjcs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdjcs
 func (task *Task) GetDjcs(
-	domidxlist *int64,
-	afeidxlist *int64,
-	b *float64,
-	termsizelist *int64,
-	numterms *int64,
+	domidxlist []int64,
+	afeidxlist []int64,
+	b []float64,
+	termsizelist []int64,
+	numterms []int64,
 ) error {
 	return res.Code(
 		C.MSK_getdjcs(
 			task.task,
-			(*C.MSKint64t)(domidxlist),
-			(*C.MSKint64t)(afeidxlist),
-			(*C.MSKrealt)(b),
-			(*C.MSKint64t)(termsizelist),
-			(*C.MSKint64t)(numterms),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
+			(*C.MSKint64t)(getPtrToFirst(termsizelist)),
+			(*C.MSKint64t)(getPtrToFirst(numterms)),
 		),
 	).ToError()
 }
@@ -1576,25 +1576,25 @@ func (task *Task) GetDualObj(
 // [MSK_getdualsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdualsolutionnorms
 func (task *Task) GetDualSolutionNorms(
 	whichsol SolType,
-	nrmy *float64,
-	nrmslc *float64,
-	nrmsuc *float64,
-	nrmslx *float64,
-	nrmsux *float64,
-	nrmsnx *float64,
-	nrmbars *float64,
+	nrmy []float64,
+	nrmslc []float64,
+	nrmsuc []float64,
+	nrmslx []float64,
+	nrmsux []float64,
+	nrmsnx []float64,
+	nrmbars []float64,
 ) error {
 	return res.Code(
 		C.MSK_getdualsolutionnorms(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(nrmy),
-			(*C.MSKrealt)(nrmslc),
-			(*C.MSKrealt)(nrmsuc),
-			(*C.MSKrealt)(nrmslx),
-			(*C.MSKrealt)(nrmsux),
-			(*C.MSKrealt)(nrmsnx),
-			(*C.MSKrealt)(nrmbars),
+			(*C.MSKrealt)(getPtrToFirst(nrmy)),
+			(*C.MSKrealt)(getPtrToFirst(nrmslc)),
+			(*C.MSKrealt)(getPtrToFirst(nrmsuc)),
+			(*C.MSKrealt)(getPtrToFirst(nrmslx)),
+			(*C.MSKrealt)(getPtrToFirst(nrmsux)),
+			(*C.MSKrealt)(getPtrToFirst(nrmsnx)),
+			(*C.MSKrealt)(getPtrToFirst(nrmbars)),
 		),
 	).ToError()
 }
@@ -1612,16 +1612,16 @@ func (task *Task) GetDualSolutionNorms(
 func (task *Task) GetDviolAcc(
 	whichsol SolType,
 	numaccidx int64,
-	accidxlist *int64,
-	viol *float64,
+	accidxlist []int64,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getdviolacc(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint64t(numaccidx),
-			(*C.MSKint64t)(accidxlist),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint64t)(getPtrToFirst(accidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -1639,16 +1639,16 @@ func (task *Task) GetDviolAcc(
 func (task *Task) GetDviolBarvar(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getdviolbarvar(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -1666,16 +1666,16 @@ func (task *Task) GetDviolBarvar(
 func (task *Task) GetDviolCon(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getdviolcon(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -1695,16 +1695,16 @@ func (task *Task) GetDviolCon(
 func (task *Task) GetDviolCones(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getdviolcones(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -1722,16 +1722,16 @@ func (task *Task) GetDviolCones(
 func (task *Task) GetDviolVar(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getdviolvar(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -1844,17 +1844,17 @@ func (task *Task) GetIntParam(
 //
 // [MSK_getlasterror]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlasterror
 func (task *Task) GetLasterror(
-	lastrescode *res.Code,
+	lastrescode []res.Code,
 	sizelastmsg int32,
-	lastmsglen *int32,
+	lastmsglen []int32,
 	lastmsg *byte,
 ) error {
 	return res.Code(
 		C.MSK_getlasterror(
 			task.task,
-			(*C.MSKrescodee)(lastrescode),
+			(*C.MSKrescodee)(getPtrToFirst(lastrescode)),
 			C.MSKint32t(sizelastmsg),
-			(*C.MSKint32t)(lastmsglen),
+			(*C.MSKint32t)(getPtrToFirst(lastmsglen)),
 			(*C.char)(unsafe.Pointer(lastmsg)),
 		),
 	).ToError()
@@ -1864,17 +1864,17 @@ func (task *Task) GetLasterror(
 //
 // [MSK_getlasterror64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlasterror64
 func (task *Task) GetLasterror64(
-	lastrescode *res.Code,
+	lastrescode []res.Code,
 	sizelastmsg int64,
-	lastmsglen *int64,
+	lastmsglen []int64,
 	lastmsg *byte,
 ) error {
 	return res.Code(
 		C.MSK_getlasterror64(
 			task.task,
-			(*C.MSKrescodee)(lastrescode),
+			(*C.MSKrescodee)(getPtrToFirst(lastrescode)),
 			C.MSKint64t(sizelastmsg),
-			(*C.MSKint64t)(lastmsglen),
+			(*C.MSKint64t)(getPtrToFirst(lastmsglen)),
 			(*C.char)(unsafe.Pointer(lastmsg)),
 		),
 	).ToError()
@@ -1936,14 +1936,14 @@ func (task *Task) GetLintInf(
 //
 // [MSK_getmemusagetask]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmemusagetask
 func (task *Task) GetMemusagetask(
-	meminuse *int64,
-	maxmemuse *int64,
+	meminuse []int64,
+	maxmemuse []int64,
 ) error {
 	return res.Code(
 		C.MSK_getmemusagetask(
 			task.task,
-			(*C.MSKint64t)(meminuse),
-			(*C.MSKint64t)(maxmemuse),
+			(*C.MSKint64t)(getPtrToFirst(meminuse)),
+			(*C.MSKint64t)(getPtrToFirst(maxmemuse)),
 		),
 	).ToError()
 }
@@ -1959,7 +1959,7 @@ func (task *Task) GetMemusagetask(
 // [MSK_getnadouinf]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnadouinf
 func (task *Task) GetNaDouInf(
 	infitemname string,
-	dvalue *float64,
+	dvalue []float64,
 ) error {
 	c_infitemname := C.CString(infitemname)
 	defer C.free(unsafe.Pointer(c_infitemname))
@@ -1968,7 +1968,7 @@ func (task *Task) GetNaDouInf(
 		C.MSK_getnadouinf(
 			task.task,
 			c_infitemname,
-			(*C.MSKrealt)(dvalue),
+			(*C.MSKrealt)(getPtrToFirst(dvalue)),
 		),
 	).ToError()
 }
@@ -2146,13 +2146,13 @@ func (task *Task) GetParamMax(
 // [MSK_getpowerdomainalpha]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpowerdomainalpha
 func (task *Task) GetPowerDomainAlpha(
 	domidx int64,
-	alpha *float64,
+	alpha []float64,
 ) error {
 	return res.Code(
 		C.MSK_getpowerdomainalpha(
 			task.task,
 			C.MSKint64t(domidx),
-			(*C.MSKrealt)(alpha),
+			(*C.MSKrealt)(getPtrToFirst(alpha)),
 		),
 	).ToError()
 }
@@ -2169,15 +2169,15 @@ func (task *Task) GetPowerDomainAlpha(
 // [MSK_getpowerdomaininfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getpowerdomaininfo
 func (task *Task) GetPowerDomainInfo(
 	domidx int64,
-	n *int64,
-	nleft *int64,
+	n []int64,
+	nleft []int64,
 ) error {
 	return res.Code(
 		C.MSK_getpowerdomaininfo(
 			task.task,
 			C.MSKint64t(domidx),
-			(*C.MSKint64t)(n),
-			(*C.MSKint64t)(nleft),
+			(*C.MSKint64t)(getPtrToFirst(n)),
+			(*C.MSKint64t)(getPtrToFirst(nleft)),
 		),
 	).ToError()
 }
@@ -2221,17 +2221,17 @@ func (task *Task) GetPrimalObj(
 // [MSK_getprimalsolutionnorms]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getprimalsolutionnorms
 func (task *Task) GetPrimalSolutionNorms(
 	whichsol SolType,
-	nrmxc *float64,
-	nrmxx *float64,
-	nrmbarx *float64,
+	nrmxc []float64,
+	nrmxx []float64,
+	nrmbarx []float64,
 ) error {
 	return res.Code(
 		C.MSK_getprimalsolutionnorms(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(nrmxc),
-			(*C.MSKrealt)(nrmxx),
-			(*C.MSKrealt)(nrmbarx),
+			(*C.MSKrealt)(getPtrToFirst(nrmxc)),
+			(*C.MSKrealt)(getPtrToFirst(nrmxx)),
+			(*C.MSKrealt)(getPtrToFirst(nrmbarx)),
 		),
 	).ToError()
 }
@@ -2294,16 +2294,16 @@ func (task *Task) GetProSta(
 func (task *Task) GetPviolAcc(
 	whichsol SolType,
 	numaccidx int64,
-	accidxlist *int64,
-	viol *float64,
+	accidxlist []int64,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getpviolacc(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint64t(numaccidx),
-			(*C.MSKint64t)(accidxlist),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint64t)(getPtrToFirst(accidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -2321,16 +2321,16 @@ func (task *Task) GetPviolAcc(
 func (task *Task) GetPviolBarvar(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getpviolbarvar(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -2348,16 +2348,16 @@ func (task *Task) GetPviolBarvar(
 func (task *Task) GetPviolCon(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getpviolcon(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -2377,16 +2377,16 @@ func (task *Task) GetPviolCon(
 func (task *Task) GetPviolCones(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getpviolcones(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -2404,16 +2404,16 @@ func (task *Task) GetPviolCones(
 func (task *Task) GetPviolDjc(
 	whichsol SolType,
 	numdjcidx int64,
-	djcidxlist *int64,
-	viol *float64,
+	djcidxlist []int64,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getpvioldjc(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint64t(numdjcidx),
-			(*C.MSKint64t)(djcidxlist),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint64t)(getPtrToFirst(djcidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -2431,16 +2431,16 @@ func (task *Task) GetPviolDjc(
 func (task *Task) GetPviolVar(
 	whichsol SolType,
 	num int32,
-	sub *int32,
-	viol *float64,
+	sub []int32,
+	viol []float64,
 ) error {
 	return res.Code(
 		C.MSK_getpviolvar(
 			task.task,
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(num),
-			(*C.MSKint32t)(sub),
-			(*C.MSKrealt)(viol),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(viol)),
 		),
 	).ToError()
 }
@@ -2463,20 +2463,20 @@ func (task *Task) GetPviolVar(
 func (task *Task) GetQConK(
 	k int32,
 	maxnumqcnz int32,
-	numqcnz *int32,
-	qcsubi *int32,
-	qcsubj *int32,
-	qcval *float64,
+	numqcnz []int32,
+	qcsubi []int32,
+	qcsubj []int32,
+	qcval []float64,
 ) error {
 	return res.Code(
 		C.MSK_getqconk(
 			task.task,
 			C.MSKint32t(k),
 			C.MSKint32t(maxnumqcnz),
-			(*C.MSKint32t)(numqcnz),
-			(*C.MSKint32t)(qcsubi),
-			(*C.MSKint32t)(qcsubj),
-			(*C.MSKrealt)(qcval),
+			(*C.MSKint32t)(getPtrToFirst(numqcnz)),
+			(*C.MSKint32t)(getPtrToFirst(qcsubi)),
+			(*C.MSKint32t)(getPtrToFirst(qcsubj)),
+			(*C.MSKrealt)(getPtrToFirst(qcval)),
 		),
 	).ToError()
 }
@@ -2487,20 +2487,20 @@ func (task *Task) GetQConK(
 func (task *Task) GetQConK64(
 	k int32,
 	maxnumqcnz int64,
-	numqcnz *int64,
-	qcsubi *int32,
-	qcsubj *int32,
-	qcval *float64,
+	numqcnz []int64,
+	qcsubi []int32,
+	qcsubj []int32,
+	qcval []float64,
 ) error {
 	return res.Code(
 		C.MSK_getqconk64(
 			task.task,
 			C.MSKint32t(k),
 			C.MSKint64t(maxnumqcnz),
-			(*C.MSKint64t)(numqcnz),
-			(*C.MSKint32t)(qcsubi),
-			(*C.MSKint32t)(qcsubj),
-			(*C.MSKrealt)(qcval),
+			(*C.MSKint64t)(getPtrToFirst(numqcnz)),
+			(*C.MSKint32t)(getPtrToFirst(qcsubi)),
+			(*C.MSKint32t)(getPtrToFirst(qcsubj)),
+			(*C.MSKrealt)(getPtrToFirst(qcval)),
 		),
 	).ToError()
 }
@@ -2518,19 +2518,19 @@ func (task *Task) GetQConK64(
 // [MSK_getqobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqobj
 func (task *Task) GetQObj(
 	maxnumqonz int32,
-	numqonz *int32,
-	qosubi *int32,
-	qosubj *int32,
-	qoval *float64,
+	numqonz []int32,
+	qosubi []int32,
+	qosubj []int32,
+	qoval []float64,
 ) error {
 	return res.Code(
 		C.MSK_getqobj(
 			task.task,
 			C.MSKint32t(maxnumqonz),
-			(*C.MSKint32t)(numqonz),
-			(*C.MSKint32t)(qosubi),
-			(*C.MSKint32t)(qosubj),
-			(*C.MSKrealt)(qoval),
+			(*C.MSKint32t)(getPtrToFirst(numqonz)),
+			(*C.MSKint32t)(getPtrToFirst(qosubi)),
+			(*C.MSKint32t)(getPtrToFirst(qosubj)),
+			(*C.MSKrealt)(getPtrToFirst(qoval)),
 		),
 	).ToError()
 }
@@ -2540,19 +2540,19 @@ func (task *Task) GetQObj(
 // [MSK_getqobj64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqobj64
 func (task *Task) GetQObj64(
 	maxnumqonz int64,
-	numqonz *int64,
-	qosubi *int32,
-	qosubj *int32,
-	qoval *float64,
+	numqonz []int64,
+	qosubi []int32,
+	qosubj []int32,
+	qoval []float64,
 ) error {
 	return res.Code(
 		C.MSK_getqobj64(
 			task.task,
 			C.MSKint64t(maxnumqonz),
-			(*C.MSKint64t)(numqonz),
-			(*C.MSKint32t)(qosubi),
-			(*C.MSKint32t)(qosubj),
-			(*C.MSKrealt)(qoval),
+			(*C.MSKint64t)(getPtrToFirst(numqonz)),
+			(*C.MSKint32t)(getPtrToFirst(qosubi)),
+			(*C.MSKint32t)(getPtrToFirst(qosubj)),
+			(*C.MSKrealt)(getPtrToFirst(qoval)),
 		),
 	).ToError()
 }
@@ -2570,14 +2570,14 @@ func (task *Task) GetQObj64(
 func (task *Task) GetQObjIJ(
 	i int32,
 	j int32,
-	qoij *float64,
+	qoij []float64,
 ) error {
 	return res.Code(
 		C.MSK_getqobjij(
 			task.task,
 			C.MSKint32t(i),
 			C.MSKint32t(j),
-			(*C.MSKrealt)(qoij),
+			(*C.MSKrealt)(getPtrToFirst(qoij)),
 		),
 	).ToError()
 }
@@ -2597,7 +2597,7 @@ func (task *Task) GetReducedCosts(
 	whichsol SolType,
 	first int32,
 	last int32,
-	redcosts *float64,
+	redcosts []float64,
 ) error {
 	return res.Code(
 		C.MSK_getreducedcosts(
@@ -2605,7 +2605,7 @@ func (task *Task) GetReducedCosts(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(redcosts),
+			(*C.MSKrealt)(getPtrToFirst(redcosts)),
 		),
 	).ToError()
 }
@@ -2621,13 +2621,13 @@ func (task *Task) GetReducedCosts(
 // [MSK_getskc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskc
 func (task *Task) GetSkc(
 	whichsol SolType,
-	skc *StaKey,
+	skc []StaKey,
 ) error {
 	return res.Code(
 		C.MSK_getskc(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKstakeye)(skc),
+			(*C.MSKstakeye)(getPtrToFirst(skc)),
 		),
 	).ToError()
 }
@@ -2643,13 +2643,13 @@ func (task *Task) GetSkc(
 // [MSK_getskn]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskn
 func (task *Task) GetSkn(
 	whichsol SolType,
-	skn *StaKey,
+	skn []StaKey,
 ) error {
 	return res.Code(
 		C.MSK_getskn(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKstakeye)(skn),
+			(*C.MSKstakeye)(getPtrToFirst(skn)),
 		),
 	).ToError()
 }
@@ -2665,13 +2665,13 @@ func (task *Task) GetSkn(
 // [MSK_getskx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getskx
 func (task *Task) GetSkx(
 	whichsol SolType,
-	skx *StaKey,
+	skx []StaKey,
 ) error {
 	return res.Code(
 		C.MSK_getskx(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKstakeye)(skx),
+			(*C.MSKstakeye)(getPtrToFirst(skx)),
 		),
 	).ToError()
 }
@@ -2687,13 +2687,13 @@ func (task *Task) GetSkx(
 // [MSK_getslc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getslc
 func (task *Task) GetSlc(
 	whichsol SolType,
-	slc *float64,
+	slc []float64,
 ) error {
 	return res.Code(
 		C.MSK_getslc(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(slc),
+			(*C.MSKrealt)(getPtrToFirst(slc)),
 		),
 	).ToError()
 }
@@ -2709,13 +2709,13 @@ func (task *Task) GetSlc(
 // [MSK_getslx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getslx
 func (task *Task) GetSlx(
 	whichsol SolType,
-	slx *float64,
+	slx []float64,
 ) error {
 	return res.Code(
 		C.MSK_getslx(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(slx),
+			(*C.MSKrealt)(getPtrToFirst(slx)),
 		),
 	).ToError()
 }
@@ -2731,13 +2731,13 @@ func (task *Task) GetSlx(
 // [MSK_getsnx]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsnx
 func (task *Task) GetSnx(
 	whichsol SolType,
-	snx *float64,
+	snx []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsnx(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(snx),
+			(*C.MSKrealt)(getPtrToFirst(snx)),
 		),
 	).ToError()
 }
@@ -2791,37 +2791,37 @@ func (task *Task) GetSolSta(
 // [MSK_getsolution]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolution
 func (task *Task) GetSolution(
 	whichsol SolType,
-	problemsta *ProSta,
-	solutionsta *SolSta,
-	skc *StaKey,
-	skx *StaKey,
-	skn *StaKey,
-	xc *float64,
-	xx *float64,
-	y *float64,
-	slc *float64,
-	suc *float64,
-	slx *float64,
-	sux *float64,
-	snx *float64,
+	problemsta []ProSta,
+	solutionsta []SolSta,
+	skc []StaKey,
+	skx []StaKey,
+	skn []StaKey,
+	xc []float64,
+	xx []float64,
+	y []float64,
+	slc []float64,
+	suc []float64,
+	slx []float64,
+	sux []float64,
+	snx []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsolution(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKprostae)(problemsta),
-			(*C.MSKsolstae)(solutionsta),
-			(*C.MSKstakeye)(skc),
-			(*C.MSKstakeye)(skx),
-			(*C.MSKstakeye)(skn),
-			(*C.MSKrealt)(xc),
-			(*C.MSKrealt)(xx),
-			(*C.MSKrealt)(y),
-			(*C.MSKrealt)(slc),
-			(*C.MSKrealt)(suc),
-			(*C.MSKrealt)(slx),
-			(*C.MSKrealt)(sux),
-			(*C.MSKrealt)(snx),
+			(*C.MSKprostae)(getPtrToFirst(problemsta)),
+			(*C.MSKsolstae)(getPtrToFirst(solutionsta)),
+			(*C.MSKstakeye)(getPtrToFirst(skc)),
+			(*C.MSKstakeye)(getPtrToFirst(skx)),
+			(*C.MSKstakeye)(getPtrToFirst(skn)),
+			(*C.MSKrealt)(getPtrToFirst(xc)),
+			(*C.MSKrealt)(getPtrToFirst(xx)),
+			(*C.MSKrealt)(getPtrToFirst(y)),
+			(*C.MSKrealt)(getPtrToFirst(slc)),
+			(*C.MSKrealt)(getPtrToFirst(suc)),
+			(*C.MSKrealt)(getPtrToFirst(slx)),
+			(*C.MSKrealt)(getPtrToFirst(sux)),
+			(*C.MSKrealt)(getPtrToFirst(snx)),
 		),
 	).ToError()
 }
@@ -2847,33 +2847,33 @@ func (task *Task) GetSolution(
 // [MSK_getsolutioninfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutioninfo
 func (task *Task) GetSolutionInfo(
 	whichsol SolType,
-	pobj *float64,
-	pviolcon *float64,
-	pviolvar *float64,
-	pviolbarvar *float64,
-	pviolcone *float64,
-	pviolitg *float64,
-	dobj *float64,
-	dviolcon *float64,
-	dviolvar *float64,
-	dviolbarvar *float64,
-	dviolcone *float64,
+	pobj []float64,
+	pviolcon []float64,
+	pviolvar []float64,
+	pviolbarvar []float64,
+	pviolcone []float64,
+	pviolitg []float64,
+	dobj []float64,
+	dviolcon []float64,
+	dviolvar []float64,
+	dviolbarvar []float64,
+	dviolcone []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsolutioninfo(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(pobj),
-			(*C.MSKrealt)(pviolcon),
-			(*C.MSKrealt)(pviolvar),
-			(*C.MSKrealt)(pviolbarvar),
-			(*C.MSKrealt)(pviolcone),
-			(*C.MSKrealt)(pviolitg),
-			(*C.MSKrealt)(dobj),
-			(*C.MSKrealt)(dviolcon),
-			(*C.MSKrealt)(dviolvar),
-			(*C.MSKrealt)(dviolbarvar),
-			(*C.MSKrealt)(dviolcone),
+			(*C.MSKrealt)(getPtrToFirst(pobj)),
+			(*C.MSKrealt)(getPtrToFirst(pviolcon)),
+			(*C.MSKrealt)(getPtrToFirst(pviolvar)),
+			(*C.MSKrealt)(getPtrToFirst(pviolbarvar)),
+			(*C.MSKrealt)(getPtrToFirst(pviolcone)),
+			(*C.MSKrealt)(getPtrToFirst(pviolitg)),
+			(*C.MSKrealt)(getPtrToFirst(dobj)),
+			(*C.MSKrealt)(getPtrToFirst(dviolcon)),
+			(*C.MSKrealt)(getPtrToFirst(dviolvar)),
+			(*C.MSKrealt)(getPtrToFirst(dviolbarvar)),
+			(*C.MSKrealt)(getPtrToFirst(dviolcone)),
 		),
 	).ToError()
 }
@@ -2902,39 +2902,39 @@ func (task *Task) GetSolutionInfo(
 // [MSK_getsolutioninfonew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutioninfonew
 func (task *Task) GetSolutionInfoNew(
 	whichsol SolType,
-	pobj *float64,
-	pviolcon *float64,
-	pviolvar *float64,
-	pviolbarvar *float64,
-	pviolcone *float64,
-	pviolacc *float64,
-	pvioldjc *float64,
-	pviolitg *float64,
-	dobj *float64,
-	dviolcon *float64,
-	dviolvar *float64,
-	dviolbarvar *float64,
-	dviolcone *float64,
-	dviolacc *float64,
+	pobj []float64,
+	pviolcon []float64,
+	pviolvar []float64,
+	pviolbarvar []float64,
+	pviolcone []float64,
+	pviolacc []float64,
+	pvioldjc []float64,
+	pviolitg []float64,
+	dobj []float64,
+	dviolcon []float64,
+	dviolvar []float64,
+	dviolbarvar []float64,
+	dviolcone []float64,
+	dviolacc []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsolutioninfonew(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(pobj),
-			(*C.MSKrealt)(pviolcon),
-			(*C.MSKrealt)(pviolvar),
-			(*C.MSKrealt)(pviolbarvar),
-			(*C.MSKrealt)(pviolcone),
-			(*C.MSKrealt)(pviolacc),
-			(*C.MSKrealt)(pvioldjc),
-			(*C.MSKrealt)(pviolitg),
-			(*C.MSKrealt)(dobj),
-			(*C.MSKrealt)(dviolcon),
-			(*C.MSKrealt)(dviolvar),
-			(*C.MSKrealt)(dviolbarvar),
-			(*C.MSKrealt)(dviolcone),
-			(*C.MSKrealt)(dviolacc),
+			(*C.MSKrealt)(getPtrToFirst(pobj)),
+			(*C.MSKrealt)(getPtrToFirst(pviolcon)),
+			(*C.MSKrealt)(getPtrToFirst(pviolvar)),
+			(*C.MSKrealt)(getPtrToFirst(pviolbarvar)),
+			(*C.MSKrealt)(getPtrToFirst(pviolcone)),
+			(*C.MSKrealt)(getPtrToFirst(pviolacc)),
+			(*C.MSKrealt)(getPtrToFirst(pvioldjc)),
+			(*C.MSKrealt)(getPtrToFirst(pviolitg)),
+			(*C.MSKrealt)(getPtrToFirst(dobj)),
+			(*C.MSKrealt)(getPtrToFirst(dviolcon)),
+			(*C.MSKrealt)(getPtrToFirst(dviolvar)),
+			(*C.MSKrealt)(getPtrToFirst(dviolbarvar)),
+			(*C.MSKrealt)(getPtrToFirst(dviolcone)),
+			(*C.MSKrealt)(getPtrToFirst(dviolacc)),
 		),
 	).ToError()
 }
@@ -2963,39 +2963,39 @@ func (task *Task) GetSolutionInfoNew(
 // [MSK_getsolutionnew]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsolutionnew
 func (task *Task) GetSolutionNew(
 	whichsol SolType,
-	problemsta *ProSta,
-	solutionsta *SolSta,
-	skc *StaKey,
-	skx *StaKey,
-	skn *StaKey,
-	xc *float64,
-	xx *float64,
-	y *float64,
-	slc *float64,
-	suc *float64,
-	slx *float64,
-	sux *float64,
-	snx *float64,
-	doty *float64,
+	problemsta []ProSta,
+	solutionsta []SolSta,
+	skc []StaKey,
+	skx []StaKey,
+	skn []StaKey,
+	xc []float64,
+	xx []float64,
+	y []float64,
+	slc []float64,
+	suc []float64,
+	slx []float64,
+	sux []float64,
+	snx []float64,
+	doty []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsolutionnew(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKprostae)(problemsta),
-			(*C.MSKsolstae)(solutionsta),
-			(*C.MSKstakeye)(skc),
-			(*C.MSKstakeye)(skx),
-			(*C.MSKstakeye)(skn),
-			(*C.MSKrealt)(xc),
-			(*C.MSKrealt)(xx),
-			(*C.MSKrealt)(y),
-			(*C.MSKrealt)(slc),
-			(*C.MSKrealt)(suc),
-			(*C.MSKrealt)(slx),
-			(*C.MSKrealt)(sux),
-			(*C.MSKrealt)(snx),
-			(*C.MSKrealt)(doty),
+			(*C.MSKprostae)(getPtrToFirst(problemsta)),
+			(*C.MSKsolstae)(getPtrToFirst(solutionsta)),
+			(*C.MSKstakeye)(getPtrToFirst(skc)),
+			(*C.MSKstakeye)(getPtrToFirst(skx)),
+			(*C.MSKstakeye)(getPtrToFirst(skn)),
+			(*C.MSKrealt)(getPtrToFirst(xc)),
+			(*C.MSKrealt)(getPtrToFirst(xx)),
+			(*C.MSKrealt)(getPtrToFirst(y)),
+			(*C.MSKrealt)(getPtrToFirst(slc)),
+			(*C.MSKrealt)(getPtrToFirst(suc)),
+			(*C.MSKrealt)(getPtrToFirst(slx)),
+			(*C.MSKrealt)(getPtrToFirst(sux)),
+			(*C.MSKrealt)(getPtrToFirst(snx)),
+			(*C.MSKrealt)(getPtrToFirst(doty)),
 		),
 	).ToError()
 }
@@ -3014,18 +3014,18 @@ func (task *Task) GetSolutionNew(
 func (task *Task) GetSparseSymMat(
 	idx int64,
 	maxlen int64,
-	subi *int32,
-	subj *int32,
-	valij *float64,
+	subi []int32,
+	subj []int32,
+	valij []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsparsesymmat(
 			task.task,
 			C.MSKint64t(idx),
 			C.MSKint64t(maxlen),
-			(*C.MSKint32t)(subi),
-			(*C.MSKint32t)(subj),
-			(*C.MSKrealt)(valij),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valij)),
 		),
 	).ToError()
 }
@@ -3046,7 +3046,7 @@ func (task *Task) GetSparseSymMat(
 func (task *Task) GetStrParam(
 	param SParam,
 	maxlen int32,
-	len *int32,
+	len []int32,
 	parvalue *byte,
 ) error {
 	return res.Code(
@@ -3054,7 +3054,7 @@ func (task *Task) GetStrParam(
 			task.task,
 			C.MSKsparame(param),
 			C.MSKint32t(maxlen),
-			(*C.MSKint32t)(len),
+			(*C.MSKint32t)(getPtrToFirst(len)),
 			(*C.char)(unsafe.Pointer(parvalue)),
 		),
 	).ToError()
@@ -3097,13 +3097,13 @@ func (task *Task) GetStrParamLen(
 // [MSK_getsuc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsuc
 func (task *Task) GetSuc(
 	whichsol SolType,
-	suc *float64,
+	suc []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsuc(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(suc),
+			(*C.MSKrealt)(getPtrToFirst(suc)),
 		),
 	).ToError()
 }
@@ -3119,13 +3119,13 @@ func (task *Task) GetSuc(
 // [MSK_getsux]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsux
 func (task *Task) GetSux(
 	whichsol SolType,
-	sux *float64,
+	sux []float64,
 ) error {
 	return res.Code(
 		C.MSK_getsux(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(sux),
+			(*C.MSKrealt)(getPtrToFirst(sux)),
 		),
 	).ToError()
 }
@@ -3147,7 +3147,7 @@ func (task *Task) GetSymbCon(
 	i int32,
 	sizevalue int32,
 	name *byte,
-	value *int32,
+	value []int32,
 ) error {
 	return res.Code(
 		C.MSK_getsymbcon(
@@ -3155,7 +3155,7 @@ func (task *Task) GetSymbCon(
 			C.MSKint32t(i),
 			C.MSKint32t(sizevalue),
 			(*C.char)(unsafe.Pointer(name)),
-			(*C.MSKint32t)(value),
+			(*C.MSKint32t)(getPtrToFirst(value)),
 		),
 	).ToError()
 }
@@ -3173,17 +3173,17 @@ func (task *Task) GetSymbCon(
 // [MSK_getsymmatinfo]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getsymmatinfo
 func (task *Task) GetSymMatInfo(
 	idx int64,
-	dim *int32,
-	nz *int64,
-	mattype *SymmatType,
+	dim []int32,
+	nz []int64,
+	mattype []SymmatType,
 ) error {
 	return res.Code(
 		C.MSK_getsymmatinfo(
 			task.task,
 			C.MSKint64t(idx),
-			(*C.MSKint32t)(dim),
-			(*C.MSKint64t)(nz),
-			(*C.MSKsymmattypee)(mattype),
+			(*C.MSKint32t)(getPtrToFirst(dim)),
+			(*C.MSKint64t)(getPtrToFirst(nz)),
+			(*C.MSKsymmattypee)(getPtrToFirst(mattype)),
 		),
 	).ToError()
 }
@@ -3201,17 +3201,17 @@ func (task *Task) GetSymMatInfo(
 // [MSK_getvarbound]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarbound
 func (task *Task) GetVarBound(
 	i int32,
-	bk *BoundKey,
-	bl *float64,
-	bu *float64,
+	bk []BoundKey,
+	bl []float64,
+	bu []float64,
 ) error {
 	return res.Code(
 		C.MSK_getvarbound(
 			task.task,
 			C.MSKint32t(i),
-			(*C.MSKboundkeye)(bk),
-			(*C.MSKrealt)(bl),
-			(*C.MSKrealt)(bu),
+			(*C.MSKboundkeye)(getPtrToFirst(bk)),
+			(*C.MSKrealt)(getPtrToFirst(bl)),
+			(*C.MSKrealt)(getPtrToFirst(bu)),
 		),
 	).ToError()
 }
@@ -3231,7 +3231,7 @@ func (task *Task) GetVarBound(
 // [MSK_getvarnameindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getvarnameindex
 func (task *Task) GetVarNameIndex(
 	somename string,
-	asgn *int32,
+	asgn []int32,
 ) (index int32, r error) {
 	c_somename := C.CString(somename)
 	defer C.free(unsafe.Pointer(c_somename))
@@ -3240,7 +3240,7 @@ func (task *Task) GetVarNameIndex(
 		C.MSK_getvarnameindex(
 			task.task,
 			c_somename,
-			(*C.MSKint32t)(asgn),
+			(*C.MSKint32t)(getPtrToFirst(asgn)),
 			(*C.MSKint32t)(&index),
 		),
 	).ToError()
@@ -3285,13 +3285,13 @@ func (task *Task) GetVarType(
 // [MSK_getxc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getxc
 func (task *Task) GetXc(
 	whichsol SolType,
-	xc *float64,
+	xc []float64,
 ) error {
 	return res.Code(
 		C.MSK_getxc(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(xc),
+			(*C.MSKrealt)(getPtrToFirst(xc)),
 		),
 	).ToError()
 }
@@ -3307,13 +3307,13 @@ func (task *Task) GetXc(
 // [MSK_gety]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.gety
 func (task *Task) GetY(
 	whichsol SolType,
-	y *float64,
+	y []float64,
 ) error {
 	return res.Code(
 		C.MSK_gety(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(y),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 		),
 	).ToError()
 }
