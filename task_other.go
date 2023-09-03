@@ -92,8 +92,8 @@ func (task *Task) BasisCond(
 	return res.Code(
 		C.MSK_basiscond(
 			task.task,
-			(*C.MSKrealt)(&nrmbasis[0]),
-			(*C.MSKrealt)(&nrminvbasis[0]),
+			(*C.MSKrealt)(getPtrToFirst(nrmbasis)),
+			(*C.MSKrealt)(getPtrToFirst(nrminvbasis)),
 		),
 	).ToError()
 }
@@ -280,11 +280,11 @@ func (task *Task) DualSensitivity(
 		C.MSK_dualsensitivity(
 			task.task,
 			C.MSKint32t(numj),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&leftpricej[0]),
-			(*C.MSKrealt)(&rightpricej[0]),
-			(*C.MSKrealt)(&leftrangej[0]),
-			(*C.MSKrealt)(&rightrangej[0]),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(leftpricej)),
+			(*C.MSKrealt)(getPtrToFirst(rightpricej)),
+			(*C.MSKrealt)(getPtrToFirst(leftrangej)),
+			(*C.MSKrealt)(getPtrToFirst(rightrangej)),
 		),
 	).ToError()
 }
@@ -324,7 +324,7 @@ func (task *Task) EmptyAfeBarfRowList(
 		C.MSK_emptyafebarfrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidxlist[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
 		),
 	).ToError()
 }
@@ -364,7 +364,7 @@ func (task *Task) EmptyAfeFColList(
 		C.MSK_emptyafefcollist(
 			task.task,
 			C.MSKint64t(numvaridx),
-			(*C.MSKint32t)(&varidx[0]),
+			(*C.MSKint32t)(getPtrToFirst(varidx)),
 		),
 	).ToError()
 }
@@ -404,7 +404,7 @@ func (task *Task) EmptyAfeFRowList(
 		C.MSK_emptyafefrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidx[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
 		),
 	).ToError()
 }
@@ -426,7 +426,7 @@ func (task *Task) EvaluateAccs(
 		C.MSK_evaluateaccs(
 			task.task,
 			C.MSKsoltypee(whichsol),
-			(*C.MSKrealt)(&activity[0]),
+			(*C.MSKrealt)(getPtrToFirst(activity)),
 		),
 	).ToError()
 }
@@ -611,7 +611,7 @@ func (task *Task) InitBasisSolve(
 	return res.Code(
 		C.MSK_initbasissolve(
 			task.task,
-			(*C.MSKint32t)(&basis[0]),
+			(*C.MSKint32t)(getPtrToFirst(basis)),
 		),
 	).ToError()
 }
@@ -662,18 +662,18 @@ func (task *Task) InputData(
 			C.MSKint32t(maxnumvar),
 			C.MSKint32t(numcon),
 			C.MSKint32t(numvar),
-			(*C.MSKrealt)(&c[0]),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 			C.MSKrealt(cfix),
-			(*C.MSKint32t)(&aptrb[0]),
-			(*C.MSKint32t)(&aptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
-			(*C.MSKboundkeye)(&bkc[0]),
-			(*C.MSKrealt)(&blc[0]),
-			(*C.MSKrealt)(&buc[0]),
-			(*C.MSKboundkeye)(&bkx[0]),
-			(*C.MSKrealt)(&blx[0]),
-			(*C.MSKrealt)(&bux[0]),
+			(*C.MSKint32t)(getPtrToFirst(aptrb)),
+			(*C.MSKint32t)(getPtrToFirst(aptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkc)),
+			(*C.MSKrealt)(getPtrToFirst(blc)),
+			(*C.MSKrealt)(getPtrToFirst(buc)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkx)),
+			(*C.MSKrealt)(getPtrToFirst(blx)),
+			(*C.MSKrealt)(getPtrToFirst(bux)),
 		),
 	).ToError()
 }
@@ -706,18 +706,18 @@ func (task *Task) Inputdata64(
 			C.MSKint32t(maxnumvar),
 			C.MSKint32t(numcon),
 			C.MSKint32t(numvar),
-			(*C.MSKrealt)(&c[0]),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 			C.MSKrealt(cfix),
-			(*C.MSKint64t)(&aptrb[0]),
-			(*C.MSKint64t)(&aptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
-			(*C.MSKboundkeye)(&bkc[0]),
-			(*C.MSKrealt)(&blc[0]),
-			(*C.MSKrealt)(&buc[0]),
-			(*C.MSKboundkeye)(&bkx[0]),
-			(*C.MSKrealt)(&blx[0]),
-			(*C.MSKrealt)(&bux[0]),
+			(*C.MSKint64t)(getPtrToFirst(aptrb)),
+			(*C.MSKint64t)(getPtrToFirst(aptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkc)),
+			(*C.MSKrealt)(getPtrToFirst(blc)),
+			(*C.MSKrealt)(getPtrToFirst(buc)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkx)),
+			(*C.MSKrealt)(getPtrToFirst(blx)),
+			(*C.MSKrealt)(getPtrToFirst(bux)),
 		),
 	).ToError()
 }
@@ -871,10 +871,10 @@ func (task *Task) PrimalRepair(
 	return res.Code(
 		C.MSK_primalrepair(
 			task.task,
-			(*C.MSKrealt)(&wlc[0]),
-			(*C.MSKrealt)(&wuc[0]),
-			(*C.MSKrealt)(&wlx[0]),
-			(*C.MSKrealt)(&wux[0]),
+			(*C.MSKrealt)(getPtrToFirst(wlc)),
+			(*C.MSKrealt)(getPtrToFirst(wuc)),
+			(*C.MSKrealt)(getPtrToFirst(wlx)),
+			(*C.MSKrealt)(getPtrToFirst(wux)),
 		),
 	).ToError()
 }
@@ -918,19 +918,19 @@ func (task *Task) PrimalSensitivity(
 		C.MSK_primalsensitivity(
 			task.task,
 			C.MSKint32t(numi),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKmarke)(&marki[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKmarke)(getPtrToFirst(marki)),
 			C.MSKint32t(numj),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKmarke)(&markj[0]),
-			(*C.MSKrealt)(&leftpricei[0]),
-			(*C.MSKrealt)(&rightpricei[0]),
-			(*C.MSKrealt)(&leftrangei[0]),
-			(*C.MSKrealt)(&rightrangei[0]),
-			(*C.MSKrealt)(&leftpricej[0]),
-			(*C.MSKrealt)(&rightpricej[0]),
-			(*C.MSKrealt)(&leftrangej[0]),
-			(*C.MSKrealt)(&rightrangej[0]),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKmarke)(getPtrToFirst(markj)),
+			(*C.MSKrealt)(getPtrToFirst(leftpricei)),
+			(*C.MSKrealt)(getPtrToFirst(rightpricei)),
+			(*C.MSKrealt)(getPtrToFirst(leftrangei)),
+			(*C.MSKrealt)(getPtrToFirst(rightrangei)),
+			(*C.MSKrealt)(getPtrToFirst(leftpricej)),
+			(*C.MSKrealt)(getPtrToFirst(rightpricej)),
+			(*C.MSKrealt)(getPtrToFirst(leftrangej)),
+			(*C.MSKrealt)(getPtrToFirst(rightrangej)),
 		),
 	).ToError()
 }
@@ -1325,7 +1325,7 @@ func (task *Task) RemoveBarvars(
 		C.MSK_removebarvars(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subset[0]),
+			(*C.MSKint32t)(getPtrToFirst(subset)),
 		),
 	).ToError()
 }
@@ -1348,7 +1348,7 @@ func (task *Task) RemoveCones(
 		C.MSK_removecones(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subset[0]),
+			(*C.MSKint32t)(getPtrToFirst(subset)),
 		),
 	).ToError()
 }
@@ -1369,7 +1369,7 @@ func (task *Task) RemoveCons(
 		C.MSK_removecons(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subset[0]),
+			(*C.MSKint32t)(getPtrToFirst(subset)),
 		),
 	).ToError()
 }
@@ -1390,7 +1390,7 @@ func (task *Task) RemoveVars(
 		C.MSK_removevars(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subset[0]),
+			(*C.MSKint32t)(getPtrToFirst(subset)),
 		),
 	).ToError()
 }
@@ -1586,9 +1586,9 @@ func (task *Task) SolveWithBasis(
 			task.task,
 			boolToInt(transp),
 			C.MSKint32t(numnz),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKrealt)(&val[0]),
-			(*C.MSKint32t)(&numnzout[0]),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
+			(*C.MSKint32t)(getPtrToFirst(numnzout)),
 		),
 	).ToError()
 }
@@ -1615,7 +1615,7 @@ func (task *Task) StrToConeType(
 		C.MSK_strtoconetype(
 			task.task,
 			c_str,
-			(*C.MSKconetypee)(&conetype[0]),
+			(*C.MSKconetypee)(getPtrToFirst(conetype)),
 		),
 	).ToError()
 }
@@ -1640,7 +1640,7 @@ func (task *Task) StrToSk(
 		C.MSK_strtosk(
 			task.task,
 			c_str,
-			(*C.MSKstakeye)(&sk[0]),
+			(*C.MSKstakeye)(getPtrToFirst(sk)),
 		),
 	).ToError()
 }
@@ -1714,8 +1714,8 @@ func (task *Task) WhichParam(
 		C.MSK_whichparam(
 			task.task,
 			c_parname,
-			(*C.MSKparametertypee)(&partype[0]),
-			(*C.MSKint32t)(&param[0]),
+			(*C.MSKparametertypee)(getPtrToFirst(partype)),
+			(*C.MSKint32t)(getPtrToFirst(param)),
 		),
 	).ToError()
 }

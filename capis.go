@@ -391,3 +391,11 @@ func boolToInt(i bool) C.MSKbooleant {
 		return 0
 	}
 }
+
+func getPtrToFirst[T any](v []T) *T {
+	if v == nil || len(v) == 0 {
+		return nil
+	} else {
+		return &v[0]
+	}
+}

@@ -28,7 +28,7 @@ func (task *Task) GetAccAfeIdxList(
 		C.MSK_getaccafeidxlist(
 			task.task,
 			C.MSKint64t(accidx),
-			(*C.MSKint64t)(&afeidxlist[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
 		),
 	).ToError()
 }
@@ -61,10 +61,10 @@ func (task *Task) GetAColSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint32t(maxnumnz),
-			(*C.MSKint32t)(&ptrb[0]),
-			(*C.MSKint32t)(&ptre[0]),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKrealt)(&val[0]),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -89,7 +89,7 @@ func (task *Task) GetAfeGSlice(
 			task.task,
 			C.MSKint64t(first),
 			C.MSKint64t(last),
-			(*C.MSKrealt)(&g[0]),
+			(*C.MSKrealt)(getPtrToFirst(g)),
 		),
 	).ToError()
 }
@@ -122,10 +122,10 @@ func (task *Task) GetARowSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint32t(maxnumnz),
-			(*C.MSKint32t)(&ptrb[0]),
-			(*C.MSKint32t)(&ptre[0]),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKrealt)(&val[0]),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -156,7 +156,7 @@ func (task *Task) GetBarsSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(slicesize),
-			(*C.MSKrealt)(&barsslice[0]),
+			(*C.MSKrealt)(getPtrToFirst(barsslice)),
 		),
 	).ToError()
 }
@@ -187,7 +187,7 @@ func (task *Task) GetBarxSlice(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(slicesize),
-			(*C.MSKrealt)(&barxslice[0]),
+			(*C.MSKrealt)(getPtrToFirst(barxslice)),
 		),
 	).ToError()
 }
@@ -210,8 +210,8 @@ func (task *Task) GetCList(
 		C.MSK_getclist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&c[0]),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 		),
 	).ToError()
 }
@@ -240,9 +240,9 @@ func (task *Task) GetConBoundSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(&bk[0]),
-			(*C.MSKrealt)(&bl[0]),
-			(*C.MSKrealt)(&bu[0]),
+			(*C.MSKboundkeye)(getPtrToFirst(bk)),
+			(*C.MSKrealt)(getPtrToFirst(bl)),
+			(*C.MSKrealt)(getPtrToFirst(bu)),
 		),
 	).ToError()
 }
@@ -267,7 +267,7 @@ func (task *Task) GetCSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&c[0]),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 		),
 	).ToError()
 }
@@ -289,7 +289,7 @@ func (task *Task) GetDjcAfeIdxList(
 		C.MSK_getdjcafeidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKint64t)(&afeidxlist[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
 		),
 	).ToError()
 }
@@ -311,7 +311,7 @@ func (task *Task) GetDjcDomainIdxList(
 		C.MSK_getdjcdomainidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKint64t)(&domidxlist[0]),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
 		),
 	).ToError()
 }
@@ -333,7 +333,7 @@ func (task *Task) GetDjcTermSizeList(
 		C.MSK_getdjctermsizelist(
 			task.task,
 			C.MSKint64t(djcidx),
-			(*C.MSKint64t)(&termsizelist[0]),
+			(*C.MSKint64t)(getPtrToFirst(termsizelist)),
 		),
 	).ToError()
 }
@@ -361,7 +361,7 @@ func (task *Task) GetSkcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(&skc[0]),
+			(*C.MSKstakeye)(getPtrToFirst(skc)),
 		),
 	).ToError()
 }
@@ -389,7 +389,7 @@ func (task *Task) GetSkxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(&skx[0]),
+			(*C.MSKstakeye)(getPtrToFirst(skx)),
 		),
 	).ToError()
 }
@@ -417,7 +417,7 @@ func (task *Task) GetSlcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&slc[0]),
+			(*C.MSKrealt)(getPtrToFirst(slc)),
 		),
 	).ToError()
 }
@@ -445,7 +445,7 @@ func (task *Task) GetSlxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&slx[0]),
+			(*C.MSKrealt)(getPtrToFirst(slx)),
 		),
 	).ToError()
 }
@@ -473,7 +473,7 @@ func (task *Task) GetSnxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&snx[0]),
+			(*C.MSKrealt)(getPtrToFirst(snx)),
 		),
 	).ToError()
 }
@@ -504,7 +504,7 @@ func (task *Task) GetSolutionSlice(
 			C.MSKsoliteme(solitem),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&values[0]),
+			(*C.MSKrealt)(getPtrToFirst(values)),
 		),
 	).ToError()
 }
@@ -532,7 +532,7 @@ func (task *Task) GetSucSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&suc[0]),
+			(*C.MSKrealt)(getPtrToFirst(suc)),
 		),
 	).ToError()
 }
@@ -560,7 +560,7 @@ func (task *Task) GetSuxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&sux[0]),
+			(*C.MSKrealt)(getPtrToFirst(sux)),
 		),
 	).ToError()
 }
@@ -589,9 +589,9 @@ func (task *Task) GetVarBoundSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(&bk[0]),
-			(*C.MSKrealt)(&bl[0]),
-			(*C.MSKrealt)(&bu[0]),
+			(*C.MSKboundkeye)(getPtrToFirst(bk)),
+			(*C.MSKrealt)(getPtrToFirst(bl)),
+			(*C.MSKrealt)(getPtrToFirst(bu)),
 		),
 	).ToError()
 }
@@ -614,8 +614,8 @@ func (task *Task) GetVarTypeList(
 		C.MSK_getvartypelist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKvariabletypee)(&vartype[0]),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKvariabletypee)(getPtrToFirst(vartype)),
 		),
 	).ToError()
 }
@@ -643,7 +643,7 @@ func (task *Task) GetXcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&xc[0]),
+			(*C.MSKrealt)(getPtrToFirst(xc)),
 		),
 	).ToError()
 }
@@ -671,7 +671,7 @@ func (task *Task) GetYSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&y[0]),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 		),
 	).ToError()
 }

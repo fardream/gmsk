@@ -177,9 +177,9 @@ func Utf8towchar(
 	return res.Code(
 		C.MSK_utf8towchar(
 			C.size_t(outputlen),
-			(*C.size_t)(&len[0]),
-			(*C.size_t)(&conv[0]),
-			(*C.MSKwchart)(&output[0]),
+			(*C.size_t)(getPtrToFirst(len)),
+			(*C.size_t)(getPtrToFirst(conv)),
+			(*C.MSKwchart)(getPtrToFirst(output)),
 			c_input,
 		),
 	).ToError()
@@ -198,10 +198,10 @@ func Wchartoutf8(
 	return res.Code(
 		C.MSK_wchartoutf8(
 			C.size_t(outputlen),
-			(*C.size_t)(&len[0]),
-			(*C.size_t)(&conv[0]),
+			(*C.size_t)(getPtrToFirst(len)),
+			(*C.size_t)(getPtrToFirst(conv)),
 			(*C.char)(unsafe.Pointer(output)),
-			(*C.MSKwchart)(&input[0]),
+			(*C.MSKwchart)(getPtrToFirst(input)),
 		),
 	).ToError()
 }

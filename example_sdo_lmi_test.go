@@ -79,7 +79,7 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk(task.AppendVars(NUMVAR))
 
 	/* Append 'NUMBARVAR' semidefinite variables. */
-	checkOk(task.AppendBarvars(NUMBARVAR, &DIMBARVAR[0]))
+	checkOk(task.AppendBarvars(NUMBARVAR, DIMBARVAR))
 
 	/* Set the constant term in the objective. */
 	checkOk(task.PutCfix(1))
@@ -93,26 +93,26 @@ func Example_semidefiniteOptimization_sdo_lmi() {
 	checkOk(r)
 
 	/* Set the linear term barc_j in the objective.*/
-	checkOk(task.PutBarcBlockTriplet(2, &barc_j[0], &barc_k[0], &barc_l[0], &barc_v[0]))
+	checkOk(task.PutBarcBlockTriplet(2, barc_j, barc_k, barc_l, barc_v))
 
 	/* Set the F matrix */
-	checkOk(task.PutAfeFEntryList(NUMFNZ, &afeidx[0], &varidx[0], &f_val[0]))
+	checkOk(task.PutAfeFEntryList(NUMFNZ, afeidx, varidx, f_val))
 	/* Set the g vector */
-	checkOk(task.PutAfeGSlice(0, NUMAFE, &g[0]))
+	checkOk(task.PutAfeGSlice(0, NUMAFE, g))
 	/* Set the barF matrix */
-	checkOk(task.PutAfeBarfBlockTriplet(2, &barf_i[0], &barf_j[0], &barf_k[0], &barf_l[0], &barf_v[0]))
+	checkOk(task.PutAfeBarfBlockTriplet(2, barf_i, barf_j, barf_k, barf_l, barf_v))
 
 	/* Append R+ domain and the corresponding ACC */
 	acc1_afeidx := []int64{0}
 	rplusdom, r := task.AppendRplusDomain(1)
 	checkOk(r)
-	checkOk(task.AppendAcc(rplusdom, 1, &acc1_afeidx[0], nil))
+	checkOk(task.AppendAcc(rplusdom, 1, acc1_afeidx, nil))
 
 	/* Append the SVEC_PSD domain and the corresponding ACC */
 	acc2_afeidx := []int64{1, 2, 3}
 	svecpsddom, r := task.AppendSvecPsdConeDomain(3)
 	checkOk(r)
-	checkOk(task.AppendAcc(svecpsddom, 3, &acc2_afeidx[0], nil))
+	checkOk(task.AppendAcc(svecpsddom, 3, acc2_afeidx, nil))
 
 	/* Run optimizer */
 	trmcode, r := task.OptimizeTrm()

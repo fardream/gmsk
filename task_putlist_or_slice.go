@@ -34,11 +34,11 @@ func (task *Task) PutAccList(
 		C.MSK_putacclist(
 			task.task,
 			C.MSKint64t(numaccs),
-			(*C.MSKint64t)(&accidxs[0]),
-			(*C.MSKint64t)(&domidxs[0]),
+			(*C.MSKint64t)(getPtrToFirst(accidxs)),
+			(*C.MSKint64t)(getPtrToFirst(domidxs)),
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidxlist[0]),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -67,11 +67,11 @@ func (task *Task) PutAColList(
 		C.MSK_putacollist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKint32t)(&ptrb[0]),
-			(*C.MSKint32t)(&ptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -91,11 +91,11 @@ func (task *Task) PutAColList64(
 		C.MSK_putacollist64(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKint64t)(&ptrb[0]),
-			(*C.MSKint64t)(&ptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -126,10 +126,10 @@ func (task *Task) PutAColSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKint32t)(&ptrb[0]),
-			(*C.MSKint32t)(&ptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -161,13 +161,13 @@ func (task *Task) PutAfeBarfEntryList(
 		C.MSK_putafebarfentrylist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidx[0]),
-			(*C.MSKint32t)(&barvaridx[0]),
-			(*C.MSKint64t)(&numterm[0]),
-			(*C.MSKint64t)(&ptrterm[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(barvaridx)),
+			(*C.MSKint64t)(getPtrToFirst(numterm)),
+			(*C.MSKint64t)(getPtrToFirst(ptrterm)),
 			C.MSKint64t(lenterm),
-			(*C.MSKint64t)(&termidx[0]),
-			(*C.MSKrealt)(&termweight[0]),
+			(*C.MSKint64t)(getPtrToFirst(termidx)),
+			(*C.MSKrealt)(getPtrToFirst(termweight)),
 		),
 	).ToError()
 }
@@ -192,9 +192,9 @@ func (task *Task) PutAfeFEntryList(
 		C.MSK_putafefentrylist(
 			task.task,
 			C.MSKint64t(numentr),
-			(*C.MSKint64t)(&afeidx[0]),
-			(*C.MSKint32t)(&varidx[0]),
-			(*C.MSKrealt)(&val[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(varidx)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -224,12 +224,12 @@ func (task *Task) PutAfeFRowList(
 		C.MSK_putafefrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidx[0]),
-			(*C.MSKint32t)(&numnzrow[0]),
-			(*C.MSKint64t)(&ptrrow[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKint32t)(getPtrToFirst(numnzrow)),
+			(*C.MSKint64t)(getPtrToFirst(ptrrow)),
 			C.MSKint64t(lenidxval),
-			(*C.MSKint32t)(&varidx[0]),
-			(*C.MSKrealt)(&val[0]),
+			(*C.MSKint32t)(getPtrToFirst(varidx)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -252,8 +252,8 @@ func (task *Task) PutAfeGList(
 		C.MSK_putafeglist(
 			task.task,
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidx[0]),
-			(*C.MSKrealt)(&g[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidx)),
+			(*C.MSKrealt)(getPtrToFirst(g)),
 		),
 	).ToError()
 }
@@ -278,7 +278,7 @@ func (task *Task) PutAfeGSlice(
 			task.task,
 			C.MSKint64t(first),
 			C.MSKint64t(last),
-			(*C.MSKrealt)(&slice[0]),
+			(*C.MSKrealt)(getPtrToFirst(slice)),
 		),
 	).ToError()
 }
@@ -303,9 +303,9 @@ func (task *Task) PutAijList(
 		C.MSK_putaijlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&valij[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valij)),
 		),
 	).ToError()
 }
@@ -323,9 +323,9 @@ func (task *Task) PutAijList64(
 		C.MSK_putaijlist64(
 			task.task,
 			C.MSKint64t(num),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&valij[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valij)),
 		),
 	).ToError()
 }
@@ -354,11 +354,11 @@ func (task *Task) PutARowList(
 		C.MSK_putarowlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKint32t)(&ptrb[0]),
-			(*C.MSKint32t)(&ptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -378,11 +378,11 @@ func (task *Task) PutARowList64(
 		C.MSK_putarowlist64(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKint64t)(&ptrb[0]),
-			(*C.MSKint64t)(&ptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -413,10 +413,10 @@ func (task *Task) PutARowSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKint32t)(&ptrb[0]),
-			(*C.MSKint32t)(&ptre[0]),
-			(*C.MSKint32t)(&asub[0]),
-			(*C.MSKrealt)(&aval[0]),
+			(*C.MSKint32t)(getPtrToFirst(ptrb)),
+			(*C.MSKint32t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(asub)),
+			(*C.MSKrealt)(getPtrToFirst(aval)),
 		),
 	).ToError()
 }
@@ -447,12 +447,12 @@ func (task *Task) PutBaraIjList(
 		C.MSK_putbaraijlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKint64t)(&alphaptrb[0]),
-			(*C.MSKint64t)(&alphaptre[0]),
-			(*C.MSKint64t)(&matidx[0]),
-			(*C.MSKrealt)(&weights[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKint64t)(getPtrToFirst(alphaptrb)),
+			(*C.MSKint64t)(getPtrToFirst(alphaptre)),
+			(*C.MSKint64t)(getPtrToFirst(matidx)),
+			(*C.MSKrealt)(getPtrToFirst(weights)),
 		),
 	).ToError()
 }
@@ -485,13 +485,13 @@ func (task *Task) PutBaraRowList(
 		C.MSK_putbararowlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint64t)(&ptrb[0]),
-			(*C.MSKint64t)(&ptre[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKint64t)(&nummat[0]),
-			(*C.MSKint64t)(&matidx[0]),
-			(*C.MSKrealt)(&weights[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint64t)(getPtrToFirst(ptrb)),
+			(*C.MSKint64t)(getPtrToFirst(ptre)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKint64t)(getPtrToFirst(nummat)),
+			(*C.MSKint64t)(getPtrToFirst(matidx)),
+			(*C.MSKrealt)(getPtrToFirst(weights)),
 		),
 	).ToError()
 }
@@ -514,8 +514,8 @@ func (task *Task) PutCList(
 		C.MSK_putclist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&val[0]),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -542,10 +542,10 @@ func (task *Task) PutConBoundList(
 		C.MSK_putconboundlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKboundkeye)(&bkc[0]),
-			(*C.MSKrealt)(&blc[0]),
-			(*C.MSKrealt)(&buc[0]),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkc)),
+			(*C.MSKrealt)(getPtrToFirst(blc)),
+			(*C.MSKrealt)(getPtrToFirst(buc)),
 		),
 	).ToError()
 }
@@ -574,9 +574,9 @@ func (task *Task) PutConBoundSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(&bkc[0]),
-			(*C.MSKrealt)(&blc[0]),
-			(*C.MSKrealt)(&buc[0]),
+			(*C.MSKboundkeye)(getPtrToFirst(bkc)),
+			(*C.MSKrealt)(getPtrToFirst(blc)),
+			(*C.MSKrealt)(getPtrToFirst(buc)),
 		),
 	).ToError()
 }
@@ -632,7 +632,7 @@ func (task *Task) PutCSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&slice[0]),
+			(*C.MSKrealt)(getPtrToFirst(slice)),
 		),
 	).ToError()
 }
@@ -669,13 +669,13 @@ func (task *Task) PutDjcSlice(
 			C.MSKint64t(idxfirst),
 			C.MSKint64t(idxlast),
 			C.MSKint64t(numdomidx),
-			(*C.MSKint64t)(&domidxlist[0]),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidxlist[0]),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 			C.MSKint64t(numterms),
-			(*C.MSKint64t)(&termsizelist[0]),
-			(*C.MSKint64t)(&termsindjc[0]),
+			(*C.MSKint64t)(getPtrToFirst(termsizelist)),
+			(*C.MSKint64t)(getPtrToFirst(termsindjc)),
 		),
 	).ToError()
 }
@@ -703,7 +703,7 @@ func (task *Task) PutSkcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(&skc[0]),
+			(*C.MSKstakeye)(getPtrToFirst(skc)),
 		),
 	).ToError()
 }
@@ -731,7 +731,7 @@ func (task *Task) PutSkxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKstakeye)(&skx[0]),
+			(*C.MSKstakeye)(getPtrToFirst(skx)),
 		),
 	).ToError()
 }
@@ -759,7 +759,7 @@ func (task *Task) PutSlcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&slc[0]),
+			(*C.MSKrealt)(getPtrToFirst(slc)),
 		),
 	).ToError()
 }
@@ -787,7 +787,7 @@ func (task *Task) PutSlxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&slx[0]),
+			(*C.MSKrealt)(getPtrToFirst(slx)),
 		),
 	).ToError()
 }
@@ -815,7 +815,7 @@ func (task *Task) PutSnxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&snx[0]),
+			(*C.MSKrealt)(getPtrToFirst(snx)),
 		),
 	).ToError()
 }
@@ -843,7 +843,7 @@ func (task *Task) PutSucSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&suc[0]),
+			(*C.MSKrealt)(getPtrToFirst(suc)),
 		),
 	).ToError()
 }
@@ -871,7 +871,7 @@ func (task *Task) PutSuxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&sux[0]),
+			(*C.MSKrealt)(getPtrToFirst(sux)),
 		),
 	).ToError()
 }
@@ -898,10 +898,10 @@ func (task *Task) PutVarBoundList(
 		C.MSK_putvarboundlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&sub[0]),
-			(*C.MSKboundkeye)(&bkx[0]),
-			(*C.MSKrealt)(&blx[0]),
-			(*C.MSKrealt)(&bux[0]),
+			(*C.MSKint32t)(getPtrToFirst(sub)),
+			(*C.MSKboundkeye)(getPtrToFirst(bkx)),
+			(*C.MSKrealt)(getPtrToFirst(blx)),
+			(*C.MSKrealt)(getPtrToFirst(bux)),
 		),
 	).ToError()
 }
@@ -930,9 +930,9 @@ func (task *Task) PutVarBoundSlice(
 			task.task,
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKboundkeye)(&bkx[0]),
-			(*C.MSKrealt)(&blx[0]),
-			(*C.MSKrealt)(&bux[0]),
+			(*C.MSKboundkeye)(getPtrToFirst(bkx)),
+			(*C.MSKrealt)(getPtrToFirst(blx)),
+			(*C.MSKrealt)(getPtrToFirst(bux)),
 		),
 	).ToError()
 }
@@ -986,8 +986,8 @@ func (task *Task) PutVarTypeList(
 		C.MSK_putvartypelist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKvariabletypee)(&vartype[0]),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKvariabletypee)(getPtrToFirst(vartype)),
 		),
 	).ToError()
 }
@@ -1015,7 +1015,7 @@ func (task *Task) PutXcSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&xc[0]),
+			(*C.MSKrealt)(getPtrToFirst(xc)),
 		),
 	).ToError()
 }
@@ -1043,7 +1043,7 @@ func (task *Task) PutXxSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&xx[0]),
+			(*C.MSKrealt)(getPtrToFirst(xx)),
 		),
 	).ToError()
 }
@@ -1071,7 +1071,7 @@ func (task *Task) PutYSlice(
 			C.MSKsoltypee(whichsol),
 			C.MSKint32t(first),
 			C.MSKint32t(last),
-			(*C.MSKrealt)(&y[0]),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 		),
 	).ToError()
 }

@@ -126,7 +126,7 @@ func Example_portfolio_3_impact() {
 		vslice_x[i] = voff_x + i
 	}
 	for i := int64(0); i < k; i++ {
-		checkOk(task.PutAfeFRow(aoff_q+i+1, n, &vslice_x[0], &GT[i][0]))
+		checkOk(task.PutAfeFRow(aoff_q+i+1, n, vslice_x, GT[i][:]))
 	}
 
 	qdom, res := task.AppendQuadraticConeDomain(k + 1)
@@ -148,7 +148,7 @@ func Example_portfolio_3_impact() {
 	// We use one row from F and g for both c_j and z_j, and the last row of F and g for the constant 1.
 	// NOTE: Here we reuse the last AFE and the power cone n times, but we store them only once.
 	exponents := []float64{2, 1}
-	powdom, res := task.AppendPrimalPowerConeDomain(3, 2, &exponents[0])
+	powdom, res := task.AppendPrimalPowerConeDomain(3, 2, exponents)
 	checkOk(res)
 	flat_afe_list := make([]int64, 3*n)
 	dom_list := make([]int64, n)
@@ -158,7 +158,7 @@ func Example_portfolio_3_impact() {
 		flat_afe_list[3*i+2] = aoff_pow + int64(n) + i
 		dom_list[i] = powdom
 	}
-	checkOk(task.AppendAccs(int64(n), &dom_list[0], 3*int64(n), &flat_afe_list[0], nil))
+	checkOk(task.AppendAccs(int64(n), dom_list, 3*int64(n), flat_afe_list, nil))
 	for i := int64(0); i < int64(n); i++ {
 		checkOk(task.PutAccName(i+1, fmt.Sprintf("market_impact[%d]", i)))
 	}

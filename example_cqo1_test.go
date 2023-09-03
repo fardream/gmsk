@@ -123,10 +123,10 @@ func Example_conicQuadraticOptimization1_cqo1() {
 		if aptre[j] > aptrb[j] { // looks like go will check if the index is out of range.
 			/* Input column j of A */
 			r = task.PutACol(
-				j,                 /* Variable (column) index.*/
-				aptre[j]-aptrb[j], /* Number of non-zeros in column j.*/
-				&asub[aptrb[j]],   /* Pointer to row indexes of column j.*/
-				&aval[aptrb[j]])   /* Pointer to Values of column j.*/
+				j,                       /* Variable (column) index.*/
+				aptre[j]-aptrb[j],       /* Number of non-zeros in column j.*/
+				asub[aptrb[j]:aptre[j]], /* Pointer to row indexes of column j.*/
+				aval[aptrb[j]:aptre[j]]) /* Pointer to Values of column j.*/
 		}
 	}
 
@@ -142,7 +142,7 @@ func Example_conicQuadraticOptimization1_cqo1() {
 	checkOk(r)
 
 	/* Set the non-zero entries of the F matrix */
-	checkOk(task.PutAfeFEntryList(f_nnz, &afeidx[0], &varidx[0], &f_val[0]))
+	checkOk(task.PutAfeFEntryList(f_nnz, afeidx, varidx, f_val))
 
 	/* Append quadratic cone domain */
 	domidx[0], r = task.AppendQuadraticConeDomain(3)
@@ -151,7 +151,7 @@ func Example_conicQuadraticOptimization1_cqo1() {
 	domidx[1], r = task.AppendRQuadraticConeDomain(3)
 	checkOk(r)
 	/* Append two ACCs made up of the AFEs and the domains defined above. */
-	checkOk(task.AppendAccsSeq(numacc, &domidx[0], numafe, afeidx[0], nil))
+	checkOk(task.AppendAccsSeq(numacc, domidx, numafe, afeidx[0], nil))
 
 	/* Run optimizer */
 	trmcode, r := task.OptimizeTrm()

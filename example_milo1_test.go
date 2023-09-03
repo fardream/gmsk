@@ -79,10 +79,10 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 		/* Input column j of A */
 		if aptre[j]-aptrb[j] > 0 {
 			r = task.PutACol(
-				j,                 /* Variable (column) index.*/
-				aptre[j]-aptrb[j], /* Number of non-zeros in column j.*/
-				&asub[aptrb[j]],   /* Pointer to row indexes of column j.*/
-				&aval[aptrb[j]])   /* Pointer to Values of column j.*/
+				j,                       /* Variable (column) index.*/
+				aptre[j]-aptrb[j],       /* Number of non-zeros in column j.*/
+				asub[aptrb[j]:aptre[j]], /* Pointer to row indexes of column j.*/
+				aval[aptrb[j]:aptre[j]]) /* Pointer to Values of column j.*/
 		}
 	}
 

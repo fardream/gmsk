@@ -49,7 +49,7 @@ func Example_mixedIntegerConicOptimization_mico1() {
 	checkOk(task.PutVarBoundSliceConst(0, numvar, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
 	/* Integrality constraints */
-	checkOk(task.PutVarTypeList(2, &intsub[0], &vart[0]))
+	checkOk(task.PutVarTypeList(2, intsub, vart))
 
 	/* Objective */
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MINIMIZE))
@@ -66,19 +66,19 @@ func Example_mixedIntegerConicOptimization_mico1() {
 
 	checkOk(task.AppendAfes(5))
 
-	checkOk(task.PutAfeFEntryList(4, &afeidx[0], &varidx[0], &val[0]))
+	checkOk(task.PutAfeFEntryList(4, afeidx, varidx, val))
 
-	checkOk(task.PutAfeGSlice(0, 5, &g[0]))
+	checkOk(task.PutAfeGSlice(0, 5, g))
 
 	// Add constraint (x-3.8, 1, y) \in \EXP
 	domExp, r := task.AppendPrimalExpConeDomain()
 	checkOk(r)
-	checkOk(task.AppendAcc(domExp, 3, &afeidxExp[0], nil))
+	checkOk(task.AppendAcc(domExp, 3, afeidxExp, nil))
 
 	// Add constraint (t, x, y) \in \QUAD
 	domQuad, r := task.AppendQuadraticConeDomain(3)
 	checkOk(r)
-	checkOk(task.AppendAcc(domQuad, 3, &afeidxQuad[0], nil))
+	checkOk(task.AppendAcc(domQuad, 3, afeidxQuad, nil))
 
 	_, r = task.OptimizeTrm()
 	checkOk(r)

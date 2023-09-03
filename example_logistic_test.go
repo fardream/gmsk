@@ -70,7 +70,7 @@ func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float
 		k++
 	}
 
-	MSKCALL(task.PutAijList(2*n, &subi[0], &subj[0], &aval[0]))
+	MSKCALL(task.PutAijList(2*n, subi, subj, aval))
 	MSKCALL(task.PutConBoundSliceConst(zcon, zcon+n, gmsk.BK_FX, 1, 1))
 	MSKCALL(task.PutVarBoundSliceConst(nvar, nvar+2*n, gmsk.BK_FR, -gmsk.INFINITY, gmsk.INFINITY))
 
@@ -117,7 +117,7 @@ func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float
 	}
 
 	// Add the expressions
-	MSKCALL(task.PutAfeFEntryList(int64(d*n+4*n), &afeidx[0], &varidx[0], &fval[0]))
+	MSKCALL(task.PutAfeFEntryList(int64(d*n+4*n), afeidx, varidx, fval))
 
 	// Add a single row with the constant expression "1.0"
 	oneafe, res = task.GetNumAfe()
@@ -133,11 +133,11 @@ func softplus(task *gmsk.Task, d int32, n int32, theta int32, t int32, X []float
 		idx[0] = z1afe + int64(i)
 		idx[1] = oneafe
 		idx[2] = thetaafe + int64(i)
-		MSKCALL(task.AppendAcc(expdomain, 3, &idx[0], nil))
+		MSKCALL(task.AppendAcc(expdomain, 3, idx, nil))
 		idx[0] = z2afe + int64(i)
 		idx[1] = oneafe
 		idx[2] = tafe + int64(i)
-		MSKCALL(task.AppendAcc(expdomain, 3, &idx[0], nil))
+		MSKCALL(task.AppendAcc(expdomain, 3, idx, nil))
 	}
 
 	return res

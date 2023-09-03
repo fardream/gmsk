@@ -79,7 +79,7 @@ func (task *Task) AppendDualPowerConeDomain(
 			task.task,
 			C.MSKint64t(n),
 			C.MSKint64t(nleft),
-			(*C.MSKrealt)(&alpha[0]),
+			(*C.MSKrealt)(getPtrToFirst(alpha)),
 			(*C.MSKint64t)(&domidx),
 		),
 	).ToError()
@@ -155,7 +155,7 @@ func (task *Task) AppendPrimalPowerConeDomain(
 			task.task,
 			C.MSKint64t(n),
 			C.MSKint64t(nleft),
-			(*C.MSKrealt)(&alpha[0]),
+			(*C.MSKrealt)(getPtrToFirst(alpha)),
 			(*C.MSKint64t)(&domidx),
 		),
 	).ToError()

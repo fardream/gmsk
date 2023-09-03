@@ -28,8 +28,8 @@ func (env *Env) Axpy(
 			env.getEnv(),
 			C.MSKint32t(n),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(&x[0]),
-			(*C.MSKrealt)(&y[0]),
+			(*C.MSKrealt)(getPtrToFirst(x)),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 		),
 	).ToError()
 }
@@ -148,8 +148,8 @@ func (env *Env) Dot(
 		C.MSK_dot(
 			env.getEnv(),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(&x[0]),
-			(*C.MSKrealt)(&y[0]),
+			(*C.MSKrealt)(getPtrToFirst(x)),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 			(*C.MSKrealt)(&xty),
 		),
 	).ToError()
@@ -233,10 +233,10 @@ func (env *Env) Gemm(
 			C.MSKint32t(n),
 			C.MSKint32t(k),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(&a[0]),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKrealt)(getPtrToFirst(a)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 			C.MSKrealt(beta),
-			(*C.MSKrealt)(&c[0]),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 		),
 	).ToError()
 }
@@ -262,10 +262,10 @@ func (env *Env) Gemv(
 			C.MSKint32t(m),
 			C.MSKint32t(n),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(&a[0]),
-			(*C.MSKrealt)(&x[0]),
+			(*C.MSKrealt)(getPtrToFirst(a)),
+			(*C.MSKrealt)(getPtrToFirst(x)),
 			C.MSKrealt(beta),
-			(*C.MSKrealt)(&y[0]),
+			(*C.MSKrealt)(getPtrToFirst(y)),
 		),
 	).ToError()
 }
@@ -280,8 +280,8 @@ func (env *Env) GetSymbcondim(
 	return res.Code(
 		C.MSK_getsymbcondim(
 			env.getEnv(),
-			(*C.MSKint32t)(&num[0]),
-			(*C.size_t)(&maxlen[0]),
+			(*C.MSKint32t)(getPtrToFirst(num)),
+			(*C.size_t)(getPtrToFirst(maxlen)),
 		),
 	).ToError()
 }
@@ -345,7 +345,7 @@ func (env *Env) Potrf(
 			env.getEnv(),
 			C.MSKuploe(uplo),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(&a[0]),
+			(*C.MSKrealt)(getPtrToFirst(a)),
 		),
 	).ToError()
 }
@@ -364,7 +364,7 @@ func (env *Env) PutLicenseCode(
 	return res.Code(
 		C.MSK_putlicensecode(
 			env.getEnv(),
-			(*C.MSKint32t)(&code[0]),
+			(*C.MSKint32t)(getPtrToFirst(code)),
 		),
 	).ToError()
 }
@@ -469,12 +469,12 @@ func (env *Env) SparseTriangularSolveDense(
 			env.getEnv(),
 			C.MSKtransposee(transposed),
 			C.MSKint32t(n),
-			(*C.MSKint32t)(&lnzc[0]),
-			(*C.MSKint64t)(&lptrc[0]),
+			(*C.MSKint32t)(getPtrToFirst(lnzc)),
+			(*C.MSKint64t)(getPtrToFirst(lptrc)),
 			C.MSKint64t(lensubnval),
-			(*C.MSKint32t)(&lsubc[0]),
-			(*C.MSKrealt)(&lvalc[0]),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKint32t)(getPtrToFirst(lsubc)),
+			(*C.MSKrealt)(getPtrToFirst(lvalc)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -501,8 +501,8 @@ func (env *Env) Syeig(
 			env.getEnv(),
 			C.MSKuploe(uplo),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(&a[0]),
-			(*C.MSKrealt)(&w[0]),
+			(*C.MSKrealt)(getPtrToFirst(a)),
+			(*C.MSKrealt)(getPtrToFirst(w)),
 		),
 	).ToError()
 }
@@ -529,8 +529,8 @@ func (env *Env) Syevd(
 			env.getEnv(),
 			C.MSKuploe(uplo),
 			C.MSKint32t(n),
-			(*C.MSKrealt)(&a[0]),
-			(*C.MSKrealt)(&w[0]),
+			(*C.MSKrealt)(getPtrToFirst(a)),
+			(*C.MSKrealt)(getPtrToFirst(w)),
 		),
 	).ToError()
 }
@@ -568,9 +568,9 @@ func (env *Env) Syrk(
 			C.MSKint32t(n),
 			C.MSKint32t(k),
 			C.MSKrealt(alpha),
-			(*C.MSKrealt)(&a[0]),
+			(*C.MSKrealt)(getPtrToFirst(a)),
 			C.MSKrealt(beta),
-			(*C.MSKrealt)(&c[0]),
+			(*C.MSKrealt)(getPtrToFirst(c)),
 		),
 	).ToError()
 }

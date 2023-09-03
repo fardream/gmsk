@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"unsafe"
 
 	"github.com/fardream/gmsk"
 )
@@ -19,8 +18,8 @@ func Example_reoptimization() {
 
 	var r error
 
-	printres := func(n int32, x *float64) {
-		for i, v := range unsafe.Slice(x, n) {
+	printres := func(n int32, x []float64) {
+		for i, v := range x {
 			if int32(i) >= n-1 {
 				fmt.Printf("%.3f\n", v)
 			} else {
@@ -103,8 +102,8 @@ func Example_reoptimization() {
 			checkOk(task.PutACol(
 				j,
 				ptre[j]-ptrb[j],
-				&asub[ptrb[j]],
-				&aval[ptrb[j]]))
+				asub[ptrb[j]:ptre[j]],
+				aval[ptrb[j]:ptre[j]]))
 		}
 	}
 
@@ -120,7 +119,7 @@ func Example_reoptimization() {
 		xx)
 	checkOk(r)
 
-	printres(numvar, &xx[0])
+	printres(numvar, xx)
 
 	/******************** Make a change to the A matrix **********/
 	checkOk(task.PutAij(0, 0, 3))
@@ -132,7 +131,7 @@ func Example_reoptimization() {
 		xx)
 	checkOk(r)
 
-	printres(numvar, &xx[0])
+	printres(numvar, xx)
 
 	/*********************** Add a new variable ******************/
 	/* Get index of new variable, this should be 3 */
@@ -158,8 +157,8 @@ func Example_reoptimization() {
 		checkOk(task.PutACol(
 			varidx, /* column index */
 			2,      /* num nz in column*/
-			&acolsub[0],
-			&acolval[0]))
+			acolsub,
+			acolval))
 	}
 
 	/* Change optimizer to free simplex and reoptimize */
@@ -173,7 +172,7 @@ func Example_reoptimization() {
 		xx)
 	checkOk(r)
 
-	printres(numvar, &xx[0])
+	printres(numvar, xx)
 
 	/* **************** Add a new constraint ******************* */
 	/* Get index of new constraint*/
@@ -201,8 +200,8 @@ func Example_reoptimization() {
 			task.PutARow(
 				conidx, /* row index */
 				4,      /* num nz in row*/
-				&arowsub[0],
-				&arowval[0]))
+				arowsub,
+				arowval))
 	}
 
 	_, r = task.OptimizeTrm()
@@ -213,7 +212,7 @@ func Example_reoptimization() {
 		xx)
 	checkOk(r)
 
-	printres(numvar, &xx[0])
+	printres(numvar, xx)
 
 	/* **************** Change constraint bounds ******************* */
 	{
@@ -221,7 +220,7 @@ func Example_reoptimization() {
 		newblc := []float64{-gmsk.INFINITY, -gmsk.INFINITY, -gmsk.INFINITY, -gmsk.INFINITY}
 		newbuc := []float64{80000, 40000, 50000, 22000}
 
-		checkOk(task.PutConBoundSlice(0, numcon, &newbkc[0], &newblc[0], &newbuc[0]))
+		checkOk(task.PutConBoundSlice(0, numcon, newbkc, newblc, newbuc))
 	}
 
 	_, r = task.OptimizeTrm()
@@ -232,7 +231,7 @@ func Example_reoptimization() {
 		xx)
 	checkOk(r)
 
-	printres(numvar, &xx[0])
+	printres(numvar, xx)
 	// Output:
 	// 0.000 16000.000 6000.000
 	// 0.000 16000.000 6000.000

@@ -37,9 +37,9 @@ func (task *Task) GetAColSliceTrip(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&val[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }
@@ -70,9 +70,9 @@ func (task *Task) GetARowSliceTrip(
 			C.MSKint32t(first),
 			C.MSKint32t(last),
 			C.MSKint64t(maxnumnz),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&val[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(val)),
 		),
 	).ToError()
 }

@@ -32,8 +32,8 @@ func (task *Task) AppendAcc(
 			task.task,
 			C.MSKint64t(domidx),
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidxlist[0]),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -59,10 +59,10 @@ func (task *Task) AppendAccs(
 		C.MSK_appendaccs(
 			task.task,
 			C.MSKint64t(numaccs),
-			(*C.MSKint64t)(&domidxs[0]),
+			(*C.MSKint64t)(getPtrToFirst(domidxs)),
 			C.MSKint64t(numafeidx),
-			(*C.MSKint64t)(&afeidxlist[0]),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKint64t)(getPtrToFirst(afeidxlist)),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -89,7 +89,7 @@ func (task *Task) AppendAccSeq(
 			C.MSKint64t(domidx),
 			C.MSKint64t(numafeidx),
 			C.MSKint64t(afeidxfirst),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -116,10 +116,10 @@ func (task *Task) AppendAccsSeq(
 		C.MSK_appendaccsseq(
 			task.task,
 			C.MSKint64t(numaccs),
-			(*C.MSKint64t)(&domidxs[0]),
+			(*C.MSKint64t)(getPtrToFirst(domidxs)),
 			C.MSKint64t(numafeidx),
 			C.MSKint64t(afeidxfirst),
-			(*C.MSKrealt)(&b[0]),
+			(*C.MSKrealt)(getPtrToFirst(b)),
 		),
 	).ToError()
 }
@@ -159,7 +159,7 @@ func (task *Task) AppendBarvars(
 		C.MSK_appendbarvars(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&dim[0]),
+			(*C.MSKint32t)(getPtrToFirst(dim)),
 		),
 	).ToError()
 }
@@ -188,7 +188,7 @@ func (task *Task) AppendCone(
 			C.MSKconetypee(ct),
 			C.MSKrealt(conepar),
 			C.MSKint32t(nummem),
-			(*C.MSKint32t)(&submem[0]),
+			(*C.MSKint32t)(getPtrToFirst(submem)),
 		),
 	).ToError()
 }
@@ -247,9 +247,9 @@ func (task *Task) AppendConesSeq(
 		C.MSK_appendconesseq(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKconetypee)(&ct[0]),
-			(*C.MSKrealt)(&conepar[0]),
-			(*C.MSKint32t)(&nummem[0]),
+			(*C.MSKconetypee)(getPtrToFirst(ct)),
+			(*C.MSKrealt)(getPtrToFirst(conepar)),
+			(*C.MSKint32t)(getPtrToFirst(nummem)),
 			C.MSKint32t(j),
 		),
 	).ToError()
@@ -320,9 +320,9 @@ func (task *Task) AppendSparseSymMat(
 			task.task,
 			C.MSKint32t(dim),
 			C.MSKint64t(nz),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&valij[0]),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valij)),
 			(*C.MSKint64t)(&idx),
 		),
 	).ToError()
@@ -355,11 +355,11 @@ func (task *Task) AppendSparseSymMatList(
 		C.MSK_appendsparsesymmatlist(
 			task.task,
 			C.MSKint32t(num),
-			(*C.MSKint32t)(&dims[0]),
-			(*C.MSKint64t)(&nz[0]),
-			(*C.MSKint32t)(&subi[0]),
-			(*C.MSKint32t)(&subj[0]),
-			(*C.MSKrealt)(&valij[0]),
+			(*C.MSKint32t)(getPtrToFirst(dims)),
+			(*C.MSKint64t)(getPtrToFirst(nz)),
+			(*C.MSKint32t)(getPtrToFirst(subi)),
+			(*C.MSKint32t)(getPtrToFirst(subj)),
+			(*C.MSKrealt)(getPtrToFirst(valij)),
 			(*C.MSKint64t)(&idx),
 		),
 	).ToError()
