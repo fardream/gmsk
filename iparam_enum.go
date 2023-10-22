@@ -22,183 +22,186 @@ const (
 	IPAR_BI_IGNORE_NUM_ERROR                IParam = 7   // Turns on basis identification in case the interior-point optimizer is terminated due to a numerical problem.
 	IPAR_BI_MAX_ITERATIONS                  IParam = 8   // Maximum number of iterations after basis identification.
 	IPAR_CACHE_LICENSE                      IParam = 9   // Control license caching.
-	IPAR_CHECK_CONVEXITY                    IParam = 10  // Specify the level of convexity check on quadratic problems.
-	IPAR_COMPRESS_STATFILE                  IParam = 11  // Control compression of stat files.
-	IPAR_INFEAS_GENERIC_NAMES               IParam = 12  // Controls the contents of the infeasibility report.
-	IPAR_INFEAS_PREFER_PRIMAL               IParam = 13  // Controls which certificate is used if both primal- and dual- certificate of infeasibility is available.
-	IPAR_INFEAS_REPORT_AUTO                 IParam = 14  // Turns the feasibility report on or off.
-	IPAR_INFEAS_REPORT_LEVEL                IParam = 15  // Controls the contents of the infeasibility report.
-	IPAR_INTPNT_BASIS                       IParam = 16  // Controls whether basis identification is performed.
-	IPAR_INTPNT_DIFF_STEP                   IParam = 17  // Controls whether different step sizes are allowed in the primal and dual space.
-	IPAR_INTPNT_HOTSTART                    IParam = 18  // Currently not in use.
-	IPAR_INTPNT_MAX_ITERATIONS              IParam = 19  // Controls the maximum number of iterations allowed in the interior-point optimizer.
-	IPAR_INTPNT_MAX_NUM_COR                 IParam = 20  // Maximum number of correction steps.
-	IPAR_INTPNT_MAX_NUM_REFINEMENT_STEPS    IParam = 21  // Maximum number of steps to be used by the iterative search direction refinement.
-	IPAR_INTPNT_OFF_COL_TRH                 IParam = 22  // Controls the aggressiveness of the offending column detection.
-	IPAR_INTPNT_ORDER_GP_NUM_SEEDS          IParam = 23  // This parameter controls the number of random seeds tried.
-	IPAR_INTPNT_ORDER_METHOD                IParam = 24  // Controls the ordering strategy.
-	IPAR_INTPNT_PURIFY                      IParam = 25  // Currently not in use.
-	IPAR_INTPNT_REGULARIZATION_USE          IParam = 26  // Controls whether regularization is allowed.
-	IPAR_INTPNT_SCALING                     IParam = 27  // Controls how the problem is scaled before the interior-point optimizer is used.
-	IPAR_INTPNT_SOLVE_FORM                  IParam = 28  // Controls whether the primal or the dual problem is solved.
-	IPAR_INTPNT_STARTING_POINT              IParam = 29  // Starting point used by the interior-point optimizer.
-	IPAR_LICENSE_DEBUG                      IParam = 30  // Controls the license manager client debugging behavior.
-	IPAR_LICENSE_PAUSE_TIME                 IParam = 31  // Controls license manager client behavior.
-	IPAR_LICENSE_SUPPRESS_EXPIRE_WRNS       IParam = 32  // Controls license manager client behavior.
-	IPAR_LICENSE_TRH_EXPIRY_WRN             IParam = 33  // Controls when expiry warnings are issued.
-	IPAR_LICENSE_WAIT                       IParam = 34  // Controls if MOSEK should queue for a license if none is available.
-	IPAR_LOG                                IParam = 35  // Controls the amount of log information.
-	IPAR_LOG_ANA_PRO                        IParam = 36  // Controls amount of output from the problem analyzer.
-	IPAR_LOG_BI                             IParam = 37  // Controls the amount of output printed by the basis identification procedure. A higher level implies that more information is logged.
-	IPAR_LOG_BI_FREQ                        IParam = 38  // Controls the logging frequency.
-	IPAR_LOG_CHECK_CONVEXITY                IParam = 39  // Controls logging in convexity check on quadratic problems.
-	IPAR_LOG_CUT_SECOND_OPT                 IParam = 40  // Controls the reduction in the log levels for the second and any subsequent optimizations.
-	IPAR_LOG_EXPAND                         IParam = 41  // Controls the amount of logging when a data item such as the maximum number constrains is expanded.
-	IPAR_LOG_FEAS_REPAIR                    IParam = 42  // Controls the amount of output printed when performing feasibility repair. A value higher than one means extensive logging.
-	IPAR_LOG_FILE                           IParam = 43  // If turned on, then some log info is printed when a file is written or read.
-	IPAR_LOG_INCLUDE_SUMMARY                IParam = 44  // Controls whether solution summary should be printed by the optimizer.
-	IPAR_LOG_INFEAS_ANA                     IParam = 45  // Controls log level for the infeasibility analyzer.
-	IPAR_LOG_INTPNT                         IParam = 46  // Controls the amount of log information from the interior-point optimizers.
-	IPAR_LOG_LOCAL_INFO                     IParam = 47  // Control whether local identifying information is printed to the log.
-	IPAR_LOG_MIO                            IParam = 48  // Controls the amount of log information from the mixed-integer optimizers.
-	IPAR_LOG_MIO_FREQ                       IParam = 49  // The mixed-integer optimizer logging frequency.
-	IPAR_LOG_ORDER                          IParam = 50  // If turned on, then factor lines are added to the log.
-	IPAR_LOG_PRESOLVE                       IParam = 51  // Controls amount of output printed by the presolve procedure. A higher level implies that more information is logged.
-	IPAR_LOG_RESPONSE                       IParam = 52  // Controls amount of output printed when response codes are reported. A higher level implies that more information is logged.
-	IPAR_LOG_SENSITIVITY                    IParam = 53  // Control logging in sensitivity analyzer.
-	IPAR_LOG_SENSITIVITY_OPT                IParam = 54  // Control logging in sensitivity analyzer.
-	IPAR_LOG_SIM                            IParam = 55  // Controls the amount of log information from the simplex optimizers.
-	IPAR_LOG_SIM_FREQ                       IParam = 56  // Controls simplex logging frequency.
-	IPAR_LOG_SIM_MINOR                      IParam = 57  // Currently not in use.
-	IPAR_LOG_STORAGE                        IParam = 58  // Controls the memory related log information.
-	IPAR_MAX_NUM_WARNINGS                   IParam = 59  // Each warning is shown a limited number of times controlled by this parameter. A negative value is identical to infinite number of times.
-	IPAR_MIO_BRANCH_DIR                     IParam = 60  // Controls whether the mixed-integer optimizer is branching up or down by default.
-	IPAR_MIO_CONIC_OUTER_APPROXIMATION      IParam = 61  // Toggles outer approximation for conic problems.
-	IPAR_MIO_CONSTRUCT_SOL                  IParam = 62  // Controls if an initial mixed integer solution should be constructed from the values of the integer variables.
-	IPAR_MIO_CUT_CLIQUE                     IParam = 63  // Controls whether clique cuts should be generated.
-	IPAR_MIO_CUT_CMIR                       IParam = 64  // Controls whether mixed integer rounding cuts should be generated.
-	IPAR_MIO_CUT_GMI                        IParam = 65  // Controls whether GMI cuts should be generated.
-	IPAR_MIO_CUT_IMPLIED_BOUND              IParam = 66  // Controls whether implied bound cuts should be generated.
-	IPAR_MIO_CUT_KNAPSACK_COVER             IParam = 67  // Controls whether knapsack cover cuts should be generated.
-	IPAR_MIO_CUT_LIPRO                      IParam = 68  // Controls whether lift-and-project cuts should be generated.
-	IPAR_MIO_CUT_SELECTION_LEVEL            IParam = 69  // Controls how aggressively generated cuts are selected to be included in the relaxation.
-	IPAR_MIO_DATA_PERMUTATION_METHOD        IParam = 70  // Controls what problem data permutation method is appplied to mixed-integer problems.
-	IPAR_MIO_FEASPUMP_LEVEL                 IParam = 71  // Controls the way the Feasibility Pump heuristic is employed by the mixed-integer optimizer.
-	IPAR_MIO_HEURISTIC_LEVEL                IParam = 72  // Controls the heuristic employed by the mixed-integer optimizer to locate an initial integer feasible solution.
-	IPAR_MIO_MAX_NUM_BRANCHES               IParam = 73  // Maximum number of branches allowed during the branch and bound search.
-	IPAR_MIO_MAX_NUM_RELAXS                 IParam = 74  // Maximum number of relaxations in branch and bound search.
+	IPAR_COMPRESS_STATFILE                  IParam = 10  // Control compression of stat files.
+	IPAR_INFEAS_GENERIC_NAMES               IParam = 11  // Controls the contents of the infeasibility report.
+	IPAR_INFEAS_PREFER_PRIMAL               IParam = 12  // Controls which certificate is used if both primal- and dual- certificate of infeasibility is available.
+	IPAR_INFEAS_REPORT_AUTO                 IParam = 13  // Turns the feasibility report on or off.
+	IPAR_INFEAS_REPORT_LEVEL                IParam = 14  // Controls the contents of the infeasibility report.
+	IPAR_INTPNT_BASIS                       IParam = 15  // Controls whether basis identification is performed.
+	IPAR_INTPNT_DIFF_STEP                   IParam = 16  // Controls whether different step sizes are allowed in the primal and dual space.
+	IPAR_INTPNT_HOTSTART                    IParam = 17  // Currently not in use.
+	IPAR_INTPNT_MAX_ITERATIONS              IParam = 18  // Controls the maximum number of iterations allowed in the interior-point optimizer.
+	IPAR_INTPNT_MAX_NUM_COR                 IParam = 19  // Maximum number of correction steps.
+	IPAR_INTPNT_MAX_NUM_REFINEMENT_STEPS    IParam = 20  // Maximum number of steps to be used by the iterative search direction refinement.
+	IPAR_INTPNT_OFF_COL_TRH                 IParam = 21  // Controls the aggressiveness of the offending column detection.
+	IPAR_INTPNT_ORDER_GP_NUM_SEEDS          IParam = 22  // This parameter controls the number of random seeds tried.
+	IPAR_INTPNT_ORDER_METHOD                IParam = 23  // Controls the ordering strategy.
+	IPAR_INTPNT_PURIFY                      IParam = 24  // Currently not in use.
+	IPAR_INTPNT_REGULARIZATION_USE          IParam = 25  // Controls whether regularization is allowed.
+	IPAR_INTPNT_SCALING                     IParam = 26  // Controls how the problem is scaled before the interior-point optimizer is used.
+	IPAR_INTPNT_SOLVE_FORM                  IParam = 27  // Controls whether the primal or the dual problem is solved.
+	IPAR_INTPNT_STARTING_POINT              IParam = 28  // Starting point used by the interior-point optimizer.
+	IPAR_LICENSE_DEBUG                      IParam = 29  // Controls the license manager client debugging behavior.
+	IPAR_LICENSE_PAUSE_TIME                 IParam = 30  // Controls license manager client behavior.
+	IPAR_LICENSE_SUPPRESS_EXPIRE_WRNS       IParam = 31  // Controls license manager client behavior.
+	IPAR_LICENSE_TRH_EXPIRY_WRN             IParam = 32  // Controls when expiry warnings are issued.
+	IPAR_LICENSE_WAIT                       IParam = 33  // Controls if MOSEK should queue for a license if none is available.
+	IPAR_LOG                                IParam = 34  // Controls the amount of log information.
+	IPAR_LOG_ANA_PRO                        IParam = 35  // Controls amount of output from the problem analyzer.
+	IPAR_LOG_BI                             IParam = 36  // Controls the amount of output printed by the basis identification procedure. A higher level implies that more information is logged.
+	IPAR_LOG_BI_FREQ                        IParam = 37  // Controls the logging frequency.
+	IPAR_LOG_CUT_SECOND_OPT                 IParam = 38  // Controls the reduction in the log levels for the second and any subsequent optimizations.
+	IPAR_LOG_EXPAND                         IParam = 39  // Controls the amount of logging when a data item such as the maximum number constrains is expanded.
+	IPAR_LOG_FEAS_REPAIR                    IParam = 40  // Controls the amount of output printed when performing feasibility repair. A value higher than one means extensive logging.
+	IPAR_LOG_FILE                           IParam = 41  // If turned on, then some log info is printed when a file is written or read.
+	IPAR_LOG_INCLUDE_SUMMARY                IParam = 42  // Controls whether solution summary should be printed by the optimizer.
+	IPAR_LOG_INFEAS_ANA                     IParam = 43  // Controls log level for the infeasibility analyzer.
+	IPAR_LOG_INTPNT                         IParam = 44  // Controls the amount of log information from the interior-point optimizers.
+	IPAR_LOG_LOCAL_INFO                     IParam = 45  // Control whether local identifying information is printed to the log.
+	IPAR_LOG_MIO                            IParam = 46  // Controls the amount of log information from the mixed-integer optimizers.
+	IPAR_LOG_MIO_FREQ                       IParam = 47  // The mixed-integer optimizer logging frequency.
+	IPAR_LOG_ORDER                          IParam = 48  // If turned on, then factor lines are added to the log.
+	IPAR_LOG_PRESOLVE                       IParam = 49  // Controls amount of output printed by the presolve procedure. A higher level implies that more information is logged.
+	IPAR_LOG_RESPONSE                       IParam = 50  // Controls amount of output printed when response codes are reported. A higher level implies that more information is logged.
+	IPAR_LOG_SENSITIVITY                    IParam = 51  // Control logging in sensitivity analyzer.
+	IPAR_LOG_SENSITIVITY_OPT                IParam = 52  // Control logging in sensitivity analyzer.
+	IPAR_LOG_SIM                            IParam = 53  // Controls the amount of log information from the simplex optimizers.
+	IPAR_LOG_SIM_FREQ                       IParam = 54  // Controls simplex logging frequency.
+	IPAR_LOG_SIM_MINOR                      IParam = 55  // Currently not in use.
+	IPAR_LOG_STORAGE                        IParam = 56  // Controls the memory related log information.
+	IPAR_MAX_NUM_WARNINGS                   IParam = 57  // Each warning is shown a limited number of times controlled by this parameter. A negative value is identical to infinite number of times.
+	IPAR_MIO_BRANCH_DIR                     IParam = 58  // Controls whether the mixed-integer optimizer is branching up or down by default.
+	IPAR_MIO_CONIC_OUTER_APPROXIMATION      IParam = 59  // Toggles outer approximation for conic problems.
+	IPAR_MIO_CONSTRUCT_SOL                  IParam = 60  // Controls if an initial mixed integer solution should be constructed from the values of the integer variables.
+	IPAR_MIO_CUT_CLIQUE                     IParam = 61  // Controls whether clique cuts should be generated.
+	IPAR_MIO_CUT_CMIR                       IParam = 62  // Controls whether mixed integer rounding cuts should be generated.
+	IPAR_MIO_CUT_GMI                        IParam = 63  // Controls whether GMI cuts should be generated.
+	IPAR_MIO_CUT_IMPLIED_BOUND              IParam = 64  // Controls whether implied bound cuts should be generated.
+	IPAR_MIO_CUT_KNAPSACK_COVER             IParam = 65  // Controls whether knapsack cover cuts should be generated.
+	IPAR_MIO_CUT_LIPRO                      IParam = 66  // Controls whether lift-and-project cuts should be generated.
+	IPAR_MIO_CUT_SELECTION_LEVEL            IParam = 67  // Controls how aggressively generated cuts are selected to be included in the relaxation.
+	IPAR_MIO_DATA_PERMUTATION_METHOD        IParam = 68  // Controls what problem data permutation method is appplied to mixed-integer problems.
+	IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL        IParam = 69  // Controls the amount of dual ray analysis employed by the mixed-integer optimizer in presolve.
+	IPAR_MIO_FEASPUMP_LEVEL                 IParam = 70  // Controls the way the Feasibility Pump heuristic is employed by the mixed-integer optimizer.
+	IPAR_MIO_HEURISTIC_LEVEL                IParam = 71  // Controls the heuristic employed by the mixed-integer optimizer to locate an initial integer feasible solution.
+	IPAR_MIO_MAX_NUM_BRANCHES               IParam = 72  // Maximum number of branches allowed during the branch and bound search.
+	IPAR_MIO_MAX_NUM_RELAXS                 IParam = 73  // Maximum number of relaxations in branch and bound search.
+	IPAR_MIO_MAX_NUM_RESTARTS               IParam = 74  // Maximum number of restarts allowed during the branch and bound search.
 	IPAR_MIO_MAX_NUM_ROOT_CUT_ROUNDS        IParam = 75  // Maximum number of cut separation rounds at the root node.
 	IPAR_MIO_MAX_NUM_SOLUTIONS              IParam = 76  // Controls how many feasible solutions the mixed-integer optimizer investigates.
 	IPAR_MIO_MEMORY_EMPHASIS_LEVEL          IParam = 77  // Controls how much emphasis is put on reducing memory usage.
-	IPAR_MIO_MODE                           IParam = 78  // Turns on/off the mixed-integer mode.
-	IPAR_MIO_NODE_OPTIMIZER                 IParam = 79  // Controls which optimizer is employed at the non-root nodes in the mixed-integer optimizer.
-	IPAR_MIO_NODE_SELECTION                 IParam = 80  // Controls the node selection strategy employed by the mixed-integer optimizer.
-	IPAR_MIO_NUMERICAL_EMPHASIS_LEVEL       IParam = 81  // Controls how much emphasis is put on reducing numerical problems
-	IPAR_MIO_PERSPECTIVE_REFORMULATE        IParam = 82  // Enables or disables perspective reformulation in presolve.
-	IPAR_MIO_PRESOLVE_AGGREGATOR_USE        IParam = 83  // Controls if the aggregator should be used.
-	IPAR_MIO_PROBING_LEVEL                  IParam = 84  // Controls the amount of probing employed by the mixed-integer optimizer in presolve.
-	IPAR_MIO_PROPAGATE_OBJECTIVE_CONSTRAINT IParam = 85  // Use objective domain propagation.
-	IPAR_MIO_QCQO_REFORMULATION_METHOD      IParam = 86  // Controls what reformulation method is applied to mixed-integer quadratic problems.
-	IPAR_MIO_RINS_MAX_NODES                 IParam = 87  // Maximum number of nodes in each call to RINS.
-	IPAR_MIO_ROOT_OPTIMIZER                 IParam = 88  // Controls which optimizer is employed at the root node in the mixed-integer optimizer.
-	IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL     IParam = 89  // Controls whether presolve can be repeated at root node.
-	IPAR_MIO_SEED                           IParam = 90  // Sets the random seed used for randomization in the mixed integer optimizer.
-	IPAR_MIO_SYMMETRY_LEVEL                 IParam = 91  // Controls the amount of symmetry detection and handling employed by the mixed-integer optimizer in presolve.
-	IPAR_MIO_VB_DETECTION_LEVEL             IParam = 92  // Controls how much effort is put into detecting variable bounds.
-	IPAR_MT_SPINCOUNT                       IParam = 93  // Set the number of iterations to spin before sleeping.
-	IPAR_NG                                 IParam = 94  // Not in use
-	IPAR_NUM_THREADS                        IParam = 95  // The number of threads employed by the optimizer.
-	IPAR_OPF_WRITE_HEADER                   IParam = 96  // Write a text header with date and MOSEK version in an OPF file.
-	IPAR_OPF_WRITE_HINTS                    IParam = 97  // Write a hint section with problem dimensions in the beginning of an OPF file.
-	IPAR_OPF_WRITE_LINE_LENGTH              IParam = 98  // Aim to keep lines in OPF files not much longer than this.
-	IPAR_OPF_WRITE_PARAMETERS               IParam = 99  // Write a parameter section in an OPF file.
-	IPAR_OPF_WRITE_PROBLEM                  IParam = 100 // Write objective, constraints, bounds etc. to an OPF file.
-	IPAR_OPF_WRITE_SOL_BAS                  IParam = 101 // Controls what is written to the OPF files.
-	IPAR_OPF_WRITE_SOL_ITG                  IParam = 102 // Controls what is written to the OPF files.
-	IPAR_OPF_WRITE_SOL_ITR                  IParam = 103 // Controls what is written to the OPF files.
-	IPAR_OPF_WRITE_SOLUTIONS                IParam = 104 // Enable inclusion of solutions in the OPF files.
-	IPAR_OPTIMIZER                          IParam = 105 // Controls which optimizer is used to optimize the task.
-	IPAR_PARAM_READ_CASE_NAME               IParam = 106 // If turned on, then names in the parameter file are case sensitive.
-	IPAR_PARAM_READ_IGN_ERROR               IParam = 107 // If turned on, then errors in parameter settings is ignored.
-	IPAR_PRESOLVE_ELIMINATOR_MAX_FILL       IParam = 108 // Maximum amount of fill-in created in one pivot during the elimination phase.
-	IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES  IParam = 109 // Control the maximum number of times the eliminator is tried.
-	IPAR_PRESOLVE_LEVEL                     IParam = 110 // Currently not used.
-	IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH       IParam = 111 // Controls linear dependency check in presolve.
-	IPAR_PRESOLVE_LINDEP_REL_WORK_TRH       IParam = 112 // Controls linear dependency check in presolve.
-	IPAR_PRESOLVE_LINDEP_USE                IParam = 113 // Controls whether the linear constraints are checked for linear dependencies.
-	IPAR_PRESOLVE_MAX_NUM_PASS              IParam = 114 // Control the maximum number of times presolve passes over the problem.
-	IPAR_PRESOLVE_MAX_NUM_REDUCTIONS        IParam = 115 // Controls the maximum number of reductions performed by the presolve.
-	IPAR_PRESOLVE_USE                       IParam = 116 // Controls whether the presolve is applied to a problem before it is optimized.
-	IPAR_PRIMAL_REPAIR_OPTIMIZER            IParam = 117 // Controls which optimizer that is used to find the optimal repair.
-	IPAR_PTF_WRITE_PARAMETERS               IParam = 118 // Controls whether parameters section is written in PTF files.
-	IPAR_PTF_WRITE_SOLUTIONS                IParam = 119 // Controls whether solution section is written in PTF files.
-	IPAR_PTF_WRITE_TRANSFORM                IParam = 120 // Controls if simple transformation are done when writing PTF files.
-	IPAR_READ_DEBUG                         IParam = 121 // Turns on additional debugging information when reading files.
-	IPAR_READ_KEEP_FREE_CON                 IParam = 122 // Controls whether the free constraints are included in the problem.
-	IPAR_READ_MPS_FORMAT                    IParam = 123 // Controls how strictly the MPS file reader interprets the MPS format.
-	IPAR_READ_MPS_WIDTH                     IParam = 124 // Controls the maximal number of characters allowed in one line of the MPS file.
-	IPAR_READ_TASK_IGNORE_PARAM             IParam = 125 // Controls what information is used from the task files.
-	IPAR_REMOTE_USE_COMPRESSION             IParam = 126 // Use compression when sending data to an optimization server
-	IPAR_REMOVE_UNUSED_SOLUTIONS            IParam = 127 // Removes unused solutions before the optimization is performed.
-	IPAR_SENSITIVITY_ALL                    IParam = 128 // Controls sensitivity report behavior.
-	IPAR_SENSITIVITY_OPTIMIZER              IParam = 129 // Controls which optimizer is used for optimal partition sensitivity analysis.
-	IPAR_SENSITIVITY_TYPE                   IParam = 130 // Controls which type of sensitivity analysis is to be performed.
-	IPAR_SIM_BASIS_FACTOR_USE               IParam = 131 // Controls whether an LU factorization of the basis is used in a hot-start.
-	IPAR_SIM_DEGEN                          IParam = 132 // Controls how aggressively degeneration is handled.
-	IPAR_SIM_DETECT_PWL                     IParam = 133 // Not in use.
-	IPAR_SIM_DUAL_CRASH                     IParam = 134 // Controls whether crashing is performed in the dual simplex optimizer.
-	IPAR_SIM_DUAL_PHASEONE_METHOD           IParam = 135 // An experimental feature.
-	IPAR_SIM_DUAL_RESTRICT_SELECTION        IParam = 136 // Controls how aggressively restricted selection is used.
-	IPAR_SIM_DUAL_SELECTION                 IParam = 137 // Controls the dual simplex strategy.
-	IPAR_SIM_EXPLOIT_DUPVEC                 IParam = 138 // Controls if the simplex optimizers are allowed to exploit duplicated columns.
-	IPAR_SIM_HOTSTART                       IParam = 139 // Controls the type of hot-start that the simplex optimizer perform.
-	IPAR_SIM_HOTSTART_LU                    IParam = 140 // Determines if the simplex optimizer should exploit the initial factorization.
-	IPAR_SIM_MAX_ITERATIONS                 IParam = 141 // Maximum number of iterations that can be used by a simplex optimizer.
-	IPAR_SIM_MAX_NUM_SETBACKS               IParam = 142 // Controls how many set-backs that are allowed within a simplex optimizer.
-	IPAR_SIM_NON_SINGULAR                   IParam = 143 // Controls if the simplex optimizer ensures a non-singular basis, if possible.
-	IPAR_SIM_PRIMAL_CRASH                   IParam = 144 // Controls the simplex crash.
-	IPAR_SIM_PRIMAL_PHASEONE_METHOD         IParam = 145 // An experimental feature.
-	IPAR_SIM_PRIMAL_RESTRICT_SELECTION      IParam = 146 // Controls how aggressively restricted selection is used.
-	IPAR_SIM_PRIMAL_SELECTION               IParam = 147 // Controls the primal simplex strategy.
-	IPAR_SIM_REFACTOR_FREQ                  IParam = 148 // Controls the basis refactoring frequency.
-	IPAR_SIM_REFORMULATION                  IParam = 149 // Controls if the simplex optimizers are allowed to reformulate the problem.
-	IPAR_SIM_SAVE_LU                        IParam = 150 // Controls if the LU factorization stored should be replaced with the LU factorization corresponding to the initial basis.
-	IPAR_SIM_SCALING                        IParam = 151 // Controls how much effort is used in scaling the problem before a simplex optimizer is used.
-	IPAR_SIM_SCALING_METHOD                 IParam = 152 // Controls how the problem is scaled before a simplex optimizer is used.
-	IPAR_SIM_SEED                           IParam = 153 // Sets the random seed used for randomization in the simplex optimizers.
-	IPAR_SIM_SOLVE_FORM                     IParam = 154 // Controls whether the primal or the dual problem is solved by the primal-/dual-simplex optimizer.
-	IPAR_SIM_STABILITY_PRIORITY             IParam = 155 // Controls how high priority the numerical stability should be given.
-	IPAR_SIM_SWITCH_OPTIMIZER               IParam = 156 // Controls the simplex behavior.
-	IPAR_SOL_FILTER_KEEP_BASIC              IParam = 157 // Control the contents of the solution files.
-	IPAR_SOL_FILTER_KEEP_RANGED             IParam = 158 // Control the contents of the solution files.
-	IPAR_SOL_READ_NAME_WIDTH                IParam = 159 // Controls the input solution file format.
-	IPAR_SOL_READ_WIDTH                     IParam = 160 // Controls the input solution file format.
-	IPAR_SOLUTION_CALLBACK                  IParam = 161 // Indicates whether solution callbacks will be performed during the optimization.
-	IPAR_TIMING_LEVEL                       IParam = 162 // Controls the amount of timing performed inside MOSEK.
-	IPAR_WRITE_BAS_CONSTRAINTS              IParam = 163 // Controls the basic solution file format.
-	IPAR_WRITE_BAS_HEAD                     IParam = 164 // Controls the basic solution file format.
-	IPAR_WRITE_BAS_VARIABLES                IParam = 165 // Controls the basic solution file format.
-	IPAR_WRITE_COMPRESSION                  IParam = 166 // Controls output file compression.
-	IPAR_WRITE_DATA_PARAM                   IParam = 167 // Controls output file data.
-	IPAR_WRITE_FREE_CON                     IParam = 168 // Controls the output file data.
-	IPAR_WRITE_GENERIC_NAMES                IParam = 169 // Controls the output file data.
-	IPAR_WRITE_GENERIC_NAMES_IO             IParam = 170 // Index origin used in  generic names.
-	IPAR_WRITE_IGNORE_INCOMPATIBLE_ITEMS    IParam = 171 // Controls if the writer ignores incompatible problem items when writing files.
-	IPAR_WRITE_INT_CONSTRAINTS              IParam = 172 // Controls the integer solution file format.
-	IPAR_WRITE_INT_HEAD                     IParam = 173 // Controls the integer solution file format.
-	IPAR_WRITE_INT_VARIABLES                IParam = 174 // Controls the integer solution file format.
-	IPAR_WRITE_JSON_INDENTATION             IParam = 175 // When set, the JSON task and solution files are written with indentation for better readability.
-	IPAR_WRITE_LP_FULL_OBJ                  IParam = 176 // Write full linear objective
-	IPAR_WRITE_LP_LINE_WIDTH                IParam = 177 // Controls the LP output file format.
-	IPAR_WRITE_MPS_FORMAT                   IParam = 178 // Controls in which format the MPS is written.
-	IPAR_WRITE_MPS_INT                      IParam = 179 // Controls the output file data.
-	IPAR_WRITE_SOL_BARVARIABLES             IParam = 180 // Controls the solution file format.
-	IPAR_WRITE_SOL_CONSTRAINTS              IParam = 181 // Controls the solution file format.
-	IPAR_WRITE_SOL_HEAD                     IParam = 182 // Controls solution file format.
-	IPAR_WRITE_SOL_IGNORE_INVALID_NAMES     IParam = 183 // Controls whether the user specified names are employed even if they are invalid names.
-	IPAR_WRITE_SOL_VARIABLES                IParam = 184 // Controls the solution file format.
-	IPAR_WRITE_TASK_INC_SOL                 IParam = 185 // Controls whether the solutions are stored in the task file too.
-	IPAR_WRITE_XML_MODE                     IParam = 186 // Controls if linear coefficients should be written by row or column when writing in the XML file format.
+	IPAR_MIO_MIN_REL                        IParam = 78  // Number of times a variable must have been branched on for its pseudocost to be cosidered reliable.
+	IPAR_MIO_MODE                           IParam = 79  // Turns on/off the mixed-integer mode.
+	IPAR_MIO_NODE_OPTIMIZER                 IParam = 80  // Controls which optimizer is employed at the non-root nodes in the mixed-integer optimizer.
+	IPAR_MIO_NODE_SELECTION                 IParam = 81  // Controls the node selection strategy employed by the mixed-integer optimizer.
+	IPAR_MIO_NUMERICAL_EMPHASIS_LEVEL       IParam = 82  // Controls how much emphasis is put on reducing numerical problems
+	IPAR_MIO_PERSPECTIVE_REFORMULATE        IParam = 83  // Enables or disables perspective reformulation in presolve.
+	IPAR_MIO_PRESOLVE_AGGREGATOR_USE        IParam = 84  // Controls if the aggregator should be used.
+	IPAR_MIO_PROBING_LEVEL                  IParam = 85  // Controls the amount of probing employed by the mixed-integer optimizer in presolve.
+	IPAR_MIO_PROPAGATE_OBJECTIVE_CONSTRAINT IParam = 86  // Use objective domain propagation.
+	IPAR_MIO_QCQO_REFORMULATION_METHOD      IParam = 87  // Controls what reformulation method is applied to mixed-integer quadratic problems.
+	IPAR_MIO_RINS_MAX_NODES                 IParam = 88  // Maximum number of nodes in each call to RINS.
+	IPAR_MIO_ROOT_OPTIMIZER                 IParam = 89  // Controls which optimizer is employed at the root node in the mixed-integer optimizer.
+	IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL     IParam = 90  // Controls whether presolve can be repeated at root node.
+	IPAR_MIO_SEED                           IParam = 91  // Sets the random seed used for randomization in the mixed integer optimizer.
+	IPAR_MIO_SYMMETRY_LEVEL                 IParam = 92  // Controls the amount of symmetry detection and handling employed by the mixed-integer optimizer in presolve.
+	IPAR_MIO_VAR_SELECTION                  IParam = 93  // Controls the variable selection strategy employed by the mixed-integer optimizer.
+	IPAR_MIO_VB_DETECTION_LEVEL             IParam = 94  // Controls how much effort is put into detecting variable bounds.
+	IPAR_MT_SPINCOUNT                       IParam = 95  // Set the number of iterations to spin before sleeping.
+	IPAR_NG                                 IParam = 96  // Not in use
+	IPAR_NUM_THREADS                        IParam = 97  // The number of threads employed by the optimizer.
+	IPAR_OPF_WRITE_HEADER                   IParam = 98  // Write a text header with date and MOSEK version in an OPF file.
+	IPAR_OPF_WRITE_HINTS                    IParam = 99  // Write a hint section with problem dimensions in the beginning of an OPF file.
+	IPAR_OPF_WRITE_LINE_LENGTH              IParam = 100 // Aim to keep lines in OPF files not much longer than this.
+	IPAR_OPF_WRITE_PARAMETERS               IParam = 101 // Write a parameter section in an OPF file.
+	IPAR_OPF_WRITE_PROBLEM                  IParam = 102 // Write objective, constraints, bounds etc. to an OPF file.
+	IPAR_OPF_WRITE_SOL_BAS                  IParam = 103 // Controls what is written to the OPF files.
+	IPAR_OPF_WRITE_SOL_ITG                  IParam = 104 // Controls what is written to the OPF files.
+	IPAR_OPF_WRITE_SOL_ITR                  IParam = 105 // Controls what is written to the OPF files.
+	IPAR_OPF_WRITE_SOLUTIONS                IParam = 106 // Enable inclusion of solutions in the OPF files.
+	IPAR_OPTIMIZER                          IParam = 107 // Controls which optimizer is used to optimize the task.
+	IPAR_PARAM_READ_CASE_NAME               IParam = 108 // If turned on, then names in the parameter file are case sensitive.
+	IPAR_PARAM_READ_IGN_ERROR               IParam = 109 // If turned on, then errors in parameter settings is ignored.
+	IPAR_PRESOLVE_ELIMINATOR_MAX_FILL       IParam = 110 // Maximum amount of fill-in created in one pivot during the elimination phase.
+	IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES  IParam = 111 // Control the maximum number of times the eliminator is tried.
+	IPAR_PRESOLVE_LEVEL                     IParam = 112 // Currently not used.
+	IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH       IParam = 113 // Controls linear dependency check in presolve.
+	IPAR_PRESOLVE_LINDEP_NEW                IParam = 114 // Controls whether whether a new experimental linear dependency checker is employed.
+	IPAR_PRESOLVE_LINDEP_REL_WORK_TRH       IParam = 115 // Controls linear dependency check in presolve.
+	IPAR_PRESOLVE_LINDEP_USE                IParam = 116 // Controls whether the linear constraints are checked for linear dependencies.
+	IPAR_PRESOLVE_MAX_NUM_PASS              IParam = 117 // Control the maximum number of times presolve passes over the problem.
+	IPAR_PRESOLVE_MAX_NUM_REDUCTIONS        IParam = 118 // Controls the maximum number of reductions performed by the presolve.
+	IPAR_PRESOLVE_USE                       IParam = 119 // Controls whether the presolve is applied to a problem before it is optimized.
+	IPAR_PRIMAL_REPAIR_OPTIMIZER            IParam = 120 // Controls which optimizer that is used to find the optimal repair.
+	IPAR_PTF_WRITE_PARAMETERS               IParam = 121 // Controls whether parameters section is written in PTF files.
+	IPAR_PTF_WRITE_SOLUTIONS                IParam = 122 // Controls whether solution section is written in PTF files.
+	IPAR_PTF_WRITE_TRANSFORM                IParam = 123 // Controls if simple transformation are done when writing PTF files.
+	IPAR_READ_DEBUG                         IParam = 124 // Turns on additional debugging information when reading files.
+	IPAR_READ_KEEP_FREE_CON                 IParam = 125 // Controls whether the free constraints are included in the problem.
+	IPAR_READ_MPS_FORMAT                    IParam = 126 // Controls how strictly the MPS file reader interprets the MPS format.
+	IPAR_READ_MPS_WIDTH                     IParam = 127 // Controls the maximal number of characters allowed in one line of the MPS file.
+	IPAR_READ_TASK_IGNORE_PARAM             IParam = 128 // Controls what information is used from the task files.
+	IPAR_REMOTE_USE_COMPRESSION             IParam = 129 // Use compression when sending data to an optimization server
+	IPAR_REMOVE_UNUSED_SOLUTIONS            IParam = 130 // Removes unused solutions before the optimization is performed.
+	IPAR_SENSITIVITY_ALL                    IParam = 131 // Controls sensitivity report behavior.
+	IPAR_SENSITIVITY_OPTIMIZER              IParam = 132 // Controls which optimizer is used for optimal partition sensitivity analysis.
+	IPAR_SENSITIVITY_TYPE                   IParam = 133 // Controls which type of sensitivity analysis is to be performed.
+	IPAR_SIM_BASIS_FACTOR_USE               IParam = 134 // Controls whether an LU factorization of the basis is used in a hot-start.
+	IPAR_SIM_DEGEN                          IParam = 135 // Controls how aggressively degeneration is handled.
+	IPAR_SIM_DETECT_PWL                     IParam = 136 // Not in use.
+	IPAR_SIM_DUAL_CRASH                     IParam = 137 // Controls whether crashing is performed in the dual simplex optimizer.
+	IPAR_SIM_DUAL_PHASEONE_METHOD           IParam = 138 // An experimental feature.
+	IPAR_SIM_DUAL_RESTRICT_SELECTION        IParam = 139 // Controls how aggressively restricted selection is used.
+	IPAR_SIM_DUAL_SELECTION                 IParam = 140 // Controls the dual simplex strategy.
+	IPAR_SIM_EXPLOIT_DUPVEC                 IParam = 141 // Controls if the simplex optimizers are allowed to exploit duplicated columns.
+	IPAR_SIM_HOTSTART                       IParam = 142 // Controls the type of hot-start that the simplex optimizer perform.
+	IPAR_SIM_HOTSTART_LU                    IParam = 143 // Determines if the simplex optimizer should exploit the initial factorization.
+	IPAR_SIM_MAX_ITERATIONS                 IParam = 144 // Maximum number of iterations that can be used by a simplex optimizer.
+	IPAR_SIM_MAX_NUM_SETBACKS               IParam = 145 // Controls how many set-backs that are allowed within a simplex optimizer.
+	IPAR_SIM_NON_SINGULAR                   IParam = 146 // Controls if the simplex optimizer ensures a non-singular basis, if possible.
+	IPAR_SIM_PRIMAL_CRASH                   IParam = 147 // Controls the simplex crash.
+	IPAR_SIM_PRIMAL_PHASEONE_METHOD         IParam = 148 // An experimental feature.
+	IPAR_SIM_PRIMAL_RESTRICT_SELECTION      IParam = 149 // Controls how aggressively restricted selection is used.
+	IPAR_SIM_PRIMAL_SELECTION               IParam = 150 // Controls the primal simplex strategy.
+	IPAR_SIM_REFACTOR_FREQ                  IParam = 151 // Controls the basis refactoring frequency.
+	IPAR_SIM_REFORMULATION                  IParam = 152 // Controls if the simplex optimizers are allowed to reformulate the problem.
+	IPAR_SIM_SAVE_LU                        IParam = 153 // Controls if the LU factorization stored should be replaced with the LU factorization corresponding to the initial basis.
+	IPAR_SIM_SCALING                        IParam = 154 // Controls how much effort is used in scaling the problem before a simplex optimizer is used.
+	IPAR_SIM_SCALING_METHOD                 IParam = 155 // Controls how the problem is scaled before a simplex optimizer is used.
+	IPAR_SIM_SEED                           IParam = 156 // Sets the random seed used for randomization in the simplex optimizers.
+	IPAR_SIM_SOLVE_FORM                     IParam = 157 // Controls whether the primal or the dual problem is solved by the primal-/dual-simplex optimizer.
+	IPAR_SIM_STABILITY_PRIORITY             IParam = 158 // Controls how high priority the numerical stability should be given.
+	IPAR_SIM_SWITCH_OPTIMIZER               IParam = 159 // Controls the simplex behavior.
+	IPAR_SOL_FILTER_KEEP_BASIC              IParam = 160 // Control the contents of the solution files.
+	IPAR_SOL_FILTER_KEEP_RANGED             IParam = 161 // Control the contents of the solution files.
+	IPAR_SOL_READ_NAME_WIDTH                IParam = 162 // Controls the input solution file format.
+	IPAR_SOL_READ_WIDTH                     IParam = 163 // Controls the input solution file format.
+	IPAR_SOLUTION_CALLBACK                  IParam = 164 // Indicates whether solution callbacks will be performed during the optimization.
+	IPAR_TIMING_LEVEL                       IParam = 165 // Controls the amount of timing performed inside MOSEK.
+	IPAR_WRITE_BAS_CONSTRAINTS              IParam = 166 // Controls the basic solution file format.
+	IPAR_WRITE_BAS_HEAD                     IParam = 167 // Controls the basic solution file format.
+	IPAR_WRITE_BAS_VARIABLES                IParam = 168 // Controls the basic solution file format.
+	IPAR_WRITE_COMPRESSION                  IParam = 169 // Controls output file compression.
+	IPAR_WRITE_DATA_PARAM                   IParam = 170 // Controls output file data.
+	IPAR_WRITE_FREE_CON                     IParam = 171 // Controls the output file data.
+	IPAR_WRITE_GENERIC_NAMES                IParam = 172 // Controls the output file data.
+	IPAR_WRITE_GENERIC_NAMES_IO             IParam = 173 // Index origin used in  generic names.
+	IPAR_WRITE_IGNORE_INCOMPATIBLE_ITEMS    IParam = 174 // Controls if the writer ignores incompatible problem items when writing files.
+	IPAR_WRITE_INT_CONSTRAINTS              IParam = 175 // Controls the integer solution file format.
+	IPAR_WRITE_INT_HEAD                     IParam = 176 // Controls the integer solution file format.
+	IPAR_WRITE_INT_VARIABLES                IParam = 177 // Controls the integer solution file format.
+	IPAR_WRITE_JSON_INDENTATION             IParam = 178 // When set, the JSON task and solution files are written with indentation for better readability.
+	IPAR_WRITE_LP_FULL_OBJ                  IParam = 179 // Write full linear objective
+	IPAR_WRITE_LP_LINE_WIDTH                IParam = 180 // Controls the LP output file format.
+	IPAR_WRITE_MPS_FORMAT                   IParam = 181 // Controls in which format the MPS is written.
+	IPAR_WRITE_MPS_INT                      IParam = 182 // Controls the output file data.
+	IPAR_WRITE_SOL_BARVARIABLES             IParam = 183 // Controls the solution file format.
+	IPAR_WRITE_SOL_CONSTRAINTS              IParam = 184 // Controls the solution file format.
+	IPAR_WRITE_SOL_HEAD                     IParam = 185 // Controls solution file format.
+	IPAR_WRITE_SOL_IGNORE_INVALID_NAMES     IParam = 186 // Controls whether the user specified names are employed even if they are invalid names.
+	IPAR_WRITE_SOL_VARIABLES                IParam = 187 // Controls the solution file format.
+	IPAR_WRITE_TASK_INC_SOL                 IParam = 188 // Controls whether the solutions are stored in the task file too.
+	IPAR_WRITE_XML_MODE                     IParam = 189 // Controls if linear coefficients should be written by row or column when writing in the XML file format.
 )
 
 var _IParam_map = map[IParam]string{
@@ -212,7 +215,6 @@ var _IParam_map = map[IParam]string{
 	IPAR_BI_IGNORE_NUM_ERROR:                "IPAR_BI_IGNORE_NUM_ERROR",
 	IPAR_BI_MAX_ITERATIONS:                  "IPAR_BI_MAX_ITERATIONS",
 	IPAR_CACHE_LICENSE:                      "IPAR_CACHE_LICENSE",
-	IPAR_CHECK_CONVEXITY:                    "IPAR_CHECK_CONVEXITY",
 	IPAR_COMPRESS_STATFILE:                  "IPAR_COMPRESS_STATFILE",
 	IPAR_INFEAS_GENERIC_NAMES:               "IPAR_INFEAS_GENERIC_NAMES",
 	IPAR_INFEAS_PREFER_PRIMAL:               "IPAR_INFEAS_PREFER_PRIMAL",
@@ -241,7 +243,6 @@ var _IParam_map = map[IParam]string{
 	IPAR_LOG_ANA_PRO:                        "IPAR_LOG_ANA_PRO",
 	IPAR_LOG_BI:                             "IPAR_LOG_BI",
 	IPAR_LOG_BI_FREQ:                        "IPAR_LOG_BI_FREQ",
-	IPAR_LOG_CHECK_CONVEXITY:                "IPAR_LOG_CHECK_CONVEXITY",
 	IPAR_LOG_CUT_SECOND_OPT:                 "IPAR_LOG_CUT_SECOND_OPT",
 	IPAR_LOG_EXPAND:                         "IPAR_LOG_EXPAND",
 	IPAR_LOG_FEAS_REPAIR:                    "IPAR_LOG_FEAS_REPAIR",
@@ -273,13 +274,16 @@ var _IParam_map = map[IParam]string{
 	IPAR_MIO_CUT_LIPRO:                      "IPAR_MIO_CUT_LIPRO",
 	IPAR_MIO_CUT_SELECTION_LEVEL:            "IPAR_MIO_CUT_SELECTION_LEVEL",
 	IPAR_MIO_DATA_PERMUTATION_METHOD:        "IPAR_MIO_DATA_PERMUTATION_METHOD",
+	IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL:        "IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL",
 	IPAR_MIO_FEASPUMP_LEVEL:                 "IPAR_MIO_FEASPUMP_LEVEL",
 	IPAR_MIO_HEURISTIC_LEVEL:                "IPAR_MIO_HEURISTIC_LEVEL",
 	IPAR_MIO_MAX_NUM_BRANCHES:               "IPAR_MIO_MAX_NUM_BRANCHES",
 	IPAR_MIO_MAX_NUM_RELAXS:                 "IPAR_MIO_MAX_NUM_RELAXS",
+	IPAR_MIO_MAX_NUM_RESTARTS:               "IPAR_MIO_MAX_NUM_RESTARTS",
 	IPAR_MIO_MAX_NUM_ROOT_CUT_ROUNDS:        "IPAR_MIO_MAX_NUM_ROOT_CUT_ROUNDS",
 	IPAR_MIO_MAX_NUM_SOLUTIONS:              "IPAR_MIO_MAX_NUM_SOLUTIONS",
 	IPAR_MIO_MEMORY_EMPHASIS_LEVEL:          "IPAR_MIO_MEMORY_EMPHASIS_LEVEL",
+	IPAR_MIO_MIN_REL:                        "IPAR_MIO_MIN_REL",
 	IPAR_MIO_MODE:                           "IPAR_MIO_MODE",
 	IPAR_MIO_NODE_OPTIMIZER:                 "IPAR_MIO_NODE_OPTIMIZER",
 	IPAR_MIO_NODE_SELECTION:                 "IPAR_MIO_NODE_SELECTION",
@@ -294,6 +298,7 @@ var _IParam_map = map[IParam]string{
 	IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL:     "IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL",
 	IPAR_MIO_SEED:                           "IPAR_MIO_SEED",
 	IPAR_MIO_SYMMETRY_LEVEL:                 "IPAR_MIO_SYMMETRY_LEVEL",
+	IPAR_MIO_VAR_SELECTION:                  "IPAR_MIO_VAR_SELECTION",
 	IPAR_MIO_VB_DETECTION_LEVEL:             "IPAR_MIO_VB_DETECTION_LEVEL",
 	IPAR_MT_SPINCOUNT:                       "IPAR_MT_SPINCOUNT",
 	IPAR_NG:                                 "IPAR_NG",
@@ -314,6 +319,7 @@ var _IParam_map = map[IParam]string{
 	IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES:  "IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES",
 	IPAR_PRESOLVE_LEVEL:                     "IPAR_PRESOLVE_LEVEL",
 	IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH:       "IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH",
+	IPAR_PRESOLVE_LINDEP_NEW:                "IPAR_PRESOLVE_LINDEP_NEW",
 	IPAR_PRESOLVE_LINDEP_REL_WORK_TRH:       "IPAR_PRESOLVE_LINDEP_REL_WORK_TRH",
 	IPAR_PRESOLVE_LINDEP_USE:                "IPAR_PRESOLVE_LINDEP_USE",
 	IPAR_PRESOLVE_MAX_NUM_PASS:              "IPAR_PRESOLVE_MAX_NUM_PASS",

@@ -94,16 +94,17 @@ const (
 	CALLBACK_PRIMAL_SIMPLEX           CallbackCode = 80 // The callback function is called from within the primal simplex optimizer.
 	CALLBACK_READ_OPF                 CallbackCode = 81 // The callback function is called from the OPF reader.
 	CALLBACK_READ_OPF_SECTION         CallbackCode = 82 // A chunk of Q non-zeros has been read from a problem file.
-	CALLBACK_SOLVING_REMOTE           CallbackCode = 83 // The callback function is called while the task is being solved on a remote server.
-	CALLBACK_UPDATE_DUAL_BI           CallbackCode = 84 // The callback function is called from within the basis identification procedure at an intermediate point in the dual phase.
-	CALLBACK_UPDATE_DUAL_SIMPLEX      CallbackCode = 85 // The callback function is called in the dual simplex optimizer.
-	CALLBACK_UPDATE_DUAL_SIMPLEX_BI   CallbackCode = 86 // The callback function is called from within the basis identification procedure at an intermediate point in the dual simplex clean-up phase.
-	CALLBACK_UPDATE_PRESOLVE          CallbackCode = 87 // The callback function is called from within the presolve procedure.
-	CALLBACK_UPDATE_PRIMAL_BI         CallbackCode = 88 // The callback function is called from within the basis identification procedure at an intermediate point in the primal phase.
-	CALLBACK_UPDATE_PRIMAL_SIMPLEX    CallbackCode = 89 // The callback function is called  in the primal simplex optimizer.
-	CALLBACK_UPDATE_PRIMAL_SIMPLEX_BI CallbackCode = 90 // The callback function is called from within the basis identification procedure at an intermediate point in the primal simplex clean-up phase.
-	CALLBACK_UPDATE_SIMPLEX           CallbackCode = 91 // The callback function is called from simplex optimizer.
-	CALLBACK_WRITE_OPF                CallbackCode = 92 // The callback function is called from the OPF writer.
+	CALLBACK_RESTART_MIO              CallbackCode = 83 // The callback function is called when the mixed-integer optimizer is restarted.
+	CALLBACK_SOLVING_REMOTE           CallbackCode = 84 // The callback function is called while the task is being solved on a remote server.
+	CALLBACK_UPDATE_DUAL_BI           CallbackCode = 85 // The callback function is called from within the basis identification procedure at an intermediate point in the dual phase.
+	CALLBACK_UPDATE_DUAL_SIMPLEX      CallbackCode = 86 // The callback function is called in the dual simplex optimizer.
+	CALLBACK_UPDATE_DUAL_SIMPLEX_BI   CallbackCode = 87 // The callback function is called from within the basis identification procedure at an intermediate point in the dual simplex clean-up phase.
+	CALLBACK_UPDATE_PRESOLVE          CallbackCode = 88 // The callback function is called from within the presolve procedure.
+	CALLBACK_UPDATE_PRIMAL_BI         CallbackCode = 89 // The callback function is called from within the basis identification procedure at an intermediate point in the primal phase.
+	CALLBACK_UPDATE_PRIMAL_SIMPLEX    CallbackCode = 90 // The callback function is called  in the primal simplex optimizer.
+	CALLBACK_UPDATE_PRIMAL_SIMPLEX_BI CallbackCode = 91 // The callback function is called from within the basis identification procedure at an intermediate point in the primal simplex clean-up phase.
+	CALLBACK_UPDATE_SIMPLEX           CallbackCode = 92 // The callback function is called from simplex optimizer.
+	CALLBACK_WRITE_OPF                CallbackCode = 93 // The callback function is called from the OPF writer.
 )
 
 var _CallbackCode_map = map[CallbackCode]string{
@@ -190,6 +191,7 @@ var _CallbackCode_map = map[CallbackCode]string{
 	CALLBACK_PRIMAL_SIMPLEX:           "CALLBACK_PRIMAL_SIMPLEX",
 	CALLBACK_READ_OPF:                 "CALLBACK_READ_OPF",
 	CALLBACK_READ_OPF_SECTION:         "CALLBACK_READ_OPF_SECTION",
+	CALLBACK_RESTART_MIO:              "CALLBACK_RESTART_MIO",
 	CALLBACK_SOLVING_REMOTE:           "CALLBACK_SOLVING_REMOTE",
 	CALLBACK_UPDATE_DUAL_BI:           "CALLBACK_UPDATE_DUAL_BI",
 	CALLBACK_UPDATE_DUAL_SIMPLEX:      "CALLBACK_UPDATE_DUAL_SIMPLEX",

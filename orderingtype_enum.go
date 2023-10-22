@@ -16,7 +16,7 @@ const (
 	ORDER_METHOD_EXPERIMENTAL   OrderingType = 2 // This option should not be used.
 	ORDER_METHOD_TRY_GRAPHPAR   OrderingType = 3 // Always try the graph partitioning based ordering.
 	ORDER_METHOD_FORCE_GRAPHPAR OrderingType = 4 // Always use the graph partitioning based ordering even if it is worse than the approximate minimum local fill ordering.
-	ORDER_METHOD_NONE           OrderingType = 5 // No ordering is used.
+	ORDER_METHOD_NONE           OrderingType = 5 // No ordering is used. Note using this value almost always leads to a significantly slow down.
 )
 
 var _OrderingType_map = map[OrderingType]string{

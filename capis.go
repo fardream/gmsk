@@ -318,7 +318,7 @@ func writeStreamToWriter(p unsafe.Pointer, v *C.char) {
 	const MAXLEN = 16777216 // or 16MB
 	n := C.strnlen(v, MAXLEN)
 
-	w.writer.Write(unsafe.Slice((*byte)(unsafe.Pointer(v)), n))
+	_, _ = w.writer.Write(unsafe.Slice((*byte)(unsafe.Pointer(v)), n))
 }
 
 // LinkFuncToTaskStream wraps MSK_linkfuctotaskstream using [io.Writer] instead of callbacks.
@@ -399,4 +399,45 @@ func getPtrToFirst[T any](v []T) *T {
 	} else {
 		return &v[0]
 	}
+}
+
+// RescodeToStr is wrapping [MSK_rescodetostr]
+//
+// [MSK_rescodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.rescodetostr
+func RescodeToStr(
+	c res.Code,
+) (str string, r error) {
+	// function template: prepare for output of booleans
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
+		C.MSK_rescodetostr(
+			C.MSKrescodee(c),
+			c_str,
+		),
+	).ToError()
+
+	if r == nil {
+		str = C.GoString(c_str)
+	}
+
+	return
+}
+
+// WriteBSolutionHandle wraps [MSK_writebsolutionhandle) and uses [io.Writer] instead of using callbacks.
+//
+// [MSK_writebsolutionhandle]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.writebsolution
+func (task *Task) WriteBSolutionHandle(handle io.Writer, compress CompressType) error {
+	writer := writerHolder{writer: handle}
+
+	ptr := cgo.NewHandle(writer)
+	task.writerHandles = append(task.writerHandles, ptr)
+
+	return res.Code(C.MSK_writebsolutionhandle(
+		task.task,
+		(*[0]byte)(C.writeFuncToWriter),
+		C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
+		C.MSKcompresstypee(compress),
+	)).ToError()
 }

@@ -11,221 +11,243 @@ import "strconv"
 type IInfItem uint32
 
 const (
-	IINF_ANA_PRO_NUM_CON                   IInfItem = 0   // Number of constraints in the problem.
-	IINF_ANA_PRO_NUM_CON_EQ                IInfItem = 1   // Number of equality constraints.
-	IINF_ANA_PRO_NUM_CON_FR                IInfItem = 2   // Number of unbounded constraints.
-	IINF_ANA_PRO_NUM_CON_LO                IInfItem = 3   // Number of constraints with a lower bound and an infinite upper bound.
-	IINF_ANA_PRO_NUM_CON_RA                IInfItem = 4   // Number of constraints with finite lower and upper bounds.
-	IINF_ANA_PRO_NUM_CON_UP                IInfItem = 5   // Number of constraints with an upper bound and an infinite lower bound.
-	IINF_ANA_PRO_NUM_VAR                   IInfItem = 6   // Number of variables in the problem.
-	IINF_ANA_PRO_NUM_VAR_BIN               IInfItem = 7   // Number of binary variables.
-	IINF_ANA_PRO_NUM_VAR_CONT              IInfItem = 8   // Number of continuous variables.
-	IINF_ANA_PRO_NUM_VAR_EQ                IInfItem = 9   // Number of fixed variables.
-	IINF_ANA_PRO_NUM_VAR_FR                IInfItem = 10  // Number of unbounded constraints.
-	IINF_ANA_PRO_NUM_VAR_INT               IInfItem = 11  // Number of general integer variables.
-	IINF_ANA_PRO_NUM_VAR_LO                IInfItem = 12  // Number of variables with a lower bound and an infinite upper bound.
-	IINF_ANA_PRO_NUM_VAR_RA                IInfItem = 13  // Number of variables with finite lower and upper bounds.
-	IINF_ANA_PRO_NUM_VAR_UP                IInfItem = 14  // Number of variables with an upper bound and an infinite lower bound.
-	IINF_INTPNT_FACTOR_DIM_DENSE           IInfItem = 15  // Dimension of the dense sub system in factorization.
-	IINF_INTPNT_ITER                       IInfItem = 16  // Number of interior-point iterations since invoking the interior-point optimizer.
-	IINF_INTPNT_NUM_THREADS                IInfItem = 17  // Number of threads that the interior-point optimizer is using.
-	IINF_INTPNT_SOLVE_DUAL                 IInfItem = 18  // Non-zero if the interior-point optimizer is solving the dual problem.
-	IINF_MIO_ABSGAP_SATISFIED              IInfItem = 19  // Non-zero if absolute gap is within tolerances.
-	IINF_MIO_CLIQUE_TABLE_SIZE             IInfItem = 20  // Size of the clique table.
-	IINF_MIO_CONSTRUCT_SOLUTION            IInfItem = 21  // Informs if MOSEK successfully constructed an initial integer feasible solution.
-	IINF_MIO_INITIAL_FEASIBLE_SOLUTION     IInfItem = 22  // Informs if MOSEK found the solution provided by the user to be feasible
-	IINF_MIO_NODE_DEPTH                    IInfItem = 23  // Depth of the last node solved.
-	IINF_MIO_NUM_ACTIVE_NODES              IInfItem = 24  // Number of active branch and bound nodes.
-	IINF_MIO_NUM_BRANCH                    IInfItem = 25  // Number of branches performed during the optimization.
-	IINF_MIO_NUM_CLIQUE_CUTS               IInfItem = 26  // Number of clique cuts.
-	IINF_MIO_NUM_CMIR_CUTS                 IInfItem = 27  // Number of Complemented Mixed Integer Rounding (CMIR) cuts.
-	IINF_MIO_NUM_GOMORY_CUTS               IInfItem = 28  // Number of Gomory cuts.
-	IINF_MIO_NUM_IMPLIED_BOUND_CUTS        IInfItem = 29  // Number of implied bound cuts.
-	IINF_MIO_NUM_INT_SOLUTIONS             IInfItem = 30  // Number of integer feasible solutions that have been found.
-	IINF_MIO_NUM_KNAPSACK_COVER_CUTS       IInfItem = 31  // Number of clique cuts.
-	IINF_MIO_NUM_LIPRO_CUTS                IInfItem = 32  // Number of lift-and-project cuts.
-	IINF_MIO_NUM_RELAX                     IInfItem = 33  // Number of relaxations solved during the optimization.
-	IINF_MIO_NUM_REPEATED_PRESOLVE         IInfItem = 34  // Number of times presolve was repeated at root.
-	IINF_MIO_NUMBIN                        IInfItem = 35  // Number of binary variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMBINCONEVAR                 IInfItem = 36  // Number of binary cone variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMCON                        IInfItem = 37  // Number of constraints in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMCONE                       IInfItem = 38  // Number of cones in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMCONEVAR                    IInfItem = 39  // Number of cone variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMCONT                       IInfItem = 40  // Number of continuous variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMCONTCONEVAR                IInfItem = 41  // Number of continuous cone variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMDEXPCONES                  IInfItem = 42  // Number of dual exponential cones in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMDJC                        IInfItem = 43  // Number of disjunctive constraints in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMDPOWCONES                  IInfItem = 44  // Number of dual power cones in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMINT                        IInfItem = 45  // Number of integer variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMINTCONEVAR                 IInfItem = 46  // Number of integer cone variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMPEXPCONES                  IInfItem = 47  // Number of primal exponential cones in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMPPOWCONES                  IInfItem = 48  // Number of primal power cones in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMQCONES                     IInfItem = 49  // Number of quadratic cones in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMRQCONES                    IInfItem = 50  // Number of rotated quadratic cones in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_NUMVAR                        IInfItem = 51  // Number of variables in the problem to be solved by the mixed-integer optimizer.
-	IINF_MIO_OBJ_BOUND_DEFINED             IInfItem = 52  // Non-zero if a valid objective bound has been found, otherwise zero.
-	IINF_MIO_PRESOLVED_NUMBIN              IInfItem = 53  // Number of binary variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMBINCONEVAR       IInfItem = 54  // Number of binary cone variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMCON              IInfItem = 55  // Number of constraints in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMCONE             IInfItem = 56  // Number of cones in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMCONEVAR          IInfItem = 57  // Number of cone variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMCONT             IInfItem = 58  // Number of continuous variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMCONTCONEVAR      IInfItem = 59  // Number of continuous cone variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMDEXPCONES        IInfItem = 60  // Number of dual exponential cones in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMDJC              IInfItem = 61  // Number of disjunctive constraints in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMDPOWCONES        IInfItem = 62  // Number of dual power cones in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMINT              IInfItem = 63  // Number of integer variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMINTCONEVAR       IInfItem = 64  // Number of integer cone variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMPEXPCONES        IInfItem = 65  // Number of primal exponential cones in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMPPOWCONES        IInfItem = 66  // Number of primal power cones in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMQCONES           IInfItem = 67  // Number of quadratic cones in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMRQCONES          IInfItem = 68  // Number of rotated quadratic cones in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_PRESOLVED_NUMVAR              IInfItem = 69  // Number of variables in the problem after the mixed-integer optimizer's presolve.
-	IINF_MIO_RELGAP_SATISFIED              IInfItem = 70  // Non-zero if relative gap is within tolerances.
-	IINF_MIO_TOTAL_NUM_CUTS                IInfItem = 71  // Total number of cuts generated by the mixed-integer optimizer.
-	IINF_MIO_USER_OBJ_CUT                  IInfItem = 72  // If it is non-zero, then the objective cut is used.
-	IINF_OPT_NUMCON                        IInfItem = 73  // Number of constraints in the problem solved when the optimizer is called.
-	IINF_OPT_NUMVAR                        IInfItem = 74  // Number of variables in the problem solved when the optimizer is called
-	IINF_OPTIMIZE_RESPONSE                 IInfItem = 75  // The response code returned by optimize.
-	IINF_PRESOLVE_NUM_PRIMAL_PERTURBATIONS IInfItem = 76  // Number perturbations to thhe bounds of the primal problem.
-	IINF_PURIFY_DUAL_SUCCESS               IInfItem = 77  // Is nonzero if the dual solution is purified.
-	IINF_PURIFY_PRIMAL_SUCCESS             IInfItem = 78  // Is nonzero if the primal solution is purified.
-	IINF_RD_NUMBARVAR                      IInfItem = 79  // Number of symmetric variables read.
-	IINF_RD_NUMCON                         IInfItem = 80  // Number of constraints read.
-	IINF_RD_NUMCONE                        IInfItem = 81  // Number of conic constraints read.
-	IINF_RD_NUMINTVAR                      IInfItem = 82  // Number of integer-constrained variables read.
-	IINF_RD_NUMQ                           IInfItem = 83  // Number of nonempty Q matrices read.
-	IINF_RD_NUMVAR                         IInfItem = 84  // Number of variables read.
-	IINF_RD_PROTYPE                        IInfItem = 85  // Problem type.
-	IINF_SIM_DUAL_DEG_ITER                 IInfItem = 86  // The number of dual degenerate iterations.
-	IINF_SIM_DUAL_HOTSTART                 IInfItem = 87  // If 1 then the dual simplex algorithm is solving from an advanced basis.
-	IINF_SIM_DUAL_HOTSTART_LU              IInfItem = 88  // If 1 then a valid basis factorization of full rank was located and used by the dual simplex algorithm.
-	IINF_SIM_DUAL_INF_ITER                 IInfItem = 89  // The number of iterations taken with dual infeasibility.
-	IINF_SIM_DUAL_ITER                     IInfItem = 90  // Number of dual simplex iterations during the last optimization.
-	IINF_SIM_NUMCON                        IInfItem = 91  // Number of constraints in the problem solved by the simplex optimizer.
-	IINF_SIM_NUMVAR                        IInfItem = 92  // Number of variables in the problem solved by the simplex optimizer.
-	IINF_SIM_PRIMAL_DEG_ITER               IInfItem = 93  // The number of primal degenerate iterations.
-	IINF_SIM_PRIMAL_HOTSTART               IInfItem = 94  // If 1 then the primal simplex algorithm is solving from an advanced basis.
-	IINF_SIM_PRIMAL_HOTSTART_LU            IInfItem = 95  // If 1 then a valid basis factorization of full rank was located and used by the primal simplex algorithm.
-	IINF_SIM_PRIMAL_INF_ITER               IInfItem = 96  // The number of iterations taken with primal infeasibility.
-	IINF_SIM_PRIMAL_ITER                   IInfItem = 97  // Number of primal simplex iterations during the last optimization.
-	IINF_SIM_SOLVE_DUAL                    IInfItem = 98  // Is non-zero if dual problem is solved.
-	IINF_SOL_BAS_PROSTA                    IInfItem = 99  // Problem status of the basic solution. Updated after each optimization.
-	IINF_SOL_BAS_SOLSTA                    IInfItem = 100 // Solution status of the basic solution. Updated after each optimization.
-	IINF_SOL_ITG_PROSTA                    IInfItem = 101 // Problem status of the integer solution. Updated after each optimization.
-	IINF_SOL_ITG_SOLSTA                    IInfItem = 102 // Solution status of the integer solution. Updated after each optimization.
-	IINF_SOL_ITR_PROSTA                    IInfItem = 103 // Problem status of the interior-point solution. Updated after each optimization.
-	IINF_SOL_ITR_SOLSTA                    IInfItem = 104 // Solution status of the interior-point solution. Updated after each optimization.
-	IINF_STO_NUM_A_REALLOC                 IInfItem = 105 // Number of times the storage for storing the linear coefficient matrix has been changed.
+	IINF_ANA_PRO_NUM_CON                       IInfItem = 0   // Number of constraints in the problem.
+	IINF_ANA_PRO_NUM_CON_EQ                    IInfItem = 1   // Number of equality constraints.
+	IINF_ANA_PRO_NUM_CON_FR                    IInfItem = 2   // Number of unbounded constraints.
+	IINF_ANA_PRO_NUM_CON_LO                    IInfItem = 3   // Number of constraints with a lower bound and an infinite upper bound.
+	IINF_ANA_PRO_NUM_CON_RA                    IInfItem = 4   // Number of constraints with finite lower and upper bounds.
+	IINF_ANA_PRO_NUM_CON_UP                    IInfItem = 5   // Number of constraints with an upper bound and an infinite lower bound.
+	IINF_ANA_PRO_NUM_VAR                       IInfItem = 6   // Number of variables in the problem.
+	IINF_ANA_PRO_NUM_VAR_BIN                   IInfItem = 7   // Number of binary variables.
+	IINF_ANA_PRO_NUM_VAR_CONT                  IInfItem = 8   // Number of continuous variables.
+	IINF_ANA_PRO_NUM_VAR_EQ                    IInfItem = 9   // Number of fixed variables.
+	IINF_ANA_PRO_NUM_VAR_FR                    IInfItem = 10  // Number of unbounded constraints.
+	IINF_ANA_PRO_NUM_VAR_INT                   IInfItem = 11  // Number of general integer variables.
+	IINF_ANA_PRO_NUM_VAR_LO                    IInfItem = 12  // Number of variables with a lower bound and an infinite upper bound.
+	IINF_ANA_PRO_NUM_VAR_RA                    IInfItem = 13  // Number of variables with finite lower and upper bounds.
+	IINF_ANA_PRO_NUM_VAR_UP                    IInfItem = 14  // Number of variables with an upper bound and an infinite lower bound.
+	IINF_INTPNT_FACTOR_DIM_DENSE               IInfItem = 15  // Dimension of the dense sub system in factorization.
+	IINF_INTPNT_ITER                           IInfItem = 16  // Number of interior-point iterations since invoking the interior-point optimizer.
+	IINF_INTPNT_NUM_THREADS                    IInfItem = 17  // Number of threads that the interior-point optimizer is using.
+	IINF_INTPNT_SOLVE_DUAL                     IInfItem = 18  // Non-zero if the interior-point optimizer is solving the dual problem.
+	IINF_MIO_ABSGAP_SATISFIED                  IInfItem = 19  // Non-zero if absolute gap is within tolerances.
+	IINF_MIO_CLIQUE_TABLE_SIZE                 IInfItem = 20  // Size of the clique table.
+	IINF_MIO_CONSTRUCT_SOLUTION                IInfItem = 21  // Informs if MOSEK successfully constructed an initial integer feasible solution.
+	IINF_MIO_INITIAL_FEASIBLE_SOLUTION         IInfItem = 22  // Informs if MOSEK found the solution provided by the user to be feasible
+	IINF_MIO_NODE_DEPTH                        IInfItem = 23  // Depth of the last node solved.
+	IINF_MIO_NUM_ACTIVE_NODES                  IInfItem = 24  // Number of active branch and bound nodes.
+	IINF_MIO_NUM_ACTIVE_ROOT_CUTS              IInfItem = 25  // Number of active cuts in the final relaxation after the mixed-integer optimizer's root cut generation.
+	IINF_MIO_NUM_BRANCH                        IInfItem = 26  // Number of branches performed during the optimization.
+	IINF_MIO_NUM_INT_SOLUTIONS                 IInfItem = 27  // Number of integer feasible solutions that have been found.
+	IINF_MIO_NUM_RELAX                         IInfItem = 28  // Number of relaxations solved during the optimization.
+	IINF_MIO_NUM_REPEATED_PRESOLVE             IInfItem = 29  // Number of times presolve was repeated at root.
+	IINF_MIO_NUM_RESTARTS                      IInfItem = 30  // Number of restarts performed during the optimization.
+	IINF_MIO_NUM_ROOT_CUT_ROUNDS               IInfItem = 31  // Number of cut separation rounds at the root node of the mixed-integer optimizer.
+	IINF_MIO_NUM_SELECTED_CLIQUE_CUTS          IInfItem = 32  // Number of clique cuts selected to be included in the relaxation.
+	IINF_MIO_NUM_SELECTED_CMIR_CUTS            IInfItem = 33  // Number of Complemented Mixed Integer Rounding (CMIR) cuts selected to be included in the relaxation.
+	IINF_MIO_NUM_SELECTED_GOMORY_CUTS          IInfItem = 34  // Number of Gomory cuts selected to be included in the relaxation.
+	IINF_MIO_NUM_SELECTED_IMPLIED_BOUND_CUTS   IInfItem = 35  // Number of implied bound cuts selected to be included in the relaxation.
+	IINF_MIO_NUM_SELECTED_KNAPSACK_COVER_CUTS  IInfItem = 36  // Number of clique cuts selected to be included in the relaxation.
+	IINF_MIO_NUM_SELECTED_LIPRO_CUTS           IInfItem = 37  // Number of lift-and-project cuts selected to be included in the relaxation.
+	IINF_MIO_NUM_SEPARATED_CLIQUE_CUTS         IInfItem = 38  // Number of separated clique cuts.
+	IINF_MIO_NUM_SEPARATED_CMIR_CUTS           IInfItem = 39  // Number of separated Complemented Mixed Integer Rounding (CMIR) cuts.
+	IINF_MIO_NUM_SEPARATED_GOMORY_CUTS         IInfItem = 40  // Number of separated Gomory cuts.
+	IINF_MIO_NUM_SEPARATED_IMPLIED_BOUND_CUTS  IInfItem = 41  // Number of separated implied bound cuts.
+	IINF_MIO_NUM_SEPARATED_KNAPSACK_COVER_CUTS IInfItem = 42  // Number of separated clique cuts.
+	IINF_MIO_NUM_SEPARATED_LIPRO_CUTS          IInfItem = 43  // Number of separated lift-and-project cuts.
+	IINF_MIO_NUM_SOLVED_NODES                  IInfItem = 44  // Number of branch and bounds nodes solved in the main branch and bound tree.
+	IINF_MIO_NUMBIN                            IInfItem = 45  // Number of binary variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMBINCONEVAR                     IInfItem = 46  // Number of binary cone variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMCON                            IInfItem = 47  // Number of constraints in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMCONE                           IInfItem = 48  // Number of cones in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMCONEVAR                        IInfItem = 49  // Number of cone variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMCONT                           IInfItem = 50  // Number of continuous variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMCONTCONEVAR                    IInfItem = 51  // Number of continuous cone variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMDEXPCONES                      IInfItem = 52  // Number of dual exponential cones in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMDJC                            IInfItem = 53  // Number of disjunctive constraints in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMDPOWCONES                      IInfItem = 54  // Number of dual power cones in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMINT                            IInfItem = 55  // Number of integer variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMINTCONEVAR                     IInfItem = 56  // Number of integer cone variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMPEXPCONES                      IInfItem = 57  // Number of primal exponential cones in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMPPOWCONES                      IInfItem = 58  // Number of primal power cones in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMQCONES                         IInfItem = 59  // Number of quadratic cones in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMRQCONES                        IInfItem = 60  // Number of rotated quadratic cones in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_NUMVAR                            IInfItem = 61  // Number of variables in the problem to be solved by the mixed-integer optimizer.
+	IINF_MIO_OBJ_BOUND_DEFINED                 IInfItem = 62  // Non-zero if a valid objective bound has been found, otherwise zero.
+	IINF_MIO_PRESOLVED_NUMBIN                  IInfItem = 63  // Number of binary variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMBINCONEVAR           IInfItem = 64  // Number of binary cone variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMCON                  IInfItem = 65  // Number of constraints in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMCONE                 IInfItem = 66  // Number of cones in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMCONEVAR              IInfItem = 67  // Number of cone variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMCONT                 IInfItem = 68  // Number of continuous variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMCONTCONEVAR          IInfItem = 69  // Number of continuous cone variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMDEXPCONES            IInfItem = 70  // Number of dual exponential cones in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMDJC                  IInfItem = 71  // Number of disjunctive constraints in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMDPOWCONES            IInfItem = 72  // Number of dual power cones in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMINT                  IInfItem = 73  // Number of integer variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMINTCONEVAR           IInfItem = 74  // Number of integer cone variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMPEXPCONES            IInfItem = 75  // Number of primal exponential cones in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMPPOWCONES            IInfItem = 76  // Number of primal power cones in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMQCONES               IInfItem = 77  // Number of quadratic cones in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMRQCONES              IInfItem = 78  // Number of rotated quadratic cones in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_PRESOLVED_NUMVAR                  IInfItem = 79  // Number of variables in the problem after the mixed-integer optimizer's presolve.
+	IINF_MIO_RELGAP_SATISFIED                  IInfItem = 80  // Non-zero if relative gap is within tolerances.
+	IINF_MIO_TOTAL_NUM_SELECTED_CUTS           IInfItem = 81  // Total number of cuts selected to be included in the relaxation by the mixed-integer optimizer.
+	IINF_MIO_TOTAL_NUM_SEPARATED_CUTS          IInfItem = 82  // Total number of cuts separated by the mixed-integer optimizer.
+	IINF_MIO_USER_OBJ_CUT                      IInfItem = 83  // If it is non-zero, then the objective cut is used.
+	IINF_OPT_NUMCON                            IInfItem = 84  // Number of constraints in the problem solved when the optimizer is called.
+	IINF_OPT_NUMVAR                            IInfItem = 85  // Number of variables in the problem solved when the optimizer is called
+	IINF_OPTIMIZE_RESPONSE                     IInfItem = 86  // The response code returned by optimize.
+	IINF_PRESOLVE_NUM_PRIMAL_PERTURBATIONS     IInfItem = 87  // Number perturbations to thhe bounds of the primal problem.
+	IINF_PURIFY_DUAL_SUCCESS                   IInfItem = 88  // Is nonzero if the dual solution is purified.
+	IINF_PURIFY_PRIMAL_SUCCESS                 IInfItem = 89  // Is nonzero if the primal solution is purified.
+	IINF_RD_NUMBARVAR                          IInfItem = 90  // Number of symmetric variables read.
+	IINF_RD_NUMCON                             IInfItem = 91  // Number of constraints read.
+	IINF_RD_NUMCONE                            IInfItem = 92  // Number of conic constraints read.
+	IINF_RD_NUMINTVAR                          IInfItem = 93  // Number of integer-constrained variables read.
+	IINF_RD_NUMQ                               IInfItem = 94  // Number of nonempty Q matrices read.
+	IINF_RD_NUMVAR                             IInfItem = 95  // Number of variables read.
+	IINF_RD_PROTYPE                            IInfItem = 96  // Problem type.
+	IINF_SIM_DUAL_DEG_ITER                     IInfItem = 97  // The number of dual degenerate iterations.
+	IINF_SIM_DUAL_HOTSTART                     IInfItem = 98  // If 1 then the dual simplex algorithm is solving from an advanced basis.
+	IINF_SIM_DUAL_HOTSTART_LU                  IInfItem = 99  // If 1 then a valid basis factorization of full rank was located and used by the dual simplex algorithm.
+	IINF_SIM_DUAL_INF_ITER                     IInfItem = 100 // The number of iterations taken with dual infeasibility.
+	IINF_SIM_DUAL_ITER                         IInfItem = 101 // Number of dual simplex iterations during the last optimization.
+	IINF_SIM_NUMCON                            IInfItem = 102 // Number of constraints in the problem solved by the simplex optimizer.
+	IINF_SIM_NUMVAR                            IInfItem = 103 // Number of variables in the problem solved by the simplex optimizer.
+	IINF_SIM_PRIMAL_DEG_ITER                   IInfItem = 104 // The number of primal degenerate iterations.
+	IINF_SIM_PRIMAL_HOTSTART                   IInfItem = 105 // If 1 then the primal simplex algorithm is solving from an advanced basis.
+	IINF_SIM_PRIMAL_HOTSTART_LU                IInfItem = 106 // If 1 then a valid basis factorization of full rank was located and used by the primal simplex algorithm.
+	IINF_SIM_PRIMAL_INF_ITER                   IInfItem = 107 // The number of iterations taken with primal infeasibility.
+	IINF_SIM_PRIMAL_ITER                       IInfItem = 108 // Number of primal simplex iterations during the last optimization.
+	IINF_SIM_SOLVE_DUAL                        IInfItem = 109 // Is non-zero if dual problem is solved.
+	IINF_SOL_BAS_PROSTA                        IInfItem = 110 // Problem status of the basic solution. Updated after each optimization.
+	IINF_SOL_BAS_SOLSTA                        IInfItem = 111 // Solution status of the basic solution. Updated after each optimization.
+	IINF_SOL_ITG_PROSTA                        IInfItem = 112 // Problem status of the integer solution. Updated after each optimization.
+	IINF_SOL_ITG_SOLSTA                        IInfItem = 113 // Solution status of the integer solution. Updated after each optimization.
+	IINF_SOL_ITR_PROSTA                        IInfItem = 114 // Problem status of the interior-point solution. Updated after each optimization.
+	IINF_SOL_ITR_SOLSTA                        IInfItem = 115 // Solution status of the interior-point solution. Updated after each optimization.
+	IINF_STO_NUM_A_REALLOC                     IInfItem = 116 // Number of times the storage for storing the linear coefficient matrix has been changed.
 )
 
 var _IInfItem_map = map[IInfItem]string{
-	IINF_ANA_PRO_NUM_CON:                   "IINF_ANA_PRO_NUM_CON",
-	IINF_ANA_PRO_NUM_CON_EQ:                "IINF_ANA_PRO_NUM_CON_EQ",
-	IINF_ANA_PRO_NUM_CON_FR:                "IINF_ANA_PRO_NUM_CON_FR",
-	IINF_ANA_PRO_NUM_CON_LO:                "IINF_ANA_PRO_NUM_CON_LO",
-	IINF_ANA_PRO_NUM_CON_RA:                "IINF_ANA_PRO_NUM_CON_RA",
-	IINF_ANA_PRO_NUM_CON_UP:                "IINF_ANA_PRO_NUM_CON_UP",
-	IINF_ANA_PRO_NUM_VAR:                   "IINF_ANA_PRO_NUM_VAR",
-	IINF_ANA_PRO_NUM_VAR_BIN:               "IINF_ANA_PRO_NUM_VAR_BIN",
-	IINF_ANA_PRO_NUM_VAR_CONT:              "IINF_ANA_PRO_NUM_VAR_CONT",
-	IINF_ANA_PRO_NUM_VAR_EQ:                "IINF_ANA_PRO_NUM_VAR_EQ",
-	IINF_ANA_PRO_NUM_VAR_FR:                "IINF_ANA_PRO_NUM_VAR_FR",
-	IINF_ANA_PRO_NUM_VAR_INT:               "IINF_ANA_PRO_NUM_VAR_INT",
-	IINF_ANA_PRO_NUM_VAR_LO:                "IINF_ANA_PRO_NUM_VAR_LO",
-	IINF_ANA_PRO_NUM_VAR_RA:                "IINF_ANA_PRO_NUM_VAR_RA",
-	IINF_ANA_PRO_NUM_VAR_UP:                "IINF_ANA_PRO_NUM_VAR_UP",
-	IINF_INTPNT_FACTOR_DIM_DENSE:           "IINF_INTPNT_FACTOR_DIM_DENSE",
-	IINF_INTPNT_ITER:                       "IINF_INTPNT_ITER",
-	IINF_INTPNT_NUM_THREADS:                "IINF_INTPNT_NUM_THREADS",
-	IINF_INTPNT_SOLVE_DUAL:                 "IINF_INTPNT_SOLVE_DUAL",
-	IINF_MIO_ABSGAP_SATISFIED:              "IINF_MIO_ABSGAP_SATISFIED",
-	IINF_MIO_CLIQUE_TABLE_SIZE:             "IINF_MIO_CLIQUE_TABLE_SIZE",
-	IINF_MIO_CONSTRUCT_SOLUTION:            "IINF_MIO_CONSTRUCT_SOLUTION",
-	IINF_MIO_INITIAL_FEASIBLE_SOLUTION:     "IINF_MIO_INITIAL_FEASIBLE_SOLUTION",
-	IINF_MIO_NODE_DEPTH:                    "IINF_MIO_NODE_DEPTH",
-	IINF_MIO_NUM_ACTIVE_NODES:              "IINF_MIO_NUM_ACTIVE_NODES",
-	IINF_MIO_NUM_BRANCH:                    "IINF_MIO_NUM_BRANCH",
-	IINF_MIO_NUM_CLIQUE_CUTS:               "IINF_MIO_NUM_CLIQUE_CUTS",
-	IINF_MIO_NUM_CMIR_CUTS:                 "IINF_MIO_NUM_CMIR_CUTS",
-	IINF_MIO_NUM_GOMORY_CUTS:               "IINF_MIO_NUM_GOMORY_CUTS",
-	IINF_MIO_NUM_IMPLIED_BOUND_CUTS:        "IINF_MIO_NUM_IMPLIED_BOUND_CUTS",
-	IINF_MIO_NUM_INT_SOLUTIONS:             "IINF_MIO_NUM_INT_SOLUTIONS",
-	IINF_MIO_NUM_KNAPSACK_COVER_CUTS:       "IINF_MIO_NUM_KNAPSACK_COVER_CUTS",
-	IINF_MIO_NUM_LIPRO_CUTS:                "IINF_MIO_NUM_LIPRO_CUTS",
-	IINF_MIO_NUM_RELAX:                     "IINF_MIO_NUM_RELAX",
-	IINF_MIO_NUM_REPEATED_PRESOLVE:         "IINF_MIO_NUM_REPEATED_PRESOLVE",
-	IINF_MIO_NUMBIN:                        "IINF_MIO_NUMBIN",
-	IINF_MIO_NUMBINCONEVAR:                 "IINF_MIO_NUMBINCONEVAR",
-	IINF_MIO_NUMCON:                        "IINF_MIO_NUMCON",
-	IINF_MIO_NUMCONE:                       "IINF_MIO_NUMCONE",
-	IINF_MIO_NUMCONEVAR:                    "IINF_MIO_NUMCONEVAR",
-	IINF_MIO_NUMCONT:                       "IINF_MIO_NUMCONT",
-	IINF_MIO_NUMCONTCONEVAR:                "IINF_MIO_NUMCONTCONEVAR",
-	IINF_MIO_NUMDEXPCONES:                  "IINF_MIO_NUMDEXPCONES",
-	IINF_MIO_NUMDJC:                        "IINF_MIO_NUMDJC",
-	IINF_MIO_NUMDPOWCONES:                  "IINF_MIO_NUMDPOWCONES",
-	IINF_MIO_NUMINT:                        "IINF_MIO_NUMINT",
-	IINF_MIO_NUMINTCONEVAR:                 "IINF_MIO_NUMINTCONEVAR",
-	IINF_MIO_NUMPEXPCONES:                  "IINF_MIO_NUMPEXPCONES",
-	IINF_MIO_NUMPPOWCONES:                  "IINF_MIO_NUMPPOWCONES",
-	IINF_MIO_NUMQCONES:                     "IINF_MIO_NUMQCONES",
-	IINF_MIO_NUMRQCONES:                    "IINF_MIO_NUMRQCONES",
-	IINF_MIO_NUMVAR:                        "IINF_MIO_NUMVAR",
-	IINF_MIO_OBJ_BOUND_DEFINED:             "IINF_MIO_OBJ_BOUND_DEFINED",
-	IINF_MIO_PRESOLVED_NUMBIN:              "IINF_MIO_PRESOLVED_NUMBIN",
-	IINF_MIO_PRESOLVED_NUMBINCONEVAR:       "IINF_MIO_PRESOLVED_NUMBINCONEVAR",
-	IINF_MIO_PRESOLVED_NUMCON:              "IINF_MIO_PRESOLVED_NUMCON",
-	IINF_MIO_PRESOLVED_NUMCONE:             "IINF_MIO_PRESOLVED_NUMCONE",
-	IINF_MIO_PRESOLVED_NUMCONEVAR:          "IINF_MIO_PRESOLVED_NUMCONEVAR",
-	IINF_MIO_PRESOLVED_NUMCONT:             "IINF_MIO_PRESOLVED_NUMCONT",
-	IINF_MIO_PRESOLVED_NUMCONTCONEVAR:      "IINF_MIO_PRESOLVED_NUMCONTCONEVAR",
-	IINF_MIO_PRESOLVED_NUMDEXPCONES:        "IINF_MIO_PRESOLVED_NUMDEXPCONES",
-	IINF_MIO_PRESOLVED_NUMDJC:              "IINF_MIO_PRESOLVED_NUMDJC",
-	IINF_MIO_PRESOLVED_NUMDPOWCONES:        "IINF_MIO_PRESOLVED_NUMDPOWCONES",
-	IINF_MIO_PRESOLVED_NUMINT:              "IINF_MIO_PRESOLVED_NUMINT",
-	IINF_MIO_PRESOLVED_NUMINTCONEVAR:       "IINF_MIO_PRESOLVED_NUMINTCONEVAR",
-	IINF_MIO_PRESOLVED_NUMPEXPCONES:        "IINF_MIO_PRESOLVED_NUMPEXPCONES",
-	IINF_MIO_PRESOLVED_NUMPPOWCONES:        "IINF_MIO_PRESOLVED_NUMPPOWCONES",
-	IINF_MIO_PRESOLVED_NUMQCONES:           "IINF_MIO_PRESOLVED_NUMQCONES",
-	IINF_MIO_PRESOLVED_NUMRQCONES:          "IINF_MIO_PRESOLVED_NUMRQCONES",
-	IINF_MIO_PRESOLVED_NUMVAR:              "IINF_MIO_PRESOLVED_NUMVAR",
-	IINF_MIO_RELGAP_SATISFIED:              "IINF_MIO_RELGAP_SATISFIED",
-	IINF_MIO_TOTAL_NUM_CUTS:                "IINF_MIO_TOTAL_NUM_CUTS",
-	IINF_MIO_USER_OBJ_CUT:                  "IINF_MIO_USER_OBJ_CUT",
-	IINF_OPT_NUMCON:                        "IINF_OPT_NUMCON",
-	IINF_OPT_NUMVAR:                        "IINF_OPT_NUMVAR",
-	IINF_OPTIMIZE_RESPONSE:                 "IINF_OPTIMIZE_RESPONSE",
-	IINF_PRESOLVE_NUM_PRIMAL_PERTURBATIONS: "IINF_PRESOLVE_NUM_PRIMAL_PERTURBATIONS",
-	IINF_PURIFY_DUAL_SUCCESS:               "IINF_PURIFY_DUAL_SUCCESS",
-	IINF_PURIFY_PRIMAL_SUCCESS:             "IINF_PURIFY_PRIMAL_SUCCESS",
-	IINF_RD_NUMBARVAR:                      "IINF_RD_NUMBARVAR",
-	IINF_RD_NUMCON:                         "IINF_RD_NUMCON",
-	IINF_RD_NUMCONE:                        "IINF_RD_NUMCONE",
-	IINF_RD_NUMINTVAR:                      "IINF_RD_NUMINTVAR",
-	IINF_RD_NUMQ:                           "IINF_RD_NUMQ",
-	IINF_RD_NUMVAR:                         "IINF_RD_NUMVAR",
-	IINF_RD_PROTYPE:                        "IINF_RD_PROTYPE",
-	IINF_SIM_DUAL_DEG_ITER:                 "IINF_SIM_DUAL_DEG_ITER",
-	IINF_SIM_DUAL_HOTSTART:                 "IINF_SIM_DUAL_HOTSTART",
-	IINF_SIM_DUAL_HOTSTART_LU:              "IINF_SIM_DUAL_HOTSTART_LU",
-	IINF_SIM_DUAL_INF_ITER:                 "IINF_SIM_DUAL_INF_ITER",
-	IINF_SIM_DUAL_ITER:                     "IINF_SIM_DUAL_ITER",
-	IINF_SIM_NUMCON:                        "IINF_SIM_NUMCON",
-	IINF_SIM_NUMVAR:                        "IINF_SIM_NUMVAR",
-	IINF_SIM_PRIMAL_DEG_ITER:               "IINF_SIM_PRIMAL_DEG_ITER",
-	IINF_SIM_PRIMAL_HOTSTART:               "IINF_SIM_PRIMAL_HOTSTART",
-	IINF_SIM_PRIMAL_HOTSTART_LU:            "IINF_SIM_PRIMAL_HOTSTART_LU",
-	IINF_SIM_PRIMAL_INF_ITER:               "IINF_SIM_PRIMAL_INF_ITER",
-	IINF_SIM_PRIMAL_ITER:                   "IINF_SIM_PRIMAL_ITER",
-	IINF_SIM_SOLVE_DUAL:                    "IINF_SIM_SOLVE_DUAL",
-	IINF_SOL_BAS_PROSTA:                    "IINF_SOL_BAS_PROSTA",
-	IINF_SOL_BAS_SOLSTA:                    "IINF_SOL_BAS_SOLSTA",
-	IINF_SOL_ITG_PROSTA:                    "IINF_SOL_ITG_PROSTA",
-	IINF_SOL_ITG_SOLSTA:                    "IINF_SOL_ITG_SOLSTA",
-	IINF_SOL_ITR_PROSTA:                    "IINF_SOL_ITR_PROSTA",
-	IINF_SOL_ITR_SOLSTA:                    "IINF_SOL_ITR_SOLSTA",
-	IINF_STO_NUM_A_REALLOC:                 "IINF_STO_NUM_A_REALLOC",
+	IINF_ANA_PRO_NUM_CON:                       "IINF_ANA_PRO_NUM_CON",
+	IINF_ANA_PRO_NUM_CON_EQ:                    "IINF_ANA_PRO_NUM_CON_EQ",
+	IINF_ANA_PRO_NUM_CON_FR:                    "IINF_ANA_PRO_NUM_CON_FR",
+	IINF_ANA_PRO_NUM_CON_LO:                    "IINF_ANA_PRO_NUM_CON_LO",
+	IINF_ANA_PRO_NUM_CON_RA:                    "IINF_ANA_PRO_NUM_CON_RA",
+	IINF_ANA_PRO_NUM_CON_UP:                    "IINF_ANA_PRO_NUM_CON_UP",
+	IINF_ANA_PRO_NUM_VAR:                       "IINF_ANA_PRO_NUM_VAR",
+	IINF_ANA_PRO_NUM_VAR_BIN:                   "IINF_ANA_PRO_NUM_VAR_BIN",
+	IINF_ANA_PRO_NUM_VAR_CONT:                  "IINF_ANA_PRO_NUM_VAR_CONT",
+	IINF_ANA_PRO_NUM_VAR_EQ:                    "IINF_ANA_PRO_NUM_VAR_EQ",
+	IINF_ANA_PRO_NUM_VAR_FR:                    "IINF_ANA_PRO_NUM_VAR_FR",
+	IINF_ANA_PRO_NUM_VAR_INT:                   "IINF_ANA_PRO_NUM_VAR_INT",
+	IINF_ANA_PRO_NUM_VAR_LO:                    "IINF_ANA_PRO_NUM_VAR_LO",
+	IINF_ANA_PRO_NUM_VAR_RA:                    "IINF_ANA_PRO_NUM_VAR_RA",
+	IINF_ANA_PRO_NUM_VAR_UP:                    "IINF_ANA_PRO_NUM_VAR_UP",
+	IINF_INTPNT_FACTOR_DIM_DENSE:               "IINF_INTPNT_FACTOR_DIM_DENSE",
+	IINF_INTPNT_ITER:                           "IINF_INTPNT_ITER",
+	IINF_INTPNT_NUM_THREADS:                    "IINF_INTPNT_NUM_THREADS",
+	IINF_INTPNT_SOLVE_DUAL:                     "IINF_INTPNT_SOLVE_DUAL",
+	IINF_MIO_ABSGAP_SATISFIED:                  "IINF_MIO_ABSGAP_SATISFIED",
+	IINF_MIO_CLIQUE_TABLE_SIZE:                 "IINF_MIO_CLIQUE_TABLE_SIZE",
+	IINF_MIO_CONSTRUCT_SOLUTION:                "IINF_MIO_CONSTRUCT_SOLUTION",
+	IINF_MIO_INITIAL_FEASIBLE_SOLUTION:         "IINF_MIO_INITIAL_FEASIBLE_SOLUTION",
+	IINF_MIO_NODE_DEPTH:                        "IINF_MIO_NODE_DEPTH",
+	IINF_MIO_NUM_ACTIVE_NODES:                  "IINF_MIO_NUM_ACTIVE_NODES",
+	IINF_MIO_NUM_ACTIVE_ROOT_CUTS:              "IINF_MIO_NUM_ACTIVE_ROOT_CUTS",
+	IINF_MIO_NUM_BRANCH:                        "IINF_MIO_NUM_BRANCH",
+	IINF_MIO_NUM_INT_SOLUTIONS:                 "IINF_MIO_NUM_INT_SOLUTIONS",
+	IINF_MIO_NUM_RELAX:                         "IINF_MIO_NUM_RELAX",
+	IINF_MIO_NUM_REPEATED_PRESOLVE:             "IINF_MIO_NUM_REPEATED_PRESOLVE",
+	IINF_MIO_NUM_RESTARTS:                      "IINF_MIO_NUM_RESTARTS",
+	IINF_MIO_NUM_ROOT_CUT_ROUNDS:               "IINF_MIO_NUM_ROOT_CUT_ROUNDS",
+	IINF_MIO_NUM_SELECTED_CLIQUE_CUTS:          "IINF_MIO_NUM_SELECTED_CLIQUE_CUTS",
+	IINF_MIO_NUM_SELECTED_CMIR_CUTS:            "IINF_MIO_NUM_SELECTED_CMIR_CUTS",
+	IINF_MIO_NUM_SELECTED_GOMORY_CUTS:          "IINF_MIO_NUM_SELECTED_GOMORY_CUTS",
+	IINF_MIO_NUM_SELECTED_IMPLIED_BOUND_CUTS:   "IINF_MIO_NUM_SELECTED_IMPLIED_BOUND_CUTS",
+	IINF_MIO_NUM_SELECTED_KNAPSACK_COVER_CUTS:  "IINF_MIO_NUM_SELECTED_KNAPSACK_COVER_CUTS",
+	IINF_MIO_NUM_SELECTED_LIPRO_CUTS:           "IINF_MIO_NUM_SELECTED_LIPRO_CUTS",
+	IINF_MIO_NUM_SEPARATED_CLIQUE_CUTS:         "IINF_MIO_NUM_SEPARATED_CLIQUE_CUTS",
+	IINF_MIO_NUM_SEPARATED_CMIR_CUTS:           "IINF_MIO_NUM_SEPARATED_CMIR_CUTS",
+	IINF_MIO_NUM_SEPARATED_GOMORY_CUTS:         "IINF_MIO_NUM_SEPARATED_GOMORY_CUTS",
+	IINF_MIO_NUM_SEPARATED_IMPLIED_BOUND_CUTS:  "IINF_MIO_NUM_SEPARATED_IMPLIED_BOUND_CUTS",
+	IINF_MIO_NUM_SEPARATED_KNAPSACK_COVER_CUTS: "IINF_MIO_NUM_SEPARATED_KNAPSACK_COVER_CUTS",
+	IINF_MIO_NUM_SEPARATED_LIPRO_CUTS:          "IINF_MIO_NUM_SEPARATED_LIPRO_CUTS",
+	IINF_MIO_NUM_SOLVED_NODES:                  "IINF_MIO_NUM_SOLVED_NODES",
+	IINF_MIO_NUMBIN:                            "IINF_MIO_NUMBIN",
+	IINF_MIO_NUMBINCONEVAR:                     "IINF_MIO_NUMBINCONEVAR",
+	IINF_MIO_NUMCON:                            "IINF_MIO_NUMCON",
+	IINF_MIO_NUMCONE:                           "IINF_MIO_NUMCONE",
+	IINF_MIO_NUMCONEVAR:                        "IINF_MIO_NUMCONEVAR",
+	IINF_MIO_NUMCONT:                           "IINF_MIO_NUMCONT",
+	IINF_MIO_NUMCONTCONEVAR:                    "IINF_MIO_NUMCONTCONEVAR",
+	IINF_MIO_NUMDEXPCONES:                      "IINF_MIO_NUMDEXPCONES",
+	IINF_MIO_NUMDJC:                            "IINF_MIO_NUMDJC",
+	IINF_MIO_NUMDPOWCONES:                      "IINF_MIO_NUMDPOWCONES",
+	IINF_MIO_NUMINT:                            "IINF_MIO_NUMINT",
+	IINF_MIO_NUMINTCONEVAR:                     "IINF_MIO_NUMINTCONEVAR",
+	IINF_MIO_NUMPEXPCONES:                      "IINF_MIO_NUMPEXPCONES",
+	IINF_MIO_NUMPPOWCONES:                      "IINF_MIO_NUMPPOWCONES",
+	IINF_MIO_NUMQCONES:                         "IINF_MIO_NUMQCONES",
+	IINF_MIO_NUMRQCONES:                        "IINF_MIO_NUMRQCONES",
+	IINF_MIO_NUMVAR:                            "IINF_MIO_NUMVAR",
+	IINF_MIO_OBJ_BOUND_DEFINED:                 "IINF_MIO_OBJ_BOUND_DEFINED",
+	IINF_MIO_PRESOLVED_NUMBIN:                  "IINF_MIO_PRESOLVED_NUMBIN",
+	IINF_MIO_PRESOLVED_NUMBINCONEVAR:           "IINF_MIO_PRESOLVED_NUMBINCONEVAR",
+	IINF_MIO_PRESOLVED_NUMCON:                  "IINF_MIO_PRESOLVED_NUMCON",
+	IINF_MIO_PRESOLVED_NUMCONE:                 "IINF_MIO_PRESOLVED_NUMCONE",
+	IINF_MIO_PRESOLVED_NUMCONEVAR:              "IINF_MIO_PRESOLVED_NUMCONEVAR",
+	IINF_MIO_PRESOLVED_NUMCONT:                 "IINF_MIO_PRESOLVED_NUMCONT",
+	IINF_MIO_PRESOLVED_NUMCONTCONEVAR:          "IINF_MIO_PRESOLVED_NUMCONTCONEVAR",
+	IINF_MIO_PRESOLVED_NUMDEXPCONES:            "IINF_MIO_PRESOLVED_NUMDEXPCONES",
+	IINF_MIO_PRESOLVED_NUMDJC:                  "IINF_MIO_PRESOLVED_NUMDJC",
+	IINF_MIO_PRESOLVED_NUMDPOWCONES:            "IINF_MIO_PRESOLVED_NUMDPOWCONES",
+	IINF_MIO_PRESOLVED_NUMINT:                  "IINF_MIO_PRESOLVED_NUMINT",
+	IINF_MIO_PRESOLVED_NUMINTCONEVAR:           "IINF_MIO_PRESOLVED_NUMINTCONEVAR",
+	IINF_MIO_PRESOLVED_NUMPEXPCONES:            "IINF_MIO_PRESOLVED_NUMPEXPCONES",
+	IINF_MIO_PRESOLVED_NUMPPOWCONES:            "IINF_MIO_PRESOLVED_NUMPPOWCONES",
+	IINF_MIO_PRESOLVED_NUMQCONES:               "IINF_MIO_PRESOLVED_NUMQCONES",
+	IINF_MIO_PRESOLVED_NUMRQCONES:              "IINF_MIO_PRESOLVED_NUMRQCONES",
+	IINF_MIO_PRESOLVED_NUMVAR:                  "IINF_MIO_PRESOLVED_NUMVAR",
+	IINF_MIO_RELGAP_SATISFIED:                  "IINF_MIO_RELGAP_SATISFIED",
+	IINF_MIO_TOTAL_NUM_SELECTED_CUTS:           "IINF_MIO_TOTAL_NUM_SELECTED_CUTS",
+	IINF_MIO_TOTAL_NUM_SEPARATED_CUTS:          "IINF_MIO_TOTAL_NUM_SEPARATED_CUTS",
+	IINF_MIO_USER_OBJ_CUT:                      "IINF_MIO_USER_OBJ_CUT",
+	IINF_OPT_NUMCON:                            "IINF_OPT_NUMCON",
+	IINF_OPT_NUMVAR:                            "IINF_OPT_NUMVAR",
+	IINF_OPTIMIZE_RESPONSE:                     "IINF_OPTIMIZE_RESPONSE",
+	IINF_PRESOLVE_NUM_PRIMAL_PERTURBATIONS:     "IINF_PRESOLVE_NUM_PRIMAL_PERTURBATIONS",
+	IINF_PURIFY_DUAL_SUCCESS:                   "IINF_PURIFY_DUAL_SUCCESS",
+	IINF_PURIFY_PRIMAL_SUCCESS:                 "IINF_PURIFY_PRIMAL_SUCCESS",
+	IINF_RD_NUMBARVAR:                          "IINF_RD_NUMBARVAR",
+	IINF_RD_NUMCON:                             "IINF_RD_NUMCON",
+	IINF_RD_NUMCONE:                            "IINF_RD_NUMCONE",
+	IINF_RD_NUMINTVAR:                          "IINF_RD_NUMINTVAR",
+	IINF_RD_NUMQ:                               "IINF_RD_NUMQ",
+	IINF_RD_NUMVAR:                             "IINF_RD_NUMVAR",
+	IINF_RD_PROTYPE:                            "IINF_RD_PROTYPE",
+	IINF_SIM_DUAL_DEG_ITER:                     "IINF_SIM_DUAL_DEG_ITER",
+	IINF_SIM_DUAL_HOTSTART:                     "IINF_SIM_DUAL_HOTSTART",
+	IINF_SIM_DUAL_HOTSTART_LU:                  "IINF_SIM_DUAL_HOTSTART_LU",
+	IINF_SIM_DUAL_INF_ITER:                     "IINF_SIM_DUAL_INF_ITER",
+	IINF_SIM_DUAL_ITER:                         "IINF_SIM_DUAL_ITER",
+	IINF_SIM_NUMCON:                            "IINF_SIM_NUMCON",
+	IINF_SIM_NUMVAR:                            "IINF_SIM_NUMVAR",
+	IINF_SIM_PRIMAL_DEG_ITER:                   "IINF_SIM_PRIMAL_DEG_ITER",
+	IINF_SIM_PRIMAL_HOTSTART:                   "IINF_SIM_PRIMAL_HOTSTART",
+	IINF_SIM_PRIMAL_HOTSTART_LU:                "IINF_SIM_PRIMAL_HOTSTART_LU",
+	IINF_SIM_PRIMAL_INF_ITER:                   "IINF_SIM_PRIMAL_INF_ITER",
+	IINF_SIM_PRIMAL_ITER:                       "IINF_SIM_PRIMAL_ITER",
+	IINF_SIM_SOLVE_DUAL:                        "IINF_SIM_SOLVE_DUAL",
+	IINF_SOL_BAS_PROSTA:                        "IINF_SOL_BAS_PROSTA",
+	IINF_SOL_BAS_SOLSTA:                        "IINF_SOL_BAS_SOLSTA",
+	IINF_SOL_ITG_PROSTA:                        "IINF_SOL_ITG_PROSTA",
+	IINF_SOL_ITG_SOLSTA:                        "IINF_SOL_ITG_SOLSTA",
+	IINF_SOL_ITR_PROSTA:                        "IINF_SOL_ITR_PROSTA",
+	IINF_SOL_ITR_SOLSTA:                        "IINF_SOL_ITR_SOLSTA",
+	IINF_STO_NUM_A_REALLOC:                     "IINF_STO_NUM_A_REALLOC",
 }
 
 func (e IInfItem) String() string {

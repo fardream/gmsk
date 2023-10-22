@@ -59,19 +59,20 @@ const (
 	DPAR_MIO_TOL_FEAS                            DParam = 45 // Feasibility tolerance for mixed integer solver.
 	DPAR_MIO_TOL_REL_DUAL_BOUND_IMPROVEMENT      DParam = 46 // Controls cut generation for mixed-integer optimizer.
 	DPAR_MIO_TOL_REL_GAP                         DParam = 47 // Relative optimality tolerance employed by the mixed-integer optimizer.
-	DPAR_OPTIMIZER_MAX_TIME                      DParam = 48 // Solver time limit.
-	DPAR_PRESOLVE_TOL_ABS_LINDEP                 DParam = 49 // Absolute tolerance employed by the linear dependency checker.
-	DPAR_PRESOLVE_TOL_AIJ                        DParam = 50 // Absolute zero tolerance employed for constraint coefficients in the presolve.
-	DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION DParam = 51 // The presolve is allowed to perturbe a bound on a constraint or variable by this amount if it removes an infeasibility.
-	DPAR_PRESOLVE_TOL_REL_LINDEP                 DParam = 52 // Relative tolerance employed by the linear dependency checker.
-	DPAR_PRESOLVE_TOL_S                          DParam = 53 // Absolute zero tolerance employed for slack variables in the presolve.
-	DPAR_PRESOLVE_TOL_X                          DParam = 54 // Absolute zero tolerance employed for variables in the presolve.
-	DPAR_QCQO_REFORMULATE_REL_DROP_TOL           DParam = 55 // This parameter determines when columns are dropped in incomplete Cholesky factorization during reformulation of quadratic problems.
-	DPAR_SEMIDEFINITE_TOL_APPROX                 DParam = 56 // Tolerance to define a matrix to be positive semidefinite.
-	DPAR_SIM_LU_TOL_REL_PIV                      DParam = 57 // Relative pivot tolerance employed when computing the LU factorization of the basis matrix.
-	DPAR_SIMPLEX_ABS_TOL_PIV                     DParam = 58 // Absolute pivot tolerance employed by the simplex optimizers.
-	DPAR_UPPER_OBJ_CUT                           DParam = 59 // Objective bound.
-	DPAR_UPPER_OBJ_CUT_FINITE_TRH                DParam = 60 // Objective bound.
+	DPAR_OPTIMIZER_MAX_TICKS                     DParam = 48 // Solver ticks limit.
+	DPAR_OPTIMIZER_MAX_TIME                      DParam = 49 // Solver time limit.
+	DPAR_PRESOLVE_TOL_ABS_LINDEP                 DParam = 50 // Absolute tolerance employed by the linear dependency checker.
+	DPAR_PRESOLVE_TOL_AIJ                        DParam = 51 // Absolute zero tolerance employed for constraint coefficients in the presolve.
+	DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION DParam = 52 // The presolve is allowed to perturb a bound on a constraint or variable by this amount if it removes an infeasibility.
+	DPAR_PRESOLVE_TOL_REL_LINDEP                 DParam = 53 // Relative tolerance employed by the linear dependency checker.
+	DPAR_PRESOLVE_TOL_S                          DParam = 54 // Absolute zero tolerance employed for slack variables in the presolve.
+	DPAR_PRESOLVE_TOL_X                          DParam = 55 // Absolute zero tolerance employed for variables in the presolve.
+	DPAR_QCQO_REFORMULATE_REL_DROP_TOL           DParam = 56 // This parameter determines when columns are dropped in incomplete Cholesky factorization during reformulation of quadratic problems.
+	DPAR_SEMIDEFINITE_TOL_APPROX                 DParam = 57 // Tolerance to define a matrix to be positive semidefinite.
+	DPAR_SIM_LU_TOL_REL_PIV                      DParam = 58 // Relative pivot tolerance employed when computing the LU factorization of the basis matrix.
+	DPAR_SIMPLEX_ABS_TOL_PIV                     DParam = 59 // Absolute pivot tolerance employed by the simplex optimizers.
+	DPAR_UPPER_OBJ_CUT                           DParam = 60 // Objective bound.
+	DPAR_UPPER_OBJ_CUT_FINITE_TRH                DParam = 61 // Objective bound.
 )
 
 var _DParam_map = map[DParam]string{
@@ -123,6 +124,7 @@ var _DParam_map = map[DParam]string{
 	DPAR_MIO_TOL_FEAS:                            "DPAR_MIO_TOL_FEAS",
 	DPAR_MIO_TOL_REL_DUAL_BOUND_IMPROVEMENT:      "DPAR_MIO_TOL_REL_DUAL_BOUND_IMPROVEMENT",
 	DPAR_MIO_TOL_REL_GAP:                         "DPAR_MIO_TOL_REL_GAP",
+	DPAR_OPTIMIZER_MAX_TICKS:                     "DPAR_OPTIMIZER_MAX_TICKS",
 	DPAR_OPTIMIZER_MAX_TIME:                      "DPAR_OPTIMIZER_MAX_TIME",
 	DPAR_PRESOLVE_TOL_ABS_LINDEP:                 "DPAR_PRESOLVE_TOL_ABS_LINDEP",
 	DPAR_PRESOLVE_TOL_AIJ:                        "DPAR_PRESOLVE_TOL_AIJ",

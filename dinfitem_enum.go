@@ -26,92 +26,102 @@ const (
 	DINF_INTPNT_PRIMAL_FEAS                             DInfItem = 12  // Primal feasibility measure reported by the interior-point optimizer.
 	DINF_INTPNT_PRIMAL_OBJ                              DInfItem = 13  // Primal objective value reported by the interior-point optimizer.
 	DINF_INTPNT_TIME                                    DInfItem = 14  // Time spent within the interior-point optimizer since its invocation.
-	DINF_MIO_CLIQUE_SEPARATION_TIME                     DInfItem = 15  // Separation time for clique cuts.
-	DINF_MIO_CMIR_SEPARATION_TIME                       DInfItem = 16  // Separation time for CMIR cuts.
-	DINF_MIO_CONSTRUCT_SOLUTION_OBJ                     DInfItem = 17  // Optimal objective value corresponding to the feasible solution.
-	DINF_MIO_DUAL_BOUND_AFTER_PRESOLVE                  DInfItem = 18  // Value of the dual bound after presolve but before cut generation.
-	DINF_MIO_GMI_SEPARATION_TIME                        DInfItem = 19  // Separation time for GMI cuts.
-	DINF_MIO_IMPLIED_BOUND_TIME                         DInfItem = 20  // Separation time for implied bound cuts.
-	DINF_MIO_INITIAL_FEASIBLE_SOLUTION_OBJ              DInfItem = 21  // Optimal objective value corresponding to the user provided initial solution.
-	DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME             DInfItem = 22  // Separation time for knapsack cover.
-	DINF_MIO_LIPRO_SEPARATION_TIME                      DInfItem = 23  // Separation time for lift-and-project cuts.
-	DINF_MIO_OBJ_ABS_GAP                                DInfItem = 24  // If the mixed-integer optimizer has computed a feasible solution and a bound, this contains the absolute gap.
-	DINF_MIO_OBJ_BOUND                                  DInfItem = 25  // The best bound on the objective value known.
-	DINF_MIO_OBJ_INT                                    DInfItem = 26  // The primal objective value corresponding to the best integer feasible solution.
-	DINF_MIO_OBJ_REL_GAP                                DInfItem = 27  // If the mixed-integer optimizer has computed a feasible solution and a bound, this contains the relative gap.
-	DINF_MIO_PROBING_TIME                               DInfItem = 28  // Total time for probing.
-	DINF_MIO_ROOT_CUTGEN_TIME                           DInfItem = 29  // Total time for cut generation.
-	DINF_MIO_ROOT_OPTIMIZER_TIME                        DInfItem = 30  // Time spent in the contiuous optimizer while processing the root node relaxation.
-	DINF_MIO_ROOT_PRESOLVE_TIME                         DInfItem = 31  // Time spent presolving the problem at the root node.
-	DINF_MIO_ROOT_TIME                                  DInfItem = 32  // Time spent processing the root node.
-	DINF_MIO_TIME                                       DInfItem = 33  // Time spent in the mixed-integer optimizer.
-	DINF_MIO_USER_OBJ_CUT                               DInfItem = 34  // If the objective cut is used, then this information item has the value of the cut.
-	DINF_OPTIMIZER_TIME                                 DInfItem = 35  // Total time spent in the optimizer since it was invoked.
-	DINF_PRESOLVE_ELI_TIME                              DInfItem = 36  // Total time spent in the eliminator since the presolve was invoked.
-	DINF_PRESOLVE_LINDEP_TIME                           DInfItem = 37  // Total time spent  in the linear dependency checker since the presolve was invoked.
-	DINF_PRESOLVE_TIME                                  DInfItem = 38  // Total time (in seconds) spent in the presolve since it was invoked.
-	DINF_PRESOLVE_TOTAL_PRIMAL_PERTURBATION             DInfItem = 39  // Total perturbation of the bounds of the primal problem.
-	DINF_PRIMAL_REPAIR_PENALTY_OBJ                      DInfItem = 40  // The optimal objective value of the penalty function.
-	DINF_QCQO_REFORMULATE_MAX_PERTURBATION              DInfItem = 41  // Maximum absolute diagonal perturbation occurring during the QCQO reformulation.
-	DINF_QCQO_REFORMULATE_TIME                          DInfItem = 42  // Time spent with conic quadratic reformulation.
-	DINF_QCQO_REFORMULATE_WORST_CHOLESKY_COLUMN_SCALING DInfItem = 43  // Worst Cholesky column scaling.
-	DINF_QCQO_REFORMULATE_WORST_CHOLESKY_DIAG_SCALING   DInfItem = 44  // Worst Cholesky diagonal scaling.
-	DINF_READ_DATA_TIME                                 DInfItem = 45  // Time spent reading the data file.
-	DINF_REMOTE_TIME                                    DInfItem = 46  // The total real time in seconds spent when optimizing on a server by the process performing the optimization on the server
-	DINF_SIM_DUAL_TIME                                  DInfItem = 47  // Time spent in the dual simplex optimizer since invoking it.
-	DINF_SIM_FEAS                                       DInfItem = 48  // Feasibility measure reported by the simplex optimizer.
-	DINF_SIM_OBJ                                        DInfItem = 49  // Objective value reported by the simplex optimizer.
-	DINF_SIM_PRIMAL_TIME                                DInfItem = 50  // Time spent in the primal simplex optimizer since invoking it.
-	DINF_SIM_TIME                                       DInfItem = 51  // Time spent in the simplex optimizer since invoking it.
-	DINF_SOL_BAS_DUAL_OBJ                               DInfItem = 52  // Dual objective value of the basic solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_BAS_DVIOLCON                               DInfItem = 53  // Maximal dual bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_BAS_DVIOLVAR                               DInfItem = 54  // Maximal dual bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_BAS_NRM_BARX                               DInfItem = 55  // Infinity norm of barx in the basic solution.
-	DINF_SOL_BAS_NRM_SLC                                DInfItem = 56  // Infinity norm of slc in the basic solution.
-	DINF_SOL_BAS_NRM_SLX                                DInfItem = 57  // Infinity norm of slx in the basic solution.
-	DINF_SOL_BAS_NRM_SUC                                DInfItem = 58  // Infinity norm of suc in the basic solution.
-	DINF_SOL_BAS_NRM_SUX                                DInfItem = 59  // Infinity norm of sux in the basic solution.
-	DINF_SOL_BAS_NRM_XC                                 DInfItem = 60  // Infinity norm of xc in the basic solution.
-	DINF_SOL_BAS_NRM_XX                                 DInfItem = 61  // Infinity norm of xx in the basic solution.
-	DINF_SOL_BAS_NRM_Y                                  DInfItem = 62  // Infinity norm of Y in the basic solution.
-	DINF_SOL_BAS_PRIMAL_OBJ                             DInfItem = 63  // Primal objective value of the basic solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_BAS_PVIOLCON                               DInfItem = 64  // Maximal primal bound violation for xc in the basic solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_BAS_PVIOLVAR                               DInfItem = 65  // Maximal primal bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_NRM_BARX                               DInfItem = 66  // Infinity norm of barx in the integer solution.
-	DINF_SOL_ITG_NRM_XC                                 DInfItem = 67  // Infinity norm of xc in the integer solution.
-	DINF_SOL_ITG_NRM_XX                                 DInfItem = 68  // Infinity norm of xx in the integer solution.
-	DINF_SOL_ITG_PRIMAL_OBJ                             DInfItem = 69  // Primal objective value of the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_PVIOLACC                               DInfItem = 70  // Maximal primal violation for affine conic constraints in the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_PVIOLBARVAR                            DInfItem = 71  // Maximal primal bound violation for barx in the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_PVIOLCON                               DInfItem = 72  // Maximal primal bound violation for xc in the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_PVIOLCONES                             DInfItem = 73  // Maximal primal violation for primal conic constraints in the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_PVIOLDJC                               DInfItem = 74  // Maximal primal violation for disjunctive constraints in the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_PVIOLITG                               DInfItem = 75  // Maximal violation for the integer constraints in the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITG_PVIOLVAR                               DInfItem = 76  // Maximal primal bound violation for xx in the integer solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_DUAL_OBJ                               DInfItem = 77  // Dual objective value of the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_DVIOLACC                               DInfItem = 78  // Maximal dual violation for affine conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_DVIOLBARVAR                            DInfItem = 79  // Maximal dual bound violation for barx in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_DVIOLCON                               DInfItem = 80  // Maximal dual bound violation for xc in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_DVIOLCONES                             DInfItem = 81  // Maximal dual violation for conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_DVIOLVAR                               DInfItem = 82  // Maximal dual bound violation for xx in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_NRM_BARS                               DInfItem = 83  // Infinity norm of bars in the interior-point solution.
-	DINF_SOL_ITR_NRM_BARX                               DInfItem = 84  // Infinity norm of barx in the interior-point solution.
-	DINF_SOL_ITR_NRM_SLC                                DInfItem = 85  // Infinity norm of slc in the interior-point solution.
-	DINF_SOL_ITR_NRM_SLX                                DInfItem = 86  // Infinity norm of slx in the interior-point solution.
-	DINF_SOL_ITR_NRM_SNX                                DInfItem = 87  // Infinity norm of snx in the interior-point solution.
-	DINF_SOL_ITR_NRM_SUC                                DInfItem = 88  // Infinity norm of suc in the interior-point solution.
-	DINF_SOL_ITR_NRM_SUX                                DInfItem = 89  // Infinity norm of sux in the interior-point solution.
-	DINF_SOL_ITR_NRM_XC                                 DInfItem = 90  // Infinity norm of xc in the interior-point solution.
-	DINF_SOL_ITR_NRM_XX                                 DInfItem = 91  // Infinity norm of xx in the interior-point solution.
-	DINF_SOL_ITR_NRM_Y                                  DInfItem = 92  // Infinity norm of Y in the interior-point solution.
-	DINF_SOL_ITR_PRIMAL_OBJ                             DInfItem = 93  // Primal objective value of the interior-point solution.
-	DINF_SOL_ITR_PVIOLACC                               DInfItem = 94  // Maximal primal violation for affine conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_PVIOLBARVAR                            DInfItem = 95  // Maximal primal bound violation for barx in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_PVIOLCON                               DInfItem = 96  // Maximal primal bound violation for xc in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_PVIOLCONES                             DInfItem = 97  // Maximal primal violation for conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_SOL_ITR_PVIOLVAR                               DInfItem = 98  // Maximal primal bound violation for xx in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_TO_CONIC_TIME                                  DInfItem = 99  // Time spent in the last to conic reformulation.
-	DINF_WRITE_DATA_TIME                                DInfItem = 100 // Time spent writing the data file.
+	DINF_MIO_CLIQUE_SELECTION_TIME                      DInfItem = 15  // Selection time for clique cuts.
+	DINF_MIO_CLIQUE_SEPARATION_TIME                     DInfItem = 16  // Separation time for clique cuts.
+	DINF_MIO_CMIR_SELECTION_TIME                        DInfItem = 17  // Selection time for CMIR cuts.
+	DINF_MIO_CMIR_SEPARATION_TIME                       DInfItem = 18  // Separation time for CMIR cuts.
+	DINF_MIO_CONSTRUCT_SOLUTION_OBJ                     DInfItem = 19  // Optimal objective value corresponding to the feasible solution.
+	DINF_MIO_DUAL_BOUND_AFTER_PRESOLVE                  DInfItem = 20  // Value of the dual bound after presolve but before cut generation.
+	DINF_MIO_GMI_SELECTION_TIME                         DInfItem = 21  // Selection time for GMI cuts.
+	DINF_MIO_GMI_SEPARATION_TIME                        DInfItem = 22  // Separation time for GMI cuts.
+	DINF_MIO_IMPLIED_BOUND_SELECTION_TIME               DInfItem = 23  // Selection time for implied bound cuts.
+	DINF_MIO_IMPLIED_BOUND_SEPARATION_TIME              DInfItem = 24  // Separation time for implied bound cuts.
+	DINF_MIO_INITIAL_FEASIBLE_SOLUTION_OBJ              DInfItem = 25  // Optimal objective value corresponding to the user provided initial solution.
+	DINF_MIO_KNAPSACK_COVER_SELECTION_TIME              DInfItem = 26  // Selection time for knapsack cover.
+	DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME             DInfItem = 27  // Separation time for knapsack cover.
+	DINF_MIO_LIPRO_SELECTION_TIME                       DInfItem = 28  // Selection time for lift-and-project cuts.
+	DINF_MIO_LIPRO_SEPARATION_TIME                      DInfItem = 29  // Separation time for lift-and-project cuts.
+	DINF_MIO_OBJ_ABS_GAP                                DInfItem = 30  // If the mixed-integer optimizer has computed a feasible solution and a bound, this contains the absolute gap.
+	DINF_MIO_OBJ_BOUND                                  DInfItem = 31  // The best bound on the objective value known.
+	DINF_MIO_OBJ_INT                                    DInfItem = 32  // The primal objective value corresponding to the best integer feasible solution.
+	DINF_MIO_OBJ_REL_GAP                                DInfItem = 33  // If the mixed-integer optimizer has computed a feasible solution and a bound, this contains the relative gap.
+	DINF_MIO_PROBING_TIME                               DInfItem = 34  // Total time for probing.
+	DINF_MIO_ROOT_CUT_SELECTION_TIME                    DInfItem = 35  // Total time for cut selection.
+	DINF_MIO_ROOT_CUT_SEPARATION_TIME                   DInfItem = 36  // Total time for cut separation.
+	DINF_MIO_ROOT_OPTIMIZER_TIME                        DInfItem = 37  // Time spent in the contiuous optimizer while processing the root node relaxation.
+	DINF_MIO_ROOT_PRESOLVE_TIME                         DInfItem = 38  // Time spent presolving the problem at the root node.
+	DINF_MIO_ROOT_TIME                                  DInfItem = 39  // Time spent processing the root node.
+	DINF_MIO_SYMMETRY_DETECTION_TIME                    DInfItem = 40  // Total time for symmetry detection.
+	DINF_MIO_SYMMETRY_FACTOR                            DInfItem = 41  // Degree to which the problem is affected by detected symmetry.
+	DINF_MIO_TIME                                       DInfItem = 42  // Time spent in the mixed-integer optimizer.
+	DINF_MIO_USER_OBJ_CUT                               DInfItem = 43  // If the objective cut is used, then this information item has the value of the cut.
+	DINF_OPTIMIZER_TICKS                                DInfItem = 44  // Total number of ticks spent in the optimizer since it was invoked. It is strictly negative if it is not available.
+	DINF_OPTIMIZER_TIME                                 DInfItem = 45  // Total time spent in the optimizer since it was invoked.
+	DINF_PRESOLVE_ELI_TIME                              DInfItem = 46  // Total time spent in the eliminator since the presolve was invoked.
+	DINF_PRESOLVE_LINDEP_TIME                           DInfItem = 47  // Total time spent  in the linear dependency checker since the presolve was invoked.
+	DINF_PRESOLVE_TIME                                  DInfItem = 48  // Total time (in seconds) spent in the presolve since it was invoked.
+	DINF_PRESOLVE_TOTAL_PRIMAL_PERTURBATION             DInfItem = 49  // Total perturbation of the bounds of the primal problem.
+	DINF_PRIMAL_REPAIR_PENALTY_OBJ                      DInfItem = 50  // The optimal objective value of the penalty function.
+	DINF_QCQO_REFORMULATE_MAX_PERTURBATION              DInfItem = 51  // Maximum absolute diagonal perturbation occurring during the QCQO reformulation.
+	DINF_QCQO_REFORMULATE_TIME                          DInfItem = 52  // Time spent with conic quadratic reformulation.
+	DINF_QCQO_REFORMULATE_WORST_CHOLESKY_COLUMN_SCALING DInfItem = 53  // Worst Cholesky column scaling.
+	DINF_QCQO_REFORMULATE_WORST_CHOLESKY_DIAG_SCALING   DInfItem = 54  // Worst Cholesky diagonal scaling.
+	DINF_READ_DATA_TIME                                 DInfItem = 55  // Time spent reading the data file.
+	DINF_REMOTE_TIME                                    DInfItem = 56  // The total real time in seconds spent when optimizing on a server by the process performing the optimization on the server
+	DINF_SIM_DUAL_TIME                                  DInfItem = 57  // Time spent in the dual simplex optimizer since invoking it.
+	DINF_SIM_FEAS                                       DInfItem = 58  // Feasibility measure reported by the simplex optimizer.
+	DINF_SIM_OBJ                                        DInfItem = 59  // Objective value reported by the simplex optimizer.
+	DINF_SIM_PRIMAL_TIME                                DInfItem = 60  // Time spent in the primal simplex optimizer since invoking it.
+	DINF_SIM_TIME                                       DInfItem = 61  // Time spent in the simplex optimizer since invoking it.
+	DINF_SOL_BAS_DUAL_OBJ                               DInfItem = 62  // Dual objective value of the basic solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_BAS_DVIOLCON                               DInfItem = 63  // Maximal dual bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_BAS_DVIOLVAR                               DInfItem = 64  // Maximal dual bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_BAS_NRM_BARX                               DInfItem = 65  // Infinity norm of barx in the basic solution.
+	DINF_SOL_BAS_NRM_SLC                                DInfItem = 66  // Infinity norm of slc in the basic solution.
+	DINF_SOL_BAS_NRM_SLX                                DInfItem = 67  // Infinity norm of slx in the basic solution.
+	DINF_SOL_BAS_NRM_SUC                                DInfItem = 68  // Infinity norm of suc in the basic solution.
+	DINF_SOL_BAS_NRM_SUX                                DInfItem = 69  // Infinity norm of sux in the basic solution.
+	DINF_SOL_BAS_NRM_XC                                 DInfItem = 70  // Infinity norm of xc in the basic solution.
+	DINF_SOL_BAS_NRM_XX                                 DInfItem = 71  // Infinity norm of xx in the basic solution.
+	DINF_SOL_BAS_NRM_Y                                  DInfItem = 72  // Infinity norm of Y in the basic solution.
+	DINF_SOL_BAS_PRIMAL_OBJ                             DInfItem = 73  // Primal objective value of the basic solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_BAS_PVIOLCON                               DInfItem = 74  // Maximal primal bound violation for xc in the basic solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_BAS_PVIOLVAR                               DInfItem = 75  // Maximal primal bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_NRM_BARX                               DInfItem = 76  // Infinity norm of barx in the integer solution.
+	DINF_SOL_ITG_NRM_XC                                 DInfItem = 77  // Infinity norm of xc in the integer solution.
+	DINF_SOL_ITG_NRM_XX                                 DInfItem = 78  // Infinity norm of xx in the integer solution.
+	DINF_SOL_ITG_PRIMAL_OBJ                             DInfItem = 79  // Primal objective value of the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_PVIOLACC                               DInfItem = 80  // Maximal primal violation for affine conic constraints in the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_PVIOLBARVAR                            DInfItem = 81  // Maximal primal bound violation for barx in the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_PVIOLCON                               DInfItem = 82  // Maximal primal bound violation for xc in the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_PVIOLCONES                             DInfItem = 83  // Maximal primal violation for primal conic constraints in the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_PVIOLDJC                               DInfItem = 84  // Maximal primal violation for disjunctive constraints in the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_PVIOLITG                               DInfItem = 85  // Maximal violation for the integer constraints in the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITG_PVIOLVAR                               DInfItem = 86  // Maximal primal bound violation for xx in the integer solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_DUAL_OBJ                               DInfItem = 87  // Dual objective value of the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_DVIOLACC                               DInfItem = 88  // Maximal dual violation for affine conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_DVIOLBARVAR                            DInfItem = 89  // Maximal dual bound violation for barx in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_DVIOLCON                               DInfItem = 90  // Maximal dual bound violation for xc in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_DVIOLCONES                             DInfItem = 91  // Maximal dual violation for conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_DVIOLVAR                               DInfItem = 92  // Maximal dual bound violation for xx in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_NRM_BARS                               DInfItem = 93  // Infinity norm of bars in the interior-point solution.
+	DINF_SOL_ITR_NRM_BARX                               DInfItem = 94  // Infinity norm of barx in the interior-point solution.
+	DINF_SOL_ITR_NRM_SLC                                DInfItem = 95  // Infinity norm of slc in the interior-point solution.
+	DINF_SOL_ITR_NRM_SLX                                DInfItem = 96  // Infinity norm of slx in the interior-point solution.
+	DINF_SOL_ITR_NRM_SNX                                DInfItem = 97  // Infinity norm of snx in the interior-point solution.
+	DINF_SOL_ITR_NRM_SUC                                DInfItem = 98  // Infinity norm of suc in the interior-point solution.
+	DINF_SOL_ITR_NRM_SUX                                DInfItem = 99  // Infinity norm of sux in the interior-point solution.
+	DINF_SOL_ITR_NRM_XC                                 DInfItem = 100 // Infinity norm of xc in the interior-point solution.
+	DINF_SOL_ITR_NRM_XX                                 DInfItem = 101 // Infinity norm of xx in the interior-point solution.
+	DINF_SOL_ITR_NRM_Y                                  DInfItem = 102 // Infinity norm of Y in the interior-point solution.
+	DINF_SOL_ITR_PRIMAL_OBJ                             DInfItem = 103 // Primal objective value of the interior-point solution.
+	DINF_SOL_ITR_PVIOLACC                               DInfItem = 104 // Maximal primal violation for affine conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_PVIOLBARVAR                            DInfItem = 105 // Maximal primal bound violation for barx in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_PVIOLCON                               DInfItem = 106 // Maximal primal bound violation for xc in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_PVIOLCONES                             DInfItem = 107 // Maximal primal violation for conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_SOL_ITR_PVIOLVAR                               DInfItem = 108 // Maximal primal bound violation for xx in the interior-point solution. Updated by the function updatesolutioninfo.
+	DINF_TO_CONIC_TIME                                  DInfItem = 109 // Time spent in the last to conic reformulation.
+	DINF_WRITE_DATA_TIME                                DInfItem = 110 // Time spent writing the data file.
 )
 
 var _DInfItem_map = map[DInfItem]string{
@@ -130,26 +140,36 @@ var _DInfItem_map = map[DInfItem]string{
 	DINF_INTPNT_PRIMAL_FEAS:                             "DINF_INTPNT_PRIMAL_FEAS",
 	DINF_INTPNT_PRIMAL_OBJ:                              "DINF_INTPNT_PRIMAL_OBJ",
 	DINF_INTPNT_TIME:                                    "DINF_INTPNT_TIME",
+	DINF_MIO_CLIQUE_SELECTION_TIME:                      "DINF_MIO_CLIQUE_SELECTION_TIME",
 	DINF_MIO_CLIQUE_SEPARATION_TIME:                     "DINF_MIO_CLIQUE_SEPARATION_TIME",
+	DINF_MIO_CMIR_SELECTION_TIME:                        "DINF_MIO_CMIR_SELECTION_TIME",
 	DINF_MIO_CMIR_SEPARATION_TIME:                       "DINF_MIO_CMIR_SEPARATION_TIME",
 	DINF_MIO_CONSTRUCT_SOLUTION_OBJ:                     "DINF_MIO_CONSTRUCT_SOLUTION_OBJ",
 	DINF_MIO_DUAL_BOUND_AFTER_PRESOLVE:                  "DINF_MIO_DUAL_BOUND_AFTER_PRESOLVE",
+	DINF_MIO_GMI_SELECTION_TIME:                         "DINF_MIO_GMI_SELECTION_TIME",
 	DINF_MIO_GMI_SEPARATION_TIME:                        "DINF_MIO_GMI_SEPARATION_TIME",
-	DINF_MIO_IMPLIED_BOUND_TIME:                         "DINF_MIO_IMPLIED_BOUND_TIME",
+	DINF_MIO_IMPLIED_BOUND_SELECTION_TIME:               "DINF_MIO_IMPLIED_BOUND_SELECTION_TIME",
+	DINF_MIO_IMPLIED_BOUND_SEPARATION_TIME:              "DINF_MIO_IMPLIED_BOUND_SEPARATION_TIME",
 	DINF_MIO_INITIAL_FEASIBLE_SOLUTION_OBJ:              "DINF_MIO_INITIAL_FEASIBLE_SOLUTION_OBJ",
+	DINF_MIO_KNAPSACK_COVER_SELECTION_TIME:              "DINF_MIO_KNAPSACK_COVER_SELECTION_TIME",
 	DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME:             "DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME",
+	DINF_MIO_LIPRO_SELECTION_TIME:                       "DINF_MIO_LIPRO_SELECTION_TIME",
 	DINF_MIO_LIPRO_SEPARATION_TIME:                      "DINF_MIO_LIPRO_SEPARATION_TIME",
 	DINF_MIO_OBJ_ABS_GAP:                                "DINF_MIO_OBJ_ABS_GAP",
 	DINF_MIO_OBJ_BOUND:                                  "DINF_MIO_OBJ_BOUND",
 	DINF_MIO_OBJ_INT:                                    "DINF_MIO_OBJ_INT",
 	DINF_MIO_OBJ_REL_GAP:                                "DINF_MIO_OBJ_REL_GAP",
 	DINF_MIO_PROBING_TIME:                               "DINF_MIO_PROBING_TIME",
-	DINF_MIO_ROOT_CUTGEN_TIME:                           "DINF_MIO_ROOT_CUTGEN_TIME",
+	DINF_MIO_ROOT_CUT_SELECTION_TIME:                    "DINF_MIO_ROOT_CUT_SELECTION_TIME",
+	DINF_MIO_ROOT_CUT_SEPARATION_TIME:                   "DINF_MIO_ROOT_CUT_SEPARATION_TIME",
 	DINF_MIO_ROOT_OPTIMIZER_TIME:                        "DINF_MIO_ROOT_OPTIMIZER_TIME",
 	DINF_MIO_ROOT_PRESOLVE_TIME:                         "DINF_MIO_ROOT_PRESOLVE_TIME",
 	DINF_MIO_ROOT_TIME:                                  "DINF_MIO_ROOT_TIME",
+	DINF_MIO_SYMMETRY_DETECTION_TIME:                    "DINF_MIO_SYMMETRY_DETECTION_TIME",
+	DINF_MIO_SYMMETRY_FACTOR:                            "DINF_MIO_SYMMETRY_FACTOR",
 	DINF_MIO_TIME:                                       "DINF_MIO_TIME",
 	DINF_MIO_USER_OBJ_CUT:                               "DINF_MIO_USER_OBJ_CUT",
+	DINF_OPTIMIZER_TICKS:                                "DINF_OPTIMIZER_TICKS",
 	DINF_OPTIMIZER_TIME:                                 "DINF_OPTIMIZER_TIME",
 	DINF_PRESOLVE_ELI_TIME:                              "DINF_PRESOLVE_ELI_TIME",
 	DINF_PRESOLVE_LINDEP_TIME:                           "DINF_PRESOLVE_LINDEP_TIME",
