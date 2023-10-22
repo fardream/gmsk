@@ -99,6 +99,9 @@ func (task *Task) GetAccBarfNumBlockTriplets(
 // Arguments:
 //
 //   - `accidx` The index of the affine conic constraint.
+//
+// Returns:
+//
 //   - `domidx` The index of domain in the affine conic constraint.
 //
 // [MSK_getaccdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccdomain

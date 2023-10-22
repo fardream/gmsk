@@ -11,17 +11,15 @@ import "strconv"
 type StarPointType uint32
 
 const (
-	STARTING_POINT_FREE           StarPointType = 0 // The starting point is chosen automatically.
-	STARTING_POINT_GUESS          StarPointType = 1 // The optimizer guesses a starting point.
-	STARTING_POINT_CONSTANT       StarPointType = 2 // The optimizer constructs a starting point by assigning a constant value to all primal and dual variables. This starting point is normally robust.
-	STARTING_POINT_SATISFY_BOUNDS StarPointType = 3 // The starting point satisfies all the simple bounds on nonlinear variables.
+	STARTING_POINT_FREE     StarPointType = 0 // The starting point is chosen automatically.
+	STARTING_POINT_GUESS    StarPointType = 1 // The optimizer guesses a starting point.
+	STARTING_POINT_CONSTANT StarPointType = 2 // The optimizer constructs a starting point by assigning a constant value to all primal and dual variables. This starting point is normally robust.
 )
 
 var _StarPointType_map = map[StarPointType]string{
-	STARTING_POINT_FREE:           "STARTING_POINT_FREE",
-	STARTING_POINT_GUESS:          "STARTING_POINT_GUESS",
-	STARTING_POINT_CONSTANT:       "STARTING_POINT_CONSTANT",
-	STARTING_POINT_SATISFY_BOUNDS: "STARTING_POINT_SATISFY_BOUNDS",
+	STARTING_POINT_FREE:     "STARTING_POINT_FREE",
+	STARTING_POINT_GUESS:    "STARTING_POINT_GUESS",
+	STARTING_POINT_CONSTANT: "STARTING_POINT_CONSTANT",
 }
 
 func (e StarPointType) String() string {

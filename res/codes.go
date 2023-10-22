@@ -41,7 +41,7 @@ const (
 	WRN_LICENSE_EXPIRE                                   Code = 500    // The license expires.
 	WRN_LICENSE_SERVER                                   Code = 501    // The license server is not responding.
 	WRN_EMPTY_NAME                                       Code = 502    // A variable or constraint name is empty. The output file may be invalid.
-	WRN_USING_GENERIC_NAMES                              Code = 503    // Generic names are used because a name is not valid.
+	WRN_USING_GENERIC_NAMES                              Code = 503    // Generic names are used because a name is invalid for requested format.
 	WRN_INVALID_MPS_NAME                                 Code = 504    // A name e.g. a row name is not a valid MPS name.
 	WRN_INVALID_MPS_OBJ_NAME                             Code = 505    // The objective name is not a valid MPS name.
 	WRN_LICENSE_FEATURE_EXPIRE                           Code = 509    // The license expires.
@@ -124,6 +124,8 @@ const (
 	ERR_INVALID_TASK                                     Code = 1064   // The task is invalid.
 	ERR_NULL_POINTER                                     Code = 1065   // An argument to a function is unexpectedly a null pointer.
 	ERR_LIVING_TASKS                                     Code = 1066   // Not all tasks associated with the environment have been deleted.
+	ERR_READ_GZIP                                        Code = 1067   // Error encountered in GZIP stream.
+	ERR_READ_ZSTD                                        Code = 1068   // Error encountered in ZSTD stream.
 	ERR_BLANK_NAME                                       Code = 1070   // An all blank name has been specified.
 	ERR_DUP_NAME                                         Code = 1071   // Duplicate names specified.
 	ERR_FORMAT_STRING                                    Code = 1072   // The name format string is invalid.
@@ -182,24 +184,21 @@ const (
 	ERR_OPF_DUPLICATE_CONE_ENTRY                         Code = 1143   // Same variable appears in multiple cones in OPF File
 	ERR_OPF_TOO_LARGE                                    Code = 1144   // The problem is too large to be correctly loaded
 	ERR_OPF_DUAL_INTEGER_SOLUTION                        Code = 1146   // Dual solution values are not allowed in OPF File
-	ERR_LP_INCOMPATIBLE                                  Code = 1150   // The problem cannot be written to an LP formatted file.
 	ERR_LP_EMPTY                                         Code = 1151   // The problem cannot be written to an LP formatted file.
-	ERR_LP_DUP_SLACK_NAME                                Code = 1152   // The name of the slack variable added to a ranged constraint already exists.
 	ERR_WRITE_MPS_INVALID_NAME                           Code = 1153   // An invalid name is created while writing an MPS file.
 	ERR_LP_INVALID_VAR_NAME                              Code = 1154   // A variable name is invalid when used in an LP formatted file.
-	ERR_LP_FREE_CONSTRAINT                               Code = 1155   // Free constraints cannot be written in LP file format.
 	ERR_WRITE_OPF_INVALID_VAR_NAME                       Code = 1156   // Empty variable names cannot be written to OPF files.
 	ERR_LP_FILE_FORMAT                                   Code = 1157   // Syntax error in an LP file.
-	ERR_WRITE_LP_FORMAT                                  Code = 1158   // Problem cannot be written as an LP file.
+	ERR_LP_EXPECTED_NUMBER                               Code = 1158   // Expected a number in LP file
 	ERR_READ_LP_MISSING_END_TAG                          Code = 1159   // Syntax error in LP fil. Possibly missing End tag.
 	ERR_LP_INDICATOR_VAR                                 Code = 1160   // An indicator variable was not declared binary
-	ERR_WRITE_LP_NON_UNIQUE_NAME                         Code = 1161   // An auto-generated name is not unique.
-	ERR_READ_LP_NONEXISTING_NAME                         Code = 1162   // A variable never occurred in objective or constraints.
-	ERR_LP_WRITE_CONIC_PROBLEM                           Code = 1163   // The problem contains cones that cannot be written to an LP formatted file.
-	ERR_LP_WRITE_GECO_PROBLEM                            Code = 1164   // The problem contains general convex terms that cannot be written to an LP formatted file.
+	ERR_LP_EXPECTED_OBJECTIVE                            Code = 1161   // Expected an objective section in LP file
+	ERR_LP_EXPECTED_CONSTRAINT_RELATION                  Code = 1162   // Expected constraint relation
+	ERR_LP_AMBIGUOUS_CONSTRAINT_BOUND                    Code = 1163   // Constraint has ambiguous or invalid bound
+	ERR_LP_DUPLICATE_SECTION                             Code = 1164   // Duplicate section
+	ERR_READ_LP_DELAYED_ROWS_NOT_SUPPORTED               Code = 1165   // Duplicate section
 	ERR_WRITING_FILE                                     Code = 1166   // An error occurred while writing file
 	ERR_INVALID_NAME_IN_SOL_FILE                         Code = 1170   // An invalid name occurred in a solution file.
-	ERR_LP_INVALID_CON_NAME                              Code = 1171   // A constraint name is invalid when used in an LP formatted file.
 	ERR_JSON_SYNTAX                                      Code = 1175   // Syntax error in an JSON data
 	ERR_JSON_STRING                                      Code = 1176   // Error in JSON string.
 	ERR_JSON_NUMBER_OVERFLOW                             Code = 1177   // Invalid number entry - wrong type or value overflow.
@@ -263,6 +262,10 @@ const (
 	ERR_INV_VAR_TYPE                                     Code = 1258   // An invalid variable type is specified for a variable.
 	ERR_SOLVER_PROBTYPE                                  Code = 1259   // Problem type does not match the chosen optimizer.
 	ERR_OBJECTIVE_RANGE                                  Code = 1260   // Empty objective range.
+	ERR_INV_RESCODE                                      Code = 1261   // Invalid response code.
+	ERR_INV_IINF                                         Code = 1262   // Invalid integer information item.
+	ERR_INV_LIINF                                        Code = 1263   // Invalid long integer information item.
+	ERR_INV_DINF                                         Code = 1264   // Invalid double information item.
 	ERR_BASIS                                            Code = 1266   // Invalid basis is specified.
 	ERR_INV_SKC                                          Code = 1267   // Invalid value in skc encountered.
 	ERR_INV_SKX                                          Code = 1268   // Invalid value in skx encountered.
@@ -413,7 +416,7 @@ const (
 	ERR_INVALID_FILE_FORMAT_FOR_CFIX                     Code = 4001   // The file format does not support a problem with nonzero fixed term in c.
 	ERR_INVALID_FILE_FORMAT_FOR_RANGED_CONSTRAINTS       Code = 4002   // The file format does not support a problem with ranged constraints.
 	ERR_INVALID_FILE_FORMAT_FOR_FREE_CONSTRAINTS         Code = 4003   // The file format does not support a problem with free constraints.
-	ERR_INVALID_FILE_FORMAT_FOR_CONES                    Code = 4005   // The file format does not support a problem with conic constraints.
+	ERR_INVALID_FILE_FORMAT_FOR_CONES                    Code = 4005   // The file format does not support a problem with the simple cones (deprecated).
 	ERR_INVALID_FILE_FORMAT_FOR_QUADRATIC_TERMS          Code = 4006   // The file format does not support a problem with quadratic terms.
 	ERR_INVALID_FILE_FORMAT_FOR_NONLINEAR                Code = 4010   // The file format does not support a problem with nonlinear terms.
 	ERR_INVALID_FILE_FORMAT_FOR_DISJUNCTIVE_CONSTRAINTS  Code = 4011   // The file format does not support a problem with disjunctive constraints.
@@ -482,6 +485,14 @@ const (
 	ERR_CBF_POWER_STAR_CONE_MISMATCH                     Code = 7139   // The power star cone does not match with it definition.
 	ERR_CBF_INVALID_NUMBER_OF_CONES                      Code = 7140   // Invalid number of cones.
 	ERR_CBF_INVALID_DIMENSION_OF_CONES                   Code = 7141   // Invalid number of cones.
+	ERR_CBF_INVALID_NUM_OBJACOORD                        Code = 7150   // Invalid number of OBJACOORD.
+	ERR_CBF_INVALID_NUM_OBJFCOORD                        Code = 7151   // Invalid number of OBJFCOORD.
+	ERR_CBF_INVALID_NUM_ACOORD                           Code = 7152   // Invalid number of ACOORD.
+	ERR_CBF_INVALID_NUM_BCOORD                           Code = 7153   // Invalid number of BCOORD.
+	ERR_CBF_INVALID_NUM_FCOORD                           Code = 7155   // Invalid number of FCOORD.
+	ERR_CBF_INVALID_NUM_HCOORD                           Code = 7156   // Invalid number of HCOORD.
+	ERR_CBF_INVALID_NUM_DCOORD                           Code = 7157   // Invalid number of DCOORD.
+	ERR_CBF_EXPECTED_A_KEYWORD                           Code = 7158   // Expected a key word.
 	ERR_CBF_INVALID_NUM_PSDCON                           Code = 7200   // Invalid number of PSDCON.
 	ERR_CBF_DUPLICATE_PSDCON                             Code = 7201   // Duplicate CON keyword.
 	ERR_CBF_INVALID_DIMENSION_OF_PSDCON                  Code = 7202   // Invalid PSDCON dimension.
@@ -506,6 +517,8 @@ const (
 	ERR_SERVER_TLS_CLIENT                                Code = 8006   // Failed to create TLS client
 	ERR_SERVER_ACCESS_TOKEN                              Code = 8007   // Invalid access token
 	ERR_SERVER_PROBLEM_SIZE                              Code = 8008   // The problem is too large.
+	ERR_DUPLICATE_INDEX_IN_A_SPARSE_MATRIX               Code = 20050  // An element in a sparse matrix is specified twice.
+	ERR_DUPLICATE_INDEX_IN_AFEIDX_LIST                   Code = 20060  // An index is specified twice in an affine expression list.
 	ERR_DUPLICATE_FIJ                                    Code = 20100  // An element in the F matrix is specified twice.
 	ERR_INVALID_FIJ                                      Code = 20101  // f\[i,j\] contains an invalid floating point value, i.e. a NaN or an infinite value.
 	ERR_HUGE_FIJ                                         Code = 20102  // A numerically huge value is specified for an element in F.
@@ -659,6 +672,8 @@ var _Code_map = map[Code]string{
 	ERR_INVALID_TASK:                                  "ERR_INVALID_TASK",
 	ERR_NULL_POINTER:                                  "ERR_NULL_POINTER",
 	ERR_LIVING_TASKS:                                  "ERR_LIVING_TASKS",
+	ERR_READ_GZIP:                                     "ERR_READ_GZIP",
+	ERR_READ_ZSTD:                                     "ERR_READ_ZSTD",
 	ERR_BLANK_NAME:                                    "ERR_BLANK_NAME",
 	ERR_DUP_NAME:                                      "ERR_DUP_NAME",
 	ERR_FORMAT_STRING:                                 "ERR_FORMAT_STRING",
@@ -717,24 +732,21 @@ var _Code_map = map[Code]string{
 	ERR_OPF_DUPLICATE_CONE_ENTRY:                      "ERR_OPF_DUPLICATE_CONE_ENTRY",
 	ERR_OPF_TOO_LARGE:                                 "ERR_OPF_TOO_LARGE",
 	ERR_OPF_DUAL_INTEGER_SOLUTION:                     "ERR_OPF_DUAL_INTEGER_SOLUTION",
-	ERR_LP_INCOMPATIBLE:                               "ERR_LP_INCOMPATIBLE",
 	ERR_LP_EMPTY:                                      "ERR_LP_EMPTY",
-	ERR_LP_DUP_SLACK_NAME:                             "ERR_LP_DUP_SLACK_NAME",
 	ERR_WRITE_MPS_INVALID_NAME:                        "ERR_WRITE_MPS_INVALID_NAME",
 	ERR_LP_INVALID_VAR_NAME:                           "ERR_LP_INVALID_VAR_NAME",
-	ERR_LP_FREE_CONSTRAINT:                            "ERR_LP_FREE_CONSTRAINT",
 	ERR_WRITE_OPF_INVALID_VAR_NAME:                    "ERR_WRITE_OPF_INVALID_VAR_NAME",
 	ERR_LP_FILE_FORMAT:                                "ERR_LP_FILE_FORMAT",
-	ERR_WRITE_LP_FORMAT:                               "ERR_WRITE_LP_FORMAT",
+	ERR_LP_EXPECTED_NUMBER:                            "ERR_LP_EXPECTED_NUMBER",
 	ERR_READ_LP_MISSING_END_TAG:                       "ERR_READ_LP_MISSING_END_TAG",
 	ERR_LP_INDICATOR_VAR:                              "ERR_LP_INDICATOR_VAR",
-	ERR_WRITE_LP_NON_UNIQUE_NAME:                      "ERR_WRITE_LP_NON_UNIQUE_NAME",
-	ERR_READ_LP_NONEXISTING_NAME:                      "ERR_READ_LP_NONEXISTING_NAME",
-	ERR_LP_WRITE_CONIC_PROBLEM:                        "ERR_LP_WRITE_CONIC_PROBLEM",
-	ERR_LP_WRITE_GECO_PROBLEM:                         "ERR_LP_WRITE_GECO_PROBLEM",
+	ERR_LP_EXPECTED_OBJECTIVE:                         "ERR_LP_EXPECTED_OBJECTIVE",
+	ERR_LP_EXPECTED_CONSTRAINT_RELATION:               "ERR_LP_EXPECTED_CONSTRAINT_RELATION",
+	ERR_LP_AMBIGUOUS_CONSTRAINT_BOUND:                 "ERR_LP_AMBIGUOUS_CONSTRAINT_BOUND",
+	ERR_LP_DUPLICATE_SECTION:                          "ERR_LP_DUPLICATE_SECTION",
+	ERR_READ_LP_DELAYED_ROWS_NOT_SUPPORTED:            "ERR_READ_LP_DELAYED_ROWS_NOT_SUPPORTED",
 	ERR_WRITING_FILE:                                  "ERR_WRITING_FILE",
 	ERR_INVALID_NAME_IN_SOL_FILE:                      "ERR_INVALID_NAME_IN_SOL_FILE",
-	ERR_LP_INVALID_CON_NAME:                           "ERR_LP_INVALID_CON_NAME",
 	ERR_JSON_SYNTAX:                                   "ERR_JSON_SYNTAX",
 	ERR_JSON_STRING:                                   "ERR_JSON_STRING",
 	ERR_JSON_NUMBER_OVERFLOW:                          "ERR_JSON_NUMBER_OVERFLOW",
@@ -798,6 +810,10 @@ var _Code_map = map[Code]string{
 	ERR_INV_VAR_TYPE:                                  "ERR_INV_VAR_TYPE",
 	ERR_SOLVER_PROBTYPE:                               "ERR_SOLVER_PROBTYPE",
 	ERR_OBJECTIVE_RANGE:                               "ERR_OBJECTIVE_RANGE",
+	ERR_INV_RESCODE:                                   "ERR_INV_RESCODE",
+	ERR_INV_IINF:                                      "ERR_INV_IINF",
+	ERR_INV_LIINF:                                     "ERR_INV_LIINF",
+	ERR_INV_DINF:                                      "ERR_INV_DINF",
 	ERR_BASIS:                                         "ERR_BASIS",
 	ERR_INV_SKC:                                       "ERR_INV_SKC",
 	ERR_INV_SKX:                                       "ERR_INV_SKX",
@@ -1017,6 +1033,14 @@ var _Code_map = map[Code]string{
 	ERR_CBF_POWER_STAR_CONE_MISMATCH:                     "ERR_CBF_POWER_STAR_CONE_MISMATCH",
 	ERR_CBF_INVALID_NUMBER_OF_CONES:                      "ERR_CBF_INVALID_NUMBER_OF_CONES",
 	ERR_CBF_INVALID_DIMENSION_OF_CONES:                   "ERR_CBF_INVALID_DIMENSION_OF_CONES",
+	ERR_CBF_INVALID_NUM_OBJACOORD:                        "ERR_CBF_INVALID_NUM_OBJACOORD",
+	ERR_CBF_INVALID_NUM_OBJFCOORD:                        "ERR_CBF_INVALID_NUM_OBJFCOORD",
+	ERR_CBF_INVALID_NUM_ACOORD:                           "ERR_CBF_INVALID_NUM_ACOORD",
+	ERR_CBF_INVALID_NUM_BCOORD:                           "ERR_CBF_INVALID_NUM_BCOORD",
+	ERR_CBF_INVALID_NUM_FCOORD:                           "ERR_CBF_INVALID_NUM_FCOORD",
+	ERR_CBF_INVALID_NUM_HCOORD:                           "ERR_CBF_INVALID_NUM_HCOORD",
+	ERR_CBF_INVALID_NUM_DCOORD:                           "ERR_CBF_INVALID_NUM_DCOORD",
+	ERR_CBF_EXPECTED_A_KEYWORD:                           "ERR_CBF_EXPECTED_A_KEYWORD",
 	ERR_CBF_INVALID_NUM_PSDCON:                           "ERR_CBF_INVALID_NUM_PSDCON",
 	ERR_CBF_DUPLICATE_PSDCON:                             "ERR_CBF_DUPLICATE_PSDCON",
 	ERR_CBF_INVALID_DIMENSION_OF_PSDCON:                  "ERR_CBF_INVALID_DIMENSION_OF_PSDCON",
@@ -1041,6 +1065,8 @@ var _Code_map = map[Code]string{
 	ERR_SERVER_TLS_CLIENT:                                "ERR_SERVER_TLS_CLIENT",
 	ERR_SERVER_ACCESS_TOKEN:                              "ERR_SERVER_ACCESS_TOKEN",
 	ERR_SERVER_PROBLEM_SIZE:                              "ERR_SERVER_PROBLEM_SIZE",
+	ERR_DUPLICATE_INDEX_IN_A_SPARSE_MATRIX:               "ERR_DUPLICATE_INDEX_IN_A_SPARSE_MATRIX",
+	ERR_DUPLICATE_INDEX_IN_AFEIDX_LIST:                   "ERR_DUPLICATE_INDEX_IN_AFEIDX_LIST",
 	ERR_DUPLICATE_FIJ:                                    "ERR_DUPLICATE_FIJ",
 	ERR_INVALID_FIJ:                                      "ERR_INVALID_FIJ",
 	ERR_HUGE_FIJ:                                         "ERR_HUGE_FIJ",

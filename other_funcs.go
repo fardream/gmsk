@@ -15,7 +15,7 @@ import (
 
 // CallbackcodeToStr is wrapping [MSK_callbackcodetostr]
 //
-// [MSK_callbackcodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.callbackcodetostr
+// [MSK_callbackcodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.callbackcodetostr
 func CallbackcodeToStr(
 	code CallbackCode,
 ) (callbackcodestr string, r error) {
@@ -32,6 +32,30 @@ func CallbackcodeToStr(
 
 	if r == nil {
 		callbackcodestr = C.GoString(c_callbackcodestr)
+	}
+
+	return
+}
+
+// DinfitemToStr is wrapping [MSK_dinfitemtostr]
+//
+// [MSK_dinfitemtostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.dinfitemtostr
+func DinfitemToStr(
+	item DInfItem,
+) (str string, r error) {
+	// function template: prepare for output of booleans
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
+		C.MSK_dinfitemtostr(
+			C.MSKdinfiteme(item),
+			c_str,
+		),
+	).ToError()
+
+	if r == nil {
+		str = C.GoString(c_str)
 	}
 
 	return
@@ -121,6 +145,30 @@ func GetVersion() (major, minor, revision int32, r error) {
 	return
 }
 
+// IinfitemToStr is wrapping [MSK_iinfitemtostr]
+//
+// [MSK_iinfitemtostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.iinfitemtostr
+func IinfitemToStr(
+	item IInfItem,
+) (str string, r error) {
+	// function template: prepare for output of booleans
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
+		C.MSK_iinfitemtostr(
+			C.MSKiinfiteme(item),
+			c_str,
+		),
+	).ToError()
+
+	if r == nil {
+		str = C.GoString(c_str)
+	}
+
+	return
+}
+
 // Isinfinity is wrapping [MSK_isinfinity]
 //
 // [MSK_isinfinity]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.isinfinity
@@ -141,6 +189,30 @@ func Licensecleanup() error {
 	return res.Code(
 		C.MSK_licensecleanup(),
 	).ToError()
+}
+
+// LiinfitemToStr is wrapping [MSK_liinfitemtostr]
+//
+// [MSK_liinfitemtostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.liinfitemtostr
+func LiinfitemToStr(
+	item LIInfItem,
+) (str string, r error) {
+	// function template: prepare for output of booleans
+	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
+	defer C.free(unsafe.Pointer(c_str))
+
+	r = res.Code(
+		C.MSK_liinfitemtostr(
+			C.MSKliinfiteme(item),
+			c_str,
+		),
+	).ToError()
+
+	if r == nil {
+		str = C.GoString(c_str)
+	}
+
+	return
 }
 
 // Symnamtovalue is wrapping [MSK_symnamtovalue]
