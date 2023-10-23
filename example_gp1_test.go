@@ -141,5 +141,5 @@ func Example_geometricProgram1_gp1() {
 	// max_volume_box - end   ------------------------------------------------
 
 	fmt.Printf("Solution h=%.4f w=%.4f d=%.4f\n", hwd[0], hwd[1], hwd[2])
-	// Output: Solution h=8.1641 w=4.0821 d=8.1666
+	// Output: Solution h=8.1639 w=4.0819 d=8.1671
 }

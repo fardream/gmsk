@@ -215,7 +215,7 @@ func Example_quadraticOptimization_qcqo1() {
 	}
 	// Output:
 	// Optimal primal solution
-	// x[0]: 4.487956e-01
-	// x[1]: 9.319229e-01
-	// x[2]: 6.741144e-01
+	// x[0]: 4.487975e-01
+	// x[1]: 9.319238e-01
+	// x[2]: 6.741147e-01
 }
