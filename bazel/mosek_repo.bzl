@@ -6,7 +6,7 @@ def _mosek_repo_impl(repository_ctx):
     platform_str = ""
     dylib_extension = ""
 
-    if "x86" in repository_ctx.os.arch and "linux" in repository_ctx.os.name:
+    if "amd64" in repository_ctx.os.arch and "linux" in repository_ctx.os.name:
         url = "https://download.mosek.com/stable/10.1.21/mosektoolslinux64x86.tar.bz2"
         sha256 = "f37b7b3806e467c64a02e95b2ab009f6fe8430f25ffc72ed56885f7684dec486"
         platform_str = "linux64x86"
