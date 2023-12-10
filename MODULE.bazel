@@ -1,0 +1,11 @@
+"""MODULE root for github.com/fardream/gmsk"""
+
+module(name = "github_com_fardream_gmsk")
+
+bazel_dep(name = "rules_go", version = "0.43.0")
+
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.download(version = "1.21.5")
+
+download_mosek = use_extension("//bazel:extensions.bzl", "download_mosek")
+use_repo(download_mosek, "mosek")
