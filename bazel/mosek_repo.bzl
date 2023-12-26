@@ -30,8 +30,8 @@ def _mosek_repo_impl(repository_ctx):
         "BUILD.bazel",
         repository_ctx.attr._build_tpl,
         substitutions = {
-            "%platform%": platform_str,
             "%dylib_extension%": dylib_extension,
+            "%platform%": platform_str,
         },
     )
     if is_macos:
