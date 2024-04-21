@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Simdupvec is MSKsimdupvec_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type Simdupvec uint32
 
 const (
-	SIM_EXPLOIT_DUPVEC_OFF  Simdupvec = 0 // Disallow the simplex optimizer to exploit duplicated columns.
-	SIM_EXPLOIT_DUPVEC_ON   Simdupvec = 1 // Allow the simplex optimizer to exploit duplicated columns.
-	SIM_EXPLOIT_DUPVEC_FREE Simdupvec = 2 // The simplex optimizer can choose freely.
+	SIM_EXPLOIT_DUPVEC_OFF  Simdupvec = C.MSK_SIM_EXPLOIT_DUPVEC_OFF  // Disallow the simplex optimizer to exploit duplicated columns.
+	SIM_EXPLOIT_DUPVEC_ON   Simdupvec = C.MSK_SIM_EXPLOIT_DUPVEC_ON   // Allow the simplex optimizer to exploit duplicated columns.
+	SIM_EXPLOIT_DUPVEC_FREE Simdupvec = C.MSK_SIM_EXPLOIT_DUPVEC_FREE // The simplex optimizer can choose freely.
 )
 
 var _Simdupvec_map = map[Simdupvec]string{

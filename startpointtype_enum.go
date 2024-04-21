@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // StarPointType is MSKstartpointtype_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type StarPointType uint32
 
 const (
-	STARTING_POINT_FREE     StarPointType = 0 // The starting point is chosen automatically.
-	STARTING_POINT_GUESS    StarPointType = 1 // The optimizer guesses a starting point.
-	STARTING_POINT_CONSTANT StarPointType = 2 // The optimizer constructs a starting point by assigning a constant value to all primal and dual variables. This starting point is normally robust.
+	STARTING_POINT_FREE     StarPointType = C.MSK_STARTING_POINT_FREE     // The starting point is chosen automatically.
+	STARTING_POINT_GUESS    StarPointType = C.MSK_STARTING_POINT_GUESS    // The optimizer guesses a starting point.
+	STARTING_POINT_CONSTANT StarPointType = C.MSK_STARTING_POINT_CONSTANT // The optimizer constructs a starting point by assigning a constant value to all primal and dual variables. This starting point is normally robust.
 )
 
 var _StarPointType_map = map[StarPointType]string{

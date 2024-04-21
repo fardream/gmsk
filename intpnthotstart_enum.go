@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // IntpntHotstart is MSKintpnthotstart_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type IntpntHotstart uint32
 
 const (
-	INTPNT_HOTSTART_NONE        IntpntHotstart = 0 // The interior-point optimizer performs a coldstart.
-	INTPNT_HOTSTART_PRIMAL      IntpntHotstart = 1 // The interior-point optimizer exploits the primal solution only.
-	INTPNT_HOTSTART_DUAL        IntpntHotstart = 2 // The interior-point optimizer exploits the dual solution only.
-	INTPNT_HOTSTART_PRIMAL_DUAL IntpntHotstart = 3 // The interior-point optimizer exploits both the primal and dual solution.
+	INTPNT_HOTSTART_NONE        IntpntHotstart = C.MSK_INTPNT_HOTSTART_NONE        // The interior-point optimizer performs a coldstart.
+	INTPNT_HOTSTART_PRIMAL      IntpntHotstart = C.MSK_INTPNT_HOTSTART_PRIMAL      // The interior-point optimizer exploits the primal solution only.
+	INTPNT_HOTSTART_DUAL        IntpntHotstart = C.MSK_INTPNT_HOTSTART_DUAL        // The interior-point optimizer exploits the dual solution only.
+	INTPNT_HOTSTART_PRIMAL_DUAL IntpntHotstart = C.MSK_INTPNT_HOTSTART_PRIMAL_DUAL // The interior-point optimizer exploits both the primal and dual solution.
 )
 
 var _IntpntHotstart_map = map[IntpntHotstart]string{

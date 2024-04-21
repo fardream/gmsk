@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SimReform is MSKsimreform_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type SimReform uint32
 
 const (
-	SIM_REFORMULATION_OFF        SimReform = 0 // Disallow the simplex optimizer to reformulate the problem.
-	SIM_REFORMULATION_ON         SimReform = 1 // Allow the simplex optimizer to reformulate the problem.
-	SIM_REFORMULATION_FREE       SimReform = 2 // The simplex optimizer can choose freely.
-	SIM_REFORMULATION_AGGRESSIVE SimReform = 3 // The simplex optimizer should use an aggressive reformulation strategy.
+	SIM_REFORMULATION_OFF        SimReform = C.MSK_SIM_REFORMULATION_OFF        // Disallow the simplex optimizer to reformulate the problem.
+	SIM_REFORMULATION_ON         SimReform = C.MSK_SIM_REFORMULATION_ON         // Allow the simplex optimizer to reformulate the problem.
+	SIM_REFORMULATION_FREE       SimReform = C.MSK_SIM_REFORMULATION_FREE       // The simplex optimizer can choose freely.
+	SIM_REFORMULATION_AGGRESSIVE SimReform = C.MSK_SIM_REFORMULATION_AGGRESSIVE // The simplex optimizer should use an aggressive reformulation strategy.
 )
 
 var _SimReform_map = map[SimReform]string{

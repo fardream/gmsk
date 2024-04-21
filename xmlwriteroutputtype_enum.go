@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // XmlWriterOutputType is MSKxmlwriteroutputtype_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type XmlWriterOutputType uint32
 
 const (
-	WRITE_XML_MODE_ROW XmlWriterOutputType = 0 // Write in row order.
-	WRITE_XML_MODE_COL XmlWriterOutputType = 1 // Write in column order.
+	WRITE_XML_MODE_ROW XmlWriterOutputType = C.MSK_WRITE_XML_MODE_ROW // Write in row order.
+	WRITE_XML_MODE_COL XmlWriterOutputType = C.MSK_WRITE_XML_MODE_COL // Write in column order.
 )
 
 var _XmlWriterOutputType_map = map[XmlWriterOutputType]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // StreamType is MSKstreamtype_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type StreamType uint32
 
 const (
-	STREAM_LOG StreamType = 0 // Log stream. Contains the aggregated contents of all other streams. This means that a message written to any other stream will also be written to this stream.
-	STREAM_MSG StreamType = 1 // Message stream. Log information relating to performance and progress of the optimization is written to this stream.
-	STREAM_ERR StreamType = 2 // Error stream. Error messages are written to this stream.
-	STREAM_WRN StreamType = 3 // Warning stream. Warning messages are written to this stream.
+	STREAM_LOG StreamType = C.MSK_STREAM_LOG // Log stream. Contains the aggregated contents of all other streams. This means that a message written to any other stream will also be written to this stream.
+	STREAM_MSG StreamType = C.MSK_STREAM_MSG // Message stream. Log information relating to performance and progress of the optimization is written to this stream.
+	STREAM_ERR StreamType = C.MSK_STREAM_ERR // Error stream. Error messages are written to this stream.
+	STREAM_WRN StreamType = C.MSK_STREAM_WRN // Warning stream. Warning messages are written to this stream.
 )
 
 var _StreamType_map = map[StreamType]string{

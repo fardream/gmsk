@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ObjectiveSense is MSKobjsense_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type ObjectiveSense uint32
 
 const (
-	OBJECTIVE_SENSE_MINIMIZE ObjectiveSense = 0 // The problem should be minimized.
-	OBJECTIVE_SENSE_MAXIMIZE ObjectiveSense = 1 // The problem should be maximized.
+	OBJECTIVE_SENSE_MINIMIZE ObjectiveSense = C.MSK_OBJECTIVE_SENSE_MINIMIZE // The problem should be minimized.
+	OBJECTIVE_SENSE_MAXIMIZE ObjectiveSense = C.MSK_OBJECTIVE_SENSE_MAXIMIZE // The problem should be maximized.
 )
 
 var _ObjectiveSense_map = map[ObjectiveSense]string{

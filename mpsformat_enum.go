@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // MPSFormat is MSKmpsformat_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type MPSFormat uint32
 
 const (
-	MPS_FORMAT_STRICT  MPSFormat = 0 // It is assumed that the input file satisfies the MPS format strictly.
-	MPS_FORMAT_RELAXED MPSFormat = 1 // It is assumed that the input file satisfies a slightly relaxed version of the MPS format.
-	MPS_FORMAT_FREE    MPSFormat = 2 // It is assumed that the input file satisfies the free MPS format. This implies that spaces are not allowed in names. Otherwise the format is free.
-	MPS_FORMAT_CPLEX   MPSFormat = 3 // The CPLEX compatible version of the MPS format is employed.
+	MPS_FORMAT_STRICT  MPSFormat = C.MSK_MPS_FORMAT_STRICT  // It is assumed that the input file satisfies the MPS format strictly.
+	MPS_FORMAT_RELAXED MPSFormat = C.MSK_MPS_FORMAT_RELAXED // It is assumed that the input file satisfies a slightly relaxed version of the MPS format.
+	MPS_FORMAT_FREE    MPSFormat = C.MSK_MPS_FORMAT_FREE    // It is assumed that the input file satisfies the free MPS format. This implies that spaces are not allowed in names. Otherwise the format is free.
+	MPS_FORMAT_CPLEX   MPSFormat = C.MSK_MPS_FORMAT_CPLEX   // The CPLEX compatible version of the MPS format is employed.
 )
 
 var _MPSFormat_map = map[MPSFormat]string{

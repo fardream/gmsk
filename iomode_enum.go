@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // IoMode is MSKiomode_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type IoMode uint32
 
 const (
-	IOMODE_READ      IoMode = 0 // The file is read-only.
-	IOMODE_WRITE     IoMode = 1 // The file is write-only. If the file exists then it is truncated when it is opened. Otherwise it is created when it is opened.
-	IOMODE_READWRITE IoMode = 2 // The file is to read and write.
+	IOMODE_READ      IoMode = C.MSK_IOMODE_READ      // The file is read-only.
+	IOMODE_WRITE     IoMode = C.MSK_IOMODE_WRITE     // The file is write-only. If the file exists then it is truncated when it is opened. Otherwise it is created when it is opened.
+	IOMODE_READWRITE IoMode = C.MSK_IOMODE_READWRITE // The file is to read and write.
 )
 
 var _IoMode_map = map[IoMode]string{

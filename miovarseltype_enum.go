@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // MioVarSelType is MSKmiovarseltype_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type MioVarSelType uint32
 
 const (
-	MIO_VAR_SELECTION_FREE       MioVarSelType = 0 // The optimizer decides the variable selection strategy.
-	MIO_VAR_SELECTION_PSEUDOCOST MioVarSelType = 1 // The optimizer employs pseudocost variable selection.
-	MIO_VAR_SELECTION_STRONG     MioVarSelType = 2 // The optimizer employs strong branching variable selection.
+	MIO_VAR_SELECTION_FREE       MioVarSelType = C.MSK_MIO_VAR_SELECTION_FREE       // The optimizer decides the variable selection strategy.
+	MIO_VAR_SELECTION_PSEUDOCOST MioVarSelType = C.MSK_MIO_VAR_SELECTION_PSEUDOCOST // The optimizer employs pseudocost variable selection.
+	MIO_VAR_SELECTION_STRONG     MioVarSelType = C.MSK_MIO_VAR_SELECTION_STRONG     // The optimizer employs strong branching variable selection.
 )
 
 var _MioVarSelType_map = map[MioVarSelType]string{

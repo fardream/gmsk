@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // OrderingType is MSKorderingtype_enum.
@@ -11,12 +14,12 @@ import "strconv"
 type OrderingType uint32
 
 const (
-	ORDER_METHOD_FREE           OrderingType = 0 // The ordering method is chosen automatically.
-	ORDER_METHOD_APPMINLOC      OrderingType = 1 // Approximate minimum local fill-in ordering is employed.
-	ORDER_METHOD_EXPERIMENTAL   OrderingType = 2 // This option should not be used.
-	ORDER_METHOD_TRY_GRAPHPAR   OrderingType = 3 // Always try the graph partitioning based ordering.
-	ORDER_METHOD_FORCE_GRAPHPAR OrderingType = 4 // Always use the graph partitioning based ordering even if it is worse than the approximate minimum local fill ordering.
-	ORDER_METHOD_NONE           OrderingType = 5 // No ordering is used. Note using this value almost always leads to a significantly slow down.
+	ORDER_METHOD_FREE           OrderingType = C.MSK_ORDER_METHOD_FREE           // The ordering method is chosen automatically.
+	ORDER_METHOD_APPMINLOC      OrderingType = C.MSK_ORDER_METHOD_APPMINLOC      // Approximate minimum local fill-in ordering is employed.
+	ORDER_METHOD_EXPERIMENTAL   OrderingType = C.MSK_ORDER_METHOD_EXPERIMENTAL   // This option should not be used.
+	ORDER_METHOD_TRY_GRAPHPAR   OrderingType = C.MSK_ORDER_METHOD_TRY_GRAPHPAR   // Always try the graph partitioning based ordering.
+	ORDER_METHOD_FORCE_GRAPHPAR OrderingType = C.MSK_ORDER_METHOD_FORCE_GRAPHPAR // Always use the graph partitioning based ordering even if it is worse than the approximate minimum local fill ordering.
+	ORDER_METHOD_NONE           OrderingType = C.MSK_ORDER_METHOD_NONE           // No ordering is used. Note using this value almost always leads to a significantly slow down.
 )
 
 var _OrderingType_map = map[OrderingType]string{

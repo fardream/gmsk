@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // DomainType is MSKdomaintype_enum.
@@ -11,19 +14,19 @@ import "strconv"
 type DomainType uint32
 
 const (
-	DOMAIN_R                    DomainType = 0  // R.
-	DOMAIN_RZERO                DomainType = 1  // The zero vector.
-	DOMAIN_RPLUS                DomainType = 2  // The positive orthant.
-	DOMAIN_RMINUS               DomainType = 3  // The negative orthant.
-	DOMAIN_QUADRATIC_CONE       DomainType = 4  // The quadratic cone.
-	DOMAIN_RQUADRATIC_CONE      DomainType = 5  // The rotated quadratic cone.
-	DOMAIN_PRIMAL_EXP_CONE      DomainType = 6  // The primal exponential cone.
-	DOMAIN_DUAL_EXP_CONE        DomainType = 7  // The dual exponential cone.
-	DOMAIN_PRIMAL_POWER_CONE    DomainType = 8  // The primal power cone.
-	DOMAIN_DUAL_POWER_CONE      DomainType = 9  // The dual power cone.
-	DOMAIN_PRIMAL_GEO_MEAN_CONE DomainType = 10 // The primal geometric mean cone.
-	DOMAIN_DUAL_GEO_MEAN_CONE   DomainType = 11 // The dual geometric mean cone.
-	DOMAIN_SVEC_PSD_CONE        DomainType = 12 // The vectorized positive semidefinite cone.
+	DOMAIN_R                    DomainType = C.MSK_DOMAIN_R                    // R.
+	DOMAIN_RZERO                DomainType = C.MSK_DOMAIN_RZERO                // The zero vector.
+	DOMAIN_RPLUS                DomainType = C.MSK_DOMAIN_RPLUS                // The positive orthant.
+	DOMAIN_RMINUS               DomainType = C.MSK_DOMAIN_RMINUS               // The negative orthant.
+	DOMAIN_QUADRATIC_CONE       DomainType = C.MSK_DOMAIN_QUADRATIC_CONE       // The quadratic cone.
+	DOMAIN_RQUADRATIC_CONE      DomainType = C.MSK_DOMAIN_RQUADRATIC_CONE      // The rotated quadratic cone.
+	DOMAIN_PRIMAL_EXP_CONE      DomainType = C.MSK_DOMAIN_PRIMAL_EXP_CONE      // The primal exponential cone.
+	DOMAIN_DUAL_EXP_CONE        DomainType = C.MSK_DOMAIN_DUAL_EXP_CONE        // The dual exponential cone.
+	DOMAIN_PRIMAL_POWER_CONE    DomainType = C.MSK_DOMAIN_PRIMAL_POWER_CONE    // The primal power cone.
+	DOMAIN_DUAL_POWER_CONE      DomainType = C.MSK_DOMAIN_DUAL_POWER_CONE      // The dual power cone.
+	DOMAIN_PRIMAL_GEO_MEAN_CONE DomainType = C.MSK_DOMAIN_PRIMAL_GEO_MEAN_CONE // The primal geometric mean cone.
+	DOMAIN_DUAL_GEO_MEAN_CONE   DomainType = C.MSK_DOMAIN_DUAL_GEO_MEAN_CONE   // The dual geometric mean cone.
+	DOMAIN_SVEC_PSD_CONE        DomainType = C.MSK_DOMAIN_SVEC_PSD_CONE        // The vectorized positive semidefinite cone.
 )
 
 var _DomainType_map = map[DomainType]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Purify is MSKpurify_enum.
@@ -11,11 +14,11 @@ import "strconv"
 type Purify uint32
 
 const (
-	PURIFY_NONE        Purify = 0 // The optimizer performs no solution purification.
-	PURIFY_PRIMAL      Purify = 1 // The optimizer purifies the primal solution.
-	PURIFY_DUAL        Purify = 2 // The optimizer purifies the dual solution.
-	PURIFY_PRIMAL_DUAL Purify = 3 // The optimizer purifies both the primal and dual solution.
-	PURIFY_AUTO        Purify = 4 // TBD
+	PURIFY_NONE        Purify = C.MSK_PURIFY_NONE        // The optimizer performs no solution purification.
+	PURIFY_PRIMAL      Purify = C.MSK_PURIFY_PRIMAL      // The optimizer purifies the primal solution.
+	PURIFY_DUAL        Purify = C.MSK_PURIFY_DUAL        // The optimizer purifies the dual solution.
+	PURIFY_PRIMAL_DUAL Purify = C.MSK_PURIFY_PRIMAL_DUAL // The optimizer purifies both the primal and dual solution.
+	PURIFY_AUTO        Purify = C.MSK_PURIFY_AUTO        // TBD
 )
 
 var _Purify_map = map[Purify]string{

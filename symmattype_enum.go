@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SymmatType is MSKsymmattype_enum.
@@ -11,7 +14,7 @@ import "strconv"
 type SymmatType uint32
 
 const (
-	SYMMAT_TYPE_SPARSE SymmatType = 0 // Sparse symmetric matrix.
+	SYMMAT_TYPE_SPARSE SymmatType = C.MSK_SYMMAT_TYPE_SPARSE // Sparse symmetric matrix.
 )
 
 var _SymmatType_map = map[SymmatType]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // DParam is MSKdparam_enum.
@@ -11,68 +14,68 @@ import "strconv"
 type DParam uint32
 
 const (
-	DPAR_ANA_SOL_INFEAS_TOL                      DParam = 0  // If a constraint violates its bound with an amount larger than this value, the constraint name, index and violation will be printed by the solution analyzer.
-	DPAR_BASIS_REL_TOL_S                         DParam = 1  // Maximum relative dual bound violation allowed in an optimal basic solution.
-	DPAR_BASIS_TOL_S                             DParam = 2  // Maximum absolute dual bound violation in an optimal basic solution.
-	DPAR_BASIS_TOL_X                             DParam = 3  // Maximum absolute primal bound violation allowed in an optimal basic solution.
-	DPAR_CHECK_CONVEXITY_REL_TOL                 DParam = 4  // Convexity check tolerance.
-	DPAR_DATA_SYM_MAT_TOL                        DParam = 5  // Zero tolerance threshold for symmetric matrices.
-	DPAR_DATA_SYM_MAT_TOL_HUGE                   DParam = 6  // Data tolerance threshold.
-	DPAR_DATA_SYM_MAT_TOL_LARGE                  DParam = 7  // Data tolerance threshold.
-	DPAR_DATA_TOL_AIJ_HUGE                       DParam = 8  // Data tolerance threshold.
-	DPAR_DATA_TOL_AIJ_LARGE                      DParam = 9  // Data tolerance threshold.
-	DPAR_DATA_TOL_BOUND_INF                      DParam = 10 // Data tolerance threshold.
-	DPAR_DATA_TOL_BOUND_WRN                      DParam = 11 // Data tolerance threshold.
-	DPAR_DATA_TOL_C_HUGE                         DParam = 12 // Data tolerance threshold.
-	DPAR_DATA_TOL_CJ_LARGE                       DParam = 13 // Data tolerance threshold.
-	DPAR_DATA_TOL_QIJ                            DParam = 14 // Data tolerance threshold.
-	DPAR_DATA_TOL_X                              DParam = 15 // Data tolerance threshold.
-	DPAR_INTPNT_CO_TOL_DFEAS                     DParam = 16 // Dual feasibility tolerance used by the interior-point optimizer for conic problems.
-	DPAR_INTPNT_CO_TOL_INFEAS                    DParam = 17 // Infeasibility tolerance used by the interior-point optimizer for conic problems.
-	DPAR_INTPNT_CO_TOL_MU_RED                    DParam = 18 // Relative complementarity gap tolerance used by the interior-point optimizer for conic problems.
-	DPAR_INTPNT_CO_TOL_NEAR_REL                  DParam = 19 // Optimality tolerance used by the interior-point optimizer for conic problems.
-	DPAR_INTPNT_CO_TOL_PFEAS                     DParam = 20 // Primal feasibility tolerance used by the interior-point optimizer for conic problems.
-	DPAR_INTPNT_CO_TOL_REL_GAP                   DParam = 21 // Relative gap termination tolerance used by the interior-point optimizer for conic problems.
-	DPAR_INTPNT_QO_TOL_DFEAS                     DParam = 22 // Dual feasibility tolerance used by the interior-point optimizer for quadratic problems.
-	DPAR_INTPNT_QO_TOL_INFEAS                    DParam = 23 // Infeasibility tolerance used by the interior-point optimizer for quadratic problems.
-	DPAR_INTPNT_QO_TOL_MU_RED                    DParam = 24 // Relative complementarity gap tolerance used by the interior-point optimizer for quadratic problems.
-	DPAR_INTPNT_QO_TOL_NEAR_REL                  DParam = 25 // Optimality tolerance used by the interior-point optimizer for quadratic problems.
-	DPAR_INTPNT_QO_TOL_PFEAS                     DParam = 26 // Primal feasibility tolerance used by the interior-point optimizer for quadratic problems.
-	DPAR_INTPNT_QO_TOL_REL_GAP                   DParam = 27 // Relative gap termination tolerance used by the interior-point optimizer for quadratic problems.
-	DPAR_INTPNT_TOL_DFEAS                        DParam = 28 // Dual feasibility tolerance used by the interior-point optimizer for linear problems.
-	DPAR_INTPNT_TOL_DSAFE                        DParam = 29 // Controls the interior-point dual starting point.
-	DPAR_INTPNT_TOL_INFEAS                       DParam = 30 // Infeasibility tolerance used by the interior-point optimizer for linear problems.
-	DPAR_INTPNT_TOL_MU_RED                       DParam = 31 // Relative complementarity gap tolerance used by the interior-point optimizer for linear problems.
-	DPAR_INTPNT_TOL_PATH                         DParam = 32 // Interior-point centering aggressiveness.
-	DPAR_INTPNT_TOL_PFEAS                        DParam = 33 // Primal feasibility tolerance used by the interior-point optimizer for linear problems.
-	DPAR_INTPNT_TOL_PSAFE                        DParam = 34 // Controls the interior-point primal starting point.
-	DPAR_INTPNT_TOL_REL_GAP                      DParam = 35 // Relative gap termination tolerance used by the interior-point optimizer for linear problems.
-	DPAR_INTPNT_TOL_REL_STEP                     DParam = 36 // Relative step size to the boundary for linear and quadratic optimization problems.
-	DPAR_INTPNT_TOL_STEP_SIZE                    DParam = 37 // Minimal step size tolerance for the interior-point optimizer.
-	DPAR_LOWER_OBJ_CUT                           DParam = 38 // Objective bound.
-	DPAR_LOWER_OBJ_CUT_FINITE_TRH                DParam = 39 // Objective bound.
-	DPAR_MIO_DJC_MAX_BIGM                        DParam = 40 // Maximum allowed big-M value when reformulating disjunctive constraints to linear constraints.
-	DPAR_MIO_MAX_TIME                            DParam = 41 // Time limit for the mixed-integer optimizer.
-	DPAR_MIO_REL_GAP_CONST                       DParam = 42 // This value is used to compute the relative gap for the solution to an integer optimization problem.
-	DPAR_MIO_TOL_ABS_GAP                         DParam = 43 // Absolute optimality tolerance employed by the mixed-integer optimizer.
-	DPAR_MIO_TOL_ABS_RELAX_INT                   DParam = 44 // Integer feasibility tolerance.
-	DPAR_MIO_TOL_FEAS                            DParam = 45 // Feasibility tolerance for mixed integer solver.
-	DPAR_MIO_TOL_REL_DUAL_BOUND_IMPROVEMENT      DParam = 46 // Controls cut generation for mixed-integer optimizer.
-	DPAR_MIO_TOL_REL_GAP                         DParam = 47 // Relative optimality tolerance employed by the mixed-integer optimizer.
-	DPAR_OPTIMIZER_MAX_TICKS                     DParam = 48 // Solver ticks limit.
-	DPAR_OPTIMIZER_MAX_TIME                      DParam = 49 // Solver time limit.
-	DPAR_PRESOLVE_TOL_ABS_LINDEP                 DParam = 50 // Absolute tolerance employed by the linear dependency checker.
-	DPAR_PRESOLVE_TOL_AIJ                        DParam = 51 // Absolute zero tolerance employed for constraint coefficients in the presolve.
-	DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION DParam = 52 // The presolve is allowed to perturb a bound on a constraint or variable by this amount if it removes an infeasibility.
-	DPAR_PRESOLVE_TOL_REL_LINDEP                 DParam = 53 // Relative tolerance employed by the linear dependency checker.
-	DPAR_PRESOLVE_TOL_S                          DParam = 54 // Absolute zero tolerance employed for slack variables in the presolve.
-	DPAR_PRESOLVE_TOL_X                          DParam = 55 // Absolute zero tolerance employed for variables in the presolve.
-	DPAR_QCQO_REFORMULATE_REL_DROP_TOL           DParam = 56 // This parameter determines when columns are dropped in incomplete Cholesky factorization during reformulation of quadratic problems.
-	DPAR_SEMIDEFINITE_TOL_APPROX                 DParam = 57 // Tolerance to define a matrix to be positive semidefinite.
-	DPAR_SIM_LU_TOL_REL_PIV                      DParam = 58 // Relative pivot tolerance employed when computing the LU factorization of the basis matrix.
-	DPAR_SIMPLEX_ABS_TOL_PIV                     DParam = 59 // Absolute pivot tolerance employed by the simplex optimizers.
-	DPAR_UPPER_OBJ_CUT                           DParam = 60 // Objective bound.
-	DPAR_UPPER_OBJ_CUT_FINITE_TRH                DParam = 61 // Objective bound.
+	DPAR_ANA_SOL_INFEAS_TOL                      DParam = C.MSK_DPAR_ANA_SOL_INFEAS_TOL                      // If a constraint violates its bound with an amount larger than this value, the constraint name, index and violation will be printed by the solution analyzer.
+	DPAR_BASIS_REL_TOL_S                         DParam = C.MSK_DPAR_BASIS_REL_TOL_S                         // Maximum relative dual bound violation allowed in an optimal basic solution.
+	DPAR_BASIS_TOL_S                             DParam = C.MSK_DPAR_BASIS_TOL_S                             // Maximum absolute dual bound violation in an optimal basic solution.
+	DPAR_BASIS_TOL_X                             DParam = C.MSK_DPAR_BASIS_TOL_X                             // Maximum absolute primal bound violation allowed in an optimal basic solution.
+	DPAR_CHECK_CONVEXITY_REL_TOL                 DParam = C.MSK_DPAR_CHECK_CONVEXITY_REL_TOL                 // Convexity check tolerance.
+	DPAR_DATA_SYM_MAT_TOL                        DParam = C.MSK_DPAR_DATA_SYM_MAT_TOL                        // Zero tolerance threshold for symmetric matrices.
+	DPAR_DATA_SYM_MAT_TOL_HUGE                   DParam = C.MSK_DPAR_DATA_SYM_MAT_TOL_HUGE                   // Data tolerance threshold.
+	DPAR_DATA_SYM_MAT_TOL_LARGE                  DParam = C.MSK_DPAR_DATA_SYM_MAT_TOL_LARGE                  // Data tolerance threshold.
+	DPAR_DATA_TOL_AIJ_HUGE                       DParam = C.MSK_DPAR_DATA_TOL_AIJ_HUGE                       // Data tolerance threshold.
+	DPAR_DATA_TOL_AIJ_LARGE                      DParam = C.MSK_DPAR_DATA_TOL_AIJ_LARGE                      // Data tolerance threshold.
+	DPAR_DATA_TOL_BOUND_INF                      DParam = C.MSK_DPAR_DATA_TOL_BOUND_INF                      // Data tolerance threshold.
+	DPAR_DATA_TOL_BOUND_WRN                      DParam = C.MSK_DPAR_DATA_TOL_BOUND_WRN                      // Data tolerance threshold.
+	DPAR_DATA_TOL_C_HUGE                         DParam = C.MSK_DPAR_DATA_TOL_C_HUGE                         // Data tolerance threshold.
+	DPAR_DATA_TOL_CJ_LARGE                       DParam = C.MSK_DPAR_DATA_TOL_CJ_LARGE                       // Data tolerance threshold.
+	DPAR_DATA_TOL_QIJ                            DParam = C.MSK_DPAR_DATA_TOL_QIJ                            // Data tolerance threshold.
+	DPAR_DATA_TOL_X                              DParam = C.MSK_DPAR_DATA_TOL_X                              // Data tolerance threshold.
+	DPAR_INTPNT_CO_TOL_DFEAS                     DParam = C.MSK_DPAR_INTPNT_CO_TOL_DFEAS                     // Dual feasibility tolerance used by the interior-point optimizer for conic problems.
+	DPAR_INTPNT_CO_TOL_INFEAS                    DParam = C.MSK_DPAR_INTPNT_CO_TOL_INFEAS                    // Infeasibility tolerance used by the interior-point optimizer for conic problems.
+	DPAR_INTPNT_CO_TOL_MU_RED                    DParam = C.MSK_DPAR_INTPNT_CO_TOL_MU_RED                    // Relative complementarity gap tolerance used by the interior-point optimizer for conic problems.
+	DPAR_INTPNT_CO_TOL_NEAR_REL                  DParam = C.MSK_DPAR_INTPNT_CO_TOL_NEAR_REL                  // Optimality tolerance used by the interior-point optimizer for conic problems.
+	DPAR_INTPNT_CO_TOL_PFEAS                     DParam = C.MSK_DPAR_INTPNT_CO_TOL_PFEAS                     // Primal feasibility tolerance used by the interior-point optimizer for conic problems.
+	DPAR_INTPNT_CO_TOL_REL_GAP                   DParam = C.MSK_DPAR_INTPNT_CO_TOL_REL_GAP                   // Relative gap termination tolerance used by the interior-point optimizer for conic problems.
+	DPAR_INTPNT_QO_TOL_DFEAS                     DParam = C.MSK_DPAR_INTPNT_QO_TOL_DFEAS                     // Dual feasibility tolerance used by the interior-point optimizer for quadratic problems.
+	DPAR_INTPNT_QO_TOL_INFEAS                    DParam = C.MSK_DPAR_INTPNT_QO_TOL_INFEAS                    // Infeasibility tolerance used by the interior-point optimizer for quadratic problems.
+	DPAR_INTPNT_QO_TOL_MU_RED                    DParam = C.MSK_DPAR_INTPNT_QO_TOL_MU_RED                    // Relative complementarity gap tolerance used by the interior-point optimizer for quadratic problems.
+	DPAR_INTPNT_QO_TOL_NEAR_REL                  DParam = C.MSK_DPAR_INTPNT_QO_TOL_NEAR_REL                  // Optimality tolerance used by the interior-point optimizer for quadratic problems.
+	DPAR_INTPNT_QO_TOL_PFEAS                     DParam = C.MSK_DPAR_INTPNT_QO_TOL_PFEAS                     // Primal feasibility tolerance used by the interior-point optimizer for quadratic problems.
+	DPAR_INTPNT_QO_TOL_REL_GAP                   DParam = C.MSK_DPAR_INTPNT_QO_TOL_REL_GAP                   // Relative gap termination tolerance used by the interior-point optimizer for quadratic problems.
+	DPAR_INTPNT_TOL_DFEAS                        DParam = C.MSK_DPAR_INTPNT_TOL_DFEAS                        // Dual feasibility tolerance used by the interior-point optimizer for linear problems.
+	DPAR_INTPNT_TOL_DSAFE                        DParam = C.MSK_DPAR_INTPNT_TOL_DSAFE                        // Controls the interior-point dual starting point.
+	DPAR_INTPNT_TOL_INFEAS                       DParam = C.MSK_DPAR_INTPNT_TOL_INFEAS                       // Infeasibility tolerance used by the interior-point optimizer for linear problems.
+	DPAR_INTPNT_TOL_MU_RED                       DParam = C.MSK_DPAR_INTPNT_TOL_MU_RED                       // Relative complementarity gap tolerance used by the interior-point optimizer for linear problems.
+	DPAR_INTPNT_TOL_PATH                         DParam = C.MSK_DPAR_INTPNT_TOL_PATH                         // Interior-point centering aggressiveness.
+	DPAR_INTPNT_TOL_PFEAS                        DParam = C.MSK_DPAR_INTPNT_TOL_PFEAS                        // Primal feasibility tolerance used by the interior-point optimizer for linear problems.
+	DPAR_INTPNT_TOL_PSAFE                        DParam = C.MSK_DPAR_INTPNT_TOL_PSAFE                        // Controls the interior-point primal starting point.
+	DPAR_INTPNT_TOL_REL_GAP                      DParam = C.MSK_DPAR_INTPNT_TOL_REL_GAP                      // Relative gap termination tolerance used by the interior-point optimizer for linear problems.
+	DPAR_INTPNT_TOL_REL_STEP                     DParam = C.MSK_DPAR_INTPNT_TOL_REL_STEP                     // Relative step size to the boundary for linear and quadratic optimization problems.
+	DPAR_INTPNT_TOL_STEP_SIZE                    DParam = C.MSK_DPAR_INTPNT_TOL_STEP_SIZE                    // Minimal step size tolerance for the interior-point optimizer.
+	DPAR_LOWER_OBJ_CUT                           DParam = C.MSK_DPAR_LOWER_OBJ_CUT                           // Objective bound.
+	DPAR_LOWER_OBJ_CUT_FINITE_TRH                DParam = C.MSK_DPAR_LOWER_OBJ_CUT_FINITE_TRH                // Objective bound.
+	DPAR_MIO_DJC_MAX_BIGM                        DParam = C.MSK_DPAR_MIO_DJC_MAX_BIGM                        // Maximum allowed big-M value when reformulating disjunctive constraints to linear constraints.
+	DPAR_MIO_MAX_TIME                            DParam = C.MSK_DPAR_MIO_MAX_TIME                            // Time limit for the mixed-integer optimizer.
+	DPAR_MIO_REL_GAP_CONST                       DParam = C.MSK_DPAR_MIO_REL_GAP_CONST                       // This value is used to compute the relative gap for the solution to an integer optimization problem.
+	DPAR_MIO_TOL_ABS_GAP                         DParam = C.MSK_DPAR_MIO_TOL_ABS_GAP                         // Absolute optimality tolerance employed by the mixed-integer optimizer.
+	DPAR_MIO_TOL_ABS_RELAX_INT                   DParam = C.MSK_DPAR_MIO_TOL_ABS_RELAX_INT                   // Integer feasibility tolerance.
+	DPAR_MIO_TOL_FEAS                            DParam = C.MSK_DPAR_MIO_TOL_FEAS                            // Feasibility tolerance for mixed integer solver.
+	DPAR_MIO_TOL_REL_DUAL_BOUND_IMPROVEMENT      DParam = C.MSK_DPAR_MIO_TOL_REL_DUAL_BOUND_IMPROVEMENT      // Controls cut generation for mixed-integer optimizer.
+	DPAR_MIO_TOL_REL_GAP                         DParam = C.MSK_DPAR_MIO_TOL_REL_GAP                         // Relative optimality tolerance employed by the mixed-integer optimizer.
+	DPAR_OPTIMIZER_MAX_TICKS                     DParam = C.MSK_DPAR_OPTIMIZER_MAX_TICKS                     // Solver ticks limit.
+	DPAR_OPTIMIZER_MAX_TIME                      DParam = C.MSK_DPAR_OPTIMIZER_MAX_TIME                      // Solver time limit.
+	DPAR_PRESOLVE_TOL_ABS_LINDEP                 DParam = C.MSK_DPAR_PRESOLVE_TOL_ABS_LINDEP                 // Absolute tolerance employed by the linear dependency checker.
+	DPAR_PRESOLVE_TOL_AIJ                        DParam = C.MSK_DPAR_PRESOLVE_TOL_AIJ                        // Absolute zero tolerance employed for constraint coefficients in the presolve.
+	DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION DParam = C.MSK_DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION // The presolve is allowed to perturb a bound on a constraint or variable by this amount if it removes an infeasibility.
+	DPAR_PRESOLVE_TOL_REL_LINDEP                 DParam = C.MSK_DPAR_PRESOLVE_TOL_REL_LINDEP                 // Relative tolerance employed by the linear dependency checker.
+	DPAR_PRESOLVE_TOL_S                          DParam = C.MSK_DPAR_PRESOLVE_TOL_S                          // Absolute zero tolerance employed for slack variables in the presolve.
+	DPAR_PRESOLVE_TOL_X                          DParam = C.MSK_DPAR_PRESOLVE_TOL_X                          // Absolute zero tolerance employed for variables in the presolve.
+	DPAR_QCQO_REFORMULATE_REL_DROP_TOL           DParam = C.MSK_DPAR_QCQO_REFORMULATE_REL_DROP_TOL           // This parameter determines when columns are dropped in incomplete Cholesky factorization during reformulation of quadratic problems.
+	DPAR_SEMIDEFINITE_TOL_APPROX                 DParam = C.MSK_DPAR_SEMIDEFINITE_TOL_APPROX                 // Tolerance to define a matrix to be positive semidefinite.
+	DPAR_SIM_LU_TOL_REL_PIV                      DParam = C.MSK_DPAR_SIM_LU_TOL_REL_PIV                      // Relative pivot tolerance employed when computing the LU factorization of the basis matrix.
+	DPAR_SIMPLEX_ABS_TOL_PIV                     DParam = C.MSK_DPAR_SIMPLEX_ABS_TOL_PIV                     // Absolute pivot tolerance employed by the simplex optimizers.
+	DPAR_UPPER_OBJ_CUT                           DParam = C.MSK_DPAR_UPPER_OBJ_CUT                           // Objective bound.
+	DPAR_UPPER_OBJ_CUT_FINITE_TRH                DParam = C.MSK_DPAR_UPPER_OBJ_CUT_FINITE_TRH                // Objective bound.
 )
 
 var _DParam_map = map[DParam]string{

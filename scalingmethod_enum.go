@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ScalingMethod is MSKscalingmethod_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type ScalingMethod uint32
 
 const (
-	SCALING_METHOD_POW2 ScalingMethod = 0 // Scales only with power of 2 leaving the mantissa untouched.
-	SCALING_METHOD_FREE ScalingMethod = 1 // The optimizer chooses the scaling heuristic.
+	SCALING_METHOD_POW2 ScalingMethod = C.MSK_SCALING_METHOD_POW2 // Scales only with power of 2 leaving the mantissa untouched.
+	SCALING_METHOD_FREE ScalingMethod = C.MSK_SCALING_METHOD_FREE // The optimizer chooses the scaling heuristic.
 )
 
 var _ScalingMethod_map = map[ScalingMethod]string{

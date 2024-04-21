@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // VariableType is MSKvariabletype_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type VariableType uint32
 
 const (
-	VAR_TYPE_CONT VariableType = 0 // Is a continuous variable.
-	VAR_TYPE_INT  VariableType = 1 // Is an integer variable.
+	VAR_TYPE_CONT VariableType = C.MSK_VAR_TYPE_CONT // Is a continuous variable.
+	VAR_TYPE_INT  VariableType = C.MSK_VAR_TYPE_INT  // Is an integer variable.
 )
 
 var _VariableType_map = map[VariableType]string{

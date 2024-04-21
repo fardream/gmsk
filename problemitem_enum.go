@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ProblemItem is MSKproblemitem_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type ProblemItem uint32
 
 const (
-	PI_VAR  ProblemItem = 0 // Item is a variable.
-	PI_CON  ProblemItem = 1 // Item is a constraint.
-	PI_CONE ProblemItem = 2 // Item is a cone.
+	PI_VAR  ProblemItem = C.MSK_PI_VAR  // Item is a variable.
+	PI_CON  ProblemItem = C.MSK_PI_CON  // Item is a constraint.
+	PI_CONE ProblemItem = C.MSK_PI_CONE // Item is a cone.
 )
 
 var _ProblemItem_map = map[ProblemItem]string{

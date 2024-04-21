@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ResCodeType is MSKrescodetype_enum.
@@ -11,11 +14,11 @@ import "strconv"
 type ResCodeType uint32
 
 const (
-	RESPONSE_OK  ResCodeType = 0 // The response code is OK.
-	RESPONSE_WRN ResCodeType = 1 // The response code is a warning.
-	RESPONSE_TRM ResCodeType = 2 // The response code is an optimizer termination status.
-	RESPONSE_ERR ResCodeType = 3 // The response code is an error.
-	RESPONSE_UNK ResCodeType = 4 // The response code does not belong to any class.
+	RESPONSE_OK  ResCodeType = C.MSK_RESPONSE_OK  // The response code is OK.
+	RESPONSE_WRN ResCodeType = C.MSK_RESPONSE_WRN // The response code is a warning.
+	RESPONSE_TRM ResCodeType = C.MSK_RESPONSE_TRM // The response code is an optimizer termination status.
+	RESPONSE_ERR ResCodeType = C.MSK_RESPONSE_ERR // The response code is an error.
+	RESPONSE_UNK ResCodeType = C.MSK_RESPONSE_UNK // The response code does not belong to any class.
 )
 
 var _ResCodeType_map = map[ResCodeType]string{

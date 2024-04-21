@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // PresolveMode is MSKpresolvemode_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type PresolveMode uint32
 
 const (
-	PRESOLVE_MODE_OFF  PresolveMode = 0 // The problem is not presolved before it is optimized.
-	PRESOLVE_MODE_ON   PresolveMode = 1 // The problem is presolved before it is optimized.
-	PRESOLVE_MODE_FREE PresolveMode = 2 // It is decided automatically whether to presolve before the problem is optimized.
+	PRESOLVE_MODE_OFF  PresolveMode = C.MSK_PRESOLVE_MODE_OFF  // The problem is not presolved before it is optimized.
+	PRESOLVE_MODE_ON   PresolveMode = C.MSK_PRESOLVE_MODE_ON   // The problem is presolved before it is optimized.
+	PRESOLVE_MODE_FREE PresolveMode = C.MSK_PRESOLVE_MODE_FREE // It is decided automatically whether to presolve before the problem is optimized.
 )
 
 var _PresolveMode_map = map[PresolveMode]string{

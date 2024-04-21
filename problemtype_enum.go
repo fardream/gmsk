@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ProblemType is MSKproblemtype_enum.
@@ -11,11 +14,11 @@ import "strconv"
 type ProblemType uint32
 
 const (
-	PROBTYPE_LO    ProblemType = 0 // The problem is a linear optimization problem.
-	PROBTYPE_QO    ProblemType = 1 // The problem is a quadratic optimization problem.
-	PROBTYPE_QCQO  ProblemType = 2 // The problem is a quadratically constrained optimization problem.
-	PROBTYPE_CONIC ProblemType = 3 // A conic optimization.
-	PROBTYPE_MIXED ProblemType = 4 // General nonlinear constraints and conic constraints. This combination can not be solved by MOSEK.
+	PROBTYPE_LO    ProblemType = C.MSK_PROBTYPE_LO    // The problem is a linear optimization problem.
+	PROBTYPE_QO    ProblemType = C.MSK_PROBTYPE_QO    // The problem is a quadratic optimization problem.
+	PROBTYPE_QCQO  ProblemType = C.MSK_PROBTYPE_QCQO  // The problem is a quadratically constrained optimization problem.
+	PROBTYPE_CONIC ProblemType = C.MSK_PROBTYPE_CONIC // A conic optimization.
+	PROBTYPE_MIXED ProblemType = C.MSK_PROBTYPE_MIXED // General nonlinear constraints and conic constraints. This combination can not be solved by MOSEK.
 )
 
 var _ProblemType_map = map[ProblemType]string{

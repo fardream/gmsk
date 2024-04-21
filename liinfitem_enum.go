@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // LIInfItem is MSKliinfitem_enum.
@@ -11,27 +14,27 @@ import "strconv"
 type LIInfItem uint32
 
 const (
-	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_COLUMNS LIInfItem = 0  // Number of columns in the scalarized constraint matrix.
-	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_NZ      LIInfItem = 1  // Number of non-zero entries in the scalarized constraint matrix.
-	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_ROWS    LIInfItem = 2  // Number of rows in the scalarized constraint matrix.
-	LIINF_BI_CLEAN_DUAL_DEG_ITER                           LIInfItem = 3  // Number of dual degenerate clean iterations performed in the basis identification.
-	LIINF_BI_CLEAN_DUAL_ITER                               LIInfItem = 4  // Number of dual clean iterations performed in the basis identification.
-	LIINF_BI_CLEAN_PRIMAL_DEG_ITER                         LIInfItem = 5  // Number of primal degenerate clean iterations performed in the basis identification.
-	LIINF_BI_CLEAN_PRIMAL_ITER                             LIInfItem = 6  // Number of primal clean iterations performed in the basis identification.
-	LIINF_BI_DUAL_ITER                                     LIInfItem = 7  // Number of dual pivots performed in the basis identification.
-	LIINF_BI_PRIMAL_ITER                                   LIInfItem = 8  // Number of primal pivots performed in the basis identification.
-	LIINF_INTPNT_FACTOR_NUM_NZ                             LIInfItem = 9  // Number of non-zeros in factorization.
-	LIINF_MIO_ANZ                                          LIInfItem = 10 // Number of non-zero entries in the constraint matrix of the problem to be solved by the mixed-integer optimizer.
-	LIINF_MIO_INTPNT_ITER                                  LIInfItem = 11 // Number of interior-point iterations performed by the mixed-integer optimizer.
-	LIINF_MIO_NUM_DUAL_ILLPOSED_CER                        LIInfItem = 12 // Number of dual illposed certificates encountered by the mixed-integer optimizer.
-	LIINF_MIO_NUM_PRIM_ILLPOSED_CER                        LIInfItem = 13 // Number of primal illposed certificates encountered by the mixed-integer optimizer.
-	LIINF_MIO_PRESOLVED_ANZ                                LIInfItem = 14 // Number of non-zero entries in the constraint matrix of the problem after the mixed-integer optimizer's presolve.
-	LIINF_MIO_SIMPLEX_ITER                                 LIInfItem = 15 // Number of simplex iterations performed by the mixed-integer optimizer.
-	LIINF_RD_NUMACC                                        LIInfItem = 16 // Number of affince conic constraints.
-	LIINF_RD_NUMANZ                                        LIInfItem = 17 // Number of non-zeros in A that is read.
-	LIINF_RD_NUMDJC                                        LIInfItem = 18 // Number of disjuncive constraints.
-	LIINF_RD_NUMQNZ                                        LIInfItem = 19 // Number of Q non-zeros.
-	LIINF_SIMPLEX_ITER                                     LIInfItem = 20 // Number of iterations performed by the simplex optimizer.
+	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_COLUMNS LIInfItem = C.MSK_LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_COLUMNS // Number of columns in the scalarized constraint matrix.
+	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_NZ      LIInfItem = C.MSK_LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_NZ      // Number of non-zero entries in the scalarized constraint matrix.
+	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_ROWS    LIInfItem = C.MSK_LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_ROWS    // Number of rows in the scalarized constraint matrix.
+	LIINF_BI_CLEAN_DUAL_DEG_ITER                           LIInfItem = C.MSK_LIINF_BI_CLEAN_DUAL_DEG_ITER                           // Number of dual degenerate clean iterations performed in the basis identification.
+	LIINF_BI_CLEAN_DUAL_ITER                               LIInfItem = C.MSK_LIINF_BI_CLEAN_DUAL_ITER                               // Number of dual clean iterations performed in the basis identification.
+	LIINF_BI_CLEAN_PRIMAL_DEG_ITER                         LIInfItem = C.MSK_LIINF_BI_CLEAN_PRIMAL_DEG_ITER                         // Number of primal degenerate clean iterations performed in the basis identification.
+	LIINF_BI_CLEAN_PRIMAL_ITER                             LIInfItem = C.MSK_LIINF_BI_CLEAN_PRIMAL_ITER                             // Number of primal clean iterations performed in the basis identification.
+	LIINF_BI_DUAL_ITER                                     LIInfItem = C.MSK_LIINF_BI_DUAL_ITER                                     // Number of dual pivots performed in the basis identification.
+	LIINF_BI_PRIMAL_ITER                                   LIInfItem = C.MSK_LIINF_BI_PRIMAL_ITER                                   // Number of primal pivots performed in the basis identification.
+	LIINF_INTPNT_FACTOR_NUM_NZ                             LIInfItem = C.MSK_LIINF_INTPNT_FACTOR_NUM_NZ                             // Number of non-zeros in factorization.
+	LIINF_MIO_ANZ                                          LIInfItem = C.MSK_LIINF_MIO_ANZ                                          // Number of non-zero entries in the constraint matrix of the problem to be solved by the mixed-integer optimizer.
+	LIINF_MIO_INTPNT_ITER                                  LIInfItem = C.MSK_LIINF_MIO_INTPNT_ITER                                  // Number of interior-point iterations performed by the mixed-integer optimizer.
+	LIINF_MIO_NUM_DUAL_ILLPOSED_CER                        LIInfItem = C.MSK_LIINF_MIO_NUM_DUAL_ILLPOSED_CER                        // Number of dual illposed certificates encountered by the mixed-integer optimizer.
+	LIINF_MIO_NUM_PRIM_ILLPOSED_CER                        LIInfItem = C.MSK_LIINF_MIO_NUM_PRIM_ILLPOSED_CER                        // Number of primal illposed certificates encountered by the mixed-integer optimizer.
+	LIINF_MIO_PRESOLVED_ANZ                                LIInfItem = C.MSK_LIINF_MIO_PRESOLVED_ANZ                                // Number of non-zero entries in the constraint matrix of the problem after the mixed-integer optimizer's presolve.
+	LIINF_MIO_SIMPLEX_ITER                                 LIInfItem = C.MSK_LIINF_MIO_SIMPLEX_ITER                                 // Number of simplex iterations performed by the mixed-integer optimizer.
+	LIINF_RD_NUMACC                                        LIInfItem = C.MSK_LIINF_RD_NUMACC                                        // Number of affince conic constraints.
+	LIINF_RD_NUMANZ                                        LIInfItem = C.MSK_LIINF_RD_NUMANZ                                        // Number of non-zeros in A that is read.
+	LIINF_RD_NUMDJC                                        LIInfItem = C.MSK_LIINF_RD_NUMDJC                                        // Number of disjuncive constraints.
+	LIINF_RD_NUMQNZ                                        LIInfItem = C.MSK_LIINF_RD_NUMQNZ                                        // Number of Q non-zeros.
+	LIINF_SIMPLEX_ITER                                     LIInfItem = C.MSK_LIINF_SIMPLEX_ITER                                     // Number of iterations performed by the simplex optimizer.
 )
 
 var _LIInfItem_map = map[LIInfItem]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // BasIndType is MSKbasindtype_enum.
@@ -11,11 +14,11 @@ import "strconv"
 type BasIndType uint32
 
 const (
-	BI_NEVER       BasIndType = 0 // Never do basis identification.
-	BI_ALWAYS      BasIndType = 1 // Basis identification is always performed even if the interior-point optimizer terminates abnormally.
-	BI_NO_ERROR    BasIndType = 2 // Basis identification is performed if the interior-point optimizer terminates without an error.
-	BI_IF_FEASIBLE BasIndType = 3 // Basis identification is not performed if the interior-point optimizer terminates with a problem status saying that the problem is primal or dual infeasible.
-	BI_RESERVERED  BasIndType = 4 // Not currently in use.
+	BI_NEVER       BasIndType = C.MSK_BI_NEVER       // Never do basis identification.
+	BI_ALWAYS      BasIndType = C.MSK_BI_ALWAYS      // Basis identification is always performed even if the interior-point optimizer terminates abnormally.
+	BI_NO_ERROR    BasIndType = C.MSK_BI_NO_ERROR    // Basis identification is performed if the interior-point optimizer terminates without an error.
+	BI_IF_FEASIBLE BasIndType = C.MSK_BI_IF_FEASIBLE // Basis identification is not performed if the interior-point optimizer terminates with a problem status saying that the problem is primal or dual infeasible.
+	BI_RESERVERED  BasIndType = C.MSK_BI_RESERVERED  // Not currently in use.
 )
 
 var _BasIndType_map = map[BasIndType]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SParam is MSKsparam_enum.
@@ -11,31 +14,31 @@ import "strconv"
 type SParam uint32
 
 const (
-	SPAR_BAS_SOL_FILE_NAME         SParam = 0  // Name of the bas solution file.
-	SPAR_DATA_FILE_NAME            SParam = 1  // Data are read and written to this file.
-	SPAR_DEBUG_FILE_NAME           SParam = 2  // MOSEK debug file.
-	SPAR_INT_SOL_FILE_NAME         SParam = 3  // Name of the int solution file.
-	SPAR_ITR_SOL_FILE_NAME         SParam = 4  // Name of the itr solution file.
-	SPAR_MIO_DEBUG_STRING          SParam = 5  // For internal debugging purposes.
-	SPAR_PARAM_COMMENT_SIGN        SParam = 6  // Solution file comment character.
-	SPAR_PARAM_READ_FILE_NAME      SParam = 7  // Modifications to the parameter database is read from this file.
-	SPAR_PARAM_WRITE_FILE_NAME     SParam = 8  // The parameter database is written to this file.
-	SPAR_READ_MPS_BOU_NAME         SParam = 9  // Name of the BOUNDS vector used. An empty name means that the first BOUNDS vector is used.
-	SPAR_READ_MPS_OBJ_NAME         SParam = 10 // Objective name in the MPS file.
-	SPAR_READ_MPS_RAN_NAME         SParam = 11 // Name of the RANGE vector  used. An empty name means that the first RANGE vector is used.
-	SPAR_READ_MPS_RHS_NAME         SParam = 12 // Name of the RHS used. An empty name means that the first RHS vector is used.
-	SPAR_REMOTE_OPTSERVER_HOST     SParam = 13 // URL of the remote optimization server.
-	SPAR_REMOTE_TLS_CERT           SParam = 14 // Known server certificates in PEM format
-	SPAR_REMOTE_TLS_CERT_PATH      SParam = 15 // Path to known server certificates in PEM format
-	SPAR_SENSITIVITY_FILE_NAME     SParam = 16 // Sensitivity report file name.
-	SPAR_SENSITIVITY_RES_FILE_NAME SParam = 17 // Name of the sensitivity report output file.
-	SPAR_SOL_FILTER_XC_LOW         SParam = 18 // Solution file filter.
-	SPAR_SOL_FILTER_XC_UPR         SParam = 19 // Solution file filter.
-	SPAR_SOL_FILTER_XX_LOW         SParam = 20 // Solution file filter.
-	SPAR_SOL_FILTER_XX_UPR         SParam = 21 // Solution file filter.
-	SPAR_STAT_KEY                  SParam = 22 // Key used when writing the summary file.
-	SPAR_STAT_NAME                 SParam = 23 // Name used when writing the statistics file.
-	SPAR_WRITE_LP_GEN_VAR_NAME     SParam = 24 // Added variable names in the LP files.
+	SPAR_BAS_SOL_FILE_NAME         SParam = C.MSK_SPAR_BAS_SOL_FILE_NAME         // Name of the bas solution file.
+	SPAR_DATA_FILE_NAME            SParam = C.MSK_SPAR_DATA_FILE_NAME            // Data are read and written to this file.
+	SPAR_DEBUG_FILE_NAME           SParam = C.MSK_SPAR_DEBUG_FILE_NAME           // MOSEK debug file.
+	SPAR_INT_SOL_FILE_NAME         SParam = C.MSK_SPAR_INT_SOL_FILE_NAME         // Name of the int solution file.
+	SPAR_ITR_SOL_FILE_NAME         SParam = C.MSK_SPAR_ITR_SOL_FILE_NAME         // Name of the itr solution file.
+	SPAR_MIO_DEBUG_STRING          SParam = C.MSK_SPAR_MIO_DEBUG_STRING          // For internal debugging purposes.
+	SPAR_PARAM_COMMENT_SIGN        SParam = C.MSK_SPAR_PARAM_COMMENT_SIGN        // Solution file comment character.
+	SPAR_PARAM_READ_FILE_NAME      SParam = C.MSK_SPAR_PARAM_READ_FILE_NAME      // Modifications to the parameter database is read from this file.
+	SPAR_PARAM_WRITE_FILE_NAME     SParam = C.MSK_SPAR_PARAM_WRITE_FILE_NAME     // The parameter database is written to this file.
+	SPAR_READ_MPS_BOU_NAME         SParam = C.MSK_SPAR_READ_MPS_BOU_NAME         // Name of the BOUNDS vector used. An empty name means that the first BOUNDS vector is used.
+	SPAR_READ_MPS_OBJ_NAME         SParam = C.MSK_SPAR_READ_MPS_OBJ_NAME         // Objective name in the MPS file.
+	SPAR_READ_MPS_RAN_NAME         SParam = C.MSK_SPAR_READ_MPS_RAN_NAME         // Name of the RANGE vector  used. An empty name means that the first RANGE vector is used.
+	SPAR_READ_MPS_RHS_NAME         SParam = C.MSK_SPAR_READ_MPS_RHS_NAME         // Name of the RHS used. An empty name means that the first RHS vector is used.
+	SPAR_REMOTE_OPTSERVER_HOST     SParam = C.MSK_SPAR_REMOTE_OPTSERVER_HOST     // URL of the remote optimization server.
+	SPAR_REMOTE_TLS_CERT           SParam = C.MSK_SPAR_REMOTE_TLS_CERT           // Known server certificates in PEM format
+	SPAR_REMOTE_TLS_CERT_PATH      SParam = C.MSK_SPAR_REMOTE_TLS_CERT_PATH      // Path to known server certificates in PEM format
+	SPAR_SENSITIVITY_FILE_NAME     SParam = C.MSK_SPAR_SENSITIVITY_FILE_NAME     // Sensitivity report file name.
+	SPAR_SENSITIVITY_RES_FILE_NAME SParam = C.MSK_SPAR_SENSITIVITY_RES_FILE_NAME // Name of the sensitivity report output file.
+	SPAR_SOL_FILTER_XC_LOW         SParam = C.MSK_SPAR_SOL_FILTER_XC_LOW         // Solution file filter.
+	SPAR_SOL_FILTER_XC_UPR         SParam = C.MSK_SPAR_SOL_FILTER_XC_UPR         // Solution file filter.
+	SPAR_SOL_FILTER_XX_LOW         SParam = C.MSK_SPAR_SOL_FILTER_XX_LOW         // Solution file filter.
+	SPAR_SOL_FILTER_XX_UPR         SParam = C.MSK_SPAR_SOL_FILTER_XX_UPR         // Solution file filter.
+	SPAR_STAT_KEY                  SParam = C.MSK_SPAR_STAT_KEY                  // Key used when writing the summary file.
+	SPAR_STAT_NAME                 SParam = C.MSK_SPAR_STAT_NAME                 // Name used when writing the statistics file.
+	SPAR_WRITE_LP_GEN_VAR_NAME     SParam = C.MSK_SPAR_WRITE_LP_GEN_VAR_NAME     // Added variable names in the LP files.
 )
 
 var _SParam_map = map[SParam]string{

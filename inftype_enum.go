@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // InfType is MSKinftype_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type InfType uint32
 
 const (
-	INF_DOU_TYPE  InfType = 0 // Is a double information type.
-	INF_INT_TYPE  InfType = 1 // Is an integer.
-	INF_LINT_TYPE InfType = 2 // Is a long integer.
+	INF_DOU_TYPE  InfType = C.MSK_INF_DOU_TYPE  // Is a double information type.
+	INF_INT_TYPE  InfType = C.MSK_INF_INT_TYPE  // Is an integer.
+	INF_LINT_TYPE InfType = C.MSK_INF_LINT_TYPE // Is a long integer.
 )
 
 var _InfType_map = map[InfType]string{

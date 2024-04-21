@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // MioContSolType is MSKmiocontsoltype_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type MioContSolType uint32
 
 const (
-	MIO_CONT_SOL_NONE    MioContSolType = 0 // No interior-point or basic solution.
-	MIO_CONT_SOL_ROOT    MioContSolType = 1 // Solutions to the root node problem.
-	MIO_CONT_SOL_ITG     MioContSolType = 2 // A feasible primal solution.
-	MIO_CONT_SOL_ITG_REL MioContSolType = 3 // A feasible primal solution or a root node solution if the problem is infeasible.
+	MIO_CONT_SOL_NONE    MioContSolType = C.MSK_MIO_CONT_SOL_NONE    // No interior-point or basic solution.
+	MIO_CONT_SOL_ROOT    MioContSolType = C.MSK_MIO_CONT_SOL_ROOT    // Solutions to the root node problem.
+	MIO_CONT_SOL_ITG     MioContSolType = C.MSK_MIO_CONT_SOL_ITG     // A feasible primal solution.
+	MIO_CONT_SOL_ITG_REL MioContSolType = C.MSK_MIO_CONT_SOL_ITG_REL // A feasible primal solution or a root node solution if the problem is infeasible.
 )
 
 var _MioContSolType_map = map[MioContSolType]string{
