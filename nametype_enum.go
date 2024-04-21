@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // NameType is MSKnametype_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type NameType uint32
 
 const (
-	NAME_TYPE_GEN NameType = 0 // General names. However, no duplicate and blank names are allowed.
-	NAME_TYPE_MPS NameType = 1 // MPS type names.
-	NAME_TYPE_LP  NameType = 2 // LP type names.
+	NAME_TYPE_GEN NameType = C.MSK_NAME_TYPE_GEN // General names. However, no duplicate and blank names are allowed.
+	NAME_TYPE_MPS NameType = C.MSK_NAME_TYPE_MPS // MPS type names.
+	NAME_TYPE_LP  NameType = C.MSK_NAME_TYPE_LP  // LP type names.
 )
 
 var _NameType_map = map[NameType]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ScalingType is MSKscalingtype_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type ScalingType uint32
 
 const (
-	SCALING_FREE ScalingType = 0 // The optimizer chooses the scaling heuristic.
-	SCALING_NONE ScalingType = 1 // No scaling is performed.
+	SCALING_FREE ScalingType = C.MSK_SCALING_FREE // The optimizer chooses the scaling heuristic.
+	SCALING_NONE ScalingType = C.MSK_SCALING_NONE // No scaling is performed.
 )
 
 var _ScalingType_map = map[ScalingType]string{

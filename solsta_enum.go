@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SolSta is MSKsolsta_enum.
@@ -11,16 +14,16 @@ import "strconv"
 type SolSta uint32
 
 const (
-	SOL_STA_UNKNOWN            SolSta = 0 // Status of the solution is unknown.
-	SOL_STA_OPTIMAL            SolSta = 1 // The solution is optimal.
-	SOL_STA_PRIM_FEAS          SolSta = 2 // The solution is primal feasible.
-	SOL_STA_DUAL_FEAS          SolSta = 3 // The solution is dual feasible.
-	SOL_STA_PRIM_AND_DUAL_FEAS SolSta = 4 // The solution is both primal and dual feasible.
-	SOL_STA_PRIM_INFEAS_CER    SolSta = 5 // The solution is a certificate of primal infeasibility.
-	SOL_STA_DUAL_INFEAS_CER    SolSta = 6 // The solution is a certificate of dual infeasibility.
-	SOL_STA_PRIM_ILLPOSED_CER  SolSta = 7 // The solution is a certificate that the primal problem is illposed.
-	SOL_STA_DUAL_ILLPOSED_CER  SolSta = 8 // The solution is a certificate that the dual problem is illposed.
-	SOL_STA_INTEGER_OPTIMAL    SolSta = 9 // The primal solution is integer optimal.
+	SOL_STA_UNKNOWN            SolSta = C.MSK_SOL_STA_UNKNOWN            // Status of the solution is unknown.
+	SOL_STA_OPTIMAL            SolSta = C.MSK_SOL_STA_OPTIMAL            // The solution is optimal.
+	SOL_STA_PRIM_FEAS          SolSta = C.MSK_SOL_STA_PRIM_FEAS          // The solution is primal feasible.
+	SOL_STA_DUAL_FEAS          SolSta = C.MSK_SOL_STA_DUAL_FEAS          // The solution is dual feasible.
+	SOL_STA_PRIM_AND_DUAL_FEAS SolSta = C.MSK_SOL_STA_PRIM_AND_DUAL_FEAS // The solution is both primal and dual feasible.
+	SOL_STA_PRIM_INFEAS_CER    SolSta = C.MSK_SOL_STA_PRIM_INFEAS_CER    // The solution is a certificate of primal infeasibility.
+	SOL_STA_DUAL_INFEAS_CER    SolSta = C.MSK_SOL_STA_DUAL_INFEAS_CER    // The solution is a certificate of dual infeasibility.
+	SOL_STA_PRIM_ILLPOSED_CER  SolSta = C.MSK_SOL_STA_PRIM_ILLPOSED_CER  // The solution is a certificate that the primal problem is illposed.
+	SOL_STA_DUAL_ILLPOSED_CER  SolSta = C.MSK_SOL_STA_DUAL_ILLPOSED_CER  // The solution is a certificate that the dual problem is illposed.
+	SOL_STA_INTEGER_OPTIMAL    SolSta = C.MSK_SOL_STA_INTEGER_OPTIMAL    // The primal solution is integer optimal.
 )
 
 var _SolSta_map = map[SolSta]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Transpose is MSKtranspose_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type Transpose uint32
 
 const (
-	TRANSPOSE_NO  Transpose = 0 // No transpose is applied.
-	TRANSPOSE_YES Transpose = 1 // A transpose is applied.
+	TRANSPOSE_NO  Transpose = C.MSK_TRANSPOSE_NO  // No transpose is applied.
+	TRANSPOSE_YES Transpose = C.MSK_TRANSPOSE_YES // A transpose is applied.
 )
 
 var _Transpose_map = map[Transpose]string{

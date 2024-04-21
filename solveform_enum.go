@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Solveform is MSKsolveform_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type Solveform uint32
 
 const (
-	SOLVE_FREE   Solveform = 0 // The optimizer is free to solve either the primal or the dual problem.
-	SOLVE_PRIMAL Solveform = 1 // The optimizer should solve the primal problem.
-	SOLVE_DUAL   Solveform = 2 // The optimizer should solve the dual problem.
+	SOLVE_FREE   Solveform = C.MSK_SOLVE_FREE   // The optimizer is free to solve either the primal or the dual problem.
+	SOLVE_PRIMAL Solveform = C.MSK_SOLVE_PRIMAL // The optimizer should solve the primal problem.
+	SOLVE_DUAL   Solveform = C.MSK_SOLVE_DUAL   // The optimizer should solve the dual problem.
 )
 
 var _Solveform_map = map[Solveform]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // BranchDir is MSKbranchdir_enum.
@@ -11,14 +14,14 @@ import "strconv"
 type BranchDir uint32
 
 const (
-	BRANCH_DIR_FREE       BranchDir = 0 // The mixed-integer optimizer decides which branch to choose.
-	BRANCH_DIR_UP         BranchDir = 1 // The mixed-integer optimizer always chooses the up branch first.
-	BRANCH_DIR_DOWN       BranchDir = 2 // The mixed-integer optimizer always chooses the down branch first.
-	BRANCH_DIR_NEAR       BranchDir = 3 // Branch in direction nearest to selected fractional variable.
-	BRANCH_DIR_FAR        BranchDir = 4 // Branch in direction farthest from selected fractional variable.
-	BRANCH_DIR_ROOT_LP    BranchDir = 5 // Chose direction based on root lp value of selected variable.
-	BRANCH_DIR_GUIDED     BranchDir = 6 // Branch in direction of current incumbent.
-	BRANCH_DIR_PSEUDOCOST BranchDir = 7 // Branch based on the pseudocost of the variable.
+	BRANCH_DIR_FREE       BranchDir = C.MSK_BRANCH_DIR_FREE       // The mixed-integer optimizer decides which branch to choose.
+	BRANCH_DIR_UP         BranchDir = C.MSK_BRANCH_DIR_UP         // The mixed-integer optimizer always chooses the up branch first.
+	BRANCH_DIR_DOWN       BranchDir = C.MSK_BRANCH_DIR_DOWN       // The mixed-integer optimizer always chooses the down branch first.
+	BRANCH_DIR_NEAR       BranchDir = C.MSK_BRANCH_DIR_NEAR       // Branch in direction nearest to selected fractional variable.
+	BRANCH_DIR_FAR        BranchDir = C.MSK_BRANCH_DIR_FAR        // Branch in direction farthest from selected fractional variable.
+	BRANCH_DIR_ROOT_LP    BranchDir = C.MSK_BRANCH_DIR_ROOT_LP    // Chose direction based on root lp value of selected variable.
+	BRANCH_DIR_GUIDED     BranchDir = C.MSK_BRANCH_DIR_GUIDED     // Branch in direction of current incumbent.
+	BRANCH_DIR_PSEUDOCOST BranchDir = C.MSK_BRANCH_DIR_PSEUDOCOST // Branch based on the pseudocost of the variable.
 )
 
 var _BranchDir_map = map[BranchDir]string{

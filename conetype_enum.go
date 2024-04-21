@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ConeType is MSKconetype_enum.
@@ -11,13 +14,13 @@ import "strconv"
 type ConeType uint32
 
 const (
-	CT_QUAD  ConeType = 0 // The cone is a quadratic cone.
-	CT_RQUAD ConeType = 1 // The cone is a rotated quadratic cone.
-	CT_PEXP  ConeType = 2 // A primal exponential cone.
-	CT_DEXP  ConeType = 3 // A dual exponential cone.
-	CT_PPOW  ConeType = 4 // A primal power cone.
-	CT_DPOW  ConeType = 5 // A dual power cone.
-	CT_ZERO  ConeType = 6 // The zero cone.
+	CT_QUAD  ConeType = C.MSK_CT_QUAD  // The cone is a quadratic cone.
+	CT_RQUAD ConeType = C.MSK_CT_RQUAD // The cone is a rotated quadratic cone.
+	CT_PEXP  ConeType = C.MSK_CT_PEXP  // A primal exponential cone.
+	CT_DEXP  ConeType = C.MSK_CT_DEXP  // A dual exponential cone.
+	CT_PPOW  ConeType = C.MSK_CT_PPOW  // A primal power cone.
+	CT_DPOW  ConeType = C.MSK_CT_DPOW  // A dual power cone.
+	CT_ZERO  ConeType = C.MSK_CT_ZERO  // The zero cone.
 )
 
 var _ConeType_map = map[ConeType]string{

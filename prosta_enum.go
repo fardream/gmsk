@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ProSta is MSKprosta_enum.
@@ -11,15 +14,15 @@ import "strconv"
 type ProSta uint32
 
 const (
-	PRO_STA_UNKNOWN                  ProSta = 0 // Unknown problem status.
-	PRO_STA_PRIM_AND_DUAL_FEAS       ProSta = 1 // The problem is primal and dual feasible.
-	PRO_STA_PRIM_FEAS                ProSta = 2 // The problem is primal feasible.
-	PRO_STA_DUAL_FEAS                ProSta = 3 // The problem is dual feasible.
-	PRO_STA_PRIM_INFEAS              ProSta = 4 // The problem is primal infeasible.
-	PRO_STA_DUAL_INFEAS              ProSta = 5 // The problem is dual infeasible.
-	PRO_STA_PRIM_AND_DUAL_INFEAS     ProSta = 6 // The problem is primal and dual infeasible.
-	PRO_STA_ILL_POSED                ProSta = 7 // The problem is ill-posed. For example, it may be primal and dual feasible but have a positive duality gap.
-	PRO_STA_PRIM_INFEAS_OR_UNBOUNDED ProSta = 8 // The problem is either primal infeasible or unbounded. This may occur for mixed-integer problems.
+	PRO_STA_UNKNOWN                  ProSta = C.MSK_PRO_STA_UNKNOWN                  // Unknown problem status.
+	PRO_STA_PRIM_AND_DUAL_FEAS       ProSta = C.MSK_PRO_STA_PRIM_AND_DUAL_FEAS       // The problem is primal and dual feasible.
+	PRO_STA_PRIM_FEAS                ProSta = C.MSK_PRO_STA_PRIM_FEAS                // The problem is primal feasible.
+	PRO_STA_DUAL_FEAS                ProSta = C.MSK_PRO_STA_DUAL_FEAS                // The problem is dual feasible.
+	PRO_STA_PRIM_INFEAS              ProSta = C.MSK_PRO_STA_PRIM_INFEAS              // The problem is primal infeasible.
+	PRO_STA_DUAL_INFEAS              ProSta = C.MSK_PRO_STA_DUAL_INFEAS              // The problem is dual infeasible.
+	PRO_STA_PRIM_AND_DUAL_INFEAS     ProSta = C.MSK_PRO_STA_PRIM_AND_DUAL_INFEAS     // The problem is primal and dual infeasible.
+	PRO_STA_ILL_POSED                ProSta = C.MSK_PRO_STA_ILL_POSED                // The problem is ill-posed. For example, it may be primal and dual feasible but have a positive duality gap.
+	PRO_STA_PRIM_INFEAS_OR_UNBOUNDED ProSta = C.MSK_PRO_STA_PRIM_INFEAS_OR_UNBOUNDED // The problem is either primal infeasible or unbounded. This may occur for mixed-integer problems.
 )
 
 var _ProSta_map = map[ProSta]string{

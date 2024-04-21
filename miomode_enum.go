@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // MioMode is MSKmiomode_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type MioMode uint32
 
 const (
-	MIO_MODE_IGNORED   MioMode = 0 // The integer constraints are ignored and the problem is solved as a continuous problem.
-	MIO_MODE_SATISFIED MioMode = 1 // Integer restrictions should be satisfied.
+	MIO_MODE_IGNORED   MioMode = C.MSK_MIO_MODE_IGNORED   // The integer constraints are ignored and the problem is solved as a continuous problem.
+	MIO_MODE_SATISFIED MioMode = C.MSK_MIO_MODE_SATISFIED // Integer restrictions should be satisfied.
 )
 
 var _MioMode_map = map[MioMode]string{

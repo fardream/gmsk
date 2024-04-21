@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SolType is MSKsoltype_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type SolType uint32
 
 const (
-	SOL_ITR SolType = 0 // The interior solution.
-	SOL_BAS SolType = 1 // The basic solution.
-	SOL_ITG SolType = 2 // The integer solution.
+	SOL_ITR SolType = C.MSK_SOL_ITR // The interior solution.
+	SOL_BAS SolType = C.MSK_SOL_BAS // The basic solution.
+	SOL_ITG SolType = C.MSK_SOL_ITG // The integer solution.
 )
 
 var _SolType_map = map[SolType]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Simdegen is MSKsimdegen_enum.
@@ -11,11 +14,11 @@ import "strconv"
 type Simdegen uint32
 
 const (
-	SIM_DEGEN_NONE       Simdegen = 0 // The simplex optimizer should use no degeneration strategy.
-	SIM_DEGEN_FREE       Simdegen = 1 // The simplex optimizer chooses the degeneration strategy.
-	SIM_DEGEN_AGGRESSIVE Simdegen = 2 // The simplex optimizer should use an aggressive degeneration strategy.
-	SIM_DEGEN_MODERATE   Simdegen = 3 // The simplex optimizer should use a moderate degeneration strategy.
-	SIM_DEGEN_MINIMUM    Simdegen = 4 // The simplex optimizer should use a minimum degeneration strategy.
+	SIM_DEGEN_NONE       Simdegen = C.MSK_SIM_DEGEN_NONE       // The simplex optimizer should use no degeneration strategy.
+	SIM_DEGEN_FREE       Simdegen = C.MSK_SIM_DEGEN_FREE       // The simplex optimizer chooses the degeneration strategy.
+	SIM_DEGEN_AGGRESSIVE Simdegen = C.MSK_SIM_DEGEN_AGGRESSIVE // The simplex optimizer should use an aggressive degeneration strategy.
+	SIM_DEGEN_MODERATE   Simdegen = C.MSK_SIM_DEGEN_MODERATE   // The simplex optimizer should use a moderate degeneration strategy.
+	SIM_DEGEN_MINIMUM    Simdegen = C.MSK_SIM_DEGEN_MINIMUM    // The simplex optimizer should use a minimum degeneration strategy.
 )
 
 var _Simdegen_map = map[Simdegen]string{

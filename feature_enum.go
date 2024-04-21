@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Feature is MSKfeature_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type Feature uint32
 
 const (
-	FEATURE_PTS  Feature = 0 // Base system.
-	FEATURE_PTON Feature = 1 // Conic extension.
+	FEATURE_PTS  Feature = C.MSK_FEATURE_PTS  // Base system.
+	FEATURE_PTON Feature = C.MSK_FEATURE_PTON // Conic extension.
 )
 
 var _Feature_map = map[Feature]string{

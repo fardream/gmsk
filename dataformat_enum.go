@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // DataFormat is MSKdataformat_enum.
@@ -11,15 +14,15 @@ import "strconv"
 type DataFormat uint32
 
 const (
-	DATA_FORMAT_EXTENSION DataFormat = 0 // The file extension is used to determine the data file format.
-	DATA_FORMAT_MPS       DataFormat = 1 // The data file is MPS formatted.
-	DATA_FORMAT_LP        DataFormat = 2 // The data file is LP formatted.
-	DATA_FORMAT_OP        DataFormat = 3 // The data file is an optimization problem formatted file.
-	DATA_FORMAT_FREE_MPS  DataFormat = 4 // The data a free MPS formatted file.
-	DATA_FORMAT_TASK      DataFormat = 5 // Generic task dump file.
-	DATA_FORMAT_PTF       DataFormat = 6 // (P)retty (T)ext (F)format.
-	DATA_FORMAT_CB        DataFormat = 7 // Conic benchmark format,
-	DATA_FORMAT_JSON_TASK DataFormat = 8 // JSON based task format.
+	DATA_FORMAT_EXTENSION DataFormat = C.MSK_DATA_FORMAT_EXTENSION // The file extension is used to determine the data file format.
+	DATA_FORMAT_MPS       DataFormat = C.MSK_DATA_FORMAT_MPS       // The data file is MPS formatted.
+	DATA_FORMAT_LP        DataFormat = C.MSK_DATA_FORMAT_LP        // The data file is LP formatted.
+	DATA_FORMAT_OP        DataFormat = C.MSK_DATA_FORMAT_OP        // The data file is an optimization problem formatted file.
+	DATA_FORMAT_FREE_MPS  DataFormat = C.MSK_DATA_FORMAT_FREE_MPS  // The data a free MPS formatted file.
+	DATA_FORMAT_TASK      DataFormat = C.MSK_DATA_FORMAT_TASK      // Generic task dump file.
+	DATA_FORMAT_PTF       DataFormat = C.MSK_DATA_FORMAT_PTF       // (P)retty (T)ext (F)format.
+	DATA_FORMAT_CB        DataFormat = C.MSK_DATA_FORMAT_CB        // Conic benchmark format,
+	DATA_FORMAT_JSON_TASK DataFormat = C.MSK_DATA_FORMAT_JSON_TASK // JSON based task format.
 )
 
 var _DataFormat_map = map[DataFormat]string{

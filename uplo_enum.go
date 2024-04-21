@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // UpLo is MSKuplo_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type UpLo uint32
 
 const (
-	UPLO_LO UpLo = 0 // Lower part.
-	UPLO_UP UpLo = 1 // Upper part.
+	UPLO_LO UpLo = C.MSK_UPLO_LO // Lower part.
+	UPLO_UP UpLo = C.MSK_UPLO_UP // Upper part.
 )
 
 var _UpLo_map = map[UpLo]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // StaKey is MSKstakey_enum.
@@ -11,13 +14,13 @@ import "strconv"
 type StaKey uint32
 
 const (
-	SK_UNK    StaKey = 0 // The status for the constraint or variable is unknown.
-	SK_BAS    StaKey = 1 // The constraint or variable is in the basis.
-	SK_SUPBAS StaKey = 2 // The constraint or variable is super basic.
-	SK_LOW    StaKey = 3 // The constraint or variable is at its lower bound.
-	SK_UPR    StaKey = 4 // The constraint or variable is at its upper bound.
-	SK_FIX    StaKey = 5 // The constraint or variable is fixed.
-	SK_INF    StaKey = 6 // The constraint or variable is infeasible in the bounds.
+	SK_UNK    StaKey = C.MSK_SK_UNK    // The status for the constraint or variable is unknown.
+	SK_BAS    StaKey = C.MSK_SK_BAS    // The constraint or variable is in the basis.
+	SK_SUPBAS StaKey = C.MSK_SK_SUPBAS // The constraint or variable is super basic.
+	SK_LOW    StaKey = C.MSK_SK_LOW    // The constraint or variable is at its lower bound.
+	SK_UPR    StaKey = C.MSK_SK_UPR    // The constraint or variable is at its upper bound.
+	SK_FIX    StaKey = C.MSK_SK_FIX    // The constraint or variable is fixed.
+	SK_INF    StaKey = C.MSK_SK_INF    // The constraint or variable is infeasible in the bounds.
 )
 
 var _StaKey_map = map[StaKey]string{

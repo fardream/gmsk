@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // ParameterType is MSKparametertype_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type ParameterType uint32
 
 const (
-	PAR_INVALID_TYPE ParameterType = 0 // Not a valid parameter.
-	PAR_DOU_TYPE     ParameterType = 1 // Is a double parameter.
-	PAR_INT_TYPE     ParameterType = 2 // Is an integer parameter.
-	PAR_STR_TYPE     ParameterType = 3 // Is a string parameter.
+	PAR_INVALID_TYPE ParameterType = C.MSK_PAR_INVALID_TYPE // Not a valid parameter.
+	PAR_DOU_TYPE     ParameterType = C.MSK_PAR_DOU_TYPE     // Is a double parameter.
+	PAR_INT_TYPE     ParameterType = C.MSK_PAR_INT_TYPE     // Is an integer parameter.
+	PAR_STR_TYPE     ParameterType = C.MSK_PAR_STR_TYPE     // Is a string parameter.
 )
 
 var _ParameterType_map = map[ParameterType]string{

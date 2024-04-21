@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SensitivityType is MSKsensitivitytype_enum.
@@ -11,7 +14,7 @@ import "strconv"
 type SensitivityType uint32
 
 const (
-	SENSITIVITY_TYPE_BASIS SensitivityType = 0 // Basis sensitivity analysis is performed.
+	SENSITIVITY_TYPE_BASIS SensitivityType = C.MSK_SENSITIVITY_TYPE_BASIS // Basis sensitivity analysis is performed.
 )
 
 var _SensitivityType_map = map[SensitivityType]string{

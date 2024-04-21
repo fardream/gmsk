@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SimSelType is MSKsimseltype_enum.
@@ -11,12 +14,12 @@ import "strconv"
 type SimSelType uint32
 
 const (
-	SIM_SELECTION_FREE    SimSelType = 0 // The optimizer chooses the pricing strategy.
-	SIM_SELECTION_FULL    SimSelType = 1 // The optimizer uses full pricing.
-	SIM_SELECTION_ASE     SimSelType = 2 // The optimizer uses approximate steepest-edge pricing.
-	SIM_SELECTION_DEVEX   SimSelType = 3 // The optimizer uses devex steepest-edge pricing.
-	SIM_SELECTION_SE      SimSelType = 4 // The optimizer uses steepest-edge selection.
-	SIM_SELECTION_PARTIAL SimSelType = 5 // The optimizer uses a partial selection approach.
+	SIM_SELECTION_FREE    SimSelType = C.MSK_SIM_SELECTION_FREE    // The optimizer chooses the pricing strategy.
+	SIM_SELECTION_FULL    SimSelType = C.MSK_SIM_SELECTION_FULL    // The optimizer uses full pricing.
+	SIM_SELECTION_ASE     SimSelType = C.MSK_SIM_SELECTION_ASE     // The optimizer uses approximate steepest-edge pricing.
+	SIM_SELECTION_DEVEX   SimSelType = C.MSK_SIM_SELECTION_DEVEX   // The optimizer uses devex steepest-edge pricing.
+	SIM_SELECTION_SE      SimSelType = C.MSK_SIM_SELECTION_SE      // The optimizer uses steepest-edge selection.
+	SIM_SELECTION_PARTIAL SimSelType = C.MSK_SIM_SELECTION_PARTIAL // The optimizer uses a partial selection approach.
 )
 
 var _SimSelType_map = map[SimSelType]string{

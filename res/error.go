@@ -42,7 +42,7 @@ func IsMskError(err error) bool {
 func AsMskError(err error) (*Error, bool) {
 	target := &Error{}
 	is := errors.As(err, target)
-	if is && target != nil && target.Ok() {
+	if is && target.Ok() {
 		target = nil
 	}
 

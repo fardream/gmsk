@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // BoundKey is MSKboundkey_enum.
@@ -11,11 +14,11 @@ import "strconv"
 type BoundKey uint32
 
 const (
-	BK_LO BoundKey = 0 // The constraint or variable has a finite lower bound and an infinite upper bound.
-	BK_UP BoundKey = 1 // The constraint or variable has an infinite lower bound and an finite upper bound.
-	BK_FX BoundKey = 2 // The constraint or variable is fixed.
-	BK_FR BoundKey = 3 // The constraint or variable is free.
-	BK_RA BoundKey = 4 // The constraint or variable is ranged.
+	BK_LO BoundKey = C.MSK_BK_LO // The constraint or variable has a finite lower bound and an infinite upper bound.
+	BK_UP BoundKey = C.MSK_BK_UP // The constraint or variable has an infinite lower bound and an finite upper bound.
+	BK_FX BoundKey = C.MSK_BK_FX // The constraint or variable is fixed.
+	BK_FR BoundKey = C.MSK_BK_FR // The constraint or variable is free.
+	BK_RA BoundKey = C.MSK_BK_RA // The constraint or variable is ranged.
 )
 
 var _BoundKey_map = map[BoundKey]string{

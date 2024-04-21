@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // MioNodeSelType is MSKmionodeseltype_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type MioNodeSelType uint32
 
 const (
-	MIO_NODE_SELECTION_FREE   MioNodeSelType = 0 // The optimizer decides the node selection strategy.
-	MIO_NODE_SELECTION_FIRST  MioNodeSelType = 1 // The optimizer employs a depth first node selection strategy.
-	MIO_NODE_SELECTION_BEST   MioNodeSelType = 2 // The optimizer employs a best bound node selection strategy.
-	MIO_NODE_SELECTION_PSEUDO MioNodeSelType = 3 // The optimizer employs selects the node based on a pseudo cost estimate.
+	MIO_NODE_SELECTION_FREE   MioNodeSelType = C.MSK_MIO_NODE_SELECTION_FREE   // The optimizer decides the node selection strategy.
+	MIO_NODE_SELECTION_FIRST  MioNodeSelType = C.MSK_MIO_NODE_SELECTION_FIRST  // The optimizer employs a depth first node selection strategy.
+	MIO_NODE_SELECTION_BEST   MioNodeSelType = C.MSK_MIO_NODE_SELECTION_BEST   // The optimizer employs a best bound node selection strategy.
+	MIO_NODE_SELECTION_PSEUDO MioNodeSelType = C.MSK_MIO_NODE_SELECTION_PSEUDO // The optimizer employs selects the node based on a pseudo cost estimate.
 )
 
 var _MioNodeSelType_map = map[MioNodeSelType]string{

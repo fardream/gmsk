@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Simhotstart is MSKsimhotstart_enum.
@@ -11,9 +14,9 @@ import "strconv"
 type Simhotstart uint32
 
 const (
-	SIM_HOTSTART_NONE        Simhotstart = 0 // The simplex optimizer performs a coldstart.
-	SIM_HOTSTART_FREE        Simhotstart = 1 // The simplex optimize chooses the hot-start type.
-	SIM_HOTSTART_STATUS_KEYS Simhotstart = 2 // Only the status keys of the constraints and variables are used to choose the type of hot-start.
+	SIM_HOTSTART_NONE        Simhotstart = C.MSK_SIM_HOTSTART_NONE        // The simplex optimizer performs a coldstart.
+	SIM_HOTSTART_FREE        Simhotstart = C.MSK_SIM_HOTSTART_FREE        // The simplex optimize chooses the hot-start type.
+	SIM_HOTSTART_STATUS_KEYS Simhotstart = C.MSK_SIM_HOTSTART_STATUS_KEYS // Only the status keys of the constraints and variables are used to choose the type of hot-start.
 )
 
 var _Simhotstart_map = map[Simhotstart]string{

@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // Mark is MSKmark_enum.
@@ -11,8 +14,8 @@ import "strconv"
 type Mark uint32
 
 const (
-	MARK_LO Mark = 0 // The lower bound is selected for sensitivity analysis.
-	MARK_UP Mark = 1 // The upper bound is selected for sensitivity analysis.
+	MARK_LO Mark = C.MSK_MARK_LO // The lower bound is selected for sensitivity analysis.
+	MARK_UP Mark = C.MSK_MARK_UP // The upper bound is selected for sensitivity analysis.
 )
 
 var _Mark_map = map[Mark]string{

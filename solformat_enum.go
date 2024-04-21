@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // SolFormat is MSKsolformat_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type SolFormat uint32
 
 const (
-	SOL_FORMAT_EXTENSION SolFormat = 0 // The file extension is used to determine the data file format.
-	SOL_FORMAT_B         SolFormat = 1 // Simple binary format
-	SOL_FORMAT_TASK      SolFormat = 2 // Tar based format.
-	SOL_FORMAT_JSON_TASK SolFormat = 3 // JSON based format.
+	SOL_FORMAT_EXTENSION SolFormat = C.MSK_SOL_FORMAT_EXTENSION // The file extension is used to determine the data file format.
+	SOL_FORMAT_B         SolFormat = C.MSK_SOL_FORMAT_B         // Simple binary format
+	SOL_FORMAT_TASK      SolFormat = C.MSK_SOL_FORMAT_TASK      // Tar based format.
+	SOL_FORMAT_JSON_TASK SolFormat = C.MSK_SOL_FORMAT_JSON_TASK // JSON based format.
 )
 
 var _SolFormat_map = map[SolFormat]string{

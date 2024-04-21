@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 // OnOff is MSKonoffkey_enum.
 //
 // This is alias of int32, because golang distinguishes
@@ -10,6 +13,6 @@ package gmsk
 type OnOff = int32
 
 const (
-	OFF OnOff = 0 // Switch the option off.
-	ON  OnOff = 1 // Switch the option on.
+	OFF OnOff = C.MSK_OFF // Switch the option off.
+	ON  OnOff = C.MSK_ON  // Switch the option on.
 )

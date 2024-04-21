@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // MiQcQoReformMethod is MSKmiqcqoreformmethod_enum.
@@ -11,12 +14,12 @@ import "strconv"
 type MiQcQoReformMethod uint32
 
 const (
-	MIO_QCQO_REFORMULATION_METHOD_FREE             MiQcQoReformMethod = 0 // The mixed-integer optimizer decides which reformulation method to apply.
-	MIO_QCQO_REFORMULATION_METHOD_NONE             MiQcQoReformMethod = 1 // No reformulation method is applied.
-	MIO_QCQO_REFORMULATION_METHOD_LINEARIZATION    MiQcQoReformMethod = 2 // A reformulation via linearization is applied.
-	MIO_QCQO_REFORMULATION_METHOD_EIGEN_VAL_METHOD MiQcQoReformMethod = 3 // The eigenvalue method is applied.
-	MIO_QCQO_REFORMULATION_METHOD_DIAG_SDP         MiQcQoReformMethod = 4 // A perturbation of matrix diagonals via the solution of SDPs is applied.
-	MIO_QCQO_REFORMULATION_METHOD_RELAX_SDP        MiQcQoReformMethod = 5 // A Reformulation based on the solution of an SDP-relaxation of the problem is applied.
+	MIO_QCQO_REFORMULATION_METHOD_FREE             MiQcQoReformMethod = C.MSK_MIO_QCQO_REFORMULATION_METHOD_FREE             // The mixed-integer optimizer decides which reformulation method to apply.
+	MIO_QCQO_REFORMULATION_METHOD_NONE             MiQcQoReformMethod = C.MSK_MIO_QCQO_REFORMULATION_METHOD_NONE             // No reformulation method is applied.
+	MIO_QCQO_REFORMULATION_METHOD_LINEARIZATION    MiQcQoReformMethod = C.MSK_MIO_QCQO_REFORMULATION_METHOD_LINEARIZATION    // A reformulation via linearization is applied.
+	MIO_QCQO_REFORMULATION_METHOD_EIGEN_VAL_METHOD MiQcQoReformMethod = C.MSK_MIO_QCQO_REFORMULATION_METHOD_EIGEN_VAL_METHOD // The eigenvalue method is applied.
+	MIO_QCQO_REFORMULATION_METHOD_DIAG_SDP         MiQcQoReformMethod = C.MSK_MIO_QCQO_REFORMULATION_METHOD_DIAG_SDP         // A perturbation of matrix diagonals via the solution of SDPs is applied.
+	MIO_QCQO_REFORMULATION_METHOD_RELAX_SDP        MiQcQoReformMethod = C.MSK_MIO_QCQO_REFORMULATION_METHOD_RELAX_SDP        // A Reformulation based on the solution of an SDP-relaxation of the problem is applied.
 )
 
 var _MiQcQoReformMethod_map = map[MiQcQoReformMethod]string{

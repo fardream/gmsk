@@ -3,6 +3,9 @@
 
 package gmsk
 
+// #include <mosek.h>
+import "C"
+
 import "strconv"
 
 // CompressType is MSKcompresstype_enum.
@@ -11,10 +14,10 @@ import "strconv"
 type CompressType uint32
 
 const (
-	COMPRESS_NONE CompressType = 0 // No compression is used.
-	COMPRESS_FREE CompressType = 1 // The type of compression used is chosen automatically.
-	COMPRESS_GZIP CompressType = 2 // The type of compression used is gzip compatible.
-	COMPRESS_ZSTD CompressType = 3 // The type of compression used is zstd compatible.
+	COMPRESS_NONE CompressType = C.MSK_COMPRESS_NONE // No compression is used.
+	COMPRESS_FREE CompressType = C.MSK_COMPRESS_FREE // The type of compression used is chosen automatically.
+	COMPRESS_GZIP CompressType = C.MSK_COMPRESS_GZIP // The type of compression used is gzip compatible.
+	COMPRESS_ZSTD CompressType = C.MSK_COMPRESS_ZSTD // The type of compression used is zstd compatible.
 )
 
 var _CompressType_map = map[CompressType]string{
