@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // AppendDualExpConeDomain is wrapping [MSK_appenddualexpconedomain],
 // Appends the dual exponential cone domain.
 //
@@ -20,7 +16,7 @@ import (
 //
 // [MSK_appenddualexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddualexpconedomain
 func (task *Task) AppendDualExpConeDomain() (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appenddualexpconedomain(
 			task.task,
 			(*C.MSKint64t)(&domidx),
@@ -45,7 +41,7 @@ func (task *Task) AppendDualExpConeDomain() (domidx int64, r error) {
 func (task *Task) AppendDualGeoMeanConeDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appenddualgeomeanconedomain(
 			task.task,
 			C.MSKint64t(n),
@@ -74,7 +70,7 @@ func (task *Task) AppendDualPowerConeDomain(
 	nleft int64,
 	alpha []float64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appenddualpowerconedomain(
 			task.task,
 			C.MSKint64t(n),
@@ -96,7 +92,7 @@ func (task *Task) AppendDualPowerConeDomain(
 //
 // [MSK_appendprimalexpconedomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendprimalexpconedomain
 func (task *Task) AppendPrimalExpConeDomain() (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendprimalexpconedomain(
 			task.task,
 			(*C.MSKint64t)(&domidx),
@@ -121,7 +117,7 @@ func (task *Task) AppendPrimalExpConeDomain() (domidx int64, r error) {
 func (task *Task) AppendPrimalGeoMeanConeDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendprimalgeomeanconedomain(
 			task.task,
 			C.MSKint64t(n),
@@ -150,7 +146,7 @@ func (task *Task) AppendPrimalPowerConeDomain(
 	nleft int64,
 	alpha []float64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendprimalpowerconedomain(
 			task.task,
 			C.MSKint64t(n),
@@ -178,7 +174,7 @@ func (task *Task) AppendPrimalPowerConeDomain(
 func (task *Task) AppendQuadraticConeDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendquadraticconedomain(
 			task.task,
 			C.MSKint64t(n),
@@ -204,7 +200,7 @@ func (task *Task) AppendQuadraticConeDomain(
 func (task *Task) AppendRDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendrdomain(
 			task.task,
 			C.MSKint64t(n),
@@ -230,7 +226,7 @@ func (task *Task) AppendRDomain(
 func (task *Task) AppendRminusDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendrminusdomain(
 			task.task,
 			C.MSKint64t(n),
@@ -256,7 +252,7 @@ func (task *Task) AppendRminusDomain(
 func (task *Task) AppendRplusDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendrplusdomain(
 			task.task,
 			C.MSKint64t(n),
@@ -282,7 +278,7 @@ func (task *Task) AppendRplusDomain(
 func (task *Task) AppendRQuadraticConeDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendrquadraticconedomain(
 			task.task,
 			C.MSKint64t(n),
@@ -308,7 +304,7 @@ func (task *Task) AppendRQuadraticConeDomain(
 func (task *Task) AppendRzeroDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendrzerodomain(
 			task.task,
 			C.MSKint64t(n),
@@ -334,7 +330,7 @@ func (task *Task) AppendRzeroDomain(
 func (task *Task) AppendSvecPsdConeDomain(
 	n int64,
 ) (domidx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendsvecpsdconedomain(
 			task.task,
 			C.MSKint64t(n),

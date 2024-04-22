@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // GetNumAcc is wrapping [MSK_getnumacc],
 // Obtains the number of affine conic constraints.
 //
@@ -20,7 +16,7 @@ import (
 //
 // [MSK_getnumacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumacc
 func (task *Task) GetNumAcc() (num int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumacc(
 			task.task,
 			(*C.MSKint64t)(&num),
@@ -39,7 +35,7 @@ func (task *Task) GetNumAcc() (num int64, r error) {
 //
 // [MSK_getnumafe]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumafe
 func (task *Task) GetNumAfe() (numafe int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumafe(
 			task.task,
 			(*C.MSKint64t)(&numafe),
@@ -58,7 +54,7 @@ func (task *Task) GetNumAfe() (numafe int64, r error) {
 //
 // [MSK_getnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz
 func (task *Task) GetNumANz() (numanz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumanz(
 			task.task,
 			(*C.MSKint32t)(&numanz),
@@ -77,7 +73,7 @@ func (task *Task) GetNumANz() (numanz int32, r error) {
 //
 // [MSK_getnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz64
 func (task *Task) GetNumANz64() (numanz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumanz64(
 			task.task,
 			(*C.MSKint64t)(&numanz),
@@ -96,7 +92,7 @@ func (task *Task) GetNumANz64() (numanz int64, r error) {
 //
 // [MSK_getnumbarablocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarablocktriplets
 func (task *Task) GetNumBaraBlockTriplets() (num int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumbarablocktriplets(
 			task.task,
 			(*C.MSKint64t)(&num),
@@ -115,7 +111,7 @@ func (task *Task) GetNumBaraBlockTriplets() (num int64, r error) {
 //
 // [MSK_getnumbaranz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbaranz
 func (task *Task) GetNumBaraNz() (nz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumbaranz(
 			task.task,
 			(*C.MSKint64t)(&nz),
@@ -134,7 +130,7 @@ func (task *Task) GetNumBaraNz() (nz int64, r error) {
 //
 // [MSK_getnumbarcblocktriplets]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarcblocktriplets
 func (task *Task) GetNumBarcBlockTriplets() (num int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumbarcblocktriplets(
 			task.task,
 			(*C.MSKint64t)(&num),
@@ -153,7 +149,7 @@ func (task *Task) GetNumBarcBlockTriplets() (num int64, r error) {
 //
 // [MSK_getnumbarcnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarcnz
 func (task *Task) GetNumBarcNz() (nz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumbarcnz(
 			task.task,
 			(*C.MSKint64t)(&nz),
@@ -172,7 +168,7 @@ func (task *Task) GetNumBarcNz() (nz int64, r error) {
 //
 // [MSK_getnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumbarvar
 func (task *Task) GetNumBarvar() (numbarvar int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumbarvar(
 			task.task,
 			(*C.MSKint32t)(&numbarvar),
@@ -191,7 +187,7 @@ func (task *Task) GetNumBarvar() (numbarvar int32, r error) {
 //
 // [MSK_getnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumcon
 func (task *Task) GetNumCon() (numcon int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumcon(
 			task.task,
 			(*C.MSKint32t)(&numcon),
@@ -212,7 +208,7 @@ func (task *Task) GetNumCon() (numcon int32, r error) {
 //
 // [MSK_getnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumcone
 func (task *Task) GetNumCone() (numcone int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumcone(
 			task.task,
 			(*C.MSKint32t)(&numcone),
@@ -236,7 +232,7 @@ func (task *Task) GetNumCone() (numcone int32, r error) {
 func (task *Task) GetNumConeMem(
 	k int32,
 ) (nummem int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumconemem(
 			task.task,
 			C.MSKint32t(k),
@@ -256,7 +252,7 @@ func (task *Task) GetNumConeMem(
 //
 // [MSK_getnumdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumdjc
 func (task *Task) GetNumDjc() (num int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumdjc(
 			task.task,
 			(*C.MSKint64t)(&num),
@@ -275,7 +271,7 @@ func (task *Task) GetNumDjc() (num int64, r error) {
 //
 // [MSK_getnumdomain]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumdomain
 func (task *Task) GetNumDomain() (numdomain int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumdomain(
 			task.task,
 			(*C.MSKint64t)(&numdomain),
@@ -294,7 +290,7 @@ func (task *Task) GetNumDomain() (numdomain int64, r error) {
 //
 // [MSK_getnumintvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumintvar
 func (task *Task) GetNumIntVar() (numintvar int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumintvar(
 			task.task,
 			(*C.MSKint32t)(&numintvar),
@@ -316,7 +312,7 @@ func (task *Task) GetNumIntVar() (numintvar int32, r error) {
 func (task *Task) GetNumParam(
 	partype ParameterType,
 ) (numparam int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumparam(
 			task.task,
 			C.MSKparametertypee(partype),
@@ -342,7 +338,7 @@ func (task *Task) GetNumParam(
 func (task *Task) GetNumQConKNz(
 	k int32,
 ) (numqcnz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumqconknz(
 			task.task,
 			C.MSKint32t(k),
@@ -359,7 +355,7 @@ func (task *Task) GetNumQConKNz(
 func (task *Task) GetNumQConKNz64(
 	k int32,
 ) (numqcnz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumqconknz64(
 			task.task,
 			C.MSKint32t(k),
@@ -379,7 +375,7 @@ func (task *Task) GetNumQConKNz64(
 //
 // [MSK_getnumqobjnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumqobjnz
 func (task *Task) GetNumQObjNz() (numqonz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumqobjnz(
 			task.task,
 			(*C.MSKint32t)(&numqonz),
@@ -393,7 +389,7 @@ func (task *Task) GetNumQObjNz() (numqonz int32, r error) {
 //
 // [MSK_getnumqobjnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumqobjnz64
 func (task *Task) GetNumQObjNz64() (numqonz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumqobjnz64(
 			task.task,
 			(*C.MSKint64t)(&numqonz),
@@ -412,7 +408,7 @@ func (task *Task) GetNumQObjNz64() (numqonz int64, r error) {
 //
 // [MSK_getnumsymmat]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumsymmat
 func (task *Task) GetNumSymMat() (num int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumsymmat(
 			task.task,
 			(*C.MSKint64t)(&num),
@@ -431,7 +427,7 @@ func (task *Task) GetNumSymMat() (num int64, r error) {
 //
 // [MSK_getnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumvar
 func (task *Task) GetNumVar() (numvar int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getnumvar(
 			task.task,
 			(*C.MSKint32t)(&numvar),

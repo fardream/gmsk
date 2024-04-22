@@ -9,8 +9,6 @@ import "C"
 
 import (
 	"unsafe"
-
-	"github.com/fardream/gmsk/res"
 )
 
 // Axpy is wrapping [MSK_axpy],
@@ -23,7 +21,7 @@ func (env *Env) Axpy(
 	x []float64,
 	y []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_axpy(
 			env.getEnv(),
 			C.MSKint32t(n),
@@ -39,7 +37,7 @@ func (env *Env) Axpy(
 //
 // [MSK_checkinall]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.checkinall
 func (env *Env) CheckInAll() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_checkinall(
 			env.getEnv(),
 		),
@@ -57,7 +55,7 @@ func (env *Env) CheckInAll() error {
 func (env *Env) CheckInLicense(
 	feature Feature,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_checkinlicense(
 			env.getEnv(),
 			C.MSKfeaturee(feature),
@@ -75,7 +73,7 @@ func (env *Env) CheckMemenv(
 	c_file := C.CString(file)
 	defer C.free(unsafe.Pointer(c_file))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_checkmemenv(
 			env.getEnv(),
 			c_file,
@@ -95,7 +93,7 @@ func (env *Env) CheckMemenv(
 func (env *Env) CheckOutLicense(
 	feature Feature,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_checkoutlicense(
 			env.getEnv(),
 			C.MSKfeaturee(feature),
@@ -118,7 +116,7 @@ func (env *Env) CheckVersion(
 	minor int32,
 	revision int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_checkversion(
 			env.getEnv(),
 			C.MSKint32t(major),
@@ -144,7 +142,7 @@ func (env *Env) Dot(
 	x []float64,
 	y []float64,
 ) (xty float64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_dot(
 			env.getEnv(),
 			C.MSKint32t(n),
@@ -168,7 +166,7 @@ func (env *Env) Dot(
 func (env *Env) EchoIntro(
 	longver int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_echointro(
 			env.getEnv(),
 			C.MSKint32t(longver),
@@ -185,7 +183,7 @@ func (env *Env) EchoIntro(
 //
 // [MSK_expirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.expirylicenses
 func (env *Env) Expirylicenses() (expiry int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_expirylicenses(
 			env.getEnv(),
 			(*C.MSKint64t)(&expiry),
@@ -224,7 +222,7 @@ func (env *Env) Gemm(
 	beta float64,
 	c []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_gemm(
 			env.getEnv(),
 			C.MSKtransposee(transa),
@@ -255,7 +253,7 @@ func (env *Env) Gemv(
 	beta float64,
 	y []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_gemv(
 			env.getEnv(),
 			C.MSKtransposee(transa),
@@ -277,7 +275,7 @@ func (env *Env) GetSymbcondim(
 	num []int32,
 	maxlen []uint64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getsymbcondim(
 			env.getEnv(),
 			(*C.MSKint32t)(getPtrToFirst(num)),
@@ -294,7 +292,7 @@ func (env *Env) Iparvaltosymnam(
 	whichvalue int32,
 	symbolicname *byte,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_iparvaltosymnam(
 			env.getEnv(),
 			C.MSKiparame(whichparam),
@@ -315,7 +313,7 @@ func (env *Env) LinkFiletoenvstream(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_linkfiletoenvstream(
 			env.getEnv(),
 			C.MSKstreamtypee(whichstream),
@@ -340,7 +338,7 @@ func (env *Env) Potrf(
 	n int32,
 	a []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_potrf(
 			env.getEnv(),
 			C.MSKuploe(uplo),
@@ -361,7 +359,7 @@ func (env *Env) Potrf(
 func (env *Env) PutLicenseCode(
 	code []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putlicensecode(
 			env.getEnv(),
 			(*C.MSKint32t)(getPtrToFirst(code)),
@@ -380,7 +378,7 @@ func (env *Env) PutLicenseCode(
 func (env *Env) PutLicenseDebug(
 	licdebug int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putlicensedebug(
 			env.getEnv(),
 			C.MSKint32t(licdebug),
@@ -402,7 +400,7 @@ func (env *Env) PutLicensePath(
 	c_licensepath := C.CString(licensepath)
 	defer C.free(unsafe.Pointer(c_licensepath))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putlicensepath(
 			env.getEnv(),
 			c_licensepath,
@@ -421,7 +419,7 @@ func (env *Env) PutLicensePath(
 func (env *Env) PutLicenseWait(
 	licwait int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putlicensewait(
 			env.getEnv(),
 			C.MSKint32t(licwait),
@@ -434,7 +432,7 @@ func (env *Env) PutLicenseWait(
 //
 // [MSK_resetexpirylicenses]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.resetexpirylicenses
 func (env *Env) ResetExpiryLicenses() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_resetexpirylicenses(
 			env.getEnv(),
 		),
@@ -464,7 +462,7 @@ func (env *Env) SparseTriangularSolveDense(
 	lvalc []float64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_sparsetriangularsolvedense(
 			env.getEnv(),
 			C.MSKtransposee(transposed),
@@ -496,7 +494,7 @@ func (env *Env) Syeig(
 	a []float64,
 	w []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_syeig(
 			env.getEnv(),
 			C.MSKuploe(uplo),
@@ -524,7 +522,7 @@ func (env *Env) Syevd(
 	a []float64,
 	w []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_syevd(
 			env.getEnv(),
 			C.MSKuploe(uplo),
@@ -560,7 +558,7 @@ func (env *Env) Syrk(
 	beta float64,
 	c []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_syrk(
 			env.getEnv(),
 			C.MSKuploe(uplo),
@@ -581,7 +579,7 @@ func (env *Env) Syrk(
 func (env *Env) UnlinkFuncfromenvstream(
 	whichstream StreamType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_unlinkfuncfromenvstream(
 			env.getEnv(),
 			C.MSKstreamtypee(whichstream),

@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
-	"github.com/fardream/gmsk/res"
 )
 
 // Power cone example, reproduced from pow1.c in MOSEK C api.
@@ -117,7 +116,7 @@ func Example_powerCone_pow1() {
 	case gmsk.SOL_STA_OPTIMAL:
 		xx, r := task.GetXx(gmsk.SOL_ITR, nil)
 		if r != nil {
-			checkOk(gmsk.NewError(res.ERR_SPACE))
+			checkOk(gmsk.NewError(gmsk.RES_ERR_SPACE))
 		}
 
 		fmt.Printf("Optimal primal solution\n")

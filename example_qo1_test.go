@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
-	"github.com/fardream/gmsk/res"
 )
 
 // Quadratic optimization example, reproduced from qo1.c in MOSEK C api.
@@ -155,7 +154,7 @@ func Example_quadraticOptimization_qo1() {
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			xx)
 		if r != nil {
-			r = gmsk.NewError(res.ERR_SPACE)
+			r = gmsk.NewError(gmsk.RES_ERR_SPACE)
 			break
 		}
 		fmt.Print("Optimal primal solution\n")

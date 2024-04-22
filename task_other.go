@@ -9,8 +9,6 @@ import "C"
 
 import (
 	"unsafe"
-
-	"github.com/fardream/gmsk/res"
 )
 
 // AnalyzeNames is wrapping [MSK_analyzenames],
@@ -26,7 +24,7 @@ func (task *Task) AnalyzeNames(
 	whichstream StreamType,
 	nametype NameType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_analyzenames(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -46,7 +44,7 @@ func (task *Task) AnalyzeNames(
 func (task *Task) AnalyzeProblem(
 	whichstream StreamType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_analyzeproblem(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -67,7 +65,7 @@ func (task *Task) AnalyzeSolution(
 	whichstream StreamType,
 	whichsol SolType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_analyzesolution(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -89,7 +87,7 @@ func (task *Task) BasisCond(
 	nrmbasis []float64,
 	nrminvbasis []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_basiscond(
 			task.task,
 			(*C.MSKrealt)(getPtrToFirst(nrmbasis)),
@@ -108,7 +106,7 @@ func (task *Task) BkToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_bktostr(
 			task.task,
 			C.MSKboundkeye(bk),
@@ -133,7 +131,7 @@ func (task *Task) CheckMemtask(
 	c_file := C.CString(file)
 	defer C.free(unsafe.Pointer(c_file))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_checkmemtask(
 			task.task,
 			c_file,
@@ -159,7 +157,7 @@ func (task *Task) ChgConBound(
 	finite int32,
 	value float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_chgconbound(
 			task.task,
 			C.MSKint32t(i),
@@ -187,7 +185,7 @@ func (task *Task) ChgVarBound(
 	finite int32,
 	value float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_chgvarbound(
 			task.task,
 			C.MSKint32t(j),
@@ -203,7 +201,7 @@ func (task *Task) ChgVarBound(
 //
 // [MSK_commitchanges]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.commitchanges
 func (task *Task) CommitChanges() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_commitchanges(
 			task.task,
 		),
@@ -222,7 +220,7 @@ func (task *Task) ConetypeToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_conetypetostr(
 			task.task,
 			C.MSKconetypee(ct),
@@ -248,7 +246,7 @@ func (task *Task) ConetypeToStr(
 func (task *Task) DeleteSolution(
 	whichsol SolType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_deletesolution(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -276,7 +274,7 @@ func (task *Task) DualSensitivity(
 	leftrangej []float64,
 	rightrangej []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_dualsensitivity(
 			task.task,
 			C.MSKint32t(numj),
@@ -300,7 +298,7 @@ func (task *Task) DualSensitivity(
 func (task *Task) EmptyAfeBarfRow(
 	afeidx int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_emptyafebarfrow(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -320,7 +318,7 @@ func (task *Task) EmptyAfeBarfRowList(
 	numafeidx int64,
 	afeidxlist []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_emptyafebarfrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
@@ -340,7 +338,7 @@ func (task *Task) EmptyAfeBarfRowList(
 func (task *Task) EmptyAfeFCol(
 	varidx int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_emptyafefcol(
 			task.task,
 			C.MSKint32t(varidx),
@@ -360,7 +358,7 @@ func (task *Task) EmptyAfeFColList(
 	numvaridx int64,
 	varidx []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_emptyafefcollist(
 			task.task,
 			C.MSKint64t(numvaridx),
@@ -380,7 +378,7 @@ func (task *Task) EmptyAfeFColList(
 func (task *Task) EmptyAfeFRow(
 	afeidx int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_emptyafefrow(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -400,7 +398,7 @@ func (task *Task) EmptyAfeFRowList(
 	numafeidx int64,
 	afeidx []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_emptyafefrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
@@ -422,7 +420,7 @@ func (task *Task) EvaluateAccs(
 	whichsol SolType,
 	activity []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_evaluateaccs(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -440,7 +438,7 @@ func (task *Task) EvaluateAccs(
 //
 // [MSK_getmaxnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz
 func (task *Task) GetMaxNumANz() (maxnumanz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumanz(
 			task.task,
 			(*C.MSKint32t)(&maxnumanz),
@@ -454,7 +452,7 @@ func (task *Task) GetMaxNumANz() (maxnumanz int32, r error) {
 //
 // [MSK_getmaxnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumanz64
 func (task *Task) GetMaxNumAnz64() (maxnumanz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumanz64(
 			task.task,
 			(*C.MSKint64t)(&maxnumanz),
@@ -473,7 +471,7 @@ func (task *Task) GetMaxNumAnz64() (maxnumanz int64, r error) {
 //
 // [MSK_getmaxnumbarvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumbarvar
 func (task *Task) GetMaxNumBarvar() (maxnumbarvar int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumbarvar(
 			task.task,
 			(*C.MSKint32t)(&maxnumbarvar),
@@ -492,7 +490,7 @@ func (task *Task) GetMaxNumBarvar() (maxnumbarvar int32, r error) {
 //
 // [MSK_getmaxnumcon]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcon
 func (task *Task) GetMaxNumCon() (maxnumcon int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumcon(
 			task.task,
 			(*C.MSKint32t)(&maxnumcon),
@@ -513,7 +511,7 @@ func (task *Task) GetMaxNumCon() (maxnumcon int32, r error) {
 //
 // [MSK_getmaxnumcone]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumcone
 func (task *Task) GetMaxNumCone() (maxnumcone int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumcone(
 			task.task,
 			(*C.MSKint32t)(&maxnumcone),
@@ -532,7 +530,7 @@ func (task *Task) GetMaxNumCone() (maxnumcone int32, r error) {
 //
 // [MSK_getmaxnumqnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz
 func (task *Task) GetMaxNumQNz() (maxnumqnz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumqnz(
 			task.task,
 			(*C.MSKint32t)(&maxnumqnz),
@@ -546,7 +544,7 @@ func (task *Task) GetMaxNumQNz() (maxnumqnz int32, r error) {
 //
 // [MSK_getmaxnumqnz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumqnz64
 func (task *Task) GetMaxNumQnz64() (maxnumqnz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumqnz64(
 			task.task,
 			(*C.MSKint64t)(&maxnumqnz),
@@ -565,7 +563,7 @@ func (task *Task) GetMaxNumQnz64() (maxnumqnz int64, r error) {
 //
 // [MSK_getmaxnumvar]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnumvar
 func (task *Task) GetMaxNumVar() (maxnumvar int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnumvar(
 			task.task,
 			(*C.MSKint32t)(&maxnumvar),
@@ -588,7 +586,7 @@ func (task *Task) InfeasibilityReport(
 	whichstream StreamType,
 	whichsol SolType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_infeasibilityreport(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -608,7 +606,7 @@ func (task *Task) InfeasibilityReport(
 func (task *Task) InitBasisSolve(
 	basis []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_initbasissolve(
 			task.task,
 			(*C.MSKint32t)(getPtrToFirst(basis)),
@@ -655,7 +653,7 @@ func (task *Task) InputData(
 	blx []float64,
 	bux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_inputdata(
 			task.task,
 			C.MSKint32t(maxnumcon),
@@ -699,7 +697,7 @@ func (task *Task) Inputdata64(
 	blx []float64,
 	bux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_inputdata64(
 			task.task,
 			C.MSKint32t(maxnumcon),
@@ -733,7 +731,7 @@ func (task *Task) LinkFiletotaskstream(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_linkfiletotaskstream(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -756,7 +754,7 @@ func (task *Task) OneSolutionSummary(
 	whichstream StreamType,
 	whichsol SolType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_onesolutionsummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -774,7 +772,7 @@ func (task *Task) OneSolutionSummary(
 //
 // [MSK_optimize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimize
 func (task *Task) Optimize() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_optimize(
 			task.task,
 		),
@@ -794,14 +792,14 @@ func (task *Task) Optimize() error {
 func (task *Task) OptimizeRmt(
 	address string,
 	accesstoken string,
-) (trmcode res.Code, r error) {
+) (trmcode ResCode, r error) {
 	c_address := C.CString(address)
 	defer C.free(unsafe.Pointer(c_address))
 
 	c_accesstoken := C.CString(accesstoken)
 	defer C.free(unsafe.Pointer(c_accesstoken))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_optimizermt(
 			task.task,
 			c_address,
@@ -824,7 +822,7 @@ func (task *Task) OptimizeRmt(
 func (task *Task) OptimizerSummary(
 	whichstream StreamType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_optimizersummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -840,8 +838,8 @@ func (task *Task) OptimizerSummary(
 // - `trmcode` Is either OK or a termination response code.
 //
 // [MSK_optimizetrm]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizetrm
-func (task *Task) OptimizeTrm() (trmcode res.Code, r error) {
-	r = res.Code(
+func (task *Task) OptimizeTrm() (trmcode ResCode, r error) {
+	r = ResCode(
 		C.MSK_optimizetrm(
 			task.task,
 			(*C.MSKrescodee)(&trmcode),
@@ -868,7 +866,7 @@ func (task *Task) PrimalRepair(
 	wlx []float64,
 	wux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_primalrepair(
 			task.task,
 			(*C.MSKrealt)(getPtrToFirst(wlc)),
@@ -914,7 +912,7 @@ func (task *Task) PrimalSensitivity(
 	leftrangej []float64,
 	rightrangej []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_primalsensitivity(
 			task.task,
 			C.MSKint32t(numi),
@@ -940,7 +938,7 @@ func (task *Task) PrimalSensitivity(
 //
 // [MSK_printparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.printparam
 func (task *Task) PrintParam() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_printparam(
 			task.task,
 		),
@@ -957,7 +955,7 @@ func (task *Task) ProbtypeToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_probtypetostr(
 			task.task,
 			C.MSKproblemtypee(probtype),
@@ -982,7 +980,7 @@ func (task *Task) ProStaToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_prostatostr(
 			task.task,
 			C.MSKprostae(problemsta),
@@ -1013,7 +1011,7 @@ func (task *Task) ReadBSolution(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readbsolution(
 			task.task,
 			c_filename,
@@ -1036,7 +1034,7 @@ func (task *Task) ReadData(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readdata(
 			task.task,
 			c_filename,
@@ -1053,7 +1051,7 @@ func (task *Task) ReadDataautoformat(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readdataautoformat(
 			task.task,
 			c_filename,
@@ -1079,7 +1077,7 @@ func (task *Task) ReadDataFormat(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readdataformat(
 			task.task,
 			c_filename,
@@ -1103,7 +1101,7 @@ func (task *Task) ReadJsonSol(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readjsonsol(
 			task.task,
 			c_filename,
@@ -1125,7 +1123,7 @@ func (task *Task) ReadJsonString(
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readjsonstring(
 			task.task,
 			c_data,
@@ -1147,7 +1145,7 @@ func (task *Task) ReadLpString(
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readlpstring(
 			task.task,
 			c_data,
@@ -1169,7 +1167,7 @@ func (task *Task) ReadOpfString(
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readopfstring(
 			task.task,
 			c_data,
@@ -1191,7 +1189,7 @@ func (task *Task) ReadParamFile(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readparamfile(
 			task.task,
 			c_filename,
@@ -1213,7 +1211,7 @@ func (task *Task) ReadPtfString(
 	c_data := C.CString(data)
 	defer C.free(unsafe.Pointer(c_data))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readptfstring(
 			task.task,
 			c_data,
@@ -1237,7 +1235,7 @@ func (task *Task) ReadSolution(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readsolution(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1260,7 +1258,7 @@ func (task *Task) ReadSolutionFile(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readsolutionfile(
 			task.task,
 			c_filename,
@@ -1279,7 +1277,7 @@ func (task *Task) ReadSolutionFile(
 func (task *Task) ReadSummary(
 	whichstream StreamType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_readsummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -1301,7 +1299,7 @@ func (task *Task) ReadTask(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_readtask(
 			task.task,
 			c_filename,
@@ -1321,7 +1319,7 @@ func (task *Task) RemoveBarvars(
 	num int32,
 	subset []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_removebarvars(
 			task.task,
 			C.MSKint32t(num),
@@ -1344,7 +1342,7 @@ func (task *Task) RemoveCones(
 	num int32,
 	subset []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_removecones(
 			task.task,
 			C.MSKint32t(num),
@@ -1365,7 +1363,7 @@ func (task *Task) RemoveCons(
 	num int32,
 	subset []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_removecons(
 			task.task,
 			C.MSKint32t(num),
@@ -1386,7 +1384,7 @@ func (task *Task) RemoveVars(
 	num int32,
 	subset []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_removevars(
 			task.task,
 			C.MSKint32t(num),
@@ -1414,7 +1412,7 @@ func (task *Task) ResizeTask(
 	maxnumanz int64,
 	maxnumqnz int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_resizetask(
 			task.task,
 			C.MSKint32t(maxnumcon),
@@ -1437,7 +1435,7 @@ func (task *Task) ResizeTask(
 func (task *Task) SensitivityReport(
 	whichstream StreamType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_sensitivityreport(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -1450,7 +1448,7 @@ func (task *Task) SensitivityReport(
 //
 // [MSK_setdefaults]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.setdefaults
 func (task *Task) SetDefaults() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_setdefaults(
 			task.task,
 		),
@@ -1467,7 +1465,7 @@ func (task *Task) SkToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_sktostr(
 			task.task,
 			C.MSKstakeye(sk),
@@ -1492,7 +1490,7 @@ func (task *Task) SolStaToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_solstatostr(
 			task.task,
 			C.MSKsolstae(solutionsta),
@@ -1525,7 +1523,7 @@ func (task *Task) SolutionDef(
 	// function template: prepare for output of booleans
 	c_isdef := C.MSKbooleant(0)
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_solutiondef(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1551,7 +1549,7 @@ func (task *Task) SolutionDef(
 func (task *Task) SolutionSummary(
 	whichstream StreamType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_solutionsummary(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -1581,7 +1579,7 @@ func (task *Task) SolveWithBasis(
 	val []float64,
 	numnzout []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_solvewithbasis(
 			task.task,
 			boolToInt(transp),
@@ -1611,7 +1609,7 @@ func (task *Task) StrToConeType(
 	c_str := C.CString(str)
 	defer C.free(unsafe.Pointer(c_str))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_strtoconetype(
 			task.task,
 			c_str,
@@ -1636,7 +1634,7 @@ func (task *Task) StrToSk(
 	c_str := C.CString(str)
 	defer C.free(unsafe.Pointer(c_str))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_strtosk(
 			task.task,
 			c_str,
@@ -1652,7 +1650,7 @@ func (task *Task) StrToSk(
 //
 // [MSK_toconic]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.toconic
 func (task *Task) Toconic() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_toconic(
 			task.task,
 		),
@@ -1665,7 +1663,7 @@ func (task *Task) Toconic() error {
 func (task *Task) UnlinkFuncfromtaskstream(
 	whichstream StreamType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_unlinkfuncfromtaskstream(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -1684,7 +1682,7 @@ func (task *Task) UnlinkFuncfromtaskstream(
 func (task *Task) UpdateSolutionInfo(
 	whichsol SolType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_updatesolutioninfo(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1710,7 +1708,7 @@ func (task *Task) WhichParam(
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_whichparam(
 			task.task,
 			c_parname,
@@ -1736,7 +1734,7 @@ func (task *Task) WriteBSolution(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writebsolution(
 			task.task,
 			c_filename,
@@ -1759,7 +1757,7 @@ func (task *Task) WriteData(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writedata(
 			task.task,
 			c_filename,
@@ -1781,7 +1779,7 @@ func (task *Task) WriteJsonSol(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writejsonsol(
 			task.task,
 			c_filename,
@@ -1803,7 +1801,7 @@ func (task *Task) WriteParamFile(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writeparamfile(
 			task.task,
 			c_filename,
@@ -1827,7 +1825,7 @@ func (task *Task) WriteSolution(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writesolution(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1850,7 +1848,7 @@ func (task *Task) WriteSolutionFile(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writesolutionfile(
 			task.task,
 			c_filename,
@@ -1872,7 +1870,7 @@ func (task *Task) WriteTask(
 	c_filename := C.CString(filename)
 	defer C.free(unsafe.Pointer(c_filename))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writetask(
 			task.task,
 			c_filename,

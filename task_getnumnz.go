@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // GetAccFNumnz is wrapping [MSK_getaccfnumnz],
 // Obtains the total number of nonzeros in the ACC implied F matrix.
 //
@@ -20,7 +16,7 @@ import (
 //
 // [MSK_getaccfnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getaccfnumnz
 func (task *Task) GetAccFNumnz() (accfnnz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getaccfnumnz(
 			task.task,
 			(*C.MSKint64t)(&accfnnz),
@@ -45,7 +41,7 @@ func (task *Task) GetAccFNumnz() (accfnnz int64, r error) {
 func (task *Task) GetAColNumNz(
 	i int32,
 ) (nzj int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getacolnumnz(
 			task.task,
 			C.MSKint32t(i),
@@ -73,7 +69,7 @@ func (task *Task) GetAColSliceNumNz(
 	first int32,
 	last int32,
 ) (numnz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getacolslicenumnz(
 			task.task,
 			C.MSKint32t(first),
@@ -92,7 +88,7 @@ func (task *Task) GetAColSliceNumNz64(
 	first int32,
 	last int32,
 ) (numnz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getacolslicenumnz64(
 			task.task,
 			C.MSKint32t(first),
@@ -113,7 +109,7 @@ func (task *Task) GetAColSliceNumNz64(
 //
 // [MSK_getafefnumnz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getafefnumnz
 func (task *Task) GetAfeFNumNz() (numnz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getafefnumnz(
 			task.task,
 			(*C.MSKint64t)(&numnz),
@@ -138,7 +134,7 @@ func (task *Task) GetAfeFNumNz() (numnz int64, r error) {
 func (task *Task) GetAfeFRowNumNz(
 	afeidx int64,
 ) (numnz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getafefrownumnz(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -170,7 +166,7 @@ func (task *Task) GetAPieceNumNz(
 	firstj int32,
 	lastj int32,
 ) (numnz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getapiecenumnz(
 			task.task,
 			C.MSKint32t(firsti),
@@ -199,7 +195,7 @@ func (task *Task) GetAPieceNumNz(
 func (task *Task) GetARowNumNz(
 	i int32,
 ) (nzi int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getarownumnz(
 			task.task,
 			C.MSKint32t(i),
@@ -227,7 +223,7 @@ func (task *Task) GetARowSliceNumNz(
 	first int32,
 	last int32,
 ) (numnz int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getarowslicenumnz(
 			task.task,
 			C.MSKint32t(first),
@@ -246,7 +242,7 @@ func (task *Task) GetARowSliceNumNz64(
 	first int32,
 	last int32,
 ) (numnz int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getarowslicenumnz64(
 			task.task,
 			C.MSKint32t(first),

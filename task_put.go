@@ -9,8 +9,6 @@ import "C"
 
 import (
 	"unsafe"
-
-	"github.com/fardream/gmsk/res"
 )
 
 // PutAcc is wrapping [MSK_putacc],
@@ -31,7 +29,7 @@ func (task *Task) PutAcc(
 	afeidxlist []int64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putacc(
 			task.task,
 			C.MSKint64t(accidx),
@@ -57,7 +55,7 @@ func (task *Task) PutAccB(
 	lengthb int64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putaccb(
 			task.task,
 			C.MSKint64t(accidx),
@@ -82,7 +80,7 @@ func (task *Task) PutAccBJ(
 	j int64,
 	bj float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putaccbj(
 			task.task,
 			C.MSKint64t(accidx),
@@ -107,7 +105,7 @@ func (task *Task) PutAccDotY(
 	accidx int64,
 	doty []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putaccdoty(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -133,7 +131,7 @@ func (task *Task) PutACol(
 	subj []int32,
 	valj []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putacol(
 			task.task,
 			C.MSKint32t(j),
@@ -155,7 +153,7 @@ func (task *Task) PutAColSlice64(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putacolslice64(
 			task.task,
 			C.MSKint32t(first),
@@ -188,7 +186,7 @@ func (task *Task) PutAfeBarfBlockTriplet(
 	subl []int32,
 	valkl []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafebarfblocktriplet(
 			task.task,
 			C.MSKint64t(numtrip),
@@ -219,7 +217,7 @@ func (task *Task) PutAfeBarfEntry(
 	termidx []int64,
 	termweight []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafebarfentry(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -254,7 +252,7 @@ func (task *Task) PutAfeBarfRow(
 	termidx []int64,
 	termweight []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafebarfrow(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -285,7 +283,7 @@ func (task *Task) PutAfeFCol(
 	afeidx []int64,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafefcol(
 			task.task,
 			C.MSKint32t(varidx),
@@ -311,7 +309,7 @@ func (task *Task) PutAfeFEntry(
 	varidx int32,
 	value float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafefentry(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -337,7 +335,7 @@ func (task *Task) PutAfeFRow(
 	varidx []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafefrow(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -361,7 +359,7 @@ func (task *Task) PutAfeG(
 	afeidx int64,
 	g float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafeg(
 			task.task,
 			C.MSKint64t(afeidx),
@@ -385,7 +383,7 @@ func (task *Task) PutAij(
 	j int32,
 	aij float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putaij(
 			task.task,
 			C.MSKint32t(i),
@@ -411,7 +409,7 @@ func (task *Task) PutARow(
 	subi []int32,
 	vali []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putarow(
 			task.task,
 			C.MSKint32t(i),
@@ -433,7 +431,7 @@ func (task *Task) PutARowSlice64(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putarowslice64(
 			task.task,
 			C.MSKint32t(first),
@@ -457,7 +455,7 @@ func (task *Task) PutARowSlice64(
 func (task *Task) PutATruncateTol(
 	tolzero float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putatruncatetol(
 			task.task,
 			C.MSKrealt(tolzero),
@@ -485,7 +483,7 @@ func (task *Task) PutBaraBlockTriplet(
 	subl []int32,
 	valijkl []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbarablocktriplet(
 			task.task,
 			C.MSKint64t(num),
@@ -516,7 +514,7 @@ func (task *Task) PutBaraIj(
 	sub []int64,
 	weights []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbaraij(
 			task.task,
 			C.MSKint32t(i),
@@ -546,7 +544,7 @@ func (task *Task) PutBarcBlockTriplet(
 	subl []int32,
 	valjkl []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbarcblocktriplet(
 			task.task,
 			C.MSKint64t(num),
@@ -574,7 +572,7 @@ func (task *Task) PutBarcJ(
 	sub []int64,
 	weights []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbarcj(
 			task.task,
 			C.MSKint32t(j),
@@ -600,7 +598,7 @@ func (task *Task) PutBarsJ(
 	j int32,
 	barsj []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbarsj(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -625,7 +623,7 @@ func (task *Task) PutBarxJ(
 	j int32,
 	barxj []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbarxj(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -646,7 +644,7 @@ func (task *Task) PutBarxJ(
 func (task *Task) PutCfix(
 	cfix float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putcfix(
 			task.task,
 			C.MSKrealt(cfix),
@@ -667,7 +665,7 @@ func (task *Task) PutCJ(
 	j int32,
 	cj float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putcj(
 			task.task,
 			C.MSKint32t(j),
@@ -693,7 +691,7 @@ func (task *Task) PutConBound(
 	blc float64,
 	buc float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putconbound(
 			task.task,
 			C.MSKint32t(i),
@@ -722,7 +720,7 @@ func (task *Task) PutConBoundListConst(
 	blc float64,
 	buc float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putconboundlistconst(
 			task.task,
 			C.MSKint32t(num),
@@ -754,7 +752,7 @@ func (task *Task) PutCone(
 	nummem int32,
 	submem []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putcone(
 			task.task,
 			C.MSKint32t(k),
@@ -787,7 +785,7 @@ func (task *Task) PutConSolutionI(
 	sl float64,
 	su float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putconsolutioni(
 			task.task,
 			C.MSKint32t(i),
@@ -822,7 +820,7 @@ func (task *Task) PutDjc(
 	numterms int64,
 	termsizelist []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putdjc(
 			task.task,
 			C.MSKint64t(djcidx),
@@ -850,7 +848,7 @@ func (task *Task) PutDouParam(
 	param DParam,
 	parvalue float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putdouparam(
 			task.task,
 			C.MSKdparame(param),
@@ -872,7 +870,7 @@ func (task *Task) PutIntParam(
 	param IParam,
 	parvalue int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putintparam(
 			task.task,
 			C.MSKiparame(param),
@@ -897,7 +895,7 @@ func (task *Task) PutNaDouParam(
 	c_paramname := C.CString(paramname)
 	defer C.free(unsafe.Pointer(c_paramname))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putnadouparam(
 			task.task,
 			c_paramname,
@@ -922,7 +920,7 @@ func (task *Task) PutNaIntParam(
 	c_paramname := C.CString(paramname)
 	defer C.free(unsafe.Pointer(c_paramname))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putnaintparam(
 			task.task,
 			c_paramname,
@@ -950,7 +948,7 @@ func (task *Task) PutNaStrParam(
 	c_parvalue := C.CString(parvalue)
 	defer C.free(unsafe.Pointer(c_parvalue))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putnastrparam(
 			task.task,
 			c_paramname,
@@ -970,7 +968,7 @@ func (task *Task) PutNaStrParam(
 func (task *Task) PutObjSense(
 	sense ObjectiveSense,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putobjsense(
 			task.task,
 			C.MSKobjsensee(sense),
@@ -992,7 +990,7 @@ func (task *Task) PutOptserverHost(
 	c_host := C.CString(host)
 	defer C.free(unsafe.Pointer(c_host))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putoptserverhost(
 			task.task,
 			c_host,
@@ -1019,7 +1017,7 @@ func (task *Task) PutParam(
 	c_parvalue := C.CString(parvalue)
 	defer C.free(unsafe.Pointer(c_parvalue))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putparam(
 			task.task,
 			c_parname,
@@ -1046,7 +1044,7 @@ func (task *Task) PutQCon(
 	qcsubj []int32,
 	qcval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putqcon(
 			task.task,
 			C.MSKint32t(numqcnz),
@@ -1076,7 +1074,7 @@ func (task *Task) PutQConK(
 	qcsubj []int32,
 	qcval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putqconk(
 			task.task,
 			C.MSKint32t(k),
@@ -1104,7 +1102,7 @@ func (task *Task) PutQObj(
 	qosubj []int32,
 	qoval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putqobj(
 			task.task,
 			C.MSKint32t(numqonz),
@@ -1130,7 +1128,7 @@ func (task *Task) PutQObjIJ(
 	j int32,
 	qoij float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putqobjij(
 			task.task,
 			C.MSKint32t(i),
@@ -1153,7 +1151,7 @@ func (task *Task) PutSkc(
 	whichsol SolType,
 	skc []StaKey,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putskc(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1175,7 +1173,7 @@ func (task *Task) PutSkx(
 	whichsol SolType,
 	skx []StaKey,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putskx(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1197,7 +1195,7 @@ func (task *Task) PutSlc(
 	whichsol SolType,
 	slc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putslc(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1219,7 +1217,7 @@ func (task *Task) PutSlx(
 	whichsol SolType,
 	slx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putslx(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1241,7 +1239,7 @@ func (task *Task) PutSnx(
 	whichsol SolType,
 	sux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsnx(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1283,7 +1281,7 @@ func (task *Task) PutSolution(
 	sux []float64,
 	snx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsolution(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1337,7 +1335,7 @@ func (task *Task) PutSolutionNew(
 	snx []float64,
 	doty []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsolutionnew(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1372,7 +1370,7 @@ func (task *Task) PutSolutionYI(
 	whichsol SolType,
 	y float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsolutionyi(
 			task.task,
 			C.MSKint32t(i),
@@ -1398,7 +1396,7 @@ func (task *Task) PutStrParam(
 	c_parvalue := C.CString(parvalue)
 	defer C.free(unsafe.Pointer(c_parvalue))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putstrparam(
 			task.task,
 			C.MSKsparame(param),
@@ -1420,7 +1418,7 @@ func (task *Task) PutSuc(
 	whichsol SolType,
 	suc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsuc(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1442,7 +1440,7 @@ func (task *Task) PutSux(
 	whichsol SolType,
 	sux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsux(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1468,7 +1466,7 @@ func (task *Task) PutVarBound(
 	blx float64,
 	bux float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvarbound(
 			task.task,
 			C.MSKint32t(j),
@@ -1497,7 +1495,7 @@ func (task *Task) PutVarBoundListConst(
 	blx float64,
 	bux float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvarboundlistconst(
 			task.task,
 			C.MSKint32t(num),
@@ -1532,7 +1530,7 @@ func (task *Task) PutVarSolutionJ(
 	su float64,
 	sn float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvarsolutionj(
 			task.task,
 			C.MSKint32t(j),
@@ -1559,7 +1557,7 @@ func (task *Task) PutVarType(
 	j int32,
 	vartype VariableType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvartype(
 			task.task,
 			C.MSKint32t(j),
@@ -1581,7 +1579,7 @@ func (task *Task) PutXc(
 	whichsol SolType,
 	xc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putxc(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1603,7 +1601,7 @@ func (task *Task) PutXx(
 	whichsol SolType,
 	xx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putxx(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1625,7 +1623,7 @@ func (task *Task) PutY(
 	whichsol SolType,
 	y []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_puty(
 			task.task,
 			C.MSKsoltypee(whichsol),

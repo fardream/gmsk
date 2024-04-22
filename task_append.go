@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // AppendAcc is wrapping [MSK_appendacc],
 // Appends an affine conic constraint to the task.
 //
@@ -27,7 +23,7 @@ func (task *Task) AppendAcc(
 	afeidxlist []int64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendacc(
 			task.task,
 			C.MSKint64t(domidx),
@@ -55,7 +51,7 @@ func (task *Task) AppendAccs(
 	afeidxlist []int64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendaccs(
 			task.task,
 			C.MSKint64t(numaccs),
@@ -83,7 +79,7 @@ func (task *Task) AppendAccSeq(
 	afeidxfirst int64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendaccseq(
 			task.task,
 			C.MSKint64t(domidx),
@@ -112,7 +108,7 @@ func (task *Task) AppendAccsSeq(
 	afeidxfirst int64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendaccsseq(
 			task.task,
 			C.MSKint64t(numaccs),
@@ -135,7 +131,7 @@ func (task *Task) AppendAccsSeq(
 func (task *Task) AppendAfes(
 	num int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendafes(
 			task.task,
 			C.MSKint64t(num),
@@ -155,7 +151,7 @@ func (task *Task) AppendBarvars(
 	num int32,
 	dim []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendbarvars(
 			task.task,
 			C.MSKint32t(num),
@@ -182,7 +178,7 @@ func (task *Task) AppendCone(
 	nummem int32,
 	submem []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendcone(
 			task.task,
 			C.MSKconetypee(ct),
@@ -212,7 +208,7 @@ func (task *Task) AppendConeSeq(
 	nummem int32,
 	j int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendconeseq(
 			task.task,
 			C.MSKconetypee(ct),
@@ -243,7 +239,7 @@ func (task *Task) AppendConesSeq(
 	nummem []int32,
 	j int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendconesseq(
 			task.task,
 			C.MSKint32t(num),
@@ -266,7 +262,7 @@ func (task *Task) AppendConesSeq(
 func (task *Task) AppendCons(
 	num int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendcons(
 			task.task,
 			C.MSKint32t(num),
@@ -285,7 +281,7 @@ func (task *Task) AppendCons(
 func (task *Task) AppendDjcs(
 	num int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appenddjcs(
 			task.task,
 			C.MSKint64t(num),
@@ -315,7 +311,7 @@ func (task *Task) AppendSparseSymMat(
 	subj []int32,
 	valij []float64,
 ) (idx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendsparsesymmat(
 			task.task,
 			C.MSKint32t(dim),
@@ -351,7 +347,7 @@ func (task *Task) AppendSparseSymMatList(
 	subj []int32,
 	valij []float64,
 ) (idx int64, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_appendsparsesymmatlist(
 			task.task,
 			C.MSKint32t(num),
@@ -378,7 +374,7 @@ func (task *Task) AppendSparseSymMatList(
 func (task *Task) AppendVars(
 	num int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_appendvars(
 			task.task,
 			C.MSKint32t(num),

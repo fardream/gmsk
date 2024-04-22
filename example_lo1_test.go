@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
-	"github.com/fardream/gmsk/res"
 )
 
 // Linear programming example 1, reproduced from mosek c api example lo1.c
@@ -126,7 +125,7 @@ func Example_linearOptimization1_lo1() {
 			gmsk.SOL_BAS, /* Request the basic solution. */
 			nil)
 		if r != nil {
-			r = gmsk.NewError(res.ERR_SPACE)
+			r = gmsk.NewError(gmsk.RES_ERR_SPACE)
 			break
 		}
 		fmt.Print("Optimal primal solution\n")

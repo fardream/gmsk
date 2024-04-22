@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // GetAColSliceTrip is wrapping [MSK_getacolslicetrip],
 // Obtains a sequence of columns from the coefficient matrix in triplet format.
 //
@@ -31,7 +27,7 @@ func (task *Task) GetAColSliceTrip(
 	subj []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getacolslicetrip(
 			task.task,
 			C.MSKint32t(first),
@@ -64,7 +60,7 @@ func (task *Task) GetARowSliceTrip(
 	subj []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getarowslicetrip(
 			task.task,
 			C.MSKint32t(first),
