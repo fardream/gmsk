@@ -106,6 +106,7 @@ go_library(
 
 go_test(
     name = "gmsk_test",
+    size = "small",
     srcs = [
         "error_test.go",
         "example_acc1_test.go",
