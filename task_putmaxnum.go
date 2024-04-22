@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // PutMaxNumAcc is wrapping [MSK_putmaxnumacc],
 // Sets the number of preallocated affine conic constraints.
 //
@@ -22,7 +18,7 @@ import (
 func (task *Task) PutMaxNumAcc(
 	maxnumacc int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumacc(
 			task.task,
 			C.MSKint64t(maxnumacc),
@@ -41,7 +37,7 @@ func (task *Task) PutMaxNumAcc(
 func (task *Task) PutMaxNumAfe(
 	maxnumafe int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumafe(
 			task.task,
 			C.MSKint64t(maxnumafe),
@@ -60,7 +56,7 @@ func (task *Task) PutMaxNumAfe(
 func (task *Task) PutMaxNumANz(
 	maxnumanz int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumanz(
 			task.task,
 			C.MSKint64t(maxnumanz),
@@ -79,7 +75,7 @@ func (task *Task) PutMaxNumANz(
 func (task *Task) PutMaxNumBarvar(
 	maxnumbarvar int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumbarvar(
 			task.task,
 			C.MSKint32t(maxnumbarvar),
@@ -98,7 +94,7 @@ func (task *Task) PutMaxNumBarvar(
 func (task *Task) PutMaxNumCon(
 	maxnumcon int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumcon(
 			task.task,
 			C.MSKint32t(maxnumcon),
@@ -119,7 +115,7 @@ func (task *Task) PutMaxNumCon(
 func (task *Task) PutMaxNumCone(
 	maxnumcone int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumcone(
 			task.task,
 			C.MSKint32t(maxnumcone),
@@ -138,7 +134,7 @@ func (task *Task) PutMaxNumCone(
 func (task *Task) PutMaxNumDjc(
 	maxnumdjc int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumdjc(
 			task.task,
 			C.MSKint64t(maxnumdjc),
@@ -157,7 +153,7 @@ func (task *Task) PutMaxNumDjc(
 func (task *Task) PutMaxNumDomain(
 	maxnumdomain int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumdomain(
 			task.task,
 			C.MSKint64t(maxnumdomain),
@@ -176,7 +172,7 @@ func (task *Task) PutMaxNumDomain(
 func (task *Task) PutMaxNumQNz(
 	maxnumqnz int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumqnz(
 			task.task,
 			C.MSKint64t(maxnumqnz),
@@ -195,7 +191,7 @@ func (task *Task) PutMaxNumQNz(
 func (task *Task) PutMaxNumVar(
 	maxnumvar int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putmaxnumvar(
 			task.task,
 			C.MSKint32t(maxnumvar),

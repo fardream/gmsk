@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // PutAccList is wrapping [MSK_putacclist],
 // Puts a number of affine conic constraints.
 //
@@ -30,7 +26,7 @@ func (task *Task) PutAccList(
 	afeidxlist []int64,
 	b []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putacclist(
 			task.task,
 			C.MSKint64t(numaccs),
@@ -63,7 +59,7 @@ func (task *Task) PutAColList(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putacollist(
 			task.task,
 			C.MSKint32t(num),
@@ -87,7 +83,7 @@ func (task *Task) PutAColList64(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putacollist64(
 			task.task,
 			C.MSKint32t(num),
@@ -121,7 +117,7 @@ func (task *Task) PutAColSlice(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putacolslice(
 			task.task,
 			C.MSKint32t(first),
@@ -157,7 +153,7 @@ func (task *Task) PutAfeBarfEntryList(
 	termidx []int64,
 	termweight []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafebarfentrylist(
 			task.task,
 			C.MSKint64t(numafeidx),
@@ -188,7 +184,7 @@ func (task *Task) PutAfeFEntryList(
 	varidx []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafefentrylist(
 			task.task,
 			C.MSKint64t(numentr),
@@ -220,7 +216,7 @@ func (task *Task) PutAfeFRowList(
 	varidx []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafefrowlist(
 			task.task,
 			C.MSKint64t(numafeidx),
@@ -248,7 +244,7 @@ func (task *Task) PutAfeGList(
 	afeidx []int64,
 	g []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafeglist(
 			task.task,
 			C.MSKint64t(numafeidx),
@@ -273,7 +269,7 @@ func (task *Task) PutAfeGSlice(
 	last int64,
 	slice []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putafegslice(
 			task.task,
 			C.MSKint64t(first),
@@ -299,7 +295,7 @@ func (task *Task) PutAijList(
 	subj []int32,
 	valij []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putaijlist(
 			task.task,
 			C.MSKint32t(num),
@@ -319,7 +315,7 @@ func (task *Task) PutAijList64(
 	subj []int32,
 	valij []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putaijlist64(
 			task.task,
 			C.MSKint64t(num),
@@ -350,7 +346,7 @@ func (task *Task) PutARowList(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putarowlist(
 			task.task,
 			C.MSKint32t(num),
@@ -374,7 +370,7 @@ func (task *Task) PutARowList64(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putarowlist64(
 			task.task,
 			C.MSKint32t(num),
@@ -408,7 +404,7 @@ func (task *Task) PutARowSlice(
 	asub []int32,
 	aval []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putarowslice(
 			task.task,
 			C.MSKint32t(first),
@@ -443,7 +439,7 @@ func (task *Task) PutBaraIjList(
 	matidx []int64,
 	weights []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbaraijlist(
 			task.task,
 			C.MSKint32t(num),
@@ -481,7 +477,7 @@ func (task *Task) PutBaraRowList(
 	matidx []int64,
 	weights []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putbararowlist(
 			task.task,
 			C.MSKint32t(num),
@@ -510,7 +506,7 @@ func (task *Task) PutCList(
 	subj []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putclist(
 			task.task,
 			C.MSKint32t(num),
@@ -538,7 +534,7 @@ func (task *Task) PutConBoundList(
 	blc []float64,
 	buc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putconboundlist(
 			task.task,
 			C.MSKint32t(num),
@@ -569,7 +565,7 @@ func (task *Task) PutConBoundSlice(
 	blc []float64,
 	buc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putconboundslice(
 			task.task,
 			C.MSKint32t(first),
@@ -600,7 +596,7 @@ func (task *Task) PutConBoundSliceConst(
 	blc float64,
 	buc float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putconboundsliceconst(
 			task.task,
 			C.MSKint32t(first),
@@ -627,7 +623,7 @@ func (task *Task) PutCSlice(
 	last int32,
 	slice []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putcslice(
 			task.task,
 			C.MSKint32t(first),
@@ -663,7 +659,7 @@ func (task *Task) PutDjcSlice(
 	termsizelist []int64,
 	termsindjc []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putdjcslice(
 			task.task,
 			C.MSKint64t(idxfirst),
@@ -697,7 +693,7 @@ func (task *Task) PutSkcSlice(
 	last int32,
 	skc []StaKey,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putskcslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -725,7 +721,7 @@ func (task *Task) PutSkxSlice(
 	last int32,
 	skx []StaKey,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putskxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -753,7 +749,7 @@ func (task *Task) PutSlcSlice(
 	last int32,
 	slc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putslcslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -781,7 +777,7 @@ func (task *Task) PutSlxSlice(
 	last int32,
 	slx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putslxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -809,7 +805,7 @@ func (task *Task) PutSnxSlice(
 	last int32,
 	snx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsnxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -837,7 +833,7 @@ func (task *Task) PutSucSlice(
 	last int32,
 	suc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsucslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -865,7 +861,7 @@ func (task *Task) PutSuxSlice(
 	last int32,
 	sux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putsuxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -894,7 +890,7 @@ func (task *Task) PutVarBoundList(
 	blx []float64,
 	bux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvarboundlist(
 			task.task,
 			C.MSKint32t(num),
@@ -925,7 +921,7 @@ func (task *Task) PutVarBoundSlice(
 	blx []float64,
 	bux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvarboundslice(
 			task.task,
 			C.MSKint32t(first),
@@ -956,7 +952,7 @@ func (task *Task) PutVarBoundSliceConst(
 	blx float64,
 	bux float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvarboundsliceconst(
 			task.task,
 			C.MSKint32t(first),
@@ -982,7 +978,7 @@ func (task *Task) PutVarTypeList(
 	subj []int32,
 	vartype []VariableType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putvartypelist(
 			task.task,
 			C.MSKint32t(num),
@@ -1009,7 +1005,7 @@ func (task *Task) PutXcSlice(
 	last int32,
 	xc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putxcslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1037,7 +1033,7 @@ func (task *Task) PutXxSlice(
 	last int32,
 	xx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putxxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -1065,7 +1061,7 @@ func (task *Task) PutYSlice(
 	last int32,
 	y []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_putyslice(
 			task.task,
 			C.MSKsoltypee(whichsol),

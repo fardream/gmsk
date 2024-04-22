@@ -7,10 +7,6 @@ package gmsk
 // #include <mosek.h>
 import "C"
 
-import (
-	"github.com/fardream/gmsk/res"
-)
-
 // GetAccAfeIdxList is wrapping [MSK_getaccafeidxlist],
 // Obtains the list of affine expressions appearing in the affine conic constraint.
 //
@@ -24,7 +20,7 @@ func (task *Task) GetAccAfeIdxList(
 	accidx int64,
 	afeidxlist []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getaccafeidxlist(
 			task.task,
 			C.MSKint64t(accidx),
@@ -55,7 +51,7 @@ func (task *Task) GetAColSlice(
 	sub []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getacolslice(
 			task.task,
 			C.MSKint32t(first),
@@ -84,7 +80,7 @@ func (task *Task) GetAfeGSlice(
 	last int64,
 	g []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getafegslice(
 			task.task,
 			C.MSKint64t(first),
@@ -116,7 +112,7 @@ func (task *Task) GetARowSlice(
 	sub []int32,
 	val []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getarowslice(
 			task.task,
 			C.MSKint32t(first),
@@ -149,7 +145,7 @@ func (task *Task) GetBarsSlice(
 	slicesize int64,
 	barsslice []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getbarsslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -180,7 +176,7 @@ func (task *Task) GetBarxSlice(
 	slicesize int64,
 	barxslice []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getbarxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -206,7 +202,7 @@ func (task *Task) GetCList(
 	subj []int32,
 	c []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getclist(
 			task.task,
 			C.MSKint32t(num),
@@ -235,7 +231,7 @@ func (task *Task) GetConBoundSlice(
 	bl []float64,
 	bu []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getconboundslice(
 			task.task,
 			C.MSKint32t(first),
@@ -262,7 +258,7 @@ func (task *Task) GetCSlice(
 	last int32,
 	c []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getcslice(
 			task.task,
 			C.MSKint32t(first),
@@ -285,7 +281,7 @@ func (task *Task) GetDjcAfeIdxList(
 	djcidx int64,
 	afeidxlist []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getdjcafeidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
@@ -307,7 +303,7 @@ func (task *Task) GetDjcDomainIdxList(
 	djcidx int64,
 	domidxlist []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getdjcdomainidxlist(
 			task.task,
 			C.MSKint64t(djcidx),
@@ -329,7 +325,7 @@ func (task *Task) GetDjcTermSizeList(
 	djcidx int64,
 	termsizelist []int64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getdjctermsizelist(
 			task.task,
 			C.MSKint64t(djcidx),
@@ -355,7 +351,7 @@ func (task *Task) GetSkcSlice(
 	last int32,
 	skc []StaKey,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getskcslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -383,7 +379,7 @@ func (task *Task) GetSkxSlice(
 	last int32,
 	skx []StaKey,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getskxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -411,7 +407,7 @@ func (task *Task) GetSlcSlice(
 	last int32,
 	slc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getslcslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -439,7 +435,7 @@ func (task *Task) GetSlxSlice(
 	last int32,
 	slx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getslxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -467,7 +463,7 @@ func (task *Task) GetSnxSlice(
 	last int32,
 	snx []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getsnxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -497,7 +493,7 @@ func (task *Task) GetSolutionSlice(
 	last int32,
 	values []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getsolutionslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -526,7 +522,7 @@ func (task *Task) GetSucSlice(
 	last int32,
 	suc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getsucslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -554,7 +550,7 @@ func (task *Task) GetSuxSlice(
 	last int32,
 	sux []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getsuxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -584,7 +580,7 @@ func (task *Task) GetVarBoundSlice(
 	bl []float64,
 	bu []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getvarboundslice(
 			task.task,
 			C.MSKint32t(first),
@@ -610,7 +606,7 @@ func (task *Task) GetVarTypeList(
 	subj []int32,
 	vartype []VariableType,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getvartypelist(
 			task.task,
 			C.MSKint32t(num),
@@ -637,7 +633,7 @@ func (task *Task) GetXcSlice(
 	last int32,
 	xc []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getxcslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -665,7 +661,7 @@ func (task *Task) GetYSlice(
 	last int32,
 	y []float64,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_getyslice(
 			task.task,
 			C.MSKsoltypee(whichsol),

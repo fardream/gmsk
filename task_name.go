@@ -9,8 +9,6 @@ import "C"
 
 import (
 	"unsafe"
-
-	"github.com/fardream/gmsk/res"
 )
 
 // GetAccName is wrapping [MSK_getaccname],
@@ -33,7 +31,7 @@ func (task *Task) GetAccName(
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getaccname(
 			task.task,
 			C.MSKint64t(accidx),
@@ -64,7 +62,7 @@ func (task *Task) GetAccName(
 func (task *Task) GetAccNameLen(
 	accidx int64,
 ) (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getaccnamelen(
 			task.task,
 			C.MSKint64t(accidx),
@@ -95,7 +93,7 @@ func (task *Task) GetBarvarName(
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getbarvarname(
 			task.task,
 			C.MSKint32t(i),
@@ -126,7 +124,7 @@ func (task *Task) GetBarvarName(
 func (task *Task) GetBarvarNameLen(
 	i int32,
 ) (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getbarvarnamelen(
 			task.task,
 			C.MSKint32t(i),
@@ -159,7 +157,7 @@ func (task *Task) GetConeName(
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getconename(
 			task.task,
 			C.MSKint32t(i),
@@ -192,7 +190,7 @@ func (task *Task) GetConeName(
 func (task *Task) GetConeNameLen(
 	i int32,
 ) (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getconenamelen(
 			task.task,
 			C.MSKint32t(i),
@@ -223,7 +221,7 @@ func (task *Task) GetConName(
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getconname(
 			task.task,
 			C.MSKint32t(i),
@@ -254,7 +252,7 @@ func (task *Task) GetConName(
 func (task *Task) GetConNameLen(
 	i int32,
 ) (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getconnamelen(
 			task.task,
 			C.MSKint32t(i),
@@ -285,7 +283,7 @@ func (task *Task) GetDjcName(
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getdjcname(
 			task.task,
 			C.MSKint64t(djcidx),
@@ -316,7 +314,7 @@ func (task *Task) GetDjcName(
 func (task *Task) GetDjcNameLen(
 	djcidx int64,
 ) (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getdjcnamelen(
 			task.task,
 			C.MSKint64t(djcidx),
@@ -347,7 +345,7 @@ func (task *Task) GetDomainName(
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getdomainname(
 			task.task,
 			C.MSKint64t(domidx),
@@ -378,7 +376,7 @@ func (task *Task) GetDomainName(
 func (task *Task) GetDomainNameLen(
 	domidx int64,
 ) (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getdomainnamelen(
 			task.task,
 			C.MSKint64t(domidx),
@@ -410,7 +408,7 @@ func (task *Task) GetInfName(
 	c_infname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_infname))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getinfname(
 			task.task,
 			C.MSKinftypee(inftype),
@@ -435,7 +433,7 @@ func (task *Task) GetInfName(
 //
 // [MSK_getmaxnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getmaxnamelen
 func (task *Task) GetMaxNameLen() (maxlen int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getmaxnamelen(
 			task.task,
 			(*C.MSKint32t)(&maxlen),
@@ -460,7 +458,7 @@ func (task *Task) GetObjName(
 	c_objname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_objname))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getobjname(
 			task.task,
 			C.MSKint32t(sizeobjname),
@@ -484,7 +482,7 @@ func (task *Task) GetObjName(
 //
 // [MSK_getobjnamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getobjnamelen
 func (task *Task) GetObjNameLen() (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getobjnamelen(
 			task.task,
 			(*C.MSKint32t)(&len),
@@ -515,7 +513,7 @@ func (task *Task) GetParamName(
 	c_parname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_parname))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getparamname(
 			task.task,
 			C.MSKparametertypee(partype),
@@ -546,7 +544,7 @@ func (task *Task) GetTaskName(
 	c_taskname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_taskname))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_gettaskname(
 			task.task,
 			C.MSKint32t(sizetaskname),
@@ -570,7 +568,7 @@ func (task *Task) GetTaskName(
 //
 // [MSK_gettasknamelen]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.gettasknamelen
 func (task *Task) GetTaskNameLen() (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_gettasknamelen(
 			task.task,
 			(*C.MSKint32t)(&len),
@@ -600,7 +598,7 @@ func (task *Task) GetVarName(
 	c_name := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_name))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getvarname(
 			task.task,
 			C.MSKint32t(j),
@@ -631,7 +629,7 @@ func (task *Task) GetVarName(
 func (task *Task) GetVarNameLen(
 	i int32,
 ) (len int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getvarnamelen(
 			task.task,
 			C.MSKint32t(i),
@@ -657,7 +655,7 @@ func (task *Task) IsDouParName(
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_isdouparname(
 			task.task,
 			c_parname,
@@ -683,7 +681,7 @@ func (task *Task) IsIntParName(
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_isintparname(
 			task.task,
 			c_parname,
@@ -709,7 +707,7 @@ func (task *Task) IsStrParName(
 	c_parname := C.CString(parname)
 	defer C.free(unsafe.Pointer(c_parname))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_isstrparname(
 			task.task,
 			c_parname,
@@ -736,7 +734,7 @@ func (task *Task) PutAccName(
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putaccname(
 			task.task,
 			C.MSKint64t(accidx),
@@ -761,7 +759,7 @@ func (task *Task) PutBarvarName(
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putbarvarname(
 			task.task,
 			C.MSKint32t(j),
@@ -788,7 +786,7 @@ func (task *Task) PutConeName(
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putconename(
 			task.task,
 			C.MSKint32t(j),
@@ -813,7 +811,7 @@ func (task *Task) PutConName(
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putconname(
 			task.task,
 			C.MSKint32t(i),
@@ -838,7 +836,7 @@ func (task *Task) PutDjcName(
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putdjcname(
 			task.task,
 			C.MSKint64t(djcidx),
@@ -863,7 +861,7 @@ func (task *Task) PutDomainName(
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putdomainname(
 			task.task,
 			C.MSKint64t(domidx),
@@ -886,7 +884,7 @@ func (task *Task) PutObjName(
 	c_objname := C.CString(objname)
 	defer C.free(unsafe.Pointer(c_objname))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putobjname(
 			task.task,
 			c_objname,
@@ -908,7 +906,7 @@ func (task *Task) PutTaskName(
 	c_taskname := C.CString(taskname)
 	defer C.free(unsafe.Pointer(c_taskname))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_puttaskname(
 			task.task,
 			c_taskname,
@@ -932,7 +930,7 @@ func (task *Task) PutVarName(
 	c_name := C.CString(name)
 	defer C.free(unsafe.Pointer(c_name))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_putvarname(
 			task.task,
 			C.MSKint32t(j),

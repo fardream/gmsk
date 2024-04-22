@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
-	"github.com/fardream/gmsk/res"
 )
 
 // Conic Quadratic Optimization, reproduced from cqo1.c in MOSEK example.
@@ -169,7 +168,7 @@ func Example_conicQuadraticOptimization1_cqo1() {
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			nil)
 		if r != nil {
-			r = res.NewErrorFromInt(gmsk.RES_ERR_SPACE)
+			r = gmsk.NewErrorFromInt(gmsk.RES_ERR_SPACE)
 			break
 		}
 		fmt.Print("Optimal primal solution\n")

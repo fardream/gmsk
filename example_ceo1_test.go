@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/fardream/gmsk"
-	"github.com/fardream/gmsk/res"
 )
 
 // Conic exponential optimization, reproduced from ceo1.c in MOSEK C api.
@@ -112,7 +111,7 @@ func Example_conicExponentialOptimization1_ceo1() {
 	case gmsk.SOL_STA_OPTIMAL:
 		xx, r := task.GetXx(gmsk.SOL_ITR, nil)
 		if r != nil {
-			checkOk(res.NewErrorFromInt(gmsk.RES_ERR_SPACE))
+			checkOk(gmsk.NewErrorFromInt(gmsk.RES_ERR_SPACE))
 		}
 
 		fmt.Printf("Optimal primal solution\n")

@@ -60,7 +60,7 @@ go_library(
         "problemtype_enum.go",
         "prosta_enum.go",
         "purify_enum.go",
-        "res_code.go",
+        "rescodes.go",
         "rescodetype_enum.go",
         "scalingmethod_enum.go",
         "scalingtype_enum.go",
@@ -101,7 +101,6 @@ go_library(
     cgo = True,
     importpath = "github.com/fardream/gmsk",
     visibility = ["//visibility:public"],
-    deps = ["//res"],
 )
 
 go_test(
@@ -138,8 +137,5 @@ go_test(
         "type_test.go",
         "writedata_test.go",
     ],
-    deps = [
-        ":gmsk",
-        "//res",
-    ],
+    deps = [":gmsk"],
 )

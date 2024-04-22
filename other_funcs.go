@@ -9,8 +9,6 @@ import "C"
 
 import (
 	"unsafe"
-
-	"github.com/fardream/gmsk/res"
 )
 
 // CallbackcodeToStr is wrapping [MSK_callbackcodetostr]
@@ -23,7 +21,7 @@ func CallbackcodeToStr(
 	c_callbackcodestr := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_callbackcodestr))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_callbackcodetostr(
 			C.MSKcallbackcodee(code),
 			c_callbackcodestr,
@@ -47,7 +45,7 @@ func DinfitemToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_dinfitemtostr(
 			C.MSKdinfiteme(item),
 			c_str,
@@ -71,7 +69,7 @@ func GetBuildInfo() (buildstate, builddate string, r error) {
 	c_builddate := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_builddate))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getbuildinfo(
 			c_buildstate,
 			c_builddate,
@@ -90,7 +88,7 @@ func GetBuildInfo() (buildstate, builddate string, r error) {
 //
 // [MSK_getcodedesc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getcodedesc
 func GetCodedesc(
-	code res.Code,
+	code ResCode,
 ) (symname, str string, r error) {
 	// function template: prepare for output of booleans
 	c_symname := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
@@ -98,7 +96,7 @@ func GetCodedesc(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getcodedesc(
 			C.MSKrescodee(code),
 			c_symname,
@@ -118,9 +116,9 @@ func GetCodedesc(
 //
 // [MSK_getresponseclass]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getresponseclass
 func GetResponseclass(
-	r res.Code,
+	r ResCode,
 ) (rc ResCodeType, rescode error) {
-	rescode = res.Code(
+	rescode = ResCode(
 		C.MSK_getresponseclass(
 			C.MSKrescodee(r),
 			(*C.MSKrescodetypee)(&rc),
@@ -134,7 +132,7 @@ func GetResponseclass(
 //
 // [MSK_getversion]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.getversion
 func GetVersion() (major, minor, revision int32, r error) {
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getversion(
 			(*C.MSKint32t)(&major),
 			(*C.MSKint32t)(&minor),
@@ -155,7 +153,7 @@ func IinfitemToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_iinfitemtostr(
 			C.MSKiinfiteme(item),
 			c_str,
@@ -186,7 +184,7 @@ func Isinfinity(
 //
 // [MSK_licensecleanup]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.licensecleanup
 func Licensecleanup() error {
-	return res.Code(
+	return ResCode(
 		C.MSK_licensecleanup(),
 	).ToError()
 }
@@ -201,7 +199,7 @@ func LiinfitemToStr(
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_liinfitemtostr(
 			C.MSKliinfiteme(item),
 			c_str,
@@ -246,7 +244,7 @@ func Utf8towchar(
 	c_input := C.CString(input)
 	defer C.free(unsafe.Pointer(c_input))
 
-	return res.Code(
+	return ResCode(
 		C.MSK_utf8towchar(
 			C.size_t(outputlen),
 			(*C.size_t)(getPtrToFirst(len)),
@@ -267,7 +265,7 @@ func Wchartoutf8(
 	output *byte,
 	input []int32,
 ) error {
-	return res.Code(
+	return ResCode(
 		C.MSK_wchartoutf8(
 			C.size_t(outputlen),
 			(*C.size_t)(getPtrToFirst(len)),

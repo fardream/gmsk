@@ -59,8 +59,6 @@ import (
 	"io"
 	"runtime/cgo"
 	"unsafe"
-
-	"github.com/fardream/gmsk/res"
 )
 
 // INFINITY is MSK_INFINITY (which is different from the double's infinity)
@@ -104,7 +102,7 @@ func MakeEnv(dbgfile ...string) (*Env, error) {
 		}
 	}
 
-	r := res.Code(C.MSK_makeenv(&env, cdbgfile))
+	r := ResCode(C.MSK_makeenv(&env, cdbgfile))
 	if r != RES_OK {
 		return nil, NewError(r)
 	}
@@ -128,7 +126,7 @@ func (env *Env) MakeTask(maxnumcon int32, maxnumvar int32) (*Task, error) {
 // DeleteEnv deletes the environment
 func DeleteEnv(env *Env) error {
 	if env.env != nil {
-		return NewError(res.Code(C.MSK_deleteenv(&env.env)))
+		return NewError(ResCode(C.MSK_deleteenv(&env.env)))
 	}
 
 	return nil
@@ -151,7 +149,7 @@ func MakeTask(env *Env, maxnumcon, maxnumvar int32) (*Task, error) {
 	if env != nil {
 		e = env.env
 	}
-	r := res.Code(C.MSK_maketask(e, mi32(maxnumcon), mi32(maxnumvar), &task))
+	r := ResCode(C.MSK_maketask(e, mi32(maxnumcon), mi32(maxnumvar), &task))
 	if r != RES_OK {
 		return nil, NewError(r)
 	}
@@ -174,7 +172,7 @@ func DeleteTask(task *Task) {
 }
 
 // fmtError formats the error string
-func fmtError(format string, resCode res.Code) error {
+func fmtError(format string, resCode ResCode) error {
 	symbol, desc, _ := GetCodedesc(resCode)
 	return fmt.Errorf(format, symbol, desc)
 }
@@ -185,7 +183,7 @@ func fmtError(format string, resCode res.Code) error {
 // This is same as [Task.AppendRQuadraticConeDomain],
 // but with the word "rotated" fully spelled out.
 func (task *Task) AppendRotatedQuadraticConeDomain(n int64) (domidx int64, err error) {
-	err = res.NewErrorFromInt(C.MSK_appendrquadraticconedomain(task.task, mi64(n), pi64(&domidx)))
+	err = NewErrorFromInt(C.MSK_appendrquadraticconedomain(task.task, mi64(n), pi64(&domidx)))
 
 	return
 }
@@ -204,7 +202,7 @@ func (task *Task) GetXx(whichsol SolType, xx []float64) ([]float64, error) {
 		xx = make([]float64, numVar)
 	}
 
-	err = res.Code(C.MSK_getxx(task.task, C.MSKsoltypee(whichsol), prl(&xx[0]))).ToError()
+	err = ResCode(C.MSK_getxx(task.task, C.MSKsoltypee(whichsol), prl(&xx[0]))).ToError()
 
 	return xx, err
 }
@@ -212,12 +210,12 @@ func (task *Task) GetXx(whichsol SolType, xx []float64) ([]float64, error) {
 // GetXxSlice wraps MSK_getxxslice, which gets a slice of the solution. xx can be nil, in which case the number of variables
 // will be last - first and a new slice will be created.
 func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) ([]float64, error) {
-	var r res.Code
+	var r ResCode
 	if xx == nil {
 		xx = make([]float64, last-first)
 	}
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_getxxslice(
 			task.task,
 			C.MSKsoltypee(whichsol),
@@ -241,7 +239,7 @@ func (task *Task) GetBarXj(whichsol SolType, j int32, barxj []float64) ([]float6
 		barxj = make([]float64, lenbarvarj)
 	}
 
-	err = res.NewErrorFromInt(
+	err = NewErrorFromInt(
 		C.MSK_getbarxj(task.task, C.MSKsoltypee(whichsol), mi32(j), prl(&barxj[0])),
 	)
 
@@ -251,7 +249,7 @@ func (task *Task) GetBarXj(whichsol SolType, j int32, barxj []float64) ([]float6
 // GetAccN wraps MSK_getaccn and returns the dimension of cone at index accidx.
 func (task *Task) GetAccN(accidx int64) (int64, error) {
 	var accn int64
-	err := res.NewErrorFromInt(C.MSK_getaccn(task.task, mi64(accidx), pi64(&accn)))
+	err := NewErrorFromInt(C.MSK_getaccn(task.task, mi64(accidx), pi64(&accn)))
 	return accn, err
 }
 
@@ -270,7 +268,7 @@ func (task *Task) GetAccDotY(whichsol SolType, accidx int64, doty []float64) ([]
 		doty = make([]float64, numdoty)
 	}
 
-	err = res.NewErrorFromInt(C.MSK_getaccdoty(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&doty[0])))
+	err = NewErrorFromInt(C.MSK_getaccdoty(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&doty[0])))
 
 	return doty, err
 }
@@ -288,7 +286,7 @@ func (task *Task) EvaluateAcc(whichsol SolType, accidx int64, activity []float64
 		activity = make([]float64, numdoty)
 	}
 
-	err = res.NewErrorFromInt(C.MSK_evaluateacc(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&activity[0])))
+	err = NewErrorFromInt(C.MSK_evaluateacc(task.task, C.MSKsoltypee(whichsol), mi64(accidx), prl(&activity[0])))
 
 	return activity, err
 }
@@ -330,7 +328,7 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) erro
 	ptr := cgo.NewHandle(writer)
 	task.writerHandles = append(task.writerHandles, ptr)
 
-	return res.Code(
+	return ResCode(
 		C.MSK_linkfunctotaskstream(
 			task.task,
 			C.MSKstreamtypee(whichstream),
@@ -370,7 +368,7 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 	ptr := cgo.NewHandle(writer)
 	task.writerHandles = append(task.writerHandles, ptr)
 
-	return res.Code(
+	return ResCode(
 		C.MSK_writedatahandle(
 			task.task,
 			(*[0]byte)(C.writeFuncToWriter),
@@ -405,13 +403,13 @@ func getPtrToFirst[T any](v []T) *T {
 //
 // [MSK_rescodetostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.rescodetostr
 func RescodeToStr(
-	c res.Code,
+	c ResCode,
 ) (str string, r error) {
 	// function template: prepare for output of booleans
 	c_str := (*C.char)(C.calloc(MAX_STR_LEN+1, 1))
 	defer C.free(unsafe.Pointer(c_str))
 
-	r = res.Code(
+	r = ResCode(
 		C.MSK_rescodetostr(
 			C.MSKrescodee(c),
 			c_str,
@@ -434,7 +432,7 @@ func (task *Task) WriteBSolutionHandle(handle io.Writer, compress CompressType) 
 	ptr := cgo.NewHandle(writer)
 	task.writerHandles = append(task.writerHandles, ptr)
 
-	return res.Code(C.MSK_writebsolutionhandle(
+	return ResCode(C.MSK_writebsolutionhandle(
 		task.task,
 		(*[0]byte)(C.writeFuncToWriter),
 		C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
