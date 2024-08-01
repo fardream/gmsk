@@ -11,6 +11,11 @@ def _mosek_repo_impl(repository_ctx):
         sha256 = "f37b7b3806e467c64a02e95b2ab009f6fe8430f25ffc72ed56885f7684dec486"
         platform_str = "linux64x86"
         dylib_extension = "so"
+    elif "aarch64" in repository_ctx.os.arch and "linux" in repository_ctx.os.name:
+        url = "https://download.mosek.com/stable/10.1.21/mosektoolslinuxaarch64.tar.bz2"
+        sha256 = "c2d15979dc1190ff83949b2e79244137ed4013fdb47de90fb62836088749e0ca"
+        platform_str = "linuxaarch64"
+        dylib_extension = "so"
     elif "aarch64" in repository_ctx.os.arch and "mac" in repository_ctx.os.name:
         url = "https://download.mosek.com/stable/10.1.21/mosektoolsosxaarch64.tar.bz2"
         sha256 = "f6e862cab171b7897a6f1ad21c3c0fbdf33dc1310f50c792295ab008321950c7"
