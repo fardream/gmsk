@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Example of mixed integer linear optimization, reproduced from milo1.c in MOSEK C api.
@@ -71,10 +71,11 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 		   blx[j] <= x_j <= bux[j] */
 
 		checkOk(task.PutVarBound(
-			j,       /* Index of variable.*/
-			bkx[j],  /* Bound key.*/
-			blx[j],  /* Numerical value of lower bound.*/
-			bux[j])) /* Numerical value of upper bound.*/
+			j,      /* Index of variable.*/
+			bkx[j], /* Bound key.*/
+			blx[j], /* Numerical value of lower bound.*/
+			bux[j],
+		)) /* Numerical value of upper bound.*/
 
 		/* Input column j of A */
 		if aptre[j]-aptrb[j] > 0 {
@@ -82,7 +83,8 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 				j,                       /* Variable (column) index.*/
 				aptre[j]-aptrb[j],       /* Number of non-zeros in column j.*/
 				asub[aptrb[j]:aptre[j]], /* Pointer to row indexes of column j.*/
-				aval[aptrb[j]:aptre[j]]) /* Pointer to Values of column j.*/
+				aval[aptrb[j]:aptre[j]],
+			) /* Pointer to Values of column j.*/
 		}
 	}
 
@@ -95,7 +97,8 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
-			buc[i]) /* Numerical value of upper bound.*/
+			buc[i],
+		) /* Numerical value of upper bound.*/
 	}
 	checkOk(r)
 
@@ -128,7 +131,8 @@ func Example_mixedIntegeLinearOptimization1_milo1() {
 	case gmsk.SOL_STA_INTEGER_OPTIMAL:
 		xx, r = task.GetXx(
 			gmsk.SOL_ITG, /* Request the integer solution. */
-			xx)
+			xx,
+		)
 		checkOk(r)
 		fmt.Printf("Optimal solution.\n")
 		for j = 0; j < numvar; j++ {

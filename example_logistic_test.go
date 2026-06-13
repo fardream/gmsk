@@ -5,7 +5,7 @@ import (
 	"log"
 	"math"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 func MSKCALL(r error) {

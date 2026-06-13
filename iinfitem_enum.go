@@ -29,6 +29,7 @@ const (
 	IINF_ANA_PRO_NUM_VAR_LO                    IInfItem = C.MSK_IINF_ANA_PRO_NUM_VAR_LO                    // Number of variables with a lower bound and an infinite upper bound.
 	IINF_ANA_PRO_NUM_VAR_RA                    IInfItem = C.MSK_IINF_ANA_PRO_NUM_VAR_RA                    // Number of variables with finite lower and upper bounds.
 	IINF_ANA_PRO_NUM_VAR_UP                    IInfItem = C.MSK_IINF_ANA_PRO_NUM_VAR_UP                    // Number of variables with an upper bound and an infinite lower bound.
+	IINF_FOLDING_APPLIED                       IInfItem = C.MSK_IINF_FOLDING_APPLIED                       // Non-zero if folding was exploited.
 	IINF_INTPNT_FACTOR_DIM_DENSE               IInfItem = C.MSK_IINF_INTPNT_FACTOR_DIM_DENSE               // Dimension of the dense sub system in factorization.
 	IINF_INTPNT_ITER                           IInfItem = C.MSK_IINF_INTPNT_ITER                           // Number of interior-point iterations since invoking the interior-point optimizer.
 	IINF_INTPNT_NUM_THREADS                    IInfItem = C.MSK_IINF_INTPNT_NUM_THREADS                    // Number of threads that the interior-point optimizer is using.
@@ -36,10 +37,29 @@ const (
 	IINF_MIO_ABSGAP_SATISFIED                  IInfItem = C.MSK_IINF_MIO_ABSGAP_SATISFIED                  // Non-zero if absolute gap is within tolerances.
 	IINF_MIO_CLIQUE_TABLE_SIZE                 IInfItem = C.MSK_IINF_MIO_CLIQUE_TABLE_SIZE                 // Size of the clique table.
 	IINF_MIO_CONSTRUCT_SOLUTION                IInfItem = C.MSK_IINF_MIO_CONSTRUCT_SOLUTION                // Informs if MOSEK successfully constructed an initial integer feasible solution.
+	IINF_MIO_FINAL_NUMBIN                      IInfItem = C.MSK_IINF_MIO_FINAL_NUMBIN                      // Number of binary variables in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMBINCONEVAR               IInfItem = C.MSK_IINF_MIO_FINAL_NUMBINCONEVAR               // Number of binary cone variables in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMCON                      IInfItem = C.MSK_IINF_MIO_FINAL_NUMCON                      // Number of constraints in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMCONE                     IInfItem = C.MSK_IINF_MIO_FINAL_NUMCONE                     // Number of cones in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMCONEVAR                  IInfItem = C.MSK_IINF_MIO_FINAL_NUMCONEVAR                  // Number of cone variables in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMCONT                     IInfItem = C.MSK_IINF_MIO_FINAL_NUMCONT                     // Number of continuous variables in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMCONTCONEVAR              IInfItem = C.MSK_IINF_MIO_FINAL_NUMCONTCONEVAR              // Number of continuous cone variables in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMDEXPCONES                IInfItem = C.MSK_IINF_MIO_FINAL_NUMDEXPCONES                // Number of dual exponential cones in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMDJC                      IInfItem = C.MSK_IINF_MIO_FINAL_NUMDJC                      // Number of disjunctive constraints in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMDPOWCONES                IInfItem = C.MSK_IINF_MIO_FINAL_NUMDPOWCONES                // Number of dual power cones in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMINT                      IInfItem = C.MSK_IINF_MIO_FINAL_NUMINT                      // Number of integer variables in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMINTCONEVAR               IInfItem = C.MSK_IINF_MIO_FINAL_NUMINTCONEVAR               // Number of integer cone variables in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMPEXPCONES                IInfItem = C.MSK_IINF_MIO_FINAL_NUMPEXPCONES                // Number of primal exponential cones in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMPPOWCONES                IInfItem = C.MSK_IINF_MIO_FINAL_NUMPPOWCONES                // Number of primal power cones in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMQCONES                   IInfItem = C.MSK_IINF_MIO_FINAL_NUMQCONES                   // Number of quadratic cones in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMRQCONES                  IInfItem = C.MSK_IINF_MIO_FINAL_NUMRQCONES                  // Number of rotated quadratic cones in the mixed-integer optimizer's final problem.
+	IINF_MIO_FINAL_NUMVAR                      IInfItem = C.MSK_IINF_MIO_FINAL_NUMVAR                      // Number of variables in the mixed-integer optimizer's final problem.
 	IINF_MIO_INITIAL_FEASIBLE_SOLUTION         IInfItem = C.MSK_IINF_MIO_INITIAL_FEASIBLE_SOLUTION         // Informs if MOSEK found the solution provided by the user to be feasible
 	IINF_MIO_NODE_DEPTH                        IInfItem = C.MSK_IINF_MIO_NODE_DEPTH                        // Depth of the last node solved.
 	IINF_MIO_NUM_ACTIVE_NODES                  IInfItem = C.MSK_IINF_MIO_NUM_ACTIVE_NODES                  // Number of active branch and bound nodes.
 	IINF_MIO_NUM_ACTIVE_ROOT_CUTS              IInfItem = C.MSK_IINF_MIO_NUM_ACTIVE_ROOT_CUTS              // Number of active cuts in the final relaxation after the mixed-integer optimizer's root cut generation.
+	IINF_MIO_NUM_BLOCKS_SOLVED_IN_BB           IInfItem = C.MSK_IINF_MIO_NUM_BLOCKS_SOLVED_IN_BB           // Number of independent decomposition blocks solved though a dedicated algorithm.
+	IINF_MIO_NUM_BLOCKS_SOLVED_IN_PRESOLVE     IInfItem = C.MSK_IINF_MIO_NUM_BLOCKS_SOLVED_IN_PRESOLVE     // Number of independent decomposition blocks solved during presolve.
 	IINF_MIO_NUM_BRANCH                        IInfItem = C.MSK_IINF_MIO_NUM_BRANCH                        // Number of branches performed during the optimization.
 	IINF_MIO_NUM_INT_SOLUTIONS                 IInfItem = C.MSK_IINF_MIO_NUM_INT_SOLUTIONS                 // Number of integer feasible solutions that have been found.
 	IINF_MIO_NUM_RELAX                         IInfItem = C.MSK_IINF_MIO_NUM_RELAX                         // Number of relaxations solved during the optimization.
@@ -149,6 +169,7 @@ var _IInfItem_map = map[IInfItem]string{
 	IINF_ANA_PRO_NUM_VAR_LO:                    "IINF_ANA_PRO_NUM_VAR_LO",
 	IINF_ANA_PRO_NUM_VAR_RA:                    "IINF_ANA_PRO_NUM_VAR_RA",
 	IINF_ANA_PRO_NUM_VAR_UP:                    "IINF_ANA_PRO_NUM_VAR_UP",
+	IINF_FOLDING_APPLIED:                       "IINF_FOLDING_APPLIED",
 	IINF_INTPNT_FACTOR_DIM_DENSE:               "IINF_INTPNT_FACTOR_DIM_DENSE",
 	IINF_INTPNT_ITER:                           "IINF_INTPNT_ITER",
 	IINF_INTPNT_NUM_THREADS:                    "IINF_INTPNT_NUM_THREADS",
@@ -156,10 +177,29 @@ var _IInfItem_map = map[IInfItem]string{
 	IINF_MIO_ABSGAP_SATISFIED:                  "IINF_MIO_ABSGAP_SATISFIED",
 	IINF_MIO_CLIQUE_TABLE_SIZE:                 "IINF_MIO_CLIQUE_TABLE_SIZE",
 	IINF_MIO_CONSTRUCT_SOLUTION:                "IINF_MIO_CONSTRUCT_SOLUTION",
+	IINF_MIO_FINAL_NUMBIN:                      "IINF_MIO_FINAL_NUMBIN",
+	IINF_MIO_FINAL_NUMBINCONEVAR:               "IINF_MIO_FINAL_NUMBINCONEVAR",
+	IINF_MIO_FINAL_NUMCON:                      "IINF_MIO_FINAL_NUMCON",
+	IINF_MIO_FINAL_NUMCONE:                     "IINF_MIO_FINAL_NUMCONE",
+	IINF_MIO_FINAL_NUMCONEVAR:                  "IINF_MIO_FINAL_NUMCONEVAR",
+	IINF_MIO_FINAL_NUMCONT:                     "IINF_MIO_FINAL_NUMCONT",
+	IINF_MIO_FINAL_NUMCONTCONEVAR:              "IINF_MIO_FINAL_NUMCONTCONEVAR",
+	IINF_MIO_FINAL_NUMDEXPCONES:                "IINF_MIO_FINAL_NUMDEXPCONES",
+	IINF_MIO_FINAL_NUMDJC:                      "IINF_MIO_FINAL_NUMDJC",
+	IINF_MIO_FINAL_NUMDPOWCONES:                "IINF_MIO_FINAL_NUMDPOWCONES",
+	IINF_MIO_FINAL_NUMINT:                      "IINF_MIO_FINAL_NUMINT",
+	IINF_MIO_FINAL_NUMINTCONEVAR:               "IINF_MIO_FINAL_NUMINTCONEVAR",
+	IINF_MIO_FINAL_NUMPEXPCONES:                "IINF_MIO_FINAL_NUMPEXPCONES",
+	IINF_MIO_FINAL_NUMPPOWCONES:                "IINF_MIO_FINAL_NUMPPOWCONES",
+	IINF_MIO_FINAL_NUMQCONES:                   "IINF_MIO_FINAL_NUMQCONES",
+	IINF_MIO_FINAL_NUMRQCONES:                  "IINF_MIO_FINAL_NUMRQCONES",
+	IINF_MIO_FINAL_NUMVAR:                      "IINF_MIO_FINAL_NUMVAR",
 	IINF_MIO_INITIAL_FEASIBLE_SOLUTION:         "IINF_MIO_INITIAL_FEASIBLE_SOLUTION",
 	IINF_MIO_NODE_DEPTH:                        "IINF_MIO_NODE_DEPTH",
 	IINF_MIO_NUM_ACTIVE_NODES:                  "IINF_MIO_NUM_ACTIVE_NODES",
 	IINF_MIO_NUM_ACTIVE_ROOT_CUTS:              "IINF_MIO_NUM_ACTIVE_ROOT_CUTS",
+	IINF_MIO_NUM_BLOCKS_SOLVED_IN_BB:           "IINF_MIO_NUM_BLOCKS_SOLVED_IN_BB",
+	IINF_MIO_NUM_BLOCKS_SOLVED_IN_PRESOLVE:     "IINF_MIO_NUM_BLOCKS_SOLVED_IN_PRESOLVE",
 	IINF_MIO_NUM_BRANCH:                        "IINF_MIO_NUM_BRANCH",
 	IINF_MIO_NUM_INT_SOLUTIONS:                 "IINF_MIO_NUM_INT_SOLUTIONS",
 	IINF_MIO_NUM_RELAX:                         "IINF_MIO_NUM_RELAX",

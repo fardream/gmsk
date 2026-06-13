@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Portfolio frontier optimization, reproduced from portfolio_2_frontier.c in MOSEK C api.

@@ -20,7 +20,7 @@ const (
 	SPAR_INT_SOL_FILE_NAME         SParam = C.MSK_SPAR_INT_SOL_FILE_NAME         // Name of the int solution file.
 	SPAR_ITR_SOL_FILE_NAME         SParam = C.MSK_SPAR_ITR_SOL_FILE_NAME         // Name of the itr solution file.
 	SPAR_MIO_DEBUG_STRING          SParam = C.MSK_SPAR_MIO_DEBUG_STRING          // For internal debugging purposes.
-	SPAR_PARAM_COMMENT_SIGN        SParam = C.MSK_SPAR_PARAM_COMMENT_SIGN        // Solution file comment character.
+	SPAR_PARAM_COMMENT_SIGN        SParam = C.MSK_SPAR_PARAM_COMMENT_SIGN        // Parameter file comment character.
 	SPAR_PARAM_READ_FILE_NAME      SParam = C.MSK_SPAR_PARAM_READ_FILE_NAME      // Modifications to the parameter database is read from this file.
 	SPAR_PARAM_WRITE_FILE_NAME     SParam = C.MSK_SPAR_PARAM_WRITE_FILE_NAME     // The parameter database is written to this file.
 	SPAR_READ_MPS_BOU_NAME         SParam = C.MSK_SPAR_READ_MPS_BOU_NAME         // Name of the BOUNDS vector used. An empty name means that the first BOUNDS vector is used.
@@ -38,7 +38,6 @@ const (
 	SPAR_SOL_FILTER_XX_UPR         SParam = C.MSK_SPAR_SOL_FILTER_XX_UPR         // Solution file filter.
 	SPAR_STAT_KEY                  SParam = C.MSK_SPAR_STAT_KEY                  // Key used when writing the summary file.
 	SPAR_STAT_NAME                 SParam = C.MSK_SPAR_STAT_NAME                 // Name used when writing the statistics file.
-	SPAR_WRITE_LP_GEN_VAR_NAME     SParam = C.MSK_SPAR_WRITE_LP_GEN_VAR_NAME     // Added variable names in the LP files.
 )
 
 var _SParam_map = map[SParam]string{
@@ -66,7 +65,6 @@ var _SParam_map = map[SParam]string{
 	SPAR_SOL_FILTER_XX_UPR:         "SPAR_SOL_FILTER_XX_UPR",
 	SPAR_STAT_KEY:                  "SPAR_STAT_KEY",
 	SPAR_STAT_NAME:                 "SPAR_STAT_NAME",
-	SPAR_WRITE_LP_GEN_VAR_NAME:     "SPAR_WRITE_LP_GEN_VAR_NAME",
 }
 
 func (e SParam) String() string {

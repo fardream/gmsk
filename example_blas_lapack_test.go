@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Example on how to use included BLAS/LAPACK routines in MOSEK,

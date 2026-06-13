@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Reoptimization example, reproduced from reoptimization.c in MOSEK C api.
@@ -103,7 +103,8 @@ func Example_reoptimization() {
 				j,
 				ptre[j]-ptrb[j],
 				asub[ptrb[j]:ptre[j]],
-				aval[ptrb[j]:ptre[j]]))
+				aval[ptrb[j]:ptre[j]],
+			))
 		}
 	}
 
@@ -116,7 +117,8 @@ func Example_reoptimization() {
 
 	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
-		xx)
+		xx,
+	)
 	checkOk(r)
 
 	printres(numvar, xx)
@@ -128,7 +130,8 @@ func Example_reoptimization() {
 
 	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
-		xx)
+		xx,
+	)
 	checkOk(r)
 
 	printres(numvar, xx)
@@ -144,7 +147,8 @@ func Example_reoptimization() {
 		varidx,
 		gmsk.BK_LO,
 		0,
-		gmsk.INFINITY)
+		gmsk.INFINITY,
+	)
 
 	/* Change objective */
 	checkOk(task.PutCJ(varidx, 1))
@@ -158,7 +162,8 @@ func Example_reoptimization() {
 			varidx, /* column index */
 			2,      /* num nz in column*/
 			acolsub,
-			acolval))
+			acolval,
+		))
 	}
 
 	/* Change optimizer to free simplex and reoptimize */
@@ -169,7 +174,8 @@ func Example_reoptimization() {
 	xx = make([]float64, numvar)
 	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
-		xx)
+		xx,
+	)
 	checkOk(r)
 
 	printres(numvar, xx)
@@ -189,7 +195,9 @@ func Example_reoptimization() {
 			conidx,
 			gmsk.BK_UP,
 			-gmsk.INFINITY,
-			30000))
+			30000,
+		),
+	)
 
 	/* Put new values in the A matrix */
 	{
@@ -201,7 +209,9 @@ func Example_reoptimization() {
 				conidx, /* row index */
 				4,      /* num nz in row*/
 				arowsub,
-				arowval))
+				arowval,
+			),
+		)
 	}
 
 	_, r = task.OptimizeTrm()
@@ -209,7 +219,8 @@ func Example_reoptimization() {
 
 	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
-		xx)
+		xx,
+	)
 	checkOk(r)
 
 	printres(numvar, xx)
@@ -228,7 +239,8 @@ func Example_reoptimization() {
 
 	xx, r = task.GetXx(
 		gmsk.SOL_BAS, /* Basic solution.       */
-		xx)
+		xx,
+	)
 	checkOk(r)
 
 	printres(numvar, xx)

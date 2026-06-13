@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Portfolio optimization with cardinality constraints on the number of assets traded,

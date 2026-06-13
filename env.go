@@ -152,7 +152,7 @@ func (env *Env) Dot(
 		),
 	).ToError()
 
-	return
+	return xty, r
 }
 
 // EchoIntro is wrapping [MSK_echointro],
@@ -190,7 +190,7 @@ func (env *Env) Expirylicenses() (expiry int64, r error) {
 		),
 	).ToError()
 
-	return
+	return expiry, r
 }
 
 // Gemm is wrapping [MSK_gemm],

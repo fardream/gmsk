@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Linear programming example 1, reproduced from mosek c api example lo1.c
@@ -76,7 +76,8 @@ func Example_linearOptimization1_lo1() {
 			j,      /* Index of variable.*/
 			bkx[j], /* Bound key.*/
 			blx[j], /* Numerical value of lower bound.*/
-			bux[j]) /* Numerical value of upper bound.*/
+			bux[j],
+		) /* Numerical value of upper bound.*/
 		if r != nil {
 			break
 		}
@@ -86,7 +87,8 @@ func Example_linearOptimization1_lo1() {
 			j,                       /* Variable (column) index.*/
 			aptre[j]-aptrb[j],       /* Number of non-zeros in column j.*/
 			asub[aptrb[j]:aptre[j]], /* Pointer to row indexes of column j.*/
-			aval[aptrb[j]:aptre[j]]) /* Pointer to Values of column j.*/
+			aval[aptrb[j]:aptre[j]],
+		) /* Pointer to Values of column j.*/
 	}
 
 	checkOk(r)
@@ -98,7 +100,8 @@ func Example_linearOptimization1_lo1() {
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
-			buc[i]) /* Numerical value of upper bound.*/
+			buc[i],
+		) /* Numerical value of upper bound.*/
 	}
 
 	checkOk(r)
@@ -123,7 +126,8 @@ func Example_linearOptimization1_lo1() {
 	case gmsk.SOL_STA_OPTIMAL:
 		xx, r := task.GetXx(
 			gmsk.SOL_BAS, /* Request the basic solution. */
-			nil)
+			nil,
+		)
 		if r != nil {
 			r = gmsk.NewError(gmsk.RES_ERR_SPACE)
 			break

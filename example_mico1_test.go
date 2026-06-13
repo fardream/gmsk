@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Mixed integer conic optimization example, reproduced from mico1.c from MOSEK C api.

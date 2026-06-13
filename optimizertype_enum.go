@@ -12,11 +12,13 @@ import "C"
 type OptimizerType = int32
 
 const (
-	OPTIMIZER_CONIC          OptimizerType = C.MSK_OPTIMIZER_CONIC          // The optimizer for problems having conic constraints.
-	OPTIMIZER_DUAL_SIMPLEX   OptimizerType = C.MSK_OPTIMIZER_DUAL_SIMPLEX   // The dual simplex optimizer is used.
-	OPTIMIZER_FREE           OptimizerType = C.MSK_OPTIMIZER_FREE           // The optimizer is chosen automatically.
-	OPTIMIZER_FREE_SIMPLEX   OptimizerType = C.MSK_OPTIMIZER_FREE_SIMPLEX   // One of the simplex optimizers is used.
-	OPTIMIZER_INTPNT         OptimizerType = C.MSK_OPTIMIZER_INTPNT         // The interior-point optimizer is used.
-	OPTIMIZER_MIXED_INT      OptimizerType = C.MSK_OPTIMIZER_MIXED_INT      // The mixed-integer optimizer.
-	OPTIMIZER_PRIMAL_SIMPLEX OptimizerType = C.MSK_OPTIMIZER_PRIMAL_SIMPLEX // The primal simplex optimizer is used.
+	OPTIMIZER_CONIC              OptimizerType = C.MSK_OPTIMIZER_CONIC              // The optimizer for problems having conic constraints.
+	OPTIMIZER_DUAL_SIMPLEX       OptimizerType = C.MSK_OPTIMIZER_DUAL_SIMPLEX       // The dual simplex optimizer is used.
+	OPTIMIZER_FREE               OptimizerType = C.MSK_OPTIMIZER_FREE               // The optimizer is chosen automatically.
+	OPTIMIZER_FREE_SIMPLEX       OptimizerType = C.MSK_OPTIMIZER_FREE_SIMPLEX       // One of the simplex optimizers is used.
+	OPTIMIZER_INTPNT             OptimizerType = C.MSK_OPTIMIZER_INTPNT             // The interior-point optimizer is used.
+	OPTIMIZER_MIXED_INT          OptimizerType = C.MSK_OPTIMIZER_MIXED_INT          // The mixed-integer optimizer.
+	OPTIMIZER_NEW_DUAL_SIMPLEX   OptimizerType = C.MSK_OPTIMIZER_NEW_DUAL_SIMPLEX   // The new dual simplex optimizer is used.
+	OPTIMIZER_NEW_PRIMAL_SIMPLEX OptimizerType = C.MSK_OPTIMIZER_NEW_PRIMAL_SIMPLEX // The new primal simplex optimizer is used. It is not recommended to use this option.
+	OPTIMIZER_PRIMAL_SIMPLEX     OptimizerType = C.MSK_OPTIMIZER_PRIMAL_SIMPLEX     // The primal simplex optimizer is used.
 )

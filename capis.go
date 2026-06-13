@@ -221,7 +221,9 @@ func (task *Task) GetXxSlice(whichsol SolType, first, last int32, xx []float64) 
 			C.MSKsoltypee(whichsol),
 			mi32(first),
 			mi32(last),
-			prl(&xx[0])))
+			prl(&xx[0]),
+		),
+	)
 
 	return xx, r.ToError()
 }
@@ -333,7 +335,9 @@ func (task *Task) LinkFuncToTaskStream(whichstream StreamType, w io.Writer) erro
 			task.task,
 			C.MSKstreamtypee(whichstream),
 			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
-			(*[0]byte)(C.writeStreamToWriter))).ToError()
+			(*[0]byte)(C.writeStreamToWriter),
+		),
+	).ToError()
 }
 
 // writeFuncToWriter is the function for C api's MSKhwritefunc, which has a signature of
@@ -374,7 +378,9 @@ func (task *Task) WriteDataHandle(handle io.Writer, format DataFormat, compress 
 			(*[0]byte)(C.writeFuncToWriter),
 			C.MSKuserhandle_t(ptr), // staticcheck will complain, but this is fine.
 			C.MSKdataformate(format),
-			C.MSKcompresstypee(compress))).ToError()
+			C.MSKcompresstypee(compress),
+		),
+	).ToError()
 }
 
 // intToBool converts an integer to a bool.

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Portfolio optimization fixed setup costs and transaction costs as a mixed integer problem,
@@ -173,5 +173,5 @@ func Example_portfolio_4_transcost() {
 	}
 
 	fmt.Printf("\nExpected return %e for gamma %e\n", expret, gamma)
-	// Output: Expected return 4.119046e-01 for gamma 3.600000e-01
+	// Output: Expected return 4.119047e-01 for gamma 3.600000e-01
 }

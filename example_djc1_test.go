@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Optimization with disjunctive constraints, reproduced from djc1.c in MOSEK C api.
@@ -100,7 +100,8 @@ func Example_disjunctiveConstraint_djc1() {
 			4, domidxlist,
 			6, afeidxlist,
 			nil, // Unused
-			2, termsizelist))
+			2, termsizelist,
+		))
 	}
 
 	{
@@ -113,7 +114,8 @@ func Example_disjunctiveConstraint_djc1() {
 			4, domidxlist,
 			4, afeidxlist,
 			nil, // Unused
-			4, termsizelist))
+			4, termsizelist,
+		))
 	}
 
 	// Useful for debugging

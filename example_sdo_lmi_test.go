@@ -6,7 +6,7 @@ import (
 	"math"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Example of semidefinite matrix with linear matrix inequality, reproduced from sdo_lmi.c in

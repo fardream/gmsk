@@ -23,7 +23,7 @@ func (task *Task) GetNumAcc() (num int64, r error) {
 		),
 	).ToError()
 
-	return
+	return num, r
 }
 
 // GetNumAfe is wrapping [MSK_getnumafe],
@@ -42,10 +42,10 @@ func (task *Task) GetNumAfe() (numafe int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numafe, r
 }
 
-// GetNumANz is wrapping [MSK_getnumanz],
+// Getnumanz is wrapping [MSK_getnumanz],
 // Obtains the number of non-zeros in the coefficient matrix.
 //
 // Returns:
@@ -53,7 +53,7 @@ func (task *Task) GetNumAfe() (numafe int64, r error) {
 //   - `numanz` Number of non-zero elements in the linear constraint matrix.
 //
 // [MSK_getnumanz]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz
-func (task *Task) GetNumANz() (numanz int32, r error) {
+func (task *Task) Getnumanz() (numanz int32, r error) {
 	r = ResCode(
 		C.MSK_getnumanz(
 			task.task,
@@ -61,18 +61,13 @@ func (task *Task) GetNumANz() (numanz int32, r error) {
 		),
 	).ToError()
 
-	return
+	return numanz, r
 }
 
-// GetNumANz64 is wrapping [MSK_getnumanz64],
-// Obtains the number of non-zeros in the coefficient matrix.
-//
-// Returns:
-//
-//   - `numanz` Number of non-zero elements in the linear constraint matrix.
+// GetNumAnz64 is wrapping [MSK_getnumanz64]
 //
 // [MSK_getnumanz64]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumanz64
-func (task *Task) GetNumANz64() (numanz int64, r error) {
+func (task *Task) GetNumAnz64() (numanz int64, r error) {
 	r = ResCode(
 		C.MSK_getnumanz64(
 			task.task,
@@ -80,7 +75,7 @@ func (task *Task) GetNumANz64() (numanz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numanz, r
 }
 
 // GetNumBaraBlockTriplets is wrapping [MSK_getnumbarablocktriplets],
@@ -99,7 +94,7 @@ func (task *Task) GetNumBaraBlockTriplets() (num int64, r error) {
 		),
 	).ToError()
 
-	return
+	return num, r
 }
 
 // GetNumBaraNz is wrapping [MSK_getnumbaranz],
@@ -118,7 +113,7 @@ func (task *Task) GetNumBaraNz() (nz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return nz, r
 }
 
 // GetNumBarcBlockTriplets is wrapping [MSK_getnumbarcblocktriplets],
@@ -137,7 +132,7 @@ func (task *Task) GetNumBarcBlockTriplets() (num int64, r error) {
 		),
 	).ToError()
 
-	return
+	return num, r
 }
 
 // GetNumBarcNz is wrapping [MSK_getnumbarcnz],
@@ -156,7 +151,7 @@ func (task *Task) GetNumBarcNz() (nz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return nz, r
 }
 
 // GetNumBarvar is wrapping [MSK_getnumbarvar],
@@ -175,7 +170,7 @@ func (task *Task) GetNumBarvar() (numbarvar int32, r error) {
 		),
 	).ToError()
 
-	return
+	return numbarvar, r
 }
 
 // GetNumCon is wrapping [MSK_getnumcon],
@@ -194,7 +189,7 @@ func (task *Task) GetNumCon() (numcon int32, r error) {
 		),
 	).ToError()
 
-	return
+	return numcon, r
 }
 
 // GetNumCone is wrapping [MSK_getnumcone],
@@ -215,7 +210,7 @@ func (task *Task) GetNumCone() (numcone int32, r error) {
 		),
 	).ToError()
 
-	return
+	return numcone, r
 }
 
 // GetNumConeMem is wrapping [MSK_getnumconemem],
@@ -240,7 +235,7 @@ func (task *Task) GetNumConeMem(
 		),
 	).ToError()
 
-	return
+	return nummem, r
 }
 
 // GetNumDjc is wrapping [MSK_getnumdjc],
@@ -259,7 +254,7 @@ func (task *Task) GetNumDjc() (num int64, r error) {
 		),
 	).ToError()
 
-	return
+	return num, r
 }
 
 // GetNumDomain is wrapping [MSK_getnumdomain],
@@ -278,7 +273,7 @@ func (task *Task) GetNumDomain() (numdomain int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numdomain, r
 }
 
 // GetNumIntVar is wrapping [MSK_getnumintvar],
@@ -297,7 +292,7 @@ func (task *Task) GetNumIntVar() (numintvar int32, r error) {
 		),
 	).ToError()
 
-	return
+	return numintvar, r
 }
 
 // GetNumParam is wrapping [MSK_getnumparam],
@@ -306,6 +301,9 @@ func (task *Task) GetNumIntVar() (numintvar int32, r error) {
 // Arguments:
 //
 //   - `partype` Parameter type.
+//
+// Returns:
+//
 //   - `numparam` Returns the number of parameters of the requested type.
 //
 // [MSK_getnumparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getnumparam
@@ -320,7 +318,7 @@ func (task *Task) GetNumParam(
 		),
 	).ToError()
 
-	return
+	return numparam, r
 }
 
 // GetNumQConKNz is wrapping [MSK_getnumqconknz],
@@ -346,7 +344,7 @@ func (task *Task) GetNumQConKNz(
 		),
 	).ToError()
 
-	return
+	return numqcnz, r
 }
 
 // GetNumQConKNz64 is wrapping [MSK_getnumqconknz64]
@@ -363,7 +361,7 @@ func (task *Task) GetNumQConKNz64(
 		),
 	).ToError()
 
-	return
+	return numqcnz, r
 }
 
 // GetNumQObjNz is wrapping [MSK_getnumqobjnz],
@@ -382,7 +380,7 @@ func (task *Task) GetNumQObjNz() (numqonz int32, r error) {
 		),
 	).ToError()
 
-	return
+	return numqonz, r
 }
 
 // GetNumQObjNz64 is wrapping [MSK_getnumqobjnz64]
@@ -396,13 +394,13 @@ func (task *Task) GetNumQObjNz64() (numqonz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numqonz, r
 }
 
 // GetNumSymMat is wrapping [MSK_getnumsymmat],
 // Obtains the number of symmetric matrices stored.
 //
-// Arguments:
+// Returns:
 //
 //   - `num` The number of symmetric sparse matrices.
 //
@@ -415,7 +413,7 @@ func (task *Task) GetNumSymMat() (num int64, r error) {
 		),
 	).ToError()
 
-	return
+	return num, r
 }
 
 // GetNumVar is wrapping [MSK_getnumvar],
@@ -434,5 +432,5 @@ func (task *Task) GetNumVar() (numvar int32, r error) {
 		),
 	).ToError()
 
-	return
+	return numvar, r
 }

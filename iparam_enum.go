@@ -26,8 +26,10 @@ const (
 	IPAR_BI_MAX_ITERATIONS                  IParam = C.MSK_IPAR_BI_MAX_ITERATIONS                  // Maximum number of iterations after basis identification.
 	IPAR_CACHE_LICENSE                      IParam = C.MSK_IPAR_CACHE_LICENSE                      // Control license caching.
 	IPAR_COMPRESS_STATFILE                  IParam = C.MSK_IPAR_COMPRESS_STATFILE                  // Control compression of stat files.
+	IPAR_FOLDING_USE                        IParam = C.MSK_IPAR_FOLDING_USE                        // Controls how to use folding.
+	IPAR_GETDUAL_CONVERT_LMIS               IParam = C.MSK_IPAR_GETDUAL_CONVERT_LMIS               // Detect LMIs and optimize their dualization.
+	IPAR_HEARTBEAT_SIM_FREQ_TICKS           IParam = C.MSK_IPAR_HEARTBEAT_SIM_FREQ_TICKS           // Controls heartbeat frequency for the new simplex optimizers.
 	IPAR_INFEAS_GENERIC_NAMES               IParam = C.MSK_IPAR_INFEAS_GENERIC_NAMES               // Controls the contents of the infeasibility report.
-	IPAR_INFEAS_PREFER_PRIMAL               IParam = C.MSK_IPAR_INFEAS_PREFER_PRIMAL               // Controls which certificate is used if both primal- and dual- certificate of infeasibility is available.
 	IPAR_INFEAS_REPORT_AUTO                 IParam = C.MSK_IPAR_INFEAS_REPORT_AUTO                 // Turns the feasibility report on or off.
 	IPAR_INFEAS_REPORT_LEVEL                IParam = C.MSK_IPAR_INFEAS_REPORT_LEVEL                // Controls the contents of the infeasibility report.
 	IPAR_INTPNT_BASIS                       IParam = C.MSK_IPAR_INTPNT_BASIS                       // Controls whether basis identification is performed.
@@ -35,11 +37,9 @@ const (
 	IPAR_INTPNT_HOTSTART                    IParam = C.MSK_IPAR_INTPNT_HOTSTART                    // Currently not in use.
 	IPAR_INTPNT_MAX_ITERATIONS              IParam = C.MSK_IPAR_INTPNT_MAX_ITERATIONS              // Controls the maximum number of iterations allowed in the interior-point optimizer.
 	IPAR_INTPNT_MAX_NUM_COR                 IParam = C.MSK_IPAR_INTPNT_MAX_NUM_COR                 // Maximum number of correction steps.
-	IPAR_INTPNT_MAX_NUM_REFINEMENT_STEPS    IParam = C.MSK_IPAR_INTPNT_MAX_NUM_REFINEMENT_STEPS    // Maximum number of steps to be used by the iterative search direction refinement.
 	IPAR_INTPNT_OFF_COL_TRH                 IParam = C.MSK_IPAR_INTPNT_OFF_COL_TRH                 // Controls the aggressiveness of the offending column detection.
 	IPAR_INTPNT_ORDER_GP_NUM_SEEDS          IParam = C.MSK_IPAR_INTPNT_ORDER_GP_NUM_SEEDS          // This parameter controls the number of random seeds tried.
 	IPAR_INTPNT_ORDER_METHOD                IParam = C.MSK_IPAR_INTPNT_ORDER_METHOD                // Controls the ordering strategy.
-	IPAR_INTPNT_PURIFY                      IParam = C.MSK_IPAR_INTPNT_PURIFY                      // Currently not in use.
 	IPAR_INTPNT_REGULARIZATION_USE          IParam = C.MSK_IPAR_INTPNT_REGULARIZATION_USE          // Controls whether regularization is allowed.
 	IPAR_INTPNT_SCALING                     IParam = C.MSK_IPAR_INTPNT_SCALING                     // Controls how the problem is scaled before the interior-point optimizer is used.
 	IPAR_INTPNT_SOLVE_FORM                  IParam = C.MSK_IPAR_INTPNT_SOLVE_FORM                  // Controls whether the primal or the dual problem is solved.
@@ -65,17 +65,18 @@ const (
 	IPAR_LOG_MIO_FREQ                       IParam = C.MSK_IPAR_LOG_MIO_FREQ                       // The mixed-integer optimizer logging frequency.
 	IPAR_LOG_ORDER                          IParam = C.MSK_IPAR_LOG_ORDER                          // If turned on, then factor lines are added to the log.
 	IPAR_LOG_PRESOLVE                       IParam = C.MSK_IPAR_LOG_PRESOLVE                       // Controls amount of output printed by the presolve procedure. A higher level implies that more information is logged.
-	IPAR_LOG_RESPONSE                       IParam = C.MSK_IPAR_LOG_RESPONSE                       // Controls amount of output printed when response codes are reported. A higher level implies that more information is logged.
 	IPAR_LOG_SENSITIVITY                    IParam = C.MSK_IPAR_LOG_SENSITIVITY                    // Control logging in sensitivity analyzer.
 	IPAR_LOG_SENSITIVITY_OPT                IParam = C.MSK_IPAR_LOG_SENSITIVITY_OPT                // Control logging in sensitivity analyzer.
 	IPAR_LOG_SIM                            IParam = C.MSK_IPAR_LOG_SIM                            // Controls the amount of log information from the simplex optimizers.
 	IPAR_LOG_SIM_FREQ                       IParam = C.MSK_IPAR_LOG_SIM_FREQ                       // Controls simplex logging frequency.
-	IPAR_LOG_SIM_MINOR                      IParam = C.MSK_IPAR_LOG_SIM_MINOR                      // Currently not in use.
+	IPAR_LOG_SIM_FREQ_GIGA_TICKS            IParam = C.MSK_IPAR_LOG_SIM_FREQ_GIGA_TICKS            // Controls logging frequency for the new simplex optimizers.
 	IPAR_LOG_STORAGE                        IParam = C.MSK_IPAR_LOG_STORAGE                        // Controls the memory related log information.
 	IPAR_MAX_NUM_WARNINGS                   IParam = C.MSK_IPAR_MAX_NUM_WARNINGS                   // Each warning is shown a limited number of times controlled by this parameter. A negative value is identical to infinite number of times.
 	IPAR_MIO_BRANCH_DIR                     IParam = C.MSK_IPAR_MIO_BRANCH_DIR                     // Controls whether the mixed-integer optimizer is branching up or down by default.
+	IPAR_MIO_CONFLICT_ANALYSIS_LEVEL        IParam = C.MSK_IPAR_MIO_CONFLICT_ANALYSIS_LEVEL        // Controls the amount of conflict analysis employed by the mixed-integer optimizer.
 	IPAR_MIO_CONIC_OUTER_APPROXIMATION      IParam = C.MSK_IPAR_MIO_CONIC_OUTER_APPROXIMATION      // Toggles outer approximation for conic problems.
 	IPAR_MIO_CONSTRUCT_SOL                  IParam = C.MSK_IPAR_MIO_CONSTRUCT_SOL                  // Controls if an initial mixed integer solution should be constructed from the values of the integer variables.
+	IPAR_MIO_CROSSOVER_MAX_NODES            IParam = C.MSK_IPAR_MIO_CROSSOVER_MAX_NODES            // Maximum number of nodes in each call to Crossover.
 	IPAR_MIO_CUT_CLIQUE                     IParam = C.MSK_IPAR_MIO_CUT_CLIQUE                     // Controls whether clique cuts should be generated.
 	IPAR_MIO_CUT_CMIR                       IParam = C.MSK_IPAR_MIO_CUT_CMIR                       // Controls whether mixed integer rounding cuts should be generated.
 	IPAR_MIO_CUT_GMI                        IParam = C.MSK_IPAR_MIO_CUT_GMI                        // Controls whether GMI cuts should be generated.
@@ -84,28 +85,30 @@ const (
 	IPAR_MIO_CUT_LIPRO                      IParam = C.MSK_IPAR_MIO_CUT_LIPRO                      // Controls whether lift-and-project cuts should be generated.
 	IPAR_MIO_CUT_SELECTION_LEVEL            IParam = C.MSK_IPAR_MIO_CUT_SELECTION_LEVEL            // Controls how aggressively generated cuts are selected to be included in the relaxation.
 	IPAR_MIO_DATA_PERMUTATION_METHOD        IParam = C.MSK_IPAR_MIO_DATA_PERMUTATION_METHOD        // Controls what problem data permutation method is appplied to mixed-integer problems.
-	IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL        IParam = C.MSK_IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL        // Controls the amount of dual ray analysis employed by the mixed-integer optimizer in presolve.
+	IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL        IParam = C.MSK_IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL        // Controls the amount of dual ray analysis employed by the mixed-integer optimizer.
 	IPAR_MIO_FEASPUMP_LEVEL                 IParam = C.MSK_IPAR_MIO_FEASPUMP_LEVEL                 // Controls the way the Feasibility Pump heuristic is employed by the mixed-integer optimizer.
 	IPAR_MIO_HEURISTIC_LEVEL                IParam = C.MSK_IPAR_MIO_HEURISTIC_LEVEL                // Controls the heuristic employed by the mixed-integer optimizer to locate an initial integer feasible solution.
+	IPAR_MIO_INDEPENDENT_BLOCK_LEVEL        IParam = C.MSK_IPAR_MIO_INDEPENDENT_BLOCK_LEVEL        // Controls the way the mixed-integer optimizer exploits independent-block structure in the problem.
 	IPAR_MIO_MAX_NUM_BRANCHES               IParam = C.MSK_IPAR_MIO_MAX_NUM_BRANCHES               // Maximum number of branches allowed during the branch and bound search.
 	IPAR_MIO_MAX_NUM_RELAXS                 IParam = C.MSK_IPAR_MIO_MAX_NUM_RELAXS                 // Maximum number of relaxations in branch and bound search.
 	IPAR_MIO_MAX_NUM_RESTARTS               IParam = C.MSK_IPAR_MIO_MAX_NUM_RESTARTS               // Maximum number of restarts allowed during the branch and bound search.
 	IPAR_MIO_MAX_NUM_ROOT_CUT_ROUNDS        IParam = C.MSK_IPAR_MIO_MAX_NUM_ROOT_CUT_ROUNDS        // Maximum number of cut separation rounds at the root node.
 	IPAR_MIO_MAX_NUM_SOLUTIONS              IParam = C.MSK_IPAR_MIO_MAX_NUM_SOLUTIONS              // Controls how many feasible solutions the mixed-integer optimizer investigates.
 	IPAR_MIO_MEMORY_EMPHASIS_LEVEL          IParam = C.MSK_IPAR_MIO_MEMORY_EMPHASIS_LEVEL          // Controls how much emphasis is put on reducing memory usage.
-	IPAR_MIO_MIN_REL                        IParam = C.MSK_IPAR_MIO_MIN_REL                        // Number of times a variable must have been branched on for its pseudocost to be cosidered reliable.
+	IPAR_MIO_MIN_REL                        IParam = C.MSK_IPAR_MIO_MIN_REL                        // Number of times a variable must have been branched on for its pseudocost to be considered reliable.
 	IPAR_MIO_MODE                           IParam = C.MSK_IPAR_MIO_MODE                           // Turns on/off the mixed-integer mode.
 	IPAR_MIO_NODE_OPTIMIZER                 IParam = C.MSK_IPAR_MIO_NODE_OPTIMIZER                 // Controls which optimizer is employed at the non-root nodes in the mixed-integer optimizer.
 	IPAR_MIO_NODE_SELECTION                 IParam = C.MSK_IPAR_MIO_NODE_SELECTION                 // Controls the node selection strategy employed by the mixed-integer optimizer.
 	IPAR_MIO_NUMERICAL_EMPHASIS_LEVEL       IParam = C.MSK_IPAR_MIO_NUMERICAL_EMPHASIS_LEVEL       // Controls how much emphasis is put on reducing numerical problems
+	IPAR_MIO_OPT_FACE_MAX_NODES             IParam = C.MSK_IPAR_MIO_OPT_FACE_MAX_NODES             // Maximum number of nodes in each call to RINS.
 	IPAR_MIO_PERSPECTIVE_REFORMULATE        IParam = C.MSK_IPAR_MIO_PERSPECTIVE_REFORMULATE        // Enables or disables perspective reformulation in presolve.
 	IPAR_MIO_PRESOLVE_AGGREGATOR_USE        IParam = C.MSK_IPAR_MIO_PRESOLVE_AGGREGATOR_USE        // Controls if the aggregator should be used.
 	IPAR_MIO_PROBING_LEVEL                  IParam = C.MSK_IPAR_MIO_PROBING_LEVEL                  // Controls the amount of probing employed by the mixed-integer optimizer in presolve.
 	IPAR_MIO_PROPAGATE_OBJECTIVE_CONSTRAINT IParam = C.MSK_IPAR_MIO_PROPAGATE_OBJECTIVE_CONSTRAINT // Use objective domain propagation.
 	IPAR_MIO_QCQO_REFORMULATION_METHOD      IParam = C.MSK_IPAR_MIO_QCQO_REFORMULATION_METHOD      // Controls what reformulation method is applied to mixed-integer quadratic problems.
+	IPAR_MIO_RENS_MAX_NODES                 IParam = C.MSK_IPAR_MIO_RENS_MAX_NODES                 // Maximum number of nodes in each call to RENS.
 	IPAR_MIO_RINS_MAX_NODES                 IParam = C.MSK_IPAR_MIO_RINS_MAX_NODES                 // Maximum number of nodes in each call to RINS.
 	IPAR_MIO_ROOT_OPTIMIZER                 IParam = C.MSK_IPAR_MIO_ROOT_OPTIMIZER                 // Controls which optimizer is employed at the root node in the mixed-integer optimizer.
-	IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL     IParam = C.MSK_IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL     // Controls whether presolve can be repeated at root node.
 	IPAR_MIO_SEED                           IParam = C.MSK_IPAR_MIO_SEED                           // Sets the random seed used for randomization in the mixed integer optimizer.
 	IPAR_MIO_SYMMETRY_LEVEL                 IParam = C.MSK_IPAR_MIO_SYMMETRY_LEVEL                 // Controls the amount of symmetry detection and handling employed by the mixed-integer optimizer in presolve.
 	IPAR_MIO_VAR_SELECTION                  IParam = C.MSK_IPAR_MIO_VAR_SELECTION                  // Controls the variable selection strategy employed by the mixed-integer optimizer.
@@ -127,9 +130,8 @@ const (
 	IPAR_PARAM_READ_IGN_ERROR               IParam = C.MSK_IPAR_PARAM_READ_IGN_ERROR               // If turned on, then errors in parameter settings is ignored.
 	IPAR_PRESOLVE_ELIMINATOR_MAX_FILL       IParam = C.MSK_IPAR_PRESOLVE_ELIMINATOR_MAX_FILL       // Maximum amount of fill-in created in one pivot during the elimination phase.
 	IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES  IParam = C.MSK_IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES  // Control the maximum number of times the eliminator is tried.
-	IPAR_PRESOLVE_LEVEL                     IParam = C.MSK_IPAR_PRESOLVE_LEVEL                     // Currently not used.
 	IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH       IParam = C.MSK_IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH       // Controls linear dependency check in presolve.
-	IPAR_PRESOLVE_LINDEP_NEW                IParam = C.MSK_IPAR_PRESOLVE_LINDEP_NEW                // Controls whether whether a new experimental linear dependency checker is employed.
+	IPAR_PRESOLVE_LINDEP_NEW                IParam = C.MSK_IPAR_PRESOLVE_LINDEP_NEW                // Controls whether a new experimental linear dependency checker is employed.
 	IPAR_PRESOLVE_LINDEP_REL_WORK_TRH       IParam = C.MSK_IPAR_PRESOLVE_LINDEP_REL_WORK_TRH       // Controls linear dependency check in presolve.
 	IPAR_PRESOLVE_LINDEP_USE                IParam = C.MSK_IPAR_PRESOLVE_LINDEP_USE                // Controls whether the linear constraints are checked for linear dependencies.
 	IPAR_PRESOLVE_MAX_NUM_PASS              IParam = C.MSK_IPAR_PRESOLVE_MAX_NUM_PASS              // Control the maximum number of times presolve passes over the problem.
@@ -137,17 +139,18 @@ const (
 	IPAR_PRESOLVE_USE                       IParam = C.MSK_IPAR_PRESOLVE_USE                       // Controls whether the presolve is applied to a problem before it is optimized.
 	IPAR_PRIMAL_REPAIR_OPTIMIZER            IParam = C.MSK_IPAR_PRIMAL_REPAIR_OPTIMIZER            // Controls which optimizer that is used to find the optimal repair.
 	IPAR_PTF_WRITE_PARAMETERS               IParam = C.MSK_IPAR_PTF_WRITE_PARAMETERS               // Controls whether parameters section is written in PTF files.
+	IPAR_PTF_WRITE_SINGLE_PSD_TERMS         IParam = C.MSK_IPAR_PTF_WRITE_SINGLE_PSD_TERMS         // Controls whether PSD terms with a coefficient matrix of just one non-zero are written as a single term instead of as a matrix term.
 	IPAR_PTF_WRITE_SOLUTIONS                IParam = C.MSK_IPAR_PTF_WRITE_SOLUTIONS                // Controls whether solution section is written in PTF files.
 	IPAR_PTF_WRITE_TRANSFORM                IParam = C.MSK_IPAR_PTF_WRITE_TRANSFORM                // Controls if simple transformation are done when writing PTF files.
+	IPAR_READ_ASYNC                         IParam = C.MSK_IPAR_READ_ASYNC                         // Controls whether files are read using synchronous or asynchronous reader.
 	IPAR_READ_DEBUG                         IParam = C.MSK_IPAR_READ_DEBUG                         // Turns on additional debugging information when reading files.
-	IPAR_READ_KEEP_FREE_CON                 IParam = C.MSK_IPAR_READ_KEEP_FREE_CON                 // Controls whether the free constraints are included in the problem.
+	IPAR_READ_KEEP_FREE_CON                 IParam = C.MSK_IPAR_READ_KEEP_FREE_CON                 // Controls whether the free constraints are included in the problem. Applies to MPS files.
 	IPAR_READ_MPS_FORMAT                    IParam = C.MSK_IPAR_READ_MPS_FORMAT                    // Controls how strictly the MPS file reader interprets the MPS format.
 	IPAR_READ_MPS_WIDTH                     IParam = C.MSK_IPAR_READ_MPS_WIDTH                     // Controls the maximal number of characters allowed in one line of the MPS file.
 	IPAR_READ_TASK_IGNORE_PARAM             IParam = C.MSK_IPAR_READ_TASK_IGNORE_PARAM             // Controls what information is used from the task files.
 	IPAR_REMOTE_USE_COMPRESSION             IParam = C.MSK_IPAR_REMOTE_USE_COMPRESSION             // Use compression when sending data to an optimization server
 	IPAR_REMOVE_UNUSED_SOLUTIONS            IParam = C.MSK_IPAR_REMOVE_UNUSED_SOLUTIONS            // Removes unused solutions before the optimization is performed.
 	IPAR_SENSITIVITY_ALL                    IParam = C.MSK_IPAR_SENSITIVITY_ALL                    // Controls sensitivity report behavior.
-	IPAR_SENSITIVITY_OPTIMIZER              IParam = C.MSK_IPAR_SENSITIVITY_OPTIMIZER              // Controls which optimizer is used for optimal partition sensitivity analysis.
 	IPAR_SENSITIVITY_TYPE                   IParam = C.MSK_IPAR_SENSITIVITY_TYPE                   // Controls which type of sensitivity analysis is to be performed.
 	IPAR_SIM_BASIS_FACTOR_USE               IParam = C.MSK_IPAR_SIM_BASIS_FACTOR_USE               // Controls whether an LU factorization of the basis is used in a hot-start.
 	IPAR_SIM_DEGEN                          IParam = C.MSK_IPAR_SIM_DEGEN                          // Controls how aggressively degeneration is handled.
@@ -162,6 +165,8 @@ const (
 	IPAR_SIM_MAX_ITERATIONS                 IParam = C.MSK_IPAR_SIM_MAX_ITERATIONS                 // Maximum number of iterations that can be used by a simplex optimizer.
 	IPAR_SIM_MAX_NUM_SETBACKS               IParam = C.MSK_IPAR_SIM_MAX_NUM_SETBACKS               // Controls how many set-backs that are allowed within a simplex optimizer.
 	IPAR_SIM_NON_SINGULAR                   IParam = C.MSK_IPAR_SIM_NON_SINGULAR                   // Controls if the simplex optimizer ensures a non-singular basis, if possible.
+	IPAR_SIM_PRECISION                      IParam = C.MSK_IPAR_SIM_PRECISION                      // Experimental. Usage not recommended.
+	IPAR_SIM_PRECISION_BOOST                IParam = C.MSK_IPAR_SIM_PRECISION_BOOST                // Controls whether the simplex optimizer is allowed to boost the precision.
 	IPAR_SIM_PRIMAL_CRASH                   IParam = C.MSK_IPAR_SIM_PRIMAL_CRASH                   // Controls the simplex crash.
 	IPAR_SIM_PRIMAL_PHASEONE_METHOD         IParam = C.MSK_IPAR_SIM_PRIMAL_PHASEONE_METHOD         // An experimental feature.
 	IPAR_SIM_PRIMAL_RESTRICT_SELECTION      IParam = C.MSK_IPAR_SIM_PRIMAL_RESTRICT_SELECTION      // Controls how aggressively restricted selection is used.
@@ -173,22 +178,18 @@ const (
 	IPAR_SIM_SCALING_METHOD                 IParam = C.MSK_IPAR_SIM_SCALING_METHOD                 // Controls how the problem is scaled before a simplex optimizer is used.
 	IPAR_SIM_SEED                           IParam = C.MSK_IPAR_SIM_SEED                           // Sets the random seed used for randomization in the simplex optimizers.
 	IPAR_SIM_SOLVE_FORM                     IParam = C.MSK_IPAR_SIM_SOLVE_FORM                     // Controls whether the primal or the dual problem is solved by the primal-/dual-simplex optimizer.
-	IPAR_SIM_STABILITY_PRIORITY             IParam = C.MSK_IPAR_SIM_STABILITY_PRIORITY             // Controls how high priority the numerical stability should be given.
 	IPAR_SIM_SWITCH_OPTIMIZER               IParam = C.MSK_IPAR_SIM_SWITCH_OPTIMIZER               // Controls the simplex behavior.
 	IPAR_SOL_FILTER_KEEP_BASIC              IParam = C.MSK_IPAR_SOL_FILTER_KEEP_BASIC              // Control the contents of the solution files.
-	IPAR_SOL_FILTER_KEEP_RANGED             IParam = C.MSK_IPAR_SOL_FILTER_KEEP_RANGED             // Control the contents of the solution files.
 	IPAR_SOL_READ_NAME_WIDTH                IParam = C.MSK_IPAR_SOL_READ_NAME_WIDTH                // Controls the input solution file format.
 	IPAR_SOL_READ_WIDTH                     IParam = C.MSK_IPAR_SOL_READ_WIDTH                     // Controls the input solution file format.
-	IPAR_SOLUTION_CALLBACK                  IParam = C.MSK_IPAR_SOLUTION_CALLBACK                  // Indicates whether solution callbacks will be performed during the optimization.
 	IPAR_TIMING_LEVEL                       IParam = C.MSK_IPAR_TIMING_LEVEL                       // Controls the amount of timing performed inside MOSEK.
+	IPAR_WRITE_ASYNC                        IParam = C.MSK_IPAR_WRITE_ASYNC                        // Controls whether files are read using synchronous or asynchronous writer.
 	IPAR_WRITE_BAS_CONSTRAINTS              IParam = C.MSK_IPAR_WRITE_BAS_CONSTRAINTS              // Controls the basic solution file format.
 	IPAR_WRITE_BAS_HEAD                     IParam = C.MSK_IPAR_WRITE_BAS_HEAD                     // Controls the basic solution file format.
 	IPAR_WRITE_BAS_VARIABLES                IParam = C.MSK_IPAR_WRITE_BAS_VARIABLES                // Controls the basic solution file format.
 	IPAR_WRITE_COMPRESSION                  IParam = C.MSK_IPAR_WRITE_COMPRESSION                  // Controls output file compression.
-	IPAR_WRITE_DATA_PARAM                   IParam = C.MSK_IPAR_WRITE_DATA_PARAM                   // Controls output file data.
 	IPAR_WRITE_FREE_CON                     IParam = C.MSK_IPAR_WRITE_FREE_CON                     // Controls the output file data.
 	IPAR_WRITE_GENERIC_NAMES                IParam = C.MSK_IPAR_WRITE_GENERIC_NAMES                // Controls the output file data.
-	IPAR_WRITE_GENERIC_NAMES_IO             IParam = C.MSK_IPAR_WRITE_GENERIC_NAMES_IO             // Index origin used in  generic names.
 	IPAR_WRITE_IGNORE_INCOMPATIBLE_ITEMS    IParam = C.MSK_IPAR_WRITE_IGNORE_INCOMPATIBLE_ITEMS    // Controls if the writer ignores incompatible problem items when writing files.
 	IPAR_WRITE_INT_CONSTRAINTS              IParam = C.MSK_IPAR_WRITE_INT_CONSTRAINTS              // Controls the integer solution file format.
 	IPAR_WRITE_INT_HEAD                     IParam = C.MSK_IPAR_WRITE_INT_HEAD                     // Controls the integer solution file format.
@@ -196,15 +197,13 @@ const (
 	IPAR_WRITE_JSON_INDENTATION             IParam = C.MSK_IPAR_WRITE_JSON_INDENTATION             // When set, the JSON task and solution files are written with indentation for better readability.
 	IPAR_WRITE_LP_FULL_OBJ                  IParam = C.MSK_IPAR_WRITE_LP_FULL_OBJ                  // Write full linear objective
 	IPAR_WRITE_LP_LINE_WIDTH                IParam = C.MSK_IPAR_WRITE_LP_LINE_WIDTH                // Controls the LP output file format.
-	IPAR_WRITE_MPS_FORMAT                   IParam = C.MSK_IPAR_WRITE_MPS_FORMAT                   // Controls in which format the MPS is written.
+	IPAR_WRITE_MPS_FORMAT                   IParam = C.MSK_IPAR_WRITE_MPS_FORMAT                   // Controls in which format the MPS file is written.
 	IPAR_WRITE_MPS_INT                      IParam = C.MSK_IPAR_WRITE_MPS_INT                      // Controls the output file data.
 	IPAR_WRITE_SOL_BARVARIABLES             IParam = C.MSK_IPAR_WRITE_SOL_BARVARIABLES             // Controls the solution file format.
 	IPAR_WRITE_SOL_CONSTRAINTS              IParam = C.MSK_IPAR_WRITE_SOL_CONSTRAINTS              // Controls the solution file format.
 	IPAR_WRITE_SOL_HEAD                     IParam = C.MSK_IPAR_WRITE_SOL_HEAD                     // Controls solution file format.
 	IPAR_WRITE_SOL_IGNORE_INVALID_NAMES     IParam = C.MSK_IPAR_WRITE_SOL_IGNORE_INVALID_NAMES     // Controls whether the user specified names are employed even if they are invalid names.
 	IPAR_WRITE_SOL_VARIABLES                IParam = C.MSK_IPAR_WRITE_SOL_VARIABLES                // Controls the solution file format.
-	IPAR_WRITE_TASK_INC_SOL                 IParam = C.MSK_IPAR_WRITE_TASK_INC_SOL                 // Controls whether the solutions are stored in the task file too.
-	IPAR_WRITE_XML_MODE                     IParam = C.MSK_IPAR_WRITE_XML_MODE                     // Controls if linear coefficients should be written by row or column when writing in the XML file format.
 )
 
 var _IParam_map = map[IParam]string{
@@ -219,8 +218,10 @@ var _IParam_map = map[IParam]string{
 	IPAR_BI_MAX_ITERATIONS:                  "IPAR_BI_MAX_ITERATIONS",
 	IPAR_CACHE_LICENSE:                      "IPAR_CACHE_LICENSE",
 	IPAR_COMPRESS_STATFILE:                  "IPAR_COMPRESS_STATFILE",
+	IPAR_FOLDING_USE:                        "IPAR_FOLDING_USE",
+	IPAR_GETDUAL_CONVERT_LMIS:               "IPAR_GETDUAL_CONVERT_LMIS",
+	IPAR_HEARTBEAT_SIM_FREQ_TICKS:           "IPAR_HEARTBEAT_SIM_FREQ_TICKS",
 	IPAR_INFEAS_GENERIC_NAMES:               "IPAR_INFEAS_GENERIC_NAMES",
-	IPAR_INFEAS_PREFER_PRIMAL:               "IPAR_INFEAS_PREFER_PRIMAL",
 	IPAR_INFEAS_REPORT_AUTO:                 "IPAR_INFEAS_REPORT_AUTO",
 	IPAR_INFEAS_REPORT_LEVEL:                "IPAR_INFEAS_REPORT_LEVEL",
 	IPAR_INTPNT_BASIS:                       "IPAR_INTPNT_BASIS",
@@ -228,11 +229,9 @@ var _IParam_map = map[IParam]string{
 	IPAR_INTPNT_HOTSTART:                    "IPAR_INTPNT_HOTSTART",
 	IPAR_INTPNT_MAX_ITERATIONS:              "IPAR_INTPNT_MAX_ITERATIONS",
 	IPAR_INTPNT_MAX_NUM_COR:                 "IPAR_INTPNT_MAX_NUM_COR",
-	IPAR_INTPNT_MAX_NUM_REFINEMENT_STEPS:    "IPAR_INTPNT_MAX_NUM_REFINEMENT_STEPS",
 	IPAR_INTPNT_OFF_COL_TRH:                 "IPAR_INTPNT_OFF_COL_TRH",
 	IPAR_INTPNT_ORDER_GP_NUM_SEEDS:          "IPAR_INTPNT_ORDER_GP_NUM_SEEDS",
 	IPAR_INTPNT_ORDER_METHOD:                "IPAR_INTPNT_ORDER_METHOD",
-	IPAR_INTPNT_PURIFY:                      "IPAR_INTPNT_PURIFY",
 	IPAR_INTPNT_REGULARIZATION_USE:          "IPAR_INTPNT_REGULARIZATION_USE",
 	IPAR_INTPNT_SCALING:                     "IPAR_INTPNT_SCALING",
 	IPAR_INTPNT_SOLVE_FORM:                  "IPAR_INTPNT_SOLVE_FORM",
@@ -258,17 +257,18 @@ var _IParam_map = map[IParam]string{
 	IPAR_LOG_MIO_FREQ:                       "IPAR_LOG_MIO_FREQ",
 	IPAR_LOG_ORDER:                          "IPAR_LOG_ORDER",
 	IPAR_LOG_PRESOLVE:                       "IPAR_LOG_PRESOLVE",
-	IPAR_LOG_RESPONSE:                       "IPAR_LOG_RESPONSE",
 	IPAR_LOG_SENSITIVITY:                    "IPAR_LOG_SENSITIVITY",
 	IPAR_LOG_SENSITIVITY_OPT:                "IPAR_LOG_SENSITIVITY_OPT",
 	IPAR_LOG_SIM:                            "IPAR_LOG_SIM",
 	IPAR_LOG_SIM_FREQ:                       "IPAR_LOG_SIM_FREQ",
-	IPAR_LOG_SIM_MINOR:                      "IPAR_LOG_SIM_MINOR",
+	IPAR_LOG_SIM_FREQ_GIGA_TICKS:            "IPAR_LOG_SIM_FREQ_GIGA_TICKS",
 	IPAR_LOG_STORAGE:                        "IPAR_LOG_STORAGE",
 	IPAR_MAX_NUM_WARNINGS:                   "IPAR_MAX_NUM_WARNINGS",
 	IPAR_MIO_BRANCH_DIR:                     "IPAR_MIO_BRANCH_DIR",
+	IPAR_MIO_CONFLICT_ANALYSIS_LEVEL:        "IPAR_MIO_CONFLICT_ANALYSIS_LEVEL",
 	IPAR_MIO_CONIC_OUTER_APPROXIMATION:      "IPAR_MIO_CONIC_OUTER_APPROXIMATION",
 	IPAR_MIO_CONSTRUCT_SOL:                  "IPAR_MIO_CONSTRUCT_SOL",
+	IPAR_MIO_CROSSOVER_MAX_NODES:            "IPAR_MIO_CROSSOVER_MAX_NODES",
 	IPAR_MIO_CUT_CLIQUE:                     "IPAR_MIO_CUT_CLIQUE",
 	IPAR_MIO_CUT_CMIR:                       "IPAR_MIO_CUT_CMIR",
 	IPAR_MIO_CUT_GMI:                        "IPAR_MIO_CUT_GMI",
@@ -280,6 +280,7 @@ var _IParam_map = map[IParam]string{
 	IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL:        "IPAR_MIO_DUAL_RAY_ANALYSIS_LEVEL",
 	IPAR_MIO_FEASPUMP_LEVEL:                 "IPAR_MIO_FEASPUMP_LEVEL",
 	IPAR_MIO_HEURISTIC_LEVEL:                "IPAR_MIO_HEURISTIC_LEVEL",
+	IPAR_MIO_INDEPENDENT_BLOCK_LEVEL:        "IPAR_MIO_INDEPENDENT_BLOCK_LEVEL",
 	IPAR_MIO_MAX_NUM_BRANCHES:               "IPAR_MIO_MAX_NUM_BRANCHES",
 	IPAR_MIO_MAX_NUM_RELAXS:                 "IPAR_MIO_MAX_NUM_RELAXS",
 	IPAR_MIO_MAX_NUM_RESTARTS:               "IPAR_MIO_MAX_NUM_RESTARTS",
@@ -291,14 +292,15 @@ var _IParam_map = map[IParam]string{
 	IPAR_MIO_NODE_OPTIMIZER:                 "IPAR_MIO_NODE_OPTIMIZER",
 	IPAR_MIO_NODE_SELECTION:                 "IPAR_MIO_NODE_SELECTION",
 	IPAR_MIO_NUMERICAL_EMPHASIS_LEVEL:       "IPAR_MIO_NUMERICAL_EMPHASIS_LEVEL",
+	IPAR_MIO_OPT_FACE_MAX_NODES:             "IPAR_MIO_OPT_FACE_MAX_NODES",
 	IPAR_MIO_PERSPECTIVE_REFORMULATE:        "IPAR_MIO_PERSPECTIVE_REFORMULATE",
 	IPAR_MIO_PRESOLVE_AGGREGATOR_USE:        "IPAR_MIO_PRESOLVE_AGGREGATOR_USE",
 	IPAR_MIO_PROBING_LEVEL:                  "IPAR_MIO_PROBING_LEVEL",
 	IPAR_MIO_PROPAGATE_OBJECTIVE_CONSTRAINT: "IPAR_MIO_PROPAGATE_OBJECTIVE_CONSTRAINT",
 	IPAR_MIO_QCQO_REFORMULATION_METHOD:      "IPAR_MIO_QCQO_REFORMULATION_METHOD",
+	IPAR_MIO_RENS_MAX_NODES:                 "IPAR_MIO_RENS_MAX_NODES",
 	IPAR_MIO_RINS_MAX_NODES:                 "IPAR_MIO_RINS_MAX_NODES",
 	IPAR_MIO_ROOT_OPTIMIZER:                 "IPAR_MIO_ROOT_OPTIMIZER",
-	IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL:     "IPAR_MIO_ROOT_REPEAT_PRESOLVE_LEVEL",
 	IPAR_MIO_SEED:                           "IPAR_MIO_SEED",
 	IPAR_MIO_SYMMETRY_LEVEL:                 "IPAR_MIO_SYMMETRY_LEVEL",
 	IPAR_MIO_VAR_SELECTION:                  "IPAR_MIO_VAR_SELECTION",
@@ -320,7 +322,6 @@ var _IParam_map = map[IParam]string{
 	IPAR_PARAM_READ_IGN_ERROR:               "IPAR_PARAM_READ_IGN_ERROR",
 	IPAR_PRESOLVE_ELIMINATOR_MAX_FILL:       "IPAR_PRESOLVE_ELIMINATOR_MAX_FILL",
 	IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES:  "IPAR_PRESOLVE_ELIMINATOR_MAX_NUM_TRIES",
-	IPAR_PRESOLVE_LEVEL:                     "IPAR_PRESOLVE_LEVEL",
 	IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH:       "IPAR_PRESOLVE_LINDEP_ABS_WORK_TRH",
 	IPAR_PRESOLVE_LINDEP_NEW:                "IPAR_PRESOLVE_LINDEP_NEW",
 	IPAR_PRESOLVE_LINDEP_REL_WORK_TRH:       "IPAR_PRESOLVE_LINDEP_REL_WORK_TRH",
@@ -330,8 +331,10 @@ var _IParam_map = map[IParam]string{
 	IPAR_PRESOLVE_USE:                       "IPAR_PRESOLVE_USE",
 	IPAR_PRIMAL_REPAIR_OPTIMIZER:            "IPAR_PRIMAL_REPAIR_OPTIMIZER",
 	IPAR_PTF_WRITE_PARAMETERS:               "IPAR_PTF_WRITE_PARAMETERS",
+	IPAR_PTF_WRITE_SINGLE_PSD_TERMS:         "IPAR_PTF_WRITE_SINGLE_PSD_TERMS",
 	IPAR_PTF_WRITE_SOLUTIONS:                "IPAR_PTF_WRITE_SOLUTIONS",
 	IPAR_PTF_WRITE_TRANSFORM:                "IPAR_PTF_WRITE_TRANSFORM",
+	IPAR_READ_ASYNC:                         "IPAR_READ_ASYNC",
 	IPAR_READ_DEBUG:                         "IPAR_READ_DEBUG",
 	IPAR_READ_KEEP_FREE_CON:                 "IPAR_READ_KEEP_FREE_CON",
 	IPAR_READ_MPS_FORMAT:                    "IPAR_READ_MPS_FORMAT",
@@ -340,7 +343,6 @@ var _IParam_map = map[IParam]string{
 	IPAR_REMOTE_USE_COMPRESSION:             "IPAR_REMOTE_USE_COMPRESSION",
 	IPAR_REMOVE_UNUSED_SOLUTIONS:            "IPAR_REMOVE_UNUSED_SOLUTIONS",
 	IPAR_SENSITIVITY_ALL:                    "IPAR_SENSITIVITY_ALL",
-	IPAR_SENSITIVITY_OPTIMIZER:              "IPAR_SENSITIVITY_OPTIMIZER",
 	IPAR_SENSITIVITY_TYPE:                   "IPAR_SENSITIVITY_TYPE",
 	IPAR_SIM_BASIS_FACTOR_USE:               "IPAR_SIM_BASIS_FACTOR_USE",
 	IPAR_SIM_DEGEN:                          "IPAR_SIM_DEGEN",
@@ -355,6 +357,8 @@ var _IParam_map = map[IParam]string{
 	IPAR_SIM_MAX_ITERATIONS:                 "IPAR_SIM_MAX_ITERATIONS",
 	IPAR_SIM_MAX_NUM_SETBACKS:               "IPAR_SIM_MAX_NUM_SETBACKS",
 	IPAR_SIM_NON_SINGULAR:                   "IPAR_SIM_NON_SINGULAR",
+	IPAR_SIM_PRECISION:                      "IPAR_SIM_PRECISION",
+	IPAR_SIM_PRECISION_BOOST:                "IPAR_SIM_PRECISION_BOOST",
 	IPAR_SIM_PRIMAL_CRASH:                   "IPAR_SIM_PRIMAL_CRASH",
 	IPAR_SIM_PRIMAL_PHASEONE_METHOD:         "IPAR_SIM_PRIMAL_PHASEONE_METHOD",
 	IPAR_SIM_PRIMAL_RESTRICT_SELECTION:      "IPAR_SIM_PRIMAL_RESTRICT_SELECTION",
@@ -366,22 +370,18 @@ var _IParam_map = map[IParam]string{
 	IPAR_SIM_SCALING_METHOD:                 "IPAR_SIM_SCALING_METHOD",
 	IPAR_SIM_SEED:                           "IPAR_SIM_SEED",
 	IPAR_SIM_SOLVE_FORM:                     "IPAR_SIM_SOLVE_FORM",
-	IPAR_SIM_STABILITY_PRIORITY:             "IPAR_SIM_STABILITY_PRIORITY",
 	IPAR_SIM_SWITCH_OPTIMIZER:               "IPAR_SIM_SWITCH_OPTIMIZER",
 	IPAR_SOL_FILTER_KEEP_BASIC:              "IPAR_SOL_FILTER_KEEP_BASIC",
-	IPAR_SOL_FILTER_KEEP_RANGED:             "IPAR_SOL_FILTER_KEEP_RANGED",
 	IPAR_SOL_READ_NAME_WIDTH:                "IPAR_SOL_READ_NAME_WIDTH",
 	IPAR_SOL_READ_WIDTH:                     "IPAR_SOL_READ_WIDTH",
-	IPAR_SOLUTION_CALLBACK:                  "IPAR_SOLUTION_CALLBACK",
 	IPAR_TIMING_LEVEL:                       "IPAR_TIMING_LEVEL",
+	IPAR_WRITE_ASYNC:                        "IPAR_WRITE_ASYNC",
 	IPAR_WRITE_BAS_CONSTRAINTS:              "IPAR_WRITE_BAS_CONSTRAINTS",
 	IPAR_WRITE_BAS_HEAD:                     "IPAR_WRITE_BAS_HEAD",
 	IPAR_WRITE_BAS_VARIABLES:                "IPAR_WRITE_BAS_VARIABLES",
 	IPAR_WRITE_COMPRESSION:                  "IPAR_WRITE_COMPRESSION",
-	IPAR_WRITE_DATA_PARAM:                   "IPAR_WRITE_DATA_PARAM",
 	IPAR_WRITE_FREE_CON:                     "IPAR_WRITE_FREE_CON",
 	IPAR_WRITE_GENERIC_NAMES:                "IPAR_WRITE_GENERIC_NAMES",
-	IPAR_WRITE_GENERIC_NAMES_IO:             "IPAR_WRITE_GENERIC_NAMES_IO",
 	IPAR_WRITE_IGNORE_INCOMPATIBLE_ITEMS:    "IPAR_WRITE_IGNORE_INCOMPATIBLE_ITEMS",
 	IPAR_WRITE_INT_CONSTRAINTS:              "IPAR_WRITE_INT_CONSTRAINTS",
 	IPAR_WRITE_INT_HEAD:                     "IPAR_WRITE_INT_HEAD",
@@ -396,8 +396,6 @@ var _IParam_map = map[IParam]string{
 	IPAR_WRITE_SOL_HEAD:                     "IPAR_WRITE_SOL_HEAD",
 	IPAR_WRITE_SOL_IGNORE_INVALID_NAMES:     "IPAR_WRITE_SOL_IGNORE_INVALID_NAMES",
 	IPAR_WRITE_SOL_VARIABLES:                "IPAR_WRITE_SOL_VARIABLES",
-	IPAR_WRITE_TASK_INC_SOL:                 "IPAR_WRITE_TASK_INC_SOL",
-	IPAR_WRITE_XML_MODE:                     "IPAR_WRITE_XML_MODE",
 }
 
 func (e IParam) String() string {

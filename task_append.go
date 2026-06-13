@@ -14,7 +14,7 @@ import "C"
 //
 //   - `domidx` Domain index.
 //   - `afeidxlist` List of affine expression indexes.
-//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //
 // [MSK_appendacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendacc
 func (task *Task) AppendAcc(
@@ -41,7 +41,7 @@ func (task *Task) AppendAcc(
 //
 //   - `domidxs` Domain indices.
 //   - `afeidxlist` List of affine expression indexes.
-//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //
 // [MSK_appendaccs]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccs
 func (task *Task) AppendAccs(
@@ -70,7 +70,7 @@ func (task *Task) AppendAccs(
 //
 //   - `domidx` Domain index.
 //   - `afeidxfirst` Index of the first affine expression.
-//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //
 // [MSK_appendaccseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccseq
 func (task *Task) AppendAccSeq(
@@ -98,7 +98,7 @@ func (task *Task) AppendAccSeq(
 //   - `domidxs` Domain indices.
 //   - `numafeidx` Number of affine expressions in the affine expression list (must equal the sum of dimensions of the domains).
 //   - `afeidxfirst` Index of the first affine expression.
-//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //
 // [MSK_appendaccsseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendaccsseq
 func (task *Task) AppendAccsSeq(
@@ -289,6 +289,66 @@ func (task *Task) AppendDjcs(
 	).ToError()
 }
 
+// AppendDualPowerConeDomainSeq is wrapping [MSK_appenddualpowerconedomainseq],
+// Appends a sequence of dual power cone domains.
+//
+// Arguments:
+//
+//   - `n` Dimensions of the domains.
+//   - `nleft` Number of variables on the left hand sides.
+//   - `alpha` The sequences proportional to exponents, concatenated for all domains. Must be positive.
+//   - `domidxlist` Indexes of the domains.
+//
+// [MSK_appenddualpowerconedomainseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appenddualpowerconedomainseq
+func (task *Task) AppendDualPowerConeDomainSeq(
+	num int64,
+	n []int64,
+	nleft []int64,
+	alpha []float64,
+	domidxlist []int64,
+) error {
+	return ResCode(
+		C.MSK_appenddualpowerconedomainseq(
+			task.task,
+			C.MSKint64t(num),
+			(*C.MSKint64t)(getPtrToFirst(n)),
+			(*C.MSKint64t)(getPtrToFirst(nleft)),
+			(*C.MSKrealt)(getPtrToFirst(alpha)),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
+		),
+	).ToError()
+}
+
+// AppendPrimalPowerConeDomainSeq is wrapping [MSK_appendprimalpowerconedomainseq],
+// Appends a sequence of primal power cone domains.
+//
+// Arguments:
+//
+//   - `n` Dimensions of the domains.
+//   - `nleft` Number of variables on the left hand sides.
+//   - `alpha` The sequences proportional to exponents, concatenated for all domains. Must be positive.
+//   - `domidxlist` Indexes of the domains.
+//
+// [MSK_appendprimalpowerconedomainseq]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.appendprimalpowerconedomainseq
+func (task *Task) AppendPrimalPowerConeDomainSeq(
+	num int64,
+	n []int64,
+	nleft []int64,
+	alpha []float64,
+	domidxlist []int64,
+) error {
+	return ResCode(
+		C.MSK_appendprimalpowerconedomainseq(
+			task.task,
+			C.MSKint64t(num),
+			(*C.MSKint64t)(getPtrToFirst(n)),
+			(*C.MSKint64t)(getPtrToFirst(nleft)),
+			(*C.MSKrealt)(getPtrToFirst(alpha)),
+			(*C.MSKint64t)(getPtrToFirst(domidxlist)),
+		),
+	).ToError()
+}
+
 // AppendSparseSymMat is wrapping [MSK_appendsparsesymmat],
 // Appends a general sparse symmetric matrix to the storage of symmetric matrices.
 //
@@ -323,7 +383,7 @@ func (task *Task) AppendSparseSymMat(
 		),
 	).ToError()
 
-	return
+	return idx, r
 }
 
 // AppendSparseSymMatList is wrapping [MSK_appendsparsesymmatlist],
@@ -360,7 +420,7 @@ func (task *Task) AppendSparseSymMatList(
 		),
 	).ToError()
 
-	return
+	return idx, r
 }
 
 // AppendVars is wrapping [MSK_appendvars],

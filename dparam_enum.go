@@ -18,7 +18,6 @@ const (
 	DPAR_BASIS_REL_TOL_S                         DParam = C.MSK_DPAR_BASIS_REL_TOL_S                         // Maximum relative dual bound violation allowed in an optimal basic solution.
 	DPAR_BASIS_TOL_S                             DParam = C.MSK_DPAR_BASIS_TOL_S                             // Maximum absolute dual bound violation in an optimal basic solution.
 	DPAR_BASIS_TOL_X                             DParam = C.MSK_DPAR_BASIS_TOL_X                             // Maximum absolute primal bound violation allowed in an optimal basic solution.
-	DPAR_CHECK_CONVEXITY_REL_TOL                 DParam = C.MSK_DPAR_CHECK_CONVEXITY_REL_TOL                 // Convexity check tolerance.
 	DPAR_DATA_SYM_MAT_TOL                        DParam = C.MSK_DPAR_DATA_SYM_MAT_TOL                        // Zero tolerance threshold for symmetric matrices.
 	DPAR_DATA_SYM_MAT_TOL_HUGE                   DParam = C.MSK_DPAR_DATA_SYM_MAT_TOL_HUGE                   // Data tolerance threshold.
 	DPAR_DATA_SYM_MAT_TOL_LARGE                  DParam = C.MSK_DPAR_DATA_SYM_MAT_TOL_LARGE                  // Data tolerance threshold.
@@ -30,6 +29,7 @@ const (
 	DPAR_DATA_TOL_CJ_LARGE                       DParam = C.MSK_DPAR_DATA_TOL_CJ_LARGE                       // Data tolerance threshold.
 	DPAR_DATA_TOL_QIJ                            DParam = C.MSK_DPAR_DATA_TOL_QIJ                            // Data tolerance threshold.
 	DPAR_DATA_TOL_X                              DParam = C.MSK_DPAR_DATA_TOL_X                              // Data tolerance threshold.
+	DPAR_FOLDING_TOL_EQ                          DParam = C.MSK_DPAR_FOLDING_TOL_EQ                          // Tolerance for coefficient equality during folding.
 	DPAR_INTPNT_CO_TOL_DFEAS                     DParam = C.MSK_DPAR_INTPNT_CO_TOL_DFEAS                     // Dual feasibility tolerance used by the interior-point optimizer for conic problems.
 	DPAR_INTPNT_CO_TOL_INFEAS                    DParam = C.MSK_DPAR_INTPNT_CO_TOL_INFEAS                    // Infeasibility tolerance used by the interior-point optimizer for conic problems.
 	DPAR_INTPNT_CO_TOL_MU_RED                    DParam = C.MSK_DPAR_INTPNT_CO_TOL_MU_RED                    // Relative complementarity gap tolerance used by the interior-point optimizer for conic problems.
@@ -54,9 +54,10 @@ const (
 	DPAR_INTPNT_TOL_STEP_SIZE                    DParam = C.MSK_DPAR_INTPNT_TOL_STEP_SIZE                    // Minimal step size tolerance for the interior-point optimizer.
 	DPAR_LOWER_OBJ_CUT                           DParam = C.MSK_DPAR_LOWER_OBJ_CUT                           // Objective bound.
 	DPAR_LOWER_OBJ_CUT_FINITE_TRH                DParam = C.MSK_DPAR_LOWER_OBJ_CUT_FINITE_TRH                // Objective bound.
+	DPAR_MIO_CLIQUE_TABLE_SIZE_FACTOR            DParam = C.MSK_DPAR_MIO_CLIQUE_TABLE_SIZE_FACTOR            // Controlls the maximum size of the clique table as a factor of the number of nonzeros in the A matrix.
 	DPAR_MIO_DJC_MAX_BIGM                        DParam = C.MSK_DPAR_MIO_DJC_MAX_BIGM                        // Maximum allowed big-M value when reformulating disjunctive constraints to linear constraints.
 	DPAR_MIO_MAX_TIME                            DParam = C.MSK_DPAR_MIO_MAX_TIME                            // Time limit for the mixed-integer optimizer.
-	DPAR_MIO_REL_GAP_CONST                       DParam = C.MSK_DPAR_MIO_REL_GAP_CONST                       // This value is used to compute the relative gap for the solution to an integer optimization problem.
+	DPAR_MIO_REL_GAP_CONST                       DParam = C.MSK_DPAR_MIO_REL_GAP_CONST                       // This value is used to compute the relative gap for the solution to a mixed-integer optimization problem.
 	DPAR_MIO_TOL_ABS_GAP                         DParam = C.MSK_DPAR_MIO_TOL_ABS_GAP                         // Absolute optimality tolerance employed by the mixed-integer optimizer.
 	DPAR_MIO_TOL_ABS_RELAX_INT                   DParam = C.MSK_DPAR_MIO_TOL_ABS_RELAX_INT                   // Integer feasibility tolerance.
 	DPAR_MIO_TOL_FEAS                            DParam = C.MSK_DPAR_MIO_TOL_FEAS                            // Feasibility tolerance for mixed integer solver.
@@ -65,7 +66,6 @@ const (
 	DPAR_OPTIMIZER_MAX_TICKS                     DParam = C.MSK_DPAR_OPTIMIZER_MAX_TICKS                     // Solver ticks limit.
 	DPAR_OPTIMIZER_MAX_TIME                      DParam = C.MSK_DPAR_OPTIMIZER_MAX_TIME                      // Solver time limit.
 	DPAR_PRESOLVE_TOL_ABS_LINDEP                 DParam = C.MSK_DPAR_PRESOLVE_TOL_ABS_LINDEP                 // Absolute tolerance employed by the linear dependency checker.
-	DPAR_PRESOLVE_TOL_AIJ                        DParam = C.MSK_DPAR_PRESOLVE_TOL_AIJ                        // Absolute zero tolerance employed for constraint coefficients in the presolve.
 	DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION DParam = C.MSK_DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION // The presolve is allowed to perturb a bound on a constraint or variable by this amount if it removes an infeasibility.
 	DPAR_PRESOLVE_TOL_REL_LINDEP                 DParam = C.MSK_DPAR_PRESOLVE_TOL_REL_LINDEP                 // Relative tolerance employed by the linear dependency checker.
 	DPAR_PRESOLVE_TOL_S                          DParam = C.MSK_DPAR_PRESOLVE_TOL_S                          // Absolute zero tolerance employed for slack variables in the presolve.
@@ -73,6 +73,8 @@ const (
 	DPAR_QCQO_REFORMULATE_REL_DROP_TOL           DParam = C.MSK_DPAR_QCQO_REFORMULATE_REL_DROP_TOL           // This parameter determines when columns are dropped in incomplete Cholesky factorization during reformulation of quadratic problems.
 	DPAR_SEMIDEFINITE_TOL_APPROX                 DParam = C.MSK_DPAR_SEMIDEFINITE_TOL_APPROX                 // Tolerance to define a matrix to be positive semidefinite.
 	DPAR_SIM_LU_TOL_REL_PIV                      DParam = C.MSK_DPAR_SIM_LU_TOL_REL_PIV                      // Relative pivot tolerance employed when computing the LU factorization of the basis matrix.
+	DPAR_SIM_PRECISION_SCALING_EXTENDED          DParam = C.MSK_DPAR_SIM_PRECISION_SCALING_EXTENDED          // Experimental. Usage not recommended.
+	DPAR_SIM_PRECISION_SCALING_NORMAL            DParam = C.MSK_DPAR_SIM_PRECISION_SCALING_NORMAL            // Experimental. Usage not recommended.
 	DPAR_SIMPLEX_ABS_TOL_PIV                     DParam = C.MSK_DPAR_SIMPLEX_ABS_TOL_PIV                     // Absolute pivot tolerance employed by the simplex optimizers.
 	DPAR_UPPER_OBJ_CUT                           DParam = C.MSK_DPAR_UPPER_OBJ_CUT                           // Objective bound.
 	DPAR_UPPER_OBJ_CUT_FINITE_TRH                DParam = C.MSK_DPAR_UPPER_OBJ_CUT_FINITE_TRH                // Objective bound.
@@ -83,7 +85,6 @@ var _DParam_map = map[DParam]string{
 	DPAR_BASIS_REL_TOL_S:                         "DPAR_BASIS_REL_TOL_S",
 	DPAR_BASIS_TOL_S:                             "DPAR_BASIS_TOL_S",
 	DPAR_BASIS_TOL_X:                             "DPAR_BASIS_TOL_X",
-	DPAR_CHECK_CONVEXITY_REL_TOL:                 "DPAR_CHECK_CONVEXITY_REL_TOL",
 	DPAR_DATA_SYM_MAT_TOL:                        "DPAR_DATA_SYM_MAT_TOL",
 	DPAR_DATA_SYM_MAT_TOL_HUGE:                   "DPAR_DATA_SYM_MAT_TOL_HUGE",
 	DPAR_DATA_SYM_MAT_TOL_LARGE:                  "DPAR_DATA_SYM_MAT_TOL_LARGE",
@@ -95,6 +96,7 @@ var _DParam_map = map[DParam]string{
 	DPAR_DATA_TOL_CJ_LARGE:                       "DPAR_DATA_TOL_CJ_LARGE",
 	DPAR_DATA_TOL_QIJ:                            "DPAR_DATA_TOL_QIJ",
 	DPAR_DATA_TOL_X:                              "DPAR_DATA_TOL_X",
+	DPAR_FOLDING_TOL_EQ:                          "DPAR_FOLDING_TOL_EQ",
 	DPAR_INTPNT_CO_TOL_DFEAS:                     "DPAR_INTPNT_CO_TOL_DFEAS",
 	DPAR_INTPNT_CO_TOL_INFEAS:                    "DPAR_INTPNT_CO_TOL_INFEAS",
 	DPAR_INTPNT_CO_TOL_MU_RED:                    "DPAR_INTPNT_CO_TOL_MU_RED",
@@ -119,6 +121,7 @@ var _DParam_map = map[DParam]string{
 	DPAR_INTPNT_TOL_STEP_SIZE:                    "DPAR_INTPNT_TOL_STEP_SIZE",
 	DPAR_LOWER_OBJ_CUT:                           "DPAR_LOWER_OBJ_CUT",
 	DPAR_LOWER_OBJ_CUT_FINITE_TRH:                "DPAR_LOWER_OBJ_CUT_FINITE_TRH",
+	DPAR_MIO_CLIQUE_TABLE_SIZE_FACTOR:            "DPAR_MIO_CLIQUE_TABLE_SIZE_FACTOR",
 	DPAR_MIO_DJC_MAX_BIGM:                        "DPAR_MIO_DJC_MAX_BIGM",
 	DPAR_MIO_MAX_TIME:                            "DPAR_MIO_MAX_TIME",
 	DPAR_MIO_REL_GAP_CONST:                       "DPAR_MIO_REL_GAP_CONST",
@@ -130,7 +133,6 @@ var _DParam_map = map[DParam]string{
 	DPAR_OPTIMIZER_MAX_TICKS:                     "DPAR_OPTIMIZER_MAX_TICKS",
 	DPAR_OPTIMIZER_MAX_TIME:                      "DPAR_OPTIMIZER_MAX_TIME",
 	DPAR_PRESOLVE_TOL_ABS_LINDEP:                 "DPAR_PRESOLVE_TOL_ABS_LINDEP",
-	DPAR_PRESOLVE_TOL_AIJ:                        "DPAR_PRESOLVE_TOL_AIJ",
 	DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION: "DPAR_PRESOLVE_TOL_PRIMAL_INFEAS_PERTURBATION",
 	DPAR_PRESOLVE_TOL_REL_LINDEP:                 "DPAR_PRESOLVE_TOL_REL_LINDEP",
 	DPAR_PRESOLVE_TOL_S:                          "DPAR_PRESOLVE_TOL_S",
@@ -138,6 +140,8 @@ var _DParam_map = map[DParam]string{
 	DPAR_QCQO_REFORMULATE_REL_DROP_TOL:           "DPAR_QCQO_REFORMULATE_REL_DROP_TOL",
 	DPAR_SEMIDEFINITE_TOL_APPROX:                 "DPAR_SEMIDEFINITE_TOL_APPROX",
 	DPAR_SIM_LU_TOL_REL_PIV:                      "DPAR_SIM_LU_TOL_REL_PIV",
+	DPAR_SIM_PRECISION_SCALING_EXTENDED:          "DPAR_SIM_PRECISION_SCALING_EXTENDED",
+	DPAR_SIM_PRECISION_SCALING_NORMAL:            "DPAR_SIM_PRECISION_SCALING_NORMAL",
 	DPAR_SIMPLEX_ABS_TOL_PIV:                     "DPAR_SIMPLEX_ABS_TOL_PIV",
 	DPAR_UPPER_OBJ_CUT:                           "DPAR_UPPER_OBJ_CUT",
 	DPAR_UPPER_OBJ_CUT_FINITE_TRH:                "DPAR_UPPER_OBJ_CUT_FINITE_TRH",

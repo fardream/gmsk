@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Semidefinite optimization example, reproduced from sdo1.c in MOSEK C api.
@@ -113,7 +113,8 @@ func Example_semidefiniteOptimization_sdo1() {
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
-			buc[i]) /* Numerical value of upper bound.*/
+			buc[i],
+		) /* Numerical value of upper bound.*/
 	}
 	checkOk(r)
 

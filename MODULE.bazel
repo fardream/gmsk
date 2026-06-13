@@ -1,4 +1,4 @@
-"""MODULE root for github.com/fardream/gmsk"""
+"""MODULE root for github.com/fardream/gmsk/v11"""
 
 module(name = "github_com_fardream_gmsk")
 

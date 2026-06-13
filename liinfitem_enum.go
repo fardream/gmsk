@@ -17,14 +17,15 @@ const (
 	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_COLUMNS LIInfItem = C.MSK_LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_COLUMNS // Number of columns in the scalarized constraint matrix.
 	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_NZ      LIInfItem = C.MSK_LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_NZ      // Number of non-zero entries in the scalarized constraint matrix.
 	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_ROWS    LIInfItem = C.MSK_LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_ROWS    // Number of rows in the scalarized constraint matrix.
-	LIINF_BI_CLEAN_DUAL_DEG_ITER                           LIInfItem = C.MSK_LIINF_BI_CLEAN_DUAL_DEG_ITER                           // Number of dual degenerate clean iterations performed in the basis identification.
-	LIINF_BI_CLEAN_DUAL_ITER                               LIInfItem = C.MSK_LIINF_BI_CLEAN_DUAL_ITER                               // Number of dual clean iterations performed in the basis identification.
-	LIINF_BI_CLEAN_PRIMAL_DEG_ITER                         LIInfItem = C.MSK_LIINF_BI_CLEAN_PRIMAL_DEG_ITER                         // Number of primal degenerate clean iterations performed in the basis identification.
-	LIINF_BI_CLEAN_PRIMAL_ITER                             LIInfItem = C.MSK_LIINF_BI_CLEAN_PRIMAL_ITER                             // Number of primal clean iterations performed in the basis identification.
+	LIINF_BI_CLEAN_ITER                                    LIInfItem = C.MSK_LIINF_BI_CLEAN_ITER                                    // Number of clean iterations performed in the basis identification.
 	LIINF_BI_DUAL_ITER                                     LIInfItem = C.MSK_LIINF_BI_DUAL_ITER                                     // Number of dual pivots performed in the basis identification.
 	LIINF_BI_PRIMAL_ITER                                   LIInfItem = C.MSK_LIINF_BI_PRIMAL_ITER                                   // Number of primal pivots performed in the basis identification.
+	LIINF_FOLDING_BI_DUAL_ITER                             LIInfItem = C.MSK_LIINF_FOLDING_BI_DUAL_ITER                             // TBD
+	LIINF_FOLDING_BI_OPTIMIZER_ITER                        LIInfItem = C.MSK_LIINF_FOLDING_BI_OPTIMIZER_ITER                        // TBD
+	LIINF_FOLDING_BI_PRIMAL_ITER                           LIInfItem = C.MSK_LIINF_FOLDING_BI_PRIMAL_ITER                           // TBD
 	LIINF_INTPNT_FACTOR_NUM_NZ                             LIInfItem = C.MSK_LIINF_INTPNT_FACTOR_NUM_NZ                             // Number of non-zeros in factorization.
 	LIINF_MIO_ANZ                                          LIInfItem = C.MSK_LIINF_MIO_ANZ                                          // Number of non-zero entries in the constraint matrix of the problem to be solved by the mixed-integer optimizer.
+	LIINF_MIO_FINAL_ANZ                                    LIInfItem = C.MSK_LIINF_MIO_FINAL_ANZ                                    // Number of non-zero entries in the constraint matrix of the mixed-integer optimizer's final problem.
 	LIINF_MIO_INTPNT_ITER                                  LIInfItem = C.MSK_LIINF_MIO_INTPNT_ITER                                  // Number of interior-point iterations performed by the mixed-integer optimizer.
 	LIINF_MIO_NUM_DUAL_ILLPOSED_CER                        LIInfItem = C.MSK_LIINF_MIO_NUM_DUAL_ILLPOSED_CER                        // Number of dual illposed certificates encountered by the mixed-integer optimizer.
 	LIINF_MIO_NUM_PRIM_ILLPOSED_CER                        LIInfItem = C.MSK_LIINF_MIO_NUM_PRIM_ILLPOSED_CER                        // Number of primal illposed certificates encountered by the mixed-integer optimizer.
@@ -41,24 +42,25 @@ var _LIInfItem_map = map[LIInfItem]string{
 	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_COLUMNS: "LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_COLUMNS",
 	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_NZ:      "LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_NZ",
 	LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_ROWS:    "LIINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_NUM_ROWS",
-	LIINF_BI_CLEAN_DUAL_DEG_ITER:                           "LIINF_BI_CLEAN_DUAL_DEG_ITER",
-	LIINF_BI_CLEAN_DUAL_ITER:                               "LIINF_BI_CLEAN_DUAL_ITER",
-	LIINF_BI_CLEAN_PRIMAL_DEG_ITER:                         "LIINF_BI_CLEAN_PRIMAL_DEG_ITER",
-	LIINF_BI_CLEAN_PRIMAL_ITER:                             "LIINF_BI_CLEAN_PRIMAL_ITER",
-	LIINF_BI_DUAL_ITER:                                     "LIINF_BI_DUAL_ITER",
-	LIINF_BI_PRIMAL_ITER:                                   "LIINF_BI_PRIMAL_ITER",
-	LIINF_INTPNT_FACTOR_NUM_NZ:                             "LIINF_INTPNT_FACTOR_NUM_NZ",
-	LIINF_MIO_ANZ:                                          "LIINF_MIO_ANZ",
-	LIINF_MIO_INTPNT_ITER:                                  "LIINF_MIO_INTPNT_ITER",
-	LIINF_MIO_NUM_DUAL_ILLPOSED_CER:                        "LIINF_MIO_NUM_DUAL_ILLPOSED_CER",
-	LIINF_MIO_NUM_PRIM_ILLPOSED_CER:                        "LIINF_MIO_NUM_PRIM_ILLPOSED_CER",
-	LIINF_MIO_PRESOLVED_ANZ:                                "LIINF_MIO_PRESOLVED_ANZ",
-	LIINF_MIO_SIMPLEX_ITER:                                 "LIINF_MIO_SIMPLEX_ITER",
-	LIINF_RD_NUMACC:                                        "LIINF_RD_NUMACC",
-	LIINF_RD_NUMANZ:                                        "LIINF_RD_NUMANZ",
-	LIINF_RD_NUMDJC:                                        "LIINF_RD_NUMDJC",
-	LIINF_RD_NUMQNZ:                                        "LIINF_RD_NUMQNZ",
-	LIINF_SIMPLEX_ITER:                                     "LIINF_SIMPLEX_ITER",
+	LIINF_BI_CLEAN_ITER:             "LIINF_BI_CLEAN_ITER",
+	LIINF_BI_DUAL_ITER:              "LIINF_BI_DUAL_ITER",
+	LIINF_BI_PRIMAL_ITER:            "LIINF_BI_PRIMAL_ITER",
+	LIINF_FOLDING_BI_DUAL_ITER:      "LIINF_FOLDING_BI_DUAL_ITER",
+	LIINF_FOLDING_BI_OPTIMIZER_ITER: "LIINF_FOLDING_BI_OPTIMIZER_ITER",
+	LIINF_FOLDING_BI_PRIMAL_ITER:    "LIINF_FOLDING_BI_PRIMAL_ITER",
+	LIINF_INTPNT_FACTOR_NUM_NZ:      "LIINF_INTPNT_FACTOR_NUM_NZ",
+	LIINF_MIO_ANZ:                   "LIINF_MIO_ANZ",
+	LIINF_MIO_FINAL_ANZ:             "LIINF_MIO_FINAL_ANZ",
+	LIINF_MIO_INTPNT_ITER:           "LIINF_MIO_INTPNT_ITER",
+	LIINF_MIO_NUM_DUAL_ILLPOSED_CER: "LIINF_MIO_NUM_DUAL_ILLPOSED_CER",
+	LIINF_MIO_NUM_PRIM_ILLPOSED_CER: "LIINF_MIO_NUM_PRIM_ILLPOSED_CER",
+	LIINF_MIO_PRESOLVED_ANZ:         "LIINF_MIO_PRESOLVED_ANZ",
+	LIINF_MIO_SIMPLEX_ITER:          "LIINF_MIO_SIMPLEX_ITER",
+	LIINF_RD_NUMACC:                 "LIINF_RD_NUMACC",
+	LIINF_RD_NUMANZ:                 "LIINF_RD_NUMANZ",
+	LIINF_RD_NUMDJC:                 "LIINF_RD_NUMDJC",
+	LIINF_RD_NUMQNZ:                 "LIINF_RD_NUMQNZ",
+	LIINF_SIMPLEX_ITER:              "LIINF_SIMPLEX_ITER",
 }
 
 func (e LIInfItem) String() string {
