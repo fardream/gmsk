@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // This is reproduced from MOSEK C example hellowworld.c

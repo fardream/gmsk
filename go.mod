@@ -1,5 +1,3 @@
-module github.com/fardream/gmsk
+module github.com/fardream/gmsk/v11
 
-go 1.21
-
-retract v0.2.7 // failing examples
+go 1.26.4

@@ -3,7 +3,7 @@ package gmsk_test
 import (
 	"testing"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 func TestGetCodedesc(t *testing.T) {

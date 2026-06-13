@@ -23,7 +23,7 @@ func (task *Task) GetAccFNumnz() (accfnnz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return accfnnz, r
 }
 
 // GetAColNumNz is wrapping [MSK_getacolnumnz],
@@ -49,7 +49,7 @@ func (task *Task) GetAColNumNz(
 		),
 	).ToError()
 
-	return
+	return nzj, r
 }
 
 // GetAColSliceNumNz is wrapping [MSK_getacolslicenumnz],
@@ -78,7 +78,7 @@ func (task *Task) GetAColSliceNumNz(
 		),
 	).ToError()
 
-	return
+	return numnz, r
 }
 
 // GetAColSliceNumNz64 is wrapping [MSK_getacolslicenumnz64]
@@ -97,7 +97,7 @@ func (task *Task) GetAColSliceNumNz64(
 		),
 	).ToError()
 
-	return
+	return numnz, r
 }
 
 // GetAfeFNumNz is wrapping [MSK_getafefnumnz],
@@ -116,7 +116,7 @@ func (task *Task) GetAfeFNumNz() (numnz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numnz, r
 }
 
 // GetAfeFRowNumNz is wrapping [MSK_getafefrownumnz],
@@ -142,7 +142,7 @@ func (task *Task) GetAfeFRowNumNz(
 		),
 	).ToError()
 
-	return
+	return numnz, r
 }
 
 // GetAPieceNumNz is wrapping [MSK_getapiecenumnz],
@@ -177,7 +177,7 @@ func (task *Task) GetAPieceNumNz(
 		),
 	).ToError()
 
-	return
+	return numnz, r
 }
 
 // GetARowNumNz is wrapping [MSK_getarownumnz],
@@ -203,7 +203,7 @@ func (task *Task) GetARowNumNz(
 		),
 	).ToError()
 
-	return
+	return nzi, r
 }
 
 // GetARowSliceNumNz is wrapping [MSK_getarowslicenumnz],
@@ -232,7 +232,7 @@ func (task *Task) GetARowSliceNumNz(
 		),
 	).ToError()
 
-	return
+	return numnz, r
 }
 
 // GetARowSliceNumNz64 is wrapping [MSK_getarowslicenumnz64]
@@ -251,5 +251,5 @@ func (task *Task) GetARowSliceNumNz64(
 		),
 	).ToError()
 
-	return
+	return numnz, r
 }

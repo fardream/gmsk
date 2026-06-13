@@ -16,7 +16,7 @@ type MioVarSelType uint32
 const (
 	MIO_VAR_SELECTION_FREE       MioVarSelType = C.MSK_MIO_VAR_SELECTION_FREE       // The optimizer decides the variable selection strategy.
 	MIO_VAR_SELECTION_PSEUDOCOST MioVarSelType = C.MSK_MIO_VAR_SELECTION_PSEUDOCOST // The optimizer employs pseudocost variable selection.
-	MIO_VAR_SELECTION_STRONG     MioVarSelType = C.MSK_MIO_VAR_SELECTION_STRONG     // The optimizer employs strong branching variable selection.
+	MIO_VAR_SELECTION_STRONG     MioVarSelType = C.MSK_MIO_VAR_SELECTION_STRONG     // The optimizer employs strong branching varfiable selection
 )
 
 var _MioVarSelType_map = map[MioVarSelType]string{

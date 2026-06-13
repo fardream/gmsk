@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Portfolio optimization example with 3/2 impact. Reproduced from portfolio_3_impact.c in MOSEK C api.
@@ -144,7 +144,7 @@ func Example_portfolio_3_impact() {
 		checkOk(task.PutAfeFEntry(aoff_pow+int64(i), voff_c+i, 1.0))
 		checkOk(task.PutAfeFEntry(aoff_pow+int64(n+i), voff_z+i, 1.0))
 	}
-	checkOk(task.PutAfeG(aoff_pow+2*(int64(n)), 1.0))
+	checkOk(task.PutAfeG(aoff_pow+2*int64(n), 1.0))
 	// We use one row from F and g for both c_j and z_j, and the last row of F and g for the constant 1.
 	// NOTE: Here we reuse the last AFE and the power cone n times, but we store them only once.
 	exponents := []float64{2, 1}

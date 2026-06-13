@@ -32,7 +32,7 @@ func CallbackcodeToStr(
 		callbackcodestr = C.GoString(c_callbackcodestr)
 	}
 
-	return
+	return callbackcodestr, r
 }
 
 // DinfitemToStr is wrapping [MSK_dinfitemtostr]
@@ -56,7 +56,7 @@ func DinfitemToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // GetBuildInfo is wrapping [MSK_getbuildinfo]
@@ -81,7 +81,7 @@ func GetBuildInfo() (buildstate, builddate string, r error) {
 		builddate = C.GoString(c_builddate)
 	}
 
-	return
+	return buildstate, builddate, r
 }
 
 // GetCodedesc is wrapping [MSK_getcodedesc]
@@ -109,7 +109,7 @@ func GetCodedesc(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return symname, str, r
 }
 
 // GetResponseclass is wrapping [MSK_getresponseclass]
@@ -125,7 +125,7 @@ func GetResponseclass(
 		),
 	).ToError()
 
-	return
+	return rc, rescode
 }
 
 // GetVersion is wrapping [MSK_getversion]
@@ -140,7 +140,34 @@ func GetVersion() (major, minor, revision int32, r error) {
 		),
 	).ToError()
 
-	return
+	return major, minor, revision, r
+}
+
+// Globalenvfinalize is wrapping [MSK_globalenvfinalize]
+//
+// [MSK_globalenvfinalize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.globalenvfinalize
+func Globalenvfinalize() error {
+	return ResCode(
+		C.MSK_globalenvfinalize(),
+	).ToError()
+}
+
+// Globalenvinitialize is wrapping [MSK_globalenvinitialize]
+//
+// [MSK_globalenvinitialize]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.env.globalenvinitialize
+func Globalenvinitialize(
+	maxnumalloc int64,
+	dbgfile string,
+) error {
+	c_dbgfile := C.CString(dbgfile)
+	defer C.free(unsafe.Pointer(c_dbgfile))
+
+	return ResCode(
+		C.MSK_globalenvinitialize(
+			C.MSKint64t(maxnumalloc),
+			c_dbgfile,
+		),
+	).ToError()
 }
 
 // IinfitemToStr is wrapping [MSK_iinfitemtostr]
@@ -164,7 +191,7 @@ func IinfitemToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // Isinfinity is wrapping [MSK_isinfinity]
@@ -210,7 +237,7 @@ func LiinfitemToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // Symnamtovalue is wrapping [MSK_symnamtovalue]

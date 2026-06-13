@@ -15,7 +15,7 @@ import "C"
 //   - `accidxs` Affine conic constraint indices.
 //   - `domidxs` Domain indices.
 //   - `afeidxlist` List of affine expression indexes.
-//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //
 // [MSK_putacclist]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacclist
 func (task *Task) PutAccList(
@@ -642,7 +642,7 @@ func (task *Task) PutCSlice(
 //   - `idxlast` Index of the last disjunctive constraint in the slice plus 1.
 //   - `domidxlist` List of domain indexes.
 //   - `afeidxlist` List of affine expression indexes.
-//   - `b` The vector of constant terms added to affine expressions. Optional, may be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //   - `termsizelist` List of term sizes.
 //   - `termsindjc` Number of terms in each of the disjunctive constraints in the slice.
 //

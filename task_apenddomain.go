@@ -23,7 +23,7 @@ func (task *Task) AppendDualExpConeDomain() (domidx int64, r error) {
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendDualGeoMeanConeDomain is wrapping [MSK_appenddualgeomeanconedomain],
@@ -31,7 +31,7 @@ func (task *Task) AppendDualExpConeDomain() (domidx int64, r error) {
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -49,7 +49,7 @@ func (task *Task) AppendDualGeoMeanConeDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendDualPowerConeDomain is wrapping [MSK_appenddualpowerconedomain],
@@ -80,7 +80,7 @@ func (task *Task) AppendDualPowerConeDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendPrimalExpConeDomain is wrapping [MSK_appendprimalexpconedomain],
@@ -99,7 +99,7 @@ func (task *Task) AppendPrimalExpConeDomain() (domidx int64, r error) {
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendPrimalGeoMeanConeDomain is wrapping [MSK_appendprimalgeomeanconedomain],
@@ -107,7 +107,7 @@ func (task *Task) AppendPrimalExpConeDomain() (domidx int64, r error) {
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -125,7 +125,7 @@ func (task *Task) AppendPrimalGeoMeanConeDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendPrimalPowerConeDomain is wrapping [MSK_appendprimalpowerconedomain],
@@ -156,7 +156,7 @@ func (task *Task) AppendPrimalPowerConeDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendQuadraticConeDomain is wrapping [MSK_appendquadraticconedomain],
@@ -164,7 +164,7 @@ func (task *Task) AppendPrimalPowerConeDomain(
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -182,7 +182,7 @@ func (task *Task) AppendQuadraticConeDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendRDomain is wrapping [MSK_appendrdomain],
@@ -190,7 +190,7 @@ func (task *Task) AppendQuadraticConeDomain(
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -208,7 +208,7 @@ func (task *Task) AppendRDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendRminusDomain is wrapping [MSK_appendrminusdomain],
@@ -216,7 +216,7 @@ func (task *Task) AppendRDomain(
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -234,7 +234,7 @@ func (task *Task) AppendRminusDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendRplusDomain is wrapping [MSK_appendrplusdomain],
@@ -242,7 +242,7 @@ func (task *Task) AppendRminusDomain(
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -260,7 +260,7 @@ func (task *Task) AppendRplusDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendRQuadraticConeDomain is wrapping [MSK_appendrquadraticconedomain],
@@ -268,7 +268,7 @@ func (task *Task) AppendRplusDomain(
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -286,7 +286,7 @@ func (task *Task) AppendRQuadraticConeDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendRzeroDomain is wrapping [MSK_appendrzerodomain],
@@ -294,7 +294,7 @@ func (task *Task) AppendRQuadraticConeDomain(
 //
 // Arguments:
 //
-//   - `n` Dimmension of the domain.
+//   - `n` Dimension of the domain.
 //
 // Returns:
 //
@@ -312,7 +312,7 @@ func (task *Task) AppendRzeroDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // AppendSvecPsdConeDomain is wrapping [MSK_appendsvecpsdconedomain],
@@ -338,5 +338,5 @@ func (task *Task) AppendSvecPsdConeDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }

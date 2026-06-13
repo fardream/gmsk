@@ -44,7 +44,7 @@ func (task *Task) GetAccName(
 		name = C.GoString(c_name)
 	}
 
-	return
+	return name, r
 }
 
 // GetAccNameLen is wrapping [MSK_getaccnamelen],
@@ -70,7 +70,7 @@ func (task *Task) GetAccNameLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetBarvarName is wrapping [MSK_getbarvarname],
@@ -106,7 +106,7 @@ func (task *Task) GetBarvarName(
 		name = C.GoString(c_name)
 	}
 
-	return
+	return name, r
 }
 
 // GetBarvarNameLen is wrapping [MSK_getbarvarnamelen],
@@ -132,7 +132,7 @@ func (task *Task) GetBarvarNameLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetConeName is wrapping [MSK_getconename],
@@ -170,7 +170,7 @@ func (task *Task) GetConeName(
 		name = C.GoString(c_name)
 	}
 
-	return
+	return name, r
 }
 
 // GetConeNameLen is wrapping [MSK_getconenamelen],
@@ -198,7 +198,7 @@ func (task *Task) GetConeNameLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetConName is wrapping [MSK_getconname],
@@ -234,7 +234,7 @@ func (task *Task) GetConName(
 		name = C.GoString(c_name)
 	}
 
-	return
+	return name, r
 }
 
 // GetConNameLen is wrapping [MSK_getconnamelen],
@@ -260,7 +260,7 @@ func (task *Task) GetConNameLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetDjcName is wrapping [MSK_getdjcname],
@@ -296,7 +296,7 @@ func (task *Task) GetDjcName(
 		name = C.GoString(c_name)
 	}
 
-	return
+	return name, r
 }
 
 // GetDjcNameLen is wrapping [MSK_getdjcnamelen],
@@ -322,7 +322,7 @@ func (task *Task) GetDjcNameLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetDomainName is wrapping [MSK_getdomainname],
@@ -358,7 +358,7 @@ func (task *Task) GetDomainName(
 		name = C.GoString(c_name)
 	}
 
-	return
+	return name, r
 }
 
 // GetDomainNameLen is wrapping [MSK_getdomainnamelen],
@@ -384,7 +384,7 @@ func (task *Task) GetDomainNameLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetInfName is wrapping [MSK_getinfname],
@@ -421,7 +421,7 @@ func (task *Task) GetInfName(
 		infname = C.GoString(c_infname)
 	}
 
-	return
+	return infname, r
 }
 
 // GetMaxNameLen is wrapping [MSK_getmaxnamelen],
@@ -440,7 +440,7 @@ func (task *Task) GetMaxNameLen() (maxlen int32, r error) {
 		),
 	).ToError()
 
-	return
+	return maxlen, r
 }
 
 // GetObjName is wrapping [MSK_getobjname],
@@ -470,7 +470,7 @@ func (task *Task) GetObjName(
 		objname = C.GoString(c_objname)
 	}
 
-	return
+	return objname, r
 }
 
 // GetObjNameLen is wrapping [MSK_getobjnamelen],
@@ -489,7 +489,7 @@ func (task *Task) GetObjNameLen() (len int32, r error) {
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetParamName is wrapping [MSK_getparamname],
@@ -526,7 +526,7 @@ func (task *Task) GetParamName(
 		parname = C.GoString(c_parname)
 	}
 
-	return
+	return parname, r
 }
 
 // GetTaskName is wrapping [MSK_gettaskname],
@@ -556,7 +556,7 @@ func (task *Task) GetTaskName(
 		taskname = C.GoString(c_taskname)
 	}
 
-	return
+	return taskname, r
 }
 
 // GetTaskNameLen is wrapping [MSK_gettasknamelen],
@@ -575,7 +575,7 @@ func (task *Task) GetTaskNameLen() (len int32, r error) {
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetVarName is wrapping [MSK_getvarname],
@@ -611,7 +611,7 @@ func (task *Task) GetVarName(
 		name = C.GoString(c_name)
 	}
 
-	return
+	return name, r
 }
 
 // GetVarNameLen is wrapping [MSK_getvarnamelen],
@@ -637,7 +637,7 @@ func (task *Task) GetVarNameLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // IsDouParName is wrapping [MSK_isdouparname],
@@ -663,7 +663,7 @@ func (task *Task) IsDouParName(
 		),
 	).ToError()
 
-	return
+	return param, r
 }
 
 // IsIntParName is wrapping [MSK_isintparname],
@@ -689,7 +689,7 @@ func (task *Task) IsIntParName(
 		),
 	).ToError()
 
-	return
+	return param, r
 }
 
 // IsStrParName is wrapping [MSK_isstrparname],
@@ -715,7 +715,7 @@ func (task *Task) IsStrParName(
 		),
 	).ToError()
 
-	return
+	return param, r
 }
 
 // PutAccName is wrapping [MSK_putaccname],

@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Semidefinite optimization, reproduced from sdo2.c in MOSEK C api.

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Portfolio optimization example, reproduced from portfolio_1_basic.c in MOSEK C api example.

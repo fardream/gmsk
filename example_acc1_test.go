@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Affine conic constraints example 1, reproduced from acc1.c in MOSEK C Api.
@@ -113,7 +113,8 @@ func Example_affineConicConstraints_acc1() {
 		xx := make([]float64, n)
 		xx, r = task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
-			xx)
+			xx,
+		)
 		checkOk(r)
 		fmt.Println("Optimal primal solution")
 		for j := int32(0); j < n; j++ {
@@ -125,7 +126,8 @@ func Example_affineConicConstraints_acc1() {
 		doty, r = task.GetAccDotY(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			0,            /* ACC index. */
-			doty)
+			doty,
+		)
 		checkOk(r)
 
 		fmt.Println("Dual doty of the ACC")
@@ -138,7 +140,8 @@ func Example_affineConicConstraints_acc1() {
 		activity, r = task.EvaluateAcc(
 			gmsk.SOL_ITR, /* Request the interior solution. */
 			0,            /* ACC index. */
-			activity)
+			activity,
+		)
 		checkOk(r)
 		fmt.Println("Activity of the ACC")
 		for j := int64(0); j < k+1; j++ {

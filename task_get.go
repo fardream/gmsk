@@ -114,7 +114,7 @@ func (task *Task) GetAccDomain(
 		),
 	).ToError()
 
-	return
+	return domidx, r
 }
 
 // GetAccDotYS is wrapping [MSK_getaccdotys],
@@ -881,6 +881,9 @@ func (task *Task) GetBarcIdxInfo(
 // Arguments:
 //
 //   - `idx` Index of the element for which information should be obtained.
+//
+// Returns:
+//
 //   - `j` Row index in barc.
 //
 // [MSK_getbarcidxj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getbarcidxj
@@ -1037,7 +1040,7 @@ func (task *Task) GetCfix() (cfix float64, r error) {
 		),
 	).ToError()
 
-	return
+	return cfix, r
 }
 
 // GetCJ is wrapping [MSK_getcj],
@@ -1046,6 +1049,9 @@ func (task *Task) GetCfix() (cfix float64, r error) {
 // Arguments:
 //
 //   - `j` Index of the variable for which the c coefficient should be obtained.
+//
+// Returns:
+//
 //   - `cj` The c coefficient value.
 //
 // [MSK_getcj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getcj
@@ -1060,7 +1066,7 @@ func (task *Task) GetCJ(
 		),
 	).ToError()
 
-	return
+	return cj, r
 }
 
 // GetConBound is wrapping [MSK_getconbound],
@@ -1216,7 +1222,7 @@ func (task *Task) GetConNameIndex(
 		),
 	).ToError()
 
-	return
+	return index, r
 }
 
 // GetDimBarvarJ is wrapping [MSK_getdimbarvarj],
@@ -1242,7 +1248,7 @@ func (task *Task) GetDimBarvarJ(
 		),
 	).ToError()
 
-	return
+	return dimbarvarj, r
 }
 
 // GetDjcB is wrapping [MSK_getdjcb],
@@ -1290,7 +1296,7 @@ func (task *Task) GetDjcNumAfe(
 		),
 	).ToError()
 
-	return
+	return numafe, r
 }
 
 // GetDjcNumAfeTot is wrapping [MSK_getdjcnumafetot],
@@ -1309,7 +1315,7 @@ func (task *Task) GetDjcNumAfeTot() (numafetot int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numafetot, r
 }
 
 // GetDjcNumDomain is wrapping [MSK_getdjcnumdomain],
@@ -1335,7 +1341,7 @@ func (task *Task) GetDjcNumDomain(
 		),
 	).ToError()
 
-	return
+	return numdomain, r
 }
 
 // GetDjcNumDomainTot is wrapping [MSK_getdjcnumdomaintot],
@@ -1354,7 +1360,7 @@ func (task *Task) GetDjcNumDomainTot() (numdomaintot int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numdomaintot, r
 }
 
 // GetDjcNumTerm is wrapping [MSK_getdjcnumterm],
@@ -1380,7 +1386,7 @@ func (task *Task) GetDjcNumTerm(
 		),
 	).ToError()
 
-	return
+	return numterm, r
 }
 
 // GetDjcNumTermTot is wrapping [MSK_getdjcnumtermtot],
@@ -1399,7 +1405,7 @@ func (task *Task) GetDjcNumTermTot() (numtermtot int64, r error) {
 		),
 	).ToError()
 
-	return
+	return numtermtot, r
 }
 
 // GetDjcs is wrapping [MSK_getdjcs],
@@ -1456,7 +1462,7 @@ func (task *Task) GetDomainN(
 		),
 	).ToError()
 
-	return
+	return n, r
 }
 
 // GetDomainType is wrapping [MSK_getdomaintype],
@@ -1482,7 +1488,7 @@ func (task *Task) GetDomainType(
 		),
 	).ToError()
 
-	return
+	return domtype, r
 }
 
 // GetDouInf is wrapping [MSK_getdouinf],
@@ -1508,7 +1514,7 @@ func (task *Task) GetDouInf(
 		),
 	).ToError()
 
-	return
+	return dvalue, r
 }
 
 // GetDouParam is wrapping [MSK_getdouparam],
@@ -1534,7 +1540,7 @@ func (task *Task) GetDouParam(
 		),
 	).ToError()
 
-	return
+	return parvalue, r
 }
 
 // GetDualObj is wrapping [MSK_getdualobj],
@@ -1543,6 +1549,9 @@ func (task *Task) GetDouParam(
 // Arguments:
 //
 //   - `whichsol` Selects a solution.
+//
+// Returns:
+//
 //   - `dualobj` Objective value corresponding to the dual solution.
 //
 // [MSK_getdualobj]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getdualobj
@@ -1557,7 +1566,7 @@ func (task *Task) GetDualObj(
 		),
 	).ToError()
 
-	return
+	return dualobj, r
 }
 
 // GetDualSolutionNorms is wrapping [MSK_getdualsolutionnorms],
@@ -1744,6 +1753,9 @@ func (task *Task) GetDviolVar(
 //
 //   - `inftype` Type of the information item.
 //   - `infname` Name of the information item.
+//
+// Returns:
+//
 //   - `infindex` The item index.
 //
 // [MSK_getinfindex]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getinfindex
@@ -1763,7 +1775,7 @@ func (task *Task) GetInfIndex(
 		),
 	).ToError()
 
-	return
+	return infindex, r
 }
 
 // GetInfMax is wrapping [MSK_getinfmax],
@@ -1786,7 +1798,7 @@ func (task *Task) GetInfMax(
 		),
 	).ToError()
 
-	return
+	return infmax, r
 }
 
 // GetIntInf is wrapping [MSK_getintinf],
@@ -1812,7 +1824,7 @@ func (task *Task) GetIntInf(
 		),
 	).ToError()
 
-	return
+	return ivalue, r
 }
 
 // GetIntParam is wrapping [MSK_getintparam],
@@ -1838,7 +1850,7 @@ func (task *Task) GetIntParam(
 		),
 	).ToError()
 
-	return
+	return parvalue, r
 }
 
 // GetLasterror is wrapping [MSK_getlasterror]
@@ -1904,7 +1916,7 @@ func (task *Task) GetLenBarvarJ(
 		),
 	).ToError()
 
-	return
+	return lenbarvarj, r
 }
 
 // GetLintInf is wrapping [MSK_getlintinf],
@@ -1930,7 +1942,32 @@ func (task *Task) GetLintInf(
 		),
 	).ToError()
 
-	return
+	return ivalue, r
+}
+
+// GetLintParam is wrapping [MSK_getlintparam],
+// Obtains an integer parameter.
+//
+// Arguments:
+//
+//   - `param` Which parameter.
+//
+// Returns:
+//
+//   - `parvalue` Parameter value.
+//
+// [MSK_getlintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getlintparam
+func (task *Task) GetLintParam(
+	param IParam,
+	parvalue []int64,
+) error {
+	return ResCode(
+		C.MSK_getlintparam(
+			task.task,
+			C.MSKiparame(param),
+			(*C.MSKint64t)(getPtrToFirst(parvalue)),
+		),
+	).ToError()
 }
 
 // GetMemusagetask is wrapping [MSK_getmemusagetask]
@@ -1997,7 +2034,7 @@ func (task *Task) GetNaDouParam(
 		),
 	).ToError()
 
-	return
+	return parvalue, r
 }
 
 // GetNaIntInf is wrapping [MSK_getnaintinf],
@@ -2023,7 +2060,7 @@ func (task *Task) GetNaIntInf(
 		),
 	).ToError()
 
-	return
+	return ivalue, r
 }
 
 // GetNaIntParam is wrapping [MSK_getnaintparam],
@@ -2049,7 +2086,7 @@ func (task *Task) GetNaIntParam(
 		),
 	).ToError()
 
-	return
+	return parvalue, r
 }
 
 // GetNaStrParam is wrapping [MSK_getnastrparam],
@@ -2091,7 +2128,7 @@ func (task *Task) GetNaStrParam(
 		parvalue = C.GoString(c_parvalue)
 	}
 
-	return
+	return len, parvalue, r
 }
 
 // GetObjSense is wrapping [MSK_getobjsense],
@@ -2110,7 +2147,7 @@ func (task *Task) GetObjSense() (sense ObjectiveSense, r error) {
 		),
 	).ToError()
 
-	return
+	return sense, r
 }
 
 // GetParamMax is wrapping [MSK_getparammax],
@@ -2119,6 +2156,9 @@ func (task *Task) GetObjSense() (sense ObjectiveSense, r error) {
 // Arguments:
 //
 //   - `partype` Parameter type.
+//
+// Returns:
+//
 //   - `parammax` The maximum index (plus 1) of the given parameter type.
 //
 // [MSK_getparammax]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getparammax
@@ -2133,7 +2173,7 @@ func (task *Task) GetParamMax(
 		),
 	).ToError()
 
-	return
+	return parammax, r
 }
 
 // GetPowerDomainAlpha is wrapping [MSK_getpowerdomainalpha],
@@ -2206,7 +2246,7 @@ func (task *Task) GetPrimalObj(
 		),
 	).ToError()
 
-	return
+	return primalobj, r
 }
 
 // GetPrimalSolutionNorms is wrapping [MSK_getprimalsolutionnorms],
@@ -2253,7 +2293,7 @@ func (task *Task) GetProbType() (probtype ProblemType, r error) {
 		),
 	).ToError()
 
-	return
+	return probtype, r
 }
 
 // GetProSta is wrapping [MSK_getprosta],
@@ -2279,7 +2319,7 @@ func (task *Task) GetProSta(
 		),
 	).ToError()
 
-	return
+	return problemsta, r
 }
 
 // GetPviolAcc is wrapping [MSK_getpviolacc],
@@ -2565,6 +2605,9 @@ func (task *Task) GetQObj64(
 //
 //   - `i` Row index of the coefficient.
 //   - `j` Column index of coefficient.
+//
+// Returns:
+//
 //   - `qoij` The required coefficient.
 //
 // [MSK_getqobjij]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.getqobjij
@@ -2766,7 +2809,7 @@ func (task *Task) GetSolSta(
 		),
 	).ToError()
 
-	return
+	return solutionsta, r
 }
 
 // GetSolution is wrapping [MSK_getsolution],
@@ -3084,7 +3127,7 @@ func (task *Task) GetStrParamLen(
 		),
 	).ToError()
 
-	return
+	return len, r
 }
 
 // GetSuc is wrapping [MSK_getsuc],
@@ -3246,7 +3289,7 @@ func (task *Task) GetVarNameIndex(
 		),
 	).ToError()
 
-	return
+	return index, r
 }
 
 // GetVarType is wrapping [MSK_getvartype],
@@ -3272,7 +3315,7 @@ func (task *Task) GetVarType(
 		),
 	).ToError()
 
-	return
+	return vartype, r
 }
 
 // GetXc is wrapping [MSK_getxc],

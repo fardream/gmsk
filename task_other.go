@@ -74,6 +74,40 @@ func (task *Task) AnalyzeSolution(
 	).ToError()
 }
 
+// AsyncGetLog is wrapping [MSK_asyncgetlog],
+// Get the optimizer log from a remote job.
+//
+// Arguments:
+//
+//   - `addr` Address of the solver server
+//   - `accesstoken` Access token string.
+//   - `token` Job token
+//
+// [MSK_asyncgetlog]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.asyncgetlog
+func (task *Task) AsyncGetLog(
+	addr string,
+	accesstoken string,
+	token string,
+) error {
+	c_addr := C.CString(addr)
+	defer C.free(unsafe.Pointer(c_addr))
+
+	c_accesstoken := C.CString(accesstoken)
+	defer C.free(unsafe.Pointer(c_accesstoken))
+
+	c_token := C.CString(token)
+	defer C.free(unsafe.Pointer(c_token))
+
+	return ResCode(
+		C.MSK_asyncgetlog(
+			task.task,
+			c_addr,
+			c_accesstoken,
+			c_token,
+		),
+	).ToError()
+}
+
 // BasisCond is wrapping [MSK_basiscond],
 // Computes conditioning information for the basis matrix.
 //
@@ -118,7 +152,7 @@ func (task *Task) BkToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // CheckMemtask is wrapping [MSK_checkmemtask]
@@ -232,7 +266,7 @@ func (task *Task) ConetypeToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // DeleteSolution is wrapping [MSK_deletesolution],
@@ -445,7 +479,7 @@ func (task *Task) GetMaxNumANz() (maxnumanz int32, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumanz, r
 }
 
 // GetMaxNumAnz64 is wrapping [MSK_getmaxnumanz64]
@@ -459,7 +493,7 @@ func (task *Task) GetMaxNumAnz64() (maxnumanz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumanz, r
 }
 
 // GetMaxNumBarvar is wrapping [MSK_getmaxnumbarvar],
@@ -478,13 +512,13 @@ func (task *Task) GetMaxNumBarvar() (maxnumbarvar int32, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumbarvar, r
 }
 
 // GetMaxNumCon is wrapping [MSK_getmaxnumcon],
 // Obtains the number of preallocated constraints in the optimization task.
 //
-// Arguments:
+// Returns:
 //
 //   - `maxnumcon` Number of preallocated constraints in the optimization task.
 //
@@ -497,7 +531,7 @@ func (task *Task) GetMaxNumCon() (maxnumcon int32, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumcon, r
 }
 
 // GetMaxNumCone is wrapping [MSK_getmaxnumcone],
@@ -518,7 +552,7 @@ func (task *Task) GetMaxNumCone() (maxnumcone int32, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumcone, r
 }
 
 // GetMaxNumQNz is wrapping [MSK_getmaxnumqnz],
@@ -537,7 +571,7 @@ func (task *Task) GetMaxNumQNz() (maxnumqnz int32, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumqnz, r
 }
 
 // GetMaxNumQnz64 is wrapping [MSK_getmaxnumqnz64]
@@ -551,13 +585,13 @@ func (task *Task) GetMaxNumQnz64() (maxnumqnz int64, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumqnz, r
 }
 
 // GetMaxNumVar is wrapping [MSK_getmaxnumvar],
 // Obtains the maximum number variables allowed.
 //
-// Arguments:
+// Returns:
 //
 //   - `maxnumvar` Number of preallocated variables in the optimization task.
 //
@@ -570,7 +604,7 @@ func (task *Task) GetMaxNumVar() (maxnumvar int32, r error) {
 		),
 	).ToError()
 
-	return
+	return maxnumvar, r
 }
 
 // InfeasibilityReport is wrapping [MSK_infeasibilityreport],
@@ -786,6 +820,9 @@ func (task *Task) Optimize() error {
 //
 //   - `address` Address of the OptServer.
 //   - `accesstoken` Access token.
+//
+// Returns:
+//
 //   - `trmcode` Is either OK or a termination response code.
 //
 // [MSK_optimizermt]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.optimizermt
@@ -808,7 +845,7 @@ func (task *Task) OptimizeRmt(
 		),
 	).ToError()
 
-	return
+	return trmcode, r
 }
 
 // OptimizerSummary is wrapping [MSK_optimizersummary],
@@ -846,7 +883,7 @@ func (task *Task) OptimizeTrm() (trmcode ResCode, r error) {
 		),
 	).ToError()
 
-	return
+	return trmcode, r
 }
 
 // PrimalRepair is wrapping [MSK_primalrepair],
@@ -967,7 +1004,7 @@ func (task *Task) ProbtypeToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // ProStaToStr is wrapping [MSK_prostatostr]
@@ -992,7 +1029,7 @@ func (task *Task) ProStaToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // ReadBSolution is wrapping [MSK_readbsolution],
@@ -1393,6 +1430,75 @@ func (task *Task) RemoveVars(
 	).ToError()
 }
 
+// ResetDouParam is wrapping [MSK_resetdouparam],
+// Resets a double parameter to its default value.
+//
+// Arguments:
+//
+//   - `param` Which parameter.
+//
+// [MSK_resetdouparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.resetdouparam
+func (task *Task) ResetDouParam(
+	param DParam,
+) error {
+	return ResCode(
+		C.MSK_resetdouparam(
+			task.task,
+			C.MSKdparame(param),
+		),
+	).ToError()
+}
+
+// ResetIntParam is wrapping [MSK_resetintparam],
+// Resets an integer parameter to its default value.
+//
+// Arguments:
+//
+//   - `param` Which parameter.
+//
+// [MSK_resetintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.resetintparam
+func (task *Task) ResetIntParam(
+	param IParam,
+) error {
+	return ResCode(
+		C.MSK_resetintparam(
+			task.task,
+			C.MSKiparame(param),
+		),
+	).ToError()
+}
+
+// ResetParameters is wrapping [MSK_resetparameters],
+// Resets all parameter values.
+//
+// [MSK_resetparameters]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.resetparameters
+func (task *Task) ResetParameters() error {
+	return ResCode(
+		C.MSK_resetparameters(
+			task.task,
+		),
+	).ToError()
+}
+
+// ResetStrParam is wrapping [MSK_resetstrparam],
+// Resets a string parameter to its defalt value.
+//
+// Arguments:
+//
+//   - `param` Which parameter.
+//
+// [MSK_resetstrparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.resetstrparam
+func (task *Task) ResetStrParam(
+	param SParam,
+) error {
+	return ResCode(
+		C.MSK_resetstrparam(
+			task.task,
+			C.MSKsparame(param),
+		),
+	).ToError()
+}
+
 // ResizeTask is wrapping [MSK_resizetask],
 // Resizes an optimization task.
 //
@@ -1443,18 +1549,6 @@ func (task *Task) SensitivityReport(
 	).ToError()
 }
 
-// SetDefaults is wrapping [MSK_setdefaults],
-// Resets all parameter values.
-//
-// [MSK_setdefaults]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.setdefaults
-func (task *Task) SetDefaults() error {
-	return ResCode(
-		C.MSK_setdefaults(
-			task.task,
-		),
-	).ToError()
-}
-
 // SkToStr is wrapping [MSK_sktostr]
 //
 // [MSK_sktostr]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.sktostr
@@ -1477,7 +1571,7 @@ func (task *Task) SkToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // SolStaToStr is wrapping [MSK_solstatostr]
@@ -1502,7 +1596,7 @@ func (task *Task) SolStaToStr(
 		str = C.GoString(c_str)
 	}
 
-	return
+	return str, r
 }
 
 // SolutionDef is wrapping [MSK_solutiondef],
@@ -1535,7 +1629,7 @@ func (task *Task) SolutionDef(
 		isdef = intToBool(c_isdef)
 	}
 
-	return
+	return isdef, r
 }
 
 // SolutionSummary is wrapping [MSK_solutionsummary],

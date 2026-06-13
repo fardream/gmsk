@@ -19,7 +19,7 @@ import (
 //   - `accidx` Affine conic constraint index.
 //   - `domidx` Domain index.
 //   - `afeidxlist` List of affine expression indexes.
-//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //
 // [MSK_putacc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putacc
 func (task *Task) PutAcc(
@@ -47,7 +47,7 @@ func (task *Task) PutAcc(
 // Arguments:
 //
 //   - `accidx` Affine conic constraint index.
-//   - `b` The vector of constant terms added to affine expressions. Optional, can be NULL.
+//   - `b` The vector of constant terms modifying affine expressions. Optional.
 //
 // [MSK_putaccb]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putaccb
 func (task *Task) PutAccB(
@@ -806,7 +806,7 @@ func (task *Task) PutConSolutionI(
 //   - `djcidx` Index of the disjunctive constraint.
 //   - `domidxlist` List of domain indexes.
 //   - `afeidxlist` List of affine expression indexes.
-//   - `b` The vector of constant terms added to affine expressions.
+//   - `b` The vector of constant terms modifying affine expressions.
 //   - `termsizelist` List of term sizes.
 //
 // [MSK_putdjc]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putdjc
@@ -875,6 +875,28 @@ func (task *Task) PutIntParam(
 			task.task,
 			C.MSKiparame(param),
 			C.MSKint32t(parvalue),
+		),
+	).ToError()
+}
+
+// PutLintParam is wrapping [MSK_putlintparam],
+// Sets an integer parameter.
+//
+// Arguments:
+//
+//   - `param` Which parameter.
+//   - `parvalue` Parameter value.
+//
+// [MSK_putlintparam]: https://docs.mosek.com/latest/capi/alphabetic-functionalities.html#mosek.task.putlintparam
+func (task *Task) PutLintParam(
+	param IParam,
+	parvalue int64,
+) error {
+	return ResCode(
+		C.MSK_putlintparam(
+			task.task,
+			C.MSKiparame(param),
+			C.MSKint64t(parvalue),
 		),
 	).ToError()
 }

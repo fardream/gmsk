@@ -15,12 +15,17 @@ type DInfItem uint32
 
 const (
 	DINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_DENSITY   DInfItem = C.MSK_DINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_DENSITY   // Density percentage of the scalarized constraint matrix.
-	DINF_BI_CLEAN_DUAL_TIME                             DInfItem = C.MSK_DINF_BI_CLEAN_DUAL_TIME                             // Time  spent within the dual clean-up optimizer of the basis identification procedure since its invocation.
-	DINF_BI_CLEAN_PRIMAL_TIME                           DInfItem = C.MSK_DINF_BI_CLEAN_PRIMAL_TIME                           // Time spent within the primal clean-up optimizer of the basis identification procedure since its invocation.
-	DINF_BI_CLEAN_TIME                                  DInfItem = C.MSK_DINF_BI_CLEAN_TIME                                  // Time spent within the clean-up phase of the basis identification procedure since its invocation.
-	DINF_BI_DUAL_TIME                                   DInfItem = C.MSK_DINF_BI_DUAL_TIME                                   // Time spent within the dual phase basis identification procedure since its invocation.
-	DINF_BI_PRIMAL_TIME                                 DInfItem = C.MSK_DINF_BI_PRIMAL_TIME                                 // Time  spent within the primal phase of the basis identification procedure since its invocation.
-	DINF_BI_TIME                                        DInfItem = C.MSK_DINF_BI_TIME                                        // Time spent within the basis identification procedure since its invocation.
+	DINF_BI_CLEAN_TIME                                  DInfItem = C.MSK_DINF_BI_CLEAN_TIME                                  // Time spent within the clean-up phase of the basis identification procedure since its invocation (in seconds).
+	DINF_BI_DUAL_TIME                                   DInfItem = C.MSK_DINF_BI_DUAL_TIME                                   // Time spent within the dual phase basis identification procedure since its invocation (in seconds).
+	DINF_BI_PRIMAL_TIME                                 DInfItem = C.MSK_DINF_BI_PRIMAL_TIME                                 // Time spent within the primal phase of the basis identification procedure since its invocation (in seconds).
+	DINF_BI_TIME                                        DInfItem = C.MSK_DINF_BI_TIME                                        // Time spent within the basis identification procedure since its invocation (in seconds).
+	DINF_FOLDING_BI_OPTIMIZE_TIME                       DInfItem = C.MSK_DINF_FOLDING_BI_OPTIMIZE_TIME                       // TBD
+	DINF_FOLDING_BI_UNFOLD_DUAL_TIME                    DInfItem = C.MSK_DINF_FOLDING_BI_UNFOLD_DUAL_TIME                    // TBD
+	DINF_FOLDING_BI_UNFOLD_INITIALIZE_TIME              DInfItem = C.MSK_DINF_FOLDING_BI_UNFOLD_INITIALIZE_TIME              // TBD
+	DINF_FOLDING_BI_UNFOLD_PRIMAL_TIME                  DInfItem = C.MSK_DINF_FOLDING_BI_UNFOLD_PRIMAL_TIME                  // TBD
+	DINF_FOLDING_BI_UNFOLD_TIME                         DInfItem = C.MSK_DINF_FOLDING_BI_UNFOLD_TIME                         // TBD
+	DINF_FOLDING_FACTOR                                 DInfItem = C.MSK_DINF_FOLDING_FACTOR                                 // Problem size after folding as a fraction of the original size.
+	DINF_FOLDING_TIME                                   DInfItem = C.MSK_DINF_FOLDING_TIME                                   // Total time spent in folding for continuous problems (in seconds).
 	DINF_INTPNT_DUAL_FEAS                               DInfItem = C.MSK_DINF_INTPNT_DUAL_FEAS                               // Dual feasibility measure reported by the interior-point optimizer.
 	DINF_INTPNT_DUAL_OBJ                                DInfItem = C.MSK_DINF_INTPNT_DUAL_OBJ                                // Dual objective value reported by the interior-point optimizer.
 	DINF_INTPNT_FACTOR_NUM_FLOPS                        DInfItem = C.MSK_DINF_INTPNT_FACTOR_NUM_FLOPS                        // An estimate of the number of flops used in the factorization.
@@ -28,54 +33,54 @@ const (
 	DINF_INTPNT_ORDER_TIME                              DInfItem = C.MSK_DINF_INTPNT_ORDER_TIME                              // Order time (in seconds).
 	DINF_INTPNT_PRIMAL_FEAS                             DInfItem = C.MSK_DINF_INTPNT_PRIMAL_FEAS                             // Primal feasibility measure reported by the interior-point optimizer.
 	DINF_INTPNT_PRIMAL_OBJ                              DInfItem = C.MSK_DINF_INTPNT_PRIMAL_OBJ                              // Primal objective value reported by the interior-point optimizer.
-	DINF_INTPNT_TIME                                    DInfItem = C.MSK_DINF_INTPNT_TIME                                    // Time spent within the interior-point optimizer since its invocation.
-	DINF_MIO_CLIQUE_SELECTION_TIME                      DInfItem = C.MSK_DINF_MIO_CLIQUE_SELECTION_TIME                      // Selection time for clique cuts.
-	DINF_MIO_CLIQUE_SEPARATION_TIME                     DInfItem = C.MSK_DINF_MIO_CLIQUE_SEPARATION_TIME                     // Separation time for clique cuts.
-	DINF_MIO_CMIR_SELECTION_TIME                        DInfItem = C.MSK_DINF_MIO_CMIR_SELECTION_TIME                        // Selection time for CMIR cuts.
-	DINF_MIO_CMIR_SEPARATION_TIME                       DInfItem = C.MSK_DINF_MIO_CMIR_SEPARATION_TIME                       // Separation time for CMIR cuts.
+	DINF_INTPNT_TIME                                    DInfItem = C.MSK_DINF_INTPNT_TIME                                    // Time spent within the interior-point optimizer since its invocation (in seconds).
+	DINF_MIO_CLIQUE_SELECTION_TIME                      DInfItem = C.MSK_DINF_MIO_CLIQUE_SELECTION_TIME                      // Selection time for clique cuts (in seconds).
+	DINF_MIO_CLIQUE_SEPARATION_TIME                     DInfItem = C.MSK_DINF_MIO_CLIQUE_SEPARATION_TIME                     // Separation time for clique cuts (in seconds).
+	DINF_MIO_CMIR_SELECTION_TIME                        DInfItem = C.MSK_DINF_MIO_CMIR_SELECTION_TIME                        // Selection time for CMIR cuts (in seconds).
+	DINF_MIO_CMIR_SEPARATION_TIME                       DInfItem = C.MSK_DINF_MIO_CMIR_SEPARATION_TIME                       // Separation time for CMIR cuts (in seconds).
 	DINF_MIO_CONSTRUCT_SOLUTION_OBJ                     DInfItem = C.MSK_DINF_MIO_CONSTRUCT_SOLUTION_OBJ                     // Optimal objective value corresponding to the feasible solution.
 	DINF_MIO_DUAL_BOUND_AFTER_PRESOLVE                  DInfItem = C.MSK_DINF_MIO_DUAL_BOUND_AFTER_PRESOLVE                  // Value of the dual bound after presolve but before cut generation.
-	DINF_MIO_GMI_SELECTION_TIME                         DInfItem = C.MSK_DINF_MIO_GMI_SELECTION_TIME                         // Selection time for GMI cuts.
-	DINF_MIO_GMI_SEPARATION_TIME                        DInfItem = C.MSK_DINF_MIO_GMI_SEPARATION_TIME                        // Separation time for GMI cuts.
-	DINF_MIO_IMPLIED_BOUND_SELECTION_TIME               DInfItem = C.MSK_DINF_MIO_IMPLIED_BOUND_SELECTION_TIME               // Selection time for implied bound cuts.
-	DINF_MIO_IMPLIED_BOUND_SEPARATION_TIME              DInfItem = C.MSK_DINF_MIO_IMPLIED_BOUND_SEPARATION_TIME              // Separation time for implied bound cuts.
+	DINF_MIO_GMI_SELECTION_TIME                         DInfItem = C.MSK_DINF_MIO_GMI_SELECTION_TIME                         // Selection time for GMI cuts (in seconds).
+	DINF_MIO_GMI_SEPARATION_TIME                        DInfItem = C.MSK_DINF_MIO_GMI_SEPARATION_TIME                        // Separation time for GMI cuts (in seconds).
+	DINF_MIO_IMPLIED_BOUND_SELECTION_TIME               DInfItem = C.MSK_DINF_MIO_IMPLIED_BOUND_SELECTION_TIME               // Selection time for implied bound cuts (in seconds).
+	DINF_MIO_IMPLIED_BOUND_SEPARATION_TIME              DInfItem = C.MSK_DINF_MIO_IMPLIED_BOUND_SEPARATION_TIME              // Separation time for implied bound cuts (in seconds).
 	DINF_MIO_INITIAL_FEASIBLE_SOLUTION_OBJ              DInfItem = C.MSK_DINF_MIO_INITIAL_FEASIBLE_SOLUTION_OBJ              // Optimal objective value corresponding to the user provided initial solution.
-	DINF_MIO_KNAPSACK_COVER_SELECTION_TIME              DInfItem = C.MSK_DINF_MIO_KNAPSACK_COVER_SELECTION_TIME              // Selection time for knapsack cover.
-	DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME             DInfItem = C.MSK_DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME             // Separation time for knapsack cover.
-	DINF_MIO_LIPRO_SELECTION_TIME                       DInfItem = C.MSK_DINF_MIO_LIPRO_SELECTION_TIME                       // Selection time for lift-and-project cuts.
-	DINF_MIO_LIPRO_SEPARATION_TIME                      DInfItem = C.MSK_DINF_MIO_LIPRO_SEPARATION_TIME                      // Separation time for lift-and-project cuts.
+	DINF_MIO_KNAPSACK_COVER_SELECTION_TIME              DInfItem = C.MSK_DINF_MIO_KNAPSACK_COVER_SELECTION_TIME              // Selection time for knapsack cover (in seconds).
+	DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME             DInfItem = C.MSK_DINF_MIO_KNAPSACK_COVER_SEPARATION_TIME             // Separation time for knapsack cover (in seconds).
+	DINF_MIO_LIPRO_SELECTION_TIME                       DInfItem = C.MSK_DINF_MIO_LIPRO_SELECTION_TIME                       // Selection time for lift-and-project cuts (in seconds).
+	DINF_MIO_LIPRO_SEPARATION_TIME                      DInfItem = C.MSK_DINF_MIO_LIPRO_SEPARATION_TIME                      // Separation time for lift-and-project cuts (in seconds).
 	DINF_MIO_OBJ_ABS_GAP                                DInfItem = C.MSK_DINF_MIO_OBJ_ABS_GAP                                // If the mixed-integer optimizer has computed a feasible solution and a bound, this contains the absolute gap.
 	DINF_MIO_OBJ_BOUND                                  DInfItem = C.MSK_DINF_MIO_OBJ_BOUND                                  // The best bound on the objective value known.
 	DINF_MIO_OBJ_INT                                    DInfItem = C.MSK_DINF_MIO_OBJ_INT                                    // The primal objective value corresponding to the best integer feasible solution.
 	DINF_MIO_OBJ_REL_GAP                                DInfItem = C.MSK_DINF_MIO_OBJ_REL_GAP                                // If the mixed-integer optimizer has computed a feasible solution and a bound, this contains the relative gap.
-	DINF_MIO_PROBING_TIME                               DInfItem = C.MSK_DINF_MIO_PROBING_TIME                               // Total time for probing.
-	DINF_MIO_ROOT_CUT_SELECTION_TIME                    DInfItem = C.MSK_DINF_MIO_ROOT_CUT_SELECTION_TIME                    // Total time for cut selection.
-	DINF_MIO_ROOT_CUT_SEPARATION_TIME                   DInfItem = C.MSK_DINF_MIO_ROOT_CUT_SEPARATION_TIME                   // Total time for cut separation.
-	DINF_MIO_ROOT_OPTIMIZER_TIME                        DInfItem = C.MSK_DINF_MIO_ROOT_OPTIMIZER_TIME                        // Time spent in the contiuous optimizer while processing the root node relaxation.
-	DINF_MIO_ROOT_PRESOLVE_TIME                         DInfItem = C.MSK_DINF_MIO_ROOT_PRESOLVE_TIME                         // Time spent presolving the problem at the root node.
-	DINF_MIO_ROOT_TIME                                  DInfItem = C.MSK_DINF_MIO_ROOT_TIME                                  // Time spent processing the root node.
-	DINF_MIO_SYMMETRY_DETECTION_TIME                    DInfItem = C.MSK_DINF_MIO_SYMMETRY_DETECTION_TIME                    // Total time for symmetry detection.
+	DINF_MIO_PROBING_TIME                               DInfItem = C.MSK_DINF_MIO_PROBING_TIME                               // Total time for probing (in seconds).
+	DINF_MIO_ROOT_CUT_SELECTION_TIME                    DInfItem = C.MSK_DINF_MIO_ROOT_CUT_SELECTION_TIME                    // Total time for cut selection (in seconds).
+	DINF_MIO_ROOT_CUT_SEPARATION_TIME                   DInfItem = C.MSK_DINF_MIO_ROOT_CUT_SEPARATION_TIME                   // Total time for cut separation (in seconds).
+	DINF_MIO_ROOT_OPTIMIZER_TIME                        DInfItem = C.MSK_DINF_MIO_ROOT_OPTIMIZER_TIME                        // Time spent in the contiuous optimizer while processing the root node relaxation (in seconds).
+	DINF_MIO_ROOT_PRESOLVE_TIME                         DInfItem = C.MSK_DINF_MIO_ROOT_PRESOLVE_TIME                         // Time spent presolving the problem at the root node (in seconds).
+	DINF_MIO_ROOT_TIME                                  DInfItem = C.MSK_DINF_MIO_ROOT_TIME                                  // Time spent processing the root node (in seconds).
+	DINF_MIO_SYMMETRY_DETECTION_TIME                    DInfItem = C.MSK_DINF_MIO_SYMMETRY_DETECTION_TIME                    // Total time for symmetry detection (in seconds).
 	DINF_MIO_SYMMETRY_FACTOR                            DInfItem = C.MSK_DINF_MIO_SYMMETRY_FACTOR                            // Degree to which the problem is affected by detected symmetry.
-	DINF_MIO_TIME                                       DInfItem = C.MSK_DINF_MIO_TIME                                       // Time spent in the mixed-integer optimizer.
+	DINF_MIO_TIME                                       DInfItem = C.MSK_DINF_MIO_TIME                                       // Time spent in the mixed-integer optimizer (in seconds).
 	DINF_MIO_USER_OBJ_CUT                               DInfItem = C.MSK_DINF_MIO_USER_OBJ_CUT                               // If the objective cut is used, then this information item has the value of the cut.
 	DINF_OPTIMIZER_TICKS                                DInfItem = C.MSK_DINF_OPTIMIZER_TICKS                                // Total number of ticks spent in the optimizer since it was invoked. It is strictly negative if it is not available.
-	DINF_OPTIMIZER_TIME                                 DInfItem = C.MSK_DINF_OPTIMIZER_TIME                                 // Total time spent in the optimizer since it was invoked.
-	DINF_PRESOLVE_ELI_TIME                              DInfItem = C.MSK_DINF_PRESOLVE_ELI_TIME                              // Total time spent in the eliminator since the presolve was invoked.
-	DINF_PRESOLVE_LINDEP_TIME                           DInfItem = C.MSK_DINF_PRESOLVE_LINDEP_TIME                           // Total time spent  in the linear dependency checker since the presolve was invoked.
-	DINF_PRESOLVE_TIME                                  DInfItem = C.MSK_DINF_PRESOLVE_TIME                                  // Total time (in seconds) spent in the presolve since it was invoked.
+	DINF_OPTIMIZER_TIME                                 DInfItem = C.MSK_DINF_OPTIMIZER_TIME                                 // Total time spent in the optimizer since it was invoked (in seconds).
+	DINF_PRESOLVE_ELI_TIME                              DInfItem = C.MSK_DINF_PRESOLVE_ELI_TIME                              // Total time spent in the eliminator since the presolve was invoked (in seconds).
+	DINF_PRESOLVE_LINDEP_TIME                           DInfItem = C.MSK_DINF_PRESOLVE_LINDEP_TIME                           // Total time spent  in the linear dependency checker since the presolve was invoked (in seconds).
+	DINF_PRESOLVE_TIME                                  DInfItem = C.MSK_DINF_PRESOLVE_TIME                                  // Total time spent in the presolve since it was invoked (in seconds).
 	DINF_PRESOLVE_TOTAL_PRIMAL_PERTURBATION             DInfItem = C.MSK_DINF_PRESOLVE_TOTAL_PRIMAL_PERTURBATION             // Total perturbation of the bounds of the primal problem.
 	DINF_PRIMAL_REPAIR_PENALTY_OBJ                      DInfItem = C.MSK_DINF_PRIMAL_REPAIR_PENALTY_OBJ                      // The optimal objective value of the penalty function.
 	DINF_QCQO_REFORMULATE_MAX_PERTURBATION              DInfItem = C.MSK_DINF_QCQO_REFORMULATE_MAX_PERTURBATION              // Maximum absolute diagonal perturbation occurring during the QCQO reformulation.
-	DINF_QCQO_REFORMULATE_TIME                          DInfItem = C.MSK_DINF_QCQO_REFORMULATE_TIME                          // Time spent with conic quadratic reformulation.
+	DINF_QCQO_REFORMULATE_TIME                          DInfItem = C.MSK_DINF_QCQO_REFORMULATE_TIME                          // Time spent with conic quadratic reformulation (in seconds).
 	DINF_QCQO_REFORMULATE_WORST_CHOLESKY_COLUMN_SCALING DInfItem = C.MSK_DINF_QCQO_REFORMULATE_WORST_CHOLESKY_COLUMN_SCALING // Worst Cholesky column scaling.
 	DINF_QCQO_REFORMULATE_WORST_CHOLESKY_DIAG_SCALING   DInfItem = C.MSK_DINF_QCQO_REFORMULATE_WORST_CHOLESKY_DIAG_SCALING   // Worst Cholesky diagonal scaling.
-	DINF_READ_DATA_TIME                                 DInfItem = C.MSK_DINF_READ_DATA_TIME                                 // Time spent reading the data file.
-	DINF_REMOTE_TIME                                    DInfItem = C.MSK_DINF_REMOTE_TIME                                    // The total real time in seconds spent when optimizing on a server by the process performing the optimization on the server
-	DINF_SIM_DUAL_TIME                                  DInfItem = C.MSK_DINF_SIM_DUAL_TIME                                  // Time spent in the dual simplex optimizer since invoking it.
+	DINF_READ_DATA_TIME                                 DInfItem = C.MSK_DINF_READ_DATA_TIME                                 // Time spent reading the data file (in seconds).
+	DINF_REMOTE_TIME                                    DInfItem = C.MSK_DINF_REMOTE_TIME                                    // The total real time in seconds spent when optimizing on a server by the process performing the optimization on the server (in seconds).
+	DINF_SIM_DUAL_TIME                                  DInfItem = C.MSK_DINF_SIM_DUAL_TIME                                  // Time spent in the dual simplex optimizer since invoking it (in seconds).
 	DINF_SIM_FEAS                                       DInfItem = C.MSK_DINF_SIM_FEAS                                       // Feasibility measure reported by the simplex optimizer.
 	DINF_SIM_OBJ                                        DInfItem = C.MSK_DINF_SIM_OBJ                                        // Objective value reported by the simplex optimizer.
-	DINF_SIM_PRIMAL_TIME                                DInfItem = C.MSK_DINF_SIM_PRIMAL_TIME                                // Time spent in the primal simplex optimizer since invoking it.
-	DINF_SIM_TIME                                       DInfItem = C.MSK_DINF_SIM_TIME                                       // Time spent in the simplex optimizer since invoking it.
+	DINF_SIM_PRIMAL_TIME                                DInfItem = C.MSK_DINF_SIM_PRIMAL_TIME                                // Time spent in the primal simplex optimizer since invoking it (in seconds).
+	DINF_SIM_TIME                                       DInfItem = C.MSK_DINF_SIM_TIME                                       // Time spent in the simplex optimizer since invoking it (in seconds).
 	DINF_SOL_BAS_DUAL_OBJ                               DInfItem = C.MSK_DINF_SOL_BAS_DUAL_OBJ                               // Dual objective value of the basic solution. Updated by the function updatesolutioninfo.
 	DINF_SOL_BAS_DVIOLCON                               DInfItem = C.MSK_DINF_SOL_BAS_DVIOLCON                               // Maximal dual bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
 	DINF_SOL_BAS_DVIOLVAR                               DInfItem = C.MSK_DINF_SOL_BAS_DVIOLVAR                               // Maximal dual bound violation for xx in the basic solution. Updated by the function updatesolutioninfo.
@@ -123,18 +128,23 @@ const (
 	DINF_SOL_ITR_PVIOLCON                               DInfItem = C.MSK_DINF_SOL_ITR_PVIOLCON                               // Maximal primal bound violation for xc in the interior-point solution. Updated by the function updatesolutioninfo.
 	DINF_SOL_ITR_PVIOLCONES                             DInfItem = C.MSK_DINF_SOL_ITR_PVIOLCONES                             // Maximal primal violation for conic constraints in the interior-point solution. Updated by the function updatesolutioninfo.
 	DINF_SOL_ITR_PVIOLVAR                               DInfItem = C.MSK_DINF_SOL_ITR_PVIOLVAR                               // Maximal primal bound violation for xx in the interior-point solution. Updated by the function updatesolutioninfo.
-	DINF_TO_CONIC_TIME                                  DInfItem = C.MSK_DINF_TO_CONIC_TIME                                  // Time spent in the last to conic reformulation.
-	DINF_WRITE_DATA_TIME                                DInfItem = C.MSK_DINF_WRITE_DATA_TIME                                // Time spent writing the data file.
+	DINF_TO_CONIC_TIME                                  DInfItem = C.MSK_DINF_TO_CONIC_TIME                                  // Time spent in the last to conic reformulation (in seconds).
+	DINF_WRITE_DATA_TIME                                DInfItem = C.MSK_DINF_WRITE_DATA_TIME                                // Time spent writing the data file (in seconds).
 )
 
 var _DInfItem_map = map[DInfItem]string{
-	DINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_DENSITY:   "DINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_DENSITY",
-	DINF_BI_CLEAN_DUAL_TIME:                             "DINF_BI_CLEAN_DUAL_TIME",
-	DINF_BI_CLEAN_PRIMAL_TIME:                           "DINF_BI_CLEAN_PRIMAL_TIME",
+	DINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_DENSITY: "DINF_ANA_PRO_SCALARIZED_CONSTRAINT_MATRIX_DENSITY",
 	DINF_BI_CLEAN_TIME:                                  "DINF_BI_CLEAN_TIME",
 	DINF_BI_DUAL_TIME:                                   "DINF_BI_DUAL_TIME",
 	DINF_BI_PRIMAL_TIME:                                 "DINF_BI_PRIMAL_TIME",
 	DINF_BI_TIME:                                        "DINF_BI_TIME",
+	DINF_FOLDING_BI_OPTIMIZE_TIME:                       "DINF_FOLDING_BI_OPTIMIZE_TIME",
+	DINF_FOLDING_BI_UNFOLD_DUAL_TIME:                    "DINF_FOLDING_BI_UNFOLD_DUAL_TIME",
+	DINF_FOLDING_BI_UNFOLD_INITIALIZE_TIME:              "DINF_FOLDING_BI_UNFOLD_INITIALIZE_TIME",
+	DINF_FOLDING_BI_UNFOLD_PRIMAL_TIME:                  "DINF_FOLDING_BI_UNFOLD_PRIMAL_TIME",
+	DINF_FOLDING_BI_UNFOLD_TIME:                         "DINF_FOLDING_BI_UNFOLD_TIME",
+	DINF_FOLDING_FACTOR:                                 "DINF_FOLDING_FACTOR",
+	DINF_FOLDING_TIME:                                   "DINF_FOLDING_TIME",
 	DINF_INTPNT_DUAL_FEAS:                               "DINF_INTPNT_DUAL_FEAS",
 	DINF_INTPNT_DUAL_OBJ:                                "DINF_INTPNT_DUAL_OBJ",
 	DINF_INTPNT_FACTOR_NUM_FLOPS:                        "DINF_INTPNT_FACTOR_NUM_FLOPS",

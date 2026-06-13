@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Mixed integer programming with initial solution, reproduced from mioinitsol.c in MOSEK C api.
@@ -70,7 +70,8 @@ func Example_mixedIntegerProgrammingWithInitialSolution_mioinitsol() {
 		buc,
 		bkx,
 		blx,
-		bux))
+		bux,
+	))
 
 	checkOk(task.PutObjSense(gmsk.OBJECTIVE_SENSE_MAXIMIZE))
 

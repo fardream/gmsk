@@ -99,7 +99,7 @@ go_library(
     ],
     cdeps = ["@mosek"],
     cgo = True,
-    importpath = "github.com/fardream/gmsk",
+    importpath = "github.com/fardream/gmsk/v11",
     visibility = ["//visibility:public"],
 )
 

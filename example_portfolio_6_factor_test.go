@@ -6,7 +6,7 @@ import (
 	"math"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Portfolio optimization example with factor model, reproduced from

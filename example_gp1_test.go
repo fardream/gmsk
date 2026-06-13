@@ -6,7 +6,7 @@ import (
 	"math"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Example of geometric program with exponential cones and log-sum-exp,

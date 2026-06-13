@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fardream/gmsk"
+	"github.com/fardream/gmsk/v11"
 )
 
 // Conic Quadratic Optimization, reproduced from cqo1.c in MOSEK example.
@@ -116,7 +116,8 @@ func Example_conicQuadraticOptimization1_cqo1() {
 			j,      /* Index of variable.*/
 			bkx[j], /* Bound key.*/
 			blx[j], /* Numerical value of lower bound.*/
-			bux[j]) /* Numerical value of upper bound.*/
+			bux[j],
+		) /* Numerical value of upper bound.*/
 		checkOk(r)
 
 		if aptre[j] > aptrb[j] { // looks like go will check if the index is out of range.
@@ -125,7 +126,8 @@ func Example_conicQuadraticOptimization1_cqo1() {
 				j,                       /* Variable (column) index.*/
 				aptre[j]-aptrb[j],       /* Number of non-zeros in column j.*/
 				asub[aptrb[j]:aptre[j]], /* Pointer to row indexes of column j.*/
-				aval[aptrb[j]:aptre[j]]) /* Pointer to Values of column j.*/
+				aval[aptrb[j]:aptre[j]],
+			) /* Pointer to Values of column j.*/
 		}
 	}
 
@@ -136,7 +138,8 @@ func Example_conicQuadraticOptimization1_cqo1() {
 			i,      /* Index of constraint.*/
 			bkc[i], /* Bound key.*/
 			blc[i], /* Numerical value of lower bound.*/
-			buc[i]) /* Numerical value of upper bound.*/
+			buc[i],
+		) /* Numerical value of upper bound.*/
 	}
 	checkOk(r)
 
@@ -166,7 +169,8 @@ func Example_conicQuadraticOptimization1_cqo1() {
 	case gmsk.SOL_STA_OPTIMAL:
 		xx, r := task.GetXx(
 			gmsk.SOL_ITR, /* Request the interior solution. */
-			nil)
+			nil,
+		)
 		if r != nil {
 			r = gmsk.NewErrorFromInt(gmsk.RES_ERR_SPACE)
 			break

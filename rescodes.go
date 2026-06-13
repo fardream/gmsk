@@ -58,27 +58,25 @@ const (
 	RES_WRN_INCOMPLETE_LINEAR_DEPENDENCY_CHECK               ResCode = C.MSK_RES_WRN_INCOMPLETE_LINEAR_DEPENDENCY_CHECK               // The linear dependency check(s) is incomplete.
 	RES_WRN_ELIMINATOR_SPACE                                 ResCode = C.MSK_RES_WRN_ELIMINATOR_SPACE                                 // The eliminator is skipped at least once due to lack of space.
 	RES_WRN_PRESOLVE_OUTOFSPACE                              ResCode = C.MSK_RES_WRN_PRESOLVE_OUTOFSPACE                              // The presolve is incomplete due to lack of space.
-	RES_WRN_PRESOLVE_PRIMAL_PERTUBATIONS                     ResCode = C.MSK_RES_WRN_PRESOLVE_PRIMAL_PERTUBATIONS                     // The presolve perturbed the bounds of the primal problem. This is an indication that the problem is nearly infeasible.
+	RES_WRN_PRESOLVE_PRIMAL_PERTURBATIONS                    ResCode = C.MSK_RES_WRN_PRESOLVE_PRIMAL_PERTURBATIONS                    // The presolve perturbed the bounds of the primal problem. This is an indication that the problem is nearly infeasible.
 	RES_WRN_WRITE_CHANGED_NAMES                              ResCode = C.MSK_RES_WRN_WRITE_CHANGED_NAMES                              // Some names were changed because they were invalid for the output file format.
 	RES_WRN_WRITE_DISCARDED_CFIX                             ResCode = C.MSK_RES_WRN_WRITE_DISCARDED_CFIX                             // The fixed objective term was discarded in the output file.
 	RES_WRN_DUPLICATE_CONSTRAINT_NAMES                       ResCode = C.MSK_RES_WRN_DUPLICATE_CONSTRAINT_NAMES                       // Two constraint names are identical.
 	RES_WRN_DUPLICATE_VARIABLE_NAMES                         ResCode = C.MSK_RES_WRN_DUPLICATE_VARIABLE_NAMES                         // Two variable names are identical.
 	RES_WRN_DUPLICATE_BARVARIABLE_NAMES                      ResCode = C.MSK_RES_WRN_DUPLICATE_BARVARIABLE_NAMES                      // Two barvariable names are identical.
 	RES_WRN_DUPLICATE_CONE_NAMES                             ResCode = C.MSK_RES_WRN_DUPLICATE_CONE_NAMES                             // Two cone names are identical.
-	RES_WRN_WRITE_LP_INVALID_VAR_NAMES                       ResCode = C.MSK_RES_WRN_WRITE_LP_INVALID_VAR_NAMES                       // LP file will be written with generic variable names.
-	RES_WRN_WRITE_LP_DUPLICATE_VAR_NAMES                     ResCode = C.MSK_RES_WRN_WRITE_LP_DUPLICATE_VAR_NAMES                     // LP file will be written with generic variable names.
-	RES_WRN_WRITE_LP_INVALID_CON_NAMES                       ResCode = C.MSK_RES_WRN_WRITE_LP_INVALID_CON_NAMES                       // LP file will be written with generic constraint names.
-	RES_WRN_WRITE_LP_DUPLICATE_CON_NAMES                     ResCode = C.MSK_RES_WRN_WRITE_LP_DUPLICATE_CON_NAMES                     // LP file will be written with generic constraint names.
 	RES_WRN_ANA_LARGE_BOUNDS                                 ResCode = C.MSK_RES_WRN_ANA_LARGE_BOUNDS                                 // Warn against very large bounds.
 	RES_WRN_ANA_C_ZERO                                       ResCode = C.MSK_RES_WRN_ANA_C_ZERO                                       // Warn against all objective coefficients being zero.
 	RES_WRN_ANA_EMPTY_COLS                                   ResCode = C.MSK_RES_WRN_ANA_EMPTY_COLS                                   // Warn against empty columns.
 	RES_WRN_ANA_CLOSE_BOUNDS                                 ResCode = C.MSK_RES_WRN_ANA_CLOSE_BOUNDS                                 // Warn against close bounds.
 	RES_WRN_ANA_ALMOST_INT_BOUNDS                            ResCode = C.MSK_RES_WRN_ANA_ALMOST_INT_BOUNDS                            // Warn against almost integral bounds.
 	RES_WRN_NO_INFEASIBILITY_REPORT_WHEN_MATRIX_VARIABLES    ResCode = C.MSK_RES_WRN_NO_INFEASIBILITY_REPORT_WHEN_MATRIX_VARIABLES    // An infeasibility report is not available when the problem contains matrix variables.
+	RES_WRN_GETDUAL_IGNORES_INTEGRALITY                      ResCode = C.MSK_RES_WRN_GETDUAL_IGNORES_INTEGRALITY                      // Dualizer ignores integer variables and disjunctive constraints.
 	RES_WRN_NO_DUALIZER                                      ResCode = C.MSK_RES_WRN_NO_DUALIZER                                      // No automatic dualizer is available for the specified problem.
 	RES_WRN_SYM_MAT_LARGE                                    ResCode = C.MSK_RES_WRN_SYM_MAT_LARGE                                    // A numerically large value is specified for an element in E.
 	RES_WRN_MODIFIED_DOUBLE_PARAMETER                        ResCode = C.MSK_RES_WRN_MODIFIED_DOUBLE_PARAMETER                        // A double parameter related to solver tolerances has a non-default value.
 	RES_WRN_LARGE_FIJ                                        ResCode = C.MSK_RES_WRN_LARGE_FIJ                                        // A numerically large value is specified for an element in F.
+	RES_WRN_PTF_UNKNOWN_SECTION                              ResCode = C.MSK_RES_WRN_PTF_UNKNOWN_SECTION                              // Unexpected section in PTF file
 	RES_ERR_LICENSE                                          ResCode = C.MSK_RES_ERR_LICENSE                                          // Invalid license.
 	RES_ERR_LICENSE_EXPIRED                                  ResCode = C.MSK_RES_ERR_LICENSE_EXPIRED                                  // The license has expired.
 	RES_ERR_LICENSE_VERSION                                  ResCode = C.MSK_RES_ERR_LICENSE_VERSION                                  // Invalid license version.
@@ -119,7 +117,7 @@ const (
 	RES_ERR_DATA_FILE_EXT                                    ResCode = C.MSK_RES_ERR_DATA_FILE_EXT                                    // The data file format cannot be determined from the file name.
 	RES_ERR_INVALID_FILE_NAME                                ResCode = C.MSK_RES_ERR_INVALID_FILE_NAME                                // An invalid file name has been specified.
 	RES_ERR_INVALID_SOL_FILE_NAME                            ResCode = C.MSK_RES_ERR_INVALID_SOL_FILE_NAME                            // An invalid file name has been specified.
-	RES_ERR_END_OF_FILE                                      ResCode = C.MSK_RES_ERR_END_OF_FILE                                      // End of file reached.
+	RES_ERR_END_OF_FILE                                      ResCode = C.MSK_RES_ERR_END_OF_FILE                                      // End of file has been reached unexpectedly.
 	RES_ERR_NULL_ENV                                         ResCode = C.MSK_RES_ERR_NULL_ENV                                         // env is a null pointer.
 	RES_ERR_NULL_TASK                                        ResCode = C.MSK_RES_ERR_NULL_TASK                                        // task is a null pointer.
 	RES_ERR_INVALID_STREAM                                   ResCode = C.MSK_RES_ERR_INVALID_STREAM                                   // An invalid stream is referenced.
@@ -129,6 +127,7 @@ const (
 	RES_ERR_LIVING_TASKS                                     ResCode = C.MSK_RES_ERR_LIVING_TASKS                                     // Not all tasks associated with the environment have been deleted.
 	RES_ERR_READ_GZIP                                        ResCode = C.MSK_RES_ERR_READ_GZIP                                        // Error encountered in GZIP stream.
 	RES_ERR_READ_ZSTD                                        ResCode = C.MSK_RES_ERR_READ_ZSTD                                        // Error encountered in ZSTD stream.
+	RES_ERR_READ_ASYNC                                       ResCode = C.MSK_RES_ERR_READ_ASYNC                                       // Error encountered in async stream.
 	RES_ERR_BLANK_NAME                                       ResCode = C.MSK_RES_ERR_BLANK_NAME                                       // An all blank name has been specified.
 	RES_ERR_DUP_NAME                                         ResCode = C.MSK_RES_ERR_DUP_NAME                                         // Duplicate names specified.
 	RES_ERR_FORMAT_STRING                                    ResCode = C.MSK_RES_ERR_FORMAT_STRING                                    // The name format string is invalid.
@@ -143,7 +142,12 @@ const (
 	RES_ERR_SPACE_NO_INFO                                    ResCode = C.MSK_RES_ERR_SPACE_NO_INFO                                    // No available information about the space usage.
 	RES_ERR_DIMENSION_SPECIFICATION                          ResCode = C.MSK_RES_ERR_DIMENSION_SPECIFICATION                          // Invalid dimension specification
 	RES_ERR_AXIS_NAME_SPECIFICATION                          ResCode = C.MSK_RES_ERR_AXIS_NAME_SPECIFICATION                          // Invalid axis names specification
+	RES_ERR_READ_PREMATURE_EOF                               ResCode = C.MSK_RES_ERR_READ_PREMATURE_EOF                               // Encountered premature end-of-file in input stream.
 	RES_ERR_READ_FORMAT                                      ResCode = C.MSK_RES_ERR_READ_FORMAT                                      // The specified format cannot be read.
+	RES_ERR_WRITE_LP_INVALID_VAR_NAMES                       ResCode = C.MSK_RES_ERR_WRITE_LP_INVALID_VAR_NAMES                       // Invalid variable name. Cannot write valid LP file.
+	RES_ERR_WRITE_LP_DUPLICATE_VAR_NAMES                     ResCode = C.MSK_RES_ERR_WRITE_LP_DUPLICATE_VAR_NAMES                     // Duplicate variable names. Cannot write valid LP file.
+	RES_ERR_WRITE_LP_INVALID_CON_NAMES                       ResCode = C.MSK_RES_ERR_WRITE_LP_INVALID_CON_NAMES                       // Invalid constraint name. Cannot write valid LP file.
+	RES_ERR_WRITE_LP_DUPLICATE_CON_NAMES                     ResCode = C.MSK_RES_ERR_WRITE_LP_DUPLICATE_CON_NAMES                     // Duplicate constraint names. Cannot write valid LP file.
 	RES_ERR_MPS_FILE                                         ResCode = C.MSK_RES_ERR_MPS_FILE                                         // An error occurred while reading an MPS file.
 	RES_ERR_MPS_INV_FIELD                                    ResCode = C.MSK_RES_ERR_MPS_INV_FIELD                                    // Invalid field occurred while reading an MPS file.
 	RES_ERR_MPS_INV_MARKER                                   ResCode = C.MSK_RES_ERR_MPS_INV_MARKER                                   // An invalid marker has been specified in the MPS file.
@@ -201,6 +205,7 @@ const (
 	RES_ERR_LP_DUPLICATE_SECTION                             ResCode = C.MSK_RES_ERR_LP_DUPLICATE_SECTION                             // Duplicate section
 	RES_ERR_READ_LP_DELAYED_ROWS_NOT_SUPPORTED               ResCode = C.MSK_RES_ERR_READ_LP_DELAYED_ROWS_NOT_SUPPORTED               // Duplicate section
 	RES_ERR_WRITING_FILE                                     ResCode = C.MSK_RES_ERR_WRITING_FILE                                     // An error occurred while writing file
+	RES_ERR_WRITE_ASYNC                                      ResCode = C.MSK_RES_ERR_WRITE_ASYNC                                      // An error occurred while performing asynchronous writing
 	RES_ERR_INVALID_NAME_IN_SOL_FILE                         ResCode = C.MSK_RES_ERR_INVALID_NAME_IN_SOL_FILE                         // An invalid name occurred in a solution file.
 	RES_ERR_JSON_SYNTAX                                      ResCode = C.MSK_RES_ERR_JSON_SYNTAX                                      // Syntax error in an JSON data
 	RES_ERR_JSON_STRING                                      ResCode = C.MSK_RES_ERR_JSON_STRING                                      // Error in JSON string.
@@ -220,7 +225,7 @@ const (
 	RES_ERR_SHAPE_IS_TOO_LARGE                               ResCode = C.MSK_RES_ERR_SHAPE_IS_TOO_LARGE                               // The size of the n-dimensional shape is too large.
 	RES_ERR_INDEX_IS_TOO_SMALL                               ResCode = C.MSK_RES_ERR_INDEX_IS_TOO_SMALL                               // An index in an argument is too small.
 	RES_ERR_INDEX_IS_TOO_LARGE                               ResCode = C.MSK_RES_ERR_INDEX_IS_TOO_LARGE                               // An index in an argument is too large.
-	RES_ERR_INDEX_IS_NOT_UNIQUE                              ResCode = C.MSK_RES_ERR_INDEX_IS_NOT_UNIQUE                              // An index in an argument is is unique.
+	RES_ERR_INDEX_IS_NOT_UNIQUE                              ResCode = C.MSK_RES_ERR_INDEX_IS_NOT_UNIQUE                              // An index in an argument is not unique.
 	RES_ERR_PARAM_NAME                                       ResCode = C.MSK_RES_ERR_PARAM_NAME                                       // A parameter name is not correct.
 	RES_ERR_PARAM_NAME_DOU                                   ResCode = C.MSK_RES_ERR_PARAM_NAME_DOU                                   // A parameter name is not correct.
 	RES_ERR_PARAM_NAME_INT                                   ResCode = C.MSK_RES_ERR_PARAM_NAME_INT                                   // A parameter name is not correct.
@@ -309,8 +314,8 @@ const (
 	RES_ERR_HUGE_C                                           ResCode = C.MSK_RES_ERR_HUGE_C                                           // A huge value in absolute size is specified for an objective coefficient.
 	RES_ERR_HUGE_AIJ                                         ResCode = C.MSK_RES_ERR_HUGE_AIJ                                         // A numerically huge value is specified for an element in A.
 	RES_ERR_DUPLICATE_AIJ                                    ResCode = C.MSK_RES_ERR_DUPLICATE_AIJ                                    // An element in the A matrix is specified twice.
-	RES_ERR_LOWER_BOUND_IS_A_NAN                             ResCode = C.MSK_RES_ERR_LOWER_BOUND_IS_A_NAN                             // The lower bound specified is not a number (nan).
-	RES_ERR_UPPER_BOUND_IS_A_NAN                             ResCode = C.MSK_RES_ERR_UPPER_BOUND_IS_A_NAN                             // The upper bound specified is not a number (nan).
+	RES_ERR_LOWER_BOUND_IS_A_NAN                             ResCode = C.MSK_RES_ERR_LOWER_BOUND_IS_A_NAN                             // The lower bound specified is not a number (nan) or is not finite.
+	RES_ERR_UPPER_BOUND_IS_A_NAN                             ResCode = C.MSK_RES_ERR_UPPER_BOUND_IS_A_NAN                             // The upper bound specified is not a number (nan) or is not finite.
 	RES_ERR_INFINITE_BOUND                                   ResCode = C.MSK_RES_ERR_INFINITE_BOUND                                   // A numerically huge bound value is specified.
 	RES_ERR_INV_QOBJ_SUBI                                    ResCode = C.MSK_RES_ERR_INV_QOBJ_SUBI                                    // Invalid value %d at qosubi.
 	RES_ERR_INV_QOBJ_SUBJ                                    ResCode = C.MSK_RES_ERR_INV_QOBJ_SUBJ                                    // Invalid value in qosubj.
@@ -330,12 +335,12 @@ const (
 	RES_ERR_Y_IS_UNDEFINED                                   ResCode = C.MSK_RES_ERR_Y_IS_UNDEFINED                                   // The solution item y is undefined.
 	RES_ERR_NAN_IN_DOUBLE_DATA                               ResCode = C.MSK_RES_ERR_NAN_IN_DOUBLE_DATA                               // An invalid floating value was used in some double data.
 	RES_ERR_INF_IN_DOUBLE_DATA                               ResCode = C.MSK_RES_ERR_INF_IN_DOUBLE_DATA                               // An infinite floating value was used in some double data.
-	RES_ERR_NAN_IN_BLC                                       ResCode = C.MSK_RES_ERR_NAN_IN_BLC                                       // blc contains an invalid floating point value, i.e. a NaN.
-	RES_ERR_NAN_IN_BUC                                       ResCode = C.MSK_RES_ERR_NAN_IN_BUC                                       // buc contains an invalid floating point value, i.e. a NaN.
+	RES_ERR_NAN_IN_BLC                                       ResCode = C.MSK_RES_ERR_NAN_IN_BLC                                       // blc contains an invalid floating point value, i.e. a NaN or Infinity
+	RES_ERR_NAN_IN_BUC                                       ResCode = C.MSK_RES_ERR_NAN_IN_BUC                                       // buc contains an invalid floating point value, i.e. a NaN. or Infinity
 	RES_ERR_INVALID_CFIX                                     ResCode = C.MSK_RES_ERR_INVALID_CFIX                                     // An invalid fixed term in the objective is speficied.
-	RES_ERR_NAN_IN_C                                         ResCode = C.MSK_RES_ERR_NAN_IN_C                                         // c contains an invalid floating point value, i.e. a NaN.
-	RES_ERR_NAN_IN_BLX                                       ResCode = C.MSK_RES_ERR_NAN_IN_BLX                                       // blx contains an invalid floating point value, i.e. a NaN.
-	RES_ERR_NAN_IN_BUX                                       ResCode = C.MSK_RES_ERR_NAN_IN_BUX                                       // bux contains an invalid floating point value, i.e. a NaN.
+	RES_ERR_NAN_IN_C                                         ResCode = C.MSK_RES_ERR_NAN_IN_C                                         // c contains an invalid floating point value, i.e. a NaN or Infinity.
+	RES_ERR_NAN_IN_BLX                                       ResCode = C.MSK_RES_ERR_NAN_IN_BLX                                       // blx contains an invalid floating point value, i.e. a NaN or Infinity.
+	RES_ERR_NAN_IN_BUX                                       ResCode = C.MSK_RES_ERR_NAN_IN_BUX                                       // bux contains an invalid floating point value, i.e. a NaN or Infinity.
 	RES_ERR_INVALID_AIJ                                      ResCode = C.MSK_RES_ERR_INVALID_AIJ                                      // a\[i,j\] contains an invalid floating point value, i.e. a NaN or an infinite value.
 	RES_ERR_INVALID_CJ                                       ResCode = C.MSK_RES_ERR_INVALID_CJ                                       // c\[j\] contains an invalid floating point value, i.e. a NaN or an infinite value.
 	RES_ERR_SYM_MAT_INVALID                                  ResCode = C.MSK_RES_ERR_SYM_MAT_INVALID                                  // A symmetric matrix contains an invalid floating point value, i.e. a NaN or an infinite value.
@@ -377,6 +382,8 @@ const (
 	RES_ERR_TASK_INCOMPATIBLE                                ResCode = C.MSK_RES_ERR_TASK_INCOMPATIBLE                                // The Task file is incompatible with this platform.
 	RES_ERR_TASK_INVALID                                     ResCode = C.MSK_RES_ERR_TASK_INVALID                                     // The Task file is invalid.
 	RES_ERR_TASK_WRITE                                       ResCode = C.MSK_RES_ERR_TASK_WRITE                                       // Failed to write the task file.
+	RES_ERR_READ_WRITE                                       ResCode = C.MSK_RES_ERR_READ_WRITE                                       // Failed to read or write due to an I/O error.
+	RES_ERR_TASK_PREMATURE_EOF                               ResCode = C.MSK_RES_ERR_TASK_PREMATURE_EOF                               // The Task file ended prematurely.
 	RES_ERR_LU_MAX_NUM_TRIES                                 ResCode = C.MSK_RES_ERR_LU_MAX_NUM_TRIES                                 // Could not compute the LU factors of the matrix within the maximum number of allowed tries.
 	RES_ERR_INVALID_UTF8                                     ResCode = C.MSK_RES_ERR_INVALID_UTF8                                     // An invalid UTF8 string is encountered.
 	RES_ERR_INVALID_WCHAR                                    ResCode = C.MSK_RES_ERR_INVALID_WCHAR                                    // An invalid wchar string is encountered.
@@ -400,10 +407,7 @@ const (
 	RES_ERR_IDENTICAL_TASKS                                  ResCode = C.MSK_RES_ERR_IDENTICAL_TASKS                                  // Some tasks related to this function call were identical. Unique tasks were expected.
 	RES_ERR_AD_INVALID_CODELIST                              ResCode = C.MSK_RES_ERR_AD_INVALID_CODELIST                              // The code list data was invalid.
 	RES_ERR_INTERNAL_TEST_FAILED                             ResCode = C.MSK_RES_ERR_INTERNAL_TEST_FAILED                             // An internal unit test function failed.
-	RES_ERR_XML_INVALID_PROBLEM_TYPE                         ResCode = C.MSK_RES_ERR_XML_INVALID_PROBLEM_TYPE                         // The problem type is not supported by the XML format.
-	RES_ERR_INVALID_AMPL_STUB                                ResCode = C.MSK_RES_ERR_INVALID_AMPL_STUB                                // Invalid AMPL stub.
 	RES_ERR_INT64_TO_INT32_CAST                              ResCode = C.MSK_RES_ERR_INT64_TO_INT32_CAST                              // A 64 bit integer could not be cast to a 32 bit integer.
-	RES_ERR_SIZE_LICENSE_NUMCORES                            ResCode = C.MSK_RES_ERR_SIZE_LICENSE_NUMCORES                            // The computer contains more cpu cores than the license allows for.
 	RES_ERR_INFEAS_UNDEFINED                                 ResCode = C.MSK_RES_ERR_INFEAS_UNDEFINED                                 // The requested value is not defined for this solution type.
 	RES_ERR_NO_BARX_FOR_SOLUTION                             ResCode = C.MSK_RES_ERR_NO_BARX_FOR_SOLUTION                             // There is no barx available for the solution specified.
 	RES_ERR_NO_BARS_FOR_SOLUTION                             ResCode = C.MSK_RES_ERR_NO_BARS_FOR_SOLUTION                             // There is no bars available for the solution specified.
@@ -511,6 +515,7 @@ const (
 	RES_ERR_TOCONIC_CONSTRAINT_RA                            ResCode = C.MSK_RES_ERR_TOCONIC_CONSTRAINT_RA                            // The quadratic constraint has finite lower and upper bound, and therefore it is not convex.
 	RES_ERR_TOCONIC_CONSTR_NOT_CONIC                         ResCode = C.MSK_RES_ERR_TOCONIC_CONSTR_NOT_CONIC                         // The constraint is not conic representable.
 	RES_ERR_TOCONIC_OBJECTIVE_NOT_PSD                        ResCode = C.MSK_RES_ERR_TOCONIC_OBJECTIVE_NOT_PSD                        // The matrix defining the quadratric part of the objective function is not positive semidefinite.
+	RES_ERR_GETDUAL_NOT_AVAILABLE                            ResCode = C.MSK_RES_ERR_GETDUAL_NOT_AVAILABLE                            // The simple dualizer is not available for this problem class.
 	RES_ERR_SERVER_CONNECT                                   ResCode = C.MSK_RES_ERR_SERVER_CONNECT                                   // Failed to connect to remote solver server.
 	RES_ERR_SERVER_PROTOCOL                                  ResCode = C.MSK_RES_ERR_SERVER_PROTOCOL                                  // Unexpected message or data from solver server.
 	RES_ERR_SERVER_STATUS                                    ResCode = C.MSK_RES_ERR_SERVER_STATUS                                    // Server returned non-ok status code
@@ -520,6 +525,7 @@ const (
 	RES_ERR_SERVER_TLS_CLIENT                                ResCode = C.MSK_RES_ERR_SERVER_TLS_CLIENT                                // Failed to create TLS client
 	RES_ERR_SERVER_ACCESS_TOKEN                              ResCode = C.MSK_RES_ERR_SERVER_ACCESS_TOKEN                              // Invalid access token
 	RES_ERR_SERVER_PROBLEM_SIZE                              ResCode = C.MSK_RES_ERR_SERVER_PROBLEM_SIZE                              // The problem is too large.
+	RES_ERR_SERVER_HARD_TIMEOUT                              ResCode = C.MSK_RES_ERR_SERVER_HARD_TIMEOUT                              // The hard timeout limit was reached on solver server
 	RES_ERR_DUPLICATE_INDEX_IN_A_SPARSE_MATRIX               ResCode = C.MSK_RES_ERR_DUPLICATE_INDEX_IN_A_SPARSE_MATRIX               // An element in a sparse matrix is specified twice.
 	RES_ERR_DUPLICATE_INDEX_IN_AFEIDX_LIST                   ResCode = C.MSK_RES_ERR_DUPLICATE_INDEX_IN_AFEIDX_LIST                   // An index is specified twice in an affine expression list.
 	RES_ERR_DUPLICATE_FIJ                                    ResCode = C.MSK_RES_ERR_DUPLICATE_FIJ                                    // An element in the F matrix is specified twice.
@@ -559,6 +565,8 @@ const (
 	RES_TRM_LOST_RACE                                        ResCode = C.MSK_RES_TRM_LOST_RACE                                        // Lost a race.
 	RES_TRM_INTERNAL                                         ResCode = C.MSK_RES_TRM_INTERNAL                                         // The optimizer terminated due to some internal reason.
 	RES_TRM_INTERNAL_STOP                                    ResCode = C.MSK_RES_TRM_INTERNAL_STOP                                    // The optimizer terminated for internal reasons.
+	RES_TRM_SERVER_MAX_TIME                                  ResCode = C.MSK_RES_TRM_SERVER_MAX_TIME                                  // remote server terminated mosek on time limit criteria.
+	RES_TRM_SERVER_MAX_MEMORY                                ResCode = C.MSK_RES_TRM_SERVER_MAX_MEMORY                                // remote server terminated mosek on memory limit criteria.
 )
 
 var _ResCode_map = map[ResCode]string{
@@ -606,27 +614,25 @@ var _ResCode_map = map[ResCode]string{
 	RES_WRN_INCOMPLETE_LINEAR_DEPENDENCY_CHECK:               "RES_WRN_INCOMPLETE_LINEAR_DEPENDENCY_CHECK",
 	RES_WRN_ELIMINATOR_SPACE:                                 "RES_WRN_ELIMINATOR_SPACE",
 	RES_WRN_PRESOLVE_OUTOFSPACE:                              "RES_WRN_PRESOLVE_OUTOFSPACE",
-	RES_WRN_PRESOLVE_PRIMAL_PERTUBATIONS:                     "RES_WRN_PRESOLVE_PRIMAL_PERTUBATIONS",
+	RES_WRN_PRESOLVE_PRIMAL_PERTURBATIONS:                    "RES_WRN_PRESOLVE_PRIMAL_PERTURBATIONS",
 	RES_WRN_WRITE_CHANGED_NAMES:                              "RES_WRN_WRITE_CHANGED_NAMES",
 	RES_WRN_WRITE_DISCARDED_CFIX:                             "RES_WRN_WRITE_DISCARDED_CFIX",
 	RES_WRN_DUPLICATE_CONSTRAINT_NAMES:                       "RES_WRN_DUPLICATE_CONSTRAINT_NAMES",
 	RES_WRN_DUPLICATE_VARIABLE_NAMES:                         "RES_WRN_DUPLICATE_VARIABLE_NAMES",
 	RES_WRN_DUPLICATE_BARVARIABLE_NAMES:                      "RES_WRN_DUPLICATE_BARVARIABLE_NAMES",
 	RES_WRN_DUPLICATE_CONE_NAMES:                             "RES_WRN_DUPLICATE_CONE_NAMES",
-	RES_WRN_WRITE_LP_INVALID_VAR_NAMES:                       "RES_WRN_WRITE_LP_INVALID_VAR_NAMES",
-	RES_WRN_WRITE_LP_DUPLICATE_VAR_NAMES:                     "RES_WRN_WRITE_LP_DUPLICATE_VAR_NAMES",
-	RES_WRN_WRITE_LP_INVALID_CON_NAMES:                       "RES_WRN_WRITE_LP_INVALID_CON_NAMES",
-	RES_WRN_WRITE_LP_DUPLICATE_CON_NAMES:                     "RES_WRN_WRITE_LP_DUPLICATE_CON_NAMES",
 	RES_WRN_ANA_LARGE_BOUNDS:                                 "RES_WRN_ANA_LARGE_BOUNDS",
 	RES_WRN_ANA_C_ZERO:                                       "RES_WRN_ANA_C_ZERO",
 	RES_WRN_ANA_EMPTY_COLS:                                   "RES_WRN_ANA_EMPTY_COLS",
 	RES_WRN_ANA_CLOSE_BOUNDS:                                 "RES_WRN_ANA_CLOSE_BOUNDS",
 	RES_WRN_ANA_ALMOST_INT_BOUNDS:                            "RES_WRN_ANA_ALMOST_INT_BOUNDS",
 	RES_WRN_NO_INFEASIBILITY_REPORT_WHEN_MATRIX_VARIABLES:    "RES_WRN_NO_INFEASIBILITY_REPORT_WHEN_MATRIX_VARIABLES",
+	RES_WRN_GETDUAL_IGNORES_INTEGRALITY:                      "RES_WRN_GETDUAL_IGNORES_INTEGRALITY",
 	RES_WRN_NO_DUALIZER:                                      "RES_WRN_NO_DUALIZER",
 	RES_WRN_SYM_MAT_LARGE:                                    "RES_WRN_SYM_MAT_LARGE",
 	RES_WRN_MODIFIED_DOUBLE_PARAMETER:                        "RES_WRN_MODIFIED_DOUBLE_PARAMETER",
 	RES_WRN_LARGE_FIJ:                                        "RES_WRN_LARGE_FIJ",
+	RES_WRN_PTF_UNKNOWN_SECTION:                              "RES_WRN_PTF_UNKNOWN_SECTION",
 	RES_ERR_LICENSE:                                          "RES_ERR_LICENSE",
 	RES_ERR_LICENSE_EXPIRED:                                  "RES_ERR_LICENSE_EXPIRED",
 	RES_ERR_LICENSE_VERSION:                                  "RES_ERR_LICENSE_VERSION",
@@ -677,6 +683,7 @@ var _ResCode_map = map[ResCode]string{
 	RES_ERR_LIVING_TASKS:                                     "RES_ERR_LIVING_TASKS",
 	RES_ERR_READ_GZIP:                                        "RES_ERR_READ_GZIP",
 	RES_ERR_READ_ZSTD:                                        "RES_ERR_READ_ZSTD",
+	RES_ERR_READ_ASYNC:                                       "RES_ERR_READ_ASYNC",
 	RES_ERR_BLANK_NAME:                                       "RES_ERR_BLANK_NAME",
 	RES_ERR_DUP_NAME:                                         "RES_ERR_DUP_NAME",
 	RES_ERR_FORMAT_STRING:                                    "RES_ERR_FORMAT_STRING",
@@ -691,7 +698,12 @@ var _ResCode_map = map[ResCode]string{
 	RES_ERR_SPACE_NO_INFO:                                    "RES_ERR_SPACE_NO_INFO",
 	RES_ERR_DIMENSION_SPECIFICATION:                          "RES_ERR_DIMENSION_SPECIFICATION",
 	RES_ERR_AXIS_NAME_SPECIFICATION:                          "RES_ERR_AXIS_NAME_SPECIFICATION",
+	RES_ERR_READ_PREMATURE_EOF:                               "RES_ERR_READ_PREMATURE_EOF",
 	RES_ERR_READ_FORMAT:                                      "RES_ERR_READ_FORMAT",
+	RES_ERR_WRITE_LP_INVALID_VAR_NAMES:                       "RES_ERR_WRITE_LP_INVALID_VAR_NAMES",
+	RES_ERR_WRITE_LP_DUPLICATE_VAR_NAMES:                     "RES_ERR_WRITE_LP_DUPLICATE_VAR_NAMES",
+	RES_ERR_WRITE_LP_INVALID_CON_NAMES:                       "RES_ERR_WRITE_LP_INVALID_CON_NAMES",
+	RES_ERR_WRITE_LP_DUPLICATE_CON_NAMES:                     "RES_ERR_WRITE_LP_DUPLICATE_CON_NAMES",
 	RES_ERR_MPS_FILE:                                         "RES_ERR_MPS_FILE",
 	RES_ERR_MPS_INV_FIELD:                                    "RES_ERR_MPS_INV_FIELD",
 	RES_ERR_MPS_INV_MARKER:                                   "RES_ERR_MPS_INV_MARKER",
@@ -749,6 +761,7 @@ var _ResCode_map = map[ResCode]string{
 	RES_ERR_LP_DUPLICATE_SECTION:                             "RES_ERR_LP_DUPLICATE_SECTION",
 	RES_ERR_READ_LP_DELAYED_ROWS_NOT_SUPPORTED:               "RES_ERR_READ_LP_DELAYED_ROWS_NOT_SUPPORTED",
 	RES_ERR_WRITING_FILE:                                     "RES_ERR_WRITING_FILE",
+	RES_ERR_WRITE_ASYNC:                                      "RES_ERR_WRITE_ASYNC",
 	RES_ERR_INVALID_NAME_IN_SOL_FILE:                         "RES_ERR_INVALID_NAME_IN_SOL_FILE",
 	RES_ERR_JSON_SYNTAX:                                      "RES_ERR_JSON_SYNTAX",
 	RES_ERR_JSON_STRING:                                      "RES_ERR_JSON_STRING",
@@ -925,6 +938,8 @@ var _ResCode_map = map[ResCode]string{
 	RES_ERR_TASK_INCOMPATIBLE:                                "RES_ERR_TASK_INCOMPATIBLE",
 	RES_ERR_TASK_INVALID:                                     "RES_ERR_TASK_INVALID",
 	RES_ERR_TASK_WRITE:                                       "RES_ERR_TASK_WRITE",
+	RES_ERR_READ_WRITE:                                       "RES_ERR_READ_WRITE",
+	RES_ERR_TASK_PREMATURE_EOF:                               "RES_ERR_TASK_PREMATURE_EOF",
 	RES_ERR_LU_MAX_NUM_TRIES:                                 "RES_ERR_LU_MAX_NUM_TRIES",
 	RES_ERR_INVALID_UTF8:                                     "RES_ERR_INVALID_UTF8",
 	RES_ERR_INVALID_WCHAR:                                    "RES_ERR_INVALID_WCHAR",
@@ -948,10 +963,7 @@ var _ResCode_map = map[ResCode]string{
 	RES_ERR_IDENTICAL_TASKS:                                  "RES_ERR_IDENTICAL_TASKS",
 	RES_ERR_AD_INVALID_CODELIST:                              "RES_ERR_AD_INVALID_CODELIST",
 	RES_ERR_INTERNAL_TEST_FAILED:                             "RES_ERR_INTERNAL_TEST_FAILED",
-	RES_ERR_XML_INVALID_PROBLEM_TYPE:                         "RES_ERR_XML_INVALID_PROBLEM_TYPE",
-	RES_ERR_INVALID_AMPL_STUB:                                "RES_ERR_INVALID_AMPL_STUB",
 	RES_ERR_INT64_TO_INT32_CAST:                              "RES_ERR_INT64_TO_INT32_CAST",
-	RES_ERR_SIZE_LICENSE_NUMCORES:                            "RES_ERR_SIZE_LICENSE_NUMCORES",
 	RES_ERR_INFEAS_UNDEFINED:                                 "RES_ERR_INFEAS_UNDEFINED",
 	RES_ERR_NO_BARX_FOR_SOLUTION:                             "RES_ERR_NO_BARX_FOR_SOLUTION",
 	RES_ERR_NO_BARS_FOR_SOLUTION:                             "RES_ERR_NO_BARS_FOR_SOLUTION",
@@ -1059,6 +1071,7 @@ var _ResCode_map = map[ResCode]string{
 	RES_ERR_TOCONIC_CONSTRAINT_RA:                            "RES_ERR_TOCONIC_CONSTRAINT_RA",
 	RES_ERR_TOCONIC_CONSTR_NOT_CONIC:                         "RES_ERR_TOCONIC_CONSTR_NOT_CONIC",
 	RES_ERR_TOCONIC_OBJECTIVE_NOT_PSD:                        "RES_ERR_TOCONIC_OBJECTIVE_NOT_PSD",
+	RES_ERR_GETDUAL_NOT_AVAILABLE:                            "RES_ERR_GETDUAL_NOT_AVAILABLE",
 	RES_ERR_SERVER_CONNECT:                                   "RES_ERR_SERVER_CONNECT",
 	RES_ERR_SERVER_PROTOCOL:                                  "RES_ERR_SERVER_PROTOCOL",
 	RES_ERR_SERVER_STATUS:                                    "RES_ERR_SERVER_STATUS",
@@ -1068,6 +1081,7 @@ var _ResCode_map = map[ResCode]string{
 	RES_ERR_SERVER_TLS_CLIENT:                                "RES_ERR_SERVER_TLS_CLIENT",
 	RES_ERR_SERVER_ACCESS_TOKEN:                              "RES_ERR_SERVER_ACCESS_TOKEN",
 	RES_ERR_SERVER_PROBLEM_SIZE:                              "RES_ERR_SERVER_PROBLEM_SIZE",
+	RES_ERR_SERVER_HARD_TIMEOUT:                              "RES_ERR_SERVER_HARD_TIMEOUT",
 	RES_ERR_DUPLICATE_INDEX_IN_A_SPARSE_MATRIX:               "RES_ERR_DUPLICATE_INDEX_IN_A_SPARSE_MATRIX",
 	RES_ERR_DUPLICATE_INDEX_IN_AFEIDX_LIST:                   "RES_ERR_DUPLICATE_INDEX_IN_AFEIDX_LIST",
 	RES_ERR_DUPLICATE_FIJ:                                    "RES_ERR_DUPLICATE_FIJ",
@@ -1107,6 +1121,8 @@ var _ResCode_map = map[ResCode]string{
 	RES_TRM_LOST_RACE:                                        "RES_TRM_LOST_RACE",
 	RES_TRM_INTERNAL:                                         "RES_TRM_INTERNAL",
 	RES_TRM_INTERNAL_STOP:                                    "RES_TRM_INTERNAL_STOP",
+	RES_TRM_SERVER_MAX_TIME:                                  "RES_TRM_SERVER_MAX_TIME",
+	RES_TRM_SERVER_MAX_MEMORY:                                "RES_TRM_SERVER_MAX_MEMORY",
 }
 
 func (e ResCode) String() string {
